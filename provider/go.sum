@@ -103,8 +103,8 @@ github.com/clipperhouse/displaywidth v0.10.0 h1:GhBG8WuerxjFQQYeuZAeVTuyxuX+Urai
 github.com/clipperhouse/displaywidth v0.10.0/go.mod h1:XqJajYsaiEwkxOj4bowCTMcT1SgvHo9flfF3jQasdbs=
 github.com/clipperhouse/uax29/v2 v2.7.0 h1:+gs4oBZ2gPfVrKPthwbMzWZDaAFPGYK72F0NJv2v7Vk=
 github.com/clipperhouse/uax29/v2 v2.7.0/go.mod h1:EFJ2TJMRUaplDxHKj1qAEhCtQPW2tJSwu5BF98AuoVM=
-github.com/cloudflare/circl v1.6.1 h1:zqIqSPIndyBh1bjLVVDHMPpVKqp8Su/V+6MeDzzQBQ0=
-github.com/cloudflare/circl v1.6.1/go.mod h1:uddAzsPgqdMAYatqJ0lsjX1oECcQLIlRpzZh3pJrofs=
+github.com/cloudflare/circl v1.6.3 h1:9GPOhQGF9MCYUeXyMYlqTR6a5gTrgR/fBLXvUgtVcg8=
+github.com/cloudflare/circl v1.6.3/go.mod h1:2eXP6Qfat4O/Yhh8BznvKnJ+uzEoTQ6jVKJRn81BiS4=
 github.com/cloudy-sky-software/pulschema v0.0.0-20260225154300-a8b55c5aff54 h1:KYmkxr5sQDzZzr0lkcJ6eRFe4JhRF4Z9eipI1UhZO8M=
 github.com/cloudy-sky-software/pulschema v0.0.0-20260225154300-a8b55c5aff54/go.mod h1:H31j5tTRLjzt1cvDi4uSZOT7Znw2Lu6S5sKyeU9gJE4=
 github.com/cloudy-sky-software/pulumi-provider-framework v0.0.0-20260226054405-e1f9de4a2136 h1:xevNGFKd1xdcaX6/MruV7GzEgxeKJNp+easXPgo1tWg=
