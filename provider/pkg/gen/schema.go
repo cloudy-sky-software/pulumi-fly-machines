@@ -83,7 +83,7 @@ func PulumiSchema(openapiDoc openapi3.T) (pschema.PackageSpec, openapigen.Provid
 	}
 
 	csharpNamespaces := map[string]string{
-		"fly-machines": "FLY_MACHINES",
+		"fly-machines": "FlyMachines",
 		// TODO: Is this needed?
 		"": "Provider",
 	}
