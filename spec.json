@@ -50,6 +50,14 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "app_role",
+            "in": "query",
+            "description": "Filter apps by role",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -155,6 +163,347 @@
         "responses": {
           "202": {
             "description": "Accepted",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/apps/{app_name}/certificates": {
+      "get": {
+        "tags": [
+          "Apps"
+        ],
+        "summary": "List certificates for app",
+        "operationId": "App_Certificates_list",
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Hostname filter (substring match)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "description": "Pagination cursor from previous response",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results per page (default 25, max 500)",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listCertificatesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/{app_name}/certificates/acme": {
+      "post": {
+        "tags": [
+          "Apps"
+        ],
+        "summary": "Request ACME certificate",
+        "operationId": "App_Certificates_acme_create",
+        "requestBody": {
+          "description": "ACME certificate request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createAcmeCertificateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CertificateDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "request"
+      }
+    },
+    "/apps/{app_name}/certificates/custom": {
+      "post": {
+        "tags": [
+          "Apps"
+        ],
+        "summary": "Upload custom certificate",
+        "operationId": "App_Certificates_custom_create",
+        "requestBody": {
+          "description": "Custom certificate request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createCustomCertificateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CertificateDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "request"
+      }
+    },
+    "/apps/{app_name}/certificates/{hostname}": {
+      "get": {
+        "tags": [
+          "Apps"
+        ],
+        "summary": "Get certificate details",
+        "operationId": "App_Certificates_show",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CertificateDetail"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Apps"
+        ],
+        "summary": "Remove certificate",
+        "operationId": "App_Certificates_delete",
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/apps/{app_name}/certificates/{hostname}/acme": {
+      "delete": {
+        "tags": [
+          "Apps"
+        ],
+        "summary": "Remove ACME certificates",
+        "operationId": "App_Certificates_acme_delete",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CertificateDetail"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/{app_name}/certificates/{hostname}/check": {
+      "post": {
+        "tags": [
+          "Apps"
+        ],
+        "summary": "Check DNS and re-validate certificate",
+        "operationId": "App_Certificates_check",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CertificateCheckResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/{app_name}/certificates/{hostname}/custom": {
+      "delete": {
+        "tags": [
+          "Apps"
+        ],
+        "summary": "Remove custom certificate",
+        "operationId": "App_Certificates_custom_delete",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/destroyCustomCertificateResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/{app_name}/deploy_token": {
+      "post": {
+        "tags": [
+          "Apps"
+        ],
+        "summary": "Create App deploy token",
+        "operationId": "App_create_deploy_token",
+        "parameters": [
+          {
+            "name": "app_name",
+            "in": "path",
+            "description": "Fly App Name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Request body",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAppDeployTokenRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateAppResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "request"
+      }
+    },
+    "/apps/{app_name}/ip_assignments": {
+      "get": {
+        "tags": [
+          "Apps"
+        ],
+        "summary": "List IP assignments for app",
+        "operationId": "App_IPAssignments_list",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listIPAssignmentsResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Apps"
+        ],
+        "summary": "Assign new IP address to app",
+        "operationId": "App_IPAssignments_create",
+        "requestBody": {
+          "description": "Assign IP request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/assignIPRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IPAssignment"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "request"
+      }
+    },
+    "/apps/{app_name}/ip_assignments/{ip}": {
+      "delete": {
+        "tags": [
+          "Apps"
+        ],
+        "summary": "Remove IP assignment from app",
+        "operationId": "App_IPAssignments_delete",
+        "responses": {
+          "204": {
+            "description": "No Content",
             "content": {}
           }
         }
@@ -479,6 +828,14 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The number of events to fetch (max of 50). If omitted, this is set to 20 by default.",
+            "schema": {
+              "type": "integer"
+            }
           }
         ],
         "responses": {
@@ -717,6 +1074,154 @@
         }
       }
     },
+    "/apps/{app_name}/machines/{machine_id}/memory": {
+      "get": {
+        "tags": [
+          "Machines"
+        ],
+        "summary": "Get Machine Memory",
+        "description": "Get current memory limit and available capacity for a machine",
+        "operationId": "Machines_get_memory",
+        "parameters": [
+          {
+            "name": "app_name",
+            "in": "path",
+            "description": "Fly App Name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "machine_id",
+            "in": "path",
+            "description": "Machine ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/main.memoryResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Machines"
+        ],
+        "summary": "Set Machine Memory Limit",
+        "description": "Set the memory limit for a machine using the balloon device",
+        "operationId": "Machines_set_memory_limit",
+        "parameters": [
+          {
+            "name": "app_name",
+            "in": "path",
+            "description": "Fly App Name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "machine_id",
+            "in": "path",
+            "description": "Machine ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Set memory limit request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/main.setMemoryLimitRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/main.memoryResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/apps/{app_name}/machines/{machine_id}/memory/reclaim": {
+      "post": {
+        "tags": [
+          "Machines"
+        ],
+        "summary": "Reclaim Machine Memory",
+        "description": "Trigger the balloon device to reclaim memory from a machine",
+        "operationId": "Machines_reclaim_memory",
+        "parameters": [
+          {
+            "name": "app_name",
+            "in": "path",
+            "description": "Fly App Name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "machine_id",
+            "in": "path",
+            "description": "Machine ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Reclaim memory request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/main.reclaimMemoryRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/main.reclaimMemoryResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    },
     "/apps/{app_name}/machines/{machine_id}/metadata": {
       "get": {
         "tags": [
@@ -755,6 +1260,60 @@
                   "additionalProperties": {
                     "type": "string"
                   }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Machines"
+        ],
+        "summary": "Patch Metadata (set/remove multiple keys)",
+        "description": "Update multiple metadata keys at once. Null values and empty strings remove keys.\n+ If `machine_version` is provided and no longer matches the current machine version, returns 412 Precondition Failed.",
+        "operationId": "Machines_patch_metadata",
+        "parameters": [
+          {
+            "name": "app_name",
+            "in": "path",
+            "description": "Fly App Name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "machine_id",
+            "in": "path",
+            "description": "Machine ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "content": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "Precondition Failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -1338,18 +1897,183 @@
         }
       }
     },
-    "/apps/{app_name}/secrets": {
+    "/apps/{app_name}/secretkeys": {
       "get": {
         "tags": [
           "Secrets"
         ],
-        "summary": "List App secrets",
-        "operationId": "Secrets_list",
+        "summary": "List secret keys belonging to an app",
+        "operationId": "Secretkeys_list",
         "parameters": [
           {
             "name": "app_name",
             "in": "path",
             "description": "Fly App Name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "min_version",
+            "in": "query",
+            "description": "Minimum secrets version to return. Returned when setting a new secret",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "types",
+            "in": "query",
+            "description": "Comma-seperated list of secret keys to list",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SecretKeys"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/{app_name}/secretkeys/{secret_name}": {
+      "get": {
+        "tags": [
+          "Secrets"
+        ],
+        "summary": "Get an app's secret key",
+        "operationId": "Secretkey_get",
+        "parameters": [
+          {
+            "name": "app_name",
+            "in": "path",
+            "description": "Fly App Name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "secret_name",
+            "in": "path",
+            "description": "Secret key name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "min_version",
+            "in": "query",
+            "description": "Minimum secrets version to return. Returned when setting a new secret",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SecretKey"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Secrets"
+        ],
+        "summary": "Create or update a secret key",
+        "operationId": "Secretkey_set",
+        "parameters": [
+          {
+            "name": "app_name",
+            "in": "path",
+            "description": "Fly App Name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "secret_name",
+            "in": "path",
+            "description": "Secret key name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Create secret key request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetSecretkeyRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SetSecretkeyResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "request"
+      },
+      "delete": {
+        "tags": [
+          "Secrets"
+        ],
+        "summary": "Delete an app's secret key",
+        "operationId": "Secretkey_delete",
+        "parameters": [
+          {
+            "name": "app_name",
+            "in": "path",
+            "description": "Fly App Name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "secret_name",
+            "in": "path",
+            "description": "Secret key name",
             "required": true,
             "schema": {
               "type": "string"
@@ -1362,10 +2086,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ListSecret"
-                  }
+                  "$ref": "#/components/schemas/DeleteSecretkeyResponse"
                 }
               }
             }
@@ -1373,48 +2094,13 @@
         }
       }
     },
-    "/apps/{app_name}/secrets/{secret_label}": {
-      "delete": {
-        "tags": [
-          "Secrets"
-        ],
-        "summary": "Destroy Secret",
-        "operationId": "Secret_delete",
-        "parameters": [
-          {
-            "name": "app_name",
-            "in": "path",
-            "description": "Fly App Name",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "secret_label",
-            "in": "path",
-            "description": "App Secret Label",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {}
-          }
-        }
-      }
-    },
-    "/apps/{app_name}/secrets/{secret_label}/type/{secret_type}": {
+    "/apps/{app_name}/secretkeys/{secret_name}/decrypt": {
       "post": {
         "tags": [
           "Secrets"
         ],
-        "summary": "Create Secret",
-        "operationId": "Secret_create",
+        "summary": "Decrypt with a secret key",
+        "operationId": "Secretkey_decrypt",
         "parameters": [
           {
             "name": "app_name",
@@ -1426,18 +2112,151 @@
             }
           },
           {
-            "name": "secret_label",
+            "name": "secret_name",
             "in": "path",
-            "description": "App Secret Label",
+            "description": "Secret key name",
             "required": true,
             "schema": {
               "type": "string"
             }
           },
           {
-            "name": "secret_type",
+            "name": "min_version",
+            "in": "query",
+            "description": "Minimum secrets version to return. Returned when setting a new secret",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Decrypt with secret key request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DecryptSecretkeyRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DecryptSecretkeyResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "request"
+      }
+    },
+    "/apps/{app_name}/secretkeys/{secret_name}/encrypt": {
+      "post": {
+        "tags": [
+          "Secrets"
+        ],
+        "summary": "Encrypt with a secret key",
+        "operationId": "Secretkey_encrypt",
+        "parameters": [
+          {
+            "name": "app_name",
             "in": "path",
-            "description": "App Secret Type",
+            "description": "Fly App Name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "secret_name",
+            "in": "path",
+            "description": "Secret key name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "min_version",
+            "in": "query",
+            "description": "Minimum secrets version to return. Returned when setting a new secret",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Encrypt with secret key request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EncryptSecretkeyRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EncryptSecretkeyResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "request"
+      }
+    },
+    "/apps/{app_name}/secretkeys/{secret_name}/generate": {
+      "post": {
+        "tags": [
+          "Secrets"
+        ],
+        "summary": "Generate a random secret key",
+        "operationId": "Secretkey_generate",
+        "parameters": [
+          {
+            "name": "app_name",
+            "in": "path",
+            "description": "Fly App Name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "secret_name",
+            "in": "path",
+            "description": "Secret key name",
             "required": true,
             "schema": {
               "type": "string"
@@ -1445,11 +2264,11 @@
           }
         ],
         "requestBody": {
-          "description": "secret body",
+          "description": "generate secret key request",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateSecretRequest"
+                "$ref": "#/components/schemas/SetSecretkeyRequest"
               }
             }
           },
@@ -1458,6 +2277,148 @@
         "responses": {
           "201": {
             "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SetSecretkeyResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "request"
+      }
+    },
+    "/apps/{app_name}/secretkeys/{secret_name}/sign": {
+      "post": {
+        "tags": [
+          "Secrets"
+        ],
+        "summary": "Sign with a secret key",
+        "operationId": "Secretkey_sign",
+        "parameters": [
+          {
+            "name": "app_name",
+            "in": "path",
+            "description": "Fly App Name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "secret_name",
+            "in": "path",
+            "description": "Secret key name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "min_version",
+            "in": "query",
+            "description": "Minimum secrets version to return. Returned when setting a new secret",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Sign with secret key request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignSecretkeyRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SignSecretkeyResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "request"
+      }
+    },
+    "/apps/{app_name}/secretkeys/{secret_name}/verify": {
+      "post": {
+        "tags": [
+          "Secrets"
+        ],
+        "summary": "Verify with a secret key",
+        "operationId": "Secretkey_verify",
+        "parameters": [
+          {
+            "name": "app_name",
+            "in": "path",
+            "description": "Fly App Name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "secret_name",
+            "in": "path",
+            "description": "Secret key name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "min_version",
+            "in": "query",
+            "description": "Minimum secrets version to return. Returned when setting a new secret",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Verify with secret key request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VerifySecretkeyRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "No Content",
             "content": {}
           },
           "400": {
@@ -1474,13 +2435,13 @@
         "x-codegen-request-body-name": "request"
       }
     },
-    "/apps/{app_name}/secrets/{secret_label}/type/{secret_type}/generate": {
-      "post": {
+    "/apps/{app_name}/secrets": {
+      "get": {
         "tags": [
           "Secrets"
         ],
-        "summary": "Generate Secret",
-        "operationId": "Secret_generate",
+        "summary": "List app secrets belonging to an app",
+        "operationId": "Secrets_list",
         "parameters": [
           {
             "name": "app_name",
@@ -1492,28 +2453,73 @@
             }
           },
           {
-            "name": "secret_label",
-            "in": "path",
-            "description": "App Secret Label",
-            "required": true,
+            "name": "min_version",
+            "in": "query",
+            "description": "Minimum secrets version to return. Returned when setting a new secret",
             "schema": {
               "type": "string"
             }
           },
           {
-            "name": "secret_type",
+            "name": "show_secrets",
+            "in": "query",
+            "description": "Show the secret values.",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppSecrets"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Secrets"
+        ],
+        "summary": "Update app secrets belonging to an app",
+        "operationId": "Secrets_update",
+        "parameters": [
+          {
+            "name": "app_name",
             "in": "path",
-            "description": "App Secret Type",
+            "description": "Fly App Name",
             "required": true,
             "schema": {
               "type": "string"
             }
           }
         ],
+        "requestBody": {
+          "description": "Update app secret request, with values to set, or nil to unset",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppSecretsUpdateRequest"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
-          "201": {
-            "description": "Created",
-            "content": {}
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppSecretsUpdateResp"
+                }
+              }
+            }
           },
           "400": {
             "description": "Bad Request",
@@ -1521,6 +2527,164 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "request"
+      }
+    },
+    "/apps/{app_name}/secrets/{secret_name}": {
+      "get": {
+        "tags": [
+          "Secrets"
+        ],
+        "summary": "Get an app secret",
+        "operationId": "Secret_get",
+        "parameters": [
+          {
+            "name": "app_name",
+            "in": "path",
+            "description": "Fly App Name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "secret_name",
+            "in": "path",
+            "description": "App secret name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "min_version",
+            "in": "query",
+            "description": "Minimum secrets version to return. Returned when setting a new secret",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "show_secrets",
+            "in": "query",
+            "description": "Show the secret value.",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppSecret"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Secrets"
+        ],
+        "summary": "Create or update Secret",
+        "operationId": "Secret_create",
+        "parameters": [
+          {
+            "name": "app_name",
+            "in": "path",
+            "description": "Fly App Name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "secret_name",
+            "in": "path",
+            "description": "App secret name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Create app secret request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetAppSecretRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SetAppSecretResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "request"
+      },
+      "delete": {
+        "tags": [
+          "Secrets"
+        ],
+        "summary": "Delete an app secret",
+        "operationId": "Secret_delete",
+        "parameters": [
+          {
+            "name": "app_name",
+            "in": "path",
+            "description": "Fly App Name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "secret_name",
+            "in": "path",
+            "description": "App secret name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteAppSecretResponse"
                 }
               }
             }
@@ -1892,6 +3056,193 @@
         }
       }
     },
+    "/orgs/{org_slug}/machines": {
+      "get": {
+        "tags": [
+          "Organizations"
+        ],
+        "summary": "List All Machines",
+        "description": "List all Machines associated with a specific organization. Machines are sorted by their `updated_at` timestamps, oldest to newest.\n\nThis API call represents \"a point in time\". Recent machine changes, including creations and destructions, may take time to propagate. When polling with `updated_after`, offset your timestamps to catch late-arriving events.\n",
+        "operationId": "Machines_org_list",
+        "parameters": [
+          {
+            "name": "org_slug",
+            "in": "path",
+            "description": "Fly Organization Slug",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "include_deleted",
+            "in": "query",
+            "description": "Include deleted machines",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "description": "Region filter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "description": "Comma separated list of states to filter (created, started, stopped, suspended)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "updated_after",
+            "in": "query",
+            "description": "Only return machines updated after this time. Timestamp must be in the RFC 3339 format",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "description": "Pagination cursor from previous response (takes precedence over updated_after)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The number of machines to fetch (max of 1000). If omitted, this is set to 500 by default",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrgMachinesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/platform/placements": {
+      "post": {
+        "tags": [
+          "Platform"
+        ],
+        "summary": "Get Placements",
+        "description": "Simulates placing the specified number of machines into regions, depending on available capacity and limits.",
+        "operationId": "Platform_placements_post",
+        "requestBody": {
+          "description": "Get placements request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/main.getPlacementsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/main.getPlacementsResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "request"
+      }
+    },
+    "/platform/regions": {
+      "get": {
+        "tags": [
+          "Platform"
+        ],
+        "summary": "Get Regions",
+        "description": "List all regions on the platform with their current Machine capacity.",
+        "operationId": "Platform_regions_get",
+        "parameters": [
+          {
+            "name": "size",
+            "in": "query",
+            "description": "guest machine size preset. default performance-1x",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cpu_kind",
+            "in": "query",
+            "description": "guest CPU kind",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "memory_mb",
+            "in": "query",
+            "description": "guest memory in megabytes",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "cpus",
+            "in": "query",
+            "description": "guest CPU count",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "gpus",
+            "in": "query",
+            "description": "guest GPU count",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "gpu_kind",
+            "in": "query",
+            "description": "guest GPU kind",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/main.regionResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/tokens/kms": {
       "post": {
         "tags": [
@@ -1957,23 +3308,360 @@
         },
         "x-codegen-request-body-name": "request"
       }
+    },
+    "/v1/tokens/current": {
+      "get": {
+        "tags": [
+          "Tokens"
+        ],
+        "summary": "Get Current Token Information",
+        "description": "Get information about the current macaroon token(s), including organizations, apps, and whether each token is from a user or machine",
+        "operationId": "CurrentToken_show",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentTokenResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
+      "AcmeChallenge": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          }
+        }
+      },
       "App": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string"
           },
+          "internal_numeric_id": {
+            "type": "integer"
+          },
+          "machine_count": {
+            "type": "integer"
+          },
           "name": {
             "type": "string"
           },
+          "network": {
+            "type": "string"
+          },
           "organization": {
-            "$ref": "#/components/schemas/Organization"
+            "$ref": "#/components/schemas/AppOrganizationInfo"
           },
           "status": {
+            "type": "string"
+          },
+          "volume_count": {
+            "type": "integer"
+          }
+        }
+      },
+      "AppOrganizationInfo": {
+        "type": "object",
+        "properties": {
+          "internal_numeric_id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          }
+        }
+      },
+      "AppSecret": {
+        "type": "object",
+        "properties": {
+          "created_at": {
+            "type": "string"
+          },
+          "digest": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      },
+      "AppSecrets": {
+        "type": "object",
+        "properties": {
+          "secrets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AppSecret"
+            }
+          }
+        }
+      },
+      "AppSecretsUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "values": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "AppSecretsUpdateResp": {
+        "type": "object",
+        "properties": {
+          "Version": {
+            "type": "integer",
+            "description": "DEPRECATED"
+          },
+          "secrets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AppSecret"
+            }
+          },
+          "version": {
+            "type": "integer"
+          }
+        }
+      },
+      "CertificateCheckResponse": {
+        "type": "object",
+        "properties": {
+          "acme_requested": {
+            "type": "boolean"
+          },
+          "certificates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CertificateEntry"
+            }
+          },
+          "configured": {
+            "type": "boolean"
+          },
+          "dns_provider": {
+            "type": "string"
+          },
+          "dns_records": {
+            "$ref": "#/components/schemas/DNSRecords"
+          },
+          "dns_requirements": {
+            "$ref": "#/components/schemas/DNSRequirements"
+          },
+          "hostname": {
+            "type": "string"
+          },
+          "rate_limited_until": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "validation": {
+            "$ref": "#/components/schemas/CertificateValidation"
+          },
+          "validation_errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CertificateValidationError"
+            }
+          }
+        }
+      },
+      "CertificateDetail": {
+        "type": "object",
+        "properties": {
+          "acme_requested": {
+            "type": "boolean"
+          },
+          "certificates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CertificateEntry"
+            }
+          },
+          "configured": {
+            "type": "boolean"
+          },
+          "dns_provider": {
+            "type": "string"
+          },
+          "dns_requirements": {
+            "$ref": "#/components/schemas/DNSRequirements"
+          },
+          "hostname": {
+            "type": "string"
+          },
+          "rate_limited_until": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "validation": {
+            "$ref": "#/components/schemas/CertificateValidation"
+          },
+          "validation_errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CertificateValidationError"
+            }
+          }
+        }
+      },
+      "CertificateEntry": {
+        "type": "object",
+        "properties": {
+          "created_at": {
+            "type": "string"
+          },
+          "expires_at": {
+            "type": "string"
+          },
+          "issued": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IssuedCertificate"
+            }
+          },
+          "issuer": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "custom",
+              "fly"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "pending_ownership",
+              "pending_validation"
+            ]
+          }
+        }
+      },
+      "CertificateSummary": {
+        "type": "object",
+        "properties": {
+          "acme_alpn_configured": {
+            "type": "boolean"
+          },
+          "acme_dns_configured": {
+            "type": "boolean"
+          },
+          "acme_http_configured": {
+            "type": "boolean"
+          },
+          "acme_requested": {
+            "type": "boolean"
+          },
+          "configured": {
+            "type": "boolean"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "dns_provider": {
+            "type": "string"
+          },
+          "has_custom_certificate": {
+            "type": "boolean"
+          },
+          "has_fly_certificate": {
+            "type": "boolean"
+          },
+          "hostname": {
+            "type": "string"
+          },
+          "ownership_txt_configured": {
+            "type": "boolean"
+          },
+          "status": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          }
+        }
+      },
+      "CertificateValidation": {
+        "type": "object",
+        "properties": {
+          "alpn_configured": {
+            "type": "boolean"
+          },
+          "dns_configured": {
+            "type": "boolean"
+          },
+          "http_configured": {
+            "type": "boolean"
+          },
+          "ownership_txt_configured": {
+            "type": "boolean"
+          }
+        }
+      },
+      "CertificateValidationError": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "remediation": {
+            "type": "string"
+          },
+          "timestamp": {
             "type": "string"
           }
         }
@@ -1995,19 +3683,35 @@
           }
         }
       },
+      "CreateAppDeployTokenRequest": {
+        "type": "object",
+        "properties": {
+          "expiry": {
+            "type": "string"
+          }
+        }
+      },
       "CreateAppRequest": {
         "type": "object",
         "properties": {
-          "app_name": {
-            "type": "string"
-          },
           "enable_subdomains": {
             "type": "boolean"
+          },
+          "name": {
+            "type": "string"
           },
           "network": {
             "type": "string"
           },
           "org_slug": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateAppResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
             "type": "string"
           }
         }
@@ -2042,6 +3746,9 @@
           "lsvd": {
             "type": "boolean"
           },
+          "min_secrets_version": {
+            "type": "integer"
+          },
           "name": {
             "type": "string",
             "description": "Unique name for this Machine. If omitted, one is generated for you"
@@ -2051,6 +3758,9 @@
             "description": "The target region. Omitting this param launches in the same region as your WireGuard peer connection (somewhere near you)."
           },
           "skip_launch": {
+            "type": "boolean"
+          },
+          "skip_secrets": {
             "type": "boolean"
           },
           "skip_service_registration": {
@@ -2064,24 +3774,20 @@
           "aud": {
             "type": "string",
             "example": "https://fly.io/org-slug"
+          },
+          "aws_principal_tags": {
+            "type": "boolean"
           }
         },
         "description": "Optional parameters"
       },
-      "CreateSecretRequest": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "array",
-            "items": {
-              "type": "integer"
-            }
-          }
-        }
-      },
       "CreateVolumeRequest": {
         "type": "object",
         "properties": {
+          "auto_backup_enabled": {
+            "type": "boolean",
+            "description": "enable scheduled automatic snapshots. Defaults to `true`"
+          },
           "compute": {
             "$ref": "#/components/schemas/fly.MachineGuest"
           },
@@ -2116,6 +3822,164 @@
           "source_volume_id": {
             "type": "string",
             "description": "fork from remote volume"
+          },
+          "unique_zone_app_wide": {
+            "type": "boolean"
+          }
+        }
+      },
+      "CurrentTokenResponse": {
+        "type": "object",
+        "properties": {
+          "tokens": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/main.tokenInfo"
+            }
+          }
+        }
+      },
+      "DNSRecords": {
+        "type": "object",
+        "properties": {
+          "a": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "aaaa": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "acme_challenge_cname": {
+            "type": "string"
+          },
+          "cname": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "ownership_txt": {
+            "type": "string"
+          },
+          "resolved_addresses": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "soa": {
+            "type": "string"
+          }
+        }
+      },
+      "DNSRequirements": {
+        "type": "object",
+        "properties": {
+          "a": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "aaaa": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "acme_challenge": {
+            "$ref": "#/components/schemas/AcmeChallenge"
+          },
+          "cname": {
+            "type": "string"
+          },
+          "ownership": {
+            "$ref": "#/components/schemas/OwnershipVerification"
+          }
+        }
+      },
+      "DecryptSecretkeyRequest": {
+        "type": "object",
+        "properties": {
+          "associated_data": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "ciphertext": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "DecryptSecretkeyResponse": {
+        "type": "object",
+        "properties": {
+          "plaintext": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "DeleteAppSecretResponse": {
+        "type": "object",
+        "properties": {
+          "Version": {
+            "type": "integer",
+            "description": "DEPRECATED"
+          },
+          "version": {
+            "type": "integer"
+          }
+        }
+      },
+      "DeleteSecretkeyResponse": {
+        "type": "object",
+        "properties": {
+          "Version": {
+            "type": "integer",
+            "description": "DEPRECATED"
+          },
+          "version": {
+            "type": "integer"
+          }
+        }
+      },
+      "EncryptSecretkeyRequest": {
+        "type": "object",
+        "properties": {
+          "associated_data": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "plaintext": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "EncryptSecretkeyResponse": {
+        "type": "object",
+        "properties": {
+          "ciphertext": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
           }
         }
       },
@@ -2153,6 +4017,26 @@
           }
         }
       },
+      "IPAssignment": {
+        "type": "object",
+        "properties": {
+          "created_at": {
+            "type": "string"
+          },
+          "ip": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          },
+          "service_name": {
+            "type": "string"
+          },
+          "shared": {
+            "type": "boolean"
+          }
+        }
+      },
       "ImageRef": {
         "type": "object",
         "properties": {
@@ -2173,6 +4057,24 @@
           },
           "tag": {
             "type": "string"
+          }
+        }
+      },
+      "IssuedCertificate": {
+        "type": "object",
+        "properties": {
+          "certificate_authority": {
+            "type": "string"
+          },
+          "expires_at": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "rsa",
+              "ecdsa"
+            ]
           }
         }
       },
@@ -2201,51 +4103,17 @@
           }
         }
       },
-      "ListApp": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "machine_count": {
-            "type": "integer"
-          },
-          "name": {
-            "type": "string"
-          },
-          "network": {
-            "type": "object"
-          }
-        }
-      },
       "ListAppsResponse": {
         "type": "object",
         "properties": {
           "apps": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ListApp"
+              "$ref": "#/components/schemas/App"
             }
           },
           "total_apps": {
             "type": "integer"
-          }
-        }
-      },
-      "ListSecret": {
-        "type": "object",
-        "properties": {
-          "label": {
-            "type": "string"
-          },
-          "publickey": {
-            "type": "array",
-            "items": {
-              "type": "integer"
-            }
-          },
-          "type": {
-            "type": "string"
           }
         }
       },
@@ -2360,6 +4228,12 @@
               "type": "string"
             }
           },
+          "container": {
+            "type": "string"
+          },
+          "stdin": {
+            "type": "string"
+          },
           "timeout": {
             "type": "integer"
           }
@@ -2376,13 +4250,71 @@
           }
         }
       },
-      "Organization": {
+      "OrgMachine": {
         "type": "object",
         "properties": {
+          "app_id": {
+            "type": "integer"
+          },
+          "app_name": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "instance_id": {
+            "type": "string"
+          },
           "name": {
             "type": "string"
           },
-          "slug": {
+          "private_ip": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          }
+        }
+      },
+      "OrgMachinesResponse": {
+        "type": "object",
+        "properties": {
+          "last_machine_id": {
+            "type": "string"
+          },
+          "last_updated_at": {
+            "type": "string"
+          },
+          "machines": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrgMachine"
+            }
+          },
+          "next_cursor": {
+            "type": "string"
+          }
+        }
+      },
+      "OwnershipVerification": {
+        "type": "object",
+        "properties": {
+          "app_value": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "org_value": {
             "type": "string"
           }
         }
@@ -2416,6 +4348,141 @@
           },
           "stime": {
             "type": "integer"
+          }
+        }
+      },
+      "SecretKey": {
+        "type": "object",
+        "properties": {
+          "created_at": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "public_key": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "type": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          }
+        }
+      },
+      "SecretKeys": {
+        "type": "object",
+        "properties": {
+          "secret_keys": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SecretKey"
+            }
+          }
+        }
+      },
+      "SetAppSecretRequest": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          }
+        }
+      },
+      "SetAppSecretResponse": {
+        "type": "object",
+        "properties": {
+          "Version": {
+            "type": "integer",
+            "description": "DEPRECATED"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "digest": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer"
+          }
+        }
+      },
+      "SetSecretkeyRequest": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "value": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "SetSecretkeyResponse": {
+        "type": "object",
+        "properties": {
+          "Version": {
+            "type": "integer",
+            "description": "DEPRECATED"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "public_key": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "type": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer"
+          }
+        }
+      },
+      "SignSecretkeyRequest": {
+        "type": "object",
+        "properties": {
+          "plaintext": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "SignSecretkeyResponse": {
+        "type": "object",
+        "properties": {
+          "signature": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
           }
         }
       },
@@ -2474,6 +4541,9 @@
           "lsvd": {
             "type": "boolean"
           },
+          "min_secrets_version": {
+            "type": "integer"
+          },
           "name": {
             "type": "string",
             "description": "Unique name for this Machine. If omitted, one is generated for you"
@@ -2483,6 +4553,9 @@
             "description": "The target region. Omitting this param launches in the same region as your WireGuard peer connection (somewhere near you)."
           },
           "skip_launch": {
+            "type": "boolean"
+          },
+          "skip_secrets": {
             "type": "boolean"
           },
           "skip_service_registration": {
@@ -2498,6 +4571,23 @@
           },
           "snapshot_retention": {
             "type": "integer"
+          }
+        }
+      },
+      "VerifySecretkeyRequest": {
+        "type": "object",
+        "properties": {
+          "plaintext": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "signature": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
           }
         }
       },
@@ -2523,6 +4613,12 @@
             "type": "integer"
           },
           "blocks_free": {
+            "type": "integer"
+          },
+          "bytes_total": {
+            "type": "integer"
+          },
+          "bytes_used": {
             "type": "integer"
           },
           "created_at": {
@@ -2585,6 +4681,95 @@
           },
           "status": {
             "type": "string"
+          },
+          "volume_size": {
+            "type": "integer"
+          }
+        }
+      },
+      "assignIPRequest": {
+        "type": "object",
+        "properties": {
+          "network": {
+            "type": "string"
+          },
+          "org_slug": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          },
+          "service_name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "createAcmeCertificateRequest": {
+        "type": "object",
+        "properties": {
+          "hostname": {
+            "type": "string"
+          }
+        }
+      },
+      "createCustomCertificateRequest": {
+        "type": "object",
+        "properties": {
+          "fullchain": {
+            "type": "string"
+          },
+          "hostname": {
+            "type": "string"
+          },
+          "private_key": {
+            "type": "string"
+          }
+        }
+      },
+      "destroyCustomCertificateResponse": {
+        "type": "object",
+        "properties": {
+          "acme_requested": {
+            "type": "boolean"
+          },
+          "certificates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CertificateEntry"
+            }
+          },
+          "configured": {
+            "type": "boolean"
+          },
+          "dns_provider": {
+            "type": "string"
+          },
+          "dns_requirements": {
+            "$ref": "#/components/schemas/DNSRequirements"
+          },
+          "hostname": {
+            "type": "string"
+          },
+          "rate_limited_until": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "validation": {
+            "$ref": "#/components/schemas/CertificateValidation"
+          },
+          "validation_errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CertificateValidationError"
+            }
+          },
+          "warning": {
+            "type": "string"
           }
         }
       },
@@ -2638,6 +4823,13 @@
             "description": "Files are files that will be written to the container file system.",
             "items": {
               "$ref": "#/components/schemas/fly.File"
+            }
+          },
+          "healthchecks": {
+            "type": "array",
+            "description": "Healthchecks determine the health of your containers. Healthchecks can use HTTP, TCP or an Exec command.",
+            "items": {
+              "$ref": "#/components/schemas/fly.ContainerHealthcheck"
             }
           },
           "image": {
@@ -2708,6 +4900,84 @@
           "Started"
         ]
       },
+      "fly.ContainerHealthcheck": {
+        "type": "object",
+        "properties": {
+          "exec": {
+            "$ref": "#/components/schemas/fly.ExecHealthcheck"
+          },
+          "failure_threshold": {
+            "type": "integer",
+            "description": "The number of times the check must fail before considering the container unhealthy."
+          },
+          "grace_period": {
+            "type": "integer",
+            "description": "The time in seconds to wait after a container starts before checking its health."
+          },
+          "http": {
+            "$ref": "#/components/schemas/fly.HTTPHealthcheck"
+          },
+          "interval": {
+            "type": "integer",
+            "description": "The time in seconds between executing the defined check."
+          },
+          "kind": {
+            "type": "object",
+            "description": "Kind of healthcheck (readiness, liveness)",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/fly.ContainerHealthcheckKind"
+              }
+            ]
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the check. Must be unique within the container."
+          },
+          "success_threshold": {
+            "type": "integer",
+            "description": "The number of times the check must succeeed before considering the container healthy."
+          },
+          "tcp": {
+            "$ref": "#/components/schemas/fly.TCPHealthcheck"
+          },
+          "timeout": {
+            "type": "integer",
+            "description": "The time in seconds to wait for the check to complete."
+          },
+          "unhealthy": {
+            "type": "object",
+            "description": "Unhealthy policy that determines what action to take if a container is deemed unhealthy",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/fly.UnhealthyPolicy"
+              }
+            ]
+          }
+        }
+      },
+      "fly.ContainerHealthcheckKind": {
+        "type": "string",
+        "enum": [
+          "readiness",
+          "liveness"
+        ],
+        "x-enum-varnames": [
+          "Readiness",
+          "Liveness"
+        ]
+      },
+      "fly.ContainerHealthcheckScheme": {
+        "type": "string",
+        "enum": [
+          "http",
+          "https"
+        ],
+        "x-enum-varnames": [
+          "HTTP",
+          "HTTPS"
+        ]
+      },
       "fly.DNSConfig": {
         "type": "object",
         "properties": {
@@ -2775,6 +5045,28 @@
               "Millisecond",
               "Second",
               "Minute",
+              "Hour",
+              "minDuration",
+              "maxDuration",
+              "Nanosecond",
+              "Microsecond",
+              "Millisecond",
+              "Second",
+              "Minute",
+              "Hour",
+              "minDuration",
+              "maxDuration",
+              "Nanosecond",
+              "Microsecond",
+              "Millisecond",
+              "Second",
+              "Minute",
+              "Hour",
+              "Nanosecond",
+              "Microsecond",
+              "Millisecond",
+              "Second",
+              "Minute",
               "Hour"
             ]
           }
@@ -2802,12 +5094,28 @@
         },
         "description": "EnvVar defines an environment variable to be populated from a machine field, env_var"
       },
+      "fly.ExecHealthcheck": {
+        "type": "object",
+        "properties": {
+          "command": {
+            "type": "array",
+            "description": "The command to run to check the health of the container (e.g. [\"cat\", \"/tmp/healthy\"])",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
       "fly.File": {
         "type": "object",
         "properties": {
           "guest_path": {
             "type": "string",
             "description": "GuestPath is the path on the machine where the file will be written and must be an absolute path.\nFor example: /full/path/to/file.json"
+          },
+          "image_config": {
+            "type": "string",
+            "description": "The name of an image to use the OCI image config as the file contents."
           },
           "mode": {
             "type": "integer",
@@ -2824,6 +5132,47 @@
         },
         "description": "A file that will be written to the Machine. One of RawValue or SecretName must be set."
       },
+      "fly.HTTPHealthcheck": {
+        "type": "object",
+        "properties": {
+          "headers": {
+            "type": "array",
+            "description": "Additional headers to send with the request",
+            "items": {
+              "$ref": "#/components/schemas/fly.MachineHTTPHeader"
+            }
+          },
+          "method": {
+            "type": "string",
+            "description": "The HTTP method to use to when making the request"
+          },
+          "path": {
+            "type": "string",
+            "description": "The path to send the request to"
+          },
+          "port": {
+            "type": "integer",
+            "description": "The port to connect to, often the same as internal_port"
+          },
+          "scheme": {
+            "type": "object",
+            "description": "Whether to use http or https",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/fly.ContainerHealthcheckScheme"
+              }
+            ]
+          },
+          "tls_server_name": {
+            "type": "string",
+            "description": "If the protocol is https, the hostname to use for TLS certificate validation"
+          },
+          "tls_skip_verify": {
+            "type": "boolean",
+            "description": "If the protocol is https, whether or not to verify the TLS certificate"
+          }
+        }
+      },
       "fly.HTTPOptions": {
         "type": "object",
         "properties": {
@@ -2838,6 +5187,12 @@
           },
           "idle_timeout": {
             "type": "integer"
+          },
+          "replay_cache": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/fly.ReplayCache"
+            }
           },
           "response": {
             "$ref": "#/components/schemas/fly.HTTPResponseOptions"
@@ -2930,8 +5285,7 @@
             "type": "string",
             "description": "tcp or http"
           }
-        },
-        "description": "An optional object that defines one or more named checks. The key for each check is the check name."
+        }
       },
       "fly.MachineConfig": {
         "type": "object",
@@ -2944,7 +5298,8 @@
             "type": "object",
             "additionalProperties": {
               "$ref": "#/components/schemas/fly.MachineCheck"
-            }
+            },
+            "description": "An optional object that defines one or more named top-level checks. The key for each check is the check name."
           },
           "containers": {
             "type": "array",
@@ -3007,6 +5362,9 @@
           "restart": {
             "$ref": "#/components/schemas/fly.MachineRestart"
           },
+          "rootfs": {
+            "$ref": "#/components/schemas/fly.MachineRootfs"
+          },
           "schedule": {
             "type": "string"
           },
@@ -3064,6 +5422,15 @@
           },
           "memory_mb": {
             "type": "integer"
+          },
+          "persist_rootfs": {
+            "type": "string",
+            "description": "Deprecated: use MachineConfig.Rootfs instead",
+            "enum": [
+              "never",
+              "always",
+              "restart"
+            ]
           }
         }
       },
@@ -3268,6 +5635,25 @@
         },
         "description": "The Machine restart policy defines whether and how flyd restarts a Machine after its main process exits. See https://fly.io/docs/machines/guides-examples/machine-restart-policy/."
       },
+      "fly.MachineRootfs": {
+        "type": "object",
+        "properties": {
+          "fs_size_gb": {
+            "type": "integer"
+          },
+          "persist": {
+            "type": "string",
+            "enum": [
+              "never",
+              "always",
+              "restart"
+            ]
+          },
+          "size_gb": {
+            "type": "integer"
+          }
+        }
+      },
       "fly.MachineSecret": {
         "type": "object",
         "properties": {
@@ -3299,8 +5685,9 @@
           },
           "checks": {
             "type": "array",
+            "description": "An optional list of service checks",
             "items": {
-              "$ref": "#/components/schemas/fly.MachineCheck"
+              "$ref": "#/components/schemas/fly.MachineServiceCheck"
             }
           },
           "concurrency": {
@@ -3329,6 +5716,72 @@
           }
         }
       },
+      "fly.MachineServiceCheck": {
+        "type": "object",
+        "properties": {
+          "grace_period": {
+            "type": "object",
+            "description": "The time to wait after a VM starts before checking its health",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/fly.Duration"
+              }
+            ]
+          },
+          "headers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/fly.MachineHTTPHeader"
+            }
+          },
+          "interval": {
+            "type": "object",
+            "description": "The time between connectivity checks",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/fly.Duration"
+              }
+            ]
+          },
+          "method": {
+            "type": "string",
+            "description": "For http checks, the HTTP method to use to when making the request"
+          },
+          "path": {
+            "type": "string",
+            "description": "For http checks, the path to send the request to"
+          },
+          "port": {
+            "type": "integer",
+            "description": "The port to connect to, often the same as internal_port"
+          },
+          "protocol": {
+            "type": "string",
+            "description": "For http checks, whether to use http or https"
+          },
+          "timeout": {
+            "type": "object",
+            "description": "The maximum time a connection can take before being reported as failing its health check",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/fly.Duration"
+              }
+            ]
+          },
+          "tls_server_name": {
+            "type": "string",
+            "description": "If the protocol is https, the hostname to use for TLS certificate validation"
+          },
+          "tls_skip_verify": {
+            "type": "boolean",
+            "description": "For http checks with https protocol, whether or not to verify the TLS certificate"
+          },
+          "type": {
+            "type": "string",
+            "description": "tcp or http"
+          }
+        }
+      },
       "fly.MachineServiceConcurrency": {
         "type": "object",
         "properties": {
@@ -3348,6 +5801,32 @@
         "properties": {
           "version": {
             "type": "string"
+          }
+        }
+      },
+      "fly.ReplayCache": {
+        "type": "object",
+        "properties": {
+          "allow_bypass": {
+            "type": "boolean"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the cookie or header to key the cache on"
+          },
+          "path_prefix": {
+            "type": "string"
+          },
+          "ttl_seconds": {
+            "type": "integer"
+          },
+          "type": {
+            "type": "string",
+            "description": "Currently either \"cookie\" or \"header\"",
+            "enum": [
+              "cookie",
+              "header"
+            ]
           }
         }
       },
@@ -3383,6 +5862,15 @@
           }
         }
       },
+      "fly.TCPHealthcheck": {
+        "type": "object",
+        "properties": {
+          "port": {
+            "type": "integer",
+            "description": "The port to connect to, often the same as internal_port"
+          }
+        }
+      },
       "fly.TLSOptions": {
         "type": "object",
         "properties": {
@@ -3402,6 +5890,15 @@
             }
           }
         }
+      },
+      "fly.UnhealthyPolicy": {
+        "type": "string",
+        "enum": [
+          "stop"
+        ],
+        "x-enum-varnames": [
+          "UnhealthyPolicyStop"
+        ]
       },
       "fly.dnsForwardRule": {
         "type": "object",
@@ -3442,6 +5939,144 @@
           }
         }
       },
+      "listCertificatesResponse": {
+        "type": "object",
+        "properties": {
+          "certificates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CertificateSummary"
+            }
+          },
+          "next_cursor": {
+            "type": "string"
+          },
+          "total_count": {
+            "type": "integer"
+          }
+        }
+      },
+      "listIPAssignmentsResponse": {
+        "type": "object",
+        "properties": {
+          "ips": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IPAssignment"
+            }
+          }
+        }
+      },
+      "main.getPlacementsRequest": {
+        "required": [
+          "org_slug"
+        ],
+        "type": "object",
+        "properties": {
+          "compute": {
+            "type": "object",
+            "description": "Resource requirements for the Machine to simulate. Defaults to a performance-1x machine",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/fly.MachineGuest"
+              }
+            ]
+          },
+          "count": {
+            "type": "integer",
+            "description": "Number of machines to simulate placement.\nDefaults to 0, which returns the org-specific limit for each region."
+          },
+          "org_slug": {
+            "type": "string",
+            "example": "personal"
+          },
+          "region": {
+            "type": "string",
+            "description": "Region expression for placement as a comma-delimited set of regions or aliases.\nDefaults to \"[region],any\", to prefer the API endpoint's local region with any other region as fallback.",
+            "example": "lhr,eu"
+          },
+          "volume_name": {
+            "type": "string",
+            "example": ""
+          },
+          "volume_size_bytes": {
+            "type": "integer"
+          },
+          "weights": {
+            "type": "object",
+            "description": "Optional weights to override default placement preferences.",
+            "example": {
+              "region": 1000,
+              "spread": 0
+            },
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/placement.Weights"
+              }
+            ]
+          }
+        }
+      },
+      "main.getPlacementsResponse": {
+        "type": "object",
+        "properties": {
+          "regions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/placement.RegionPlacement"
+            }
+          }
+        }
+      },
+      "main.memoryResponse": {
+        "type": "object",
+        "properties": {
+          "available_mb": {
+            "type": "integer"
+          },
+          "limit_mb": {
+            "type": "integer"
+          }
+        }
+      },
+      "main.reclaimMemoryRequest": {
+        "type": "object",
+        "properties": {
+          "amount_mb": {
+            "type": "integer"
+          }
+        }
+      },
+      "main.reclaimMemoryResponse": {
+        "type": "object",
+        "properties": {
+          "actual_mb": {
+            "type": "integer"
+          }
+        }
+      },
+      "main.regionResponse": {
+        "type": "object",
+        "properties": {
+          "nearest": {
+            "type": "string"
+          },
+          "regions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/reads.GetCapacityPerRegionRow"
+            }
+          }
+        }
+      },
+      "main.setMemoryLimitRequest": {
+        "type": "object",
+        "properties": {
+          "limit_mb": {
+            "type": "integer"
+          }
+        }
+      },
       "main.statusCode": {
         "type": "string",
         "enum": [
@@ -3452,6 +6087,90 @@
           "unknown",
           "capacityErr"
         ]
+      },
+      "main.tokenInfo": {
+        "type": "object",
+        "properties": {
+          "apps": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "org_slug": {
+            "type": "string"
+          },
+          "organization": {
+            "type": "string"
+          },
+          "restricted_to_machine": {
+            "type": "string",
+            "description": "Machine the token is restricted to (FromMachine caveat)"
+          },
+          "source_machine_id": {
+            "type": "string",
+            "description": "Machine making the request"
+          },
+          "token_id": {
+            "type": "string"
+          },
+          "user": {
+            "type": "string",
+            "description": "User identifier if token is for a user"
+          }
+        }
+      },
+      "placement.RegionPlacement": {
+        "type": "object",
+        "properties": {
+          "concurrency": {
+            "type": "integer"
+          },
+          "count": {
+            "type": "integer"
+          },
+          "region": {
+            "type": "string"
+          }
+        }
+      },
+      "placement.Weights": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "integer"
+        }
+      },
+      "reads.GetCapacityPerRegionRow": {
+        "type": "object",
+        "properties": {
+          "capacity": {
+            "type": "integer"
+          },
+          "code": {
+            "type": "string"
+          },
+          "deprecated": {
+            "type": "boolean"
+          },
+          "gateway_available": {
+            "type": "boolean"
+          },
+          "geo_region": {
+            "type": "string"
+          },
+          "latitude": {
+            "type": "number"
+          },
+          "longitude": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "requires_paid_plan": {
+            "type": "boolean"
+          }
+        }
       }
     }
   },
