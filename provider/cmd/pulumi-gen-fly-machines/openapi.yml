@@ -149,12 +149,6 @@ paths:
           description: Number of results per page (default 25, max 500)
           schema:
             type: integer
-        - name: app_name
-          in: path
-          description: Fly App Name
-          required: true
-          schema:
-            type: string
       responses:
         "200":
           description: OK
@@ -168,13 +162,6 @@ paths:
         - Apps
       summary: Request ACME certificate
       operationId: App_Certificates_acme_create
-      parameters:
-        - name: app_name
-          in: path
-          description: Fly App Name
-          required: true
-          schema:
-            type: string
       requestBody:
         description: ACME certificate request
         content:
@@ -202,13 +189,6 @@ paths:
         - Apps
       summary: Upload custom certificate
       operationId: App_Certificates_custom_create
-      parameters:
-        - name: app_name
-          in: path
-          description: Fly App Name
-          required: true
-          schema:
-            type: string
       requestBody:
         description: Custom certificate request
         content:
@@ -236,19 +216,6 @@ paths:
         - Apps
       summary: Get certificate details
       operationId: App_Certificates_show
-      parameters:
-        - name: app_name
-          in: path
-          description: Fly App Name
-          required: true
-          schema:
-            type: string
-        - name: hostname
-          in: path
-          description: Host name of the Fly App
-          required: true
-          schema:
-            type: string
       responses:
         "200":
           description: OK
@@ -261,19 +228,6 @@ paths:
         - Apps
       summary: Remove certificate
       operationId: App_Certificates_delete
-      parameters:
-        - name: app_name
-          in: path
-          description: Fly App Name
-          required: true
-          schema:
-            type: string
-        - name: hostname
-          in: path
-          description: Host name of the Fly App
-          required: true
-          schema:
-            type: string
       responses:
         "204":
           description: No Content
@@ -284,19 +238,6 @@ paths:
         - Apps
       summary: Remove ACME certificates
       operationId: App_Certificates_acme_delete
-      parameters:
-        - name: app_name
-          in: path
-          description: Fly App Name
-          required: true
-          schema:
-            type: string
-        - name: hostname
-          in: path
-          description: Host name of the Fly App
-          required: true
-          schema:
-            type: string
       responses:
         "200":
           description: OK
@@ -310,19 +251,6 @@ paths:
         - Apps
       summary: Check DNS and re-validate certificate
       operationId: App_Certificates_check
-      parameters:
-        - name: app_name
-          in: path
-          description: Fly App Name
-          required: true
-          schema:
-            type: string
-        - name: hostname
-          in: path
-          description: Host name of the Fly App
-          required: true
-          schema:
-            type: string
       responses:
         "200":
           description: OK
@@ -336,19 +264,6 @@ paths:
         - Apps
       summary: Remove custom certificate
       operationId: App_Certificates_custom_delete
-      parameters:
-        - name: app_name
-          in: path
-          description: Fly App Name
-          required: true
-          schema:
-            type: string
-        - name: hostname
-          in: path
-          description: Host name of the Fly App
-          required: true
-          schema:
-            type: string
       responses:
         "200":
           description: OK
@@ -390,13 +305,6 @@ paths:
         - Apps
       summary: List IP assignments for app
       operationId: App_IPAssignments_list
-      parameters:
-        - name: app_name
-          in: path
-          description: Fly App Name
-          required: true
-          schema:
-            type: string
       responses:
         "200":
           description: OK
@@ -409,13 +317,6 @@ paths:
         - Apps
       summary: Assign new IP address to app
       operationId: App_IPAssignments_create
-      parameters:
-        - name: app_name
-          in: path
-          description: Fly App Name
-          required: true
-          schema:
-            type: string
       requestBody:
         description: Assign IP request
         content:
@@ -437,19 +338,6 @@ paths:
         - Apps
       summary: Remove IP assignment from app
       operationId: App_IPAssignments_delete
-      parameters:
-        - name: app_name
-          in: path
-          description: Fly App Name
-          required: true
-          schema:
-            type: string
-        - name: ip
-          in: path
-          description: IP address
-          required: true
-          schema:
-            type: string
       responses:
         "204":
           description: No Content

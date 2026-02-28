@@ -3,6 +3,7 @@
 package main
 
 import (
+	"context"
 	_ "embed"
 
 	"encoding/json"
@@ -15,8 +16,7 @@ import (
 
 	providerSchemaGen "github.com/cloudy-sky-software/pulumi-fly-machines/provider/pkg/gen"
 	providerVersion "github.com/cloudy-sky-software/pulumi-fly-machines/provider/pkg/version"
-
-	"github.com/cloudy-sky-software/pulumi-provider-framework/openapi"
+	"github.com/getkin/kin-openapi/openapi3"
 
 	"github.com/pkg/errors"
 
@@ -45,49 +45,67 @@ const (
 	Schema Language = "schema"
 )
 
+func getOpenAPISpec(ctx context.Context, data []byte) *openapi3.T {
+	doc, err := openapi3.NewLoader().LoadFromData(data)
+	if err != nil {
+		contract.Failf("Failed to load openapi.yml: %v", err)
+	}
+
+	err = providerSchemaGen.FixOpenAPIDoc(doc)
+	if err != nil {
+		panic(err)
+	}
+
+	// For the purposes of building a Pulumi schema, we don't care about
+	// examples that may have been added to the spec by the cloud provider,
+	// ignore those as those tend to have errors.
+	if err := doc.Validate(ctx, openapi3.DisableExamplesValidation()); err != nil {
+		contract.Failf("OpenAPI spec failed validation: %v", err)
+	}
+
+	return doc
+}
+
 func main() {
+	ctx := context.Background()
+
 	flag.Usage = func() {
-			const usageFormat = "Usage: %s <language>"
-			_, err := fmt.Fprintf(flag.CommandLine.Output(), usageFormat, os.Args[0])
-			contract.IgnoreError(err)
-			flag.PrintDefaults()
-		}
+		const usageFormat = "Usage: %s <language>"
+		_, err := fmt.Fprintf(flag.CommandLine.Output(), usageFormat, os.Args[0])
+		contract.IgnoreError(err)
+		flag.PrintDefaults()
+	}
 
-		var version string
-		flag.StringVar(&version, "version", providerVersion.Version, "the provider version to record in the generated code")
+	var version string
+	flag.StringVar(&version, "version", providerVersion.Version, "the provider version to record in the generated code")
 
-		flag.Parse()
-		args := flag.Args()
-		if len(args) < 1 {
-			flag.Usage()
-			return
-		}
+	flag.Parse()
+	args := flag.Args()
+	if len(args) < 1 {
+		flag.Usage()
+		return
+	}
 
-		language := Language(args[0])
+	language := Language(args[0])
 
-		switch language {
-		case Schema:
-			openAPIDoc := openapi.GetOpenAPISpec(openapiDocBytes)
+	switch language {
+	case Schema:
+		openAPIDoc := getOpenAPISpec(ctx, openapiDocBytes)
 
-			err := providerSchemaGen.FixOpenAPIDoc(openAPIDoc)
-			if err != nil {
-				panic(err)
-			}
+		schemaSpec, metadata, updatedOpenAPIDoc := providerSchemaGen.PulumiSchema(*openAPIDoc)
+		providerDir := filepath.Join(".", "provider", "cmd", "pulumi-resource-fly-machines")
+		mustWritePulumiSchema(schemaSpec, providerDir)
 
-			schemaSpec, metadata, updatedOpenAPIDoc := providerSchemaGen.PulumiSchema(*openAPIDoc)
-			providerDir := filepath.Join(".", "provider", "cmd", "pulumi-resource-fly-machines")
-			mustWritePulumiSchema(schemaSpec, providerDir)
+		// Write the metadata.json file as well.
+		metadataBytes, _ := json.Marshal(metadata)
+		mustWriteFile(providerDir, "metadata.json", metadataBytes)
 
-			// Write the metadata.json file as well.
-			metadataBytes, _ := json.Marshal(metadata)
-			mustWriteFile(providerDir, "metadata.json", metadataBytes)
-
-			updatedOpenAPIDocBytes, _ := yaml.Marshal(updatedOpenAPIDoc)
-			// Also copy the raw OpenAPI spec file to the provider dir.
-			mustWriteFile(providerDir, "openapi_generated.yml", updatedOpenAPIDocBytes)
-		default:
-			panic(fmt.Sprintf("Unrecognized language '%s'", language))
-		}
+		updatedOpenAPIDocBytes, _ := yaml.Marshal(updatedOpenAPIDoc)
+		// Also copy the raw OpenAPI spec file to the provider dir.
+		mustWriteFile(providerDir, "openapi_generated.yml", updatedOpenAPIDocBytes)
+	default:
+		panic(fmt.Sprintf("Unrecognized language '%s'", language))
+	}
 }
 
 func mustWritePulumiSchema(pkgSpec schema.PackageSpec, outdir string) {
