@@ -1,0 +1,4232 @@
+{
+    "name": "fly-machines",
+    "displayName": "FlyMachines",
+    "description": "A Pulumi package for creating and managing FlyMachines resources.",
+    "keywords": [
+        "pulumi",
+        "fly-machines",
+        "category/cloud",
+        "kind/native"
+    ],
+    "homepage": "https://cloudysky.software",
+    "license": "Apache-2.0",
+    "repository": "https://github.com/cloudy-sky-software/pulumi-fly-machines",
+    "pluginDownloadURL": "github://api.github.com/cloudy-sky-software/pulumi-fly-machines",
+    "publisher": "Cloudy Sky Software",
+    "language": {
+        "csharp": {
+            "namespaces": {
+                "": "Provider",
+                "apps": "Apps",
+                "fly-machines": "FlyMachines",
+                "orgs": "Orgs",
+                "platform": "Platform",
+                "tokens": "Tokens",
+                "tokens/v1": "TokensV1"
+            },
+            "packageReferences": {
+                "Pulumi": "3.*"
+            },
+            "rootNamespace": "Pulumi"
+        },
+        "go": {
+            "importBasePath": "github.com/cloudy-sky-software/pulumi-fly-machines/sdk/go/fly-machines"
+        },
+        "nodejs": {
+            "packageName": "@cloudyskysoftware/pulumi-fly-machines"
+        },
+        "python": {
+            "packageName": "pulumi_fly_machines",
+            "pyproject": {
+                "enabled": true
+            },
+            "requires": {
+                "pulumi": "\u003e=3.0.0,\u003c4.0.0"
+            }
+        }
+    },
+    "config": {
+        "variables": {
+            "apiKey": {
+                "type": "string",
+                "description": "The API key",
+                "language": {
+                    "csharp": {
+                        "name": "ApiKey"
+                    }
+                },
+                "secret": true
+            }
+        }
+    },
+    "types": {
+        "fly-machines:apps:AcmeChallenge": {
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "target": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:App": {
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "internalNumericId": {
+                    "type": "integer"
+                },
+                "machineCount": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "network": {
+                    "type": "string"
+                },
+                "organization": {
+                    "$ref": "#/types/fly-machines:apps:AppOrganizationInfo"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "volumeCount": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:AppOrganizationInfo": {
+            "properties": {
+                "internalNumericId": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "slug": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:AppSecret": {
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "digest": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:AppSecrets": {
+            "properties": {
+                "secrets": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:AppSecret"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:CertificateDetail": {
+            "properties": {
+                "acmeRequested": {
+                    "type": "boolean"
+                },
+                "certificates": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:CertificateEntry"
+                    }
+                },
+                "configured": {
+                    "type": "boolean"
+                },
+                "dnsProvider": {
+                    "type": "string"
+                },
+                "dnsRequirements": {
+                    "$ref": "#/types/fly-machines:apps:DNSRequirements"
+                },
+                "hostname": {
+                    "type": "string"
+                },
+                "rateLimitedUntil": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "validation": {
+                    "$ref": "#/types/fly-machines:apps:CertificateValidation"
+                },
+                "validationErrors": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:CertificateValidationError"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:CertificateEntry": {
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "expiresAt": {
+                    "type": "string"
+                },
+                "issued": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:IssuedCertificate"
+                    }
+                },
+                "issuer": {
+                    "type": "string"
+                },
+                "source": {
+                    "$ref": "#/types/fly-machines:apps:CertificateEntrySource"
+                },
+                "status": {
+                    "$ref": "#/types/fly-machines:apps:CertificateEntryStatus"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:CertificateEntrySource": {
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Custom",
+                    "value": "custom"
+                },
+                {
+                    "name": "Fly",
+                    "value": "fly"
+                }
+            ]
+        },
+        "fly-machines:apps:CertificateEntryStatus": {
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Active",
+                    "value": "active"
+                },
+                {
+                    "name": "PendingOwnership",
+                    "value": "pending_ownership"
+                },
+                {
+                    "name": "PendingValidation",
+                    "value": "pending_validation"
+                }
+            ]
+        },
+        "fly-machines:apps:CertificateSummary": {
+            "properties": {
+                "acmeAlpnConfigured": {
+                    "type": "boolean"
+                },
+                "acmeDnsConfigured": {
+                    "type": "boolean"
+                },
+                "acmeHttpConfigured": {
+                    "type": "boolean"
+                },
+                "acmeRequested": {
+                    "type": "boolean"
+                },
+                "configured": {
+                    "type": "boolean"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "dnsProvider": {
+                    "type": "string"
+                },
+                "hasCustomCertificate": {
+                    "type": "boolean"
+                },
+                "hasFlyCertificate": {
+                    "type": "boolean"
+                },
+                "hostname": {
+                    "type": "string"
+                },
+                "ownershipTxtConfigured": {
+                    "type": "boolean"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:CertificateValidation": {
+            "properties": {
+                "alpnConfigured": {
+                    "type": "boolean"
+                },
+                "dnsConfigured": {
+                    "type": "boolean"
+                },
+                "httpConfigured": {
+                    "type": "boolean"
+                },
+                "ownershipTxtConfigured": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:CertificateValidationError": {
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "remediation": {
+                    "type": "string"
+                },
+                "timestamp": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:CheckStatus": {
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "output": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:Config": {
+            "description": "An object defining the Machine configuration",
+            "properties": {
+                "autoDestroy": {
+                    "type": "boolean",
+                    "description": "Optional boolean telling the Machine to destroy itself once it’s complete (default false)"
+                },
+                "checks": {
+                    "$ref": "pulumi.json#/Any",
+                    "description": "An optional object that defines one or more named top-level checks. The key for each check is the check name."
+                },
+                "containers": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:FlyContainerConfig"
+                    },
+                    "description": "Containers are a list of containers that will run in the machine. Currently restricted to\nonly specific organizations."
+                },
+                "disableMachineAutostart": {
+                    "type": "boolean",
+                    "description": "Deprecated: use Service.Autostart instead"
+                },
+                "dns": {
+                    "$ref": "#/types/fly-machines:apps:FlyDNSConfig"
+                },
+                "env": {
+                    "$ref": "pulumi.json#/Any",
+                    "description": "An object filled with key/value pairs to be set as environment variables"
+                },
+                "files": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:FlyFile"
+                    }
+                },
+                "guest": {
+                    "$ref": "#/types/fly-machines:apps:FlyMachineGuest"
+                },
+                "image": {
+                    "type": "string",
+                    "description": "The docker image to run"
+                },
+                "init": {
+                    "$ref": "#/types/fly-machines:apps:FlyMachineInit"
+                },
+                "metadata": {
+                    "$ref": "pulumi.json#/Any"
+                },
+                "metrics": {
+                    "$ref": "#/types/fly-machines:apps:FlyMachineMetrics"
+                },
+                "mounts": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:FlyMachineMount"
+                    }
+                },
+                "processes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:FlyMachineProcess"
+                    }
+                },
+                "restart": {
+                    "$ref": "#/types/fly-machines:apps:FlyMachineRestart",
+                    "description": "The Machine restart policy defines whether and how flyd restarts a Machine after its main process exits. See https://fly.io/docs/machines/guides-examples/machine-restart-policy/."
+                },
+                "rootfs": {
+                    "$ref": "#/types/fly-machines:apps:FlyMachineRootfs"
+                },
+                "schedule": {
+                    "type": "string"
+                },
+                "services": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:FlyMachineService"
+                    }
+                },
+                "size": {
+                    "type": "string",
+                    "description": "Deprecated: use Guest instead"
+                },
+                "standbys": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Standbys enable a machine to be a standby for another. In the event of a hardware failure,\nthe standby machine will be started."
+                },
+                "statics": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:FlyStatic"
+                    }
+                },
+                "stopConfig": {
+                    "$ref": "#/types/fly-machines:apps:FlyStopConfig"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:DNSRecords": {
+            "properties": {
+                "a": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "aaaa": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "acmeChallengeCname": {
+                    "type": "string"
+                },
+                "cname": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "ownershipTxt": {
+                    "type": "string"
+                },
+                "resolvedAddresses": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "soa": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:DNSRequirements": {
+            "properties": {
+                "a": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "aaaa": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "acmeChallenge": {
+                    "$ref": "#/types/fly-machines:apps:AcmeChallenge"
+                },
+                "cname": {
+                    "type": "string"
+                },
+                "ownership": {
+                    "$ref": "#/types/fly-machines:apps:OwnershipVerification"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyContainerConfig": {
+            "properties": {
+                "cmd": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "CmdOverride is used to override the default command of the image."
+                },
+                "dependsOn": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:FlyContainerDependency"
+                    },
+                    "description": "DependsOn can be used to define dependencies between containers. The container will only be\nstarted after all of its dependent conditions have been satisfied."
+                },
+                "entrypoint": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "EntrypointOverride is used to override the default entrypoint of the image."
+                },
+                "env": {
+                    "$ref": "pulumi.json#/Any",
+                    "description": "ExtraEnv is used to add additional environment variables to the container."
+                },
+                "envFrom": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:FlyEnvFrom"
+                    },
+                    "description": "EnvFrom can be provided to set environment variables from machine fields."
+                },
+                "exec": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Image Config overrides - these fields are used to override the image configuration.\nIf not provided, the image configuration will be used.\nExecOverride is used to override the default command of the image."
+                },
+                "files": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:FlyFile"
+                    },
+                    "description": "Files are files that will be written to the container file system."
+                },
+                "healthchecks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:FlyContainerHealthcheck"
+                    },
+                    "description": "Healthchecks determine the health of your containers. Healthchecks can use HTTP, TCP or an Exec command."
+                },
+                "image": {
+                    "type": "string",
+                    "description": "Image is the docker image to run."
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name is used to identify the container in the machine."
+                },
+                "restart": {
+                    "$ref": "#/types/fly-machines:apps:FlyContainerConfigRestart",
+                    "description": "Restart is used to define the restart policy for the container. NOTE: spot-price is not\nsupported for containers."
+                },
+                "secrets": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:FlyMachineSecret"
+                    },
+                    "description": "Secrets can be provided at the process level to explicitly indicate which secrets should be\nused for the process. If not provided, the secrets provided at the machine level will be used."
+                },
+                "stop": {
+                    "$ref": "#/types/fly-machines:apps:FlyContainerConfigStop",
+                    "description": "Stop is used to define the signal and timeout for stopping the container."
+                },
+                "user": {
+                    "type": "string",
+                    "description": "UserOverride is used to override the default user of the image."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyContainerConfigRestart": {
+            "description": "Restart is used to define the restart policy for the container. NOTE: spot-price is not\nsupported for containers.",
+            "properties": {
+                "gpuBidPrice": {
+                    "type": "number",
+                    "description": "GPU bid price for spot Machines."
+                },
+                "maxRetries": {
+                    "type": "integer",
+                    "description": "When policy is on-failure, the maximum number of times to attempt to restart the Machine before letting it stop."
+                },
+                "policy": {
+                    "$ref": "#/types/fly-machines:apps:FlyMachineRestartPolicy",
+                    "description": "* no - Never try to restart a Machine automatically when its main process exits, whether that’s on purpose or on a crash.\n* always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.\n* on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules.\n* spot-price - Starts the Machine only when there is capacity and the spot price is less than or equal to the bid price."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyContainerConfigStop": {
+            "description": "Stop is used to define the signal and timeout for stopping the container.",
+            "properties": {
+                "signal": {
+                    "type": "string"
+                },
+                "timeout": {
+                    "$ref": "#/types/fly-machines:apps:FlyDuration"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyContainerDependency": {
+            "properties": {
+                "condition": {
+                    "$ref": "#/types/fly-machines:apps:FlyContainerDependencyCondition"
+                },
+                "name": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyContainerDependencyCondition": {
+            "type": "object"
+        },
+        "fly-machines:apps:FlyContainerHealthcheck": {
+            "properties": {
+                "exec": {
+                    "$ref": "#/types/fly-machines:apps:FlyExecHealthcheck"
+                },
+                "failureThreshold": {
+                    "type": "integer",
+                    "description": "The number of times the check must fail before considering the container unhealthy."
+                },
+                "gracePeriod": {
+                    "type": "integer",
+                    "description": "The time in seconds to wait after a container starts before checking its health."
+                },
+                "http": {
+                    "$ref": "#/types/fly-machines:apps:FlyHTTPHealthcheck"
+                },
+                "interval": {
+                    "type": "integer",
+                    "description": "The time in seconds between executing the defined check."
+                },
+                "kind": {
+                    "$ref": "#/types/fly-machines:apps:FlyContainerHealthcheckKind",
+                    "description": "Kind of healthcheck (readiness, liveness)"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the check. Must be unique within the container."
+                },
+                "successThreshold": {
+                    "type": "integer",
+                    "description": "The number of times the check must succeeed before considering the container healthy."
+                },
+                "tcp": {
+                    "$ref": "#/types/fly-machines:apps:FlyTCPHealthcheck"
+                },
+                "timeout": {
+                    "type": "integer",
+                    "description": "The time in seconds to wait for the check to complete."
+                },
+                "unhealthy": {
+                    "$ref": "#/types/fly-machines:apps:FlyContainerHealthcheckUnhealthy",
+                    "description": "Unhealthy policy that determines what action to take if a container is deemed unhealthy"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyContainerHealthcheckKind": {
+            "description": "Kind of healthcheck (readiness, liveness)",
+            "type": "object"
+        },
+        "fly-machines:apps:FlyContainerHealthcheckUnhealthy": {
+            "description": "Unhealthy policy that determines what action to take if a container is deemed unhealthy",
+            "type": "object"
+        },
+        "fly-machines:apps:FlyDNSConfig": {
+            "properties": {
+                "dnsForwardRules": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:FlyDnsForwardRule"
+                    }
+                },
+                "hostname": {
+                    "type": "string"
+                },
+                "hostnameFqdn": {
+                    "type": "string"
+                },
+                "nameservers": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "options": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:FlyDnsOption"
+                    }
+                },
+                "searches": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "skipRegistration": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyDnsForwardRule": {
+            "properties": {
+                "addr": {
+                    "type": "string"
+                },
+                "basename": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyDnsOption": {
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyDuration": {
+            "properties": {
+                "timeDuration": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyEnvFrom": {
+            "description": "EnvVar defines an environment variable to be populated from a machine field, env_var",
+            "properties": {
+                "envVar": {
+                    "type": "string",
+                    "description": "EnvVar is required and is the name of the environment variable that will be set from the\nsecret. It must be a valid environment variable name."
+                },
+                "fieldRef": {
+                    "$ref": "#/types/fly-machines:apps:FlyEnvFromFieldRef",
+                    "description": "FieldRef selects a field of the Machine: supports id, version, app_name, private_ip, region, image."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyEnvFromFieldRef": {
+            "description": "FieldRef selects a field of the Machine: supports id, version, app_name, private_ip, region, image.",
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Id",
+                    "value": "id"
+                },
+                {
+                    "name": "Version",
+                    "value": "version"
+                },
+                {
+                    "name": "AppName",
+                    "value": "app_name"
+                },
+                {
+                    "name": "PrivateIp",
+                    "value": "private_ip"
+                },
+                {
+                    "name": "Region",
+                    "value": "region"
+                },
+                {
+                    "name": "Image",
+                    "value": "image"
+                }
+            ]
+        },
+        "fly-machines:apps:FlyExecHealthcheck": {
+            "properties": {
+                "command": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "The command to run to check the health of the container (e.g. [\"cat\", \"/tmp/healthy\"])"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyFile": {
+            "description": "A file that will be written to the Machine. One of RawValue or SecretName must be set.",
+            "properties": {
+                "guestPath": {
+                    "type": "string",
+                    "description": "GuestPath is the path on the machine where the file will be written and must be an absolute path.\nFor example: /full/path/to/file.json"
+                },
+                "imageConfig": {
+                    "type": "string",
+                    "description": "The name of an image to use the OCI image config as the file contents."
+                },
+                "mode": {
+                    "type": "integer",
+                    "description": "Mode bits used to set permissions on this file as accepted by chmod(2)."
+                },
+                "rawValue": {
+                    "type": "string",
+                    "description": "The base64 encoded string of the file contents."
+                },
+                "secretName": {
+                    "type": "string",
+                    "description": "The name of the secret that contains the base64 encoded file contents."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyHTTPHealthcheck": {
+            "properties": {
+                "headers": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:FlyMachineHTTPHeader"
+                    },
+                    "description": "Additional headers to send with the request"
+                },
+                "method": {
+                    "type": "string",
+                    "description": "The HTTP method to use to when making the request"
+                },
+                "path": {
+                    "type": "string",
+                    "description": "The path to send the request to"
+                },
+                "port": {
+                    "type": "integer",
+                    "description": "The port to connect to, often the same as internal_port"
+                },
+                "scheme": {
+                    "$ref": "#/types/fly-machines:apps:FlyHTTPHealthcheckScheme",
+                    "description": "Whether to use http or https"
+                },
+                "tlsServerName": {
+                    "type": "string",
+                    "description": "If the protocol is https, the hostname to use for TLS certificate validation"
+                },
+                "tlsSkipVerify": {
+                    "type": "boolean",
+                    "description": "If the protocol is https, whether or not to verify the TLS certificate"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyHTTPHealthcheckScheme": {
+            "description": "Whether to use http or https",
+            "type": "object"
+        },
+        "fly-machines:apps:FlyHTTPOptions": {
+            "properties": {
+                "compress": {
+                    "type": "boolean"
+                },
+                "h2Backend": {
+                    "type": "boolean"
+                },
+                "headersReadTimeout": {
+                    "type": "integer"
+                },
+                "idleTimeout": {
+                    "type": "integer"
+                },
+                "replayCache": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:FlyReplayCache"
+                    }
+                },
+                "response": {
+                    "$ref": "#/types/fly-machines:apps:FlyHTTPResponseOptions"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyHTTPResponseOptions": {
+            "properties": {
+                "headers": {
+                    "$ref": "pulumi.json#/Any"
+                },
+                "pristine": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyMachineConfig": {
+            "properties": {
+                "autoDestroy": {
+                    "type": "boolean",
+                    "description": "Optional boolean telling the Machine to destroy itself once it’s complete (default false)"
+                },
+                "checks": {
+                    "$ref": "pulumi.json#/Any",
+                    "description": "An optional object that defines one or more named top-level checks. The key for each check is the check name."
+                },
+                "containers": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:FlyContainerConfig"
+                    },
+                    "description": "Containers are a list of containers that will run in the machine. Currently restricted to\nonly specific organizations."
+                },
+                "disableMachineAutostart": {
+                    "type": "boolean",
+                    "description": "Deprecated: use Service.Autostart instead"
+                },
+                "dns": {
+                    "$ref": "#/types/fly-machines:apps:FlyDNSConfig"
+                },
+                "env": {
+                    "$ref": "pulumi.json#/Any",
+                    "description": "An object filled with key/value pairs to be set as environment variables"
+                },
+                "files": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:FlyFile"
+                    }
+                },
+                "guest": {
+                    "$ref": "#/types/fly-machines:apps:FlyMachineGuest"
+                },
+                "image": {
+                    "type": "string",
+                    "description": "The docker image to run"
+                },
+                "init": {
+                    "$ref": "#/types/fly-machines:apps:FlyMachineInit"
+                },
+                "metadata": {
+                    "$ref": "pulumi.json#/Any"
+                },
+                "metrics": {
+                    "$ref": "#/types/fly-machines:apps:FlyMachineMetrics"
+                },
+                "mounts": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:FlyMachineMount"
+                    }
+                },
+                "processes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:FlyMachineProcess"
+                    }
+                },
+                "restart": {
+                    "$ref": "#/types/fly-machines:apps:FlyMachineRestart",
+                    "description": "The Machine restart policy defines whether and how flyd restarts a Machine after its main process exits. See https://fly.io/docs/machines/guides-examples/machine-restart-policy/."
+                },
+                "rootfs": {
+                    "$ref": "#/types/fly-machines:apps:FlyMachineRootfs"
+                },
+                "schedule": {
+                    "type": "string"
+                },
+                "services": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:FlyMachineService"
+                    }
+                },
+                "size": {
+                    "type": "string",
+                    "description": "Deprecated: use Guest instead"
+                },
+                "standbys": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Standbys enable a machine to be a standby for another. In the event of a hardware failure,\nthe standby machine will be started."
+                },
+                "statics": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:FlyStatic"
+                    }
+                },
+                "stopConfig": {
+                    "$ref": "#/types/fly-machines:apps:FlyStopConfig"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyMachineGuest": {
+            "properties": {
+                "cpuKind": {
+                    "type": "string"
+                },
+                "cpus": {
+                    "type": "integer"
+                },
+                "gpuKind": {
+                    "type": "string"
+                },
+                "gpus": {
+                    "type": "integer"
+                },
+                "hostDedicationId": {
+                    "type": "string"
+                },
+                "kernelArgs": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "memoryMb": {
+                    "type": "integer"
+                },
+                "persistRootfs": {
+                    "$ref": "#/types/fly-machines:apps:FlyMachineGuestPersistRootfs",
+                    "description": "Deprecated: use MachineConfig.Rootfs instead"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyMachineGuestPersistRootfs": {
+            "description": "Deprecated: use MachineConfig.Rootfs instead",
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Never",
+                    "value": "never"
+                },
+                {
+                    "name": "Always",
+                    "value": "always"
+                },
+                {
+                    "name": "Restart",
+                    "value": "restart"
+                }
+            ]
+        },
+        "fly-machines:apps:FlyMachineHTTPHeader": {
+            "description": "For http checks, an array of objects with string field Name and array of strings field Values. The key/value pairs specify header and header values that will get passed with the check call.",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "The header name"
+                },
+                "values": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "The header value"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyMachineInit": {
+            "properties": {
+                "cmd": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "entrypoint": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "exec": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "kernelArgs": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "swapSizeMb": {
+                    "type": "integer"
+                },
+                "tty": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyMachineMetrics": {
+            "properties": {
+                "https": {
+                    "type": "boolean"
+                },
+                "path": {
+                    "type": "string"
+                },
+                "port": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyMachineMount": {
+            "properties": {
+                "addSizeGb": {
+                    "type": "integer"
+                },
+                "encrypted": {
+                    "type": "boolean"
+                },
+                "extendThresholdPercent": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "path": {
+                    "type": "string"
+                },
+                "sizeGb": {
+                    "type": "integer"
+                },
+                "sizeGbLimit": {
+                    "type": "integer"
+                },
+                "volume": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyMachinePort": {
+            "properties": {
+                "endPort": {
+                    "type": "integer"
+                },
+                "forceHttps": {
+                    "type": "boolean"
+                },
+                "handlers": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "httpOptions": {
+                    "$ref": "#/types/fly-machines:apps:FlyHTTPOptions"
+                },
+                "port": {
+                    "type": "integer"
+                },
+                "proxyProtoOptions": {
+                    "$ref": "#/types/fly-machines:apps:FlyProxyProtoOptions"
+                },
+                "startPort": {
+                    "type": "integer"
+                },
+                "tlsOptions": {
+                    "$ref": "#/types/fly-machines:apps:FlyTLSOptions"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyMachineProcess": {
+            "properties": {
+                "cmd": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "entrypoint": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "env": {
+                    "$ref": "pulumi.json#/Any"
+                },
+                "envFrom": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:FlyEnvFrom"
+                    },
+                    "description": "EnvFrom can be provided to set environment variables from machine fields."
+                },
+                "exec": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "ignoreAppSecrets": {
+                    "type": "boolean",
+                    "description": "IgnoreAppSecrets can be set to true to ignore the secrets for the App the Machine belongs to\nand only use the secrets provided at the process level. The default/legacy behavior is to use\nthe secrets provided at the App level."
+                },
+                "secrets": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:FlyMachineSecret"
+                    },
+                    "description": "Secrets can be provided at the process level to explicitly indicate which secrets should be\nused for the process. If not provided, the secrets provided at the machine level will be used."
+                },
+                "user": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyMachineRestart": {
+            "description": "The Machine restart policy defines whether and how flyd restarts a Machine after its main process exits. See https://fly.io/docs/machines/guides-examples/machine-restart-policy/.",
+            "properties": {
+                "gpuBidPrice": {
+                    "type": "number",
+                    "description": "GPU bid price for spot Machines."
+                },
+                "maxRetries": {
+                    "type": "integer",
+                    "description": "When policy is on-failure, the maximum number of times to attempt to restart the Machine before letting it stop."
+                },
+                "policy": {
+                    "$ref": "#/types/fly-machines:apps:FlyMachineRestartPolicy",
+                    "description": "* no - Never try to restart a Machine automatically when its main process exits, whether that’s on purpose or on a crash.\n* always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.\n* on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules.\n* spot-price - Starts the Machine only when there is capacity and the spot price is less than or equal to the bid price."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyMachineRestartPolicy": {
+            "description": "* no - Never try to restart a Machine automatically when its main process exits, whether that’s on purpose or on a crash.\n* always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.\n* on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules.\n* spot-price - Starts the Machine only when there is capacity and the spot price is less than or equal to the bid price.",
+            "type": "string",
+            "enum": [
+                {
+                    "name": "No",
+                    "value": "no"
+                },
+                {
+                    "name": "Always",
+                    "value": "always"
+                },
+                {
+                    "name": "OnFailure",
+                    "value": "on-failure"
+                },
+                {
+                    "name": "SpotPrice",
+                    "value": "spot-price"
+                }
+            ]
+        },
+        "fly-machines:apps:FlyMachineRootfs": {
+            "properties": {
+                "fsSizeGb": {
+                    "type": "integer"
+                },
+                "persist": {
+                    "$ref": "#/types/fly-machines:apps:FlyMachineRootfsPersist"
+                },
+                "sizeGb": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyMachineRootfsPersist": {
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Never",
+                    "value": "never"
+                },
+                {
+                    "name": "Always",
+                    "value": "always"
+                },
+                {
+                    "name": "Restart",
+                    "value": "restart"
+                }
+            ]
+        },
+        "fly-machines:apps:FlyMachineSecret": {
+            "description": "A Secret needing to be set in the environment of the Machine. env_var is required",
+            "properties": {
+                "envVar": {
+                    "type": "string",
+                    "description": "EnvVar is required and is the name of the environment variable that will be set from the\nsecret. It must be a valid environment variable name."
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name is optional and when provided is used to reference a secret name where the EnvVar is\ndifferent from what was set as the secret name."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyMachineService": {
+            "properties": {
+                "autostart": {
+                    "type": "boolean"
+                },
+                "autostop": {
+                    "$ref": "#/types/fly-machines:apps:FlyMachineServiceAutostop",
+                    "description": "Accepts a string (new format) or a boolean (old format). For backward compatibility with older clients, the API continues to use booleans for \"off\" and \"stop\" in responses.\n* \"off\" or false - Do not autostop the Machine.\n* \"stop\" or true - Automatically stop the Machine.\n* \"suspend\" - Automatically suspend the Machine, falling back to a full stop if this is not possible."
+                },
+                "checks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:FlyMachineServiceCheck"
+                    },
+                    "description": "An optional list of service checks"
+                },
+                "concurrency": {
+                    "$ref": "#/types/fly-machines:apps:FlyMachineServiceConcurrency"
+                },
+                "forceInstanceDescription": {
+                    "type": "string"
+                },
+                "forceInstanceKey": {
+                    "type": "string"
+                },
+                "internalPort": {
+                    "type": "integer"
+                },
+                "minMachinesRunning": {
+                    "type": "integer"
+                },
+                "ports": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:FlyMachinePort"
+                    }
+                },
+                "protocol": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyMachineServiceAutostop": {
+            "description": "Accepts a string (new format) or a boolean (old format). For backward compatibility with older clients, the API continues to use booleans for \"off\" and \"stop\" in responses.\n* \"off\" or false - Do not autostop the Machine.\n* \"stop\" or true - Automatically stop the Machine.\n* \"suspend\" - Automatically suspend the Machine, falling back to a full stop if this is not possible.",
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Off",
+                    "value": "off"
+                },
+                {
+                    "name": "Stop",
+                    "value": "stop"
+                },
+                {
+                    "name": "Suspend",
+                    "value": "suspend"
+                }
+            ]
+        },
+        "fly-machines:apps:FlyMachineServiceCheck": {
+            "properties": {
+                "gracePeriod": {
+                    "$ref": "#/types/fly-machines:apps:FlyMachineServiceCheckGracePeriod",
+                    "description": "The time to wait after a VM starts before checking its health"
+                },
+                "headers": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:FlyMachineHTTPHeader"
+                    }
+                },
+                "interval": {
+                    "$ref": "#/types/fly-machines:apps:FlyMachineServiceCheckInterval",
+                    "description": "The time between connectivity checks"
+                },
+                "method": {
+                    "type": "string",
+                    "description": "For http checks, the HTTP method to use to when making the request"
+                },
+                "path": {
+                    "type": "string",
+                    "description": "For http checks, the path to send the request to"
+                },
+                "port": {
+                    "type": "integer",
+                    "description": "The port to connect to, often the same as internal_port"
+                },
+                "protocol": {
+                    "type": "string",
+                    "description": "For http checks, whether to use http or https"
+                },
+                "timeout": {
+                    "$ref": "#/types/fly-machines:apps:FlyMachineServiceCheckTimeout",
+                    "description": "The maximum time a connection can take before being reported as failing its health check"
+                },
+                "tlsServerName": {
+                    "type": "string",
+                    "description": "If the protocol is https, the hostname to use for TLS certificate validation"
+                },
+                "tlsSkipVerify": {
+                    "type": "boolean",
+                    "description": "For http checks with https protocol, whether or not to verify the TLS certificate"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "tcp or http"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyMachineServiceCheckGracePeriod": {
+            "description": "The time to wait after a VM starts before checking its health",
+            "properties": {
+                "timeDuration": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyMachineServiceCheckInterval": {
+            "description": "The time between connectivity checks",
+            "properties": {
+                "timeDuration": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyMachineServiceCheckTimeout": {
+            "description": "The maximum time a connection can take before being reported as failing its health check",
+            "properties": {
+                "timeDuration": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyMachineServiceConcurrency": {
+            "properties": {
+                "hardLimit": {
+                    "type": "integer"
+                },
+                "softLimit": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyProxyProtoOptions": {
+            "properties": {
+                "version": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyReplayCache": {
+            "properties": {
+                "allowBypass": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the cookie or header to key the cache on"
+                },
+                "pathPrefix": {
+                    "type": "string"
+                },
+                "ttlSeconds": {
+                    "type": "integer"
+                },
+                "type": {
+                    "$ref": "#/types/fly-machines:apps:FlyReplayCacheType",
+                    "description": "Currently either \"cookie\" or \"header\""
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyReplayCacheType": {
+            "description": "Currently either \"cookie\" or \"header\"",
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Cookie",
+                    "value": "cookie"
+                },
+                {
+                    "name": "Header",
+                    "value": "header"
+                }
+            ]
+        },
+        "fly-machines:apps:FlyStatic": {
+            "properties": {
+                "guestPath": {
+                    "type": "string"
+                },
+                "indexDocument": {
+                    "type": "string"
+                },
+                "tigrisBucket": {
+                    "type": "string"
+                },
+                "urlPrefix": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "required": [
+                "guestPath",
+                "urlPrefix"
+            ]
+        },
+        "fly-machines:apps:FlyStopConfig": {
+            "properties": {
+                "signal": {
+                    "type": "string"
+                },
+                "timeout": {
+                    "$ref": "#/types/fly-machines:apps:FlyDuration"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyTCPHealthcheck": {
+            "properties": {
+                "port": {
+                    "type": "integer",
+                    "description": "The port to connect to, often the same as internal_port"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyTLSOptions": {
+            "properties": {
+                "alpn": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "defaultSelfSigned": {
+                    "type": "boolean"
+                },
+                "versions": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:HostStatus": {
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Ok",
+                    "value": "ok"
+                },
+                {
+                    "name": "Unknown",
+                    "value": "unknown"
+                },
+                {
+                    "name": "Unreachable",
+                    "value": "unreachable"
+                }
+            ]
+        },
+        "fly-machines:apps:IPAssignment": {
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "ip": {
+                    "type": "string"
+                },
+                "region": {
+                    "type": "string"
+                },
+                "serviceName": {
+                    "type": "string"
+                },
+                "shared": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:ImageRef": {
+            "properties": {
+                "digest": {
+                    "type": "string"
+                },
+                "labels": {
+                    "$ref": "pulumi.json#/Any"
+                },
+                "registry": {
+                    "type": "string"
+                },
+                "repository": {
+                    "type": "string"
+                },
+                "tag": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:IssuedCertificate": {
+            "properties": {
+                "certificateAuthority": {
+                    "type": "string"
+                },
+                "expiresAt": {
+                    "type": "string"
+                },
+                "type": {
+                    "$ref": "#/types/fly-machines:apps:IssuedCertificateType"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:IssuedCertificateType": {
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Rsa",
+                    "value": "rsa"
+                },
+                {
+                    "name": "Ecdsa",
+                    "value": "ecdsa"
+                }
+            ]
+        },
+        "fly-machines:apps:Lease": {
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "Description or reason for the Lease."
+                },
+                "expiresAt": {
+                    "type": "integer",
+                    "description": "ExpiresAt is the unix timestamp in UTC to denote when the Lease will no longer be valid."
+                },
+                "nonce": {
+                    "type": "string",
+                    "description": "Nonce is the unique ID autogenerated and associated with the Lease."
+                },
+                "owner": {
+                    "type": "string",
+                    "description": "Owner is the user identifier which acquired the Lease."
+                },
+                "version": {
+                    "type": "string",
+                    "description": "Machine version"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:ListAppsResponse": {
+            "properties": {
+                "apps": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:App"
+                    }
+                },
+                "totalApps": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:ListCertificatesResponse": {
+            "properties": {
+                "certificates": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:CertificateSummary"
+                    }
+                },
+                "nextCursor": {
+                    "type": "string"
+                },
+                "totalCount": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:ListIPAssignmentsResponse": {
+            "properties": {
+                "ips": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:IPAssignment"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:ListenSocket": {
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "proto": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:Machine": {
+            "properties": {
+                "checks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:CheckStatus"
+                    }
+                },
+                "config": {
+                    "$ref": "#/types/fly-machines:apps:FlyMachineConfig"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "events": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:MachineEvent"
+                    }
+                },
+                "hostStatus": {
+                    "$ref": "#/types/fly-machines:apps:MachineHostStatus"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "imageRef": {
+                    "$ref": "#/types/fly-machines:apps:ImageRef"
+                },
+                "incompleteConfig": {
+                    "$ref": "#/types/fly-machines:apps:FlyMachineConfig"
+                },
+                "instanceId": {
+                    "type": "string",
+                    "description": "InstanceID is unique for each version of the machine"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "nonce": {
+                    "type": "string",
+                    "description": "Nonce is only every returned on machine creation if a lease_duration was provided."
+                },
+                "privateIp": {
+                    "type": "string",
+                    "description": "PrivateIP is the internal 6PN address of the machine."
+                },
+                "region": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:MachineEvent": {
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "request": {
+                    "$ref": "pulumi.json#/Any"
+                },
+                "source": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "timestamp": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:MachineHostStatus": {
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Ok",
+                    "value": "ok"
+                },
+                {
+                    "name": "Unknown",
+                    "value": "unknown"
+                },
+                {
+                    "name": "Unreachable",
+                    "value": "unreachable"
+                }
+            ]
+        },
+        "fly-machines:apps:MachineVersion": {
+            "properties": {
+                "userConfig": {
+                    "$ref": "#/types/fly-machines:apps:FlyMachineConfig"
+                },
+                "version": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:MainMemoryResponse": {
+            "properties": {
+                "availableMb": {
+                    "type": "integer"
+                },
+                "limitMb": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:OwnershipVerification": {
+            "properties": {
+                "appValue": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "orgValue": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:ProcessStat": {
+            "properties": {
+                "command": {
+                    "type": "string"
+                },
+                "cpu": {
+                    "type": "integer"
+                },
+                "directory": {
+                    "type": "string"
+                },
+                "listenSockets": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:ListenSocket"
+                    }
+                },
+                "pid": {
+                    "type": "integer"
+                },
+                "rss": {
+                    "type": "integer"
+                },
+                "rtime": {
+                    "type": "integer"
+                },
+                "stime": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:SecretKey": {
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "publicKey": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "type": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:SecretKeys": {
+            "properties": {
+                "secretKeys": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:SecretKey"
+                    },
+                    "language": {
+                        "csharp": {
+                            "name": "SecretKeysValue"
+                        }
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:Signal": {
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Sigabrt",
+                    "value": "SIGABRT"
+                },
+                {
+                    "name": "Sigalrm",
+                    "value": "SIGALRM"
+                },
+                {
+                    "name": "Sigfpe",
+                    "value": "SIGFPE"
+                },
+                {
+                    "name": "Sighup",
+                    "value": "SIGHUP"
+                },
+                {
+                    "name": "Sigill",
+                    "value": "SIGILL"
+                },
+                {
+                    "name": "Sigint",
+                    "value": "SIGINT"
+                },
+                {
+                    "name": "Sigkill",
+                    "value": "SIGKILL"
+                },
+                {
+                    "name": "Sigpipe",
+                    "value": "SIGPIPE"
+                },
+                {
+                    "name": "Sigquit",
+                    "value": "SIGQUIT"
+                },
+                {
+                    "name": "Sigsegv",
+                    "value": "SIGSEGV"
+                },
+                {
+                    "name": "Sigterm",
+                    "value": "SIGTERM"
+                },
+                {
+                    "name": "Sigtrap",
+                    "value": "SIGTRAP"
+                },
+                {
+                    "name": "Sigusr1",
+                    "value": "SIGUSR1"
+                }
+            ]
+        },
+        "fly-machines:apps:Volume": {
+            "properties": {
+                "attachedAllocId": {
+                    "type": "string"
+                },
+                "attachedMachineId": {
+                    "type": "string"
+                },
+                "autoBackupEnabled": {
+                    "type": "boolean"
+                },
+                "blockSize": {
+                    "type": "integer"
+                },
+                "blocks": {
+                    "type": "integer"
+                },
+                "blocksAvail": {
+                    "type": "integer"
+                },
+                "blocksFree": {
+                    "type": "integer"
+                },
+                "bytesTotal": {
+                    "type": "integer"
+                },
+                "bytesUsed": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "encrypted": {
+                    "type": "boolean"
+                },
+                "fstype": {
+                    "type": "string"
+                },
+                "hostStatus": {
+                    "$ref": "#/types/fly-machines:apps:VolumeHostStatus"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "region": {
+                    "type": "string"
+                },
+                "sizeGb": {
+                    "type": "integer"
+                },
+                "snapshotRetention": {
+                    "type": "integer"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "zone": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:VolumeHostStatus": {
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Ok",
+                    "value": "ok"
+                },
+                {
+                    "name": "Unknown",
+                    "value": "unknown"
+                },
+                {
+                    "name": "Unreachable",
+                    "value": "unreachable"
+                }
+            ]
+        },
+        "fly-machines:apps:VolumeSnapshot": {
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "digest": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "retentionDays": {
+                    "type": "integer"
+                },
+                "size": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "volumeSize": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:orgs:OrgMachine": {
+            "properties": {
+                "appId": {
+                    "type": "integer"
+                },
+                "appName": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "instanceId": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "privateIp": {
+                    "type": "string"
+                },
+                "region": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:orgs:OrgMachinesResponse": {
+            "properties": {
+                "lastMachineId": {
+                    "type": "string"
+                },
+                "lastUpdatedAt": {
+                    "type": "string"
+                },
+                "machines": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:orgs:OrgMachine"
+                    }
+                },
+                "nextCursor": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:platform:Compute": {
+            "description": "Resource requirements for the Machine to simulate. Defaults to a performance-1x machine",
+            "properties": {
+                "cpuKind": {
+                    "type": "string"
+                },
+                "cpus": {
+                    "type": "integer"
+                },
+                "gpuKind": {
+                    "type": "string"
+                },
+                "gpus": {
+                    "type": "integer"
+                },
+                "hostDedicationId": {
+                    "type": "string"
+                },
+                "kernelArgs": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "memoryMb": {
+                    "type": "integer"
+                },
+                "persistRootfs": {
+                    "$ref": "#/types/fly-machines:platform:FlyMachineGuestPersistRootfs",
+                    "description": "Deprecated: use MachineConfig.Rootfs instead"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:platform:FlyMachineGuestPersistRootfs": {
+            "description": "Deprecated: use MachineConfig.Rootfs instead",
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Never",
+                    "value": "never"
+                },
+                {
+                    "name": "Always",
+                    "value": "always"
+                },
+                {
+                    "name": "Restart",
+                    "value": "restart"
+                }
+            ]
+        },
+        "fly-machines:platform:MainRegionResponse": {
+            "properties": {
+                "nearest": {
+                    "type": "string"
+                },
+                "regions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:platform:ReadsGetCapacityPerRegionRow"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:platform:PlacementRegionPlacement": {
+            "properties": {
+                "concurrency": {
+                    "type": "integer"
+                },
+                "count": {
+                    "type": "integer"
+                },
+                "region": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:platform:ReadsGetCapacityPerRegionRow": {
+            "properties": {
+                "capacity": {
+                    "type": "integer"
+                },
+                "code": {
+                    "type": "string"
+                },
+                "deprecated": {
+                    "type": "boolean"
+                },
+                "gatewayAvailable": {
+                    "type": "boolean"
+                },
+                "geoRegion": {
+                    "type": "string"
+                },
+                "latitude": {
+                    "type": "number"
+                },
+                "longitude": {
+                    "type": "number"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "requiresPaidPlan": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:platform:Weights": {
+            "description": "Optional weights to override default placement preferences.",
+            "type": "object"
+        },
+        "fly-machines:tokens/v1:CurrentTokenResponse": {
+            "properties": {
+                "tokens": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:tokens/v1:MainTokenInfo"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:tokens/v1:MainTokenInfo": {
+            "properties": {
+                "apps": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "orgSlug": {
+                    "type": "string"
+                },
+                "organization": {
+                    "type": "string"
+                },
+                "restrictedToMachine": {
+                    "type": "string",
+                    "description": "Machine the token is restricted to (FromMachine caveat)"
+                },
+                "sourceMachineId": {
+                    "type": "string",
+                    "description": "Machine making the request"
+                },
+                "tokenId": {
+                    "type": "string"
+                },
+                "user": {
+                    "type": "string",
+                    "description": "User identifier if token is for a user"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "provider": {
+        "description": "The provider type for the FlyMachines package.",
+        "type": "object",
+        "inputProperties": {
+            "apiKey": {
+                "type": "string",
+                "description": "The FlyMachines API key.",
+                "defaultInfo": {
+                    "environment": [
+                        "FLY_MACHINES_APIKEY"
+                    ]
+                },
+                "language": {
+                    "csharp": {
+                        "name": "ApiKey"
+                    }
+                },
+                "secret": true
+            }
+        }
+    },
+    "resources": {
+        "fly-machines:apps:App": {
+            "properties": {
+                "enableSubdomains": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "network": {
+                    "type": "string"
+                },
+                "orgSlug": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "enableSubdomains": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "network": {
+                    "type": "string"
+                },
+                "orgSlug": {
+                    "type": "string"
+                }
+            }
+        },
+        "fly-machines:apps:AppCertificatesAcme": {
+            "properties": {
+                "acmeRequested": {
+                    "type": "boolean"
+                },
+                "certificates": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:CertificateEntry"
+                    }
+                },
+                "configured": {
+                    "type": "boolean"
+                },
+                "dnsProvider": {
+                    "type": "string"
+                },
+                "dnsRequirements": {
+                    "$ref": "#/types/fly-machines:apps:DNSRequirements"
+                },
+                "hostname": {
+                    "type": "string"
+                },
+                "rateLimitedUntil": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "validation": {
+                    "$ref": "#/types/fly-machines:apps:CertificateValidation"
+                },
+                "validationErrors": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:CertificateValidationError"
+                    }
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Fly App Name"
+                },
+                "hostname": {
+                    "type": "string"
+                }
+            }
+        },
+        "fly-machines:apps:AppCertificatesCheck": {
+            "properties": {
+                "acmeRequested": {
+                    "type": "boolean"
+                },
+                "certificates": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:CertificateEntry"
+                    }
+                },
+                "configured": {
+                    "type": "boolean"
+                },
+                "dnsProvider": {
+                    "type": "string"
+                },
+                "dnsRecords": {
+                    "$ref": "#/types/fly-machines:apps:DNSRecords"
+                },
+                "dnsRequirements": {
+                    "$ref": "#/types/fly-machines:apps:DNSRequirements"
+                },
+                "hostname": {
+                    "type": "string"
+                },
+                "rateLimitedUntil": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "validation": {
+                    "$ref": "#/types/fly-machines:apps:CertificateValidation"
+                },
+                "validationErrors": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:CertificateValidationError"
+                    }
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Fly App Name"
+                },
+                "hostname": {
+                    "type": "string",
+                    "description": "Host name of the Fly App"
+                }
+            }
+        },
+        "fly-machines:apps:AppCertificatesCustom": {
+            "properties": {
+                "acmeRequested": {
+                    "type": "boolean"
+                },
+                "certificates": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:CertificateEntry"
+                    }
+                },
+                "configured": {
+                    "type": "boolean"
+                },
+                "dnsProvider": {
+                    "type": "string"
+                },
+                "dnsRequirements": {
+                    "$ref": "#/types/fly-machines:apps:DNSRequirements"
+                },
+                "fullchain": {
+                    "type": "string"
+                },
+                "hostname": {
+                    "type": "string"
+                },
+                "privateKey": {
+                    "type": "string"
+                },
+                "rateLimitedUntil": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "validation": {
+                    "$ref": "#/types/fly-machines:apps:CertificateValidation"
+                },
+                "validationErrors": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:CertificateValidationError"
+                    }
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Fly App Name"
+                },
+                "fullchain": {
+                    "type": "string"
+                },
+                "hostname": {
+                    "type": "string"
+                },
+                "privateKey": {
+                    "type": "string"
+                }
+            }
+        },
+        "fly-machines:apps:AppDeployToken": {
+            "properties": {
+                "expiry": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Fly App Name"
+                },
+                "expiry": {
+                    "type": "string"
+                }
+            }
+        },
+        "fly-machines:apps:AppIPAssignment": {
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "ip": {
+                    "type": "string"
+                },
+                "network": {
+                    "type": "string"
+                },
+                "orgSlug": {
+                    "type": "string"
+                },
+                "region": {
+                    "type": "string"
+                },
+                "serviceName": {
+                    "type": "string"
+                },
+                "shared": {
+                    "type": "boolean"
+                },
+                "type": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Fly App Name"
+                },
+                "network": {
+                    "type": "string"
+                },
+                "orgSlug": {
+                    "type": "string"
+                },
+                "region": {
+                    "type": "string"
+                },
+                "serviceName": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
+        "fly-machines:apps:Machine": {
+            "properties": {
+                "checks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:CheckStatus"
+                    }
+                },
+                "config": {
+                    "$ref": "#/types/fly-machines:apps:FlyMachineConfig"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "events": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:MachineEvent"
+                    }
+                },
+                "hostStatus": {
+                    "$ref": "#/types/fly-machines:apps:HostStatus"
+                },
+                "imageRef": {
+                    "$ref": "#/types/fly-machines:apps:ImageRef"
+                },
+                "incompleteConfig": {
+                    "$ref": "#/types/fly-machines:apps:FlyMachineConfig"
+                },
+                "instanceId": {
+                    "type": "string",
+                    "description": "InstanceID is unique for each version of the machine"
+                },
+                "leaseTtl": {
+                    "type": "integer"
+                },
+                "lsvd": {
+                    "type": "boolean"
+                },
+                "minSecretsVersion": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "nonce": {
+                    "type": "string",
+                    "description": "Nonce is only every returned on machine creation if a lease_duration was provided."
+                },
+                "privateIp": {
+                    "type": "string",
+                    "description": "PrivateIP is the internal 6PN address of the machine."
+                },
+                "region": {
+                    "type": "string"
+                },
+                "skipLaunch": {
+                    "type": "boolean"
+                },
+                "skipSecrets": {
+                    "type": "boolean"
+                },
+                "skipServiceRegistration": {
+                    "type": "boolean"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Fly App Name"
+                },
+                "config": {
+                    "$ref": "#/types/fly-machines:apps:Config",
+                    "description": "An object defining the Machine configuration"
+                },
+                "leaseTtl": {
+                    "type": "integer"
+                },
+                "lsvd": {
+                    "type": "boolean"
+                },
+                "minSecretsVersion": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique name for this Machine. If omitted, one is generated for you"
+                },
+                "region": {
+                    "type": "string",
+                    "description": "The target region. Omitting this param launches in the same region as your WireGuard peer connection (somewhere near you)."
+                },
+                "skipLaunch": {
+                    "type": "boolean"
+                },
+                "skipSecrets": {
+                    "type": "boolean"
+                },
+                "skipServiceRegistration": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "fly-machines:apps:MachinesCordon": {
+            "type": "object",
+            "inputProperties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Fly App Name"
+                },
+                "machineId": {
+                    "type": "string",
+                    "description": "Machine ID"
+                }
+            }
+        },
+        "fly-machines:apps:MachinesExec": {
+            "properties": {
+                "cmd": {
+                    "type": "string",
+                    "description": "Deprecated: use Command instead"
+                },
+                "command": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "container": {
+                    "type": "string"
+                },
+                "exitCode": {
+                    "type": "integer"
+                },
+                "exitSignal": {
+                    "type": "integer"
+                },
+                "stderr": {
+                    "type": "string"
+                },
+                "stdin": {
+                    "type": "string"
+                },
+                "stdout": {
+                    "type": "string"
+                },
+                "timeout": {
+                    "type": "integer"
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Fly App Name"
+                },
+                "cmd": {
+                    "type": "string",
+                    "description": "Deprecated: use Command instead"
+                },
+                "command": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "container": {
+                    "type": "string"
+                },
+                "machineId": {
+                    "type": "string",
+                    "description": "Machine ID"
+                },
+                "stdin": {
+                    "type": "string"
+                },
+                "timeout": {
+                    "type": "integer"
+                }
+            }
+        },
+        "fly-machines:apps:MachinesLease": {
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "Description or reason for the Lease."
+                },
+                "expiresAt": {
+                    "type": "integer",
+                    "description": "ExpiresAt is the unix timestamp in UTC to denote when the Lease will no longer be valid."
+                },
+                "nonce": {
+                    "type": "string",
+                    "description": "Nonce is the unique ID autogenerated and associated with the Lease."
+                },
+                "owner": {
+                    "type": "string",
+                    "description": "Owner is the user identifier which acquired the Lease."
+                },
+                "ttl": {
+                    "type": "integer",
+                    "description": "seconds lease will be valid"
+                },
+                "version": {
+                    "type": "string",
+                    "description": "Machine version"
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Fly App Name"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "machineId": {
+                    "type": "string",
+                    "description": "Machine ID"
+                },
+                "ttl": {
+                    "type": "integer",
+                    "description": "seconds lease will be valid"
+                }
+            }
+        },
+        "fly-machines:apps:MachinesMemoryLimit": {
+            "properties": {
+                "availableMb": {
+                    "type": "integer"
+                },
+                "limitMb": {
+                    "type": "integer"
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Fly App Name"
+                },
+                "limitMb": {
+                    "type": "integer"
+                },
+                "machineId": {
+                    "type": "string",
+                    "description": "Machine ID"
+                }
+            }
+        },
+        "fly-machines:apps:MachinesReclaimMemory": {
+            "properties": {
+                "actualMb": {
+                    "type": "integer"
+                },
+                "amountMb": {
+                    "type": "integer"
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "amountMb": {
+                    "type": "integer"
+                },
+                "appName": {
+                    "type": "string",
+                    "description": "Fly App Name"
+                },
+                "machineId": {
+                    "type": "string",
+                    "description": "Machine ID"
+                }
+            }
+        },
+        "fly-machines:apps:MachinesRestart": {
+            "type": "object",
+            "inputProperties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Fly App Name"
+                },
+                "machineId": {
+                    "type": "string",
+                    "description": "Machine ID"
+                }
+            }
+        },
+        "fly-machines:apps:MachinesSignal": {
+            "properties": {
+                "signal": {
+                    "$ref": "#/types/fly-machines:apps:Signal"
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Fly App Name"
+                },
+                "machineId": {
+                    "type": "string",
+                    "description": "Machine ID"
+                },
+                "signal": {
+                    "$ref": "#/types/fly-machines:apps:Signal"
+                }
+            }
+        },
+        "fly-machines:apps:MachinesStart": {
+            "type": "object",
+            "inputProperties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Fly App Name"
+                },
+                "machineId": {
+                    "type": "string",
+                    "description": "Machine ID"
+                }
+            }
+        },
+        "fly-machines:apps:MachinesStop": {
+            "properties": {
+                "signal": {
+                    "type": "string"
+                },
+                "timeout": {
+                    "$ref": "#/types/fly-machines:apps:FlyDuration"
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Fly App Name"
+                },
+                "machineId": {
+                    "type": "string",
+                    "description": "Machine ID"
+                },
+                "signal": {
+                    "type": "string"
+                },
+                "timeout": {
+                    "$ref": "#/types/fly-machines:apps:FlyDuration"
+                }
+            }
+        },
+        "fly-machines:apps:MachinesSuspend": {
+            "type": "object",
+            "inputProperties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Fly App Name"
+                },
+                "machineId": {
+                    "type": "string",
+                    "description": "Machine ID"
+                }
+            }
+        },
+        "fly-machines:apps:MachinesUncordon": {
+            "type": "object",
+            "inputProperties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Fly App Name"
+                },
+                "machineId": {
+                    "type": "string",
+                    "description": "Machine ID"
+                }
+            }
+        },
+        "fly-machines:apps:MachinesUpdate": {
+            "properties": {
+                "checks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:CheckStatus"
+                    }
+                },
+                "config": {
+                    "$ref": "#/types/fly-machines:apps:FlyMachineConfig"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "currentVersion": {
+                    "type": "string"
+                },
+                "events": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:MachineEvent"
+                    }
+                },
+                "hostStatus": {
+                    "$ref": "#/types/fly-machines:apps:HostStatus"
+                },
+                "imageRef": {
+                    "$ref": "#/types/fly-machines:apps:ImageRef"
+                },
+                "incompleteConfig": {
+                    "$ref": "#/types/fly-machines:apps:FlyMachineConfig"
+                },
+                "instanceId": {
+                    "type": "string",
+                    "description": "InstanceID is unique for each version of the machine"
+                },
+                "leaseTtl": {
+                    "type": "integer"
+                },
+                "lsvd": {
+                    "type": "boolean"
+                },
+                "minSecretsVersion": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "nonce": {
+                    "type": "string",
+                    "description": "Nonce is only every returned on machine creation if a lease_duration was provided."
+                },
+                "privateIp": {
+                    "type": "string",
+                    "description": "PrivateIP is the internal 6PN address of the machine."
+                },
+                "region": {
+                    "type": "string"
+                },
+                "skipLaunch": {
+                    "type": "boolean"
+                },
+                "skipSecrets": {
+                    "type": "boolean"
+                },
+                "skipServiceRegistration": {
+                    "type": "boolean"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Fly App Name"
+                },
+                "config": {
+                    "$ref": "#/types/fly-machines:apps:Config",
+                    "description": "An object defining the Machine configuration"
+                },
+                "currentVersion": {
+                    "type": "string"
+                },
+                "leaseTtl": {
+                    "type": "integer"
+                },
+                "lsvd": {
+                    "type": "boolean"
+                },
+                "machineId": {
+                    "type": "string",
+                    "description": "Machine ID"
+                },
+                "minSecretsVersion": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique name for this Machine. If omitted, one is generated for you"
+                },
+                "region": {
+                    "type": "string",
+                    "description": "The target region. Omitting this param launches in the same region as your WireGuard peer connection (somewhere near you)."
+                },
+                "skipLaunch": {
+                    "type": "boolean"
+                },
+                "skipSecrets": {
+                    "type": "boolean"
+                },
+                "skipServiceRegistration": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "fly-machines:apps:MachinesUpdateMetadata": {
+            "properties": {
+                "value": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Fly App Name"
+                },
+                "key": {
+                    "type": "string",
+                    "description": "Metadata Key"
+                },
+                "machineId": {
+                    "type": "string",
+                    "description": "Machine ID"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "fly-machines:apps:Secret": {
+            "properties": {
+                "Version": {
+                    "type": "integer",
+                    "description": "DEPRECATED"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "digest": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "integer"
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Fly App Name"
+                },
+                "secretName": {
+                    "type": "string",
+                    "description": "App secret name"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "fly-machines:apps:Secretkey": {
+            "properties": {
+                "Version": {
+                    "type": "integer",
+                    "description": "DEPRECATED"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "publicKey": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "type": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "version": {
+                    "type": "integer"
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Fly App Name"
+                },
+                "secretName": {
+                    "type": "string",
+                    "description": "Secret key name"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "fly-machines:apps:SecretkeyDecrypt": {
+            "properties": {
+                "associatedData": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "ciphertext": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "plaintext": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Fly App Name"
+                },
+                "associatedData": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "ciphertext": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "secretName": {
+                    "type": "string",
+                    "description": "Secret key name"
+                }
+            }
+        },
+        "fly-machines:apps:SecretkeyEncrypt": {
+            "properties": {
+                "associatedData": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "ciphertext": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "plaintext": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Fly App Name"
+                },
+                "associatedData": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "plaintext": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "secretName": {
+                    "type": "string",
+                    "description": "Secret key name"
+                }
+            }
+        },
+        "fly-machines:apps:SecretkeyGenerate": {
+            "properties": {
+                "Version": {
+                    "type": "integer",
+                    "description": "DEPRECATED"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "publicKey": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "type": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "version": {
+                    "type": "integer"
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Fly App Name"
+                },
+                "secretName": {
+                    "type": "string",
+                    "description": "Secret key name"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "fly-machines:apps:SecretkeySign": {
+            "properties": {
+                "plaintext": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "signature": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Fly App Name"
+                },
+                "plaintext": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "secretName": {
+                    "type": "string",
+                    "description": "Secret key name"
+                }
+            }
+        },
+        "fly-machines:apps:SecretkeyVerify": {
+            "properties": {
+                "plaintext": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "signature": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Fly App Name"
+                },
+                "plaintext": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "secretName": {
+                    "type": "string",
+                    "description": "Secret key name"
+                },
+                "signature": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "fly-machines:apps:SecretsUpdate": {
+            "properties": {
+                "Version": {
+                    "type": "integer",
+                    "description": "DEPRECATED"
+                },
+                "secrets": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:AppSecret"
+                    }
+                },
+                "values": {
+                    "$ref": "pulumi.json#/Any"
+                },
+                "version": {
+                    "type": "integer"
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Fly App Name"
+                },
+                "values": {
+                    "$ref": "pulumi.json#/Any"
+                }
+            }
+        },
+        "fly-machines:apps:Volume": {
+            "properties": {
+                "attachedAllocId": {
+                    "type": "string"
+                },
+                "attachedMachineId": {
+                    "type": "string"
+                },
+                "autoBackupEnabled": {
+                    "type": "boolean"
+                },
+                "blockSize": {
+                    "type": "integer"
+                },
+                "blocks": {
+                    "type": "integer"
+                },
+                "blocksAvail": {
+                    "type": "integer"
+                },
+                "blocksFree": {
+                    "type": "integer"
+                },
+                "bytesTotal": {
+                    "type": "integer"
+                },
+                "bytesUsed": {
+                    "type": "integer"
+                },
+                "compute": {
+                    "$ref": "#/types/fly-machines:apps:FlyMachineGuest"
+                },
+                "computeImage": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "encrypted": {
+                    "type": "boolean"
+                },
+                "fstype": {
+                    "type": "string"
+                },
+                "hostStatus": {
+                    "$ref": "#/types/fly-machines:apps:HostStatus"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "region": {
+                    "type": "string"
+                },
+                "requireUniqueZone": {
+                    "type": "boolean"
+                },
+                "sizeGb": {
+                    "type": "integer"
+                },
+                "snapshotId": {
+                    "type": "string",
+                    "description": "restore from snapshot"
+                },
+                "snapshotRetention": {
+                    "type": "integer"
+                },
+                "sourceVolumeId": {
+                    "type": "string",
+                    "description": "fork from remote volume"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "uniqueZoneAppWide": {
+                    "type": "boolean"
+                },
+                "zone": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Fly App Name"
+                },
+                "autoBackupEnabled": {
+                    "type": "boolean",
+                    "description": "enable scheduled automatic snapshots. Defaults to `true`"
+                },
+                "compute": {
+                    "$ref": "#/types/fly-machines:apps:FlyMachineGuest"
+                },
+                "computeImage": {
+                    "type": "string"
+                },
+                "encrypted": {
+                    "type": "boolean"
+                },
+                "fstype": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "region": {
+                    "type": "string"
+                },
+                "requireUniqueZone": {
+                    "type": "boolean"
+                },
+                "sizeGb": {
+                    "type": "integer"
+                },
+                "snapshotId": {
+                    "type": "string",
+                    "description": "restore from snapshot"
+                },
+                "snapshotRetention": {
+                    "type": "integer"
+                },
+                "sourceVolumeId": {
+                    "type": "string",
+                    "description": "fork from remote volume"
+                },
+                "uniqueZoneAppWide": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "fly-machines:apps:VolumeSnapshot": {
+            "type": "object",
+            "inputProperties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Fly App Name"
+                },
+                "volumeId": {
+                    "type": "string",
+                    "description": "Volume ID"
+                }
+            }
+        },
+        "fly-machines:apps:VolumesExtend": {
+            "properties": {
+                "needsRestart": {
+                    "type": "boolean"
+                },
+                "sizeGb": {
+                    "type": "integer"
+                },
+                "volume": {
+                    "$ref": "#/types/fly-machines:apps:Volume"
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Fly App Name"
+                },
+                "sizeGb": {
+                    "type": "integer"
+                },
+                "volumeId": {
+                    "type": "string",
+                    "description": "Volume ID"
+                }
+            }
+        },
+        "fly-machines:platform:PlatformPlacement": {
+            "properties": {
+                "compute": {
+                    "$ref": "#/types/fly-machines:platform:Compute",
+                    "description": "Resource requirements for the Machine to simulate. Defaults to a performance-1x machine"
+                },
+                "count": {
+                    "type": "integer",
+                    "description": "Number of machines to simulate placement.\nDefaults to 0, which returns the org-specific limit for each region."
+                },
+                "orgSlug": {
+                    "type": "string"
+                },
+                "region": {
+                    "type": "string",
+                    "description": "Region expression for placement as a comma-delimited set of regions or aliases.\nDefaults to \"[region],any\", to prefer the API endpoint's local region with any other region as fallback."
+                },
+                "regions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:platform:PlacementRegionPlacement"
+                    }
+                },
+                "volumeName": {
+                    "type": "string"
+                },
+                "volumeSizeBytes": {
+                    "type": "integer"
+                },
+                "weights": {
+                    "$ref": "#/types/fly-machines:platform:Weights",
+                    "description": "Optional weights to override default placement preferences."
+                }
+            },
+            "type": "object",
+            "required": [
+                "orgSlug"
+            ],
+            "inputProperties": {
+                "compute": {
+                    "$ref": "#/types/fly-machines:platform:Compute",
+                    "description": "Resource requirements for the Machine to simulate. Defaults to a performance-1x machine"
+                },
+                "count": {
+                    "type": "integer",
+                    "description": "Number of machines to simulate placement.\nDefaults to 0, which returns the org-specific limit for each region."
+                },
+                "orgSlug": {
+                    "type": "string"
+                },
+                "region": {
+                    "type": "string",
+                    "description": "Region expression for placement as a comma-delimited set of regions or aliases.\nDefaults to \"[region],any\", to prefer the API endpoint's local region with any other region as fallback."
+                },
+                "volumeName": {
+                    "type": "string"
+                },
+                "volumeSizeBytes": {
+                    "type": "integer"
+                },
+                "weights": {
+                    "$ref": "#/types/fly-machines:platform:Weights",
+                    "description": "Optional weights to override default placement preferences."
+                }
+            },
+            "requiredInputs": [
+                "orgSlug"
+            ]
+        },
+        "fly-machines:tokens:TokensRequestKm": {
+            "type": "object"
+        },
+        "fly-machines:tokens:TokensRequestOidc": {
+            "description": "Optional parameters",
+            "properties": {
+                "aud": {
+                    "type": "string"
+                },
+                "awsPrincipalTags": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "aud": {
+                    "type": "string"
+                },
+                "awsPrincipalTags": {
+                    "type": "boolean"
+                }
+            }
+        }
+    },
+    "functions": {
+        "fly-machines:apps:getAppCertificatesShow": {
+            "inputs": {
+                "properties": {
+                    "appName": {
+                        "type": "string",
+                        "description": "Fly App Name"
+                    },
+                    "hostname": {
+                        "type": "string",
+                        "description": "Host name of the Fly App"
+                    }
+                },
+                "required": [
+                    "appName",
+                    "hostname"
+                ]
+            },
+            "outputs": {
+                "$ref": "#/types/fly-machines:apps:CertificateDetail"
+            }
+        },
+        "fly-machines:apps:getAppsShow": {
+            "inputs": {
+                "properties": {
+                    "appName": {
+                        "type": "string",
+                        "description": "Fly App Name"
+                    }
+                },
+                "required": [
+                    "appName"
+                ]
+            },
+            "outputs": {
+                "$ref": "#/types/fly-machines:apps:App"
+            }
+        },
+        "fly-machines:apps:getMachinesMemory": {
+            "inputs": {
+                "properties": {
+                    "appName": {
+                        "type": "string",
+                        "description": "Fly App Name"
+                    },
+                    "machineId": {
+                        "type": "string",
+                        "description": "Machine ID"
+                    }
+                },
+                "required": [
+                    "appName",
+                    "machineId"
+                ]
+            },
+            "outputs": {
+                "$ref": "#/types/fly-machines:apps:MainMemoryResponse"
+            }
+        },
+        "fly-machines:apps:getMachinesShow": {
+            "inputs": {
+                "properties": {
+                    "appName": {
+                        "type": "string",
+                        "description": "Fly App Name"
+                    },
+                    "machineId": {
+                        "type": "string",
+                        "description": "Machine ID"
+                    }
+                },
+                "required": [
+                    "appName",
+                    "machineId"
+                ]
+            },
+            "outputs": {
+                "$ref": "#/types/fly-machines:apps:Machine"
+            }
+        },
+        "fly-machines:apps:getMachinesShowLease": {
+            "inputs": {
+                "properties": {
+                    "appName": {
+                        "type": "string",
+                        "description": "Fly App Name"
+                    },
+                    "machineId": {
+                        "type": "string",
+                        "description": "Machine ID"
+                    }
+                },
+                "required": [
+                    "appName",
+                    "machineId"
+                ]
+            },
+            "outputs": {
+                "$ref": "#/types/fly-machines:apps:Lease"
+            }
+        },
+        "fly-machines:apps:getMachinesShowMetadata": {
+            "inputs": {
+                "properties": {
+                    "appName": {
+                        "type": "string",
+                        "description": "Fly App Name"
+                    },
+                    "machineId": {
+                        "type": "string",
+                        "description": "Machine ID"
+                    }
+                },
+                "required": [
+                    "appName",
+                    "machineId"
+                ]
+            },
+            "outputs": {
+                "$ref": "pulumi.json#/Any"
+            }
+        },
+        "fly-machines:apps:getMachinesWait": {
+            "inputs": {
+                "properties": {
+                    "appName": {
+                        "type": "string",
+                        "description": "Fly App Name"
+                    },
+                    "machineId": {
+                        "type": "string",
+                        "description": "Machine ID"
+                    }
+                },
+                "required": [
+                    "appName",
+                    "machineId"
+                ]
+            }
+        },
+        "fly-machines:apps:getSecret": {
+            "inputs": {
+                "properties": {
+                    "appName": {
+                        "type": "string",
+                        "description": "Fly App Name"
+                    },
+                    "secretName": {
+                        "type": "string",
+                        "description": "App secret name"
+                    }
+                },
+                "required": [
+                    "appName",
+                    "secretName"
+                ]
+            },
+            "outputs": {
+                "$ref": "#/types/fly-machines:apps:AppSecret"
+            }
+        },
+        "fly-machines:apps:getSecretkey": {
+            "inputs": {
+                "properties": {
+                    "appName": {
+                        "type": "string",
+                        "description": "Fly App Name"
+                    },
+                    "secretName": {
+                        "type": "string",
+                        "description": "Secret key name"
+                    }
+                },
+                "required": [
+                    "appName",
+                    "secretName"
+                ]
+            },
+            "outputs": {
+                "$ref": "#/types/fly-machines:apps:SecretKey"
+            }
+        },
+        "fly-machines:apps:getVolumesById": {
+            "inputs": {
+                "properties": {
+                    "appName": {
+                        "type": "string",
+                        "description": "Fly App Name"
+                    },
+                    "volumeId": {
+                        "type": "string",
+                        "description": "Volume ID"
+                    }
+                },
+                "required": [
+                    "appName",
+                    "volumeId"
+                ]
+            },
+            "outputs": {
+                "$ref": "#/types/fly-machines:apps:Volume"
+            }
+        },
+        "fly-machines:apps:listAppCertificates": {
+            "inputs": {
+                "properties": {
+                    "appName": {
+                        "type": "string",
+                        "description": "Fly App Name"
+                    }
+                },
+                "required": [
+                    "appName"
+                ]
+            },
+            "outputs": {
+                "$ref": "#/types/fly-machines:apps:ListCertificatesResponse"
+            }
+        },
+        "fly-machines:apps:listAppIPAssignments": {
+            "inputs": {
+                "properties": {
+                    "appName": {
+                        "type": "string",
+                        "description": "Fly App Name"
+                    }
+                },
+                "required": [
+                    "appName"
+                ]
+            },
+            "outputs": {
+                "$ref": "#/types/fly-machines:apps:ListIPAssignmentsResponse"
+            }
+        },
+        "fly-machines:apps:listApps": {
+            "inputs": {},
+            "outputs": {
+                "$ref": "#/types/fly-machines:apps:ListAppsResponse"
+            }
+        },
+        "fly-machines:apps:listMachines": {
+            "inputs": {
+                "properties": {
+                    "appName": {
+                        "type": "string",
+                        "description": "Fly App Name"
+                    }
+                },
+                "required": [
+                    "appName"
+                ]
+            },
+            "outputs": {
+                "properties": {
+                    "items": {
+                        "items": {
+                            "$ref": "#/types/fly-machines:apps:Machine"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "items"
+                ]
+            }
+        },
+        "fly-machines:apps:listMachinesEvents": {
+            "inputs": {
+                "properties": {
+                    "appName": {
+                        "type": "string",
+                        "description": "Fly App Name"
+                    },
+                    "machineId": {
+                        "type": "string",
+                        "description": "Machine ID"
+                    }
+                },
+                "required": [
+                    "appName",
+                    "machineId"
+                ]
+            },
+            "outputs": {
+                "properties": {
+                    "items": {
+                        "items": {
+                            "$ref": "#/types/fly-machines:apps:MachineEvent"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "items"
+                ]
+            }
+        },
+        "fly-machines:apps:listMachinesProcesses": {
+            "inputs": {
+                "properties": {
+                    "appName": {
+                        "type": "string",
+                        "description": "Fly App Name"
+                    },
+                    "machineId": {
+                        "type": "string",
+                        "description": "Machine ID"
+                    }
+                },
+                "required": [
+                    "appName",
+                    "machineId"
+                ]
+            },
+            "outputs": {
+                "properties": {
+                    "items": {
+                        "items": {
+                            "$ref": "#/types/fly-machines:apps:ProcessStat"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "items"
+                ]
+            }
+        },
+        "fly-machines:apps:listMachinesVersions": {
+            "inputs": {
+                "properties": {
+                    "appName": {
+                        "type": "string",
+                        "description": "Fly App Name"
+                    },
+                    "machineId": {
+                        "type": "string",
+                        "description": "Machine ID"
+                    }
+                },
+                "required": [
+                    "appName",
+                    "machineId"
+                ]
+            },
+            "outputs": {
+                "properties": {
+                    "items": {
+                        "items": {
+                            "$ref": "#/types/fly-machines:apps:MachineVersion"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "items"
+                ]
+            }
+        },
+        "fly-machines:apps:listSecretkeys": {
+            "inputs": {
+                "properties": {
+                    "appName": {
+                        "type": "string",
+                        "description": "Fly App Name"
+                    }
+                },
+                "required": [
+                    "appName"
+                ]
+            },
+            "outputs": {
+                "$ref": "#/types/fly-machines:apps:SecretKeys"
+            }
+        },
+        "fly-machines:apps:listSecrets": {
+            "inputs": {
+                "properties": {
+                    "appName": {
+                        "type": "string",
+                        "description": "Fly App Name"
+                    }
+                },
+                "required": [
+                    "appName"
+                ]
+            },
+            "outputs": {
+                "$ref": "#/types/fly-machines:apps:AppSecrets"
+            }
+        },
+        "fly-machines:apps:listVolumes": {
+            "inputs": {
+                "properties": {
+                    "appName": {
+                        "type": "string",
+                        "description": "Fly App Name"
+                    }
+                },
+                "required": [
+                    "appName"
+                ]
+            },
+            "outputs": {
+                "properties": {
+                    "items": {
+                        "items": {
+                            "$ref": "#/types/fly-machines:apps:Volume"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "items"
+                ]
+            }
+        },
+        "fly-machines:apps:listVolumesSnapshots": {
+            "inputs": {
+                "properties": {
+                    "appName": {
+                        "type": "string",
+                        "description": "Fly App Name"
+                    },
+                    "volumeId": {
+                        "type": "string",
+                        "description": "Volume ID"
+                    }
+                },
+                "required": [
+                    "appName",
+                    "volumeId"
+                ]
+            },
+            "outputs": {
+                "properties": {
+                    "items": {
+                        "items": {
+                            "$ref": "#/types/fly-machines:apps:VolumeSnapshot"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "items"
+                ]
+            }
+        },
+        "fly-machines:orgs:listMachinesOrg": {
+            "inputs": {
+                "properties": {
+                    "orgSlug": {
+                        "type": "string",
+                        "description": "Fly Organization Slug"
+                    }
+                },
+                "required": [
+                    "orgSlug"
+                ]
+            },
+            "outputs": {
+                "$ref": "#/types/fly-machines:orgs:OrgMachinesResponse"
+            }
+        },
+        "fly-machines:platform:getPlatformRegion": {
+            "inputs": {},
+            "outputs": {
+                "$ref": "#/types/fly-machines:platform:MainRegionResponse"
+            }
+        },
+        "fly-machines:tokens/v1:getCurrentTokenShow": {
+            "inputs": {},
+            "outputs": {
+                "$ref": "#/types/fly-machines:tokens/v1:CurrentTokenResponse"
+            }
+        }
+    }
+}
