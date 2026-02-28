@@ -5,7 +5,6 @@ on:
       - v*.*.*
       - "!v*.*.*-**"
 env:
-  GOLANG_CI_LINT_VERSION: v1.55.2
   PROVIDER: "fly-machines"
   NPM_TOKEN: ${{ secrets.NPM_AUTOMATION_TOKEN }}
   PUBLISH_NPM: true
@@ -26,15 +25,20 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v6
 
+      - run: source ./.github/scripts/lang-runtime-versions.sh
+
       - name: Install Go
         uses: actions/setup-go@v6
         with:
-          go-version: 1.21.x
+          go-version: ${{ env.GO_VERSION }}
 
-      - name: Lint
-        run: |
-          curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin $GOLANG_CI_LINT_VERSION
-          make lint
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v9
+        with:
+          # Use a commit hash from https://github.com/golangci/golangci-lint/commits/main.
+          version: 2e484ee1089a13d51500f5d1961c1313cbea8ffe
+          install-mode: goinstall
+          args: --config=.golangci.yml --timeout=10m
 
       - name: Test
         run: make test
@@ -50,10 +54,12 @@ jobs:
       - name: Unshallow clone for tags
         run: git fetch --prune --unshallow --tags
 
+      - run: source ./.github/scripts/lang-runtime-versions.sh
+
       - name: Install Go
         uses: actions/setup-go@v6
         with:
-          go-version: 1.21.x
+          go-version: ${{ env.GO_VERSION }}
 
       - name: Install pulumictl
         uses: jaxxstorm/action-install-gh-release@v2.1.0
@@ -93,10 +99,28 @@ jobs:
       - name: Unshallow clone for tags
         run: git fetch --prune --unshallow --tags
 
+      - run: source ./.github/scripts/lang-runtime-versions.sh
+
       - name: Install Go
         uses: actions/setup-go@v6
         with:
-          go-version: ${{ matrix.goversion }}
+          go-version: ${{ env.GO_VERSION }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          registry-url: ${{env.NPM_REGISTRY_URL}}
+
+      - name: Setup DotNet
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
 
       - name: Install pulumictl
         uses: jaxxstorm/action-install-gh-release@v2.1.0
@@ -108,22 +132,6 @@ jobs:
 
       - name: Install Pulumi CLI
         uses: pulumi/action-install-pulumi-cli@v2.0.0
-
-      - name: Setup Node
-        uses: actions/setup-node@v6
-        with:
-          node-version: ${{matrix.nodeversion}}
-          registry-url: ${{env.NPM_REGISTRY_URL}}
-
-      - name: Setup DotNet
-        uses: actions/setup-dotnet@v5
-        with:
-          dotnet-version: ${{matrix.dotnetversion}}
-
-      - name: Setup Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: ${{matrix.pythonversion}}
 
       - name: Generate SDK
         run: make gen ${{ matrix.language }}_sdk
@@ -170,16 +178,8 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        dotnetversion:
-          - 6.x
-        goversion:
-          - 1.21.x
         language:
           - nodejs
           - python
           - dotnet
           - go
-        nodeversion:
-          - 20.x
-        pythonversion:
-          - 3.11
