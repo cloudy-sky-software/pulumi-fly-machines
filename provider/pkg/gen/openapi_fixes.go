@@ -99,11 +99,38 @@ func fixIPAssignmentEndpoints(openAPIDoc *openapi3.T) {
 	addMissingPathParams(pathItem, appNameParam(), ipParam())
 }
 
+func fixMachineMetadataEndpoint(openAPIDoc *openapi3.T) {
+	// PATCH /apps/{app_name}/machines/{machine_id}/metadata is missing a request body.
+	// It should accept a map of strings.
+	pathItem := openAPIDoc.Paths.Find("/apps/{app_name}/machines/{machine_id}/metadata")
+	contract.Assertf(pathItem != nil, "Expected to find request path /apps/{app_name}/machines/{machine_id}/metadata")
+	contract.Assertf(pathItem.Patch != nil, "Expected PATCH operation on /apps/{app_name}/machines/{machine_id}/metadata")
+
+	pathItem.Patch.RequestBody = &openapi3.RequestBodyRef{
+		Value: openapi3.NewRequestBody().
+			WithJSONSchema(openapi3.NewObjectSchema().
+				WithAdditionalProperties(openapi3.NewStringSchema())),
+	}
+
+	// POST /apps/{app_name}/machines/{machine_id}/metadata/{key} is missing a request body.
+	// It should accept an object with a single "value" property of type string.
+	keyPathItem := openAPIDoc.Paths.Find("/apps/{app_name}/machines/{machine_id}/metadata/{key}")
+	contract.Assertf(keyPathItem != nil, "Expected to find request path /apps/{app_name}/machines/{machine_id}/metadata/{key}")
+	contract.Assertf(keyPathItem.Post != nil, "Expected POST operation on /apps/{app_name}/machines/{machine_id}/metadata/{key}")
+
+	keyPathItem.Post.RequestBody = &openapi3.RequestBodyRef{
+		Value: openapi3.NewRequestBody().
+			WithJSONSchema(openapi3.NewObjectSchema().
+				WithProperty("value", openapi3.NewStringSchema())),
+	}
+}
+
 // FixOpenAPIDoc applies patches to the raw OpenAPI spec
 // before passing it to pulschema.
 func FixOpenAPIDoc(openAPIDoc *openapi3.T) error {
 	fixCertificateEndpoints(openAPIDoc)
 	fixIPAssignmentEndpoints(openAPIDoc)
+	fixMachineMetadataEndpoint(openAPIDoc)
 
 	return nil
 }
