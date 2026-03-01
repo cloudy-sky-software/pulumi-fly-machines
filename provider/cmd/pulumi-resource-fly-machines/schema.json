@@ -3752,7 +3752,23 @@
         }
     },
     "functions": {
-        "fly-machines:apps:getAppCertificatesShow": {
+        "fly-machines:apps:getApp": {
+            "inputs": {
+                "properties": {
+                    "appName": {
+                        "type": "string",
+                        "description": "Fly App Name"
+                    }
+                },
+                "required": [
+                    "appName"
+                ]
+            },
+            "outputs": {
+                "$ref": "#/types/fly-machines:apps:App"
+            }
+        },
+        "fly-machines:apps:getAppCertificate": {
             "inputs": {
                 "properties": {
                     "appName": {
@@ -3773,20 +3789,46 @@
                 "$ref": "#/types/fly-machines:apps:CertificateDetail"
             }
         },
-        "fly-machines:apps:getAppsShow": {
+        "fly-machines:apps:getMachine": {
             "inputs": {
                 "properties": {
                     "appName": {
                         "type": "string",
                         "description": "Fly App Name"
+                    },
+                    "machineId": {
+                        "type": "string",
+                        "description": "Machine ID"
                     }
                 },
                 "required": [
-                    "appName"
+                    "appName",
+                    "machineId"
                 ]
             },
             "outputs": {
-                "$ref": "#/types/fly-machines:apps:App"
+                "$ref": "#/types/fly-machines:apps:Machine"
+            }
+        },
+        "fly-machines:apps:getMachinesLease": {
+            "inputs": {
+                "properties": {
+                    "appName": {
+                        "type": "string",
+                        "description": "Fly App Name"
+                    },
+                    "machineId": {
+                        "type": "string",
+                        "description": "Machine ID"
+                    }
+                },
+                "required": [
+                    "appName",
+                    "machineId"
+                ]
+            },
+            "outputs": {
+                "$ref": "#/types/fly-machines:apps:Lease"
             }
         },
         "fly-machines:apps:getMachinesMemory": {
@@ -3810,49 +3852,7 @@
                 "$ref": "#/types/fly-machines:apps:MainMemoryResponse"
             }
         },
-        "fly-machines:apps:getMachinesShow": {
-            "inputs": {
-                "properties": {
-                    "appName": {
-                        "type": "string",
-                        "description": "Fly App Name"
-                    },
-                    "machineId": {
-                        "type": "string",
-                        "description": "Machine ID"
-                    }
-                },
-                "required": [
-                    "appName",
-                    "machineId"
-                ]
-            },
-            "outputs": {
-                "$ref": "#/types/fly-machines:apps:Machine"
-            }
-        },
-        "fly-machines:apps:getMachinesShowLease": {
-            "inputs": {
-                "properties": {
-                    "appName": {
-                        "type": "string",
-                        "description": "Fly App Name"
-                    },
-                    "machineId": {
-                        "type": "string",
-                        "description": "Machine ID"
-                    }
-                },
-                "required": [
-                    "appName",
-                    "machineId"
-                ]
-            },
-            "outputs": {
-                "$ref": "#/types/fly-machines:apps:Lease"
-            }
-        },
-        "fly-machines:apps:getMachinesShowMetadata": {
+        "fly-machines:apps:getMachinesMetadata": {
             "inputs": {
                 "properties": {
                     "appName": {
@@ -4222,7 +4222,7 @@
                 "$ref": "#/types/fly-machines:platform:MainRegionResponse"
             }
         },
-        "fly-machines:tokens/v1:getCurrentTokenShow": {
+        "fly-machines:tokens/v1:getCurrentToken": {
             "inputs": {},
             "outputs": {
                 "$ref": "#/types/fly-machines:tokens/v1:CurrentTokenResponse"
