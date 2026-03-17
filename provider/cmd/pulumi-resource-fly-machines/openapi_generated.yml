@@ -2938,7 +2938,7 @@ paths:
         delete:
             description: |
                 Delete metadata for a specific Machine within an app by providing a metadata key.
-            operationId: Machines_delete_metadata
+            operationId: Machines_delete_metadata_key
             parameters:
                 - description: Fly App Name
                   in: path
@@ -3005,7 +3005,7 @@ paths:
         post:
             description: |
                 Update metadata for a specific machine within an app by providing a metadata key.
-            operationId: Machines_upsert_metadata
+            operationId: Machines_create_metadata_key
             parameters:
                 - description: Fly App Name
                   in: path
