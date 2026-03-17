@@ -3003,6 +3003,37 @@
                 }
             }
         },
+        "fly-machines:apps:MachinesMetadataKey": {
+            "properties": {
+                "updatedAt": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Fly App Name"
+                },
+                "key": {
+                    "type": "string",
+                    "description": "Metadata Key"
+                },
+                "machineId": {
+                    "type": "string",
+                    "description": "Machine ID"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
         "fly-machines:apps:MachinesReclaimMemory": {
             "properties": {
                 "actualMb": {
@@ -3244,37 +3275,6 @@
                 },
                 "skipServiceRegistration": {
                     "type": "boolean"
-                }
-            }
-        },
-        "fly-machines:apps:MachinesUpsertMetadata": {
-            "properties": {
-                "updatedAt": {
-                    "type": "string"
-                },
-                "value": {
-                    "type": "string"
-                }
-            },
-            "type": "object",
-            "inputProperties": {
-                "appName": {
-                    "type": "string",
-                    "description": "Fly App Name"
-                },
-                "key": {
-                    "type": "string",
-                    "description": "Metadata Key"
-                },
-                "machineId": {
-                    "type": "string",
-                    "description": "Machine ID"
-                },
-                "updatedAt": {
-                    "type": "string"
-                },
-                "value": {
-                    "type": "string"
                 }
             }
         },
