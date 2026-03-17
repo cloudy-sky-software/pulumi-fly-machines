@@ -9,12 +9,12 @@ info:
   contact: {}
   license:
     name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
   version: "1.0"
 externalDocs:
-  url: https://fly.io/docs/machines/working-with-machines/
+  url: "https://fly.io/docs/machines/working-with-machines/"
 servers:
-  - url: https://api.machines.dev/v1
+  - url: "https://api.machines.dev/v1"
 tags:
   - name: Apps
     description: >-
@@ -28,6 +28,12 @@ tags:
       OpenAPI specification. Visit our complete [Machines API
       docs](https://fly.io/docs/machines/api/machines-resource/) for details
       about using the Machines resource.
+  - name: TLS Certificates
+    description: >
+      This site hosts documentation generated from the Fly.io Machines API
+      OpenAPI specification. Visit our complete [Machines API
+      docs](https://fly.io/docs/machines/api/certificates-resource/) for details
+      about using the TLS Certificates resource.
   - name: Volumes
     description: >-
       This site hosts documentation generated from the Fly.io Machines API
@@ -46,7 +52,7 @@ paths:
       parameters:
         - name: org_slug
           in: query
-          description: The org slug, or 'personal', to filter apps
+          description: "The org slug, or 'personal', to filter apps"
           required: true
           schema:
             type: string
@@ -87,7 +93,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
       x-codegen-request-body-name: request
-  /apps/{app_name}:
+  "/apps/{app_name}":
     get:
       tags:
         - Apps
@@ -127,13 +133,19 @@ paths:
         "202":
           description: Accepted
           content: {}
-  /apps/{app_name}/certificates:
+  "/apps/{app_name}/certificates":
     get:
       tags:
-        - Apps
+        - TLS Certificates
       summary: List certificates for app
       operationId: App_Certificates_list
       parameters:
+        - name: app_name
+          in: path
+          description: Fly App Name
+          required: true
+          schema:
+            type: string
         - name: filter
           in: query
           description: Hostname filter (substring match)
@@ -146,7 +158,7 @@ paths:
             type: string
         - name: limit
           in: query
-          description: Number of results per page (default 25, max 500)
+          description: "Number of results per page (default 25, max 500)"
           schema:
             type: integer
       responses:
@@ -156,12 +168,19 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/listCertificatesResponse"
-  /apps/{app_name}/certificates/acme:
+  "/apps/{app_name}/certificates/acme":
     post:
       tags:
-        - Apps
+        - TLS Certificates
       summary: Request ACME certificate
       operationId: App_Certificates_acme_create
+      parameters:
+        - name: app_name
+          in: path
+          description: Fly App Name
+          required: true
+          schema:
+            type: string
       requestBody:
         description: ACME certificate request
         content:
@@ -183,12 +202,19 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
       x-codegen-request-body-name: request
-  /apps/{app_name}/certificates/custom:
+  "/apps/{app_name}/certificates/custom":
     post:
       tags:
-        - Apps
+        - TLS Certificates
       summary: Upload custom certificate
       operationId: App_Certificates_custom_create
+      parameters:
+        - name: app_name
+          in: path
+          description: Fly App Name
+          required: true
+          schema:
+            type: string
       requestBody:
         description: Custom certificate request
         content:
@@ -210,12 +236,25 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
       x-codegen-request-body-name: request
-  /apps/{app_name}/certificates/{hostname}:
+  "/apps/{app_name}/certificates/{hostname}":
     get:
       tags:
-        - Apps
+        - TLS Certificates
       summary: Get certificate details
       operationId: App_Certificates_show
+      parameters:
+        - name: app_name
+          in: path
+          description: Fly App Name
+          required: true
+          schema:
+            type: string
+        - name: hostname
+          in: path
+          description: Certificate Hostname
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -225,19 +264,45 @@ paths:
                 $ref: "#/components/schemas/CertificateDetail"
     delete:
       tags:
-        - Apps
+        - TLS Certificates
       summary: Remove certificate
       operationId: App_Certificates_delete
+      parameters:
+        - name: app_name
+          in: path
+          description: Fly App Name
+          required: true
+          schema:
+            type: string
+        - name: hostname
+          in: path
+          description: Certificate Hostname
+          required: true
+          schema:
+            type: string
       responses:
         "204":
           description: No Content
           content: {}
-  /apps/{app_name}/certificates/{hostname}/acme:
+  "/apps/{app_name}/certificates/{hostname}/acme":
     delete:
       tags:
-        - Apps
+        - TLS Certificates
       summary: Remove ACME certificates
       operationId: App_Certificates_acme_delete
+      parameters:
+        - name: app_name
+          in: path
+          description: Fly App Name
+          required: true
+          schema:
+            type: string
+        - name: hostname
+          in: path
+          description: Certificate Hostname
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -245,12 +310,25 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CertificateDetail"
-  /apps/{app_name}/certificates/{hostname}/check:
+  "/apps/{app_name}/certificates/{hostname}/check":
     post:
       tags:
-        - Apps
+        - TLS Certificates
       summary: Check DNS and re-validate certificate
       operationId: App_Certificates_check
+      parameters:
+        - name: app_name
+          in: path
+          description: Fly App Name
+          required: true
+          schema:
+            type: string
+        - name: hostname
+          in: path
+          description: Certificate Hostname
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -258,12 +336,25 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CertificateCheckResponse"
-  /apps/{app_name}/certificates/{hostname}/custom:
+  "/apps/{app_name}/certificates/{hostname}/custom":
     delete:
       tags:
-        - Apps
+        - TLS Certificates
       summary: Remove custom certificate
       operationId: App_Certificates_custom_delete
+      parameters:
+        - name: app_name
+          in: path
+          description: Fly App Name
+          required: true
+          schema:
+            type: string
+        - name: hostname
+          in: path
+          description: Certificate Hostname
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -271,7 +362,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/destroyCustomCertificateResponse"
-  /apps/{app_name}/deploy_token:
+  "/apps/{app_name}/deploy_token":
     post:
       tags:
         - Apps
@@ -299,12 +390,19 @@ paths:
               schema:
                 $ref: "#/components/schemas/CreateAppResponse"
       x-codegen-request-body-name: request
-  /apps/{app_name}/ip_assignments:
+  "/apps/{app_name}/ip_assignments":
     get:
       tags:
         - Apps
       summary: List IP assignments for app
       operationId: App_IPAssignments_list
+      parameters:
+        - name: app_name
+          in: path
+          description: Fly App Name
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -317,6 +415,13 @@ paths:
         - Apps
       summary: Assign new IP address to app
       operationId: App_IPAssignments_create
+      parameters:
+        - name: app_name
+          in: path
+          description: Fly App Name
+          required: true
+          schema:
+            type: string
       requestBody:
         description: Assign IP request
         content:
@@ -332,17 +437,30 @@ paths:
               schema:
                 $ref: "#/components/schemas/IPAssignment"
       x-codegen-request-body-name: request
-  /apps/{app_name}/ip_assignments/{ip}:
+  "/apps/{app_name}/ip_assignments/{ip}":
     delete:
       tags:
         - Apps
       summary: Remove IP assignment from app
       operationId: App_IPAssignments_delete
+      parameters:
+        - name: app_name
+          in: path
+          description: Fly App Name
+          required: true
+          schema:
+            type: string
+        - name: ip
+          in: path
+          description: IP address
+          required: true
+          schema:
+            type: string
       responses:
         "204":
           description: No Content
           content: {}
-  /apps/{app_name}/machines:
+  "/apps/{app_name}/machines":
     get:
       tags:
         - Machines
@@ -429,7 +547,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Machine"
       x-codegen-request-body-name: request
-  /apps/{app_name}/machines/{machine_id}:
+  "/apps/{app_name}/machines/{machine_id}":
     get:
       tags:
         - Machines
@@ -529,7 +647,7 @@ paths:
         "200":
           description: OK
           content: {}
-  /apps/{app_name}/machines/{machine_id}/cordon:
+  "/apps/{app_name}/machines/{machine_id}/cordon":
     post:
       tags:
         - Machines
@@ -558,7 +676,7 @@ paths:
         "200":
           description: OK
           content: {}
-  /apps/{app_name}/machines/{machine_id}/events:
+  "/apps/{app_name}/machines/{machine_id}/events":
     get:
       tags:
         - Machines
@@ -595,7 +713,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/MachineEvent"
-  /apps/{app_name}/machines/{machine_id}/exec:
+  "/apps/{app_name}/machines/{machine_id}/exec":
     post:
       tags:
         - Machines
@@ -626,7 +744,7 @@ paths:
         required: true
       responses:
         "200":
-          description: stdout, stderr, exit code, and exit signal are returned
+          description: "stdout, stderr, exit code, and exit signal are returned"
           content:
             application/octet-stream:
               schema:
@@ -644,7 +762,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
       x-codegen-request-body-name: request
-  /apps/{app_name}/machines/{machine_id}/lease:
+  "/apps/{app_name}/machines/{machine_id}/lease":
     get:
       tags:
         - Machines
@@ -748,7 +866,7 @@ paths:
         "200":
           description: OK
           content: {}
-  /apps/{app_name}/machines/{machine_id}/memory:
+  "/apps/{app_name}/machines/{machine_id}/memory":
     get:
       tags:
         - Machines
@@ -809,7 +927,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/main.memoryResponse"
       x-codegen-request-body-name: body
-  /apps/{app_name}/machines/{machine_id}/memory/reclaim:
+  "/apps/{app_name}/machines/{machine_id}/memory/reclaim":
     post:
       tags:
         - Machines
@@ -844,7 +962,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/main.reclaimMemoryResponse"
       x-codegen-request-body-name: body
-  /apps/{app_name}/machines/{machine_id}/metadata:
+  "/apps/{app_name}/machines/{machine_id}/metadata":
     get:
       tags:
         - Machines
@@ -874,17 +992,17 @@ paths:
                 type: object
                 additionalProperties:
                   type: string
-    patch:
+    put:
       tags:
         - Machines
-      summary: Patch Metadata (set/remove multiple keys)
+      summary: Update Metadata (set/remove multiple keys)
       description: >-
         Update multiple metadata keys at once. Null values and empty strings
         remove keys.
 
         + If `machine_version` is provided and no longer matches the current
         machine version, returns 412 Precondition Failed.
-      operationId: Machines_patch_metadata
+      operationId: Machines_update_metadata
       parameters:
         - name: app_name
           in: path
@@ -898,6 +1016,13 @@ paths:
           required: true
           schema:
             type: string
+      requestBody:
+        description: Update metadata request
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/updateMetadataRequest"
+        required: true
       responses:
         "204":
           description: No Content
@@ -914,15 +1039,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-  /apps/{app_name}/machines/{machine_id}/metadata/{key}:
-    post:
+      x-codegen-request-body-name: request
+  "/apps/{app_name}/machines/{machine_id}/metadata/{key}":
+    get:
       tags:
         - Machines
-      summary: Update Metadata
-      description: >
-        Update metadata for a specific machine within an app by providing a
-        metadata key.
-      operationId: Machines_update_metadata
+      summary: Get Metadata Value
+      description: Get the value of a specific metadata key
+      operationId: Machines_get_metadata_key
       parameters:
         - name: app_name
           in: path
@@ -943,6 +1067,53 @@ paths:
           schema:
             type: string
       responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/metadataValueResponse"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - Machines
+      summary: Upsert Metadata Key
+      description: >
+        Update metadata for a specific machine within an app by providing a
+        metadata key.
+      operationId: Machines_upsert_metadata
+      parameters:
+        - name: app_name
+          in: path
+          description: Fly App Name
+          required: true
+          schema:
+            type: string
+        - name: machine_id
+          in: path
+          description: Machine ID
+          required: true
+          schema:
+            type: string
+        - name: key
+          in: path
+          description: Metadata Key
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Upsert metadata key request
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/upsertMetadataKeyRequest"
+        required: true
+      responses:
         "204":
           description: No Content
           content: {}
@@ -952,6 +1123,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+      x-codegen-request-body-name: request
     delete:
       tags:
         - Machines
@@ -983,7 +1155,7 @@ paths:
         "204":
           description: No Content
           content: {}
-  /apps/{app_name}/machines/{machine_id}/ps:
+  "/apps/{app_name}/machines/{machine_id}/ps":
     get:
       tags:
         - Machines
@@ -1030,7 +1202,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-  /apps/{app_name}/machines/{machine_id}/restart:
+  "/apps/{app_name}/machines/{machine_id}/restart":
     post:
       tags:
         - Machines
@@ -1072,7 +1244,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-  /apps/{app_name}/machines/{machine_id}/signal:
+  "/apps/{app_name}/machines/{machine_id}/signal":
     post:
       tags:
         - Machines
@@ -1112,7 +1284,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
       x-codegen-request-body-name: request
-  /apps/{app_name}/machines/{machine_id}/start:
+  "/apps/{app_name}/machines/{machine_id}/start":
     post:
       tags:
         - Machines
@@ -1137,7 +1309,7 @@ paths:
         "200":
           description: OK
           content: {}
-  /apps/{app_name}/machines/{machine_id}/stop:
+  "/apps/{app_name}/machines/{machine_id}/stop":
     post:
       tags:
         - Machines
@@ -1177,7 +1349,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
       x-codegen-request-body-name: request
-  /apps/{app_name}/machines/{machine_id}/suspend:
+  "/apps/{app_name}/machines/{machine_id}/suspend":
     post:
       tags:
         - Machines
@@ -1204,7 +1376,7 @@ paths:
         "200":
           description: OK
           content: {}
-  /apps/{app_name}/machines/{machine_id}/uncordon:
+  "/apps/{app_name}/machines/{machine_id}/uncordon":
     post:
       tags:
         - Machines
@@ -1233,7 +1405,7 @@ paths:
         "200":
           description: OK
           content: {}
-  /apps/{app_name}/machines/{machine_id}/versions:
+  "/apps/{app_name}/machines/{machine_id}/versions":
     get:
       tags:
         - Machines
@@ -1264,7 +1436,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/MachineVersion"
-  /apps/{app_name}/machines/{machine_id}/wait:
+  "/apps/{app_name}/machines/{machine_id}/wait":
     get:
       tags:
         - Machines
@@ -1293,9 +1465,19 @@ paths:
           required: true
           schema:
             type: string
-        - name: instance_id
+        - name: version
           in: query
           description: 26-character Machine version ID
+          schema:
+            type: string
+        - name: instance_id
+          in: query
+          description: 26-character Machine version ID (deprecated; use version)
+          schema:
+            type: string
+        - name: from_event_id
+          in: query
+          description: 26-character Machine event ID to start waiting after
           schema:
             type: string
         - name: timeout
@@ -1305,7 +1487,7 @@ paths:
             type: integer
         - name: state
           in: query
-          description: desired state
+          description: "desired state(s), supports repeated or comma-separated values"
           schema:
             type: string
             enum:
@@ -1313,17 +1495,22 @@ paths:
               - stopped
               - suspended
               - destroyed
+              - failed
+              - settled
       responses:
         "200":
           description: OK
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WaitMachineResponse"
         "400":
           description: Bad Request
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-  /apps/{app_name}/secretkeys:
+  "/apps/{app_name}/secretkeys":
     get:
       tags:
         - Secrets
@@ -1355,7 +1542,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/SecretKeys"
-  /apps/{app_name}/secretkeys/{secret_name}:
+  "/apps/{app_name}/secretkeys/{secret_name}":
     get:
       tags:
         - Secrets
@@ -1452,7 +1639,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/DeleteSecretkeyResponse"
-  /apps/{app_name}/secretkeys/{secret_name}/decrypt:
+  "/apps/{app_name}/secretkeys/{secret_name}/decrypt":
     post:
       tags:
         - Secrets
@@ -1499,7 +1686,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
       x-codegen-request-body-name: request
-  /apps/{app_name}/secretkeys/{secret_name}/encrypt:
+  "/apps/{app_name}/secretkeys/{secret_name}/encrypt":
     post:
       tags:
         - Secrets
@@ -1546,7 +1733,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
       x-codegen-request-body-name: request
-  /apps/{app_name}/secretkeys/{secret_name}/generate:
+  "/apps/{app_name}/secretkeys/{secret_name}/generate":
     post:
       tags:
         - Secrets
@@ -1586,7 +1773,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
       x-codegen-request-body-name: request
-  /apps/{app_name}/secretkeys/{secret_name}/sign:
+  "/apps/{app_name}/secretkeys/{secret_name}/sign":
     post:
       tags:
         - Secrets
@@ -1633,7 +1820,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
       x-codegen-request-body-name: request
-  /apps/{app_name}/secretkeys/{secret_name}/verify:
+  "/apps/{app_name}/secretkeys/{secret_name}/verify":
     post:
       tags:
         - Secrets
@@ -1677,7 +1864,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
       x-codegen-request-body-name: request
-  /apps/{app_name}/secrets:
+  "/apps/{app_name}/secrets":
     get:
       tags:
         - Secrets
@@ -1722,7 +1909,7 @@ paths:
           schema:
             type: string
       requestBody:
-        description: Update app secret request, with values to set, or nil to unset
+        description: "Update app secret request, with values to set, or nil to unset"
         content:
           application/json:
             schema:
@@ -1742,7 +1929,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
       x-codegen-request-body-name: request
-  /apps/{app_name}/secrets/{secret_name}:
+  "/apps/{app_name}/secrets/{secret_name}":
     get:
       tags:
         - Secrets
@@ -1844,7 +2031,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/DeleteAppSecretResponse"
-  /apps/{app_name}/volumes:
+  "/apps/{app_name}/volumes":
     get:
       tags:
         - Volumes
@@ -1905,7 +2092,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Volume"
       x-codegen-request-body-name: request
-  /apps/{app_name}/volumes/{volume_id}:
+  "/apps/{app_name}/volumes/{volume_id}":
     get:
       tags:
         - Volumes
@@ -2002,7 +2189,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Volume"
-  /apps/{app_name}/volumes/{volume_id}/extend:
+  "/apps/{app_name}/volumes/{volume_id}/extend":
     put:
       tags:
         - Volumes
@@ -2039,7 +2226,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ExtendVolumeResponse"
       x-codegen-request-body-name: request
-  /apps/{app_name}/volumes/{volume_id}/snapshots:
+  "/apps/{app_name}/volumes/{volume_id}/snapshots":
     get:
       tags:
         - Volumes
@@ -2093,7 +2280,7 @@ paths:
         "200":
           description: OK
           content: {}
-  /orgs/{org_slug}/machines:
+  "/orgs/{org_slug}/machines":
     get:
       tags:
         - Organizations
@@ -2132,6 +2319,11 @@ paths:
             suspended)
           schema:
             type: string
+        - name: summary
+          in: query
+          description: Omit config from responses
+          schema:
+            type: boolean
         - name: updated_after
           in: query
           description: >-
@@ -2149,8 +2341,9 @@ paths:
         - name: limit
           in: query
           description: >-
-            The number of machines to fetch (max of 1000). If omitted, this is
-            set to 500 by default
+            The number of machines to fetch (max of 2000). This limit is
+            advisory. Responses may be shorter, even when more machines remain.
+            If omitted, the maximum is used
           schema:
             type: integer
       responses:
@@ -2570,7 +2763,7 @@ components:
           type: integer
         name:
           type: string
-          description: Unique name for this Machine. If omitted, one is generated for you
+          description: "Unique name for this Machine. If omitted, one is generated for you"
         region:
           type: string
           description: >-
@@ -2587,7 +2780,7 @@ components:
       properties:
         aud:
           type: string
-          example: https://fly.io/org-slug
+          example: "https://fly.io/org-slug"
         aws_principal_tags:
           type: boolean
       description: Optional parameters
@@ -2899,6 +3092,17 @@ components:
           type: string
         timeout:
           type: integer
+    MachineOverviewConfig:
+      type: object
+      properties:
+        guest:
+          $ref: "#/components/schemas/fly.MachineGuest"
+        image:
+          type: string
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
     MachineVersion:
       type: object
       properties:
@@ -2913,6 +3117,8 @@ components:
           type: integer
         app_name:
           type: string
+        config:
+          $ref: "#/components/schemas/MachineOverviewConfig"
         created_at:
           type: string
         id:
@@ -3104,7 +3310,7 @@ components:
           type: integer
         name:
           type: string
-          description: Unique name for this Machine. If omitted, one is generated for you
+          description: "Unique name for this Machine. If omitted, one is generated for you"
         region:
           type: string
           description: >-
@@ -3198,6 +3404,17 @@ components:
           type: string
         volume_size:
           type: integer
+    WaitMachineResponse:
+      type: object
+      properties:
+        event_id:
+          type: string
+        ok:
+          type: boolean
+        state:
+          type: string
+        version:
+          type: string
     assignIPRequest:
       type: object
       properties:
@@ -3391,7 +3608,7 @@ components:
           description: The time in seconds between executing the defined check.
         kind:
           type: object
-          description: Kind of healthcheck (readiness, liveness)
+          description: "Kind of healthcheck (readiness, liveness)"
           allOf:
             - $ref: "#/components/schemas/fly.ContainerHealthcheckKind"
         name:
@@ -3493,20 +3710,6 @@ components:
             - Second
             - Minute
             - Hour
-            - minDuration
-            - maxDuration
-            - Nanosecond
-            - Microsecond
-            - Millisecond
-            - Second
-            - Minute
-            - Hour
-            - Nanosecond
-            - Microsecond
-            - Millisecond
-            - Second
-            - Minute
-            - Hour
     fly.EnvFrom:
       type: object
       properties:
@@ -3589,7 +3792,7 @@ components:
           description: The path to send the request to
         port:
           type: integer
-          description: The port to connect to, often the same as internal_port
+          description: "The port to connect to, often the same as internal_port"
         scheme:
           type: object
           description: Whether to use http or https
@@ -3650,22 +3853,22 @@ components:
             - $ref: "#/components/schemas/fly.Duration"
         kind:
           type: string
-          description: Kind of the check (informational, readiness)
+          description: "Kind of the check (informational, readiness)"
           enum:
             - informational
             - readiness
         method:
           type: string
-          description: For http checks, the HTTP method to use to when making the request
+          description: "For http checks, the HTTP method to use to when making the request"
         path:
           type: string
-          description: For http checks, the path to send the request to
+          description: "For http checks, the path to send the request to"
         port:
           type: integer
-          description: The port to connect to, often the same as internal_port
+          description: "The port to connect to, often the same as internal_port"
         protocol:
           type: string
-          description: For http checks, whether to use http or https
+          description: "For http checks, whether to use http or https"
         timeout:
           type: object
           description: >-
@@ -4066,16 +4269,16 @@ components:
             - $ref: "#/components/schemas/fly.Duration"
         method:
           type: string
-          description: For http checks, the HTTP method to use to when making the request
+          description: "For http checks, the HTTP method to use to when making the request"
         path:
           type: string
-          description: For http checks, the path to send the request to
+          description: "For http checks, the path to send the request to"
         port:
           type: integer
-          description: The port to connect to, often the same as internal_port
+          description: "The port to connect to, often the same as internal_port"
         protocol:
           type: string
-          description: For http checks, whether to use http or https
+          description: "For http checks, whether to use http or https"
         timeout:
           type: object
           description: >-
@@ -4154,7 +4357,7 @@ components:
       properties:
         port:
           type: integer
-          description: The port to connect to, often the same as internal_port
+          description: "The port to connect to, often the same as internal_port"
     fly.TLSOptions:
       type: object
       properties:
@@ -4245,7 +4448,7 @@ components:
 
             Defaults to "[region],any", to prefer the API endpoint's local
             region with any other region as fallback.
-          example: lhr,eu
+          example: "lhr,eu"
         volume_name:
           type: string
           example: ""
@@ -4327,6 +4530,11 @@ components:
         user:
           type: string
           description: User identifier if token is for a user
+    metadataValueResponse:
+      type: object
+      properties:
+        value:
+          type: string
     placement.RegionPlacement:
       type: object
       properties:
@@ -4361,4 +4569,22 @@ components:
           type: string
         requires_paid_plan:
           type: boolean
+    updateMetadataRequest:
+      type: object
+      properties:
+        machine_version:
+          type: string
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        updated_at:
+          type: string
+    upsertMetadataKeyRequest:
+      type: object
+      properties:
+        updated_at:
+          type: string
+        value:
+          type: string
 x-original-swagger-version: "2.0"

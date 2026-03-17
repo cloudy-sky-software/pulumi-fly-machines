@@ -1865,6 +1865,14 @@
             },
             "type": "object"
         },
+        "fly-machines:apps:MetadataValueResponse": {
+            "properties": {
+                "value": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
         "fly-machines:apps:OwnershipVerification": {
             "properties": {
                 "appValue": {
@@ -2115,6 +2123,88 @@
             },
             "type": "object"
         },
+        "fly-machines:apps:WaitMachineResponse": {
+            "properties": {
+                "eventId": {
+                    "type": "string"
+                },
+                "ok": {
+                    "type": "boolean"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:orgs:FlyMachineGuest": {
+            "properties": {
+                "cpuKind": {
+                    "type": "string"
+                },
+                "cpus": {
+                    "type": "integer"
+                },
+                "gpuKind": {
+                    "type": "string"
+                },
+                "gpus": {
+                    "type": "integer"
+                },
+                "hostDedicationId": {
+                    "type": "string"
+                },
+                "kernelArgs": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "memoryMb": {
+                    "type": "integer"
+                },
+                "persistRootfs": {
+                    "$ref": "#/types/fly-machines:orgs:FlyMachineGuestPersistRootfs",
+                    "description": "Deprecated: use MachineConfig.Rootfs instead"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:orgs:FlyMachineGuestPersistRootfs": {
+            "description": "Deprecated: use MachineConfig.Rootfs instead",
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Never",
+                    "value": "never"
+                },
+                {
+                    "name": "Always",
+                    "value": "always"
+                },
+                {
+                    "name": "Restart",
+                    "value": "restart"
+                }
+            ]
+        },
+        "fly-machines:orgs:MachineOverviewConfig": {
+            "properties": {
+                "guest": {
+                    "$ref": "#/types/fly-machines:orgs:FlyMachineGuest"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "metadata": {
+                    "$ref": "pulumi.json#/Any"
+                }
+            },
+            "type": "object"
+        },
         "fly-machines:orgs:OrgMachine": {
             "properties": {
                 "appId": {
@@ -2122,6 +2212,9 @@
                 },
                 "appName": {
                     "type": "string"
+                },
+                "config": {
+                    "$ref": "#/types/fly-machines:orgs:MachineOverviewConfig"
                 },
                 "createdAt": {
                     "type": "string"
@@ -2483,7 +2576,7 @@
                 },
                 "hostname": {
                     "type": "string",
-                    "description": "Host name of the Fly App"
+                    "description": "Certificate Hostname"
                 }
             }
         },
@@ -2877,6 +2970,39 @@
                 }
             }
         },
+        "fly-machines:apps:MachinesMetadata": {
+            "properties": {
+                "machineVersion": {
+                    "type": "string"
+                },
+                "metadata": {
+                    "$ref": "pulumi.json#/Any"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Fly App Name"
+                },
+                "machineId": {
+                    "type": "string",
+                    "description": "Machine ID"
+                },
+                "machineVersion": {
+                    "type": "string"
+                },
+                "metadata": {
+                    "$ref": "pulumi.json#/Any"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
         "fly-machines:apps:MachinesReclaimMemory": {
             "properties": {
                 "actualMb": {
@@ -3121,8 +3247,11 @@
                 }
             }
         },
-        "fly-machines:apps:MachinesUpdateMetadata": {
+        "fly-machines:apps:MachinesUpsertMetadata": {
             "properties": {
+                "updatedAt": {
+                    "type": "string"
+                },
                 "value": {
                     "type": "string"
                 }
@@ -3140,6 +3269,9 @@
                 "machineId": {
                     "type": "string",
                     "description": "Machine ID"
+                },
+                "updatedAt": {
+                    "type": "string"
                 },
                 "value": {
                     "type": "string"
@@ -3752,28 +3884,7 @@
         }
     },
     "functions": {
-        "fly-machines:apps:getAppCertificatesShow": {
-            "inputs": {
-                "properties": {
-                    "appName": {
-                        "type": "string",
-                        "description": "Fly App Name"
-                    },
-                    "hostname": {
-                        "type": "string",
-                        "description": "Host name of the Fly App"
-                    }
-                },
-                "required": [
-                    "appName",
-                    "hostname"
-                ]
-            },
-            "outputs": {
-                "$ref": "#/types/fly-machines:apps:CertificateDetail"
-            }
-        },
-        "fly-machines:apps:getAppsShow": {
+        "fly-machines:apps:getApp": {
             "inputs": {
                 "properties": {
                     "appName": {
@@ -3787,6 +3898,69 @@
             },
             "outputs": {
                 "$ref": "#/types/fly-machines:apps:App"
+            }
+        },
+        "fly-machines:apps:getAppCertificate": {
+            "inputs": {
+                "properties": {
+                    "appName": {
+                        "type": "string",
+                        "description": "Fly App Name"
+                    },
+                    "hostname": {
+                        "type": "string",
+                        "description": "Certificate Hostname"
+                    }
+                },
+                "required": [
+                    "appName",
+                    "hostname"
+                ]
+            },
+            "outputs": {
+                "$ref": "#/types/fly-machines:apps:CertificateDetail"
+            }
+        },
+        "fly-machines:apps:getMachine": {
+            "inputs": {
+                "properties": {
+                    "appName": {
+                        "type": "string",
+                        "description": "Fly App Name"
+                    },
+                    "machineId": {
+                        "type": "string",
+                        "description": "Machine ID"
+                    }
+                },
+                "required": [
+                    "appName",
+                    "machineId"
+                ]
+            },
+            "outputs": {
+                "$ref": "#/types/fly-machines:apps:Machine"
+            }
+        },
+        "fly-machines:apps:getMachinesLease": {
+            "inputs": {
+                "properties": {
+                    "appName": {
+                        "type": "string",
+                        "description": "Fly App Name"
+                    },
+                    "machineId": {
+                        "type": "string",
+                        "description": "Machine ID"
+                    }
+                },
+                "required": [
+                    "appName",
+                    "machineId"
+                ]
+            },
+            "outputs": {
+                "$ref": "#/types/fly-machines:apps:Lease"
             }
         },
         "fly-machines:apps:getMachinesMemory": {
@@ -3810,49 +3984,7 @@
                 "$ref": "#/types/fly-machines:apps:MainMemoryResponse"
             }
         },
-        "fly-machines:apps:getMachinesShow": {
-            "inputs": {
-                "properties": {
-                    "appName": {
-                        "type": "string",
-                        "description": "Fly App Name"
-                    },
-                    "machineId": {
-                        "type": "string",
-                        "description": "Machine ID"
-                    }
-                },
-                "required": [
-                    "appName",
-                    "machineId"
-                ]
-            },
-            "outputs": {
-                "$ref": "#/types/fly-machines:apps:Machine"
-            }
-        },
-        "fly-machines:apps:getMachinesShowLease": {
-            "inputs": {
-                "properties": {
-                    "appName": {
-                        "type": "string",
-                        "description": "Fly App Name"
-                    },
-                    "machineId": {
-                        "type": "string",
-                        "description": "Machine ID"
-                    }
-                },
-                "required": [
-                    "appName",
-                    "machineId"
-                ]
-            },
-            "outputs": {
-                "$ref": "#/types/fly-machines:apps:Lease"
-            }
-        },
-        "fly-machines:apps:getMachinesShowMetadata": {
+        "fly-machines:apps:getMachinesMetadata": {
             "inputs": {
                 "properties": {
                     "appName": {
@@ -3873,6 +4005,32 @@
                 "$ref": "pulumi.json#/Any"
             }
         },
+        "fly-machines:apps:getMachinesMetadataKey": {
+            "inputs": {
+                "properties": {
+                    "appName": {
+                        "type": "string",
+                        "description": "Fly App Name"
+                    },
+                    "key": {
+                        "type": "string",
+                        "description": "Metadata Key"
+                    },
+                    "machineId": {
+                        "type": "string",
+                        "description": "Machine ID"
+                    }
+                },
+                "required": [
+                    "appName",
+                    "key",
+                    "machineId"
+                ]
+            },
+            "outputs": {
+                "$ref": "#/types/fly-machines:apps:MetadataValueResponse"
+            }
+        },
         "fly-machines:apps:getMachinesWait": {
             "inputs": {
                 "properties": {
@@ -3889,6 +4047,9 @@
                     "appName",
                     "machineId"
                 ]
+            },
+            "outputs": {
+                "$ref": "#/types/fly-machines:apps:WaitMachineResponse"
             }
         },
         "fly-machines:apps:getSecret": {
@@ -4222,7 +4383,7 @@
                 "$ref": "#/types/fly-machines:platform:MainRegionResponse"
             }
         },
-        "fly-machines:tokens/v1:getCurrentTokenShow": {
+        "fly-machines:tokens/v1:getCurrentToken": {
             "inputs": {},
             "outputs": {
                 "$ref": "#/types/fly-machines:tokens/v1:CurrentTokenResponse"

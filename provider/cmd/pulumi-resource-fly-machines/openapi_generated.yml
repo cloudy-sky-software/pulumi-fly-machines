@@ -585,6 +585,17 @@ components:
                 timeout:
                     type: integer
             type: object
+        MachineOverviewConfig:
+            properties:
+                guest:
+                    $ref: '#/components/schemas/fly.MachineGuest'
+                image:
+                    type: string
+                metadata:
+                    additionalProperties:
+                        type: string
+                    type: object
+            type: object
         MachineVersion:
             properties:
                 user_config:
@@ -598,6 +609,8 @@ components:
                     type: integer
                 app_name:
                     type: string
+                config:
+                    $ref: '#/components/schemas/MachineOverviewConfig'
                 created_at:
                     type: string
                 id:
@@ -882,6 +895,17 @@ components:
                 volume_size:
                     type: integer
             type: object
+        WaitMachineResponse:
+            properties:
+                event_id:
+                    type: string
+                ok:
+                    type: boolean
+                state:
+                    type: string
+                version:
+                    type: string
+            type: object
         assignIPRequest:
             properties:
                 network:
@@ -1142,20 +1166,6 @@ components:
                         - Hour
                         - minDuration
                         - maxDuration
-                        - Nanosecond
-                        - Microsecond
-                        - Millisecond
-                        - Second
-                        - Minute
-                        - Hour
-                        - minDuration
-                        - maxDuration
-                        - Nanosecond
-                        - Microsecond
-                        - Millisecond
-                        - Second
-                        - Minute
-                        - Hour
                         - Nanosecond
                         - Microsecond
                         - Millisecond
@@ -1897,6 +1907,11 @@ components:
                     description: User identifier if token is for a user
                     type: string
             type: object
+        metadataValueResponse:
+            properties:
+                value:
+                    type: string
+            type: object
         placement.RegionPlacement:
             properties:
                 concurrency:
@@ -1930,6 +1945,24 @@ components:
                     type: string
                 requires_paid_plan:
                     type: boolean
+            type: object
+        updateMetadataRequest:
+            properties:
+                machine_version:
+                    type: string
+                metadata:
+                    additionalProperties:
+                        type: string
+                    type: object
+                updated_at:
+                    type: string
+            type: object
+        upsertMetadataKeyRequest:
+            properties:
+                updated_at:
+                    type: string
+                value:
+                    type: string
             type: object
 info:
     contact: {}
@@ -2034,6 +2067,12 @@ paths:
         get:
             operationId: App_Certificates_list
             parameters:
+                - description: Fly App Name
+                  in: path
+                  name: app_name
+                  required: true
+                  schema:
+                    type: string
                 - description: Hostname filter (substring match)
                   in: query
                   name: filter
@@ -2049,12 +2088,6 @@ paths:
                   name: limit
                   schema:
                     type: integer
-                - description: Fly App Name
-                  in: path
-                  name: app_name
-                  required: true
-                  schema:
-                    type: string
             responses:
                 "200":
                     content:
@@ -2064,7 +2097,7 @@ paths:
                     description: OK
             summary: List certificates for app
             tags:
-                - Apps
+                - TLS Certificates
     /apps/{app_name}/certificates/{hostname}:
         delete:
             operationId: App_Certificates_delete
@@ -2075,7 +2108,7 @@ paths:
                   required: true
                   schema:
                     type: string
-                - description: Host name of the Fly App
+                - description: Certificate Hostname
                   in: path
                   name: hostname
                   required: true
@@ -2086,7 +2119,7 @@ paths:
                     description: No Content
             summary: Remove certificate
             tags:
-                - Apps
+                - TLS Certificates
         get:
             operationId: App_Certificates_show
             parameters:
@@ -2096,7 +2129,7 @@ paths:
                   required: true
                   schema:
                     type: string
-                - description: Host name of the Fly App
+                - description: Certificate Hostname
                   in: path
                   name: hostname
                   required: true
@@ -2111,7 +2144,7 @@ paths:
                     description: OK
             summary: Get certificate details
             tags:
-                - Apps
+                - TLS Certificates
     /apps/{app_name}/certificates/{hostname}/acme:
         delete:
             operationId: App_Certificates_acme_delete
@@ -2122,7 +2155,7 @@ paths:
                   required: true
                   schema:
                     type: string
-                - description: Host name of the Fly App
+                - description: Certificate Hostname
                   in: path
                   name: hostname
                   required: true
@@ -2137,7 +2170,7 @@ paths:
                     description: OK
             summary: Remove ACME certificates
             tags:
-                - Apps
+                - TLS Certificates
     /apps/{app_name}/certificates/{hostname}/check:
         post:
             operationId: App_Certificates_check
@@ -2148,7 +2181,7 @@ paths:
                   required: true
                   schema:
                     type: string
-                - description: Host name of the Fly App
+                - description: Certificate Hostname
                   in: path
                   name: hostname
                   required: true
@@ -2163,7 +2196,7 @@ paths:
                     description: OK
             summary: Check DNS and re-validate certificate
             tags:
-                - Apps
+                - TLS Certificates
     /apps/{app_name}/certificates/{hostname}/custom:
         delete:
             operationId: App_Certificates_custom_delete
@@ -2174,7 +2207,7 @@ paths:
                   required: true
                   schema:
                     type: string
-                - description: Host name of the Fly App
+                - description: Certificate Hostname
                   in: path
                   name: hostname
                   required: true
@@ -2189,7 +2222,7 @@ paths:
                     description: OK
             summary: Remove custom certificate
             tags:
-                - Apps
+                - TLS Certificates
     /apps/{app_name}/certificates/acme:
         post:
             operationId: App_Certificates_acme_create
@@ -2222,7 +2255,7 @@ paths:
                     description: Unprocessable Entity
             summary: Request ACME certificate
             tags:
-                - Apps
+                - TLS Certificates
             x-codegen-request-body-name: request
     /apps/{app_name}/certificates/custom:
         post:
@@ -2256,7 +2289,7 @@ paths:
                     description: Unprocessable Entity
             summary: Upload custom certificate
             tags:
-                - Apps
+                - TLS Certificates
             x-codegen-request-body-name: request
     /apps/{app_name}/deploy_token:
         post:
@@ -2857,11 +2890,11 @@ paths:
             summary: Get Metadata
             tags:
                 - Machines
-        patch:
+        put:
             description: |-
                 Update multiple metadata keys at once. Null values and empty strings remove keys.
                 + If `machine_version` is provided and no longer matches the current machine version, returns 412 Precondition Failed.
-            operationId: Machines_patch_metadata
+            operationId: Machines_update_metadata
             parameters:
                 - description: Fly App Name
                   in: path
@@ -2879,9 +2912,9 @@ paths:
                 content:
                     application/json:
                         schema:
-                            additionalProperties:
-                                type: string
-                            type: object
+                            $ref: '#/components/schemas/updateMetadataRequest'
+                description: Update metadata request
+                required: true
             responses:
                 "204":
                     description: No Content
@@ -2897,9 +2930,10 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/ErrorResponse'
                     description: Precondition Failed
-            summary: Patch Metadata (set/remove multiple keys)
+            summary: Update Metadata (set/remove multiple keys)
             tags:
                 - Machines
+            x-codegen-request-body-name: request
     /apps/{app_name}/machines/{machine_id}/metadata/{key}:
         delete:
             description: |
@@ -2930,10 +2964,48 @@ paths:
             summary: Delete Metadata
             tags:
                 - Machines
+        get:
+            description: Get the value of a specific metadata key
+            operationId: Machines_get_metadata_key
+            parameters:
+                - description: Fly App Name
+                  in: path
+                  name: app_name
+                  required: true
+                  schema:
+                    type: string
+                - description: Machine ID
+                  in: path
+                  name: machine_id
+                  required: true
+                  schema:
+                    type: string
+                - description: Metadata Key
+                  in: path
+                  name: key
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/metadataValueResponse'
+                    description: OK
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ErrorResponse'
+                    description: Not Found
+            summary: Get Metadata Value
+            tags:
+                - Machines
         post:
             description: |
                 Update metadata for a specific machine within an app by providing a metadata key.
-            operationId: Machines_update_metadata
+            operationId: Machines_upsert_metadata
             parameters:
                 - description: Fly App Name
                   in: path
@@ -2957,10 +3029,9 @@ paths:
                 content:
                     application/json:
                         schema:
-                            properties:
-                                value:
-                                    type: string
-                            type: object
+                            $ref: '#/components/schemas/upsertMetadataKeyRequest'
+                description: Upsert metadata key request
+                required: true
             responses:
                 "204":
                     description: No Content
@@ -2970,9 +3041,10 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/ErrorResponse'
                     description: Bad Request
-            summary: Update Metadata
+            summary: Upsert Metadata Key
             tags:
                 - Machines
+            x-codegen-request-body-name: request
     /apps/{app_name}/machines/{machine_id}/ps:
         get:
             description: |
@@ -3258,7 +3330,17 @@ paths:
                     type: string
                 - description: 26-character Machine version ID
                   in: query
+                  name: version
+                  schema:
+                    type: string
+                - description: 26-character Machine version ID (deprecated; use version)
+                  in: query
                   name: instance_id
+                  schema:
+                    type: string
+                - description: 26-character Machine event ID to start waiting after
+                  in: query
+                  name: from_event_id
                   schema:
                     type: string
                 - description: wait timeout. default 60s
@@ -3266,7 +3348,7 @@ paths:
                   name: timeout
                   schema:
                     type: integer
-                - description: desired state
+                - description: desired state(s), supports repeated or comma-separated values
                   in: query
                   name: state
                   schema:
@@ -3275,9 +3357,15 @@ paths:
                         - stopped
                         - suspended
                         - destroyed
+                        - failed
+                        - settled
                     type: string
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/WaitMachineResponse'
                     description: OK
                 "400":
                     content:
@@ -4064,6 +4152,11 @@ paths:
                   name: state
                   schema:
                     type: string
+                - description: Omit config from responses
+                  in: query
+                  name: summary
+                  schema:
+                    type: boolean
                 - description: Only return machines updated after this time. Timestamp must be in the RFC 3339 format
                   in: query
                   name: updated_after
@@ -4074,7 +4167,7 @@ paths:
                   name: cursor
                   schema:
                     type: string
-                - description: The number of machines to fetch (max of 1000). If omitted, this is set to 500 by default
+                - description: The number of machines to fetch (max of 2000). This limit is advisory. Responses may be shorter, even when more machines remain. If omitted, the maximum is used
                   in: query
                   name: limit
                   schema:
@@ -4232,6 +4325,9 @@ tags:
       name: Apps
     - description: This site hosts documentation generated from the Fly.io Machines API OpenAPI specification. Visit our complete [Machines API docs](https://fly.io/docs/machines/api/machines-resource/) for details about using the Machines resource.
       name: Machines
+    - description: |
+        This site hosts documentation generated from the Fly.io Machines API OpenAPI specification. Visit our complete [Machines API docs](https://fly.io/docs/machines/api/certificates-resource/) for details about using the TLS Certificates resource.
+      name: TLS Certificates
     - description: This site hosts documentation generated from the Fly.io Machines API OpenAPI specification. Visit our complete [Machines API docs](https://fly.io/docs/machines/api/volumes-resource/) for details about using the Volumes resource.
       name: Volumes
 externalDocs:
