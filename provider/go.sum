@@ -127,6 +127,8 @@ github.com/cloudy-sky-software/pulumi-provider-framework v0.0.0-20260318215255-5
 github.com/cloudy-sky-software/pulumi-provider-framework v0.0.0-20260318215255-509086a1a5c9/go.mod h1:hMURetrHHW1e3cxPbA7+7ysuWQTaB7QQW+PvMo3Bv/4=
 github.com/cloudy-sky-software/pulumi-provider-framework v0.0.0-20260319053133-5c42d621d8b2 h1:sJCNqP/Ip2fq5HW4pJ4UZB11G1KhNxWcLVGkMa7iG9A=
 github.com/cloudy-sky-software/pulumi-provider-framework v0.0.0-20260319053133-5c42d621d8b2/go.mod h1:H1a2cfX6cFgjEn+4/ejh5+NCTekaydl7iFFKbhL+kvI=
+github.com/cloudy-sky-software/pulumi-provider-framework v0.0.0-20260401154610-fb6cec4aabdb h1:y92mdwf0vUxkNinQgT74rOmsETKVAKR7NyYOAhCAEiA=
+github.com/cloudy-sky-software/pulumi-provider-framework v0.0.0-20260401154610-fb6cec4aabdb/go.mod h1:nv8QZdEolC+pAL6Qsvroa8WQ9JKbEpENWP0z7zD1huc=
 github.com/cpuguy83/go-md2man/v2 v2.0.6/go.mod h1:oOW0eioCTA6cOiMLiUPZOpcVxMig6NIQQ7OS05n1F4g=
 github.com/cyphar/filepath-securejoin v0.4.1 h1:JyxxyPEaktOD+GAnqIqTf9A8tHyAG22rowi7HkoSU1s=
 github.com/cyphar/filepath-securejoin v0.4.1/go.mod h1:Sdj7gXlvMcPZsbhwhQ33GguGLDGQL7h7bg04C/+u9jI=
@@ -610,6 +612,8 @@ google.golang.org/grpc v1.79.1/go.mod h1:KmT0Kjez+0dde/v2j9vzwoAScgEPx/Bw1CYChhH
 google.golang.org/grpc v1.79.2/go.mod h1:KmT0Kjez+0dde/v2j9vzwoAScgEPx/Bw1CYChhHLrHQ=
 google.golang.org/grpc v1.79.3 h1:sybAEdRIEtvcD68Gx7dmnwjZKlyfuc61Dyo9pGXXkKE=
 google.golang.org/grpc v1.79.3/go.mod h1:KmT0Kjez+0dde/v2j9vzwoAScgEPx/Bw1CYChhHLrHQ=
+google.golang.org/grpc v1.80.0 h1:Xr6m2WmWZLETvUNvIUmeD5OAagMw3FiKmMlTdViWsHM=
+google.golang.org/grpc v1.80.0/go.mod h1:ho/dLnxwi3EDJA4Zghp7k2Ec1+c2jqup0bFkw07bwF4=
 google.golang.org/protobuf v1.36.11 h1:fV6ZwhNocDyBLK0dj+fg8ektcVegBBuEolpbTQyBNVE=
 google.golang.org/protobuf v1.36.11/go.mod h1:HTf+CrKn2C3g5S8VImy6tdcUvCska2kB7j23XfzDpco=
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
