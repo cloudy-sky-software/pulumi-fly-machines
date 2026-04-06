@@ -2522,7 +2522,7 @@ paths:
         post:
             description: |
                 Update a Machine's configuration using the details provided in the request body.
-            operationId: Machines_update
+            operationId: Machine_update
             parameters:
                 - description: Fly App Name
                   in: path
@@ -3969,7 +3969,7 @@ paths:
         get:
             description: |
                 Retrieve details about a specific volume by its ID within an app.
-            operationId: Volumes_get_by_id
+            operationId: Volume_get
             parameters:
                 - description: Fly App Name
                   in: path
@@ -3996,7 +3996,7 @@ paths:
         put:
             description: |
                 Update a volume's configuration using the details provided in the request body.
-            operationId: Volumes_update
+            operationId: Volume_update
             parameters:
                 - description: Fly App Name
                   in: path

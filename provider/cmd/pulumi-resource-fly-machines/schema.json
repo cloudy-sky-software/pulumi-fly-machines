@@ -2822,6 +2822,126 @@
                 }
             }
         },
+        "fly-machines:apps:MachineUpdate": {
+            "properties": {
+                "checks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:CheckStatus"
+                    }
+                },
+                "config": {
+                    "$ref": "#/types/fly-machines:apps:FlyMachineConfig"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "currentVersion": {
+                    "type": "string"
+                },
+                "events": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps:MachineEvent"
+                    }
+                },
+                "hostStatus": {
+                    "$ref": "#/types/fly-machines:apps:HostStatus"
+                },
+                "imageRef": {
+                    "$ref": "#/types/fly-machines:apps:ImageRef"
+                },
+                "incompleteConfig": {
+                    "$ref": "#/types/fly-machines:apps:FlyMachineConfig"
+                },
+                "instanceId": {
+                    "type": "string",
+                    "description": "InstanceID is unique for each version of the machine"
+                },
+                "leaseTtl": {
+                    "type": "integer"
+                },
+                "lsvd": {
+                    "type": "boolean"
+                },
+                "minSecretsVersion": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "nonce": {
+                    "type": "string",
+                    "description": "Nonce is only every returned on machine creation if a lease_duration was provided."
+                },
+                "privateIp": {
+                    "type": "string",
+                    "description": "PrivateIP is the internal 6PN address of the machine."
+                },
+                "region": {
+                    "type": "string"
+                },
+                "skipLaunch": {
+                    "type": "boolean"
+                },
+                "skipSecrets": {
+                    "type": "boolean"
+                },
+                "skipServiceRegistration": {
+                    "type": "boolean"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Fly App Name"
+                },
+                "config": {
+                    "$ref": "#/types/fly-machines:apps:Config",
+                    "description": "An object defining the Machine configuration"
+                },
+                "currentVersion": {
+                    "type": "string"
+                },
+                "leaseTtl": {
+                    "type": "integer"
+                },
+                "lsvd": {
+                    "type": "boolean"
+                },
+                "machineId": {
+                    "type": "string",
+                    "description": "Machine ID"
+                },
+                "minSecretsVersion": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique name for this Machine. If omitted, one is generated for you"
+                },
+                "region": {
+                    "type": "string",
+                    "description": "The target region. Omitting this param launches in the same region as your WireGuard peer connection (somewhere near you)."
+                },
+                "skipLaunch": {
+                    "type": "boolean"
+                },
+                "skipSecrets": {
+                    "type": "boolean"
+                },
+                "skipServiceRegistration": {
+                    "type": "boolean"
+                }
+            }
+        },
         "fly-machines:apps:MachinesCordon": {
             "type": "object",
             "inputProperties": {
@@ -3155,126 +3275,6 @@
                 "machineId": {
                     "type": "string",
                     "description": "Machine ID"
-                }
-            }
-        },
-        "fly-machines:apps:MachinesUpdate": {
-            "properties": {
-                "checks": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/fly-machines:apps:CheckStatus"
-                    }
-                },
-                "config": {
-                    "$ref": "#/types/fly-machines:apps:FlyMachineConfig"
-                },
-                "createdAt": {
-                    "type": "string"
-                },
-                "currentVersion": {
-                    "type": "string"
-                },
-                "events": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/fly-machines:apps:MachineEvent"
-                    }
-                },
-                "hostStatus": {
-                    "$ref": "#/types/fly-machines:apps:HostStatus"
-                },
-                "imageRef": {
-                    "$ref": "#/types/fly-machines:apps:ImageRef"
-                },
-                "incompleteConfig": {
-                    "$ref": "#/types/fly-machines:apps:FlyMachineConfig"
-                },
-                "instanceId": {
-                    "type": "string",
-                    "description": "InstanceID is unique for each version of the machine"
-                },
-                "leaseTtl": {
-                    "type": "integer"
-                },
-                "lsvd": {
-                    "type": "boolean"
-                },
-                "minSecretsVersion": {
-                    "type": "integer"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "nonce": {
-                    "type": "string",
-                    "description": "Nonce is only every returned on machine creation if a lease_duration was provided."
-                },
-                "privateIp": {
-                    "type": "string",
-                    "description": "PrivateIP is the internal 6PN address of the machine."
-                },
-                "region": {
-                    "type": "string"
-                },
-                "skipLaunch": {
-                    "type": "boolean"
-                },
-                "skipSecrets": {
-                    "type": "boolean"
-                },
-                "skipServiceRegistration": {
-                    "type": "boolean"
-                },
-                "state": {
-                    "type": "string"
-                },
-                "updatedAt": {
-                    "type": "string"
-                }
-            },
-            "type": "object",
-            "inputProperties": {
-                "appName": {
-                    "type": "string",
-                    "description": "Fly App Name"
-                },
-                "config": {
-                    "$ref": "#/types/fly-machines:apps:Config",
-                    "description": "An object defining the Machine configuration"
-                },
-                "currentVersion": {
-                    "type": "string"
-                },
-                "leaseTtl": {
-                    "type": "integer"
-                },
-                "lsvd": {
-                    "type": "boolean"
-                },
-                "machineId": {
-                    "type": "string",
-                    "description": "Machine ID"
-                },
-                "minSecretsVersion": {
-                    "type": "integer"
-                },
-                "name": {
-                    "type": "string",
-                    "description": "Unique name for this Machine. If omitted, one is generated for you"
-                },
-                "region": {
-                    "type": "string",
-                    "description": "The target region. Omitting this param launches in the same region as your WireGuard peer connection (somewhere near you)."
-                },
-                "skipLaunch": {
-                    "type": "boolean"
-                },
-                "skipSecrets": {
-                    "type": "boolean"
-                },
-                "skipServiceRegistration": {
-                    "type": "boolean"
                 }
             }
         },
@@ -4094,7 +4094,7 @@
                 "$ref": "#/types/fly-machines:apps:SecretKey"
             }
         },
-        "fly-machines:apps:getVolumesById": {
+        "fly-machines:apps:getVolume": {
             "inputs": {
                 "properties": {
                     "appName": {
