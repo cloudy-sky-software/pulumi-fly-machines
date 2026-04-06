@@ -3,9 +3,9 @@ module github.com/cloudy-sky-software/pulumi-fly-machines/provider
 go 1.25.8
 
 require (
-	github.com/cloudy-sky-software/pulschema v0.0.0-20260403002453-9f33caa14a95
-	github.com/cloudy-sky-software/pulumi-provider-framework v0.0.0-20260403013726-36147cb34bf5
-	github.com/getkin/kin-openapi v0.133.0
+	github.com/cloudy-sky-software/pulschema v0.0.0-20260405200605-f91fd32b18be
+	github.com/cloudy-sky-software/pulumi-provider-framework v0.0.0-20260406024549-d72a2490c6ee
+	github.com/getkin/kin-openapi v0.134.0
 	github.com/pulumi/pulumi/pkg/v3 v3.229.0
 	github.com/pulumi/pulumi/sdk/v3 v3.229.0
 )
@@ -85,8 +85,8 @@ require (
 	github.com/muesli/cancelreader v0.2.2 // indirect
 	github.com/muesli/termenv v0.16.0 // indirect
 	github.com/natefinch/atomic v1.0.1 // indirect
-	github.com/oasdiff/yaml v0.0.0-20250309154309-f31be36b4037 // indirect
-	github.com/oasdiff/yaml3 v0.0.0-20250309153720-d2182401db90 // indirect
+	github.com/oasdiff/yaml v0.0.0-20260313112342-a3ea61cb4d4c // indirect
+	github.com/oasdiff/yaml3 v0.0.0-20260224194419-61cd415a242b // indirect
 	github.com/opentracing/basictracer-go v1.1.0 // indirect
 	github.com/opentracing/opentracing-go v1.2.0 // indirect
 	github.com/perimeterx/marshmallow v1.1.5 // indirect
