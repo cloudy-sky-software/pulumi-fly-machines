@@ -37,13 +37,7 @@ var BaseDir string
 // Language is the SDK language.
 type Language string
 
-const (
-	DotNet Language = "dotnet"
-	Go     Language = "go"
-	NodeJS Language = "nodejs"
-	Python Language = "python"
-	Schema Language = "schema"
-)
+const Schema Language = "schema"
 
 func getOpenAPISpec(ctx context.Context, data []byte) *openapi3.T {
 	doc, err := openapi3.NewLoader().LoadFromData(data)

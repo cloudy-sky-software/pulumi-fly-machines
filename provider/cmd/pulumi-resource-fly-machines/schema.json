@@ -15,17 +15,17 @@
     "publisher": "Cloudy Sky Software",
     "language": {
         "csharp": {
+            "packageReferences": {
+                "Pulumi": "3.*"
+            },
             "namespaces": {
                 "": "Provider",
                 "apps": "Apps",
                 "fly-machines": "FlyMachines",
                 "orgs": "Orgs",
                 "platform": "Platform",
-                "tokens": "Tokens",
-                "tokens/v1": "TokensV1"
-            },
-            "packageReferences": {
-                "Pulumi": "3.*"
+                "postgres": "Postgres",
+                "tokens": "Tokens"
             },
             "rootNamespace": "Pulumi"
         },
@@ -37,11 +37,11 @@
         },
         "python": {
             "packageName": "pulumi_fly_machines",
-            "pyproject": {
-                "enabled": true
-            },
             "requires": {
                 "pulumi": "\u003e=3.0.0,\u003c4.0.0"
+            },
+            "pyproject": {
+                "enabled": true
             }
         }
     },
@@ -344,6 +344,9 @@
                     "type": "boolean",
                     "description": "Optional boolean telling the Machine to destroy itself once it’s complete (default false)"
                 },
+                "cacheDrive": {
+                    "$ref": "#/types/fly-machines:apps:FlyMachineCacheDrive"
+                },
                 "checks": {
                     "$ref": "pulumi.json#/Any",
                     "description": "An optional object that defines one or more named top-level checks. The key for each check is the check name."
@@ -419,6 +422,9 @@
                 "size": {
                     "type": "string",
                     "description": "Deprecated: use Guest instead"
+                },
+                "spot": {
+                    "$ref": "#/types/fly-machines:apps:FlyMachineSpot"
                 },
                 "standbys": {
                     "type": "array",
@@ -610,10 +616,10 @@
             "description": "Stop is used to define the signal and timeout for stopping the container.",
             "properties": {
                 "signal": {
-                    "type": "string"
+                    "$ref": "#/types/fly-machines:apps:FlyStopConfigSignal"
                 },
                 "timeout": {
-                    "$ref": "#/types/fly-machines:apps:FlyDuration"
+                    "type": "string"
                 }
             },
             "type": "object"
@@ -742,14 +748,6 @@
                 },
                 "value": {
                     "type": "string"
-                }
-            },
-            "type": "object"
-        },
-        "fly-machines:apps:FlyDuration": {
-            "properties": {
-                "timeDuration": {
-                    "type": "integer"
                 }
             },
             "type": "object"
@@ -913,11 +911,22 @@
             },
             "type": "object"
         },
+        "fly-machines:apps:FlyMachineCacheDrive": {
+            "properties": {
+                "sizeMb": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
         "fly-machines:apps:FlyMachineConfig": {
             "properties": {
                 "autoDestroy": {
                     "type": "boolean",
                     "description": "Optional boolean telling the Machine to destroy itself once it’s complete (default false)"
+                },
+                "cacheDrive": {
+                    "$ref": "#/types/fly-machines:apps:FlyMachineCacheDrive"
                 },
                 "checks": {
                     "$ref": "pulumi.json#/Any",
@@ -995,6 +1004,9 @@
                     "type": "string",
                     "description": "Deprecated: use Guest instead"
                 },
+                "spot": {
+                    "$ref": "#/types/fly-machines:apps:FlyMachineSpot"
+                },
                 "standbys": {
                     "type": "array",
                     "items": {
@@ -1036,6 +1048,9 @@
                     "items": {
                         "type": "string"
                     }
+                },
+                "maxMemoryMb": {
+                    "type": "integer"
                 },
                 "memoryMb": {
                     "type": "integer"
@@ -1281,9 +1296,6 @@
         },
         "fly-machines:apps:FlyMachineRootfs": {
             "properties": {
-                "fsSizeGb": {
-                    "type": "integer"
-                },
                 "persist": {
                     "$ref": "#/types/fly-machines:apps:FlyMachineRootfsPersist"
                 },
@@ -1388,7 +1400,7 @@
         "fly-machines:apps:FlyMachineServiceCheck": {
             "properties": {
                 "gracePeriod": {
-                    "$ref": "#/types/fly-machines:apps:FlyMachineServiceCheckGracePeriod",
+                    "type": "string",
                     "description": "The time to wait after a VM starts before checking its health"
                 },
                 "headers": {
@@ -1398,7 +1410,7 @@
                     }
                 },
                 "interval": {
-                    "$ref": "#/types/fly-machines:apps:FlyMachineServiceCheckInterval",
+                    "type": "string",
                     "description": "The time between connectivity checks"
                 },
                 "method": {
@@ -1418,7 +1430,7 @@
                     "description": "For http checks, whether to use http or https"
                 },
                 "timeout": {
-                    "$ref": "#/types/fly-machines:apps:FlyMachineServiceCheckTimeout",
+                    "type": "string",
                     "description": "The maximum time a connection can take before being reported as failing its health check"
                 },
                 "tlsServerName": {
@@ -1436,33 +1448,6 @@
             },
             "type": "object"
         },
-        "fly-machines:apps:FlyMachineServiceCheckGracePeriod": {
-            "description": "The time to wait after a VM starts before checking its health",
-            "properties": {
-                "timeDuration": {
-                    "type": "integer"
-                }
-            },
-            "type": "object"
-        },
-        "fly-machines:apps:FlyMachineServiceCheckInterval": {
-            "description": "The time between connectivity checks",
-            "properties": {
-                "timeDuration": {
-                    "type": "integer"
-                }
-            },
-            "type": "object"
-        },
-        "fly-machines:apps:FlyMachineServiceCheckTimeout": {
-            "description": "The maximum time a connection can take before being reported as failing its health check",
-            "properties": {
-                "timeDuration": {
-                    "type": "integer"
-                }
-            },
-            "type": "object"
-        },
         "fly-machines:apps:FlyMachineServiceConcurrency": {
             "properties": {
                 "hardLimit": {
@@ -1473,6 +1458,15 @@
                 },
                 "type": {
                     "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:FlyMachineSpot": {
+            "properties": {
+                "maxPriceFraction": {
+                    "type": "number",
+                    "description": "MaxPriceFraction is the maximum fraction of the full Machine price you will pay for this Machine. Range: (0, 1.0]"
                 }
             },
             "type": "object"
@@ -1545,13 +1539,46 @@
         "fly-machines:apps:FlyStopConfig": {
             "properties": {
                 "signal": {
-                    "type": "string"
+                    "$ref": "#/types/fly-machines:apps:FlyStopConfigSignal"
                 },
                 "timeout": {
-                    "$ref": "#/types/fly-machines:apps:FlyDuration"
+                    "type": "string"
                 }
             },
             "type": "object"
+        },
+        "fly-machines:apps:FlyStopConfigSignal": {
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Sighup",
+                    "value": "SIGHUP"
+                },
+                {
+                    "name": "Sigint",
+                    "value": "SIGINT"
+                },
+                {
+                    "name": "Sigquit",
+                    "value": "SIGQUIT"
+                },
+                {
+                    "name": "Sigkill",
+                    "value": "SIGKILL"
+                },
+                {
+                    "name": "Sigusr1",
+                    "value": "SIGUSR1"
+                },
+                {
+                    "name": "Sigusr2",
+                    "value": "SIGUSR2"
+                },
+                {
+                    "name": "Sigterm",
+                    "value": "SIGTERM"
+                }
+            ]
         },
         "fly-machines:apps:FlyTCPHealthcheck": {
             "properties": {
@@ -1755,6 +1782,9 @@
                 "config": {
                     "$ref": "#/types/fly-machines:apps:FlyMachineConfig"
                 },
+                "cordoned": {
+                    "type": "boolean"
+                },
                 "createdAt": {
                     "type": "string"
                 },
@@ -1779,6 +1809,9 @@
                 "instanceId": {
                     "type": "string",
                     "description": "InstanceID is unique for each version of the machine"
+                },
+                "lease": {
+                    "$ref": "#/types/fly-machines:apps:StrippedLease"
                 },
                 "name": {
                     "type": "string"
@@ -1853,6 +1886,67 @@
                 }
             },
             "type": "object"
+        },
+        "fly-machines:apps:MachinesSignalSignal": {
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Sigabrt",
+                    "value": "SIGABRT"
+                },
+                {
+                    "name": "Sigalrm",
+                    "value": "SIGALRM"
+                },
+                {
+                    "name": "Sigfpe",
+                    "value": "SIGFPE"
+                },
+                {
+                    "name": "Sighup",
+                    "value": "SIGHUP"
+                },
+                {
+                    "name": "Sigill",
+                    "value": "SIGILL"
+                },
+                {
+                    "name": "Sigint",
+                    "value": "SIGINT"
+                },
+                {
+                    "name": "Sigkill",
+                    "value": "SIGKILL"
+                },
+                {
+                    "name": "Sigpipe",
+                    "value": "SIGPIPE"
+                },
+                {
+                    "name": "Sigquit",
+                    "value": "SIGQUIT"
+                },
+                {
+                    "name": "Sigsegv",
+                    "value": "SIGSEGV"
+                },
+                {
+                    "name": "Sigterm",
+                    "value": "SIGTERM"
+                },
+                {
+                    "name": "Sigtrap",
+                    "value": "SIGTRAP"
+                },
+                {
+                    "name": "Sigusr1",
+                    "value": "SIGUSR1"
+                },
+                {
+                    "name": "Sigusr2",
+                    "value": "SIGUSR2"
+                }
+            ]
         },
         "fly-machines:apps:MainMemoryResponse": {
             "properties": {
@@ -1962,56 +2056,59 @@
             "type": "string",
             "enum": [
                 {
-                    "name": "Sigabrt",
-                    "value": "SIGABRT"
-                },
-                {
-                    "name": "Sigalrm",
-                    "value": "SIGALRM"
-                },
-                {
-                    "name": "Sigfpe",
-                    "value": "SIGFPE"
-                },
-                {
                     "name": "Sighup",
                     "value": "SIGHUP"
-                },
-                {
-                    "name": "Sigill",
-                    "value": "SIGILL"
                 },
                 {
                     "name": "Sigint",
                     "value": "SIGINT"
                 },
                 {
-                    "name": "Sigkill",
-                    "value": "SIGKILL"
-                },
-                {
-                    "name": "Sigpipe",
-                    "value": "SIGPIPE"
-                },
-                {
                     "name": "Sigquit",
                     "value": "SIGQUIT"
                 },
                 {
-                    "name": "Sigsegv",
-                    "value": "SIGSEGV"
-                },
-                {
-                    "name": "Sigterm",
-                    "value": "SIGTERM"
-                },
-                {
-                    "name": "Sigtrap",
-                    "value": "SIGTRAP"
+                    "name": "Sigkill",
+                    "value": "SIGKILL"
                 },
                 {
                     "name": "Sigusr1",
                     "value": "SIGUSR1"
+                },
+                {
+                    "name": "Sigusr2",
+                    "value": "SIGUSR2"
+                },
+                {
+                    "name": "Sigterm",
+                    "value": "SIGTERM"
+                }
+            ]
+        },
+        "fly-machines:apps:StrippedLease": {
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "expiresAt": {
+                    "type": "integer"
+                },
+                "owner": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps:Type": {
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Local",
+                    "value": "local"
+                },
+                {
+                    "name": "Cache",
+                    "value": "cache"
                 }
             ]
         },
@@ -2074,6 +2171,9 @@
                 "state": {
                     "type": "string"
                 },
+                "type": {
+                    "$ref": "#/types/fly-machines:apps:VolumeType"
+                },
                 "zone": {
                     "type": "string"
                 }
@@ -2123,6 +2223,19 @@
             },
             "type": "object"
         },
+        "fly-machines:apps:VolumeType": {
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Local",
+                    "value": "local"
+                },
+                {
+                    "name": "Cache",
+                    "value": "cache"
+                }
+            ]
+        },
         "fly-machines:apps:WaitMachineResponse": {
             "properties": {
                 "eventId": {
@@ -2162,6 +2275,9 @@
                     "items": {
                         "type": "string"
                     }
+                },
+                "maxMemoryMb": {
+                    "type": "integer"
                 },
                 "memoryMb": {
                     "type": "integer"
@@ -2207,9 +2323,6 @@
         },
         "fly-machines:orgs:OrgMachine": {
             "properties": {
-                "appId": {
-                    "type": "integer"
-                },
                 "appName": {
                     "type": "string"
                 },
@@ -2220,9 +2333,6 @@
                     "type": "string"
                 },
                 "id": {
-                    "type": "string"
-                },
-                "instanceId": {
                     "type": "string"
                 },
                 "name": {
@@ -2239,12 +2349,21 @@
                 },
                 "updatedAt": {
                     "type": "string"
+                },
+                "version": {
+                    "type": "string"
                 }
             },
             "type": "object"
         },
         "fly-machines:orgs:OrgMachinesResponse": {
             "properties": {
+                "errorRegions": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
                 "lastMachineId": {
                     "type": "string"
                 },
@@ -2259,6 +2378,130 @@
                 },
                 "nextCursor": {
                     "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:orgs:OrgVolume": {
+            "properties": {
+                "appName": {
+                    "type": "string"
+                },
+                "attachedAllocId": {
+                    "type": "string"
+                },
+                "attachedMachineId": {
+                    "type": "string"
+                },
+                "autoBackupEnabled": {
+                    "type": "boolean"
+                },
+                "blockSize": {
+                    "type": "integer"
+                },
+                "blocks": {
+                    "type": "integer"
+                },
+                "blocksAvail": {
+                    "type": "integer"
+                },
+                "blocksFree": {
+                    "type": "integer"
+                },
+                "bytesTotal": {
+                    "type": "integer"
+                },
+                "bytesUsed": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "encrypted": {
+                    "type": "boolean"
+                },
+                "fstype": {
+                    "type": "string"
+                },
+                "hostStatus": {
+                    "$ref": "#/types/fly-machines:orgs:OrgVolumeHostStatus"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "region": {
+                    "type": "string"
+                },
+                "sizeGb": {
+                    "type": "integer"
+                },
+                "snapshotRetention": {
+                    "type": "integer"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "type": {
+                    "$ref": "#/types/fly-machines:orgs:OrgVolumeType"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "zone": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:orgs:OrgVolumeHostStatus": {
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Ok",
+                    "value": "ok"
+                },
+                {
+                    "name": "Unknown",
+                    "value": "unknown"
+                },
+                {
+                    "name": "Unreachable",
+                    "value": "unreachable"
+                }
+            ]
+        },
+        "fly-machines:orgs:OrgVolumeType": {
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Local",
+                    "value": "local"
+                },
+                {
+                    "name": "Cache",
+                    "value": "cache"
+                }
+            ]
+        },
+        "fly-machines:orgs:OrgVolumesResponse": {
+            "properties": {
+                "lastUpdatedAt": {
+                    "type": "string"
+                },
+                "lastVolumeId": {
+                    "type": "string"
+                },
+                "nextCursor": {
+                    "type": "string"
+                },
+                "volumes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:orgs:OrgVolume"
+                    }
                 }
             },
             "type": "object"
@@ -2286,6 +2529,9 @@
                     "items": {
                         "type": "string"
                     }
+                },
+                "maxMemoryMb": {
+                    "type": "integer"
                 },
                 "memoryMb": {
                     "type": "integer"
@@ -2323,31 +2569,14 @@
                 "regions": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/types/fly-machines:platform:ReadsGetCapacityPerRegionRow"
+                        "$ref": "#/types/fly-machines:platform:MainRegionRow"
                     }
                 }
             },
             "type": "object"
         },
-        "fly-machines:platform:PlacementRegionPlacement": {
+        "fly-machines:platform:MainRegionRow": {
             "properties": {
-                "concurrency": {
-                    "type": "integer"
-                },
-                "count": {
-                    "type": "integer"
-                },
-                "region": {
-                    "type": "string"
-                }
-            },
-            "type": "object"
-        },
-        "fly-machines:platform:ReadsGetCapacityPerRegionRow": {
-            "properties": {
-                "capacity": {
-                    "type": "integer"
-                },
                 "code": {
                     "type": "string"
                 },
@@ -2375,22 +2604,855 @@
             },
             "type": "object"
         },
+        "fly-machines:platform:PlacementRegionPlacement": {
+            "properties": {
+                "concurrency": {
+                    "type": "integer"
+                },
+                "count": {
+                    "type": "integer"
+                },
+                "region": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
         "fly-machines:platform:Weights": {
             "description": "Optional weights to override default placement preferences.",
             "type": "object"
         },
-        "fly-machines:tokens/v1:CurrentTokenResponse": {
+        "fly-machines:postgres:GetPostgresUserCredentialsResponse": {
             "properties": {
-                "tokens": {
+                "data": {
+                    "$ref": "#/types/fly-machines:postgres:PostgresUserCredentials"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres:ListPostgresBackupsResponse": {
+            "properties": {
+                "data": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/types/fly-machines:tokens/v1:MainTokenInfo"
+                        "$ref": "#/types/fly-machines:postgres:PostgresBackup"
                     }
                 }
             },
             "type": "object"
         },
-        "fly-machines:tokens/v1:MainTokenInfo": {
+        "fly-machines:postgres:ListPostgresClustersResponse": {
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:postgres:PostgresClusterSummary"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres:ListPostgresDatabasesResponse": {
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:postgres:PostgresDatabase"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres:ListPostgresExtensionsResponse": {
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:postgres:PostgresExtension"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres:ListPostgresUsersResponse": {
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:postgres:PostgresUser"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres:OrganizationRef": {
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "Organization name."
+                },
+                "slug": {
+                    "type": "string",
+                    "description": "Organization slug."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres:PgMajorVersion": {
+            "description": "Postgres major version.",
+            "type": "string",
+            "enum": [
+                {
+                    "name": "16",
+                    "value": "16"
+                },
+                {
+                    "name": "17",
+                    "value": "17"
+                }
+            ]
+        },
+        "fly-machines:postgres:Plan": {
+            "description": "Plan slug selecting CPU, memory, and disk sizing.",
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Basic",
+                    "value": "basic"
+                },
+                {
+                    "name": "Starter",
+                    "value": "starter"
+                },
+                {
+                    "name": "Launch",
+                    "value": "launch"
+                },
+                {
+                    "name": "Scale",
+                    "value": "scale"
+                },
+                {
+                    "name": "Performance",
+                    "value": "Performance"
+                }
+            ]
+        },
+        "fly-machines:postgres:PoolMode": {
+            "description": "Connection pooler mode.",
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Session",
+                    "value": "session"
+                },
+                {
+                    "name": "Transaction",
+                    "value": "transaction"
+                }
+            ]
+        },
+        "fly-machines:postgres:PostgresAttachedApp": {
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "Attached Fly app name."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres:PostgresAttachment": {
+            "properties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Attached Fly app name."
+                },
+                "attachedAt": {
+                    "type": "string",
+                    "description": "RFC 3339 timestamp when the attachment was created."
+                },
+                "postgresClusterId": {
+                    "type": "string",
+                    "description": "Cluster ID the app is attached to."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres:PostgresBackup": {
+            "properties": {
+                "finishedAt": {
+                    "type": "string",
+                    "description": "RFC 3339 stop timestamp."
+                },
+                "id": {
+                    "type": "string",
+                    "description": "Backup ID."
+                },
+                "sizeBytes": {
+                    "type": "integer",
+                    "description": "Backup size in bytes."
+                },
+                "startedAt": {
+                    "type": "string",
+                    "description": "RFC 3339 start timestamp."
+                },
+                "status": {
+                    "type": "string",
+                    "description": "Backup status."
+                },
+                "type": {
+                    "$ref": "#/types/fly-machines:postgres:PostgresBackupType",
+                    "description": "Backup type."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres:PostgresBackupType": {
+            "description": "Backup type.",
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Full",
+                    "value": "full"
+                },
+                {
+                    "name": "Incr",
+                    "value": "incr"
+                },
+                {
+                    "name": "Diff",
+                    "value": "diff"
+                }
+            ]
+        },
+        "fly-machines:postgres:PostgresCluster": {
+            "properties": {
+                "attachedApps": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:postgres:PostgresAttachedApp"
+                    },
+                    "description": "Apps attached to the cluster."
+                },
+                "cpuKind": {
+                    "$ref": "#/types/fly-machines:postgres:PostgresClusterCpuKind",
+                    "description": "CPU class."
+                },
+                "cpus": {
+                    "type": "integer",
+                    "description": "vCPUs per node."
+                },
+                "createdAt": {
+                    "type": "string",
+                    "description": "RFC 3339 creation timestamp."
+                },
+                "diskSizeGb": {
+                    "type": "integer",
+                    "description": "Disk size in gigabytes."
+                },
+                "endpoints": {
+                    "$ref": "#/types/fly-machines:postgres:PostgresClusterEndpoints",
+                    "description": "Connection endpoints. Populated once the cluster is ready."
+                },
+                "id": {
+                    "type": "string",
+                    "description": "Cluster ID."
+                },
+                "memoryMb": {
+                    "type": "integer",
+                    "description": "Memory per node in megabytes."
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Cluster name."
+                },
+                "organization": {
+                    "$ref": "#/types/fly-machines:postgres:OrganizationRef"
+                },
+                "pgMajorVersion": {
+                    "$ref": "#/types/fly-machines:postgres:PostgresClusterPgMajorVersion",
+                    "description": "Postgres major version."
+                },
+                "plan": {
+                    "$ref": "#/types/fly-machines:postgres:PostgresClusterPlan",
+                    "description": "Plan slug."
+                },
+                "postgisEnabled": {
+                    "type": "boolean",
+                    "description": "Whether PostGIS support is enabled."
+                },
+                "region": {
+                    "type": "string",
+                    "description": "Fly region code."
+                },
+                "replicas": {
+                    "type": "integer",
+                    "description": "Number of replicas."
+                },
+                "status": {
+                    "$ref": "#/types/fly-machines:postgres:PostgresClusterStatus",
+                    "description": "Current lifecycle status."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres:PostgresClusterCpuKind": {
+            "description": "CPU class.",
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Shared",
+                    "value": "shared"
+                },
+                {
+                    "name": "Performance",
+                    "value": "performance"
+                }
+            ]
+        },
+        "fly-machines:postgres:PostgresClusterEndpoints": {
+            "description": "Connection endpoints. Populated once the cluster is ready.",
+            "properties": {
+                "primary": {
+                    "$ref": "#/types/fly-machines:postgres:PostgresClusterEndpointsPrimary",
+                    "description": "Endpoints for connecting to the primary node."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres:PostgresClusterEndpointsPrimary": {
+            "description": "Endpoints for connecting to the primary node.",
+            "properties": {
+                "direct": {
+                    "$ref": "#/types/fly-machines:postgres:PostgresNodeEndpointsDirect",
+                    "description": "Unpooled connection to the cluster node."
+                },
+                "pooler": {
+                    "$ref": "#/types/fly-machines:postgres:PostgresNodeEndpointsPooler",
+                    "description": "Pooled connection to the cluster node (through PgBouncer)."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres:PostgresClusterPgMajorVersion": {
+            "description": "Postgres major version.",
+            "type": "string",
+            "enum": [
+                {
+                    "name": "16",
+                    "value": "16"
+                },
+                {
+                    "name": "17",
+                    "value": "17"
+                }
+            ]
+        },
+        "fly-machines:postgres:PostgresClusterPlan": {
+            "description": "Plan slug.",
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Basic",
+                    "value": "basic"
+                },
+                {
+                    "name": "Starter",
+                    "value": "starter"
+                },
+                {
+                    "name": "Launch",
+                    "value": "launch"
+                },
+                {
+                    "name": "Scale",
+                    "value": "scale"
+                },
+                {
+                    "name": "Performance",
+                    "value": "Performance"
+                }
+            ]
+        },
+        "fly-machines:postgres:PostgresClusterStatus": {
+            "description": "Current lifecycle status.",
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Creating",
+                    "value": "creating"
+                },
+                {
+                    "name": "Initializing",
+                    "value": "initializing"
+                },
+                {
+                    "name": "Ready",
+                    "value": "ready"
+                },
+                {
+                    "name": "Deleting",
+                    "value": "deleting"
+                },
+                {
+                    "name": "Deleted",
+                    "value": "deleted"
+                },
+                {
+                    "name": "Failed",
+                    "value": "failed"
+                }
+            ]
+        },
+        "fly-machines:postgres:PostgresClusterSummary": {
+            "properties": {
+                "attachedApps": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:postgres:PostgresAttachedApp"
+                    },
+                    "description": "Apps attached to the cluster."
+                },
+                "createdAt": {
+                    "type": "string",
+                    "description": "RFC 3339 creation timestamp."
+                },
+                "deletedAt": {
+                    "type": "string",
+                    "description": "RFC 3339 deletion timestamp; present for deleted clusters."
+                },
+                "id": {
+                    "type": "string",
+                    "description": "Cluster ID."
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Cluster name."
+                },
+                "plan": {
+                    "$ref": "#/types/fly-machines:postgres:PostgresClusterSummaryPlan",
+                    "description": "Plan slug."
+                },
+                "region": {
+                    "type": "string",
+                    "description": "Fly region code."
+                },
+                "status": {
+                    "$ref": "#/types/fly-machines:postgres:PostgresClusterSummaryStatus",
+                    "description": "Current lifecycle status."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres:PostgresClusterSummaryPlan": {
+            "description": "Plan slug.",
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Basic",
+                    "value": "basic"
+                },
+                {
+                    "name": "Starter",
+                    "value": "starter"
+                },
+                {
+                    "name": "Launch",
+                    "value": "launch"
+                },
+                {
+                    "name": "Scale",
+                    "value": "scale"
+                },
+                {
+                    "name": "Performance",
+                    "value": "Performance"
+                }
+            ]
+        },
+        "fly-machines:postgres:PostgresClusterSummaryStatus": {
+            "description": "Current lifecycle status.",
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Creating",
+                    "value": "creating"
+                },
+                {
+                    "name": "Initializing",
+                    "value": "initializing"
+                },
+                {
+                    "name": "Ready",
+                    "value": "ready"
+                },
+                {
+                    "name": "Deleting",
+                    "value": "deleting"
+                },
+                {
+                    "name": "Deleted",
+                    "value": "deleted"
+                },
+                {
+                    "name": "Failed",
+                    "value": "failed"
+                }
+            ]
+        },
+        "fly-machines:postgres:PostgresDatabase": {
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "Database name."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres:PostgresExtension": {
+            "properties": {
+                "defaultVersion": {
+                    "type": "string",
+                    "description": "Default version installed when enabled."
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Human-readable description."
+                },
+                "installed": {
+                    "$ref": "#/types/fly-machines:postgres:PostgresExtensionInstalled",
+                    "description": "Installation details, or null when the extension is not installed."
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Extension name."
+                },
+                "system": {
+                    "type": "boolean",
+                    "description": "Whether this is a system extension that cannot be disabled."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres:PostgresExtensionInstalled": {
+            "description": "Installation details, or null when the extension is not installed.",
+            "properties": {
+                "schema": {
+                    "type": "string",
+                    "description": "Schema the extension is installed into."
+                },
+                "version": {
+                    "type": "string",
+                    "description": "Installed version."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres:PostgresNodeEndpointsDirect": {
+            "description": "Unpooled connection to the cluster node.",
+            "properties": {
+                "host": {
+                    "type": "string",
+                    "description": "Hostname to connect to."
+                },
+                "port": {
+                    "type": "integer",
+                    "description": "TCP port."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres:PostgresNodeEndpointsPooler": {
+            "description": "Pooled connection to the cluster node (through PgBouncer).",
+            "properties": {
+                "host": {
+                    "type": "string",
+                    "description": "Hostname to connect to."
+                },
+                "port": {
+                    "type": "integer",
+                    "description": "TCP port."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres:PostgresUser": {
+            "properties": {
+                "role": {
+                    "$ref": "#/types/fly-machines:postgres:PostgresUserRole",
+                    "description": "User role."
+                },
+                "username": {
+                    "type": "string",
+                    "description": "User name."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres:PostgresUserCredentials": {
+            "properties": {
+                "password": {
+                    "type": "string",
+                    "description": "User password."
+                },
+                "username": {
+                    "type": "string",
+                    "description": "User name."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres:PostgresUserRole": {
+            "description": "User role.",
+            "type": "string",
+            "enum": [
+                {
+                    "name": "SchemaAdmin",
+                    "value": "schema_admin"
+                },
+                {
+                    "name": "Writer",
+                    "value": "writer"
+                },
+                {
+                    "name": "Reader",
+                    "value": "reader"
+                }
+            ]
+        },
+        "fly-machines:postgres:Role": {
+            "description": "Role to grant the user.",
+            "type": "string",
+            "enum": [
+                {
+                    "name": "SchemaAdmin",
+                    "value": "schema_admin"
+                },
+                {
+                    "name": "Writer",
+                    "value": "writer"
+                },
+                {
+                    "name": "Reader",
+                    "value": "reader"
+                }
+            ]
+        },
+        "fly-machines:postgres:ShowPostgresClusterResponse": {
+            "properties": {
+                "data": {
+                    "$ref": "#/types/fly-machines:postgres:PostgresCluster"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres:Type": {
+            "description": "Backup type.",
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Full",
+                    "value": "full"
+                },
+                {
+                    "name": "Incr",
+                    "value": "incr"
+                },
+                {
+                    "name": "Diff",
+                    "value": "diff"
+                }
+            ]
+        },
+        "fly-machines:tokens:CurrentTokenResponse": {
+            "properties": {
+                "tokens": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:tokens:MainTokenInfo"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:tokens:FlyioAccess": {
+            "properties": {
+                "action": {
+                    "$ref": "#/types/fly-machines:tokens:FlyioAccessAction"
+                },
+                "appFeature": {
+                    "type": "string"
+                },
+                "appid": {
+                    "type": "integer"
+                },
+                "cluster": {
+                    "type": "string"
+                },
+                "command": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "feature": {
+                    "type": "string"
+                },
+                "machine": {
+                    "type": "string"
+                },
+                "machineFeature": {
+                    "type": "string"
+                },
+                "mutation": {
+                    "type": "string"
+                },
+                "orgid": {
+                    "type": "integer"
+                },
+                "sourceApp": {
+                    "type": "string"
+                },
+                "sourceMachine": {
+                    "type": "string"
+                },
+                "sourceOrganization": {
+                    "type": "string"
+                },
+                "storageObject": {
+                    "type": "string"
+                },
+                "volume": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:tokens:FlyioAccessAction": {
+            "type": "integer",
+            "enum": [
+                {
+                    "name": "%!d(float64=1)",
+                    "value": 1
+                },
+                {
+                    "name": "%!d(float64=2)",
+                    "value": 2
+                },
+                {
+                    "name": "%!d(float64=4)",
+                    "value": 4
+                },
+                {
+                    "name": "%!d(float64=8)",
+                    "value": 8
+                },
+                {
+                    "name": "%!d(float64=16)",
+                    "value": 16
+                },
+                {
+                    "name": "%!d(float64=31)",
+                    "value": 31
+                },
+                {
+                    "name": "%!d(float64=0)",
+                    "value": 0
+                }
+            ]
+        },
+        "fly-machines:tokens:MacaroonCaveatSet": {
+            "properties": {
+                "caveats": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "pulumi.json#/Any"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:tokens:MacaroonNonce": {
+            "properties": {
+                "kid": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "proof": {
+                    "type": "boolean"
+                },
+                "rnd": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:tokens:MainTokenAccess": {
+            "properties": {
+                "action": {
+                    "$ref": "#/types/fly-machines:tokens:MainTokenAccessAction",
+                    "description": "Action is the action being taken on the specified resource. This is the\ncombination of individual action characters (e.g \"rw\")\n  - r: read\n  - w: write\n  - c: create\n  - d: delete\n  - C: control"
+                },
+                "appFeature": {
+                    "type": "string",
+                    "description": "AppFeature is a named set of functionality associated with the app. If\nthis is specified, the AppName field must be set.\n  - images: images in the fly.io registry"
+                },
+                "appName": {
+                    "type": "string",
+                    "description": "AppName is the name of the app being accessed."
+                },
+                "command": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Command is the command being executed on a machine. If this is specified,\nthe Machine must be set."
+                },
+                "machineFeature": {
+                    "type": "string",
+                    "description": "MachineFeature is a named set of functionality associated with the\nmachine. If this is specified, the Machine field must be set.\n  - metadata: machine metadata service\n  - oidc: OIDC tokens\n  - kmstoken: Petsem tokens for KMS access"
+                },
+                "machineId": {
+                    "type": "string",
+                    "description": "MachineID is the ID of the machine being accessed (e.g. 7811701f564258)."
+                },
+                "mutation": {
+                    "type": "string",
+                    "description": "Mutation is the GraphQL mutation being performed."
+                },
+                "orgFeature": {
+                    "type": "string",
+                    "description": "OrgFeature is a named set of functionality associated with the\norganization. If this is specified, the OrgSlug field must be set.\n  - wg: WireGuard peers\n  - builder: remote builders\n  - addon: addons\n  - membership: organization membership\n  - billing: billing\n  - litefs-cloud: LiteFS Cloud\n  - authentication: authentication settings"
+                },
+                "orgSlug": {
+                    "type": "string",
+                    "description": "OrgSlug is the slug of the organization being accessed."
+                },
+                "sourceMachine": {
+                    "type": "string",
+                    "description": "SourceMachine is the machine ID of the actor attempting access."
+                },
+                "storageObject": {
+                    "type": "string",
+                    "description": "StorageObject is the storage object being accessed. If this is specified,\nthe OrgSlug must be set."
+                },
+                "volumeId": {
+                    "type": "string",
+                    "description": "VolumeID is the encoded ID of the volume being accessed (e.g.\nvol_r1p6pln1k9m9j7zr)."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:tokens:MainTokenAccessAction": {
+            "description": "Action is the action being taken on the specified resource. This is the\ncombination of individual action characters (e.g \"rw\")\n  - r: read\n  - w: write\n  - c: create\n  - d: delete\n  - C: control",
+            "type": "object"
+        },
+        "fly-machines:tokens:MainTokenInfo": {
             "properties": {
                 "apps": {
                     "type": "array",
@@ -2418,6 +3480,26 @@
                 "user": {
                     "type": "string",
                     "description": "User identifier if token is for a user"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:tokens:RootVerifiedToken": {
+            "properties": {
+                "caveats": {
+                    "$ref": "#/types/fly-machines:tokens:MacaroonCaveatSet"
+                },
+                "header": {
+                    "type": "string"
+                },
+                "nonce": {
+                    "$ref": "#/types/fly-machines:tokens:MacaroonNonce"
+                },
+                "permissionToken": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
                 }
             },
             "type": "object"
@@ -2723,6 +3805,9 @@
                 "config": {
                     "$ref": "#/types/fly-machines:apps:FlyMachineConfig"
                 },
+                "cordoned": {
+                    "type": "boolean"
+                },
                 "createdAt": {
                     "type": "string"
                 },
@@ -2745,11 +3830,11 @@
                     "type": "string",
                     "description": "InstanceID is unique for each version of the machine"
                 },
+                "lease": {
+                    "$ref": "#/types/fly-machines:apps:StrippedLease"
+                },
                 "leaseTtl": {
                     "type": "integer"
-                },
-                "lsvd": {
-                    "type": "boolean"
                 },
                 "minSecretsVersion": {
                     "type": "integer"
@@ -2796,9 +3881,6 @@
                 },
                 "leaseTtl": {
                     "type": "integer"
-                },
-                "lsvd": {
-                    "type": "boolean"
                 },
                 "minSecretsVersion": {
                     "type": "integer"
@@ -2833,6 +3915,9 @@
                 "config": {
                     "$ref": "#/types/fly-machines:apps:FlyMachineConfig"
                 },
+                "cordoned": {
+                    "type": "boolean"
+                },
                 "createdAt": {
                     "type": "string"
                 },
@@ -2858,11 +3943,11 @@
                     "type": "string",
                     "description": "InstanceID is unique for each version of the machine"
                 },
+                "lease": {
+                    "$ref": "#/types/fly-machines:apps:StrippedLease"
+                },
                 "leaseTtl": {
                     "type": "integer"
-                },
-                "lsvd": {
-                    "type": "boolean"
                 },
                 "minSecretsVersion": {
                     "type": "integer"
@@ -2912,9 +3997,6 @@
                 },
                 "leaseTtl": {
                     "type": "integer"
-                },
-                "lsvd": {
-                    "type": "boolean"
                 },
                 "machineId": {
                     "type": "string",
@@ -3194,7 +4276,7 @@
         "fly-machines:apps:MachinesSignal": {
             "properties": {
                 "signal": {
-                    "$ref": "#/types/fly-machines:apps:Signal"
+                    "$ref": "#/types/fly-machines:apps:MachinesSignalSignal"
                 }
             },
             "type": "object",
@@ -3208,7 +4290,7 @@
                     "description": "Machine ID"
                 },
                 "signal": {
-                    "$ref": "#/types/fly-machines:apps:Signal"
+                    "$ref": "#/types/fly-machines:apps:MachinesSignalSignal"
                 }
             }
         },
@@ -3228,10 +4310,10 @@
         "fly-machines:apps:MachinesStop": {
             "properties": {
                 "signal": {
-                    "type": "string"
+                    "$ref": "#/types/fly-machines:apps:Signal"
                 },
                 "timeout": {
-                    "$ref": "#/types/fly-machines:apps:FlyDuration"
+                    "type": "string"
                 }
             },
             "type": "object",
@@ -3245,10 +4327,10 @@
                     "description": "Machine ID"
                 },
                 "signal": {
-                    "type": "string"
+                    "$ref": "#/types/fly-machines:apps:Signal"
                 },
                 "timeout": {
-                    "$ref": "#/types/fly-machines:apps:FlyDuration"
+                    "type": "string"
                 }
             }
         },
@@ -3693,6 +4775,9 @@
                 "state": {
                     "type": "string"
                 },
+                "type": {
+                    "$ref": "#/types/fly-machines:apps:Type"
+                },
                 "uniqueZoneAppWide": {
                     "type": "boolean"
                 },
@@ -3858,6 +4943,359 @@
             "requiredInputs": [
                 "orgSlug"
             ]
+        },
+        "fly-machines:postgres:Postgres": {
+            "properties": {
+                "data": {
+                    "$ref": "#/types/fly-machines:postgres:PostgresCluster"
+                },
+                "diskSizeGb": {
+                    "type": "integer",
+                    "description": "Disk size in gigabytes."
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name for the cluster. A name is generated when omitted."
+                },
+                "orgSlug": {
+                    "type": "string",
+                    "description": "Slug of the organization that will own the cluster."
+                },
+                "pgMajorVersion": {
+                    "$ref": "#/types/fly-machines:postgres:PgMajorVersion",
+                    "description": "Postgres major version."
+                },
+                "plan": {
+                    "$ref": "#/types/fly-machines:postgres:Plan",
+                    "description": "Plan slug selecting CPU, memory, and disk sizing."
+                },
+                "poolMode": {
+                    "$ref": "#/types/fly-machines:postgres:PoolMode",
+                    "description": "Connection pooler mode."
+                },
+                "postgisEnabled": {
+                    "type": "boolean",
+                    "description": "Enable PostGIS support, required to later enable PostGIS extensions."
+                },
+                "region": {
+                    "type": "string",
+                    "description": "Fly region code where the cluster's primary runs."
+                }
+            },
+            "type": "object",
+            "required": [
+                "orgSlug",
+                "plan",
+                "region"
+            ],
+            "inputProperties": {
+                "diskSizeGb": {
+                    "type": "integer",
+                    "description": "Disk size in gigabytes."
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name for the cluster. A name is generated when omitted."
+                },
+                "orgSlug": {
+                    "type": "string",
+                    "description": "Slug of the organization that will own the cluster."
+                },
+                "pgMajorVersion": {
+                    "$ref": "#/types/fly-machines:postgres:PgMajorVersion",
+                    "description": "Postgres major version."
+                },
+                "plan": {
+                    "$ref": "#/types/fly-machines:postgres:Plan",
+                    "description": "Plan slug selecting CPU, memory, and disk sizing."
+                },
+                "poolMode": {
+                    "$ref": "#/types/fly-machines:postgres:PoolMode",
+                    "description": "Connection pooler mode."
+                },
+                "postgisEnabled": {
+                    "type": "boolean",
+                    "description": "Enable PostGIS support, required to later enable PostGIS extensions."
+                },
+                "region": {
+                    "type": "string",
+                    "description": "Fly region code where the cluster's primary runs."
+                }
+            },
+            "requiredInputs": [
+                "orgSlug",
+                "plan",
+                "region"
+            ]
+        },
+        "fly-machines:postgres:PostgresAttachment": {
+            "properties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Name of the Fly app to attach."
+                },
+                "data": {
+                    "$ref": "#/types/fly-machines:postgres:PostgresAttachment"
+                }
+            },
+            "type": "object",
+            "required": [
+                "appName"
+            ],
+            "inputProperties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Name of the Fly app to attach."
+                },
+                "postgresClusterId": {
+                    "type": "string",
+                    "description": "Managed Postgres Cluster ID"
+                }
+            },
+            "requiredInputs": [
+                "appName"
+            ]
+        },
+        "fly-machines:postgres:PostgresBackup": {
+            "properties": {
+                "type": {
+                    "$ref": "#/types/fly-machines:postgres:Type",
+                    "description": "Backup type."
+                }
+            },
+            "type": "object",
+            "required": [
+                "type"
+            ],
+            "inputProperties": {
+                "postgresClusterId": {
+                    "type": "string",
+                    "description": "Managed Postgres Cluster ID"
+                },
+                "type": {
+                    "$ref": "#/types/fly-machines:postgres:Type",
+                    "description": "Backup type."
+                }
+            },
+            "requiredInputs": [
+                "type"
+            ]
+        },
+        "fly-machines:postgres:PostgresDatabase": {
+            "properties": {
+                "data": {
+                    "$ref": "#/types/fly-machines:postgres:PostgresDatabase"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the database to create."
+                }
+            },
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "inputProperties": {
+                "name": {
+                    "type": "string",
+                    "description": "Name of the database to create."
+                },
+                "postgresClusterId": {
+                    "type": "string",
+                    "description": "Managed Postgres Cluster ID"
+                }
+            }
+        },
+        "fly-machines:postgres:PostgresExtensionsEnable": {
+            "properties": {
+                "createSchema": {
+                    "type": "boolean",
+                    "description": "Create the schema first if it does not exist."
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Extension to enable."
+                },
+                "schema": {
+                    "type": "string",
+                    "description": "Schema to install the extension into. Defaults to the database's default schema."
+                }
+            },
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "inputProperties": {
+                "createSchema": {
+                    "type": "boolean",
+                    "description": "Create the schema first if it does not exist."
+                },
+                "databaseName": {
+                    "type": "string",
+                    "description": "Database Name"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Extension to enable."
+                },
+                "postgresClusterId": {
+                    "type": "string",
+                    "description": "Managed Postgres Cluster ID"
+                },
+                "schema": {
+                    "type": "string",
+                    "description": "Schema to install the extension into. Defaults to the database's default schema."
+                }
+            }
+        },
+        "fly-machines:postgres:PostgresFork": {
+            "properties": {
+                "data": {
+                    "$ref": "#/types/fly-machines:postgres:PostgresCluster"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name for the forked cluster. Defaults to the source name with a -fork suffix."
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "name": {
+                    "type": "string",
+                    "description": "Name for the forked cluster. Defaults to the source name with a -fork suffix."
+                },
+                "postgresClusterId": {
+                    "type": "string",
+                    "description": "Managed Postgres Cluster ID"
+                }
+            }
+        },
+        "fly-machines:postgres:PostgresRestore": {
+            "properties": {
+                "backupId": {
+                    "type": "string",
+                    "description": "Backup label to restore from, as returned by the backups list."
+                },
+                "data": {
+                    "$ref": "#/types/fly-machines:postgres:PostgresCluster"
+                }
+            },
+            "type": "object",
+            "required": [
+                "backupId"
+            ],
+            "inputProperties": {
+                "backupId": {
+                    "type": "string",
+                    "description": "Backup label to restore from, as returned by the backups list."
+                },
+                "postgresClusterId": {
+                    "type": "string",
+                    "description": "Managed Postgres Cluster ID"
+                }
+            },
+            "requiredInputs": [
+                "backupId"
+            ]
+        },
+        "fly-machines:postgres:PostgresUser": {
+            "properties": {
+                "data": {
+                    "$ref": "#/types/fly-machines:postgres:PostgresUser"
+                },
+                "role": {
+                    "$ref": "#/types/fly-machines:postgres:Role",
+                    "description": "Role to grant the user."
+                },
+                "username": {
+                    "type": "string",
+                    "description": "Name for the new user."
+                }
+            },
+            "type": "object",
+            "required": [
+                "role",
+                "username"
+            ],
+            "inputProperties": {
+                "postgresClusterId": {
+                    "type": "string",
+                    "description": "Managed Postgres Cluster ID"
+                },
+                "role": {
+                    "$ref": "#/types/fly-machines:postgres:Role",
+                    "description": "Role to grant the user."
+                },
+                "username": {
+                    "type": "string",
+                    "description": "Name for the new user."
+                }
+            },
+            "requiredInputs": [
+                "role",
+                "username"
+            ]
+        },
+        "fly-machines:postgres:PostgresUsersRotatePassword": {
+            "properties": {
+                "data": {
+                    "$ref": "#/types/fly-machines:postgres:PostgresUserCredentials"
+                },
+                "killSessions": {
+                    "type": "boolean",
+                    "description": "Terminate the user's existing sessions after rotating."
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "killSessions": {
+                    "type": "boolean",
+                    "description": "Terminate the user's existing sessions after rotating."
+                },
+                "postgresClusterId": {
+                    "type": "string",
+                    "description": "Managed Postgres Cluster ID"
+                },
+                "username": {
+                    "type": "string",
+                    "description": "Postgres User Name"
+                }
+            }
+        },
+        "fly-machines:tokens:TokensAuthenticate": {
+            "properties": {
+                "header": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "header": {
+                    "type": "string"
+                }
+            }
+        },
+        "fly-machines:tokens:TokensAuthorize": {
+            "properties": {
+                "access": {
+                    "$ref": "#/types/fly-machines:tokens:FlyioAccess"
+                },
+                "header": {
+                    "type": "string"
+                },
+                "verifiedToken": {
+                    "$ref": "#/types/fly-machines:tokens:RootVerifiedToken"
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "access": {
+                    "$ref": "#/types/fly-machines:tokens:MainTokenAccess"
+                },
+                "header": {
+                    "type": "string"
+                }
+            }
         },
         "fly-machines:tokens:TokensRequestKm": {
             "type": "object"
@@ -4377,16 +5815,144 @@
                 "$ref": "#/types/fly-machines:orgs:OrgMachinesResponse"
             }
         },
+        "fly-machines:orgs:listVolumesOrg": {
+            "inputs": {
+                "properties": {
+                    "orgSlug": {
+                        "type": "string",
+                        "description": "Fly Organization Slug"
+                    }
+                },
+                "required": [
+                    "orgSlug"
+                ]
+            },
+            "outputs": {
+                "$ref": "#/types/fly-machines:orgs:OrgVolumesResponse"
+            }
+        },
         "fly-machines:platform:getPlatformRegion": {
             "inputs": {},
             "outputs": {
                 "$ref": "#/types/fly-machines:platform:MainRegionResponse"
             }
         },
-        "fly-machines:tokens/v1:getCurrentToken": {
+        "fly-machines:postgres:getPostgres": {
+            "inputs": {
+                "properties": {
+                    "postgresClusterId": {
+                        "type": "string",
+                        "description": "Managed Postgres Cluster ID"
+                    }
+                },
+                "required": [
+                    "postgresClusterId"
+                ]
+            },
+            "outputs": {
+                "$ref": "#/types/fly-machines:postgres:ShowPostgresClusterResponse"
+            }
+        },
+        "fly-machines:postgres:getPostgresUsersCredential": {
+            "inputs": {
+                "properties": {
+                    "postgresClusterId": {
+                        "type": "string",
+                        "description": "Managed Postgres Cluster ID"
+                    },
+                    "username": {
+                        "type": "string",
+                        "description": "Postgres User Name"
+                    }
+                },
+                "required": [
+                    "postgresClusterId",
+                    "username"
+                ]
+            },
+            "outputs": {
+                "$ref": "#/types/fly-machines:postgres:GetPostgresUserCredentialsResponse"
+            }
+        },
+        "fly-machines:postgres:listPostgres": {
             "inputs": {},
             "outputs": {
-                "$ref": "#/types/fly-machines:tokens/v1:CurrentTokenResponse"
+                "$ref": "#/types/fly-machines:postgres:ListPostgresClustersResponse"
+            }
+        },
+        "fly-machines:postgres:listPostgresBackups": {
+            "inputs": {
+                "properties": {
+                    "postgresClusterId": {
+                        "type": "string",
+                        "description": "Managed Postgres Cluster ID"
+                    }
+                },
+                "required": [
+                    "postgresClusterId"
+                ]
+            },
+            "outputs": {
+                "$ref": "#/types/fly-machines:postgres:ListPostgresBackupsResponse"
+            }
+        },
+        "fly-machines:postgres:listPostgresDatabases": {
+            "inputs": {
+                "properties": {
+                    "postgresClusterId": {
+                        "type": "string",
+                        "description": "Managed Postgres Cluster ID"
+                    }
+                },
+                "required": [
+                    "postgresClusterId"
+                ]
+            },
+            "outputs": {
+                "$ref": "#/types/fly-machines:postgres:ListPostgresDatabasesResponse"
+            }
+        },
+        "fly-machines:postgres:listPostgresExtensions": {
+            "inputs": {
+                "properties": {
+                    "databaseName": {
+                        "type": "string",
+                        "description": "Database Name"
+                    },
+                    "postgresClusterId": {
+                        "type": "string",
+                        "description": "Managed Postgres Cluster ID"
+                    }
+                },
+                "required": [
+                    "databaseName",
+                    "postgresClusterId"
+                ]
+            },
+            "outputs": {
+                "$ref": "#/types/fly-machines:postgres:ListPostgresExtensionsResponse"
+            }
+        },
+        "fly-machines:postgres:listPostgresUsers": {
+            "inputs": {
+                "properties": {
+                    "postgresClusterId": {
+                        "type": "string",
+                        "description": "Managed Postgres Cluster ID"
+                    }
+                },
+                "required": [
+                    "postgresClusterId"
+                ]
+            },
+            "outputs": {
+                "$ref": "#/types/fly-machines:postgres:ListPostgresUsersResponse"
+            }
+        },
+        "fly-machines:tokens:getCurrentToken": {
+            "inputs": {},
+            "outputs": {
+                "$ref": "#/types/fly-machines:tokens:CurrentTokenResponse"
             }
         }
     }

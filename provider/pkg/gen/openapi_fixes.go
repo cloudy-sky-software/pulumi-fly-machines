@@ -12,8 +12,17 @@ func FixOpenAPIDoc(openAPIDoc *openapi3.T) error {
 	fixMachineMetadataKeyEndpoint(openAPIDoc)
 	fixMachineUpdateEndpoint(openAPIDoc)
 	fixVolumeEndpoint(openAPIDoc)
+	fixMachineMetadataEndpoints(openAPIDoc)
 
 	return nil
+}
+
+func fixMachineMetadataEndpoints(openAPIDoc *openapi3.T) {
+	pathItem := openAPIDoc.Paths.Find("/apps/{app_name}/machines/{machine_id}/metadata")
+	contract.Assertf(pathItem != nil, "Expected to find request path /apps/{app_name}/machines/{machine_id}/metadata")
+
+	contract.Assertf(pathItem.Put != nil, "Expected PUT operation on /apps/{app_name}/machines/{machine_id}/metadata")
+	pathItem.Put.OperationID = "Machines_replace_metadata"
 }
 
 func fixMachineMetadataKeyEndpoint(openAPIDoc *openapi3.T) {
