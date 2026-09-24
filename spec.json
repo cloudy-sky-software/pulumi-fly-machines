@@ -13,7 +13,7 @@
     "externalDocs": {
         "url": "https://fly.io/docs/machines/working-with-machines/"
     },
-    "servers": [{ "url": "https://api.machines.dev/v1" }],
+    "servers": [{ "url": "https://api.machines.dev" }],
     "tags": [
         {
             "name": "Apps",
@@ -37,7 +37,7 @@
         }
     ],
     "paths": {
-        "/apps": {
+        "/v1/apps": {
             "get": {
                 "tags": ["Apps"],
                 "summary": "List Apps",
@@ -88,9 +88,28 @@
                     "required": true
                 },
                 "responses": {
-                    "201": { "description": "Created", "content": {} },
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CreateAppResponse"
+                                }
+                            }
+                        }
+                    },
                     "400": {
                         "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Rejected by validation. status is name_taken when the app name is already in use.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -103,7 +122,7 @@
                 "x-codegen-request-body-name": "request"
             }
         },
-        "/apps/{app_name}": {
+        "/v1/apps/{app_name}": {
             "get": {
                 "tags": ["Apps"],
                 "summary": "Get App",
@@ -148,7 +167,7 @@
                 }
             }
         },
-        "/apps/{app_name}/certificates": {
+        "/v1/apps/{app_name}/certificates": {
             "get": {
                 "tags": ["TLS Certificates"],
                 "summary": "List certificates for app",
@@ -194,7 +213,7 @@
                 }
             }
         },
-        "/apps/{app_name}/certificates/acme": {
+        "/v1/apps/{app_name}/certificates/acme": {
             "post": {
                 "tags": ["TLS Certificates"],
                 "summary": "Request ACME certificate",
@@ -244,7 +263,7 @@
                 "x-codegen-request-body-name": "request"
             }
         },
-        "/apps/{app_name}/certificates/custom": {
+        "/v1/apps/{app_name}/certificates/custom": {
             "post": {
                 "tags": ["TLS Certificates"],
                 "summary": "Upload custom certificate",
@@ -294,7 +313,7 @@
                 "x-codegen-request-body-name": "request"
             }
         },
-        "/apps/{app_name}/certificates/{hostname}": {
+        "/v1/apps/{app_name}/certificates/{hostname}": {
             "get": {
                 "tags": ["TLS Certificates"],
                 "summary": "Get certificate details",
@@ -353,7 +372,7 @@
                 }
             }
         },
-        "/apps/{app_name}/certificates/{hostname}/acme": {
+        "/v1/apps/{app_name}/certificates/{hostname}/acme": {
             "delete": {
                 "tags": ["TLS Certificates"],
                 "summary": "Remove ACME certificates",
@@ -388,7 +407,7 @@
                 }
             }
         },
-        "/apps/{app_name}/certificates/{hostname}/check": {
+        "/v1/apps/{app_name}/certificates/{hostname}/check": {
             "post": {
                 "tags": ["TLS Certificates"],
                 "summary": "Check DNS and re-validate certificate",
@@ -423,7 +442,7 @@
                 }
             }
         },
-        "/apps/{app_name}/certificates/{hostname}/custom": {
+        "/v1/apps/{app_name}/certificates/{hostname}/custom": {
             "delete": {
                 "tags": ["TLS Certificates"],
                 "summary": "Remove custom certificate",
@@ -458,7 +477,7 @@
                 }
             }
         },
-        "/apps/{app_name}/deploy_token": {
+        "/v1/apps/{app_name}/deploy_token": {
             "post": {
                 "tags": ["Apps"],
                 "summary": "Create App deploy token",
@@ -489,7 +508,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/CreateAppResponse"
+                                    "$ref": "#/components/schemas/CreateAppDeployTokenResponse"
                                 }
                             }
                         }
@@ -498,7 +517,7 @@
                 "x-codegen-request-body-name": "request"
             }
         },
-        "/apps/{app_name}/ip_assignments": {
+        "/v1/apps/{app_name}/ip_assignments": {
             "get": {
                 "tags": ["Apps"],
                 "summary": "List IP assignments for app",
@@ -555,7 +574,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/IPAssignment"
+                                    "$ref": "#/components/schemas/AssignIPResponse"
                                 }
                             }
                         }
@@ -564,7 +583,7 @@
                 "x-codegen-request-body-name": "request"
             }
         },
-        "/apps/{app_name}/ip_assignments/{ip}": {
+        "/v1/apps/{app_name}/ip_assignments/{ip}": {
             "delete": {
                 "tags": ["Apps"],
                 "summary": "Remove IP assignment from app",
@@ -590,7 +609,7 @@
                 }
             }
         },
-        "/apps/{app_name}/machines": {
+        "/v1/apps/{app_name}/machines": {
             "get": {
                 "tags": ["Machines"],
                 "summary": "List Machines",
@@ -633,11 +652,35 @@
                         "in": "query",
                         "description": "Only return summary info about machines (omit config, checks, events, host_status, nonce, etc.)",
                         "schema": { "type": "boolean" }
+                    },
+                    {
+                        "name": "metadata.{key}",
+                        "in": "query",
+                        "description": "Filter by a machine metadata key and exact value. Replace {key} with the metadata key, for example metadata.foo=bar. Specify multiple metadata filters to require all matches.",
+                        "schema": { "type": "string" }
+                    },
+                    {
+                        "name": "cursor",
+                        "in": "query",
+                        "description": "Value of the fly-next-cursor response header from the previous page. Requires limit.",
+                        "schema": { "type": "string" }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "The number of machines to fetch (must be between 1 and 1000). Providing a limit enables pagination. This limit is advisory; responses may be shorter, or even empty, even when more machines remain.",
+                        "schema": { "type": "integer" }
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
+                        "headers": {
+                            "fly-next-cursor": {
+                                "description": "Pagination cursor for the next page. Absent when no more machines remain. Cursor expires 30 minutes after the first page was requested.",
+                                "schema": { "type": "string" }
+                            }
+                        },
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -654,7 +697,7 @@
             "post": {
                 "tags": ["Machines"],
                 "summary": "Create Machine",
-                "description": "Create a Machine within a specific app using the details provided in the request body.\n\n**Important**: This request can fail, and you’re responsible for handling that failure. If you ask for a large Machine, or a Machine in a region we happen to be at capacity for, you might need to retry the request, or to fall back to another region. If you’re working directly with the Machines API, you’re taking some responsibility for your own orchestration!\n",
+                "description": "Create a Machine within a specific app using the details provided in the request body.\n\n**Important**: This request can fail, and you\u2019re responsible for handling that failure. If you ask for a large Machine, or a Machine in a region we happen to be at capacity for, you might need to retry the request, or to fall back to another region. If you\u2019re working directly with the Machines API, you\u2019re taking some responsibility for your own orchestration!\n",
                 "operationId": "Machines_create",
                 "parameters": [
                     {
@@ -691,7 +734,7 @@
                 "x-codegen-request-body-name": "request"
             }
         },
-        "/apps/{app_name}/machines/{machine_id}": {
+        "/v1/apps/{app_name}/machines/{machine_id}": {
             "get": {
                 "tags": ["Machines"],
                 "summary": "Get Machine",
@@ -710,6 +753,12 @@
                         "in": "path",
                         "description": "Machine ID",
                         "required": true,
+                        "schema": { "type": "string" }
+                    },
+                    {
+                        "name": "version",
+                        "in": "query",
+                        "description": "26-character Machine version ID; returns that version of the Machine instead of the current one",
                         "schema": { "type": "string" }
                     },
                     {
@@ -784,6 +833,16 @@
                                 }
                             }
                         }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 },
                 "x-codegen-request-body-name": "request"
@@ -818,11 +877,11 @@
                 "responses": { "200": { "description": "OK", "content": {} } }
             }
         },
-        "/apps/{app_name}/machines/{machine_id}/cordon": {
+        "/v1/apps/{app_name}/machines/{machine_id}/cordon": {
             "post": {
                 "tags": ["Machines"],
                 "summary": "Cordon Machine",
-                "description": "“Cordoning” a Machine refers to disabling its services, so the Fly Proxy won’t route requests to it. In flyctl this is used by blue/green deployments; one set of Machines is started up with services disabled, and when they are all healthy, the services are enabled on the new Machines and disabled on the old ones.\n",
+                "description": "\u201cCordoning\u201d a Machine refers to disabling its services, so the Fly Proxy won\u2019t route requests to it. In flyctl this is used by blue/green deployments; one set of Machines is started up with services disabled, and when they are all healthy, the services are enabled on the new Machines and disabled on the old ones.\n",
                 "operationId": "Machines_cordon",
                 "parameters": [
                     {
@@ -843,7 +902,7 @@
                 "responses": { "200": { "description": "OK", "content": {} } }
             }
         },
-        "/apps/{app_name}/machines/{machine_id}/events": {
+        "/v1/apps/{app_name}/machines/{machine_id}/events": {
             "get": {
                 "tags": ["Machines"],
                 "summary": "List Events",
@@ -888,7 +947,7 @@
                 }
             }
         },
-        "/apps/{app_name}/machines/{machine_id}/exec": {
+        "/v1/apps/{app_name}/machines/{machine_id}/exec": {
             "post": {
                 "tags": ["Machines"],
                 "summary": "Execute Command",
@@ -956,7 +1015,7 @@
                 "x-codegen-request-body-name": "request"
             }
         },
-        "/apps/{app_name}/machines/{machine_id}/lease": {
+        "/v1/apps/{app_name}/machines/{machine_id}/lease": {
             "get": {
                 "tags": ["Machines"],
                 "summary": "Get Lease",
@@ -1074,7 +1133,7 @@
                 "responses": { "200": { "description": "OK", "content": {} } }
             }
         },
-        "/apps/{app_name}/machines/{machine_id}/memory": {
+        "/v1/apps/{app_name}/machines/{machine_id}/memory": {
             "get": {
                 "tags": ["Machines"],
                 "summary": "Get Machine Memory",
@@ -1156,7 +1215,7 @@
                 "x-codegen-request-body-name": "body"
             }
         },
-        "/apps/{app_name}/machines/{machine_id}/memory/reclaim": {
+        "/v1/apps/{app_name}/machines/{machine_id}/memory/reclaim": {
             "post": {
                 "tags": ["Machines"],
                 "summary": "Reclaim Machine Memory",
@@ -1204,7 +1263,7 @@
                 "x-codegen-request-body-name": "body"
             }
         },
-        "/apps/{app_name}/machines/{machine_id}/metadata": {
+        "/v1/apps/{app_name}/machines/{machine_id}/metadata": {
             "get": {
                 "tags": ["Machines"],
                 "summary": "Get Metadata",
@@ -1242,9 +1301,9 @@
             },
             "put": {
                 "tags": ["Machines"],
-                "summary": "Update Metadata (set/remove multiple keys)",
-                "description": "Update multiple metadata keys at once. Null values and empty strings remove keys.\n+ If `machine_version` is provided and no longer matches the current machine version, returns 412 Precondition Failed.",
-                "operationId": "Machines_update_metadata",
+                "summary": "Update Metadata (deprecated PUT alias of PATCH)",
+                "description": "Deprecated: use `PATCH` on the same path, which this is identical to.\n+ Despite the method, this does not replace the metadata: keys that are not in the request are left untouched. Null values and empty strings remove keys.\n+ If `machine_version` is provided and no longer matches the current machine version, returns 412 Precondition Failed.",
+                "operationId": "Machines_update_metadata_deprecated",
                 "parameters": [
                     {
                         "name": "app_name",
@@ -1295,12 +1354,13 @@
                         }
                     }
                 },
+                "deprecated": true,
                 "x-codegen-request-body-name": "request"
             },
             "patch": {
                 "tags": ["Machines"],
                 "summary": "Update Metadata (set/remove multiple keys)",
-                "description": "Update multiple metadata keys at once. Null values and empty strings remove keys.\n+ If `machine_version` is provided and no longer matches the current machine version, returns 412 Precondition Failed.",
+                "description": "Update multiple metadata keys at once. Keys that are not in the request are left untouched. Null values and empty strings remove keys.\n+ If `machine_version` is provided and no longer matches the current machine version, returns 412 Precondition Failed.",
                 "operationId": "Machines_update_metadata",
                 "parameters": [
                     {
@@ -1355,7 +1415,7 @@
                 "x-codegen-request-body-name": "request"
             }
         },
-        "/apps/{app_name}/machines/{machine_id}/metadata/{key}": {
+        "/v1/apps/{app_name}/machines/{machine_id}/metadata/{key}": {
             "get": {
                 "tags": ["Machines"],
                 "summary": "Get Metadata Value",
@@ -1494,7 +1554,7 @@
                 }
             }
         },
-        "/apps/{app_name}/machines/{machine_id}/ps": {
+        "/v1/apps/{app_name}/machines/{machine_id}/ps": {
             "get": {
                 "tags": ["Machines"],
                 "summary": "List Processes",
@@ -1555,7 +1615,7 @@
                 }
             }
         },
-        "/apps/{app_name}/machines/{machine_id}/restart": {
+        "/v1/apps/{app_name}/machines/{machine_id}/restart": {
             "post": {
                 "tags": ["Machines"],
                 "summary": "Restart Machine",
@@ -1615,7 +1675,7 @@
                 }
             }
         },
-        "/apps/{app_name}/machines/{machine_id}/signal": {
+        "/v1/apps/{app_name}/machines/{machine_id}/signal": {
             "post": {
                 "tags": ["Machines"],
                 "summary": "Signal Machine",
@@ -1664,7 +1724,7 @@
                 "x-codegen-request-body-name": "request"
             }
         },
-        "/apps/{app_name}/machines/{machine_id}/start": {
+        "/v1/apps/{app_name}/machines/{machine_id}/start": {
             "post": {
                 "tags": ["Machines"],
                 "summary": "Start Machine",
@@ -1689,7 +1749,7 @@
                 "responses": { "200": { "description": "OK", "content": {} } }
             }
         },
-        "/apps/{app_name}/machines/{machine_id}/stop": {
+        "/v1/apps/{app_name}/machines/{machine_id}/stop": {
             "post": {
                 "tags": ["Machines"],
                 "summary": "Stop Machine",
@@ -1738,7 +1798,7 @@
                 "x-codegen-request-body-name": "request"
             }
         },
-        "/apps/{app_name}/machines/{machine_id}/suspend": {
+        "/v1/apps/{app_name}/machines/{machine_id}/suspend": {
             "post": {
                 "tags": ["Machines"],
                 "summary": "Suspend Machine",
@@ -1763,11 +1823,11 @@
                 "responses": { "200": { "description": "OK", "content": {} } }
             }
         },
-        "/apps/{app_name}/machines/{machine_id}/uncordon": {
+        "/v1/apps/{app_name}/machines/{machine_id}/uncordon": {
             "post": {
                 "tags": ["Machines"],
                 "summary": "Uncordon Machine",
-                "description": "“Cordoning” a Machine refers to disabling its services, so the Fly Proxy won’t route requests to it. In flyctl this is used by blue/green deployments; one set of Machines is started up with services disabled, and when they are all healthy, the services are enabled on the new Machines and disabled on the old ones.\n",
+                "description": "\u201cCordoning\u201d a Machine refers to disabling its services, so the Fly Proxy won\u2019t route requests to it. In flyctl this is used by blue/green deployments; one set of Machines is started up with services disabled, and when they are all healthy, the services are enabled on the new Machines and disabled on the old ones.\n",
                 "operationId": "Machines_uncordon",
                 "parameters": [
                     {
@@ -1788,7 +1848,7 @@
                 "responses": { "200": { "description": "OK", "content": {} } }
             }
         },
-        "/apps/{app_name}/machines/{machine_id}/versions": {
+        "/v1/apps/{app_name}/machines/{machine_id}/versions": {
             "get": {
                 "tags": ["Machines"],
                 "summary": "List Versions",
@@ -1827,7 +1887,7 @@
                 }
             }
         },
-        "/apps/{app_name}/machines/{machine_id}/wait": {
+        "/v1/apps/{app_name}/machines/{machine_id}/wait": {
             "get": {
                 "tags": ["Machines"],
                 "summary": "Wait for State",
@@ -1913,7 +1973,7 @@
                 }
             }
         },
-        "/apps/{app_name}/secretkeys": {
+        "/v1/apps/{app_name}/secretkeys": {
             "get": {
                 "tags": ["Secrets"],
                 "summary": "List secret keys belonging to an app",
@@ -1953,7 +2013,7 @@
                 }
             }
         },
-        "/apps/{app_name}/secretkeys/{secret_name}": {
+        "/v1/apps/{app_name}/secretkeys/{secret_name}": {
             "get": {
                 "tags": ["Secrets"],
                 "summary": "Get an app's secret key",
@@ -2082,7 +2142,7 @@
                 }
             }
         },
-        "/apps/{app_name}/secretkeys/{secret_name}/decrypt": {
+        "/v1/apps/{app_name}/secretkeys/{secret_name}/decrypt": {
             "post": {
                 "tags": ["Secrets"],
                 "summary": "Decrypt with a secret key",
@@ -2145,7 +2205,7 @@
                 "x-codegen-request-body-name": "request"
             }
         },
-        "/apps/{app_name}/secretkeys/{secret_name}/encrypt": {
+        "/v1/apps/{app_name}/secretkeys/{secret_name}/encrypt": {
             "post": {
                 "tags": ["Secrets"],
                 "summary": "Encrypt with a secret key",
@@ -2208,7 +2268,7 @@
                 "x-codegen-request-body-name": "request"
             }
         },
-        "/apps/{app_name}/secretkeys/{secret_name}/generate": {
+        "/v1/apps/{app_name}/secretkeys/{secret_name}/generate": {
             "post": {
                 "tags": ["Secrets"],
                 "summary": "Generate a random secret key",
@@ -2265,7 +2325,7 @@
                 "x-codegen-request-body-name": "request"
             }
         },
-        "/apps/{app_name}/secretkeys/{secret_name}/sign": {
+        "/v1/apps/{app_name}/secretkeys/{secret_name}/sign": {
             "post": {
                 "tags": ["Secrets"],
                 "summary": "Sign with a secret key",
@@ -2328,7 +2388,7 @@
                 "x-codegen-request-body-name": "request"
             }
         },
-        "/apps/{app_name}/secretkeys/{secret_name}/verify": {
+        "/v1/apps/{app_name}/secretkeys/{secret_name}/verify": {
             "post": {
                 "tags": ["Secrets"],
                 "summary": "Verify with a secret key",
@@ -2382,7 +2442,7 @@
                 "x-codegen-request-body-name": "request"
             }
         },
-        "/apps/{app_name}/secrets": {
+        "/v1/apps/{app_name}/secrets": {
             "get": {
                 "tags": ["Secrets"],
                 "summary": "List app secrets belonging to an app",
@@ -2470,7 +2530,7 @@
                 "x-codegen-request-body-name": "request"
             }
         },
-        "/apps/{app_name}/secrets/{secret_name}": {
+        "/v1/apps/{app_name}/secrets/{secret_name}": {
             "get": {
                 "tags": ["Secrets"],
                 "summary": "Get an app secret",
@@ -2605,7 +2665,7 @@
                 }
             }
         },
-        "/apps/{app_name}/volumes": {
+        "/v1/apps/{app_name}/volumes": {
             "get": {
                 "tags": ["Volumes"],
                 "summary": "List Volumes",
@@ -2682,7 +2742,7 @@
                 "x-codegen-request-body-name": "request"
             }
         },
-        "/apps/{app_name}/volumes/{volume_id}": {
+        "/v1/apps/{app_name}/volumes/{volume_id}": {
             "get": {
                 "tags": ["Volumes"],
                 "summary": "Get Volume",
@@ -2808,7 +2868,7 @@
                 }
             }
         },
-        "/apps/{app_name}/volumes/{volume_id}/extend": {
+        "/v1/apps/{app_name}/volumes/{volume_id}/extend": {
             "put": {
                 "tags": ["Volumes"],
                 "summary": "Extend Volume",
@@ -2856,7 +2916,7 @@
                 "x-codegen-request-body-name": "request"
             }
         },
-        "/apps/{app_name}/volumes/{volume_id}/snapshots": {
+        "/v1/apps/{app_name}/volumes/{volume_id}/snapshots": {
             "get": {
                 "tags": ["Volumes"],
                 "summary": "List Snapshots",
@@ -2918,7 +2978,7 @@
                 "responses": { "200": { "description": "OK", "content": {} } }
             }
         },
-        "/orgs/{org_slug}/machines": {
+        "/v1/orgs/{org_slug}/machines": {
             "get": {
                 "tags": ["Organizations"],
                 "summary": "List All Machines",
@@ -2989,7 +3049,7 @@
                 }
             }
         },
-        "/orgs/{org_slug}/volumes": {
+        "/v1/orgs/{org_slug}/volumes": {
             "get": {
                 "tags": ["Organizations"],
                 "summary": "List All Volumes",
@@ -3060,7 +3120,7 @@
                 }
             }
         },
-        "/platform/placements": {
+        "/v1/platform/placements": {
             "post": {
                 "tags": ["Platform"],
                 "summary": "Get Placements",
@@ -3092,7 +3152,7 @@
                 "x-codegen-request-body-name": "request"
             }
         },
-        "/platform/regions": {
+        "/v1/platform/regions": {
             "get": {
                 "tags": ["Platform"],
                 "summary": "Get Regions",
@@ -3112,7 +3172,7 @@
                 }
             }
         },
-        "/postgres": {
+        "/v1/postgres": {
             "get": {
                 "tags": ["Postgres Clusters"],
                 "summary": "List Postgres Clusters",
@@ -3122,7 +3182,7 @@
                     {
                         "name": "org_slug",
                         "in": "query",
-                        "description": "Fly Organization Slug",
+                        "description": "Fly Organization Slug, or 'personal' for the caller's personal organization",
                         "required": true,
                         "schema": { "type": "string" }
                     },
@@ -3140,6 +3200,26 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/listPostgresClustersResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "org_slug is required and must be a string",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
                                 }
                             }
                         }
@@ -3164,12 +3244,13 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [{ "FlyBearerAuth": [] }]
             },
             "post": {
                 "tags": ["Postgres Clusters"],
                 "summary": "Create Postgres Cluster",
-                "description": "Create a Managed Postgres cluster for the organization named in the request body. Provisioning is asynchronous, and a name is generated when one is not supplied.",
+                "description": "Create a Managed Postgres cluster for the organization named in the request body. Provisioning is asynchronous: poll `GET /v1/postgres/{id}` until `status == ready` before calling database, user, extension, or credential endpoints.",
                 "operationId": "Postgres_create",
                 "requestBody": {
                     "description": "Cluster details",
@@ -3194,7 +3275,17 @@
                         }
                     },
                     "400": {
-                        "description": "Creation failed",
+                        "description": "org_slug is required and must be a string, or creation failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -3224,10 +3315,11 @@
                         }
                     }
                 },
+                "security": [{ "FlyBearerAuth": [] }],
                 "x-codegen-request-body-name": "request"
             }
         },
-        "/postgres/{postgres_cluster_id}": {
+        "/v1/postgres/{postgres_cluster_id}": {
             "get": {
                 "tags": ["Postgres Clusters"],
                 "summary": "Get Postgres Cluster",
@@ -3253,6 +3345,16 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "Cluster not found",
                         "content": {
@@ -3263,7 +3365,8 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [{ "FlyBearerAuth": [] }]
             },
             "delete": {
                 "tags": ["Postgres Clusters"],
@@ -3281,6 +3384,16 @@
                 ],
                 "responses": {
                     "202": { "description": "Accepted", "content": {} },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "Cluster not found",
                         "content": {
@@ -3301,14 +3414,15 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [{ "FlyBearerAuth": [] }]
             }
         },
-        "/postgres/{postgres_cluster_id}/attachments": {
+        "/v1/postgres/{postgres_cluster_id}/attachments": {
             "post": {
                 "tags": ["Postgres Clusters"],
                 "summary": "Attach Cluster to App",
-                "description": "Attach a specific cluster to a Fly app. The attachment is created if it does not already exist.",
+                "description": "Record an attachment between a cluster and a Fly app. This endpoint records the relationship but does not set DATABASE_URL or other app secrets; configure the connection string separately. The attachment is created if it does not already exist.",
                 "operationId": "Postgres_attachments_create",
                 "parameters": [
                     {
@@ -3351,6 +3465,16 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "'Cluster not found' for the cluster; 'App not found' for the app",
                         "content": {
@@ -3372,10 +3496,11 @@
                         }
                     }
                 },
+                "security": [{ "FlyBearerAuth": [] }],
                 "x-codegen-request-body-name": "request"
             }
         },
-        "/postgres/{postgres_cluster_id}/attachments/{app_name}": {
+        "/v1/postgres/{postgres_cluster_id}/attachments/{app_name}": {
             "delete": {
                 "tags": ["Postgres Clusters"],
                 "summary": "Detach Cluster from App",
@@ -3399,6 +3524,16 @@
                 ],
                 "responses": {
                     "204": { "description": "No Content", "content": {} },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "'Cluster not found' for the cluster; 'App not found' for the app; 'Attachment not found' for the attachment",
                         "content": {
@@ -3419,10 +3554,11 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [{ "FlyBearerAuth": [] }]
             }
         },
-        "/postgres/{postgres_cluster_id}/backups": {
+        "/v1/postgres/{postgres_cluster_id}/backups": {
             "get": {
                 "tags": ["Postgres Clusters"],
                 "summary": "List Backups",
@@ -3448,6 +3584,16 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "Cluster not found",
                         "content": {
@@ -3458,7 +3604,8 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [{ "FlyBearerAuth": [] }]
             },
             "post": {
                 "tags": ["Postgres Clusters"],
@@ -3487,6 +3634,16 @@
                 },
                 "responses": {
                     "202": { "description": "Accepted", "content": {} },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "Cluster not found",
                         "content": {
@@ -3508,10 +3665,11 @@
                         }
                     }
                 },
+                "security": [{ "FlyBearerAuth": [] }],
                 "x-codegen-request-body-name": "request"
             }
         },
-        "/postgres/{postgres_cluster_id}/databases": {
+        "/v1/postgres/{postgres_cluster_id}/databases": {
             "get": {
                 "tags": ["Postgres Clusters"],
                 "summary": "List Databases",
@@ -3537,6 +3695,16 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "Cluster not found",
                         "content": {
@@ -3546,8 +3714,19 @@
                                 }
                             }
                         }
+                    },
+                    "503": {
+                        "description": "pg-admin is unavailable; retry after the interval given by the Retry-After header",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
                     }
-                }
+                },
+                "security": [{ "FlyBearerAuth": [] }]
             },
             "post": {
                 "tags": ["Postgres Clusters"],
@@ -3595,6 +3774,16 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "Cluster not found",
                         "content": {
@@ -3614,12 +3803,23 @@
                                 }
                             }
                         }
+                    },
+                    "503": {
+                        "description": "pg-admin is unavailable; retry after the interval given by the Retry-After header",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
                     }
                 },
+                "security": [{ "FlyBearerAuth": [] }],
                 "x-codegen-request-body-name": "request"
             }
         },
-        "/postgres/{postgres_cluster_id}/databases/{database_name}": {
+        "/v1/postgres/{postgres_cluster_id}/databases/{database_name}": {
             "delete": {
                 "tags": ["Postgres Clusters"],
                 "summary": "Drop Database",
@@ -3662,6 +3862,16 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "'Cluster not found' for the cluster; 'Database not found' for the database",
                         "content": {
@@ -3671,11 +3881,22 @@
                                 }
                             }
                         }
+                    },
+                    "503": {
+                        "description": "pg-admin is unavailable; retry after the interval given by the Retry-After header",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
                     }
-                }
+                },
+                "security": [{ "FlyBearerAuth": [] }]
             }
         },
-        "/postgres/{postgres_cluster_id}/databases/{database_name}/extensions": {
+        "/v1/postgres/{postgres_cluster_id}/databases/{database_name}/extensions": {
             "get": {
                 "tags": ["Postgres Clusters"],
                 "summary": "List Extensions",
@@ -3718,6 +3939,16 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "Cluster not found",
                         "content": {
@@ -3727,8 +3958,19 @@
                                 }
                             }
                         }
+                    },
+                    "503": {
+                        "description": "pg-admin is unavailable; retry after the interval given by the Retry-After header",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
                     }
-                }
+                },
+                "security": [{ "FlyBearerAuth": [] }]
             },
             "post": {
                 "tags": ["Postgres Clusters"],
@@ -3774,6 +4016,16 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "Cluster not found",
                         "content": {
@@ -3803,12 +4055,23 @@
                                 }
                             }
                         }
+                    },
+                    "503": {
+                        "description": "pg-admin is unavailable; retry after the interval given by the Retry-After header",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
                     }
                 },
+                "security": [{ "FlyBearerAuth": [] }],
                 "x-codegen-request-body-name": "request"
             }
         },
-        "/postgres/{postgres_cluster_id}/databases/{database_name}/extensions/{extension_name}": {
+        "/v1/postgres/{postgres_cluster_id}/databases/{database_name}/extensions/{extension_name}": {
             "delete": {
                 "tags": ["Postgres Clusters"],
                 "summary": "Disable Extension",
@@ -3855,6 +4118,16 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "Cluster not found",
                         "content": {
@@ -3874,11 +4147,22 @@
                                 }
                             }
                         }
+                    },
+                    "503": {
+                        "description": "pg-admin is unavailable; retry after the interval given by the Retry-After header",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
                     }
-                }
+                },
+                "security": [{ "FlyBearerAuth": [] }]
             }
         },
-        "/postgres/{postgres_cluster_id}/fork": {
+        "/v1/postgres/{postgres_cluster_id}/fork": {
             "post": {
                 "tags": ["Postgres Clusters"],
                 "summary": "Fork Cluster to New Cluster",
@@ -3917,6 +4201,16 @@
                     },
                     "400": {
                         "description": "Fork failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -3966,14 +4260,173 @@
                         }
                     }
                 },
+                "security": [{ "FlyBearerAuth": [] }],
                 "x-codegen-request-body-name": "request"
             }
         },
-        "/postgres/{postgres_cluster_id}/restore": {
+        "/v1/postgres/{postgres_cluster_id}/queries/active": {
+            "get": {
+                "tags": ["Postgres Clusters"],
+                "summary": "List Active Queries",
+                "description": "List active queries in the supplied database. The database query parameter is required and must not be empty or whitespace-only. Returns full query text and durations in seconds.",
+                "operationId": "Postgres_queries_active",
+                "parameters": [
+                    {
+                        "name": "postgres_cluster_id",
+                        "in": "path",
+                        "description": "Managed Postgres Cluster ID",
+                        "required": true,
+                        "schema": { "type": "string" }
+                    },
+                    {
+                        "name": "database",
+                        "in": "query",
+                        "description": "Database to inspect (must not be empty or whitespace-only)",
+                        "required": true,
+                        "schema": { "minLength": 1, "type": "string" }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/listPostgresActiveQueriesResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Cluster not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "database must be a non-empty string",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Unable to load active queries",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [{ "FlyBearerAuth": [] }]
+            }
+        },
+        "/v1/postgres/{postgres_cluster_id}/queries/slow": {
+            "get": {
+                "tags": ["Postgres Clusters"],
+                "summary": "List Slow Queries",
+                "description": "List the top 20 queries by cumulative total execution time, excluding the postgres database. Uses the latest available metrics within the lookback range; statistics are cumulative PostgreSQL counters, not deltas over that range. Returns full query text and execution times in seconds.",
+                "operationId": "Postgres_queries_slow",
+                "parameters": [
+                    {
+                        "name": "postgres_cluster_id",
+                        "in": "path",
+                        "description": "Managed Postgres Cluster ID",
+                        "required": true,
+                        "schema": { "type": "string" }
+                    },
+                    {
+                        "name": "range",
+                        "in": "query",
+                        "description": "Metrics lookback in seconds",
+                        "schema": {
+                            "maximum": 604800,
+                            "minimum": 1,
+                            "type": "integer",
+                            "default": 3600
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/listPostgresSlowQueriesResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Cluster not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "range must be an integer between 1 and 604800 seconds",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Unable to load slow query metrics",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [{ "FlyBearerAuth": [] }]
+            }
+        },
+        "/v1/postgres/{postgres_cluster_id}/restore": {
             "post": {
                 "tags": ["Postgres Clusters"],
-                "summary": "Restore Backup to New Cluster",
-                "description": "Restore a backup into a new Managed Postgres cluster. The source cluster is left unchanged, and a new cluster is provisioned from the specified backup.",
+                "summary": "Restore Backup or Point in Time to New Cluster",
+                "description": "Restore a backup, or a point in time within the cluster's PITR recovery window, into a new Managed Postgres cluster. The source cluster is left unchanged, and a new cluster is provisioned asynchronously.",
                 "operationId": "Postgres_restore",
                 "parameters": [
                     {
@@ -3997,7 +4450,7 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "New cluster provisioned from the backup",
+                        "description": "New cluster provisioned from the backup or point in time",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -4008,6 +4461,16 @@
                     },
                     "400": {
                         "description": "Restore failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -4027,7 +4490,7 @@
                         }
                     },
                     "422": {
-                        "description": "backup_id is required",
+                        "description": "A restore target is missing, both backup_id and pitr_time were supplied, point-in-time restore is outside the recovery window or unavailable, or name is invalid",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -4037,10 +4500,11 @@
                         }
                     }
                 },
+                "security": [{ "FlyBearerAuth": [] }],
                 "x-codegen-request-body-name": "request"
             }
         },
-        "/postgres/{postgres_cluster_id}/users": {
+        "/v1/postgres/{postgres_cluster_id}/users": {
             "get": {
                 "tags": ["Postgres Clusters"],
                 "summary": "List Users",
@@ -4066,6 +4530,16 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "Cluster not found",
                         "content": {
@@ -4075,8 +4549,19 @@
                                 }
                             }
                         }
+                    },
+                    "503": {
+                        "description": "pg-admin is unavailable; retry after the interval given by the Retry-After header",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
                     }
-                }
+                },
+                "security": [{ "FlyBearerAuth": [] }]
             },
             "post": {
                 "tags": ["Postgres Clusters"],
@@ -4124,6 +4609,16 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "Cluster not found",
                         "content": {
@@ -4153,12 +4648,23 @@
                                 }
                             }
                         }
+                    },
+                    "503": {
+                        "description": "pg-admin is unavailable; retry after the interval given by the Retry-After header",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
                     }
                 },
+                "security": [{ "FlyBearerAuth": [] }],
                 "x-codegen-request-body-name": "request"
             }
         },
-        "/postgres/{postgres_cluster_id}/users/{username}": {
+        "/v1/postgres/{postgres_cluster_id}/users/{username}": {
             "delete": {
                 "tags": ["Postgres Clusters"],
                 "summary": "Delete User",
@@ -4192,6 +4698,16 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "'Cluster not found' for the cluster; 'User not found' for the user",
                         "content": {
@@ -4201,8 +4717,19 @@
                                 }
                             }
                         }
+                    },
+                    "503": {
+                        "description": "pg-admin is unavailable; retry after the interval given by the Retry-After header",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
                     }
-                }
+                },
+                "security": [{ "FlyBearerAuth": [] }]
             },
             "patch": {
                 "tags": ["Postgres Clusters"],
@@ -4248,6 +4775,16 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "'Cluster not found' for the cluster; 'User not found' for the user",
                         "content": {
@@ -4267,12 +4804,23 @@
                                 }
                             }
                         }
+                    },
+                    "503": {
+                        "description": "pg-admin is unavailable; retry after the interval given by the Retry-After header",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
                     }
                 },
+                "security": [{ "FlyBearerAuth": [] }],
                 "x-codegen-request-body-name": "request"
             }
         },
-        "/postgres/{postgres_cluster_id}/users/{username}/credentials": {
+        "/v1/postgres/{postgres_cluster_id}/users/{username}/credentials": {
             "get": {
                 "tags": ["Postgres Clusters"],
                 "summary": "Get User Credentials",
@@ -4315,6 +4863,16 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "'Cluster not found' for the cluster; 'User not found' for the user",
                         "content": {
@@ -4324,11 +4882,22 @@
                                 }
                             }
                         }
+                    },
+                    "503": {
+                        "description": "pg-admin is unavailable; retry after the interval given by the Retry-After header",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
                     }
-                }
+                },
+                "security": [{ "FlyBearerAuth": [] }]
             }
         },
-        "/postgres/{postgres_cluster_id}/users/{username}/rotate_password": {
+        "/v1/postgres/{postgres_cluster_id}/users/{username}/rotate_password": {
             "post": {
                 "tags": ["Postgres Clusters"],
                 "summary": "Rotate User Password",
@@ -4382,6 +4951,16 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "'Cluster not found' for the cluster; 'User not found' for the user",
                         "content": {
@@ -4411,12 +4990,23 @@
                                 }
                             }
                         }
+                    },
+                    "503": {
+                        "description": "pg-admin is unavailable; retry after the interval given by the Retry-After header",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
                     }
                 },
+                "security": [{ "FlyBearerAuth": [] }],
                 "x-codegen-request-body-name": "request"
             }
         },
-        "/tokens/authenticate": {
+        "/v1/tokens/authenticate": {
             "post": {
                 "tags": ["Tokens"],
                 "summary": "Authenticate token header",
@@ -4461,7 +5051,7 @@
                 "x-codegen-request-body-name": "request"
             }
         },
-        "/tokens/authorize": {
+        "/v1/tokens/authorize": {
             "post": {
                 "tags": ["Tokens"],
                 "summary": "Authorize token for resource access",
@@ -4513,7 +5103,7 @@
                 "x-codegen-request-body-name": "request"
             }
         },
-        "/tokens/current": {
+        "/v1/tokens/current": {
             "get": {
                 "tags": ["Tokens"],
                 "summary": "Get Current Token Information",
@@ -4553,7 +5143,7 @@
                 }
             }
         },
-        "/tokens/kms": {
+        "/v1/tokens/kms": {
             "post": {
                 "tags": ["Tokens"],
                 "summary": "Request a Petsem token for accessing KMS",
@@ -4569,11 +5159,11 @@
                 }
             }
         },
-        "/tokens/oidc": {
+        "/v1/tokens/oidc": {
             "post": {
                 "tags": ["Tokens"],
                 "summary": "Request an OIDC token",
-                "description": "Request an Open ID Connect token for your machine. Customize the audience claim with the `aud` parameter. This returns a JWT token. Learn more about [using OpenID Connect](/docs/reference/openid-connect/) on Fly.io.\n",
+                "description": "Request an Open ID Connect token for your machine. Customize the audience claim with the `aud` parameter. This returns a JWT token. Learn more about [using OpenID Connect](/security/openid-connect) on Fly.io.\n",
                 "operationId": "Tokens_request_OIDC",
                 "requestBody": {
                     "description": "Optional request body",
@@ -4625,6 +5215,7 @@
                     "machine_count": { "type": "integer" },
                     "name": { "type": "string" },
                     "network": { "type": "string" },
+                    "network_cidr": { "type": "string" },
                     "organization": {
                         "$ref": "#/components/schemas/AppOrganizationInfo"
                     },
@@ -4680,6 +5271,25 @@
                         "items": { "$ref": "#/components/schemas/AppSecret" }
                     },
                     "version": { "type": "integer" }
+                }
+            },
+            "AssignIPResponse": {
+                "type": "object",
+                "properties": {
+                    "created_at": { "type": "string" },
+                    "egress": { "type": "boolean" },
+                    "ip": { "type": "string" },
+                    "ip_pair": {
+                        "type": "object",
+                        "description": "ip_pair is returned when \"egress-pair\" IP type is requested; in this case, ip is null.",
+                        "allOf": [{ "$ref": "#/components/schemas/IPPair" }]
+                    },
+                    "network": {
+                        "$ref": "#/components/schemas/IPAssignmentNetwork"
+                    },
+                    "region": { "type": "string" },
+                    "service_name": { "type": "string" },
+                    "shared": { "type": "boolean" }
                 }
             },
             "CertificateCheckResponse": {
@@ -4815,10 +5425,18 @@
                 "type": "object",
                 "properties": { "expiry": { "type": "string" } }
             },
+            "CreateAppDeployTokenResponse": {
+                "type": "object",
+                "properties": { "token": { "type": "string" } }
+            },
             "CreateAppRequest": {
                 "type": "object",
                 "properties": {
                     "enable_subdomains": { "type": "boolean" },
+                    "idempotency_key": {
+                        "type": "string",
+                        "description": "When set, makes a retry of this exact request safe: a\nsecond create with the same key and the same name (or no name) returns\nthe app the first request created, instead of erroring on a false name\nconflict or creating a duplicate. A second create with the same key\nbut a *different* name is rejected outright; it won't silently\nhand back the first app."
+                    },
                     "name": { "type": "string" },
                     "network": { "type": "string" },
                     "org_slug": { "type": "string" }
@@ -4826,7 +5444,10 @@
             },
             "CreateAppResponse": {
                 "type": "object",
-                "properties": { "token": { "type": "string" } }
+                "properties": {
+                    "created_at": { "type": "integer" },
+                    "id": { "type": "string" }
+                }
             },
             "CreateLeaseRequest": {
                 "type": "object",
@@ -5033,10 +5654,54 @@
                 "type": "object",
                 "properties": {
                     "created_at": { "type": "string" },
+                    "egress": { "type": "boolean" },
                     "ip": { "type": "string" },
+                    "network": {
+                        "$ref": "#/components/schemas/IPAssignmentNetwork"
+                    },
                     "region": { "type": "string" },
                     "service_name": { "type": "string" },
                     "shared": { "type": "boolean" }
+                }
+            },
+            "IPAssignmentNetwork": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Network name; empty for the organization's default network."
+                    },
+                    "org_slug": { "type": "string" }
+                },
+                "description": "The 6PN network a Flycast (private_v6) address belongs to. Null for all other IP types."
+            },
+            "IPAssignmentType": {
+                "type": "string",
+                "description": "Type of IP address to allocate. \"egress-pair\" allocates both v4 and v6 egress IP addresses (recommended when using egress IPs).",
+                "enum": [
+                    "v4",
+                    "v6",
+                    "shared_v4",
+                    "private_v6",
+                    "egress_v4",
+                    "egress_v6",
+                    "egress_pair"
+                ],
+                "x-enum-varnames": [
+                    "IPAssignmentType_v4",
+                    "IPAssignmentType_v6",
+                    "IPAssignmentType_shared_v4",
+                    "IPAssignmentType_private_v6",
+                    "IPAssignmentType_egress_v4",
+                    "IPAssignmentType_egress_v6",
+                    "IPAssignmentType_egress_pair"
+                ]
+            },
+            "IPPair": {
+                "type": "object",
+                "properties": {
+                    "v4": { "type": "string" },
+                    "v6": { "type": "string" }
                 }
             },
             "ImageRef": {
@@ -5118,6 +5783,10 @@
                         "type": "array",
                         "items": { "$ref": "#/components/schemas/MachineEvent" }
                     },
+                    "host_features": {
+                        "type": "array",
+                        "items": { "type": "string" }
+                    },
                     "host_status": {
                         "type": "string",
                         "enum": ["ok", "unknown", "unreachable"]
@@ -5129,7 +5798,7 @@
                     },
                     "instance_id": {
                         "type": "string",
-                        "description": "InstanceID is unique for each version of the machine"
+                        "description": "InstanceID is the same value as `version`.\n\nDeprecated: use `version`."
                     },
                     "lease": { "$ref": "#/components/schemas/StrippedLease" },
                     "name": { "type": "string" },
@@ -5143,7 +5812,11 @@
                     },
                     "region": { "type": "string" },
                     "state": { "type": "string" },
-                    "updated_at": { "type": "string" }
+                    "updated_at": { "type": "string" },
+                    "version": {
+                        "type": "string",
+                        "description": "Version is unique for each version of the machine. Pass it as\n`current_version` when updating the Machine to reject the update if the\nMachine has changed since this version."
+                    }
                 }
             },
             "MachineEvent": {
@@ -5169,6 +5842,10 @@
                         "items": { "type": "string" }
                     },
                     "container": { "type": "string" },
+                    "machine": {
+                        "type": "boolean",
+                        "description": "Machine runs the command in the machine's own namespace instead of in a\ncontainer. It is mutually exclusive with Container."
+                    },
                     "stdin": { "type": "string" },
                     "timeout": { "type": "integer" }
                 }
@@ -5244,6 +5921,10 @@
                     "created_at": { "type": "string" },
                     "encrypted": { "type": "boolean" },
                     "fstype": { "type": "string" },
+                    "host_features": {
+                        "type": "array",
+                        "items": { "type": "string" }
+                    },
                     "host_status": {
                         "type": "string",
                         "enum": ["ok", "unknown", "unreachable"]
@@ -5251,6 +5932,10 @@
                     "id": { "type": "string" },
                     "name": { "type": "string" },
                     "region": { "type": "string" },
+                    "required_host_features": {
+                        "type": "array",
+                        "items": { "type": "string" }
+                    },
                     "size_gb": { "type": "integer" },
                     "snapshot_retention": { "type": "integer" },
                     "state": { "type": "string" },
@@ -5290,6 +5975,55 @@
                     "app_value": { "type": "string" },
                     "name": { "type": "string" },
                     "org_value": { "type": "string" }
+                }
+            },
+            "PostgresActiveQuery": {
+                "type": "object",
+                "properties": {
+                    "application_name": {
+                        "type": "string",
+                        "description": "Application connected to the backend."
+                    },
+                    "client": {
+                        "type": "string",
+                        "description": "Client address."
+                    },
+                    "database": {
+                        "type": "string",
+                        "description": "Database name."
+                    },
+                    "duration_seconds": {
+                        "type": "number",
+                        "description": "Query duration in seconds."
+                    },
+                    "pid": {
+                        "type": "integer",
+                        "description": "Process ID of the backend running the query."
+                    },
+                    "query": {
+                        "type": "string",
+                        "description": "Full query text."
+                    },
+                    "state": {
+                        "type": "string",
+                        "description": "Current backend state."
+                    },
+                    "state_duration_seconds": {
+                        "type": "number",
+                        "description": "Time spent in the current state, in seconds."
+                    },
+                    "user": {
+                        "type": "string",
+                        "description": "User running the query."
+                    },
+                    "wait_event": {
+                        "type": "string",
+                        "description": "Event the backend is waiting for."
+                    },
+                    "wait_event_type": {
+                        "type": "string",
+                        "description": "Type of event the backend is waiting for."
+                    }
                 }
             },
             "PostgresAttachedApp": {
@@ -5369,11 +6103,12 @@
                     },
                     "created_at": {
                         "type": "string",
-                        "description": "RFC 3339 creation timestamp."
+                        "description": "RFC 3339 creation timestamp.",
+                        "format": "date-time"
                     },
                     "disk_size_gb": {
                         "type": "integer",
-                        "description": "Disk size in gigabytes.",
+                        "description": "Disk size in gigabytes, for one replica.",
                         "example": 10
                     },
                     "endpoints": {
@@ -5442,6 +6177,18 @@
                             "deleted",
                             "failed"
                         ]
+                    },
+                    "storage_provisioned_bytes": {
+                        "type": "integer",
+                        "description": "Storage provisioned, summed across the cluster's volumes and measured hourly.\nNull until first measured.",
+                        "nullable": true,
+                        "example": 10737418240
+                    },
+                    "storage_used_bytes": {
+                        "type": "integer",
+                        "description": "Storage used, summed across the cluster's volumes and measured hourly. Null\nuntil first measured.",
+                        "nullable": true,
+                        "example": 5368709120
                     }
                 }
             },
@@ -5471,7 +6218,8 @@
                     },
                     "created_at": {
                         "type": "string",
-                        "description": "RFC 3339 creation timestamp."
+                        "description": "RFC 3339 creation timestamp.",
+                        "format": "date-time"
                     },
                     "deleted_at": {
                         "type": "string",
@@ -5555,12 +6303,20 @@
                     },
                     "installed": {
                         "type": "object",
-                        "description": "Installation details, or null when the extension is not installed.",
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/PostgresInstalledExtension"
+                        "properties": {
+                            "schema": {
+                                "type": "string",
+                                "description": "Schema the extension is installed into.",
+                                "example": "public"
+                            },
+                            "version": {
+                                "type": "string",
+                                "description": "Installed version.",
+                                "example": "1.0"
                             }
-                        ]
+                        },
+                        "description": "Installation details, or null when the extension is not installed.",
+                        "nullable": true
                     },
                     "name": {
                         "type": "string",
@@ -5604,6 +6360,43 @@
                         "allOf": [
                             { "$ref": "#/components/schemas/PostgresEndpoint" }
                         ]
+                    }
+                }
+            },
+            "PostgresSlowQuery": {
+                "type": "object",
+                "properties": {
+                    "calls": {
+                        "type": "integer",
+                        "description": "Cumulative number of executions."
+                    },
+                    "database": {
+                        "type": "string",
+                        "description": "Database name."
+                    },
+                    "max_exec_time_seconds": {
+                        "type": "number",
+                        "description": "Maximum execution time in seconds."
+                    },
+                    "mean_exec_time_seconds": {
+                        "type": "number",
+                        "description": "Mean execution time in seconds."
+                    },
+                    "query": {
+                        "type": "string",
+                        "description": "Full query pattern."
+                    },
+                    "query_id": {
+                        "type": "string",
+                        "description": "Query identifier."
+                    },
+                    "total_exec_time_seconds": {
+                        "type": "number",
+                        "description": "Cumulative total execution time in seconds."
+                    },
+                    "user": {
+                        "type": "string",
+                        "description": "User running the query."
                     }
                 }
             },
@@ -5795,7 +6588,10 @@
                             { "$ref": "#/components/schemas/fly.MachineConfig" }
                         ]
                     },
-                    "current_version": { "type": "string" },
+                    "current_version": {
+                        "type": "string",
+                        "description": "CurrentVersion is an optional optimistic-concurrency guard: the Machine's\n`version`, as returned by create, get or a previous update. When set\nand it is no longer the Machine's current version, the update is rejected\nwith 409 Conflict and nothing changes. Omit it to update unconditionally."
+                    },
                     "lease_ttl": { "type": "integer" },
                     "min_secrets_version": { "type": "integer" },
                     "name": {
@@ -5846,6 +6642,10 @@
                     "created_at": { "type": "string" },
                     "encrypted": { "type": "boolean" },
                     "fstype": { "type": "string" },
+                    "host_features": {
+                        "type": "array",
+                        "items": { "type": "string" }
+                    },
                     "host_status": {
                         "type": "string",
                         "enum": ["ok", "unknown", "unreachable"]
@@ -5853,6 +6653,10 @@
                     "id": { "type": "string" },
                     "name": { "type": "string" },
                     "region": { "type": "string" },
+                    "required_host_features": {
+                        "type": "array",
+                        "items": { "type": "string" }
+                    },
                     "size_gb": { "type": "integer" },
                     "snapshot_retention": { "type": "integer" },
                     "state": { "type": "string" },
@@ -5888,7 +6692,7 @@
                     "org_slug": { "type": "string" },
                     "region": { "type": "string" },
                     "service_name": { "type": "string" },
-                    "type": { "type": "string" }
+                    "type": { "$ref": "#/components/schemas/IPAssignmentType" }
                 }
             },
             "authenticateTokenRequest": {
@@ -5972,7 +6776,7 @@
                     },
                     "org_slug": {
                         "type": "string",
-                        "description": "Slug of the organization that will own the cluster.",
+                        "description": "Slug of the organization that will own the cluster, or \"personal\" for the caller's personal organization.",
                         "example": "my-org"
                     },
                     "pg_major_version": {
@@ -5983,7 +6787,7 @@
                     },
                     "plan": {
                         "type": "string",
-                        "description": "Plan slug selecting CPU, memory, and disk sizing.",
+                        "description": "Plan slug selecting CPU, memory, and disk sizing. Matched case-insensitively.",
                         "example": "basic",
                         "enum": [
                             "basic",
@@ -6016,7 +6820,8 @@
                 "properties": {
                     "name": {
                         "type": "string",
-                        "description": "Name of the database to create."
+                        "description": "Name of the database to create. Must start and end with an alphanumeric\ncharacter and may contain hyphens and underscores, up to 63 characters.",
+                        "example": "customer_data"
                     }
                 }
             },
@@ -6032,7 +6837,8 @@
                     },
                     "username": {
                         "type": "string",
-                        "description": "Name for the new user."
+                        "description": "Name for the new user. Must start and end with a lowercase alphanumeric\ncharacter and may contain hyphens and underscores, up to 63 characters.",
+                        "example": "app_user"
                     }
                 }
             },
@@ -6148,7 +6954,7 @@
                     },
                     "restart": {
                         "type": "object",
-                        "description": "Restart is used to define the restart policy for the container. NOTE: spot-price is not\nsupported for containers.",
+                        "description": "Restart is used to define the restart policy for the container.",
                         "allOf": [
                             {
                                 "$ref": "#/components/schemas/fly.MachineRestart"
@@ -6480,7 +7286,7 @@
                 "properties": {
                     "auto_destroy": {
                         "type": "boolean",
-                        "description": "Optional boolean telling the Machine to destroy itself once it’s complete (default false)"
+                        "description": "Optional boolean telling the Machine to destroy itself once it\u2019s complete (default false)"
                     },
                     "cache_drive": {
                         "$ref": "#/components/schemas/fly.MachineCacheDrive"
@@ -6590,6 +7396,10 @@
                         "type": "string",
                         "description": "Deprecated: use MachineConfig.Rootfs instead",
                         "enum": ["never", "always", "restart"]
+                    },
+                    "required_host_features": {
+                        "type": "array",
+                        "items": { "type": "string" }
                     }
                 }
             },
@@ -6637,8 +7447,16 @@
                 "type": "object",
                 "properties": {
                     "add_size_gb": { "type": "integer" },
+                    "add_size_percent": {
+                        "type": "integer",
+                        "description": "AddSizePercent grows by a percentage of the current size, rounded up to GiB.\nIt is mutually exclusive with AddSizeGb."
+                    },
                     "encrypted": { "type": "boolean" },
                     "extend_threshold_percent": { "type": "integer" },
+                    "min_add_size_gb": {
+                        "type": "integer",
+                        "description": "MinAddSizeGb is the minimum proportional growth in GiB (default 1)."
+                    },
                     "name": { "type": "string" },
                     "path": { "type": "string" },
                     "size_gb": { "type": "integer" },
@@ -6703,18 +7521,14 @@
             "fly.MachineRestart": {
                 "type": "object",
                 "properties": {
-                    "gpu_bid_price": {
-                        "type": "number",
-                        "description": "GPU bid price for spot Machines."
-                    },
                     "max_retries": {
                         "type": "integer",
                         "description": "When policy is on-failure, the maximum number of times to attempt to restart the Machine before letting it stop."
                     },
                     "policy": {
                         "type": "string",
-                        "description": "* no - Never try to restart a Machine automatically when its main process exits, whether that’s on purpose or on a crash.\n* always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.\n* on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules.\n* spot-price - Starts the Machine only when there is capacity and the spot price is less than or equal to the bid price.",
-                        "enum": ["no", "always", "on-failure", "spot-price"]
+                        "description": "* no - Never try to restart a Machine automatically when its main process exits, whether that\u2019s on purpose or on a crash.\n* always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.\n* on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules.",
+                        "enum": ["no", "always", "on-failure"]
                     }
                 },
                 "description": "The Machine restart policy defines whether and how flyd restarts a Machine after its main process exits. See https://fly.io/docs/machines/guides-examples/machine-restart-policy/."
@@ -7002,6 +7816,17 @@
                     }
                 }
             },
+            "listPostgresActiveQueriesResponse": {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PostgresActiveQuery"
+                        }
+                    }
+                }
+            },
             "listPostgresBackupsResponse": {
                 "type": "object",
                 "properties": {
@@ -7042,6 +7867,17 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/PostgresExtension"
+                        }
+                    }
+                }
+            },
+            "listPostgresSlowQueriesResponse": {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PostgresSlowQuery"
                         }
                     }
                 }
@@ -7209,6 +8045,7 @@
                     "geo_region": { "type": "string" },
                     "latitude": { "type": "number" },
                     "longitude": { "type": "number" },
+                    "mpg_available": { "type": "boolean" },
                     "name": { "type": "string" },
                     "requires_paid_plan": { "type": "boolean" }
                 }
@@ -7219,8 +8056,18 @@
             },
             "main.statusCode": {
                 "type": "string",
-                "enum": ["unknown", "insufficient_capacity"],
-                "x-enum-varnames": ["unknown", "capacityErr"]
+                "enum": [
+                    "unknown",
+                    "insufficient_capacity",
+                    "volume_placement_capacity",
+                    "name_taken"
+                ],
+                "x-enum-varnames": [
+                    "unknown",
+                    "capacityErr",
+                    "volumePlacementCapacityErr",
+                    "nameTakenErr"
+                ]
             },
             "main.tokenInfo": {
                 "type": "object",
@@ -7279,12 +8126,19 @@
                 ]
             },
             "restorePostgresClusterRequest": {
-                "required": ["backup_id"],
                 "type": "object",
                 "properties": {
                     "backup_id": {
                         "type": "string",
-                        "description": "Backup label to restore from, as returned by the backups list."
+                        "description": "Backup label to restore from, as returned by the backups list. Mutually exclusive with pitr_time."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name for the restored cluster. Defaults to a generated name derived from the source cluster and backup/point in time when omitted or blank."
+                    },
+                    "pitr_time": {
+                        "type": "string",
+                        "description": "Point in time to restore to, as an RFC3339 timestamp with an explicit offset from UTC (e.g. Z or +02:00). Normalized to UTC and must fall within the cluster's PITR recovery window. Mutually exclusive with backup_id."
                     }
                 }
             },
@@ -7354,6 +8208,14 @@
                     "updated_at": { "type": "string" },
                     "value": { "type": "string" }
                 }
+            }
+        },
+        "securitySchemes": {
+            "FlyBearerAuth": {
+                "type": "apiKey",
+                "description": "A Fly API token with access to the requested organization or resource. Send it as `Authorization: Bearer <Fly API token>`.",
+                "name": "Authorization",
+                "in": "header"
             }
         }
     },
