@@ -17,6 +17,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 
 	openapigen "github.com/cloudy-sky-software/pulschema/pkg"
+	"github.com/cloudy-sky-software/pulschema/pkg/exclusions"
 
 	"github.com/cloudy-sky-software/pulumi-fly-machines/provider/pkg/gen/examples"
 )
@@ -95,6 +96,13 @@ func PulumiSchema(openapiDoc openapi3.T) (pschema.PackageSpec, openapigen.Provid
 	openAPICtx := &openapigen.OpenAPIContext{
 		Doc:           openapiDoc,
 		Pkg:           &pkg,
+		Exclusions: []exclusions.Exclusion{
+			{
+				Method: "PUT",
+				PathPattern: "/v1/apps/{app_name}/machines/{machine_id}/metadata",
+				PatternType: exclusions.PatternTypeExact,
+			},
+		},
 	}
 
 	providerMetadata, updatedOpenAPIDoc, err := openAPICtx.GatherResourcesFromAPI(csharpNamespaces)
