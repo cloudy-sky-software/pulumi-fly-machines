@@ -102,6 +102,11 @@ func PulumiSchema(openapiDoc openapi3.T) (pschema.PackageSpec, openapigen.Provid
 				PathPattern: "/v1/apps/{app_name}/machines/{machine_id}/metadata",
 				PatternType: exclusions.PatternTypeExact,
 			},
+			{
+				Method: "DELETE",
+				PathPattern: "/v1/apps/{app_name}/certificates/{hostname}",
+				PatternType: exclusions.PatternTypeExact,
+			},
 		},
 	}
 
@@ -141,6 +146,11 @@ func PulumiSchema(openapiDoc openapi3.T) (pschema.PackageSpec, openapigen.Provid
 			Enabled bool `json:"enabled,omitempty"`
 		}{Enabled: true},
 	})
+
+	// Add the "Get certificate details" endpoint to the
+	// /custom and /acme certificate endpoint resources.
+	providerMetadata.ResourceCRUDMap["fly-machines:apps/v1:AppCertificatesCustom"].R = new(`/v1/apps/{app_name}/certificates/{hostname}`)
+	providerMetadata.ResourceCRUDMap["fly-machines:apps/v1:AppCertificatesAcme"].R = new(`/v1/apps/{app_name}/certificates/{hostname}`)
 
 	metadata := openapigen.ProviderMetadata{
 		ResourceCRUDMap:  providerMetadata.ResourceCRUDMap,
