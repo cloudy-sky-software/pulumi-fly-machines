@@ -20,6 +20,8 @@ components:
                     type: string
                 network:
                     type: string
+                network_cidr:
+                    type: string
                 organization:
                     $ref: '#/components/schemas/AppOrganizationInfo'
                 status:
@@ -74,6 +76,28 @@ components:
                     type: array
                 version:
                     type: integer
+            type: object
+        AssignIPResponse:
+            properties:
+                created_at:
+                    type: string
+                egress:
+                    type: boolean
+                ip:
+                    type: string
+                ip_pair:
+                    allOf:
+                        - $ref: '#/components/schemas/IPPair'
+                    description: ip_pair is returned when "egress-pair" IP type is requested; in this case, ip is null.
+                    type: object
+                network:
+                    $ref: '#/components/schemas/IPAssignmentNetwork'
+                region:
+                    type: string
+                service_name:
+                    type: string
+                shared:
+                    type: boolean
             type: object
         CertificateCheckResponse:
             properties:
@@ -222,10 +246,24 @@ components:
                 expiry:
                     type: string
             type: object
+        CreateAppDeployTokenResponse:
+            properties:
+                token:
+                    type: string
+            type: object
         CreateAppRequest:
             properties:
                 enable_subdomains:
                     type: boolean
+                idempotency_key:
+                    description: |-
+                        When set, makes a retry of this exact request safe: a
+                        second create with the same key and the same name (or no name) returns
+                        the app the first request created, instead of erroring on a false name
+                        conflict or creating a duplicate. A second create with the same key
+                        but a *different* name is rejected outright; it won't silently
+                        hand back the first app.
+                    type: string
                 name:
                     type: string
                 network:
@@ -235,7 +273,9 @@ components:
             type: object
         CreateAppResponse:
             properties:
-                token:
+                created_at:
+                    type: integer
+                id:
                     type: string
             type: object
         CreateLeaseRequest:
@@ -438,14 +478,53 @@ components:
             properties:
                 created_at:
                     type: string
+                egress:
+                    type: boolean
                 ip:
                     type: string
+                network:
+                    $ref: '#/components/schemas/IPAssignmentNetwork'
                 region:
                     type: string
                 service_name:
                     type: string
                 shared:
                     type: boolean
+            type: object
+        IPAssignmentNetwork:
+            description: The 6PN network a Flycast (private_v6) address belongs to. Null for all other IP types.
+            properties:
+                name:
+                    description: Network name; empty for the organization's default network.
+                    type: string
+                org_slug:
+                    type: string
+            type: object
+        IPAssignmentType:
+            description: Type of IP address to allocate. "egress-pair" allocates both v4 and v6 egress IP addresses (recommended when using egress IPs).
+            enum:
+                - v4
+                - v6
+                - shared_v4
+                - private_v6
+                - egress_v4
+                - egress_v6
+                - egress_pair
+            type: string
+            x-enum-varnames:
+                - IPAssignmentType_v4
+                - IPAssignmentType_v6
+                - IPAssignmentType_shared_v4
+                - IPAssignmentType_private_v6
+                - IPAssignmentType_egress_v4
+                - IPAssignmentType_egress_v6
+                - IPAssignmentType_egress_pair
+        IPPair:
+            properties:
+                v4:
+                    type: string
+                v6:
+                    type: string
             type: object
         ImageRef:
             properties:
@@ -524,6 +603,10 @@ components:
                     items:
                         $ref: '#/components/schemas/MachineEvent'
                     type: array
+                host_features:
+                    items:
+                        type: string
+                    type: array
                 host_status:
                     enum:
                         - ok
@@ -537,7 +620,10 @@ components:
                 incomplete_config:
                     $ref: '#/components/schemas/fly.MachineConfig'
                 instance_id:
-                    description: InstanceID is unique for each version of the machine
+                    description: |-
+                        InstanceID is the same value as `version`.
+
+                        Deprecated: use `version`.
                     type: string
                 lease:
                     $ref: '#/components/schemas/StrippedLease'
@@ -554,6 +640,12 @@ components:
                 state:
                     type: string
                 updated_at:
+                    type: string
+                version:
+                    description: |-
+                        Version is unique for each version of the machine. Pass it as
+                        `current_version` when updating the Machine to reject the update if the
+                        Machine has changed since this version.
                     type: string
             type: object
         MachineEvent:
@@ -582,6 +674,11 @@ components:
                     type: array
                 container:
                     type: string
+                machine:
+                    description: |-
+                        Machine runs the command in the machine's own namespace instead of in a
+                        container. It is mutually exclusive with Container.
+                    type: boolean
                 stdin:
                     type: string
                 timeout:
@@ -673,6 +770,10 @@ components:
                     type: boolean
                 fstype:
                     type: string
+                host_features:
+                    items:
+                        type: string
+                    type: array
                 host_status:
                     enum:
                         - ok
@@ -685,6 +786,10 @@ components:
                     type: string
                 region:
                     type: string
+                required_host_features:
+                    items:
+                        type: string
+                    type: array
                 size_gb:
                     type: integer
                 snapshot_retention:
@@ -730,6 +835,42 @@ components:
                 name:
                     type: string
                 org_value:
+                    type: string
+            type: object
+        PostgresActiveQuery:
+            properties:
+                application_name:
+                    description: Application connected to the backend.
+                    type: string
+                client:
+                    description: Client address.
+                    type: string
+                database:
+                    description: Database name.
+                    type: string
+                duration_seconds:
+                    description: Query duration in seconds.
+                    type: number
+                pid:
+                    description: Process ID of the backend running the query.
+                    type: integer
+                query:
+                    description: Full query text.
+                    type: string
+                state:
+                    description: Current backend state.
+                    type: string
+                state_duration_seconds:
+                    description: Time spent in the current state, in seconds.
+                    type: number
+                user:
+                    description: User running the query.
+                    type: string
+                wait_event:
+                    description: Event the backend is waiting for.
+                    type: string
+                wait_event_type:
+                    description: Type of event the backend is waiting for.
                     type: string
             type: object
         PostgresAttachedApp:
@@ -796,9 +937,10 @@ components:
                     type: integer
                 created_at:
                     description: RFC 3339 creation timestamp.
+                    format: date-time
                     type: string
                 disk_size_gb:
-                    description: Disk size in gigabytes.
+                    description: Disk size in gigabytes, for one replica.
                     example: 10
                     type: integer
                 endpoints:
@@ -857,6 +999,20 @@ components:
                         - failed
                     example: ready
                     type: string
+                storage_provisioned_bytes:
+                    description: |-
+                        Storage provisioned, summed across the cluster's volumes and measured hourly.
+                        Null until first measured.
+                    example: 1.073741824e+10
+                    nullable: true
+                    type: integer
+                storage_used_bytes:
+                    description: |-
+                        Storage used, summed across the cluster's volumes and measured hourly. Null
+                        until first measured.
+                    example: 5.36870912e+09
+                    nullable: true
+                    type: integer
             type: object
         PostgresClusterEndpoints:
             properties:
@@ -875,6 +1031,7 @@ components:
                     type: array
                 created_at:
                     description: RFC 3339 creation timestamp.
+                    format: date-time
                     type: string
                 deleted_at:
                     description: RFC 3339 deletion timestamp; present for deleted clusters.
@@ -941,9 +1098,17 @@ components:
                     description: Human-readable description.
                     type: string
                 installed:
-                    allOf:
-                        - $ref: '#/components/schemas/PostgresInstalledExtension'
                     description: Installation details, or null when the extension is not installed.
+                    nullable: true
+                    properties:
+                        schema:
+                            description: Schema the extension is installed into.
+                            example: public
+                            type: string
+                        version:
+                            description: Installed version.
+                            example: "1.0"
+                            type: string
                     type: object
                 name:
                     description: Extension name.
@@ -976,6 +1141,33 @@ components:
                         - $ref: '#/components/schemas/PostgresEndpoint'
                     description: Pooled connection to the cluster node (through PgBouncer).
                     type: object
+            type: object
+        PostgresSlowQuery:
+            properties:
+                calls:
+                    description: Cumulative number of executions.
+                    type: integer
+                database:
+                    description: Database name.
+                    type: string
+                max_exec_time_seconds:
+                    description: Maximum execution time in seconds.
+                    type: number
+                mean_exec_time_seconds:
+                    description: Mean execution time in seconds.
+                    type: number
+                query:
+                    description: Full query pattern.
+                    type: string
+                query_id:
+                    description: Query identifier.
+                    type: string
+                total_exec_time_seconds:
+                    description: Cumulative total execution time in seconds.
+                    type: number
+                user:
+                    description: User running the query.
+                    type: string
             type: object
         PostgresUser:
             properties:
@@ -1162,6 +1354,11 @@ components:
                     description: An object defining the Machine configuration
                     type: object
                 current_version:
+                    description: |-
+                        CurrentVersion is an optional optimistic-concurrency guard: the Machine's
+                        `version`, as returned by create, get or a previous update. When set
+                        and it is no longer the Machine's current version, the update is rejected
+                        with 409 Conflict and nothing changes. Omit it to update unconditionally.
                     type: string
                 lease_ttl:
                     type: integer
@@ -1224,6 +1421,10 @@ components:
                     type: boolean
                 fstype:
                     type: string
+                host_features:
+                    items:
+                        type: string
+                    type: array
                 host_status:
                     enum:
                         - ok
@@ -1236,6 +1437,10 @@ components:
                     type: string
                 region:
                     type: string
+                required_host_features:
+                    items:
+                        type: string
+                    type: array
                 size_gb:
                     type: integer
                 snapshot_retention:
@@ -1289,7 +1494,7 @@ components:
                 service_name:
                     type: string
                 type:
-                    type: string
+                    $ref: '#/components/schemas/IPAssignmentType'
             type: object
         authenticateTokenRequest:
             properties:
@@ -1362,7 +1567,7 @@ components:
                     description: Name for the cluster. A name is generated when omitted.
                     type: string
                 org_slug:
-                    description: Slug of the organization that will own the cluster.
+                    description: Slug of the organization that will own the cluster, or "personal" for the caller's personal organization.
                     example: my-org
                     type: string
                 pg_major_version:
@@ -1373,7 +1578,7 @@ components:
                     example: "17"
                     type: string
                 plan:
-                    description: Plan slug selecting CPU, memory, and disk sizing.
+                    description: Plan slug selecting CPU, memory, and disk sizing. Matched case-insensitively.
                     enum:
                         - basic
                         - starter
@@ -1404,7 +1609,10 @@ components:
         createPostgresDatabaseRequest:
             properties:
                 name:
-                    description: Name of the database to create.
+                    description: |-
+                        Name of the database to create. Must start and end with an alphanumeric
+                        character and may contain hyphens and underscores, up to 63 characters.
+                    example: customer_data
                     type: string
             required:
                 - name
@@ -1420,7 +1628,10 @@ components:
                     example: writer
                     type: string
                 username:
-                    description: Name for the new user.
+                    description: |-
+                        Name for the new user. Must start and end with a lowercase alphanumeric
+                        character and may contain hyphens and underscores, up to 63 characters.
+                    example: app_user
                     type: string
             required:
                 - role
@@ -1531,9 +1742,7 @@ components:
                 restart:
                     allOf:
                         - $ref: '#/components/schemas/fly.MachineRestart'
-                    description: |-
-                        Restart is used to define the restart policy for the container. NOTE: spot-price is not
-                        supported for containers.
+                    description: Restart is used to define the restart policy for the container.
                     type: object
                 secrets:
                     description: |-
@@ -1911,6 +2120,10 @@ components:
                         - always
                         - restart
                     type: string
+                required_host_features:
+                    items:
+                        type: string
+                    type: array
             type: object
         fly.MachineHTTPHeader:
             description: For http checks, an array of objects with string field Name and array of strings field Values. The key/value pairs specify header and header values that will get passed with the check call.
@@ -1960,9 +2173,17 @@ components:
             properties:
                 add_size_gb:
                     type: integer
+                add_size_percent:
+                    description: |-
+                        AddSizePercent grows by a percentage of the current size, rounded up to GiB.
+                        It is mutually exclusive with AddSizeGb.
+                    type: integer
                 encrypted:
                     type: boolean
                 extend_threshold_percent:
+                    type: integer
+                min_add_size_gb:
+                    description: MinAddSizeGb is the minimum proportional growth in GiB (default 1).
                     type: integer
                 name:
                     type: string
@@ -2038,9 +2259,6 @@ components:
         fly.MachineRestart:
             description: The Machine restart policy defines whether and how flyd restarts a Machine after its main process exits. See https://fly.io/docs/machines/guides-examples/machine-restart-policy/.
             properties:
-                gpu_bid_price:
-                    description: GPU bid price for spot Machines.
-                    type: number
                 max_retries:
                     description: When policy is on-failure, the maximum number of times to attempt to restart the Machine before letting it stop.
                     type: integer
@@ -2049,12 +2267,10 @@ components:
                         * no - Never try to restart a Machine automatically when its main process exits, whether that’s on purpose or on a crash.
                         * always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.
                         * on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules.
-                        * spot-price - Starts the Machine only when there is capacity and the spot price is less than or equal to the bid price.
                     enum:
                         - "no"
                         - always
                         - on-failure
-                        - spot-price
                     type: string
             type: object
         fly.MachineRootfs:
@@ -2341,6 +2557,13 @@ components:
                         $ref: '#/components/schemas/IPAssignment'
                     type: array
             type: object
+        listPostgresActiveQueriesResponse:
+            properties:
+                data:
+                    items:
+                        $ref: '#/components/schemas/PostgresActiveQuery'
+                    type: array
+            type: object
         listPostgresBackupsResponse:
             properties:
                 data:
@@ -2367,6 +2590,13 @@ components:
                 data:
                     items:
                         $ref: '#/components/schemas/PostgresExtension'
+                    type: array
+            type: object
+        listPostgresSlowQueriesResponse:
+            properties:
+                data:
+                    items:
+                        $ref: '#/components/schemas/PostgresSlowQuery'
                     type: array
             type: object
         listPostgresUsersResponse:
@@ -2553,6 +2783,8 @@ components:
                     type: number
                 longitude:
                     type: number
+                mpg_available:
+                    type: boolean
                 name:
                     type: string
                 requires_paid_plan:
@@ -2567,10 +2799,14 @@ components:
             enum:
                 - unknown
                 - insufficient_capacity
+                - volume_placement_capacity
+                - name_taken
             type: string
             x-enum-varnames:
                 - unknown
                 - capacityErr
+                - volumePlacementCapacityErr
+                - nameTakenErr
         main.tokenInfo:
             properties:
                 apps:
@@ -2637,10 +2873,14 @@ components:
         restorePostgresClusterRequest:
             properties:
                 backup_id:
-                    description: Backup label to restore from, as returned by the backups list.
+                    description: Backup label to restore from, as returned by the backups list. Mutually exclusive with pitr_time.
                     type: string
-            required:
-                - backup_id
+                name:
+                    description: Name for the restored cluster. Defaults to a generated name derived from the source cluster and backup/point in time when omitted or blank.
+                    type: string
+                pitr_time:
+                    description: Point in time to restore to, as an RFC3339 timestamp with an explicit offset from UTC (e.g. Z or +02:00). Normalized to UTC and must fall within the cluster's PITR recovery window. Mutually exclusive with backup_id.
+                    type: string
             type: object
         root.VerifiedToken:
             properties:
@@ -2702,6 +2942,12 @@ components:
                 value:
                     type: string
             type: object
+    securitySchemes:
+        FlyBearerAuth:
+            description: 'A Fly API token with access to the requested organization or resource. Send it as `Authorization: Bearer <Fly API token>`.'
+            in: header
+            name: Authorization
+            type: apiKey
 info:
     contact: {}
     description: This site hosts documentation generated from the Fly.io Machines API OpenAPI specification. Visit our complete [Machines API docs](https://fly.io/docs/machines/api/) for how to get started, more information about each endpoint, parameter descriptions, and examples.
@@ -2711,7 +2957,7 @@ info:
     title: Machines API
     version: "1.0"
 paths:
-    /apps:
+    /v1/apps:
         get:
             description: |
                 List all apps with the ability to filter by organization slug.
@@ -2751,6 +2997,10 @@ paths:
                 required: true
             responses:
                 "201":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/CreateAppResponse'
                     description: Created
                 "400":
                     content:
@@ -2758,11 +3008,17 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/ErrorResponse'
                     description: Bad Request
+                "422":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ErrorResponse'
+                    description: Rejected by validation. status is name_taken when the app name is already in use.
             summary: Create App
             tags:
                 - Apps
             x-codegen-request-body-name: request
-    /apps/{app_name}:
+    /v1/apps/{app_name}:
         delete:
             description: |
                 Delete an app by its name.
@@ -2801,7 +3057,7 @@ paths:
             summary: Get App
             tags:
                 - Apps
-    /apps/{app_name}/certificates:
+    /v1/apps/{app_name}/certificates:
         get:
             operationId: App_Certificates_list
             parameters:
@@ -2836,7 +3092,7 @@ paths:
             summary: List certificates for app
             tags:
                 - TLS Certificates
-    /apps/{app_name}/certificates/{hostname}:
+    /v1/apps/{app_name}/certificates/{hostname}:
         delete:
             operationId: App_Certificates_delete
             parameters:
@@ -2883,7 +3139,7 @@ paths:
             summary: Get certificate details
             tags:
                 - TLS Certificates
-    /apps/{app_name}/certificates/{hostname}/acme:
+    /v1/apps/{app_name}/certificates/{hostname}/acme:
         delete:
             operationId: App_Certificates_acme_delete
             parameters:
@@ -2909,7 +3165,7 @@ paths:
             summary: Remove ACME certificates
             tags:
                 - TLS Certificates
-    /apps/{app_name}/certificates/{hostname}/check:
+    /v1/apps/{app_name}/certificates/{hostname}/check:
         post:
             operationId: App_Certificates_check
             parameters:
@@ -2935,7 +3191,7 @@ paths:
             summary: Check DNS and re-validate certificate
             tags:
                 - TLS Certificates
-    /apps/{app_name}/certificates/{hostname}/custom:
+    /v1/apps/{app_name}/certificates/{hostname}/custom:
         delete:
             operationId: App_Certificates_custom_delete
             parameters:
@@ -2961,7 +3217,7 @@ paths:
             summary: Remove custom certificate
             tags:
                 - TLS Certificates
-    /apps/{app_name}/certificates/acme:
+    /v1/apps/{app_name}/certificates/acme:
         post:
             operationId: App_Certificates_acme_create
             parameters:
@@ -2995,7 +3251,7 @@ paths:
             tags:
                 - TLS Certificates
             x-codegen-request-body-name: request
-    /apps/{app_name}/certificates/custom:
+    /v1/apps/{app_name}/certificates/custom:
         post:
             operationId: App_Certificates_custom_create
             parameters:
@@ -3029,7 +3285,7 @@ paths:
             tags:
                 - TLS Certificates
             x-codegen-request-body-name: request
-    /apps/{app_name}/deploy_token:
+    /v1/apps/{app_name}/deploy_token:
         post:
             operationId: App_create_deploy_token
             parameters:
@@ -3051,13 +3307,13 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/CreateAppResponse'
+                                $ref: '#/components/schemas/CreateAppDeployTokenResponse'
                     description: OK
             summary: Create App deploy token
             tags:
                 - Apps
             x-codegen-request-body-name: request
-    /apps/{app_name}/ip_assignments:
+    /v1/apps/{app_name}/ip_assignments:
         get:
             operationId: App_IPAssignments_list
             parameters:
@@ -3098,13 +3354,13 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/IPAssignment'
+                                $ref: '#/components/schemas/AssignIPResponse'
                     description: OK
             summary: Assign new IP address to app
             tags:
                 - Apps
             x-codegen-request-body-name: request
-    /apps/{app_name}/ip_assignments/{ip}:
+    /v1/apps/{app_name}/ip_assignments/{ip}:
         delete:
             operationId: App_IPAssignments_delete
             parameters:
@@ -3126,7 +3382,7 @@ paths:
             summary: Remove IP assignment from app
             tags:
                 - Apps
-    /apps/{app_name}/machines:
+    /v1/apps/{app_name}/machines:
         get:
             description: |
                 List all Machines associated with a specific app, with optional filters for including deleted Machines and filtering by region.
@@ -3163,6 +3419,21 @@ paths:
                   name: summary
                   schema:
                     type: boolean
+                - description: Filter by a machine metadata key and exact value. Replace {key} with the metadata key, for example metadata.foo=bar. Specify multiple metadata filters to require all matches.
+                  in: query
+                  name: metadata.{key}
+                  schema:
+                    type: string
+                - description: Value of the fly-next-cursor response header from the previous page. Requires limit.
+                  in: query
+                  name: cursor
+                  schema:
+                    type: string
+                - description: The number of machines to fetch (must be between 1 and 1000). Providing a limit enables pagination. This limit is advisory; responses may be shorter, or even empty, even when more machines remain.
+                  in: query
+                  name: limit
+                  schema:
+                    type: integer
             responses:
                 "200":
                     content:
@@ -3172,6 +3443,11 @@ paths:
                                     $ref: '#/components/schemas/Machine'
                                 type: array
                     description: OK
+                    headers:
+                        fly-next-cursor:
+                            description: Pagination cursor for the next page. Absent when no more machines remain. Cursor expires 30 minutes after the first page was requested.
+                            schema:
+                                type: string
             summary: List Machines
             tags:
                 - Machines
@@ -3206,7 +3482,7 @@ paths:
             tags:
                 - Machines
             x-codegen-request-body-name: request
-    /apps/{app_name}/machines/{machine_id}:
+    /v1/apps/{app_name}/machines/{machine_id}:
         delete:
             description: |
                 Delete a specific Machine within an app by Machine ID, with an optional force parameter to force kill the Machine if it's running.
@@ -3252,6 +3528,11 @@ paths:
                   required: true
                   schema:
                     type: string
+                - description: 26-character Machine version ID; returns that version of the Machine instead of the current one
+                  in: query
+                  name: version
+                  schema:
+                    type: string
                 - description: Include machine lease
                   in: query
                   name: include_leases
@@ -3270,7 +3551,7 @@ paths:
         post:
             description: |
                 Update a Machine's configuration using the details provided in the request body.
-            operationId: Machine_update
+            operationId: Machines_update
             parameters:
                 - description: Fly App Name
                   in: path
@@ -3304,11 +3585,17 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/ErrorResponse'
                     description: Bad Request
+                "409":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ErrorResponse'
+                    description: Conflict
             summary: Update Machine
             tags:
                 - Machines
             x-codegen-request-body-name: request
-    /apps/{app_name}/machines/{machine_id}/cordon:
+    /v1/apps/{app_name}/machines/{machine_id}/cordon:
         post:
             description: |
                 “Cordoning” a Machine refers to disabling its services, so the Fly Proxy won’t route requests to it. In flyctl this is used by blue/green deployments; one set of Machines is started up with services disabled, and when they are all healthy, the services are enabled on the new Machines and disabled on the old ones.
@@ -3332,7 +3619,7 @@ paths:
             summary: Cordon Machine
             tags:
                 - Machines
-    /apps/{app_name}/machines/{machine_id}/events:
+    /v1/apps/{app_name}/machines/{machine_id}/events:
         get:
             description: |
                 List all events associated with a specific Machine within an app.
@@ -3367,7 +3654,7 @@ paths:
             summary: List Events
             tags:
                 - Machines
-    /apps/{app_name}/machines/{machine_id}/exec:
+    /v1/apps/{app_name}/machines/{machine_id}/exec:
         post:
             description: |
                 Execute a command on a specific Machine and return the raw command output bytes.
@@ -3415,7 +3702,7 @@ paths:
             tags:
                 - Machines
             x-codegen-request-body-name: request
-    /apps/{app_name}/machines/{machine_id}/lease:
+    /v1/apps/{app_name}/machines/{machine_id}/lease:
         delete:
             description: |
                 Release the lease of a specific Machine within an app. Machine leases can be used to obtain an exclusive lock on modifying a Machine.
@@ -3512,7 +3799,7 @@ paths:
             tags:
                 - Machines
             x-codegen-request-body-name: request
-    /apps/{app_name}/machines/{machine_id}/memory:
+    /v1/apps/{app_name}/machines/{machine_id}/memory:
         get:
             description: Get current memory limit and available capacity for a machine
             operationId: Machines_get_memory
@@ -3573,7 +3860,7 @@ paths:
             tags:
                 - Machines
             x-codegen-request-body-name: body
-    /apps/{app_name}/machines/{machine_id}/memory/reclaim:
+    /v1/apps/{app_name}/machines/{machine_id}/memory/reclaim:
         post:
             description: Trigger the balloon device to reclaim memory from a machine
             operationId: Machines_reclaim_memory
@@ -3608,7 +3895,7 @@ paths:
             tags:
                 - Machines
             x-codegen-request-body-name: body
-    /apps/{app_name}/machines/{machine_id}/metadata:
+    /v1/apps/{app_name}/machines/{machine_id}/metadata:
         get:
             description: |
                 Retrieve metadata for a specific Machine within an app.
@@ -3640,7 +3927,7 @@ paths:
                 - Machines
         patch:
             description: |-
-                Update multiple metadata keys at once. Null values and empty strings remove keys.
+                Update multiple metadata keys at once. Keys that are not in the request are left untouched. Null values and empty strings remove keys.
                 + If `machine_version` is provided and no longer matches the current machine version, returns 412 Precondition Failed.
             operationId: Machines_update_metadata
             parameters:
@@ -3683,10 +3970,12 @@ paths:
                 - Machines
             x-codegen-request-body-name: request
         put:
+            deprecated: true
             description: |-
-                Update multiple metadata keys at once. Null values and empty strings remove keys.
+                Deprecated: use `PATCH` on the same path, which this is identical to.
+                + Despite the method, this does not replace the metadata: keys that are not in the request are left untouched. Null values and empty strings remove keys.
                 + If `machine_version` is provided and no longer matches the current machine version, returns 412 Precondition Failed.
-            operationId: Machines_replace_metadata
+            operationId: Machines_update_metadata_deprecated
             parameters:
                 - description: Fly App Name
                   in: path
@@ -3722,11 +4011,11 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/ErrorResponse'
                     description: Precondition Failed
-            summary: Update Metadata (set/remove multiple keys)
+            summary: Update Metadata (deprecated PUT alias of PATCH)
             tags:
                 - Machines
             x-codegen-request-body-name: request
-    /apps/{app_name}/machines/{machine_id}/metadata/{key}:
+    /v1/apps/{app_name}/machines/{machine_id}/metadata/{key}:
         delete:
             description: |
                 Delete metadata for a specific Machine within an app by providing a metadata key.
@@ -3837,7 +4126,7 @@ paths:
             tags:
                 - Machines
             x-codegen-request-body-name: request
-    /apps/{app_name}/machines/{machine_id}/ps:
+    /v1/apps/{app_name}/machines/{machine_id}/ps:
         get:
             description: |
                 List all processes running on a specific Machine within an app, with optional sorting parameters.
@@ -3883,7 +4172,7 @@ paths:
             summary: List Processes
             tags:
                 - Machines
-    /apps/{app_name}/machines/{machine_id}/restart:
+    /v1/apps/{app_name}/machines/{machine_id}/restart:
         post:
             description: |
                 Restart a specific Machine within an app, with an optional timeout parameter.
@@ -3931,7 +4220,7 @@ paths:
             summary: Restart Machine
             tags:
                 - Machines
-    /apps/{app_name}/machines/{machine_id}/signal:
+    /v1/apps/{app_name}/machines/{machine_id}/signal:
         post:
             description: |
                 Send a signal to a specific Machine within an app using the details provided in the request body.
@@ -3969,7 +4258,7 @@ paths:
             tags:
                 - Machines
             x-codegen-request-body-name: request
-    /apps/{app_name}/machines/{machine_id}/start:
+    /v1/apps/{app_name}/machines/{machine_id}/start:
         post:
             description: |
                 Start a specific Machine within an app.
@@ -3993,7 +4282,7 @@ paths:
             summary: Start Machine
             tags:
                 - Machines
-    /apps/{app_name}/machines/{machine_id}/stop:
+    /v1/apps/{app_name}/machines/{machine_id}/stop:
         post:
             description: |
                 Stop a specific Machine within an app, with an optional request body to specify signal and timeout.
@@ -4030,7 +4319,7 @@ paths:
             tags:
                 - Machines
             x-codegen-request-body-name: request
-    /apps/{app_name}/machines/{machine_id}/suspend:
+    /v1/apps/{app_name}/machines/{machine_id}/suspend:
         post:
             description: |
                 Suspend a specific Machine within an app. The next start operation will attempt (but is not guaranteed) to resume the Machine from a snapshot taken at suspension time, rather than performing a cold boot.
@@ -4054,7 +4343,7 @@ paths:
             summary: Suspend Machine
             tags:
                 - Machines
-    /apps/{app_name}/machines/{machine_id}/uncordon:
+    /v1/apps/{app_name}/machines/{machine_id}/uncordon:
         post:
             description: |
                 “Cordoning” a Machine refers to disabling its services, so the Fly Proxy won’t route requests to it. In flyctl this is used by blue/green deployments; one set of Machines is started up with services disabled, and when they are all healthy, the services are enabled on the new Machines and disabled on the old ones.
@@ -4078,7 +4367,7 @@ paths:
             summary: Uncordon Machine
             tags:
                 - Machines
-    /apps/{app_name}/machines/{machine_id}/versions:
+    /v1/apps/{app_name}/machines/{machine_id}/versions:
         get:
             description: |
                 List all versions of the configuration for a specific Machine within an app.
@@ -4108,7 +4397,7 @@ paths:
             summary: List Versions
             tags:
                 - Machines
-    /apps/{app_name}/machines/{machine_id}/wait:
+    /v1/apps/{app_name}/machines/{machine_id}/wait:
         get:
             description: |
                 Wait for a Machine to reach a specific state. Specify the desired state with the state parameter. See the [Machine states table](https://fly.io/docs/machines/working-with-machines/#machine-states) for a list of possible states. The default for this parameter is `started`.
@@ -4176,7 +4465,7 @@ paths:
             summary: Wait for State
             tags:
                 - Machines
-    /apps/{app_name}/secretkeys:
+    /v1/apps/{app_name}/secretkeys:
         get:
             operationId: Secretkeys_list
             parameters:
@@ -4206,7 +4495,7 @@ paths:
             summary: List secret keys belonging to an app
             tags:
                 - Secrets
-    /apps/{app_name}/secretkeys/{secret_name}:
+    /v1/apps/{app_name}/secretkeys/{secret_name}:
         delete:
             operationId: Secretkey_delete
             parameters:
@@ -4301,7 +4590,7 @@ paths:
             tags:
                 - Secrets
             x-codegen-request-body-name: request
-    /apps/{app_name}/secretkeys/{secret_name}/decrypt:
+    /v1/apps/{app_name}/secretkeys/{secret_name}/decrypt:
         post:
             operationId: Secretkey_decrypt
             parameters:
@@ -4346,7 +4635,7 @@ paths:
             tags:
                 - Secrets
             x-codegen-request-body-name: request
-    /apps/{app_name}/secretkeys/{secret_name}/encrypt:
+    /v1/apps/{app_name}/secretkeys/{secret_name}/encrypt:
         post:
             operationId: Secretkey_encrypt
             parameters:
@@ -4391,7 +4680,7 @@ paths:
             tags:
                 - Secrets
             x-codegen-request-body-name: request
-    /apps/{app_name}/secretkeys/{secret_name}/generate:
+    /v1/apps/{app_name}/secretkeys/{secret_name}/generate:
         post:
             operationId: Secretkey_generate
             parameters:
@@ -4431,7 +4720,7 @@ paths:
             tags:
                 - Secrets
             x-codegen-request-body-name: request
-    /apps/{app_name}/secretkeys/{secret_name}/sign:
+    /v1/apps/{app_name}/secretkeys/{secret_name}/sign:
         post:
             operationId: Secretkey_sign
             parameters:
@@ -4476,7 +4765,7 @@ paths:
             tags:
                 - Secrets
             x-codegen-request-body-name: request
-    /apps/{app_name}/secretkeys/{secret_name}/verify:
+    /v1/apps/{app_name}/secretkeys/{secret_name}/verify:
         post:
             operationId: Secretkey_verify
             parameters:
@@ -4517,7 +4806,7 @@ paths:
             tags:
                 - Secrets
             x-codegen-request-body-name: request
-    /apps/{app_name}/secrets:
+    /v1/apps/{app_name}/secrets:
         get:
             operationId: Secrets_list
             parameters:
@@ -4580,7 +4869,7 @@ paths:
             tags:
                 - Secrets
             x-codegen-request-body-name: request
-    /apps/{app_name}/secrets/{secret_name}:
+    /v1/apps/{app_name}/secrets/{secret_name}:
         delete:
             operationId: Secret_delete
             parameters:
@@ -4680,7 +4969,7 @@ paths:
             tags:
                 - Secrets
             x-codegen-request-body-name: request
-    /apps/{app_name}/volumes:
+    /v1/apps/{app_name}/volumes:
         get:
             description: |
                 List all volumes associated with a specific app.
@@ -4738,7 +5027,7 @@ paths:
             tags:
                 - Volumes
             x-codegen-request-body-name: request
-    /apps/{app_name}/volumes/{volume_id}:
+    /v1/apps/{app_name}/volumes/{volume_id}:
         delete:
             description: |
                 Delete a specific volume within an app by volume ID.
@@ -4834,7 +5123,7 @@ paths:
             tags:
                 - Volumes
             x-codegen-request-body-name: request
-    /apps/{app_name}/volumes/{volume_id}/extend:
+    /v1/apps/{app_name}/volumes/{volume_id}/extend:
         put:
             description: |
                 Extend a volume's size within an app using the details provided in the request body.
@@ -4870,7 +5159,7 @@ paths:
             tags:
                 - Volumes
             x-codegen-request-body-name: request
-    /apps/{app_name}/volumes/{volume_id}/snapshots:
+    /v1/apps/{app_name}/volumes/{volume_id}/snapshots:
         get:
             description: |
                 List all snapshots for a specific volume within an app.
@@ -4923,7 +5212,7 @@ paths:
             summary: Create Snapshot
             tags:
                 - Volumes
-    /orgs/{org_slug}/machines:
+    /v1/orgs/{org_slug}/machines:
         get:
             description: |
                 List all Machines associated with a specific organization. Machines are sorted by their `updated_at` timestamps, oldest to newest.
@@ -4982,7 +5271,7 @@ paths:
             summary: List All Machines
             tags:
                 - Organizations
-    /orgs/{org_slug}/volumes:
+    /v1/orgs/{org_slug}/volumes:
         get:
             description: List all volumes for an organization with optional filters and cursor-based pagination.
             operationId: Volumes_org_list
@@ -5038,7 +5327,7 @@ paths:
             summary: List All Volumes
             tags:
                 - Organizations
-    /platform/placements:
+    /v1/platform/placements:
         post:
             description: Simulates placing the specified number of machines into regions, depending on available capacity and limits.
             operationId: Platform_placements_post
@@ -5060,7 +5349,7 @@ paths:
             tags:
                 - Platform
             x-codegen-request-body-name: request
-    /platform/regions:
+    /v1/platform/regions:
         get:
             description: List all regions on the platform with their details.
             operationId: Platform_regions_get
@@ -5074,12 +5363,12 @@ paths:
             summary: Get Regions
             tags:
                 - Platform
-    /postgres:
+    /v1/postgres:
         get:
             description: List Managed Postgres clusters for an organization.
             operationId: Postgres_list
             parameters:
-                - description: Fly Organization Slug
+                - description: Fly Organization Slug, or 'personal' for the caller's personal organization
                   in: query
                   name: org_slug
                   required: true
@@ -5097,6 +5386,18 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/listPostgresClustersResponse'
                     description: OK
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: org_slug is required and must be a string
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Unauthorized
                 "404":
                     content:
                         application/json:
@@ -5109,11 +5410,13 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: include_deleted must be true or false
+            security:
+                - FlyBearerAuth: []
             summary: List Postgres Clusters
             tags:
                 - Postgres Clusters
         post:
-            description: Create a Managed Postgres cluster for the organization named in the request body. Provisioning is asynchronous, and a name is generated when one is not supplied.
+            description: 'Create a Managed Postgres cluster for the organization named in the request body. Provisioning is asynchronous: poll `GET /v1/postgres/{id}` until `status == ready` before calling database, user, extension, or credential endpoints.'
             operationId: Postgres_create
             requestBody:
                 content:
@@ -5134,7 +5437,13 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
-                    description: Creation failed
+                    description: org_slug is required and must be a string, or creation failed
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Unauthorized
                 "404":
                     content:
                         application/json:
@@ -5147,11 +5456,13 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: Invalid attributes
+            security:
+                - FlyBearerAuth: []
             summary: Create Postgres Cluster
             tags:
                 - Postgres Clusters
             x-codegen-request-body-name: request
-    /postgres/{postgres_cluster_id}:
+    /v1/postgres/{postgres_cluster_id}:
         delete:
             description: Delete a Managed Postgres cluster. The cluster is marked for deletion and removed asynchronously.
             operationId: Postgres_delete
@@ -5165,6 +5476,12 @@ paths:
             responses:
                 "202":
                     description: Accepted
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Unauthorized
                 "404":
                     content:
                         application/json:
@@ -5177,6 +5494,8 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: '''This cluster has been deleted'' or ''This cluster is being deleted'''
+            security:
+                - FlyBearerAuth: []
             summary: Delete Postgres Cluster
             tags:
                 - Postgres Clusters
@@ -5197,18 +5516,26 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/showPostgresClusterResponse'
                     description: OK
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Unauthorized
                 "404":
                     content:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: Cluster not found
+            security:
+                - FlyBearerAuth: []
             summary: Get Postgres Cluster
             tags:
                 - Postgres Clusters
-    /postgres/{postgres_cluster_id}/attachments:
+    /v1/postgres/{postgres_cluster_id}/attachments:
         post:
-            description: Attach a specific cluster to a Fly app. The attachment is created if it does not already exist.
+            description: Record an attachment between a cluster and a Fly app. This endpoint records the relationship but does not set DATABASE_URL or other app secrets; configure the connection string separately. The attachment is created if it does not already exist.
             operationId: Postgres_attachments_create
             parameters:
                 - description: Managed Postgres Cluster ID
@@ -5237,6 +5564,12 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/createPostgresAttachmentResponse'
                     description: Attachment created
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Unauthorized
                 "404":
                     content:
                         application/json:
@@ -5249,11 +5582,13 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: '''This cluster has been deleted'' or ''This cluster is being deleted'''
+            security:
+                - FlyBearerAuth: []
             summary: Attach Cluster to App
             tags:
                 - Postgres Clusters
             x-codegen-request-body-name: request
-    /postgres/{postgres_cluster_id}/attachments/{app_name}:
+    /v1/postgres/{postgres_cluster_id}/attachments/{app_name}:
         delete:
             description: Detach a specific cluster from a Fly app.
             operationId: Postgres_attachments_delete
@@ -5273,6 +5608,12 @@ paths:
             responses:
                 "204":
                     description: No Content
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Unauthorized
                 "404":
                     content:
                         application/json:
@@ -5285,10 +5626,12 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: '''This cluster has been deleted'' or ''This cluster is being deleted'''
+            security:
+                - FlyBearerAuth: []
             summary: Detach Cluster from App
             tags:
                 - Postgres Clusters
-    /postgres/{postgres_cluster_id}/backups:
+    /v1/postgres/{postgres_cluster_id}/backups:
         get:
             description: List all backups associated with a specific cluster.
             operationId: Postgres_backups_list
@@ -5306,12 +5649,20 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/listPostgresBackupsResponse'
                     description: OK
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Unauthorized
                 "404":
                     content:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: Cluster not found
+            security:
+                - FlyBearerAuth: []
             summary: List Backups
             tags:
                 - Postgres Clusters
@@ -5335,6 +5686,12 @@ paths:
             responses:
                 "202":
                     description: Accepted
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Unauthorized
                 "404":
                     content:
                         application/json:
@@ -5347,11 +5704,13 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: A backup is currently running
+            security:
+                - FlyBearerAuth: []
             summary: Create Backup
             tags:
                 - Postgres Clusters
             x-codegen-request-body-name: request
-    /postgres/{postgres_cluster_id}/databases:
+    /v1/postgres/{postgres_cluster_id}/databases:
         get:
             description: List all databases within a specific cluster.
             operationId: Postgres_databases_list
@@ -5369,12 +5728,26 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/listPostgresDatabasesResponse'
                     description: OK
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Unauthorized
                 "404":
                     content:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: Cluster not found
+                "503":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: pg-admin is unavailable; retry after the interval given by the Retry-After header
+            security:
+                - FlyBearerAuth: []
             summary: List Databases
             tags:
                 - Postgres Clusters
@@ -5408,6 +5781,12 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: Database name is reserved, a system database, or malformed
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Unauthorized
                 "404":
                     content:
                         application/json:
@@ -5420,11 +5799,19 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: name is required
+                "503":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: pg-admin is unavailable; retry after the interval given by the Retry-After header
+            security:
+                - FlyBearerAuth: []
             summary: Create Database
             tags:
                 - Postgres Clusters
             x-codegen-request-body-name: request
-    /postgres/{postgres_cluster_id}/databases/{database_name}:
+    /v1/postgres/{postgres_cluster_id}/databases/{database_name}:
         delete:
             description: Delete a specific database within a cluster, along with objects that depend on it.
             operationId: Postgres_databases_delete
@@ -5454,16 +5841,30 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: Database name is reserved, a system database, or malformed
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Unauthorized
                 "404":
                     content:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: '''Cluster not found'' for the cluster; ''Database not found'' for the database'
+                "503":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: pg-admin is unavailable; retry after the interval given by the Retry-After header
+            security:
+                - FlyBearerAuth: []
             summary: Drop Database
             tags:
                 - Postgres Clusters
-    /postgres/{postgres_cluster_id}/databases/{database_name}/extensions:
+    /v1/postgres/{postgres_cluster_id}/databases/{database_name}/extensions:
         get:
             description: List all extensions available within a specific database, indicating which are installed.
             operationId: Postgres_extensions_list
@@ -5493,18 +5894,32 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: Database name is malformed
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Unauthorized
                 "404":
                     content:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: Cluster not found
+                "503":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: pg-admin is unavailable; retry after the interval given by the Retry-After header
+            security:
+                - FlyBearerAuth: []
             summary: List Extensions
             tags:
                 - Postgres Clusters
         post:
             description: Enable a Postgres extension within a specific database. PostGIS extensions require a PostGIS-enabled cluster.
-            operationId: Postgres_extensions_enable
+            operationId: Postgres_extensions_create
             parameters:
                 - description: Managed Postgres Cluster ID
                   in: path
@@ -5534,6 +5949,12 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: Database name is malformed
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Unauthorized
                 "404":
                     content:
                         application/json:
@@ -5552,14 +5973,22 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: Unknown or unsupported extension
+                "503":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: pg-admin is unavailable; retry after the interval given by the Retry-After header
+            security:
+                - FlyBearerAuth: []
             summary: Enable Extension
             tags:
                 - Postgres Clusters
             x-codegen-request-body-name: request
-    /postgres/{postgres_cluster_id}/databases/{database_name}/extensions/{extension_name}:
+    /v1/postgres/{postgres_cluster_id}/databases/{database_name}/extensions/{extension_name}:
         delete:
             description: Disable a specific Postgres extension within a database, optionally dropping objects that depend on it. System extensions cannot be disabled.
-            operationId: Postgres_extensions_disable
+            operationId: Postgres_extensions_delete
             parameters:
                 - description: Managed Postgres Cluster ID
                   in: path
@@ -5593,6 +6022,12 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: '''System extensions cannot be disabled'' or ''Database name is malformed'''
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Unauthorized
                 "404":
                     content:
                         application/json:
@@ -5605,10 +6040,18 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: Invalid extension name
+                "503":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: pg-admin is unavailable; retry after the interval given by the Retry-After header
+            security:
+                - FlyBearerAuth: []
             summary: Disable Extension
             tags:
                 - Postgres Clusters
-    /postgres/{postgres_cluster_id}/fork:
+    /v1/postgres/{postgres_cluster_id}/fork:
         post:
             description: Fork a ready Managed Postgres cluster into a new cluster that inherits the source's settings. The source cluster is left unchanged, and the fork is provisioned asynchronously.
             operationId: Postgres_fork
@@ -5638,6 +6081,12 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: Fork failed
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Unauthorized
                 "404":
                     content:
                         application/json:
@@ -5662,13 +6111,124 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: Invalid attributes
+            security:
+                - FlyBearerAuth: []
             summary: Fork Cluster to New Cluster
             tags:
                 - Postgres Clusters
             x-codegen-request-body-name: request
-    /postgres/{postgres_cluster_id}/restore:
+    /v1/postgres/{postgres_cluster_id}/queries/active:
+        get:
+            description: List active queries in the supplied database. The database query parameter is required and must not be empty or whitespace-only. Returns full query text and durations in seconds.
+            operationId: Postgres_queries_active
+            parameters:
+                - description: Managed Postgres Cluster ID
+                  in: path
+                  name: postgres_cluster_id
+                  required: true
+                  schema:
+                    type: string
+                - description: Database to inspect (must not be empty or whitespace-only)
+                  in: query
+                  name: database
+                  required: true
+                  schema:
+                    minLength: 1
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/listPostgresActiveQueriesResponse'
+                    description: OK
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Unauthorized
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Cluster not found
+                "422":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: database must be a non-empty string
+                "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Unable to load active queries
+            security:
+                - FlyBearerAuth: []
+            summary: List Active Queries
+            tags:
+                - Postgres Clusters
+    /v1/postgres/{postgres_cluster_id}/queries/slow:
+        get:
+            description: List the top 20 queries by cumulative total execution time, excluding the postgres database. Uses the latest available metrics within the lookback range; statistics are cumulative PostgreSQL counters, not deltas over that range. Returns full query text and execution times in seconds.
+            operationId: Postgres_queries_slow
+            parameters:
+                - description: Managed Postgres Cluster ID
+                  in: path
+                  name: postgres_cluster_id
+                  required: true
+                  schema:
+                    type: string
+                - description: Metrics lookback in seconds
+                  in: query
+                  name: range
+                  schema:
+                    default: 3600
+                    maximum: 604800
+                    minimum: 1
+                    type: integer
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/listPostgresSlowQueriesResponse'
+                    description: OK
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Unauthorized
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Cluster not found
+                "422":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: range must be an integer between 1 and 604800 seconds
+                "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Unable to load slow query metrics
+            security:
+                - FlyBearerAuth: []
+            summary: List Slow Queries
+            tags:
+                - Postgres Clusters
+    /v1/postgres/{postgres_cluster_id}/restore:
         post:
-            description: Restore a backup into a new Managed Postgres cluster. The source cluster is left unchanged, and a new cluster is provisioned from the specified backup.
+            description: Restore a backup, or a point in time within the cluster's PITR recovery window, into a new Managed Postgres cluster. The source cluster is left unchanged, and a new cluster is provisioned asynchronously.
             operationId: Postgres_restore
             parameters:
                 - description: Managed Postgres Cluster ID
@@ -5690,13 +6250,19 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/showPostgresClusterResponse'
-                    description: New cluster provisioned from the backup
+                    description: New cluster provisioned from the backup or point in time
                 "400":
                     content:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: Restore failed
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Unauthorized
                 "404":
                     content:
                         application/json:
@@ -5708,12 +6274,14 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
-                    description: backup_id is required
-            summary: Restore Backup to New Cluster
+                    description: A restore target is missing, both backup_id and pitr_time were supplied, point-in-time restore is outside the recovery window or unavailable, or name is invalid
+            security:
+                - FlyBearerAuth: []
+            summary: Restore Backup or Point in Time to New Cluster
             tags:
                 - Postgres Clusters
             x-codegen-request-body-name: request
-    /postgres/{postgres_cluster_id}/users:
+    /v1/postgres/{postgres_cluster_id}/users:
         get:
             description: List all Postgres users within a specific cluster.
             operationId: Postgres_users_list
@@ -5731,12 +6299,26 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/listPostgresUsersResponse'
                     description: OK
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Unauthorized
                 "404":
                     content:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: Cluster not found
+                "503":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: pg-admin is unavailable; retry after the interval given by the Retry-After header
+            security:
+                - FlyBearerAuth: []
             summary: List Users
             tags:
                 - Postgres Clusters
@@ -5770,6 +6352,12 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: Username is reserved, a system user, or malformed
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Unauthorized
                 "404":
                     content:
                         application/json:
@@ -5788,11 +6376,19 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: username or role missing, or role invalid
+                "503":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: pg-admin is unavailable; retry after the interval given by the Retry-After header
+            security:
+                - FlyBearerAuth: []
             summary: Create User
             tags:
                 - Postgres Clusters
             x-codegen-request-body-name: request
-    /postgres/{postgres_cluster_id}/users/{username}:
+    /v1/postgres/{postgres_cluster_id}/users/{username}:
         delete:
             description: Delete a specific Postgres user within a cluster.
             operationId: Postgres_users_delete
@@ -5818,12 +6414,26 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: Username is reserved, a system user, or malformed
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Unauthorized
                 "404":
                     content:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: '''Cluster not found'' for the cluster; ''User not found'' for the user'
+                "503":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: pg-admin is unavailable; retry after the interval given by the Retry-After header
+            security:
+                - FlyBearerAuth: []
             summary: Delete User
             tags:
                 - Postgres Clusters
@@ -5859,6 +6469,12 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: Username is reserved, a system user, or malformed
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Unauthorized
                 "404":
                     content:
                         application/json:
@@ -5871,11 +6487,19 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: role missing or invalid
+                "503":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: pg-admin is unavailable; retry after the interval given by the Retry-After header
+            security:
+                - FlyBearerAuth: []
             summary: Update User Role
             tags:
                 - Postgres Clusters
             x-codegen-request-body-name: request
-    /postgres/{postgres_cluster_id}/users/{username}/credentials:
+    /v1/postgres/{postgres_cluster_id}/users/{username}/credentials:
         get:
             description: Get the connection credentials for a specific Postgres user within a cluster.
             operationId: Postgres_users_credentials
@@ -5905,16 +6529,30 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: Username is reserved, a system user, or malformed
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Unauthorized
                 "404":
                     content:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: '''Cluster not found'' for the cluster; ''User not found'' for the user'
+                "503":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: pg-admin is unavailable; retry after the interval given by the Retry-After header
+            security:
+                - FlyBearerAuth: []
             summary: Get User Credentials
             tags:
                 - Postgres Clusters
-    /postgres/{postgres_cluster_id}/users/{username}/rotate_password:
+    /v1/postgres/{postgres_cluster_id}/users/{username}/rotate_password:
         post:
             description: Rotate a specific Postgres user's password within a cluster, optionally terminating the user's existing sessions.
             operationId: Postgres_users_rotate_password
@@ -5950,6 +6588,12 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: Username is reserved, a system user, or malformed
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Unauthorized
                 "404":
                     content:
                         application/json:
@@ -5968,11 +6612,19 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: kill_sessions must be true or false
+                "503":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: pg-admin is unavailable; retry after the interval given by the Retry-After header
+            security:
+                - FlyBearerAuth: []
             summary: Rotate User Password
             tags:
                 - Postgres Clusters
             x-codegen-request-body-name: request
-    /tokens/authenticate:
+    /v1/tokens/authenticate:
         post:
             description: Verify a token header without checking resource access.
             operationId: Tokens_authenticate
@@ -6002,7 +6654,7 @@ paths:
             tags:
                 - Tokens
             x-codegen-request-body-name: request
-    /tokens/authorize:
+    /v1/tokens/authorize:
         post:
             description: Verify a token header and validate it against a requested access scope.
             operationId: Tokens_authorize
@@ -6036,7 +6688,7 @@ paths:
             tags:
                 - Tokens
             x-codegen-request-body-name: request
-    /tokens/current:
+    /v1/tokens/current:
         get:
             description: Get information about the current macaroon token(s), including organizations, apps, user identity hashes, and machine restrictions
             operationId: CurrentToken_show
@@ -6062,7 +6714,7 @@ paths:
             summary: Get Current Token Information
             tags:
                 - Tokens
-    /tokens/kms:
+    /v1/tokens/kms:
         post:
             description: This site hosts documentation generated from the Fly.io Machines API OpenAPI specification. Visit our complete [Machines API docs](https://fly.io/docs/machines/api/apps-resource/) for details about using the Apps resource.
             operationId: Tokens_request_Kms
@@ -6076,10 +6728,10 @@ paths:
             summary: Request a Petsem token for accessing KMS
             tags:
                 - Tokens
-    /tokens/oidc:
+    /v1/tokens/oidc:
         post:
             description: |
-                Request an Open ID Connect token for your machine. Customize the audience claim with the `aud` parameter. This returns a JWT token. Learn more about [using OpenID Connect](/docs/reference/openid-connect/) on Fly.io.
+                Request an Open ID Connect token for your machine. Customize the audience claim with the `aud` parameter. This returns a JWT token. Learn more about [using OpenID Connect](/security/openid-connect) on Fly.io.
             operationId: Tokens_request_OIDC
             requestBody:
                 content:
@@ -6105,7 +6757,7 @@ paths:
                 - Tokens
             x-codegen-request-body-name: request
 servers:
-    - url: https://api.machines.dev/v1
+    - url: https://api.machines.dev
 tags:
     - description: This site hosts documentation generated from the Fly.io Machines API OpenAPI specification. Visit our complete [Machines API docs](https://fly.io/docs/machines/api/apps-resource/) for details about using the Apps resource.
       name: Apps
