@@ -1,3 +1,6 @@
 go 1.27
 
-use ./provider
+use (
+	./provider
+	./sdk
+)
