@@ -67,9 +67,6 @@ components:
             type: object
         AppSecretsUpdateResp:
             properties:
-                Version:
-                    description: DEPRECATED
-                    type: integer
                 secrets:
                     items:
                         $ref: '#/components/schemas/AppSecret'
@@ -420,17 +417,11 @@ components:
             type: object
         DeleteAppSecretResponse:
             properties:
-                Version:
-                    description: DEPRECATED
-                    type: integer
                 version:
                     type: integer
             type: object
         DeleteSecretkeyResponse:
             properties:
-                Version:
-                    description: DEPRECATED
-                    type: integer
                 version:
                     type: integer
             type: object
@@ -1241,9 +1232,6 @@ components:
             type: object
         SetAppSecretResponse:
             properties:
-                Version:
-                    description: DEPRECATED
-                    type: integer
                 created_at:
                     type: string
                 digest:
@@ -1268,9 +1256,6 @@ components:
             type: object
         SetSecretkeyResponse:
             properties:
-                Version:
-                    description: DEPRECATED
-                    type: integer
                 created_at:
                     type: string
                 name:

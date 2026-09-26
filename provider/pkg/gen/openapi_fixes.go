@@ -13,6 +13,7 @@ func FixOpenAPIDoc(openAPIDoc *openapi3.T) error {
 	fixMachineMetadataKeyEndpoint(openAPIDoc)
 	fixVolumeEndpoint(openAPIDoc)
 	fixPostgresExtensionsEndpoints(openAPIDoc)
+	removeDeprecatedVersionProperty(openAPIDoc)
 
 	return nil
 }
@@ -72,4 +73,19 @@ func fixPostgresExtensionsEndpoints(openAPIDoc *openapi3.T) {
 
 	contract.Assertf(pathItem.Delete != nil, "Expected DELETE operation on /v1/postgres/{postgres_cluster_id}/databases/{database_name}/extensions/{extension_name}")
 	pathItem.Delete.OperationID = "Postgres_extensions_delete"
+}
+
+// removeDeprecatedVersionProperty deletes the deprecated
+// Version property from certain schema types that collide
+// with the lower-case `version` property. The deprecated
+// property causes duplicate class member issues in C#
+// classes since class member names use PascalCase per
+// convention.
+func removeDeprecatedVersionProperty(openAPIDoc *openapi3.T) {
+	schemas := []string{"AppSecretsUpdateResp", "DeleteSecretkeyResponse", "DeleteAppSecretResponse", "SetAppSecretResponse", "SetSecretkeyResponse"}
+	for _, s := range schemas {
+		schema, ok := openAPIDoc.Components.Schemas[s]
+		contract.Assertf(ok, "Expected to find schema %s", s)
+		delete(schema.Value.Properties, "Version")
+	}
 }

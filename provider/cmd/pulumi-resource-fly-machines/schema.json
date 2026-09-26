@@ -4484,10 +4484,6 @@
         },
         "fly-machines:apps/v1:Secret": {
             "properties": {
-                "Version": {
-                    "type": "integer",
-                    "description": "DEPRECATED"
-                },
                 "createdAt": {
                     "type": "string"
                 },
@@ -4524,10 +4520,6 @@
         },
         "fly-machines:apps/v1:Secretkey": {
             "properties": {
-                "Version": {
-                    "type": "integer",
-                    "description": "DEPRECATED"
-                },
                 "createdAt": {
                     "type": "string"
                 },
@@ -4669,10 +4661,6 @@
         },
         "fly-machines:apps/v1:SecretkeyGenerate": {
             "properties": {
-                "Version": {
-                    "type": "integer",
-                    "description": "DEPRECATED"
-                },
                 "createdAt": {
                     "type": "string"
                 },
@@ -4796,10 +4784,6 @@
         },
         "fly-machines:apps/v1:SecretsUpdate": {
             "properties": {
-                "Version": {
-                    "type": "integer",
-                    "description": "DEPRECATED"
-                },
                 "secrets": {
                     "type": "array",
                     "items": {
