@@ -3548,10 +3548,10 @@ paths:
             summary: Get Machine
             tags:
                 - Machines
-        post:
+        put:
             description: |
                 Update a Machine's configuration using the details provided in the request body.
-            operationId: Machines_update
+            operationId: Update_Machine
             parameters:
                 - description: Fly App Name
                   in: path

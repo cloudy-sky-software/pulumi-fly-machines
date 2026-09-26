@@ -3,6 +3,7 @@ package provider
 import (
 	"context"
 	"fmt"
+	"net/http"
 	"os"
 
 	"github.com/pkg/errors"
@@ -77,4 +78,12 @@ func (p *flyMachinesProvider) OnConfigure(_ context.Context, req *pulumirpc.Conf
 	return &pulumirpc.ConfigureResponse{
 		AcceptSecrets: true,
 	}, nil
+}
+
+func (p *flyMachinesProvider) OnPreUpdate(ctx context.Context, updateReq *pulumirpc.UpdateRequest, httpReq *http.Request) error {
+	if updateReq.GetType() != "fly-machines:apps/v1:Machine" {
+		return nil
+	}
+
+	return handleUpdateMachineRequest(ctx, httpReq)
 }

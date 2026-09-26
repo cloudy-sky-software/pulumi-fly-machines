@@ -9,11 +9,29 @@ import (
 // FixOpenAPIDoc applies patches to the raw OpenAPI spec
 // before passing it to pulschema.
 func FixOpenAPIDoc(openAPIDoc *openapi3.T) error {
+	fixUpdateMachineEndpoint(openAPIDoc)
 	fixMachineMetadataKeyEndpoint(openAPIDoc)
 	fixVolumeEndpoint(openAPIDoc)
 	fixPostgresExtensionsEndpoints(openAPIDoc)
 
 	return nil
+}
+
+// fixUpdateMAchineEndpoint adds an update endpoint for Machine resource.
+// The API spec uses POST method but we are
+// mapping it as a PUT method so that the provider
+// framework will accept updates for the resource
+// as long as PUT/PATCH is available for a resource.
+// In the OnPreUpdate provider callback, we'll modify
+// the HTTP request to use the correct method.
+func fixUpdateMachineEndpoint(openAPIDoc *openapi3.T) {
+	pathItem := openAPIDoc.Paths.Find("/v1/apps/{app_name}/machines/{machine_id}")
+	contract.Assertf(pathItem != nil, "Expected to find request path /v1/apps/{app_name}/machines/{machine_id}")
+
+	contract.Assertf(pathItem.Post != nil, "Expected POST operation on /v1/apps/{app_name}/machines/{machine_id}")
+	pathItem.Put = pathItem.Post
+	pathItem.Put.OperationID = "Update_Machine"
+	pathItem.Post = nil
 }
 
 func fixMachineMetadataKeyEndpoint(openAPIDoc *openapi3.T) {
