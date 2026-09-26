@@ -4,11 +4,15 @@ package provider
 
 import (
 	"bytes"
-	"context"
 	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
+
+	"github.com/cloudy-sky-software/pulumi-provider-framework/state"
+	"github.com/pkg/errors"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/plugin"
+	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 )
 
 const (
@@ -23,9 +27,10 @@ const (
 // endpoint so that the CRUD metadata would
 // have an update endpoint for the Machine resource.
 //
-// The request body must also carry a current_version
-// property.
-func handleUpdateMachineRequest(ctx context.Context, httpReq *http.Request) error {
+// The request is modified in-place to use the POST
+// method. If currentVersion is not empty, the request
+// body will also carry it as the current_version property.
+func handleUpdateMachineRequest(httpReq *http.Request, updateReq *pulumirpc.UpdateRequest) error {
 	body, err := httpReq.GetBody()
 	if err != nil {
 		return fmt.Errorf("get request body: %w", err)
@@ -37,12 +42,22 @@ func handleUpdateMachineRequest(ctx context.Context, httpReq *http.Request) erro
 	}
 
 	var reqBody map[string]any
-	if err := json.Unmarshal(b, reqBody); err != nil {
+	if err := json.Unmarshal(b, &reqBody); err != nil {
 		return fmt.Errorf("unmarshal request body: %w", err)
 	}
 
-	if version, ok := reqBody["version"]; ok {
-		reqBody["current_version"] = version
+	olds, err := plugin.UnmarshalProperties(updateReq.GetOlds(), state.DefaultMarshalOpts)
+	if err != nil {
+		return errors.Wrap(err, "unmarshal olds")
+	}
+
+	var currentVersion string
+	if v, ok := olds["version"]; ok && v.IsString() {
+		currentVersion = v.StringValue()
+	}
+
+	if currentVersion != "" {
+		reqBody["current_version"] = currentVersion
 	}
 
 	updatedBody, err := json.Marshal(reqBody)
@@ -50,12 +65,11 @@ func handleUpdateMachineRequest(ctx context.Context, httpReq *http.Request) erro
 		return fmt.Errorf("marshaling modified request body: %w", err)
 	}
 
-	buf := bytes.NewBuffer(updatedBody)
-
-	// Create a new request.
-	httpReq, err = http.NewRequestWithContext(ctx, http.MethodPost, httpReq.URL.String(), buf)
-	if err != nil {
-		return fmt.Errorf("initializing modified request: %w", err)
+	httpReq.Method = http.MethodPost
+	httpReq.ContentLength = int64(len(updatedBody))
+	httpReq.Body = io.NopCloser(bytes.NewReader(updatedBody))
+	httpReq.GetBody = func() (io.ReadCloser, error) {
+		return io.NopCloser(bytes.NewReader(updatedBody)), nil
 	}
 
 	return nil

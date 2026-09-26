@@ -80,10 +80,12 @@ func (p *flyMachinesProvider) OnConfigure(_ context.Context, req *pulumirpc.Conf
 	}, nil
 }
 
-func (p *flyMachinesProvider) OnPreUpdate(ctx context.Context, updateReq *pulumirpc.UpdateRequest, httpReq *http.Request) error {
+// OnPreUpdate is called by the provider framework before the update
+// HTTP request is sent.
+func (p *flyMachinesProvider) OnPreUpdate(_ context.Context, updateReq *pulumirpc.UpdateRequest, httpReq *http.Request) error {
 	if updateReq.GetType() != "fly-machines:apps/v1:Machine" {
 		return nil
 	}
 
-	return handleUpdateMachineRequest(ctx, httpReq)
+	return handleUpdateMachineRequest(httpReq, updateReq)
 }
