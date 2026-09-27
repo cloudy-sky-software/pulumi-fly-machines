@@ -10,7 +10,7 @@ import * as utilities from "../../utilities";
 export function getApp(args: GetAppArgs, opts?: pulumi.InvokeOptions): Promise<GetAppResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("fly-machines:apps/v1:getApp", {
-        "appName": args.appName,
+        "name": args.name,
     }, opts);
 }
 
@@ -18,7 +18,7 @@ export interface GetAppArgs {
     /**
      * Fly App Name
      */
-    appName: string;
+    name: string;
 }
 
 export interface GetAppResult {
@@ -35,7 +35,7 @@ export interface GetAppResult {
 export function getAppOutput(args: GetAppOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetAppResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("fly-machines:apps/v1:getApp", {
-        "appName": args.appName,
+        "name": args.name,
     }, opts);
 }
 
@@ -43,5 +43,5 @@ export interface GetAppOutputArgs {
     /**
      * Fly App Name
      */
-    appName: pulumi.Input<string>;
+    name: pulumi.Input<string>;
 }

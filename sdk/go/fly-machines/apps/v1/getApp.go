@@ -23,7 +23,7 @@ func LookupApp(ctx *pulumi.Context, args *LookupAppArgs, opts ...pulumi.InvokeOp
 
 type LookupAppArgs struct {
 	// Fly App Name
-	AppName string `pulumi:"appName"`
+	Name string `pulumi:"name"`
 }
 
 type LookupAppResult struct {
@@ -45,7 +45,7 @@ func LookupAppOutput(ctx *pulumi.Context, args LookupAppOutputArgs, opts ...pulu
 
 type LookupAppOutputArgs struct {
 	// Fly App Name
-	AppName pulumi.StringInput `pulumi:"appName"`
+	Name pulumi.StringInput `pulumi:"name"`
 }
 
 func (LookupAppOutputArgs) ElementType() reflect.Type {
