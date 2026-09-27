@@ -1,9 +1,12 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as fly from "@cloudyskysoftware/pulumi-fly-machines";
 
+const config = new pulumi.Config();
+const orgSlug = config.require("orgSlug");
+
 const app = new fly.apps.v1.App("myapp", {
   name: "pulumi-fly-machines-test-app",
-  orgSlug: "ENTER_ORG_SLUG_HERE",
+  orgSlug,
 });
 
 const ip = new fly.apps.v1.AppIPAssignment("app-ip", {
@@ -32,7 +35,19 @@ const machine = new fly.apps.v1.Machine(
       //   "key1": "value1",
       // },
       image: "flyio/hellofly:latest",
-      services: [{}],
+      services: [
+        {
+          ports: [
+            { port: 443, handlers: ["tls", "http"] },
+            { port: 80, handlers: ["http"] },
+          ],
+          protocol: "tcp",
+          internalPort: 8080,
+          autostop: "suspend",
+          autostart: true,
+          minMachinesRunning: 1,
+        },
+      ],
     },
   },
   {
