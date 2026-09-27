@@ -3003,45 +3003,6 @@ paths:
             tags:
                 - Apps
             x-codegen-request-body-name: request
-    /v1/apps/{app_name}:
-        delete:
-            description: |
-                Delete an app by its name.
-            operationId: Apps_delete
-            parameters:
-                - description: Fly App Name
-                  in: path
-                  name: app_name
-                  required: true
-                  schema:
-                    type: string
-            responses:
-                "202":
-                    description: Accepted
-            summary: Destroy App
-            tags:
-                - Apps
-        get:
-            description: |
-                Retrieve details about a specific app by its name.
-            operationId: Apps_show
-            parameters:
-                - description: Fly App Name
-                  in: path
-                  name: app_name
-                  required: true
-                  schema:
-                    type: string
-            responses:
-                "200":
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/App'
-                    description: OK
-            summary: Get App
-            tags:
-                - Apps
     /v1/apps/{app_name}/certificates:
         get:
             operationId: App_Certificates_list
@@ -5197,6 +5158,45 @@ paths:
             summary: Create Snapshot
             tags:
                 - Volumes
+    /v1/apps/{name}:
+        delete:
+            description: |
+                Delete an app by its name.
+            operationId: Apps_delete
+            parameters:
+                - description: Fly App Name
+                  in: path
+                  name: name
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "202":
+                    description: Accepted
+            summary: Destroy App
+            tags:
+                - Apps
+        get:
+            description: |
+                Retrieve details about a specific app by its name.
+            operationId: Apps_show
+            parameters:
+                - description: Fly App Name
+                  in: path
+                  name: name
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/App'
+                    description: OK
+            summary: Get App
+            tags:
+                - Apps
     /v1/orgs/{org_slug}/machines:
         get:
             description: |

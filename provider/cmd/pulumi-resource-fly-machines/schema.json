@@ -5453,13 +5453,13 @@
         "fly-machines:apps/v1:getApp": {
             "inputs": {
                 "properties": {
-                    "appName": {
+                    "name": {
                         "type": "string",
                         "description": "Fly App Name"
                     }
                 },
                 "required": [
-                    "appName"
+                    "name"
                 ]
             },
             "outputs": {

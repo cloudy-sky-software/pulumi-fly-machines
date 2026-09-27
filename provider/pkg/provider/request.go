@@ -10,6 +10,7 @@ import (
 	"net/http"
 
 	"github.com/cloudy-sky-software/pulumi-provider-framework/state"
+	"github.com/google/uuid"
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/plugin"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
@@ -73,4 +74,14 @@ func handleUpdateMachineRequest(httpReq *http.Request, updateReq *pulumirpc.Upda
 	}
 
 	return nil
+}
+
+// handleAppIPAssignmentPostCreate sets a pseudo id
+// for the AppIPAssignment resource since the API
+// response does not include an id. The ip property
+// can't be used because it is null for egress-pair
+// assignments, which set ip_pair instead.
+func handleAppIPAssignmentPostCreate(outputs map[string]interface{}) map[string]interface{} {
+	outputs["id"] = uuid.NewString()
+	return outputs
 }

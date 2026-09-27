@@ -9,6 +9,7 @@ import (
 // FixOpenAPIDoc applies patches to the raw OpenAPI spec
 // before passing it to pulschema.
 func FixOpenAPIDoc(openAPIDoc *openapi3.T) error {
+	fixAppEndpoint(openAPIDoc)
 	fixUpdateMachineEndpoint(openAPIDoc)
 	fixMachineMetadataKeyEndpoint(openAPIDoc)
 	fixVolumeEndpoint(openAPIDoc)
@@ -16,6 +17,34 @@ func FixOpenAPIDoc(openAPIDoc *openapi3.T) error {
 	removeDeprecatedVersionProperty(openAPIDoc)
 
 	return nil
+}
+
+// fixAppEndpoint renames the app_name path param of the
+// /v1/apps/{app_name} endpoint to name so that it matches
+// the name property of the App resource. Otherwise the
+// provider framework looks for an appName property,
+// which the App resource does not have, when it builds
+// the read and delete requests.
+func fixAppEndpoint(openAPIDoc *openapi3.T) {
+	oldPath := "/v1/apps/{app_name}"
+	newPath := "/v1/apps/{name}"
+
+	pathItem := openAPIDoc.Paths.Find(oldPath)
+	contract.Assertf(pathItem != nil, "Expected to find request path %s", oldPath)
+
+	params := pathItem.Parameters
+	for _, op := range pathItem.Operations() {
+		params = append(params, op.Parameters...)
+	}
+
+	for _, param := range params {
+		if param.Value != nil && param.Value.In == "path" && param.Value.Name == "app_name" {
+			param.Value.Name = "name"
+		}
+	}
+
+	openAPIDoc.Paths.Delete(oldPath)
+	openAPIDoc.Paths.Set(newPath, pathItem)
 }
 
 // fixUpdateMAchineEndpoint adds an update endpoint for Machine resource.

@@ -339,3 +339,8 @@ func TestUpdateMachine(t *testing.T) {
 	})
 	require.NoError(t, err)
 }
+
+func TestHandleAppIPAssignmentPostCreate(t *testing.T) {
+	outputs := handleAppIPAssignmentPostCreate(map[string]interface{}{"ip": nil})
+	assert.NotEmpty(t, outputs["id"])
+}
