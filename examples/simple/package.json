@@ -1,11 +1,11 @@
 {
-  "name": "render-typescript",
+  "name": "fly-machines-typescript",
   "version": "0.1.0",
   "devDependencies": {
     "@types/node": "latest"
   },
   "dependencies": {
-    "@cloudyskysoftware/render": "latest",
+    "@cloudyskysoftware/pulumi-fly-machines": "../../sdk/nodejs/bin",
     "@pulumi/pulumi": "latest"
   }
 }
