@@ -47,7 +47,7 @@ func PulumiSchema(openapiDoc openapi3.T) (pschema.PackageSpec, openapigen.Provid
 					Description: "The API key",
 					TypeSpec:    pschema.TypeSpec{Type: "string"},
 					Language: map[string]pschema.RawMessage{
-						"csharp": rawMessage(dotnetgen.LanguageResource{
+						"csharp": rawMessage(dotnetgen.CSharpPropertyInfo{
 							Name: "ApiKey",
 						}),
 					},
@@ -71,7 +71,7 @@ func PulumiSchema(openapiDoc openapi3.T) (pschema.PackageSpec, openapigen.Provid
 					Description: "The FlyMachines API key.",
 					TypeSpec:    pschema.TypeSpec{Type: "string"},
 					Language: map[string]pschema.RawMessage{
-						"csharp": rawMessage(dotnetgen.LanguageResource{
+						"csharp": rawMessage(dotnetgen.CSharpPropertyInfo{
 							Name: "ApiKey",
 						}),
 					},
