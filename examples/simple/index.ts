@@ -31,7 +31,8 @@ const machine = new fly.apps.v1.Machine(
       },
       // NOTE: Metadata can be set using the metadata
       // property or as individual `MachinesMetadataKey`
-      // resources (see below.)
+      // resources or a `MachinesMetadata` resource
+      // (see below.)
       //
       // If you use both approaches, be sure to
       // add `metadata` property to `ignoreChanges`,
