@@ -62,18 +62,14 @@ const machine = new fly.apps.v1.Machine(
 // visible to flyctl then remove these.
 //
 // https://docs.fly.io/machines/guides-examples/managing-machines-with-the-api#make-api-created-machines-visible-to-flyctl
-new fly.apps.v1.MachinesMetadataKey("machine-metadata-platform-version", {
+new fly.apps.v1.MachinesMetadata("machine-metadata", {
   appName: app.name,
-  key: "fly_platform_version",
   machineId: machine.id,
-  value: "v2",
-});
-
-new fly.apps.v1.MachinesMetadataKey("machine-metadata-process-group", {
-  appName: app.name,
-  key: "fly_process_group",
-  machineId: machine.id,
-  value: "app",
+  metadata: {
+    fly_platform_version: "v2",
+    fly_process_group: "app",
+    testkey: "value",
+  },
 });
 
 export const appName = app.name;
