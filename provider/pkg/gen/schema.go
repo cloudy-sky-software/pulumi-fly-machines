@@ -97,10 +97,17 @@ func PulumiSchema(openapiDoc openapi3.T) (pschema.PackageSpec, openapigen.Provid
 		Doc: openapiDoc,
 		Pkg: &pkg,
 		AllowedResourcesWithoutReadEndpoint: []string{
-			// AppIPAssignment don't have a read endpoint.
-			// That is, once an IP is assigned to an app,
-			// there is nothing to read.
+			// AppIPAssignment assigns an IP to an app.
 			"fly-machines:apps/v1:AppIPAssignment",
+			"fly-machines:apps/v1:MachinesRestart",
+			"fly-machines:apps/v1:MachinesSignal",
+			"fly-machines:apps/v1:MachinesStart",
+			"fly-machines:apps/v1:MachinesStop",
+			"fly-machines:apps/v1:MachinesSuspend",
+			"fly-machines:apps/v1:MachinesUncordon",
+			// PostgresAttachment attaches a Postgres cluster
+			// to an app.
+			"fly-machines:postgres/v1:PostgresAttachment",
 		},
 		Exclusions: []exclusions.Exclusion{
 			// DELETE /v1/apps/{app_name}/certificates/{hostname} simply
