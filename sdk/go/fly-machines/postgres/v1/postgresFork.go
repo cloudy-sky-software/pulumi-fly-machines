@@ -17,6 +17,8 @@ type PostgresFork struct {
 	Data PostgresClusterPtrOutput `pulumi:"data"`
 	// Name for the forked cluster. Defaults to the source name with a -fork suffix.
 	Name pulumi.StringPtrOutput `pulumi:"name"`
+	// Query params to send with the API requests for this resource.
+	QueryParams PostgresForkQueryParamsPtrOutput `pulumi:"queryParams"`
 }
 
 // NewPostgresFork registers a new resource with the given unique name, arguments, and options.
@@ -63,6 +65,8 @@ type postgresForkArgs struct {
 	Name *string `pulumi:"name"`
 	// Managed Postgres Cluster ID
 	PostgresClusterId *string `pulumi:"postgresClusterId"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *PostgresForkQueryParams `pulumi:"queryParams"`
 }
 
 // The set of arguments for constructing a PostgresFork resource.
@@ -71,6 +75,8 @@ type PostgresForkArgs struct {
 	Name pulumi.StringPtrInput
 	// Managed Postgres Cluster ID
 	PostgresClusterId pulumi.StringPtrInput
+	// Query params to send with the API requests for this resource.
+	QueryParams PostgresForkQueryParamsPtrInput
 }
 
 func (PostgresForkArgs) ElementType() reflect.Type {
@@ -117,6 +123,11 @@ func (o PostgresForkOutput) Data() PostgresClusterPtrOutput {
 // Name for the forked cluster. Defaults to the source name with a -fork suffix.
 func (o PostgresForkOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PostgresFork) pulumi.StringPtrOutput { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+// Query params to send with the API requests for this resource.
+func (o PostgresForkOutput) QueryParams() PostgresForkQueryParamsPtrOutput {
+	return o.ApplyT(func(v *PostgresFork) PostgresForkQueryParamsPtrOutput { return v.QueryParams }).(PostgresForkQueryParamsPtrOutput)
 }
 
 func init() {

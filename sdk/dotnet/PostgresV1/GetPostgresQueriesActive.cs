@@ -30,6 +30,12 @@ namespace Pulumi.FlyMachines.PostgresV1
         [Input("postgresClusterId", required: true)]
         public string PostgresClusterId { get; set; } = null!;
 
+        /// <summary>
+        /// Query params to send with the API request.
+        /// </summary>
+        [Input("queryParams", required: true)]
+        public Inputs.GetPostgresQueriesActiveQueryParams QueryParams { get; set; } = null!;
+
         public GetPostgresQueriesActiveArgs()
         {
         }
@@ -43,6 +49,12 @@ namespace Pulumi.FlyMachines.PostgresV1
         /// </summary>
         [Input("postgresClusterId", required: true)]
         public Input<string> PostgresClusterId { get; set; } = null!;
+
+        /// <summary>
+        /// Query params to send with the API request.
+        /// </summary>
+        [Input("queryParams", required: true)]
+        public Input<Inputs.GetPostgresQueriesActiveQueryParamsArgs> QueryParams { get; set; } = null!;
 
         public GetPostgresQueriesActiveInvokeArgs()
         {

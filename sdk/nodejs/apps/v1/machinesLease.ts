@@ -2,6 +2,9 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
+import * as enums from "../../types/enums";
 import * as utilities from "../../utilities";
 
 export class MachinesLease extends pulumi.CustomResource {
@@ -48,6 +51,10 @@ export class MachinesLease extends pulumi.CustomResource {
      */
     declare public /*out*/ readonly owner: pulumi.Output<string | undefined>;
     /**
+     * Query params to send with the API requests for this resource.
+     */
+    declare public readonly queryParams: pulumi.Output<outputs.apps.v1.MachinesLeaseQueryParams | undefined>;
+    /**
      * seconds lease will be valid
      */
     declare public readonly ttl: pulumi.Output<number | undefined>;
@@ -70,6 +77,7 @@ export class MachinesLease extends pulumi.CustomResource {
             resourceInputs["appName"] = args?.appName;
             resourceInputs["description"] = args?.description;
             resourceInputs["machineId"] = args?.machineId;
+            resourceInputs["queryParams"] = args?.queryParams;
             resourceInputs["ttl"] = args?.ttl;
             resourceInputs["expiresAt"] = undefined /*out*/;
             resourceInputs["nonce"] = undefined /*out*/;
@@ -80,6 +88,7 @@ export class MachinesLease extends pulumi.CustomResource {
             resourceInputs["expiresAt"] = undefined /*out*/;
             resourceInputs["nonce"] = undefined /*out*/;
             resourceInputs["owner"] = undefined /*out*/;
+            resourceInputs["queryParams"] = undefined /*out*/;
             resourceInputs["ttl"] = undefined /*out*/;
             resourceInputs["version"] = undefined /*out*/;
         }
@@ -101,6 +110,10 @@ export interface MachinesLeaseArgs {
      * Machine ID
      */
     machineId?: pulumi.Input<string | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.MachinesLeaseQueryParamsArgs | undefined>;
     /**
      * seconds lease will be valid
      */

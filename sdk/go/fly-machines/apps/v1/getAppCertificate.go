@@ -26,6 +26,8 @@ type GetAppCertificateArgs struct {
 	AppName string `pulumi:"appName"`
 	// Certificate Hostname
 	Hostname string `pulumi:"hostname"`
+	// Query params to send with the API request.
+	QueryParams *GetAppCertificateQueryParams `pulumi:"queryParams"`
 }
 
 type GetAppCertificateResult struct {
@@ -51,6 +53,8 @@ type GetAppCertificateOutputArgs struct {
 	AppName pulumi.StringInput `pulumi:"appName"`
 	// Certificate Hostname
 	Hostname pulumi.StringInput `pulumi:"hostname"`
+	// Query params to send with the API request.
+	QueryParams GetAppCertificateQueryParamsPtrInput `pulumi:"queryParams"`
 }
 
 func (GetAppCertificateOutputArgs) ElementType() reflect.Type {

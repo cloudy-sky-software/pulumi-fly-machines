@@ -2,6 +2,9 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
+import * as enums from "../../types/enums";
 import * as utilities from "../../utilities";
 
 export class PostgresExtension extends pulumi.CustomResource {
@@ -40,6 +43,10 @@ export class PostgresExtension extends pulumi.CustomResource {
      */
     declare public readonly name: pulumi.Output<string>;
     /**
+     * Query params to send with the API requests for this resource.
+     */
+    declare public readonly queryParams: pulumi.Output<outputs.postgres.v1.PostgresExtensionQueryParams | undefined>;
+    /**
      * Schema to install the extension into. Defaults to the database's default schema.
      */
     declare public readonly schema: pulumi.Output<string | undefined>;
@@ -59,10 +66,12 @@ export class PostgresExtension extends pulumi.CustomResource {
             resourceInputs["databaseName"] = args?.databaseName;
             resourceInputs["name"] = args?.name;
             resourceInputs["postgresClusterId"] = args?.postgresClusterId;
+            resourceInputs["queryParams"] = args?.queryParams;
             resourceInputs["schema"] = args?.schema;
         } else {
             resourceInputs["createSchema"] = undefined /*out*/;
             resourceInputs["name"] = undefined /*out*/;
+            resourceInputs["queryParams"] = undefined /*out*/;
             resourceInputs["schema"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
@@ -90,6 +99,10 @@ export interface PostgresExtensionArgs {
      * Managed Postgres Cluster ID
      */
     postgresClusterId?: pulumi.Input<string | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    queryParams?: pulumi.Input<inputs.postgres.v1.PostgresExtensionQueryParamsArgs | undefined>;
     /**
      * Schema to install the extension into. Defaults to the database's default schema.
      */

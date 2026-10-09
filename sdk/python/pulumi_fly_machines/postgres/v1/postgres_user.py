@@ -15,6 +15,7 @@ else:
 from ... import _utilities
 from . import outputs
 from ._enums import *
+from ._inputs import *
 
 __all__ = ['PostgresUserArgs', 'PostgresUser']
 
@@ -23,7 +24,8 @@ class PostgresUserArgs:
     def __init__(__self__, *,
                  role: pulumi.Input['Role'],
                  username: pulumi.Input[_builtins.str],
-                 postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None):
+                 postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional['PostgresUserQueryParamsArgs']] = None):
         """
         The set of arguments for constructing a PostgresUser resource.
 
@@ -31,11 +33,14 @@ class PostgresUserArgs:
         :param pulumi.Input[_builtins.str] username: Name for the new user. Must start and end with a lowercase alphanumeric
                character and may contain hyphens and underscores, up to 63 characters.
         :param pulumi.Input[_builtins.str] postgres_cluster_id: Managed Postgres Cluster ID
+        :param pulumi.Input['PostgresUserQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         """
         pulumi.set(__self__, "role", role)
         pulumi.set(__self__, "username", username)
         if postgres_cluster_id is not None:
             pulumi.set(__self__, "postgres_cluster_id", postgres_cluster_id)
+        if query_params is not None:
+            pulumi.set(__self__, "query_params", query_params)
 
     @_builtins.property
     @pulumi.getter
@@ -74,6 +79,18 @@ class PostgresUserArgs:
     def postgres_cluster_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "postgres_cluster_id", value)
 
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Input[Optional['PostgresUserQueryParamsArgs']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
+
+    @query_params.setter
+    def query_params(self, value: pulumi.Input[Optional['PostgresUserQueryParamsArgs']]):
+        pulumi.set(self, "query_params", value)
+
 
 @pulumi.type_token("fly-machines:postgres/v1:PostgresUser")
 class PostgresUser(pulumi.CustomResource):
@@ -82,6 +99,7 @@ class PostgresUser(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['PostgresUserQueryParamsArgs', 'PostgresUserQueryParamsArgsDict', 'outputs.PostgresUserQueryParams']]] = None,
                  role: pulumi.Input[Optional['Role']] = None,
                  username: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
@@ -91,6 +109,7 @@ class PostgresUser(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] postgres_cluster_id: Managed Postgres Cluster ID
+        :param pulumi.Input[Union['PostgresUserQueryParamsArgs', 'PostgresUserQueryParamsArgsDict', 'outputs.PostgresUserQueryParams']] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input['Role'] role: Role to grant the user.
         :param pulumi.Input[_builtins.str] username: Name for the new user. Must start and end with a lowercase alphanumeric
                character and may contain hyphens and underscores, up to 63 characters.
@@ -120,6 +139,7 @@ class PostgresUser(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['PostgresUserQueryParamsArgs', 'PostgresUserQueryParamsArgsDict', 'outputs.PostgresUserQueryParams']]] = None,
                  role: pulumi.Input[Optional['Role']] = None,
                  username: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
@@ -132,6 +152,7 @@ class PostgresUser(pulumi.CustomResource):
             __props__ = PostgresUserArgs.__new__(PostgresUserArgs)
 
             __props__.__dict__["postgres_cluster_id"] = postgres_cluster_id
+            __props__.__dict__["query_params"] = query_params
             if role is None and not opts.urn:
                 raise TypeError("Missing required property 'role'")
             __props__.__dict__["role"] = role
@@ -162,6 +183,7 @@ class PostgresUser(pulumi.CustomResource):
         __props__ = PostgresUserArgs.__new__(PostgresUserArgs)
 
         __props__.__dict__["data"] = None
+        __props__.__dict__["query_params"] = None
         __props__.__dict__["role"] = None
         __props__.__dict__["username"] = None
         return PostgresUser(resource_name, opts=opts, __props__=__props__)
@@ -170,6 +192,14 @@ class PostgresUser(pulumi.CustomResource):
     @pulumi.getter
     def data(self) -> pulumi.Output[Optional['outputs.PostgresUser']]:
         return pulumi.get(self, "data")
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Output[Optional['outputs.PostgresUserQueryParams']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
 
     @_builtins.property
     @pulumi.getter

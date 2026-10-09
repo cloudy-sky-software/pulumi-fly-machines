@@ -15,6 +15,12 @@ namespace Pulumi.FlyMachines.TokensV1
         [Output("header")]
         public Output<string?> Header { get; private set; } = null!;
 
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Output("queryParams")]
+        public Output<Outputs.TokensAuthenticateQueryParams?> QueryParams { get; private set; } = null!;
+
 
         /// <summary>
         /// Create a TokensAuthenticate resource with the given unique name, arguments, and options.
@@ -63,6 +69,12 @@ namespace Pulumi.FlyMachines.TokensV1
     {
         [Input("header")]
         public Input<string>? Header { get; set; }
+
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Input("queryParams")]
+        public Input<Inputs.TokensAuthenticateQueryParamsArgs>? QueryParams { get; set; }
 
         public TokensAuthenticateArgs()
         {

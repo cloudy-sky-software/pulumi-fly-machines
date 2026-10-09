@@ -6,8 +6,200 @@ import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 import * as enums from "../types/enums";
 
+import * as utilities from "../utilities";
+
 export namespace apps {
     export namespace v1 {
+        /**
+         * Query params for the API request.
+         */
+        export interface AppCertificatesAcmeCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface AppCertificatesAcmeDeleteQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface AppCertificatesAcmeQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.apps.v1.AppCertificatesAcmeCreateQueryParamsArgs | undefined>;
+            /**
+             * Query params for the delete operation.
+             */
+            delete?: pulumi.Input<inputs.apps.v1.AppCertificatesAcmeDeleteQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface AppCertificatesCheckCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface AppCertificatesCheckQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.apps.v1.AppCertificatesCheckCreateQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface AppCertificatesCustomCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface AppCertificatesCustomDeleteQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface AppCertificatesCustomQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.apps.v1.AppCertificatesCustomCreateQueryParamsArgs | undefined>;
+            /**
+             * Query params for the delete operation.
+             */
+            delete?: pulumi.Input<inputs.apps.v1.AppCertificatesCustomDeleteQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface AppCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface AppDeleteQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface AppDeployTokenCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface AppDeployTokenQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.apps.v1.AppDeployTokenCreateQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface AppIPAssignmentCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface AppIPAssignmentDeleteQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface AppIPAssignmentQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.apps.v1.AppIPAssignmentCreateQueryParamsArgs | undefined>;
+            /**
+             * Query params for the delete operation.
+             */
+            delete?: pulumi.Input<inputs.apps.v1.AppIPAssignmentDeleteQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface AppQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.apps.v1.AppCreateQueryParamsArgs | undefined>;
+            /**
+             * Query params for the delete operation.
+             */
+            delete?: pulumi.Input<inputs.apps.v1.AppDeleteQueryParamsArgs | undefined>;
+            /**
+             * Query params for the read operation.
+             */
+            read?: pulumi.Input<inputs.apps.v1.AppReadQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface AppReadQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
         /**
          * An object defining the Machine configuration
          */
@@ -594,11 +786,1637 @@ export namespace apps {
             versions?: pulumi.Input<pulumi.Input<string>[] | undefined>;
         }
 
+        /**
+         * Query params for the API request.
+         */
+        export interface GetAppCertificateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface GetAppCertificateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface GetAppQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface GetAppQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface GetMachineQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+            /**
+             * Include machine lease
+             */
+            includeLeases?: boolean;
+            /**
+             * 26-character Machine version ID; returns that version of the Machine instead of the current one
+             */
+            version?: string;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface GetMachineQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+            /**
+             * Include machine lease
+             */
+            includeLeases?: pulumi.Input<boolean | undefined>;
+            /**
+             * 26-character Machine version ID; returns that version of the Machine instead of the current one
+             */
+            version?: pulumi.Input<string | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface GetMachinesLeaseQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface GetMachinesLeaseQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface GetMachinesMemoryQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface GetMachinesMemoryQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface GetMachinesMetadataKeyQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface GetMachinesMetadataKeyQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface GetMachinesMetadataQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface GetMachinesMetadataQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface GetMachinesWaitQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+            /**
+             * 26-character Machine event ID to start waiting after
+             */
+            fromEventId?: string;
+            /**
+             * 26-character Machine version ID (deprecated; use version)
+             */
+            instanceId?: string;
+            /**
+             * desired state(s), supports repeated or comma-separated values
+             */
+            state?: enums.apps.v1.GetMachinesWaitQueryParamsState;
+            /**
+             * wait timeout. default 60s
+             */
+            timeout?: number;
+            /**
+             * 26-character Machine version ID
+             */
+            version?: string;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface GetMachinesWaitQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+            /**
+             * 26-character Machine event ID to start waiting after
+             */
+            fromEventId?: pulumi.Input<string | undefined>;
+            /**
+             * 26-character Machine version ID (deprecated; use version)
+             */
+            instanceId?: pulumi.Input<string | undefined>;
+            /**
+             * desired state(s), supports repeated or comma-separated values
+             */
+            state?: pulumi.Input<enums.apps.v1.GetMachinesWaitQueryParamsState | undefined>;
+            /**
+             * wait timeout. default 60s
+             */
+            timeout?: pulumi.Input<number | undefined>;
+            /**
+             * 26-character Machine version ID
+             */
+            version?: pulumi.Input<string | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface GetSecretQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+            /**
+             * Minimum secrets version to return. Returned when setting a new secret
+             */
+            minVersion?: string;
+            /**
+             * Show the secret value.
+             */
+            showSecrets?: boolean;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface GetSecretQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+            /**
+             * Minimum secrets version to return. Returned when setting a new secret
+             */
+            minVersion?: pulumi.Input<string | undefined>;
+            /**
+             * Show the secret value.
+             */
+            showSecrets?: pulumi.Input<boolean | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface GetSecretkeyQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+            /**
+             * Minimum secrets version to return. Returned when setting a new secret
+             */
+            minVersion?: string;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface GetSecretkeyQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+            /**
+             * Minimum secrets version to return. Returned when setting a new secret
+             */
+            minVersion?: pulumi.Input<string | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface GetVolumeQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface GetVolumeQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListAppCertificatesQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+            /**
+             * Pagination cursor from previous response
+             */
+            cursor?: string;
+            /**
+             * Hostname filter (substring match)
+             */
+            filter?: string;
+            /**
+             * Number of results per page (default 25, max 500)
+             */
+            limit?: number;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListAppCertificatesQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+            /**
+             * Pagination cursor from previous response
+             */
+            cursor?: pulumi.Input<string | undefined>;
+            /**
+             * Hostname filter (substring match)
+             */
+            filter?: pulumi.Input<string | undefined>;
+            /**
+             * Number of results per page (default 25, max 500)
+             */
+            limit?: pulumi.Input<number | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListAppIPAssignmentsQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListAppIPAssignmentsQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListAppsQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+            /**
+             * Filter apps by role
+             */
+            appRole?: string;
+            /**
+             * The org slug, or 'personal', to filter apps
+             */
+            orgSlug: string;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListAppsQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+            /**
+             * Filter apps by role
+             */
+            appRole?: pulumi.Input<string | undefined>;
+            /**
+             * The org slug, or 'personal', to filter apps
+             */
+            orgSlug: pulumi.Input<string>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListMachinesEventsQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+            /**
+             * The number of events to fetch (max of 50). If omitted, this is set to 20 by default.
+             */
+            limit?: number;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListMachinesEventsQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+            /**
+             * The number of events to fetch (max of 50). If omitted, this is set to 20 by default.
+             */
+            limit?: pulumi.Input<number | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListMachinesProcessesQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+            /**
+             * Order
+             */
+            order?: string;
+            /**
+             * Sort by
+             */
+            sortBy?: string;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListMachinesProcessesQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+            /**
+             * Order
+             */
+            order?: pulumi.Input<string | undefined>;
+            /**
+             * Sort by
+             */
+            sortBy?: pulumi.Input<string | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListMachinesQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+            /**
+             * Value of the fly-next-cursor response header from the previous page. Requires limit.
+             */
+            cursor?: string;
+            /**
+             * Include deleted machines
+             */
+            includeDeleted?: boolean;
+            /**
+             * Include machine leases
+             */
+            includeLeases?: boolean;
+            /**
+             * The number of machines to fetch (must be between 1 and 1000). Providing a limit enables pagination. This limit is advisory; responses may be shorter, or even empty, even when more machines remain.
+             */
+            limit?: number;
+            /**
+             * Filter by a machine metadata key and exact value. Replace {key} with the metadata key, for example metadata.foo=bar. Specify multiple metadata filters to require all matches.
+             */
+            metadatakey?: string;
+            /**
+             * Region filter
+             */
+            region?: string;
+            /**
+             * comma separated list of states to filter (created, started, stopped, suspended)
+             */
+            state?: string;
+            /**
+             * Only return summary info about machines (omit config, checks, events, host_status, nonce, etc.)
+             */
+            summary?: boolean;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListMachinesQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+            /**
+             * Value of the fly-next-cursor response header from the previous page. Requires limit.
+             */
+            cursor?: pulumi.Input<string | undefined>;
+            /**
+             * Include deleted machines
+             */
+            includeDeleted?: pulumi.Input<boolean | undefined>;
+            /**
+             * Include machine leases
+             */
+            includeLeases?: pulumi.Input<boolean | undefined>;
+            /**
+             * The number of machines to fetch (must be between 1 and 1000). Providing a limit enables pagination. This limit is advisory; responses may be shorter, or even empty, even when more machines remain.
+             */
+            limit?: pulumi.Input<number | undefined>;
+            /**
+             * Filter by a machine metadata key and exact value. Replace {key} with the metadata key, for example metadata.foo=bar. Specify multiple metadata filters to require all matches.
+             */
+            metadatakey?: pulumi.Input<string | undefined>;
+            /**
+             * Region filter
+             */
+            region?: pulumi.Input<string | undefined>;
+            /**
+             * comma separated list of states to filter (created, started, stopped, suspended)
+             */
+            state?: pulumi.Input<string | undefined>;
+            /**
+             * Only return summary info about machines (omit config, checks, events, host_status, nonce, etc.)
+             */
+            summary?: pulumi.Input<boolean | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListMachinesVersionsQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListMachinesVersionsQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListSecretkeysQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+            /**
+             * Minimum secrets version to return. Returned when setting a new secret
+             */
+            minVersion?: string;
+            /**
+             * Comma-seperated list of secret keys to list
+             */
+            types?: string;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListSecretkeysQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+            /**
+             * Minimum secrets version to return. Returned when setting a new secret
+             */
+            minVersion?: pulumi.Input<string | undefined>;
+            /**
+             * Comma-seperated list of secret keys to list
+             */
+            types?: pulumi.Input<string | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListSecretsQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+            /**
+             * Minimum secrets version to return. Returned when setting a new secret
+             */
+            minVersion?: string;
+            /**
+             * Show the secret values.
+             */
+            showSecrets?: boolean;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListSecretsQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+            /**
+             * Minimum secrets version to return. Returned when setting a new secret
+             */
+            minVersion?: pulumi.Input<string | undefined>;
+            /**
+             * Show the secret values.
+             */
+            showSecrets?: pulumi.Input<boolean | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListVolumesQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+            /**
+             * Only return summary info about volumes (omit blocks, block size, etc)
+             */
+            summary?: boolean;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListVolumesQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+            /**
+             * Only return summary info about volumes (omit blocks, block size, etc)
+             */
+            summary?: pulumi.Input<boolean | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListVolumesSnapshotsQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListVolumesSnapshotsQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachineCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachineDeleteQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+            /**
+             * Force kill the machine if it's running
+             */
+            force?: pulumi.Input<boolean | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinePutQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface MachineQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.apps.v1.MachineCreateQueryParamsArgs | undefined>;
+            /**
+             * Query params for the delete operation.
+             */
+            delete?: pulumi.Input<inputs.apps.v1.MachineDeleteQueryParamsArgs | undefined>;
+            /**
+             * Query params for the put operation.
+             */
+            put?: pulumi.Input<inputs.apps.v1.MachinePutQueryParamsArgs | undefined>;
+            /**
+             * Query params for the read operation.
+             */
+            read?: pulumi.Input<inputs.apps.v1.MachineReadQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachineReadQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+            /**
+             * Include machine lease
+             */
+            includeLeases?: pulumi.Input<boolean | undefined>;
+            /**
+             * 26-character Machine version ID; returns that version of the Machine instead of the current one
+             */
+            version?: pulumi.Input<string | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesCordonCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface MachinesCordonQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.apps.v1.MachinesCordonCreateQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesExecCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface MachinesExecQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.apps.v1.MachinesExecCreateQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesLeaseCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface MachinesLeaseQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.apps.v1.MachinesLeaseCreateQueryParamsArgs | undefined>;
+            /**
+             * Query params for the read operation.
+             */
+            read?: pulumi.Input<inputs.apps.v1.MachinesLeaseReadQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesLeaseReadQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesMemoryLimitCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesMemoryLimitPutQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface MachinesMemoryLimitQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.apps.v1.MachinesMemoryLimitCreateQueryParamsArgs | undefined>;
+            /**
+             * Query params for the put operation.
+             */
+            put?: pulumi.Input<inputs.apps.v1.MachinesMemoryLimitPutQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesMetadataCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesMetadataKeyCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesMetadataKeyDeleteQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface MachinesMetadataKeyQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.apps.v1.MachinesMetadataKeyCreateQueryParamsArgs | undefined>;
+            /**
+             * Query params for the delete operation.
+             */
+            delete?: pulumi.Input<inputs.apps.v1.MachinesMetadataKeyDeleteQueryParamsArgs | undefined>;
+            /**
+             * Query params for the read operation.
+             */
+            read?: pulumi.Input<inputs.apps.v1.MachinesMetadataKeyReadQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesMetadataKeyReadQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface MachinesMetadataQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.apps.v1.MachinesMetadataCreateQueryParamsArgs | undefined>;
+            /**
+             * Query params for the read operation.
+             */
+            read?: pulumi.Input<inputs.apps.v1.MachinesMetadataReadQueryParamsArgs | undefined>;
+            /**
+             * Query params for the update operation.
+             */
+            update?: pulumi.Input<inputs.apps.v1.MachinesMetadataUpdateQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesMetadataReadQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesMetadataUpdateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesReclaimMemoryCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface MachinesReclaimMemoryQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.apps.v1.MachinesReclaimMemoryCreateQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesRestartCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+            /**
+             * Unix signal name
+             */
+            signal?: pulumi.Input<enums.apps.v1.MachinesRestartCreateQueryParamsSignal | undefined>;
+            /**
+             * Restart timeout as a Go duration string or number of seconds
+             */
+            timeout?: pulumi.Input<string | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface MachinesRestartQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.apps.v1.MachinesRestartCreateQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesSignalCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface MachinesSignalQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.apps.v1.MachinesSignalCreateQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesStartCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface MachinesStartQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.apps.v1.MachinesStartCreateQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesStopCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface MachinesStopQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.apps.v1.MachinesStopCreateQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesSuspendCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface MachinesSuspendQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.apps.v1.MachinesSuspendCreateQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesUncordonCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface MachinesUncordonQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.apps.v1.MachinesUncordonCreateQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface SecretCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface SecretDeleteQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface SecretQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.apps.v1.SecretCreateQueryParamsArgs | undefined>;
+            /**
+             * Query params for the delete operation.
+             */
+            delete?: pulumi.Input<inputs.apps.v1.SecretDeleteQueryParamsArgs | undefined>;
+            /**
+             * Query params for the read operation.
+             */
+            read?: pulumi.Input<inputs.apps.v1.SecretReadQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface SecretReadQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+            /**
+             * Minimum secrets version to return. Returned when setting a new secret
+             */
+            minVersion?: pulumi.Input<string | undefined>;
+            /**
+             * Show the secret value.
+             */
+            showSecrets?: pulumi.Input<boolean | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface SecretkeyCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface SecretkeyDecryptCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+            /**
+             * Minimum secrets version to return. Returned when setting a new secret
+             */
+            minVersion?: pulumi.Input<string | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface SecretkeyDecryptQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.apps.v1.SecretkeyDecryptCreateQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface SecretkeyDeleteQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface SecretkeyEncryptCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+            /**
+             * Minimum secrets version to return. Returned when setting a new secret
+             */
+            minVersion?: pulumi.Input<string | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface SecretkeyEncryptQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.apps.v1.SecretkeyEncryptCreateQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface SecretkeyGenerateCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface SecretkeyGenerateQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.apps.v1.SecretkeyGenerateCreateQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface SecretkeyQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.apps.v1.SecretkeyCreateQueryParamsArgs | undefined>;
+            /**
+             * Query params for the delete operation.
+             */
+            delete?: pulumi.Input<inputs.apps.v1.SecretkeyDeleteQueryParamsArgs | undefined>;
+            /**
+             * Query params for the read operation.
+             */
+            read?: pulumi.Input<inputs.apps.v1.SecretkeyReadQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface SecretkeyReadQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+            /**
+             * Minimum secrets version to return. Returned when setting a new secret
+             */
+            minVersion?: pulumi.Input<string | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface SecretkeySignCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+            /**
+             * Minimum secrets version to return. Returned when setting a new secret
+             */
+            minVersion?: pulumi.Input<string | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface SecretkeySignQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.apps.v1.SecretkeySignCreateQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface SecretkeyVerifyCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+            /**
+             * Minimum secrets version to return. Returned when setting a new secret
+             */
+            minVersion?: pulumi.Input<string | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface SecretkeyVerifyQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.apps.v1.SecretkeyVerifyCreateQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface SecretsUpdateCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface SecretsUpdateQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.apps.v1.SecretsUpdateCreateQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface VolumeCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface VolumeDeleteQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface VolumePutQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface VolumeQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.apps.v1.VolumeCreateQueryParamsArgs | undefined>;
+            /**
+             * Query params for the delete operation.
+             */
+            delete?: pulumi.Input<inputs.apps.v1.VolumeDeleteQueryParamsArgs | undefined>;
+            /**
+             * Query params for the put operation.
+             */
+            put?: pulumi.Input<inputs.apps.v1.VolumePutQueryParamsArgs | undefined>;
+            /**
+             * Query params for the read operation.
+             */
+            read?: pulumi.Input<inputs.apps.v1.VolumeReadQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface VolumeReadQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface VolumeSnapshotCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface VolumeSnapshotQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.apps.v1.VolumeSnapshotCreateQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface VolumesExtendCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface VolumesExtendPutQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface VolumesExtendQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.apps.v1.VolumesExtendCreateQueryParamsArgs | undefined>;
+            /**
+             * Query params for the put operation.
+             */
+            put?: pulumi.Input<inputs.apps.v1.VolumesExtendPutQueryParamsArgs | undefined>;
+        }
+
     }
 }
 
 export namespace orgs {
     export namespace v1 {
+        /**
+         * Query params for the API request.
+         */
+        export interface ListMachinesOrgQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+            /**
+             * Pagination cursor from previous response (takes precedence over updated_after). Note that there is no guarantee that all machines returned by this endpoint are sorted by their updated_at fields. Pagination may reveal machines older than the last updated_at.
+             */
+            cursor?: string;
+            /**
+             * Include deleted machines
+             */
+            includeDeleted?: boolean;
+            /**
+             * The number of machines to fetch (max of 1000). This limit is advisory. Responses may be shorter, or even empty, even when more machines remain. If omitted, the maximum is used
+             */
+            limit?: number;
+            /**
+             * Region filter
+             */
+            region?: string;
+            /**
+             * Comma separated list of states to filter (created, started, stopped, suspended)
+             */
+            state?: string;
+            /**
+             * Omit config from responses
+             */
+            summary?: boolean;
+            /**
+             * Only return machines updated after this time. Timestamp must be in the RFC 3339 format
+             */
+            updatedAfter?: string;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListMachinesOrgQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+            /**
+             * Pagination cursor from previous response (takes precedence over updated_after). Note that there is no guarantee that all machines returned by this endpoint are sorted by their updated_at fields. Pagination may reveal machines older than the last updated_at.
+             */
+            cursor?: pulumi.Input<string | undefined>;
+            /**
+             * Include deleted machines
+             */
+            includeDeleted?: pulumi.Input<boolean | undefined>;
+            /**
+             * The number of machines to fetch (max of 1000). This limit is advisory. Responses may be shorter, or even empty, even when more machines remain. If omitted, the maximum is used
+             */
+            limit?: pulumi.Input<number | undefined>;
+            /**
+             * Region filter
+             */
+            region?: pulumi.Input<string | undefined>;
+            /**
+             * Comma separated list of states to filter (created, started, stopped, suspended)
+             */
+            state?: pulumi.Input<string | undefined>;
+            /**
+             * Omit config from responses
+             */
+            summary?: pulumi.Input<boolean | undefined>;
+            /**
+             * Only return machines updated after this time. Timestamp must be in the RFC 3339 format
+             */
+            updatedAfter?: pulumi.Input<string | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListVolumesOrgQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+            /**
+             * Pagination cursor from previous response (takes precedence over updated_after)
+             */
+            cursor?: string;
+            /**
+             * Include deleted volumes
+             */
+            includeDeleted?: boolean;
+            /**
+             * The number of volumes to fetch (max of 1000). This limit is advisory. Responses may be shorter, even when more volumes remain. If omitted, the maximum is used
+             */
+            limit?: number;
+            /**
+             * Region filter
+             */
+            region?: string;
+            /**
+             * Comma separated list of volume states to filter
+             */
+            state?: string;
+            /**
+             * Only return summary info about volumes (omit blocks, block size, etc)
+             */
+            summary?: boolean;
+            /**
+             * Only return volumes updated after this time. Timestamp must be in the RFC 3339 format
+             */
+            updatedAfter?: string;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListVolumesOrgQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+            /**
+             * Pagination cursor from previous response (takes precedence over updated_after)
+             */
+            cursor?: pulumi.Input<string | undefined>;
+            /**
+             * Include deleted volumes
+             */
+            includeDeleted?: pulumi.Input<boolean | undefined>;
+            /**
+             * The number of volumes to fetch (max of 1000). This limit is advisory. Responses may be shorter, even when more volumes remain. If omitted, the maximum is used
+             */
+            limit?: pulumi.Input<number | undefined>;
+            /**
+             * Region filter
+             */
+            region?: pulumi.Input<string | undefined>;
+            /**
+             * Comma separated list of volume states to filter
+             */
+            state?: pulumi.Input<string | undefined>;
+            /**
+             * Only return summary info about volumes (omit blocks, block size, etc)
+             */
+            summary?: pulumi.Input<boolean | undefined>;
+            /**
+             * Only return volumes updated after this time. Timestamp must be in the RFC 3339 format
+             */
+            updatedAfter?: pulumi.Input<string | undefined>;
+        }
+
     }
 }
 
@@ -624,6 +2442,46 @@ export namespace platform {
         }
 
         /**
+         * Query params for the API request.
+         */
+        export interface GetPlatformRegionQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface GetPlatformRegionQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface PlatformPlacementCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface PlatformPlacementQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.platform.v1.PlatformPlacementCreateQueryParamsArgs | undefined>;
+        }
+
+        /**
          * Optional weights to override default placement preferences.
          */
         export interface WeightsArgs {
@@ -633,11 +2491,529 @@ export namespace platform {
 
 export namespace postgres {
     export namespace v1 {
+        /**
+         * Query params for the API request.
+         */
+        export interface GetPostgresQueriesActiveQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+            /**
+             * Database to inspect (must not be empty or whitespace-only)
+             */
+            database: string;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface GetPostgresQueriesActiveQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+            /**
+             * Database to inspect (must not be empty or whitespace-only)
+             */
+            database: pulumi.Input<string>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface GetPostgresQueriesSlowQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+            /**
+             * Metrics lookback in seconds
+             */
+            range?: number;
+        }
+        /**
+         * getPostgresQueriesSlowQueryParamsProvideDefaults sets the appropriate defaults for GetPostgresQueriesSlowQueryParams
+         */
+        export function getPostgresQueriesSlowQueryParamsProvideDefaults(val: GetPostgresQueriesSlowQueryParams): GetPostgresQueriesSlowQueryParams {
+            return {
+                ...val,
+                range: (val.range) ?? 3600,
+            };
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface GetPostgresQueriesSlowQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+            /**
+             * Metrics lookback in seconds
+             */
+            range?: pulumi.Input<number | undefined>;
+        }
+        /**
+         * getPostgresQueriesSlowQueryParamsArgsProvideDefaults sets the appropriate defaults for GetPostgresQueriesSlowQueryParamsArgs
+         */
+        export function getPostgresQueriesSlowQueryParamsArgsProvideDefaults(val: GetPostgresQueriesSlowQueryParamsArgs): GetPostgresQueriesSlowQueryParamsArgs {
+            return {
+                ...val,
+                range: (val.range) ?? 3600,
+            };
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface GetPostgresQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface GetPostgresQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface GetPostgresUsersCredentialQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface GetPostgresUsersCredentialQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListPostgresBackupsQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListPostgresBackupsQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListPostgresDatabasesQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListPostgresDatabasesQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListPostgresExtensionsQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListPostgresExtensionsQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListPostgresQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+            /**
+             * Include deleted clusters
+             */
+            includeDeleted?: boolean;
+            /**
+             * Fly Organization Slug, or 'personal' for the caller's personal organization
+             */
+            orgSlug: string;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListPostgresQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+            /**
+             * Include deleted clusters
+             */
+            includeDeleted?: pulumi.Input<boolean | undefined>;
+            /**
+             * Fly Organization Slug, or 'personal' for the caller's personal organization
+             */
+            orgSlug: pulumi.Input<string>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListPostgresUsersQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListPostgresUsersQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresAttachmentCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresAttachmentDeleteQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface PostgresAttachmentQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.postgres.v1.PostgresAttachmentCreateQueryParamsArgs | undefined>;
+            /**
+             * Query params for the delete operation.
+             */
+            delete?: pulumi.Input<inputs.postgres.v1.PostgresAttachmentDeleteQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresBackupCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface PostgresBackupQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.postgres.v1.PostgresBackupCreateQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresDatabaseCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresDatabaseDeleteQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface PostgresDatabaseQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.postgres.v1.PostgresDatabaseCreateQueryParamsArgs | undefined>;
+            /**
+             * Query params for the delete operation.
+             */
+            delete?: pulumi.Input<inputs.postgres.v1.PostgresDatabaseDeleteQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresDeleteQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresExtensionCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresExtensionDeleteQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+            /**
+             * Also drop objects that depend on the extension
+             */
+            force?: pulumi.Input<boolean | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface PostgresExtensionQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.postgres.v1.PostgresExtensionCreateQueryParamsArgs | undefined>;
+            /**
+             * Query params for the delete operation.
+             */
+            delete?: pulumi.Input<inputs.postgres.v1.PostgresExtensionDeleteQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresForkCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface PostgresForkQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.postgres.v1.PostgresForkCreateQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface PostgresQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.postgres.v1.PostgresCreateQueryParamsArgs | undefined>;
+            /**
+             * Query params for the delete operation.
+             */
+            delete?: pulumi.Input<inputs.postgres.v1.PostgresDeleteQueryParamsArgs | undefined>;
+            /**
+             * Query params for the read operation.
+             */
+            read?: pulumi.Input<inputs.postgres.v1.PostgresReadQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresReadQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresRestoreCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface PostgresRestoreQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.postgres.v1.PostgresRestoreCreateQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresUserCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresUserDeleteQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface PostgresUserQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.postgres.v1.PostgresUserCreateQueryParamsArgs | undefined>;
+            /**
+             * Query params for the delete operation.
+             */
+            delete?: pulumi.Input<inputs.postgres.v1.PostgresUserDeleteQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresUsersRotatePasswordCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface PostgresUsersRotatePasswordQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.postgres.v1.PostgresUsersRotatePasswordCreateQueryParamsArgs | undefined>;
+        }
+
     }
 }
 
 export namespace tokens {
     export namespace v1 {
+        /**
+         * Query params for the API request.
+         */
+        export interface GetCurrentTokenQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface GetCurrentTokenQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
         export interface MainTokenAccessArgs {
             /**
              * Action is the action being taken on the specified resource. This is the
@@ -724,5 +3100,84 @@ export namespace tokens {
         export interface MainTokenAccessActionArgs {
         }
 
+        /**
+         * Query params for the API request.
+         */
+        export interface TokensAuthenticateCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface TokensAuthenticateQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.tokens.v1.TokensAuthenticateCreateQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface TokensAuthorizeCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface TokensAuthorizeQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.tokens.v1.TokensAuthorizeCreateQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface TokensRequestKmCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface TokensRequestKmQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.tokens.v1.TokensRequestKmCreateQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface TokensRequestOidcCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface TokensRequestOidcQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.tokens.v1.TokensRequestOidcCreateQueryParamsArgs | undefined>;
+        }
     }
 }

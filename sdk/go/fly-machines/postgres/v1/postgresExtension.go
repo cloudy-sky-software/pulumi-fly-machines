@@ -18,6 +18,8 @@ type PostgresExtension struct {
 	CreateSchema pulumi.BoolPtrOutput `pulumi:"createSchema"`
 	// Extension to enable.
 	Name pulumi.StringOutput `pulumi:"name"`
+	// Query params to send with the API requests for this resource.
+	QueryParams PostgresExtensionQueryParamsPtrOutput `pulumi:"queryParams"`
 	// Schema to install the extension into. Defaults to the database's default schema.
 	Schema pulumi.StringPtrOutput `pulumi:"schema"`
 }
@@ -70,6 +72,8 @@ type postgresExtensionArgs struct {
 	Name *string `pulumi:"name"`
 	// Managed Postgres Cluster ID
 	PostgresClusterId *string `pulumi:"postgresClusterId"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *PostgresExtensionQueryParams `pulumi:"queryParams"`
 	// Schema to install the extension into. Defaults to the database's default schema.
 	Schema *string `pulumi:"schema"`
 }
@@ -84,6 +88,8 @@ type PostgresExtensionArgs struct {
 	Name pulumi.StringPtrInput
 	// Managed Postgres Cluster ID
 	PostgresClusterId pulumi.StringPtrInput
+	// Query params to send with the API requests for this resource.
+	QueryParams PostgresExtensionQueryParamsPtrInput
 	// Schema to install the extension into. Defaults to the database's default schema.
 	Schema pulumi.StringPtrInput
 }
@@ -133,6 +139,11 @@ func (o PostgresExtensionOutput) CreateSchema() pulumi.BoolPtrOutput {
 // Extension to enable.
 func (o PostgresExtensionOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *PostgresExtension) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
+}
+
+// Query params to send with the API requests for this resource.
+func (o PostgresExtensionOutput) QueryParams() PostgresExtensionQueryParamsPtrOutput {
+	return o.ApplyT(func(v *PostgresExtension) PostgresExtensionQueryParamsPtrOutput { return v.QueryParams }).(PostgresExtensionQueryParamsPtrOutput)
 }
 
 // Schema to install the extension into. Defaults to the database's default schema.

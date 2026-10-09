@@ -26,6 +26,8 @@ type App struct {
 	Name           pulumi.StringPtrOutput `pulumi:"name"`
 	Network        pulumi.StringPtrOutput `pulumi:"network"`
 	OrgSlug        pulumi.StringPtrOutput `pulumi:"orgSlug"`
+	// Query params to send with the API requests for this resource.
+	QueryParams AppQueryParamsPtrOutput `pulumi:"queryParams"`
 }
 
 // NewApp registers a new resource with the given unique name, arguments, and options.
@@ -79,6 +81,8 @@ type appArgs struct {
 	Name           *string `pulumi:"name"`
 	Network        *string `pulumi:"network"`
 	OrgSlug        *string `pulumi:"orgSlug"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *AppQueryParams `pulumi:"queryParams"`
 }
 
 // The set of arguments for constructing a App resource.
@@ -94,6 +98,8 @@ type AppArgs struct {
 	Name           pulumi.StringPtrInput
 	Network        pulumi.StringPtrInput
 	OrgSlug        pulumi.StringPtrInput
+	// Query params to send with the API requests for this resource.
+	QueryParams AppQueryParamsPtrInput
 }
 
 func (AppArgs) ElementType() reflect.Type {
@@ -161,6 +167,11 @@ func (o AppOutput) Network() pulumi.StringPtrOutput {
 
 func (o AppOutput) OrgSlug() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *App) pulumi.StringPtrOutput { return v.OrgSlug }).(pulumi.StringPtrOutput)
+}
+
+// Query params to send with the API requests for this resource.
+func (o AppOutput) QueryParams() AppQueryParamsPtrOutput {
+	return o.ApplyT(func(v *App) AppQueryParamsPtrOutput { return v.QueryParams }).(AppQueryParamsPtrOutput)
 }
 
 func init() {

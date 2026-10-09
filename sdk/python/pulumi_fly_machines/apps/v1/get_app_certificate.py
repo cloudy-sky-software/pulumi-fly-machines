@@ -15,6 +15,7 @@ else:
 from ... import _utilities
 from . import outputs
 from ._enums import *
+from ._inputs import *
 
 __all__ = [
     'GetAppCertificateResult',
@@ -128,16 +129,19 @@ class AwaitableGetAppCertificateResult(GetAppCertificateResult):
 
 def get_app_certificate(app_name: Optional[_builtins.str] = None,
                         hostname: Optional[_builtins.str] = None,
+                        query_params: Optional[Union['GetAppCertificateQueryParams', 'GetAppCertificateQueryParamsDict']] = None,
                         opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetAppCertificateResult:
     """
     Use this data source to access information about an existing resource.
 
     :param _builtins.str app_name: Fly App Name
     :param _builtins.str hostname: Certificate Hostname
+    :param Union['GetAppCertificateQueryParams', 'GetAppCertificateQueryParamsDict'] query_params: Query params to send with the API request.
     """
     __args__ = dict()
     __args__['appName'] = app_name
     __args__['hostname'] = hostname
+    __args__['queryParams'] = query_params
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke('fly-machines:apps/v1:getAppCertificate', __args__, opts=opts, typ=GetAppCertificateResult).value
 
@@ -154,16 +158,19 @@ def get_app_certificate(app_name: Optional[_builtins.str] = None,
         validation_errors=pulumi.get(__ret__, 'validation_errors'))
 def get_app_certificate_output(app_name: pulumi.Input[Optional[_builtins.str]] = None,
                                hostname: pulumi.Input[Optional[_builtins.str]] = None,
+                               query_params: pulumi.Input[Optional[Optional[Union['GetAppCertificateQueryParams', 'GetAppCertificateQueryParamsDict']]]] = None,
                                opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetAppCertificateResult]:
     """
     Use this data source to access information about an existing resource.
 
     :param _builtins.str app_name: Fly App Name
     :param _builtins.str hostname: Certificate Hostname
+    :param Union['GetAppCertificateQueryParams', 'GetAppCertificateQueryParamsDict'] query_params: Query params to send with the API request.
     """
     __args__ = dict()
     __args__['appName'] = app_name
     __args__['hostname'] = hostname
+    __args__['queryParams'] = query_params
     opts = pulumi.InvokeOutputOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke_output('fly-machines:apps/v1:getAppCertificate', __args__, opts=opts, typ=GetAppCertificateResult)
     return __ret__.apply(lambda __response__: GetAppCertificateResult(

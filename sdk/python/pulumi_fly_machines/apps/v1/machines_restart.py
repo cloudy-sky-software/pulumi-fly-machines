@@ -13,6 +13,9 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
+from . import outputs
+from ._enums import *
+from ._inputs import *
 
 __all__ = ['MachinesRestartArgs', 'MachinesRestart']
 
@@ -20,17 +23,21 @@ __all__ = ['MachinesRestartArgs', 'MachinesRestart']
 class MachinesRestartArgs:
     def __init__(__self__, *,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
-                 machine_id: pulumi.Input[Optional[_builtins.str]] = None):
+                 machine_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional['MachinesRestartQueryParamsArgs']] = None):
         """
         The set of arguments for constructing a MachinesRestart resource.
 
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input[_builtins.str] machine_id: Machine ID
+        :param pulumi.Input['MachinesRestartQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         """
         if app_name is not None:
             pulumi.set(__self__, "app_name", app_name)
         if machine_id is not None:
             pulumi.set(__self__, "machine_id", machine_id)
+        if query_params is not None:
+            pulumi.set(__self__, "query_params", query_params)
 
     @_builtins.property
     @pulumi.getter(name="appName")
@@ -56,6 +63,18 @@ class MachinesRestartArgs:
     def machine_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "machine_id", value)
 
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Input[Optional['MachinesRestartQueryParamsArgs']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
+
+    @query_params.setter
+    def query_params(self, value: pulumi.Input[Optional['MachinesRestartQueryParamsArgs']]):
+        pulumi.set(self, "query_params", value)
+
 
 @pulumi.type_token("fly-machines:apps/v1:MachinesRestart")
 class MachinesRestart(pulumi.CustomResource):
@@ -65,6 +84,7 @@ class MachinesRestart(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  machine_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['MachinesRestartQueryParamsArgs', 'MachinesRestartQueryParamsArgsDict', 'outputs.MachinesRestartQueryParams']]] = None,
                  __props__=None):
         """
         Create a MachinesRestart resource with the given unique name, props, and options.
@@ -73,6 +93,7 @@ class MachinesRestart(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input[_builtins.str] machine_id: Machine ID
+        :param pulumi.Input[Union['MachinesRestartQueryParamsArgs', 'MachinesRestartQueryParamsArgsDict', 'outputs.MachinesRestartQueryParams']] query_params: Query params to send with the API requests for this resource.
         """
         ...
     @overload
@@ -100,6 +121,7 @@ class MachinesRestart(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  machine_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['MachinesRestartQueryParamsArgs', 'MachinesRestartQueryParamsArgsDict', 'outputs.MachinesRestartQueryParams']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -111,6 +133,7 @@ class MachinesRestart(pulumi.CustomResource):
 
             __props__.__dict__["app_name"] = app_name
             __props__.__dict__["machine_id"] = machine_id
+            __props__.__dict__["query_params"] = query_params
         super(MachinesRestart, __self__).__init__(
             'fly-machines:apps/v1:MachinesRestart',
             resource_name,
@@ -133,5 +156,14 @@ class MachinesRestart(pulumi.CustomResource):
 
         __props__ = MachinesRestartArgs.__new__(MachinesRestartArgs)
 
+        __props__.__dict__["query_params"] = None
         return MachinesRestart(resource_name, opts=opts, __props__=__props__)
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Output[Optional['outputs.MachinesRestartQueryParams']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
 

@@ -11,6 +11,7 @@ export function listPostgresUsers(args: ListPostgresUsersArgs, opts?: pulumi.Inv
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("fly-machines:postgres/v1:listPostgresUsers", {
         "postgresClusterId": args.postgresClusterId,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -19,6 +20,10 @@ export interface ListPostgresUsersArgs {
      * Managed Postgres Cluster ID
      */
     postgresClusterId: string;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: inputs.postgres.v1.ListPostgresUsersQueryParams;
 }
 
 export interface ListPostgresUsersResult {
@@ -28,6 +33,7 @@ export function listPostgresUsersOutput(args: ListPostgresUsersOutputArgs, opts?
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("fly-machines:postgres/v1:listPostgresUsers", {
         "postgresClusterId": args.postgresClusterId,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -36,4 +42,8 @@ export interface ListPostgresUsersOutputArgs {
      * Managed Postgres Cluster ID
      */
     postgresClusterId: pulumi.Input<string>;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: pulumi.Input<inputs.postgres.v1.ListPostgresUsersQueryParamsArgs | undefined>;
 }

@@ -46,6 +46,10 @@ export class AppIPAssignment extends pulumi.CustomResource {
      */
     declare public readonly network: pulumi.Output<outputs.apps.v1.IPAssignmentNetwork | undefined>;
     declare public readonly orgSlug: pulumi.Output<string | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    declare public readonly queryParams: pulumi.Output<outputs.apps.v1.AppIPAssignmentQueryParams | undefined>;
     declare public readonly region: pulumi.Output<string | undefined>;
     declare public readonly serviceName: pulumi.Output<string | undefined>;
     declare public /*out*/ readonly shared: pulumi.Output<boolean | undefined>;
@@ -68,6 +72,7 @@ export class AppIPAssignment extends pulumi.CustomResource {
             resourceInputs["appName"] = args?.appName;
             resourceInputs["network"] = args?.network;
             resourceInputs["orgSlug"] = args?.orgSlug;
+            resourceInputs["queryParams"] = args?.queryParams;
             resourceInputs["region"] = args?.region;
             resourceInputs["serviceName"] = args?.serviceName;
             resourceInputs["type"] = args?.type;
@@ -83,6 +88,7 @@ export class AppIPAssignment extends pulumi.CustomResource {
             resourceInputs["ipPair"] = undefined /*out*/;
             resourceInputs["network"] = undefined /*out*/;
             resourceInputs["orgSlug"] = undefined /*out*/;
+            resourceInputs["queryParams"] = undefined /*out*/;
             resourceInputs["region"] = undefined /*out*/;
             resourceInputs["serviceName"] = undefined /*out*/;
             resourceInputs["shared"] = undefined /*out*/;
@@ -103,6 +109,10 @@ export interface AppIPAssignmentArgs {
     appName?: pulumi.Input<string | undefined>;
     network?: pulumi.Input<string | undefined>;
     orgSlug?: pulumi.Input<string | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.AppIPAssignmentQueryParamsArgs | undefined>;
     region?: pulumi.Input<string | undefined>;
     serviceName?: pulumi.Input<string | undefined>;
     /**

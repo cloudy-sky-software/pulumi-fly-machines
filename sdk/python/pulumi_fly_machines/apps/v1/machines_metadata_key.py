@@ -13,6 +13,8 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
+from . import outputs
+from ._inputs import *
 
 __all__ = ['MachinesMetadataKeyArgs', 'MachinesMetadataKey']
 
@@ -22,6 +24,7 @@ class MachinesMetadataKeyArgs:
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  key: pulumi.Input[Optional[_builtins.str]] = None,
                  machine_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional['MachinesMetadataKeyQueryParamsArgs']] = None,
                  updated_at: pulumi.Input[Optional[_builtins.str]] = None,
                  value: pulumi.Input[Optional[_builtins.str]] = None):
         """
@@ -30,6 +33,7 @@ class MachinesMetadataKeyArgs:
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input[_builtins.str] key: Metadata Key
         :param pulumi.Input[_builtins.str] machine_id: Machine ID
+        :param pulumi.Input['MachinesMetadataKeyQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         """
         if app_name is not None:
             pulumi.set(__self__, "app_name", app_name)
@@ -37,6 +41,8 @@ class MachinesMetadataKeyArgs:
             pulumi.set(__self__, "key", key)
         if machine_id is not None:
             pulumi.set(__self__, "machine_id", machine_id)
+        if query_params is not None:
+            pulumi.set(__self__, "query_params", query_params)
         if updated_at is not None:
             pulumi.set(__self__, "updated_at", updated_at)
         if value is not None:
@@ -79,6 +85,18 @@ class MachinesMetadataKeyArgs:
         pulumi.set(self, "machine_id", value)
 
     @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Input[Optional['MachinesMetadataKeyQueryParamsArgs']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
+
+    @query_params.setter
+    def query_params(self, value: pulumi.Input[Optional['MachinesMetadataKeyQueryParamsArgs']]):
+        pulumi.set(self, "query_params", value)
+
+    @_builtins.property
     @pulumi.getter(name="updatedAt")
     def updated_at(self) -> pulumi.Input[Optional[_builtins.str]]:
         return pulumi.get(self, "updated_at")
@@ -106,6 +124,7 @@ class MachinesMetadataKey(pulumi.CustomResource):
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  key: pulumi.Input[Optional[_builtins.str]] = None,
                  machine_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['MachinesMetadataKeyQueryParamsArgs', 'MachinesMetadataKeyQueryParamsArgsDict', 'outputs.MachinesMetadataKeyQueryParams']]] = None,
                  updated_at: pulumi.Input[Optional[_builtins.str]] = None,
                  value: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
@@ -117,6 +136,7 @@ class MachinesMetadataKey(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input[_builtins.str] key: Metadata Key
         :param pulumi.Input[_builtins.str] machine_id: Machine ID
+        :param pulumi.Input[Union['MachinesMetadataKeyQueryParamsArgs', 'MachinesMetadataKeyQueryParamsArgsDict', 'outputs.MachinesMetadataKeyQueryParams']] query_params: Query params to send with the API requests for this resource.
         """
         ...
     @overload
@@ -145,6 +165,7 @@ class MachinesMetadataKey(pulumi.CustomResource):
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  key: pulumi.Input[Optional[_builtins.str]] = None,
                  machine_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['MachinesMetadataKeyQueryParamsArgs', 'MachinesMetadataKeyQueryParamsArgsDict', 'outputs.MachinesMetadataKeyQueryParams']]] = None,
                  updated_at: pulumi.Input[Optional[_builtins.str]] = None,
                  value: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
@@ -159,6 +180,7 @@ class MachinesMetadataKey(pulumi.CustomResource):
             __props__.__dict__["app_name"] = app_name
             __props__.__dict__["key"] = key
             __props__.__dict__["machine_id"] = machine_id
+            __props__.__dict__["query_params"] = query_params
             __props__.__dict__["updated_at"] = updated_at
             __props__.__dict__["value"] = value
         super(MachinesMetadataKey, __self__).__init__(
@@ -183,9 +205,18 @@ class MachinesMetadataKey(pulumi.CustomResource):
 
         __props__ = MachinesMetadataKeyArgs.__new__(MachinesMetadataKeyArgs)
 
+        __props__.__dict__["query_params"] = None
         __props__.__dict__["updated_at"] = None
         __props__.__dict__["value"] = None
         return MachinesMetadataKey(resource_name, opts=opts, __props__=__props__)
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Output[Optional['outputs.MachinesMetadataKeyQueryParams']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
 
     @_builtins.property
     @pulumi.getter(name="updatedAt")

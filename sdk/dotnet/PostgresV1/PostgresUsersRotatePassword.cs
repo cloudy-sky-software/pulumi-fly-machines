@@ -21,6 +21,12 @@ namespace Pulumi.FlyMachines.PostgresV1
         [Output("killSessions")]
         public Output<bool?> KillSessions { get; private set; } = null!;
 
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Output("queryParams")]
+        public Output<Outputs.PostgresUsersRotatePasswordQueryParams?> QueryParams { get; private set; } = null!;
+
 
         /// <summary>
         /// Create a PostgresUsersRotatePassword resource with the given unique name, arguments, and options.
@@ -78,6 +84,12 @@ namespace Pulumi.FlyMachines.PostgresV1
         /// </summary>
         [Input("postgresClusterId")]
         public Input<string>? PostgresClusterId { get; set; }
+
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Input("queryParams")]
+        public Input<Inputs.PostgresUsersRotatePasswordQueryParamsArgs>? QueryParams { get; set; }
 
         /// <summary>
         /// Postgres User Name

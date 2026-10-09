@@ -47,6 +47,10 @@ export class PostgresRestore extends pulumi.CustomResource {
      * Point in time to restore to, as an RFC3339 timestamp with an explicit offset from UTC (e.g. Z or +02:00). Normalized to UTC and must fall within the cluster's PITR recovery window. Mutually exclusive with backup_id.
      */
     declare public readonly pitrTime: pulumi.Output<string | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    declare public readonly queryParams: pulumi.Output<outputs.postgres.v1.PostgresRestoreQueryParams | undefined>;
 
     /**
      * Create a PostgresRestore resource with the given unique name, arguments, and options.
@@ -63,12 +67,14 @@ export class PostgresRestore extends pulumi.CustomResource {
             resourceInputs["name"] = args?.name;
             resourceInputs["pitrTime"] = args?.pitrTime;
             resourceInputs["postgresClusterId"] = args?.postgresClusterId;
+            resourceInputs["queryParams"] = args?.queryParams;
             resourceInputs["data"] = undefined /*out*/;
         } else {
             resourceInputs["backupId"] = undefined /*out*/;
             resourceInputs["data"] = undefined /*out*/;
             resourceInputs["name"] = undefined /*out*/;
             resourceInputs["pitrTime"] = undefined /*out*/;
+            resourceInputs["queryParams"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(PostgresRestore.__pulumiType, name, resourceInputs, opts);
@@ -95,4 +101,8 @@ export interface PostgresRestoreArgs {
      * Managed Postgres Cluster ID
      */
     postgresClusterId?: pulumi.Input<string | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    queryParams?: pulumi.Input<inputs.postgres.v1.PostgresRestoreQueryParamsArgs | undefined>;
 }

@@ -14,7 +14,9 @@ import (
 type MachinesSignal struct {
 	pulumi.CustomResourceState
 
-	Signal MachinesSignalSignalPtrOutput `pulumi:"signal"`
+	// Query params to send with the API requests for this resource.
+	QueryParams MachinesSignalQueryParamsPtrOutput `pulumi:"queryParams"`
+	Signal      MachinesSignalSignalPtrOutput      `pulumi:"signal"`
 }
 
 // NewMachinesSignal registers a new resource with the given unique name, arguments, and options.
@@ -60,8 +62,10 @@ type machinesSignalArgs struct {
 	// Fly App Name
 	AppName *string `pulumi:"appName"`
 	// Machine ID
-	MachineId *string               `pulumi:"machineId"`
-	Signal    *MachinesSignalSignal `pulumi:"signal"`
+	MachineId *string `pulumi:"machineId"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *MachinesSignalQueryParams `pulumi:"queryParams"`
+	Signal      *MachinesSignalSignal      `pulumi:"signal"`
 }
 
 // The set of arguments for constructing a MachinesSignal resource.
@@ -70,7 +74,9 @@ type MachinesSignalArgs struct {
 	AppName pulumi.StringPtrInput
 	// Machine ID
 	MachineId pulumi.StringPtrInput
-	Signal    MachinesSignalSignalPtrInput
+	// Query params to send with the API requests for this resource.
+	QueryParams MachinesSignalQueryParamsPtrInput
+	Signal      MachinesSignalSignalPtrInput
 }
 
 func (MachinesSignalArgs) ElementType() reflect.Type {
@@ -108,6 +114,11 @@ func (o MachinesSignalOutput) ToMachinesSignalOutput() MachinesSignalOutput {
 
 func (o MachinesSignalOutput) ToMachinesSignalOutputWithContext(ctx context.Context) MachinesSignalOutput {
 	return o
+}
+
+// Query params to send with the API requests for this resource.
+func (o MachinesSignalOutput) QueryParams() MachinesSignalQueryParamsPtrOutput {
+	return o.ApplyT(func(v *MachinesSignal) MachinesSignalQueryParamsPtrOutput { return v.QueryParams }).(MachinesSignalQueryParamsPtrOutput)
 }
 
 func (o MachinesSignalOutput) Signal() MachinesSignalSignalPtrOutput {

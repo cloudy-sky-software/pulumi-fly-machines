@@ -18,6 +18,8 @@ type PostgresAttachment struct {
 	// Name of the Fly app to attach.
 	AppName pulumi.StringOutput             `pulumi:"appName"`
 	Data    PostgresAttachmentTypePtrOutput `pulumi:"data"`
+	// Query params to send with the API requests for this resource.
+	QueryParams PostgresAttachmentQueryParamsPtrOutput `pulumi:"queryParams"`
 }
 
 // NewPostgresAttachment registers a new resource with the given unique name, arguments, and options.
@@ -67,6 +69,8 @@ type postgresAttachmentArgs struct {
 	AppName string `pulumi:"appName"`
 	// Managed Postgres Cluster ID
 	PostgresClusterId *string `pulumi:"postgresClusterId"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *PostgresAttachmentQueryParams `pulumi:"queryParams"`
 }
 
 // The set of arguments for constructing a PostgresAttachment resource.
@@ -75,6 +79,8 @@ type PostgresAttachmentArgs struct {
 	AppName pulumi.StringInput
 	// Managed Postgres Cluster ID
 	PostgresClusterId pulumi.StringPtrInput
+	// Query params to send with the API requests for this resource.
+	QueryParams PostgresAttachmentQueryParamsPtrInput
 }
 
 func (PostgresAttachmentArgs) ElementType() reflect.Type {
@@ -121,6 +127,11 @@ func (o PostgresAttachmentOutput) AppName() pulumi.StringOutput {
 
 func (o PostgresAttachmentOutput) Data() PostgresAttachmentTypePtrOutput {
 	return o.ApplyT(func(v *PostgresAttachment) PostgresAttachmentTypePtrOutput { return v.Data }).(PostgresAttachmentTypePtrOutput)
+}
+
+// Query params to send with the API requests for this resource.
+func (o PostgresAttachmentOutput) QueryParams() PostgresAttachmentQueryParamsPtrOutput {
+	return o.ApplyT(func(v *PostgresAttachment) PostgresAttachmentQueryParamsPtrOutput { return v.QueryParams }).(PostgresAttachmentQueryParamsPtrOutput)
 }
 
 func init() {

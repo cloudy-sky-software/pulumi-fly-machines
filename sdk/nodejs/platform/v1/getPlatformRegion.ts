@@ -11,19 +11,32 @@ export function getPlatformRegion(args?: GetPlatformRegionArgs, opts?: pulumi.In
     args = args || {};
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("fly-machines:platform/v1:getPlatformRegion", {
+        "queryParams": args.queryParams,
     }, opts);
 }
 
 export interface GetPlatformRegionArgs {
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: inputs.platform.v1.GetPlatformRegionQueryParams;
 }
 
 export interface GetPlatformRegionResult {
     readonly nearest?: string;
     readonly regions?: outputs.platform.v1.MainRegionRow[];
 }
-export function getPlatformRegionOutput(opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetPlatformRegionResult> {
+export function getPlatformRegionOutput(args?: GetPlatformRegionOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetPlatformRegionResult> {
+    args = args || {};
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("fly-machines:platform/v1:getPlatformRegion", {
+        "queryParams": args.queryParams,
     }, opts);
 }
 
+export interface GetPlatformRegionOutputArgs {
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: pulumi.Input<inputs.platform.v1.GetPlatformRegionQueryParamsArgs | undefined>;
+}

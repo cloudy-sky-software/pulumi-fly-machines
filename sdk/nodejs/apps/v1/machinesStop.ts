@@ -34,6 +34,10 @@ export class MachinesStop extends pulumi.CustomResource {
         return obj['__pulumiType'] === MachinesStop.__pulumiType;
     }
 
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    declare public readonly queryParams: pulumi.Output<outputs.apps.v1.MachinesStopQueryParams | undefined>;
     declare public readonly signal: pulumi.Output<enums.apps.v1.Signal | undefined>;
     declare public readonly timeout: pulumi.Output<string | undefined>;
 
@@ -50,9 +54,11 @@ export class MachinesStop extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["appName"] = args?.appName;
             resourceInputs["machineId"] = args?.machineId;
+            resourceInputs["queryParams"] = args?.queryParams;
             resourceInputs["signal"] = args?.signal;
             resourceInputs["timeout"] = args?.timeout;
         } else {
+            resourceInputs["queryParams"] = undefined /*out*/;
             resourceInputs["signal"] = undefined /*out*/;
             resourceInputs["timeout"] = undefined /*out*/;
         }
@@ -73,6 +79,10 @@ export interface MachinesStopArgs {
      * Machine ID
      */
     machineId?: pulumi.Input<string | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.MachinesStopQueryParamsArgs | undefined>;
     signal?: pulumi.Input<enums.apps.v1.Signal | undefined>;
     timeout?: pulumi.Input<string | undefined>;
 }

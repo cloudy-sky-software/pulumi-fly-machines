@@ -13,6 +13,13 @@ namespace Pulumi.FlyMachines.AppsV1
     public partial class VolumeSnapshot : global::Pulumi.CustomResource
     {
         /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Output("queryParams")]
+        public Output<Outputs.VolumeSnapshotQueryParams?> QueryParams { get; private set; } = null!;
+
+
+        /// <summary>
         /// Create a VolumeSnapshot resource with the given unique name, arguments, and options.
         /// </summary>
         ///
@@ -62,6 +69,12 @@ namespace Pulumi.FlyMachines.AppsV1
         /// </summary>
         [Input("appName")]
         public Input<string>? AppName { get; set; }
+
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Input("queryParams")]
+        public Input<Inputs.VolumeSnapshotQueryParamsArgs>? QueryParams { get; set; }
 
         /// <summary>
         /// Volume ID

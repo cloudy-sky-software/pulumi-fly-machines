@@ -13,6 +13,7 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
+from ._inputs import *
 
 __all__ = [
     'GetMachinesLeaseResult',
@@ -96,16 +97,19 @@ class AwaitableGetMachinesLeaseResult(GetMachinesLeaseResult):
 
 def get_machines_lease(app_name: Optional[_builtins.str] = None,
                        machine_id: Optional[_builtins.str] = None,
+                       query_params: Optional[Union['GetMachinesLeaseQueryParams', 'GetMachinesLeaseQueryParamsDict']] = None,
                        opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetMachinesLeaseResult:
     """
     Use this data source to access information about an existing resource.
 
     :param _builtins.str app_name: Fly App Name
     :param _builtins.str machine_id: Machine ID
+    :param Union['GetMachinesLeaseQueryParams', 'GetMachinesLeaseQueryParamsDict'] query_params: Query params to send with the API request.
     """
     __args__ = dict()
     __args__['appName'] = app_name
     __args__['machineId'] = machine_id
+    __args__['queryParams'] = query_params
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke('fly-machines:apps/v1:getMachinesLease', __args__, opts=opts, typ=GetMachinesLeaseResult).value
 
@@ -117,16 +121,19 @@ def get_machines_lease(app_name: Optional[_builtins.str] = None,
         version=pulumi.get(__ret__, 'version'))
 def get_machines_lease_output(app_name: pulumi.Input[Optional[_builtins.str]] = None,
                               machine_id: pulumi.Input[Optional[_builtins.str]] = None,
+                              query_params: pulumi.Input[Optional[Optional[Union['GetMachinesLeaseQueryParams', 'GetMachinesLeaseQueryParamsDict']]]] = None,
                               opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetMachinesLeaseResult]:
     """
     Use this data source to access information about an existing resource.
 
     :param _builtins.str app_name: Fly App Name
     :param _builtins.str machine_id: Machine ID
+    :param Union['GetMachinesLeaseQueryParams', 'GetMachinesLeaseQueryParamsDict'] query_params: Query params to send with the API request.
     """
     __args__ = dict()
     __args__['appName'] = app_name
     __args__['machineId'] = machine_id
+    __args__['queryParams'] = query_params
     opts = pulumi.InvokeOutputOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke_output('fly-machines:apps/v1:getMachinesLease', __args__, opts=opts, typ=GetMachinesLeaseResult)
     return __ret__.apply(lambda __response__: GetMachinesLeaseResult(

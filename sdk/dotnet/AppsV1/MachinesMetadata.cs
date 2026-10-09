@@ -18,6 +18,12 @@ namespace Pulumi.FlyMachines.AppsV1
         [Output("metadata")]
         public Output<object?> Metadata { get; private set; } = null!;
 
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Output("queryParams")]
+        public Output<Outputs.MachinesMetadataQueryParams?> QueryParams { get; private set; } = null!;
+
         [Output("updatedAt")]
         public Output<string?> UpdatedAt { get; private set; } = null!;
 
@@ -84,6 +90,12 @@ namespace Pulumi.FlyMachines.AppsV1
 
         [Input("metadata")]
         public Input<object>? Metadata { get; set; }
+
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Input("queryParams")]
+        public Input<Inputs.MachinesMetadataQueryParamsArgs>? QueryParams { get; set; }
 
         [Input("updatedAt")]
         public Input<string>? UpdatedAt { get; set; }

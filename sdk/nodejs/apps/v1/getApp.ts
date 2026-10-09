@@ -11,6 +11,7 @@ export function getApp(args: GetAppArgs, opts?: pulumi.InvokeOptions): Promise<G
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("fly-machines:apps/v1:getApp", {
         "name": args.name,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -19,6 +20,10 @@ export interface GetAppArgs {
      * Fly App Name
      */
     name: string;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: inputs.apps.v1.GetAppQueryParams;
 }
 
 export interface GetAppResult {
@@ -36,6 +41,7 @@ export function getAppOutput(args: GetAppOutputArgs, opts?: pulumi.InvokeOutputO
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("fly-machines:apps/v1:getApp", {
         "name": args.name,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -44,4 +50,8 @@ export interface GetAppOutputArgs {
      * Fly App Name
      */
     name: pulumi.Input<string>;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.GetAppQueryParamsArgs | undefined>;
 }

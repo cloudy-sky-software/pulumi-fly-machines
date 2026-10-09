@@ -60,6 +60,14 @@ const machine = new fly.apps.v1.Machine(
         },
       ],
     },
+    queryParams: {
+      delete: {
+        // Passes the `force` query param for the delete
+        // operation which will force the machine to be
+        // deleted even if it is running.
+        force: true,
+      },
+    },
   },
   {
     dependsOn: ip,

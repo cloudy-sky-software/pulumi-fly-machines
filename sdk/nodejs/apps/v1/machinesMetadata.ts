@@ -2,6 +2,9 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
+import * as enums from "../../types/enums";
 import * as utilities from "../../utilities";
 
 export class MachinesMetadata extends pulumi.CustomResource {
@@ -33,6 +36,10 @@ export class MachinesMetadata extends pulumi.CustomResource {
 
     declare public readonly machineVersion: pulumi.Output<string | undefined>;
     declare public readonly metadata: pulumi.Output<any | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    declare public readonly queryParams: pulumi.Output<outputs.apps.v1.MachinesMetadataQueryParams | undefined>;
     declare public readonly updatedAt: pulumi.Output<string | undefined>;
 
     /**
@@ -50,10 +57,12 @@ export class MachinesMetadata extends pulumi.CustomResource {
             resourceInputs["machineId"] = args?.machineId;
             resourceInputs["machineVersion"] = args?.machineVersion;
             resourceInputs["metadata"] = args?.metadata;
+            resourceInputs["queryParams"] = args?.queryParams;
             resourceInputs["updatedAt"] = args?.updatedAt;
         } else {
             resourceInputs["machineVersion"] = undefined /*out*/;
             resourceInputs["metadata"] = undefined /*out*/;
+            resourceInputs["queryParams"] = undefined /*out*/;
             resourceInputs["updatedAt"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
@@ -75,5 +84,9 @@ export interface MachinesMetadataArgs {
     machineId?: pulumi.Input<string | undefined>;
     machineVersion?: pulumi.Input<string | undefined>;
     metadata?: any | undefined;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.MachinesMetadataQueryParamsArgs | undefined>;
     updatedAt?: pulumi.Input<string | undefined>;
 }

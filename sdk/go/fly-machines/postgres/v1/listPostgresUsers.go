@@ -24,6 +24,8 @@ func ListPostgresUsers(ctx *pulumi.Context, args *ListPostgresUsersArgs, opts ..
 type ListPostgresUsersArgs struct {
 	// Managed Postgres Cluster ID
 	PostgresClusterId string `pulumi:"postgresClusterId"`
+	// Query params to send with the API request.
+	QueryParams *ListPostgresUsersQueryParams `pulumi:"queryParams"`
 }
 
 type ListPostgresUsersResult struct {
@@ -38,6 +40,8 @@ func ListPostgresUsersOutput(ctx *pulumi.Context, args ListPostgresUsersOutputAr
 type ListPostgresUsersOutputArgs struct {
 	// Managed Postgres Cluster ID
 	PostgresClusterId pulumi.StringInput `pulumi:"postgresClusterId"`
+	// Query params to send with the API request.
+	QueryParams ListPostgresUsersQueryParamsPtrInput `pulumi:"queryParams"`
 }
 
 func (ListPostgresUsersOutputArgs) ElementType() reflect.Type {

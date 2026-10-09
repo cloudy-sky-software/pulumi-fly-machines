@@ -12,6 +12,7 @@ export function listPostgresExtensions(args: ListPostgresExtensionsArgs, opts?: 
     return pulumi.runtime.invoke("fly-machines:postgres/v1:listPostgresExtensions", {
         "databaseName": args.databaseName,
         "postgresClusterId": args.postgresClusterId,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -24,6 +25,10 @@ export interface ListPostgresExtensionsArgs {
      * Managed Postgres Cluster ID
      */
     postgresClusterId: string;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: inputs.postgres.v1.ListPostgresExtensionsQueryParams;
 }
 
 export interface ListPostgresExtensionsResult {
@@ -34,6 +39,7 @@ export function listPostgresExtensionsOutput(args: ListPostgresExtensionsOutputA
     return pulumi.runtime.invokeOutput("fly-machines:postgres/v1:listPostgresExtensions", {
         "databaseName": args.databaseName,
         "postgresClusterId": args.postgresClusterId,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -46,4 +52,8 @@ export interface ListPostgresExtensionsOutputArgs {
      * Managed Postgres Cluster ID
      */
     postgresClusterId: pulumi.Input<string>;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: pulumi.Input<inputs.postgres.v1.ListPostgresExtensionsQueryParamsArgs | undefined>;
 }

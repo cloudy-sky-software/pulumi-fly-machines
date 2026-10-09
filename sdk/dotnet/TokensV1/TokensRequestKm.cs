@@ -13,6 +13,13 @@ namespace Pulumi.FlyMachines.TokensV1
     public partial class TokensRequestKm : global::Pulumi.CustomResource
     {
         /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Output("queryParams")]
+        public Output<Outputs.TokensRequestKmQueryParams?> QueryParams { get; private set; } = null!;
+
+
+        /// <summary>
         /// Create a TokensRequestKm resource with the given unique name, arguments, and options.
         /// </summary>
         ///
@@ -57,6 +64,12 @@ namespace Pulumi.FlyMachines.TokensV1
 
     public sealed class TokensRequestKmArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Input("queryParams")]
+        public Input<Inputs.TokensRequestKmQueryParamsArgs>? QueryParams { get; set; }
+
         public TokensRequestKmArgs()
         {
         }

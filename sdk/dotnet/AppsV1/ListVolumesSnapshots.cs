@@ -31,6 +31,12 @@ namespace Pulumi.FlyMachines.AppsV1
         public string AppName { get; set; } = null!;
 
         /// <summary>
+        /// Query params to send with the API request.
+        /// </summary>
+        [Input("queryParams")]
+        public Inputs.ListVolumesSnapshotsQueryParams? QueryParams { get; set; }
+
+        /// <summary>
         /// Volume ID
         /// </summary>
         [Input("volumeId", required: true)]
@@ -49,6 +55,12 @@ namespace Pulumi.FlyMachines.AppsV1
         /// </summary>
         [Input("appName", required: true)]
         public Input<string> AppName { get; set; } = null!;
+
+        /// <summary>
+        /// Query params to send with the API request.
+        /// </summary>
+        [Input("queryParams")]
+        public Input<Inputs.ListVolumesSnapshotsQueryParamsArgs>? QueryParams { get; set; }
 
         /// <summary>
         /// Volume ID

@@ -2,6 +2,9 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
+import * as enums from "../../types/enums";
 import * as utilities from "../../utilities";
 
 export function getMachinesLease(args: GetMachinesLeaseArgs, opts?: pulumi.InvokeOptions): Promise<GetMachinesLeaseResult> {
@@ -9,6 +12,7 @@ export function getMachinesLease(args: GetMachinesLeaseArgs, opts?: pulumi.Invok
     return pulumi.runtime.invoke("fly-machines:apps/v1:getMachinesLease", {
         "appName": args.appName,
         "machineId": args.machineId,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -21,6 +25,10 @@ export interface GetMachinesLeaseArgs {
      * Machine ID
      */
     machineId: string;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: inputs.apps.v1.GetMachinesLeaseQueryParams;
 }
 
 export interface GetMachinesLeaseResult {
@@ -50,6 +58,7 @@ export function getMachinesLeaseOutput(args: GetMachinesLeaseOutputArgs, opts?: 
     return pulumi.runtime.invokeOutput("fly-machines:apps/v1:getMachinesLease", {
         "appName": args.appName,
         "machineId": args.machineId,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -62,4 +71,8 @@ export interface GetMachinesLeaseOutputArgs {
      * Machine ID
      */
     machineId: pulumi.Input<string>;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.GetMachinesLeaseQueryParamsArgs | undefined>;
 }

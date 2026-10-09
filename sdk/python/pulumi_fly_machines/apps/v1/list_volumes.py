@@ -15,6 +15,7 @@ else:
 from ... import _utilities
 from . import outputs
 from ._enums import *
+from ._inputs import *
 
 __all__ = [
     'ListVolumesResult',
@@ -46,28 +47,34 @@ class AwaitableListVolumesResult(ListVolumesResult):
 
 
 def list_volumes(app_name: Optional[_builtins.str] = None,
+                 query_params: Optional[Union['ListVolumesQueryParams', 'ListVolumesQueryParamsDict']] = None,
                  opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableListVolumesResult:
     """
     Use this data source to access information about an existing resource.
 
     :param _builtins.str app_name: Fly App Name
+    :param Union['ListVolumesQueryParams', 'ListVolumesQueryParamsDict'] query_params: Query params to send with the API request.
     """
     __args__ = dict()
     __args__['appName'] = app_name
+    __args__['queryParams'] = query_params
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke('fly-machines:apps/v1:listVolumes', __args__, opts=opts, typ=ListVolumesResult).value
 
     return AwaitableListVolumesResult(
         items=pulumi.get(__ret__, 'items'))
 def list_volumes_output(app_name: pulumi.Input[Optional[_builtins.str]] = None,
+                        query_params: pulumi.Input[Optional[Optional[Union['ListVolumesQueryParams', 'ListVolumesQueryParamsDict']]]] = None,
                         opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[ListVolumesResult]:
     """
     Use this data source to access information about an existing resource.
 
     :param _builtins.str app_name: Fly App Name
+    :param Union['ListVolumesQueryParams', 'ListVolumesQueryParamsDict'] query_params: Query params to send with the API request.
     """
     __args__ = dict()
     __args__['appName'] = app_name
+    __args__['queryParams'] = query_params
     opts = pulumi.InvokeOutputOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke_output('fly-machines:apps/v1:listVolumes', __args__, opts=opts, typ=ListVolumesResult)
     return __ret__.apply(lambda __response__: ListVolumesResult(

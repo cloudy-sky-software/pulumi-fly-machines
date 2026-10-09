@@ -14,20 +14,40 @@ namespace Pulumi.FlyMachines.PlatformV1
         public static Task<GetPlatformRegionResult> InvokeAsync(GetPlatformRegionArgs? args = null, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetPlatformRegionResult>("fly-machines:platform/v1:getPlatformRegion", args ?? new GetPlatformRegionArgs(), options.WithDefaults());
 
-        public static Output<GetPlatformRegionResult> Invoke(InvokeOptions? options = null)
-            => global::Pulumi.Deployment.Instance.Invoke<GetPlatformRegionResult>("fly-machines:platform/v1:getPlatformRegion", InvokeArgs.Empty, options.WithDefaults());
+        public static Output<GetPlatformRegionResult> Invoke(GetPlatformRegionInvokeArgs? args = null, InvokeOptions? options = null)
+            => global::Pulumi.Deployment.Instance.Invoke<GetPlatformRegionResult>("fly-machines:platform/v1:getPlatformRegion", args ?? new GetPlatformRegionInvokeArgs(), options.WithDefaults());
 
-        public static Output<GetPlatformRegionResult> Invoke(InvokeOutputOptions options)
-            => global::Pulumi.Deployment.Instance.Invoke<GetPlatformRegionResult>("fly-machines:platform/v1:getPlatformRegion", InvokeArgs.Empty, options.WithDefaults());
+        public static Output<GetPlatformRegionResult> Invoke(GetPlatformRegionInvokeArgs args, InvokeOutputOptions options)
+            => global::Pulumi.Deployment.Instance.Invoke<GetPlatformRegionResult>("fly-machines:platform/v1:getPlatformRegion", args ?? new GetPlatformRegionInvokeArgs(), options.WithDefaults());
     }
 
 
     public sealed class GetPlatformRegionArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// Query params to send with the API request.
+        /// </summary>
+        [Input("queryParams")]
+        public Inputs.GetPlatformRegionQueryParams? QueryParams { get; set; }
+
         public GetPlatformRegionArgs()
         {
         }
         public static new GetPlatformRegionArgs Empty => new GetPlatformRegionArgs();
+    }
+
+    public sealed class GetPlatformRegionInvokeArgs : global::Pulumi.InvokeArgs
+    {
+        /// <summary>
+        /// Query params to send with the API request.
+        /// </summary>
+        [Input("queryParams")]
+        public Input<Inputs.GetPlatformRegionQueryParamsArgs>? QueryParams { get; set; }
+
+        public GetPlatformRegionInvokeArgs()
+        {
+        }
+        public static new GetPlatformRegionInvokeArgs Empty => new GetPlatformRegionInvokeArgs();
     }
 
 

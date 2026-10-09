@@ -17,10 +17,12 @@ type SecretkeyGenerate struct {
 	CreatedAt pulumi.StringPtrOutput `pulumi:"createdAt"`
 	Name      pulumi.StringPtrOutput `pulumi:"name"`
 	PublicKey pulumi.IntArrayOutput  `pulumi:"publicKey"`
-	Type      pulumi.StringPtrOutput `pulumi:"type"`
-	UpdatedAt pulumi.StringPtrOutput `pulumi:"updatedAt"`
-	Value     pulumi.IntArrayOutput  `pulumi:"value"`
-	Version   pulumi.IntPtrOutput    `pulumi:"version"`
+	// Query params to send with the API requests for this resource.
+	QueryParams SecretkeyGenerateQueryParamsPtrOutput `pulumi:"queryParams"`
+	Type        pulumi.StringPtrOutput                `pulumi:"type"`
+	UpdatedAt   pulumi.StringPtrOutput                `pulumi:"updatedAt"`
+	Value       pulumi.IntArrayOutput                 `pulumi:"value"`
+	Version     pulumi.IntPtrOutput                   `pulumi:"version"`
 }
 
 // NewSecretkeyGenerate registers a new resource with the given unique name, arguments, and options.
@@ -65,6 +67,8 @@ func (SecretkeyGenerateState) ElementType() reflect.Type {
 type secretkeyGenerateArgs struct {
 	// Fly App Name
 	AppName *string `pulumi:"appName"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *SecretkeyGenerateQueryParams `pulumi:"queryParams"`
 	// Secret key name
 	SecretName *string `pulumi:"secretName"`
 	Type       *string `pulumi:"type"`
@@ -75,6 +79,8 @@ type secretkeyGenerateArgs struct {
 type SecretkeyGenerateArgs struct {
 	// Fly App Name
 	AppName pulumi.StringPtrInput
+	// Query params to send with the API requests for this resource.
+	QueryParams SecretkeyGenerateQueryParamsPtrInput
 	// Secret key name
 	SecretName pulumi.StringPtrInput
 	Type       pulumi.StringPtrInput
@@ -128,6 +134,11 @@ func (o SecretkeyGenerateOutput) Name() pulumi.StringPtrOutput {
 
 func (o SecretkeyGenerateOutput) PublicKey() pulumi.IntArrayOutput {
 	return o.ApplyT(func(v *SecretkeyGenerate) pulumi.IntArrayOutput { return v.PublicKey }).(pulumi.IntArrayOutput)
+}
+
+// Query params to send with the API requests for this resource.
+func (o SecretkeyGenerateOutput) QueryParams() SecretkeyGenerateQueryParamsPtrOutput {
+	return o.ApplyT(func(v *SecretkeyGenerate) SecretkeyGenerateQueryParamsPtrOutput { return v.QueryParams }).(SecretkeyGenerateQueryParamsPtrOutput)
 }
 
 func (o SecretkeyGenerateOutput) Type() pulumi.StringPtrOutput {

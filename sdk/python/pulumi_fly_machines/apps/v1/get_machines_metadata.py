@@ -13,6 +13,7 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
+from ._inputs import *
 
 __all__ = [
     'get_machines_metadata',
@@ -21,32 +22,38 @@ __all__ = [
 
 def get_machines_metadata(app_name: Optional[_builtins.str] = None,
                           machine_id: Optional[_builtins.str] = None,
+                          query_params: Optional[Union['GetMachinesMetadataQueryParams', 'GetMachinesMetadataQueryParamsDict']] = None,
                           opts: Optional[pulumi.InvokeOptions] = None) -> dict:
     """
     Use this data source to access information about an existing resource.
 
     :param _builtins.str app_name: Fly App Name
     :param _builtins.str machine_id: Machine ID
+    :param Union['GetMachinesMetadataQueryParams', 'GetMachinesMetadataQueryParamsDict'] query_params: Query params to send with the API request.
     """
     __args__ = dict()
     __args__['appName'] = app_name
     __args__['machineId'] = machine_id
+    __args__['queryParams'] = query_params
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke_single('fly-machines:apps/v1:getMachinesMetadata', __args__, opts=opts).value
 
     return __ret__
 def get_machines_metadata_output(app_name: pulumi.Input[Optional[_builtins.str]] = None,
                                  machine_id: pulumi.Input[Optional[_builtins.str]] = None,
+                                 query_params: pulumi.Input[Optional[Optional[Union['GetMachinesMetadataQueryParams', 'GetMachinesMetadataQueryParamsDict']]]] = None,
                                  opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[dict]:
     """
     Use this data source to access information about an existing resource.
 
     :param _builtins.str app_name: Fly App Name
     :param _builtins.str machine_id: Machine ID
+    :param Union['GetMachinesMetadataQueryParams', 'GetMachinesMetadataQueryParamsDict'] query_params: Query params to send with the API request.
     """
     __args__ = dict()
     __args__['appName'] = app_name
     __args__['machineId'] = machine_id
+    __args__['queryParams'] = query_params
     opts = pulumi.InvokeOutputOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke_output_single('fly-machines:apps/v1:getMachinesMetadata', __args__, opts=opts)
     return __ret__

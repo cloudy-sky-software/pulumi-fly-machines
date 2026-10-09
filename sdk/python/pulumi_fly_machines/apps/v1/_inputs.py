@@ -16,6 +16,40 @@ from ... import _utilities
 from ._enums import *
 
 __all__ = [
+    'AppCertificatesAcmeCreateQueryParamsArgs',
+    'AppCertificatesAcmeCreateQueryParamsArgsDict',
+    'AppCertificatesAcmeDeleteQueryParamsArgs',
+    'AppCertificatesAcmeDeleteQueryParamsArgsDict',
+    'AppCertificatesAcmeQueryParamsArgs',
+    'AppCertificatesAcmeQueryParamsArgsDict',
+    'AppCertificatesCheckCreateQueryParamsArgs',
+    'AppCertificatesCheckCreateQueryParamsArgsDict',
+    'AppCertificatesCheckQueryParamsArgs',
+    'AppCertificatesCheckQueryParamsArgsDict',
+    'AppCertificatesCustomCreateQueryParamsArgs',
+    'AppCertificatesCustomCreateQueryParamsArgsDict',
+    'AppCertificatesCustomDeleteQueryParamsArgs',
+    'AppCertificatesCustomDeleteQueryParamsArgsDict',
+    'AppCertificatesCustomQueryParamsArgs',
+    'AppCertificatesCustomQueryParamsArgsDict',
+    'AppCreateQueryParamsArgs',
+    'AppCreateQueryParamsArgsDict',
+    'AppDeleteQueryParamsArgs',
+    'AppDeleteQueryParamsArgsDict',
+    'AppDeployTokenCreateQueryParamsArgs',
+    'AppDeployTokenCreateQueryParamsArgsDict',
+    'AppDeployTokenQueryParamsArgs',
+    'AppDeployTokenQueryParamsArgsDict',
+    'AppIPAssignmentCreateQueryParamsArgs',
+    'AppIPAssignmentCreateQueryParamsArgsDict',
+    'AppIPAssignmentDeleteQueryParamsArgs',
+    'AppIPAssignmentDeleteQueryParamsArgsDict',
+    'AppIPAssignmentQueryParamsArgs',
+    'AppIPAssignmentQueryParamsArgsDict',
+    'AppQueryParamsArgs',
+    'AppQueryParamsArgsDict',
+    'AppReadQueryParamsArgs',
+    'AppReadQueryParamsArgsDict',
     'ConfigArgs',
     'ConfigArgsDict',
     'FlyContainerConfigArgs',
@@ -96,7 +130,863 @@ __all__ = [
     'FlyTCPHealthcheckArgsDict',
     'FlyTLSOptionsArgs',
     'FlyTLSOptionsArgsDict',
+    'GetAppCertificateQueryParams',
+    'GetAppCertificateQueryParamsDict',
+    'GetAppQueryParams',
+    'GetAppQueryParamsDict',
+    'GetMachineQueryParams',
+    'GetMachineQueryParamsDict',
+    'GetMachinesLeaseQueryParams',
+    'GetMachinesLeaseQueryParamsDict',
+    'GetMachinesMemoryQueryParams',
+    'GetMachinesMemoryQueryParamsDict',
+    'GetMachinesMetadataKeyQueryParams',
+    'GetMachinesMetadataKeyQueryParamsDict',
+    'GetMachinesMetadataQueryParams',
+    'GetMachinesMetadataQueryParamsDict',
+    'GetMachinesWaitQueryParams',
+    'GetMachinesWaitQueryParamsDict',
+    'GetSecretQueryParams',
+    'GetSecretQueryParamsDict',
+    'GetSecretkeyQueryParams',
+    'GetSecretkeyQueryParamsDict',
+    'GetVolumeQueryParams',
+    'GetVolumeQueryParamsDict',
+    'ListAppCertificatesQueryParams',
+    'ListAppCertificatesQueryParamsDict',
+    'ListAppIPAssignmentsQueryParams',
+    'ListAppIPAssignmentsQueryParamsDict',
+    'ListAppsQueryParams',
+    'ListAppsQueryParamsDict',
+    'ListMachinesEventsQueryParams',
+    'ListMachinesEventsQueryParamsDict',
+    'ListMachinesProcessesQueryParams',
+    'ListMachinesProcessesQueryParamsDict',
+    'ListMachinesQueryParams',
+    'ListMachinesQueryParamsDict',
+    'ListMachinesVersionsQueryParams',
+    'ListMachinesVersionsQueryParamsDict',
+    'ListSecretkeysQueryParams',
+    'ListSecretkeysQueryParamsDict',
+    'ListSecretsQueryParams',
+    'ListSecretsQueryParamsDict',
+    'ListVolumesQueryParams',
+    'ListVolumesQueryParamsDict',
+    'ListVolumesSnapshotsQueryParams',
+    'ListVolumesSnapshotsQueryParamsDict',
+    'MachineCreateQueryParamsArgs',
+    'MachineCreateQueryParamsArgsDict',
+    'MachineDeleteQueryParamsArgs',
+    'MachineDeleteQueryParamsArgsDict',
+    'MachinePutQueryParamsArgs',
+    'MachinePutQueryParamsArgsDict',
+    'MachineQueryParamsArgs',
+    'MachineQueryParamsArgsDict',
+    'MachineReadQueryParamsArgs',
+    'MachineReadQueryParamsArgsDict',
+    'MachinesCordonCreateQueryParamsArgs',
+    'MachinesCordonCreateQueryParamsArgsDict',
+    'MachinesCordonQueryParamsArgs',
+    'MachinesCordonQueryParamsArgsDict',
+    'MachinesExecCreateQueryParamsArgs',
+    'MachinesExecCreateQueryParamsArgsDict',
+    'MachinesExecQueryParamsArgs',
+    'MachinesExecQueryParamsArgsDict',
+    'MachinesLeaseCreateQueryParamsArgs',
+    'MachinesLeaseCreateQueryParamsArgsDict',
+    'MachinesLeaseQueryParamsArgs',
+    'MachinesLeaseQueryParamsArgsDict',
+    'MachinesLeaseReadQueryParamsArgs',
+    'MachinesLeaseReadQueryParamsArgsDict',
+    'MachinesMemoryLimitCreateQueryParamsArgs',
+    'MachinesMemoryLimitCreateQueryParamsArgsDict',
+    'MachinesMemoryLimitPutQueryParamsArgs',
+    'MachinesMemoryLimitPutQueryParamsArgsDict',
+    'MachinesMemoryLimitQueryParamsArgs',
+    'MachinesMemoryLimitQueryParamsArgsDict',
+    'MachinesMetadataCreateQueryParamsArgs',
+    'MachinesMetadataCreateQueryParamsArgsDict',
+    'MachinesMetadataKeyCreateQueryParamsArgs',
+    'MachinesMetadataKeyCreateQueryParamsArgsDict',
+    'MachinesMetadataKeyDeleteQueryParamsArgs',
+    'MachinesMetadataKeyDeleteQueryParamsArgsDict',
+    'MachinesMetadataKeyQueryParamsArgs',
+    'MachinesMetadataKeyQueryParamsArgsDict',
+    'MachinesMetadataKeyReadQueryParamsArgs',
+    'MachinesMetadataKeyReadQueryParamsArgsDict',
+    'MachinesMetadataQueryParamsArgs',
+    'MachinesMetadataQueryParamsArgsDict',
+    'MachinesMetadataReadQueryParamsArgs',
+    'MachinesMetadataReadQueryParamsArgsDict',
+    'MachinesMetadataUpdateQueryParamsArgs',
+    'MachinesMetadataUpdateQueryParamsArgsDict',
+    'MachinesReclaimMemoryCreateQueryParamsArgs',
+    'MachinesReclaimMemoryCreateQueryParamsArgsDict',
+    'MachinesReclaimMemoryQueryParamsArgs',
+    'MachinesReclaimMemoryQueryParamsArgsDict',
+    'MachinesRestartCreateQueryParamsArgs',
+    'MachinesRestartCreateQueryParamsArgsDict',
+    'MachinesRestartQueryParamsArgs',
+    'MachinesRestartQueryParamsArgsDict',
+    'MachinesSignalCreateQueryParamsArgs',
+    'MachinesSignalCreateQueryParamsArgsDict',
+    'MachinesSignalQueryParamsArgs',
+    'MachinesSignalQueryParamsArgsDict',
+    'MachinesStartCreateQueryParamsArgs',
+    'MachinesStartCreateQueryParamsArgsDict',
+    'MachinesStartQueryParamsArgs',
+    'MachinesStartQueryParamsArgsDict',
+    'MachinesStopCreateQueryParamsArgs',
+    'MachinesStopCreateQueryParamsArgsDict',
+    'MachinesStopQueryParamsArgs',
+    'MachinesStopQueryParamsArgsDict',
+    'MachinesSuspendCreateQueryParamsArgs',
+    'MachinesSuspendCreateQueryParamsArgsDict',
+    'MachinesSuspendQueryParamsArgs',
+    'MachinesSuspendQueryParamsArgsDict',
+    'MachinesUncordonCreateQueryParamsArgs',
+    'MachinesUncordonCreateQueryParamsArgsDict',
+    'MachinesUncordonQueryParamsArgs',
+    'MachinesUncordonQueryParamsArgsDict',
+    'SecretCreateQueryParamsArgs',
+    'SecretCreateQueryParamsArgsDict',
+    'SecretDeleteQueryParamsArgs',
+    'SecretDeleteQueryParamsArgsDict',
+    'SecretQueryParamsArgs',
+    'SecretQueryParamsArgsDict',
+    'SecretReadQueryParamsArgs',
+    'SecretReadQueryParamsArgsDict',
+    'SecretkeyCreateQueryParamsArgs',
+    'SecretkeyCreateQueryParamsArgsDict',
+    'SecretkeyDecryptCreateQueryParamsArgs',
+    'SecretkeyDecryptCreateQueryParamsArgsDict',
+    'SecretkeyDecryptQueryParamsArgs',
+    'SecretkeyDecryptQueryParamsArgsDict',
+    'SecretkeyDeleteQueryParamsArgs',
+    'SecretkeyDeleteQueryParamsArgsDict',
+    'SecretkeyEncryptCreateQueryParamsArgs',
+    'SecretkeyEncryptCreateQueryParamsArgsDict',
+    'SecretkeyEncryptQueryParamsArgs',
+    'SecretkeyEncryptQueryParamsArgsDict',
+    'SecretkeyGenerateCreateQueryParamsArgs',
+    'SecretkeyGenerateCreateQueryParamsArgsDict',
+    'SecretkeyGenerateQueryParamsArgs',
+    'SecretkeyGenerateQueryParamsArgsDict',
+    'SecretkeyQueryParamsArgs',
+    'SecretkeyQueryParamsArgsDict',
+    'SecretkeyReadQueryParamsArgs',
+    'SecretkeyReadQueryParamsArgsDict',
+    'SecretkeySignCreateQueryParamsArgs',
+    'SecretkeySignCreateQueryParamsArgsDict',
+    'SecretkeySignQueryParamsArgs',
+    'SecretkeySignQueryParamsArgsDict',
+    'SecretkeyVerifyCreateQueryParamsArgs',
+    'SecretkeyVerifyCreateQueryParamsArgsDict',
+    'SecretkeyVerifyQueryParamsArgs',
+    'SecretkeyVerifyQueryParamsArgsDict',
+    'SecretsUpdateCreateQueryParamsArgs',
+    'SecretsUpdateCreateQueryParamsArgsDict',
+    'SecretsUpdateQueryParamsArgs',
+    'SecretsUpdateQueryParamsArgsDict',
+    'VolumeCreateQueryParamsArgs',
+    'VolumeCreateQueryParamsArgsDict',
+    'VolumeDeleteQueryParamsArgs',
+    'VolumeDeleteQueryParamsArgsDict',
+    'VolumePutQueryParamsArgs',
+    'VolumePutQueryParamsArgsDict',
+    'VolumeQueryParamsArgs',
+    'VolumeQueryParamsArgsDict',
+    'VolumeReadQueryParamsArgs',
+    'VolumeReadQueryParamsArgsDict',
+    'VolumeSnapshotCreateQueryParamsArgs',
+    'VolumeSnapshotCreateQueryParamsArgsDict',
+    'VolumeSnapshotQueryParamsArgs',
+    'VolumeSnapshotQueryParamsArgsDict',
+    'VolumesExtendCreateQueryParamsArgs',
+    'VolumesExtendCreateQueryParamsArgsDict',
+    'VolumesExtendPutQueryParamsArgs',
+    'VolumesExtendPutQueryParamsArgsDict',
+    'VolumesExtendQueryParamsArgs',
+    'VolumesExtendQueryParamsArgsDict',
 ]
+
+class AppCertificatesAcmeCreateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class AppCertificatesAcmeCreateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class AppCertificatesAcmeDeleteQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class AppCertificatesAcmeDeleteQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class AppCertificatesAcmeQueryParamsArgsDict(TypedDict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    create: NotRequired[pulumi.Input[Optional['AppCertificatesAcmeCreateQueryParamsArgsDict']]]
+    """
+    Query params for the create operation.
+    """
+    delete: NotRequired[pulumi.Input[Optional['AppCertificatesAcmeDeleteQueryParamsArgsDict']]]
+    """
+    Query params for the delete operation.
+    """
+
+@pulumi.input_type
+class AppCertificatesAcmeQueryParamsArgs:
+    def __init__(__self__, *,
+                 create: pulumi.Input[Optional['AppCertificatesAcmeCreateQueryParamsArgs']] = None,
+                 delete: pulumi.Input[Optional['AppCertificatesAcmeDeleteQueryParamsArgs']] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param pulumi.Input['AppCertificatesAcmeCreateQueryParamsArgs'] create: Query params for the create operation.
+        :param pulumi.Input['AppCertificatesAcmeDeleteQueryParamsArgs'] delete: Query params for the delete operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+        if delete is not None:
+            pulumi.set(__self__, "delete", delete)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> pulumi.Input[Optional['AppCertificatesAcmeCreateQueryParamsArgs']]:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @create.setter
+    def create(self, value: pulumi.Input[Optional['AppCertificatesAcmeCreateQueryParamsArgs']]):
+        pulumi.set(self, "create", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def delete(self) -> pulumi.Input[Optional['AppCertificatesAcmeDeleteQueryParamsArgs']]:
+        """
+        Query params for the delete operation.
+        """
+        return pulumi.get(self, "delete")
+
+    @delete.setter
+    def delete(self, value: pulumi.Input[Optional['AppCertificatesAcmeDeleteQueryParamsArgs']]):
+        pulumi.set(self, "delete", value)
+
+
+class AppCertificatesCheckCreateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class AppCertificatesCheckCreateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class AppCertificatesCheckQueryParamsArgsDict(TypedDict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    create: NotRequired[pulumi.Input[Optional['AppCertificatesCheckCreateQueryParamsArgsDict']]]
+    """
+    Query params for the create operation.
+    """
+
+@pulumi.input_type
+class AppCertificatesCheckQueryParamsArgs:
+    def __init__(__self__, *,
+                 create: pulumi.Input[Optional['AppCertificatesCheckCreateQueryParamsArgs']] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param pulumi.Input['AppCertificatesCheckCreateQueryParamsArgs'] create: Query params for the create operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> pulumi.Input[Optional['AppCertificatesCheckCreateQueryParamsArgs']]:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @create.setter
+    def create(self, value: pulumi.Input[Optional['AppCertificatesCheckCreateQueryParamsArgs']]):
+        pulumi.set(self, "create", value)
+
+
+class AppCertificatesCustomCreateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class AppCertificatesCustomCreateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class AppCertificatesCustomDeleteQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class AppCertificatesCustomDeleteQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class AppCertificatesCustomQueryParamsArgsDict(TypedDict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    create: NotRequired[pulumi.Input[Optional['AppCertificatesCustomCreateQueryParamsArgsDict']]]
+    """
+    Query params for the create operation.
+    """
+    delete: NotRequired[pulumi.Input[Optional['AppCertificatesCustomDeleteQueryParamsArgsDict']]]
+    """
+    Query params for the delete operation.
+    """
+
+@pulumi.input_type
+class AppCertificatesCustomQueryParamsArgs:
+    def __init__(__self__, *,
+                 create: pulumi.Input[Optional['AppCertificatesCustomCreateQueryParamsArgs']] = None,
+                 delete: pulumi.Input[Optional['AppCertificatesCustomDeleteQueryParamsArgs']] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param pulumi.Input['AppCertificatesCustomCreateQueryParamsArgs'] create: Query params for the create operation.
+        :param pulumi.Input['AppCertificatesCustomDeleteQueryParamsArgs'] delete: Query params for the delete operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+        if delete is not None:
+            pulumi.set(__self__, "delete", delete)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> pulumi.Input[Optional['AppCertificatesCustomCreateQueryParamsArgs']]:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @create.setter
+    def create(self, value: pulumi.Input[Optional['AppCertificatesCustomCreateQueryParamsArgs']]):
+        pulumi.set(self, "create", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def delete(self) -> pulumi.Input[Optional['AppCertificatesCustomDeleteQueryParamsArgs']]:
+        """
+        Query params for the delete operation.
+        """
+        return pulumi.get(self, "delete")
+
+    @delete.setter
+    def delete(self, value: pulumi.Input[Optional['AppCertificatesCustomDeleteQueryParamsArgs']]):
+        pulumi.set(self, "delete", value)
+
+
+class AppCreateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class AppCreateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class AppDeleteQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class AppDeleteQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class AppDeployTokenCreateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class AppDeployTokenCreateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class AppDeployTokenQueryParamsArgsDict(TypedDict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    create: NotRequired[pulumi.Input[Optional['AppDeployTokenCreateQueryParamsArgsDict']]]
+    """
+    Query params for the create operation.
+    """
+
+@pulumi.input_type
+class AppDeployTokenQueryParamsArgs:
+    def __init__(__self__, *,
+                 create: pulumi.Input[Optional['AppDeployTokenCreateQueryParamsArgs']] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param pulumi.Input['AppDeployTokenCreateQueryParamsArgs'] create: Query params for the create operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> pulumi.Input[Optional['AppDeployTokenCreateQueryParamsArgs']]:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @create.setter
+    def create(self, value: pulumi.Input[Optional['AppDeployTokenCreateQueryParamsArgs']]):
+        pulumi.set(self, "create", value)
+
+
+class AppIPAssignmentCreateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class AppIPAssignmentCreateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class AppIPAssignmentDeleteQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class AppIPAssignmentDeleteQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class AppIPAssignmentQueryParamsArgsDict(TypedDict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    create: NotRequired[pulumi.Input[Optional['AppIPAssignmentCreateQueryParamsArgsDict']]]
+    """
+    Query params for the create operation.
+    """
+    delete: NotRequired[pulumi.Input[Optional['AppIPAssignmentDeleteQueryParamsArgsDict']]]
+    """
+    Query params for the delete operation.
+    """
+
+@pulumi.input_type
+class AppIPAssignmentQueryParamsArgs:
+    def __init__(__self__, *,
+                 create: pulumi.Input[Optional['AppIPAssignmentCreateQueryParamsArgs']] = None,
+                 delete: pulumi.Input[Optional['AppIPAssignmentDeleteQueryParamsArgs']] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param pulumi.Input['AppIPAssignmentCreateQueryParamsArgs'] create: Query params for the create operation.
+        :param pulumi.Input['AppIPAssignmentDeleteQueryParamsArgs'] delete: Query params for the delete operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+        if delete is not None:
+            pulumi.set(__self__, "delete", delete)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> pulumi.Input[Optional['AppIPAssignmentCreateQueryParamsArgs']]:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @create.setter
+    def create(self, value: pulumi.Input[Optional['AppIPAssignmentCreateQueryParamsArgs']]):
+        pulumi.set(self, "create", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def delete(self) -> pulumi.Input[Optional['AppIPAssignmentDeleteQueryParamsArgs']]:
+        """
+        Query params for the delete operation.
+        """
+        return pulumi.get(self, "delete")
+
+    @delete.setter
+    def delete(self, value: pulumi.Input[Optional['AppIPAssignmentDeleteQueryParamsArgs']]):
+        pulumi.set(self, "delete", value)
+
+
+class AppQueryParamsArgsDict(TypedDict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    create: NotRequired[pulumi.Input[Optional['AppCreateQueryParamsArgsDict']]]
+    """
+    Query params for the create operation.
+    """
+    delete: NotRequired[pulumi.Input[Optional['AppDeleteQueryParamsArgsDict']]]
+    """
+    Query params for the delete operation.
+    """
+    read: NotRequired[pulumi.Input[Optional['AppReadQueryParamsArgsDict']]]
+    """
+    Query params for the read operation.
+    """
+
+@pulumi.input_type
+class AppQueryParamsArgs:
+    def __init__(__self__, *,
+                 create: pulumi.Input[Optional['AppCreateQueryParamsArgs']] = None,
+                 delete: pulumi.Input[Optional['AppDeleteQueryParamsArgs']] = None,
+                 read: pulumi.Input[Optional['AppReadQueryParamsArgs']] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param pulumi.Input['AppCreateQueryParamsArgs'] create: Query params for the create operation.
+        :param pulumi.Input['AppDeleteQueryParamsArgs'] delete: Query params for the delete operation.
+        :param pulumi.Input['AppReadQueryParamsArgs'] read: Query params for the read operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+        if delete is not None:
+            pulumi.set(__self__, "delete", delete)
+        if read is not None:
+            pulumi.set(__self__, "read", read)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> pulumi.Input[Optional['AppCreateQueryParamsArgs']]:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @create.setter
+    def create(self, value: pulumi.Input[Optional['AppCreateQueryParamsArgs']]):
+        pulumi.set(self, "create", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def delete(self) -> pulumi.Input[Optional['AppDeleteQueryParamsArgs']]:
+        """
+        Query params for the delete operation.
+        """
+        return pulumi.get(self, "delete")
+
+    @delete.setter
+    def delete(self, value: pulumi.Input[Optional['AppDeleteQueryParamsArgs']]):
+        pulumi.set(self, "delete", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def read(self) -> pulumi.Input[Optional['AppReadQueryParamsArgs']]:
+        """
+        Query params for the read operation.
+        """
+        return pulumi.get(self, "read")
+
+    @read.setter
+    def read(self, value: pulumi.Input[Optional['AppReadQueryParamsArgs']]):
+        pulumi.set(self, "read", value)
+
+
+class AppReadQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class AppReadQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
 
 class ConfigArgsDict(TypedDict):
     """
@@ -3466,5 +4356,4230 @@ class FlyTLSOptionsArgs:
     @versions.setter
     def versions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "versions", value)
+
+
+class GetAppCertificateQueryParamsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[Mapping[str, _builtins.str]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class GetAppCertificateQueryParams:
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: Optional[Mapping[str, _builtins.str]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class GetAppQueryParamsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[Mapping[str, _builtins.str]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class GetAppQueryParams:
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: Optional[Mapping[str, _builtins.str]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class GetMachineQueryParamsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[Mapping[str, _builtins.str]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+    include_leases: NotRequired[_builtins.bool]
+    """
+    Include machine lease
+    """
+    version: NotRequired[_builtins.str]
+    """
+    26-character Machine version ID; returns that version of the Machine instead of the current one
+    """
+
+@pulumi.input_type
+class GetMachineQueryParams:
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None,
+                 include_leases: Optional[_builtins.bool] = None,
+                 version: Optional[_builtins.str] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        :param _builtins.bool include_leases: Include machine lease
+        :param _builtins.str version: 26-character Machine version ID; returns that version of the Machine instead of the current one
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+        if include_leases is not None:
+            pulumi.set(__self__, "include_leases", include_leases)
+        if version is not None:
+            pulumi.set(__self__, "version", version)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: Optional[Mapping[str, _builtins.str]]):
+        pulumi.set(self, "additional_params", value)
+
+    @_builtins.property
+    @pulumi.getter(name="includeLeases")
+    def include_leases(self) -> Optional[_builtins.bool]:
+        """
+        Include machine lease
+        """
+        return pulumi.get(self, "include_leases")
+
+    @include_leases.setter
+    def include_leases(self, value: Optional[_builtins.bool]):
+        pulumi.set(self, "include_leases", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def version(self) -> Optional[_builtins.str]:
+        """
+        26-character Machine version ID; returns that version of the Machine instead of the current one
+        """
+        return pulumi.get(self, "version")
+
+    @version.setter
+    def version(self, value: Optional[_builtins.str]):
+        pulumi.set(self, "version", value)
+
+
+class GetMachinesLeaseQueryParamsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[Mapping[str, _builtins.str]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class GetMachinesLeaseQueryParams:
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: Optional[Mapping[str, _builtins.str]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class GetMachinesMemoryQueryParamsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[Mapping[str, _builtins.str]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class GetMachinesMemoryQueryParams:
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: Optional[Mapping[str, _builtins.str]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class GetMachinesMetadataKeyQueryParamsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[Mapping[str, _builtins.str]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class GetMachinesMetadataKeyQueryParams:
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: Optional[Mapping[str, _builtins.str]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class GetMachinesMetadataQueryParamsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[Mapping[str, _builtins.str]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class GetMachinesMetadataQueryParams:
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: Optional[Mapping[str, _builtins.str]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class GetMachinesWaitQueryParamsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[Mapping[str, _builtins.str]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+    from_event_id: NotRequired[_builtins.str]
+    """
+    26-character Machine event ID to start waiting after
+    """
+    instance_id: NotRequired[_builtins.str]
+    """
+    26-character Machine version ID (deprecated; use version)
+    """
+    state: NotRequired['GetMachinesWaitQueryParamsState']
+    """
+    desired state(s), supports repeated or comma-separated values
+    """
+    timeout: NotRequired[_builtins.int]
+    """
+    wait timeout. default 60s
+    """
+    version: NotRequired[_builtins.str]
+    """
+    26-character Machine version ID
+    """
+
+@pulumi.input_type
+class GetMachinesWaitQueryParams:
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None,
+                 from_event_id: Optional[_builtins.str] = None,
+                 instance_id: Optional[_builtins.str] = None,
+                 state: Optional['GetMachinesWaitQueryParamsState'] = None,
+                 timeout: Optional[_builtins.int] = None,
+                 version: Optional[_builtins.str] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        :param _builtins.str from_event_id: 26-character Machine event ID to start waiting after
+        :param _builtins.str instance_id: 26-character Machine version ID (deprecated; use version)
+        :param 'GetMachinesWaitQueryParamsState' state: desired state(s), supports repeated or comma-separated values
+        :param _builtins.int timeout: wait timeout. default 60s
+        :param _builtins.str version: 26-character Machine version ID
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+        if from_event_id is not None:
+            pulumi.set(__self__, "from_event_id", from_event_id)
+        if instance_id is not None:
+            pulumi.set(__self__, "instance_id", instance_id)
+        if state is not None:
+            pulumi.set(__self__, "state", state)
+        if timeout is not None:
+            pulumi.set(__self__, "timeout", timeout)
+        if version is not None:
+            pulumi.set(__self__, "version", version)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: Optional[Mapping[str, _builtins.str]]):
+        pulumi.set(self, "additional_params", value)
+
+    @_builtins.property
+    @pulumi.getter(name="fromEventId")
+    def from_event_id(self) -> Optional[_builtins.str]:
+        """
+        26-character Machine event ID to start waiting after
+        """
+        return pulumi.get(self, "from_event_id")
+
+    @from_event_id.setter
+    def from_event_id(self, value: Optional[_builtins.str]):
+        pulumi.set(self, "from_event_id", value)
+
+    @_builtins.property
+    @pulumi.getter(name="instanceId")
+    def instance_id(self) -> Optional[_builtins.str]:
+        """
+        26-character Machine version ID (deprecated; use version)
+        """
+        return pulumi.get(self, "instance_id")
+
+    @instance_id.setter
+    def instance_id(self, value: Optional[_builtins.str]):
+        pulumi.set(self, "instance_id", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def state(self) -> Optional['GetMachinesWaitQueryParamsState']:
+        """
+        desired state(s), supports repeated or comma-separated values
+        """
+        return pulumi.get(self, "state")
+
+    @state.setter
+    def state(self, value: Optional['GetMachinesWaitQueryParamsState']):
+        pulumi.set(self, "state", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def timeout(self) -> Optional[_builtins.int]:
+        """
+        wait timeout. default 60s
+        """
+        return pulumi.get(self, "timeout")
+
+    @timeout.setter
+    def timeout(self, value: Optional[_builtins.int]):
+        pulumi.set(self, "timeout", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def version(self) -> Optional[_builtins.str]:
+        """
+        26-character Machine version ID
+        """
+        return pulumi.get(self, "version")
+
+    @version.setter
+    def version(self, value: Optional[_builtins.str]):
+        pulumi.set(self, "version", value)
+
+
+class GetSecretQueryParamsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[Mapping[str, _builtins.str]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+    min_version: NotRequired[_builtins.str]
+    """
+    Minimum secrets version to return. Returned when setting a new secret
+    """
+    show_secrets: NotRequired[_builtins.bool]
+    """
+    Show the secret value.
+    """
+
+@pulumi.input_type
+class GetSecretQueryParams:
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None,
+                 min_version: Optional[_builtins.str] = None,
+                 show_secrets: Optional[_builtins.bool] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        :param _builtins.str min_version: Minimum secrets version to return. Returned when setting a new secret
+        :param _builtins.bool show_secrets: Show the secret value.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+        if min_version is not None:
+            pulumi.set(__self__, "min_version", min_version)
+        if show_secrets is not None:
+            pulumi.set(__self__, "show_secrets", show_secrets)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: Optional[Mapping[str, _builtins.str]]):
+        pulumi.set(self, "additional_params", value)
+
+    @_builtins.property
+    @pulumi.getter(name="minVersion")
+    def min_version(self) -> Optional[_builtins.str]:
+        """
+        Minimum secrets version to return. Returned when setting a new secret
+        """
+        return pulumi.get(self, "min_version")
+
+    @min_version.setter
+    def min_version(self, value: Optional[_builtins.str]):
+        pulumi.set(self, "min_version", value)
+
+    @_builtins.property
+    @pulumi.getter(name="showSecrets")
+    def show_secrets(self) -> Optional[_builtins.bool]:
+        """
+        Show the secret value.
+        """
+        return pulumi.get(self, "show_secrets")
+
+    @show_secrets.setter
+    def show_secrets(self, value: Optional[_builtins.bool]):
+        pulumi.set(self, "show_secrets", value)
+
+
+class GetSecretkeyQueryParamsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[Mapping[str, _builtins.str]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+    min_version: NotRequired[_builtins.str]
+    """
+    Minimum secrets version to return. Returned when setting a new secret
+    """
+
+@pulumi.input_type
+class GetSecretkeyQueryParams:
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None,
+                 min_version: Optional[_builtins.str] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        :param _builtins.str min_version: Minimum secrets version to return. Returned when setting a new secret
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+        if min_version is not None:
+            pulumi.set(__self__, "min_version", min_version)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: Optional[Mapping[str, _builtins.str]]):
+        pulumi.set(self, "additional_params", value)
+
+    @_builtins.property
+    @pulumi.getter(name="minVersion")
+    def min_version(self) -> Optional[_builtins.str]:
+        """
+        Minimum secrets version to return. Returned when setting a new secret
+        """
+        return pulumi.get(self, "min_version")
+
+    @min_version.setter
+    def min_version(self, value: Optional[_builtins.str]):
+        pulumi.set(self, "min_version", value)
+
+
+class GetVolumeQueryParamsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[Mapping[str, _builtins.str]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class GetVolumeQueryParams:
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: Optional[Mapping[str, _builtins.str]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class ListAppCertificatesQueryParamsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[Mapping[str, _builtins.str]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+    cursor: NotRequired[_builtins.str]
+    """
+    Pagination cursor from previous response
+    """
+    filter: NotRequired[_builtins.str]
+    """
+    Hostname filter (substring match)
+    """
+    limit: NotRequired[_builtins.int]
+    """
+    Number of results per page (default 25, max 500)
+    """
+
+@pulumi.input_type
+class ListAppCertificatesQueryParams:
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None,
+                 cursor: Optional[_builtins.str] = None,
+                 filter: Optional[_builtins.str] = None,
+                 limit: Optional[_builtins.int] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        :param _builtins.str cursor: Pagination cursor from previous response
+        :param _builtins.str filter: Hostname filter (substring match)
+        :param _builtins.int limit: Number of results per page (default 25, max 500)
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+        if cursor is not None:
+            pulumi.set(__self__, "cursor", cursor)
+        if filter is not None:
+            pulumi.set(__self__, "filter", filter)
+        if limit is not None:
+            pulumi.set(__self__, "limit", limit)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: Optional[Mapping[str, _builtins.str]]):
+        pulumi.set(self, "additional_params", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def cursor(self) -> Optional[_builtins.str]:
+        """
+        Pagination cursor from previous response
+        """
+        return pulumi.get(self, "cursor")
+
+    @cursor.setter
+    def cursor(self, value: Optional[_builtins.str]):
+        pulumi.set(self, "cursor", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def filter(self) -> Optional[_builtins.str]:
+        """
+        Hostname filter (substring match)
+        """
+        return pulumi.get(self, "filter")
+
+    @filter.setter
+    def filter(self, value: Optional[_builtins.str]):
+        pulumi.set(self, "filter", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def limit(self) -> Optional[_builtins.int]:
+        """
+        Number of results per page (default 25, max 500)
+        """
+        return pulumi.get(self, "limit")
+
+    @limit.setter
+    def limit(self, value: Optional[_builtins.int]):
+        pulumi.set(self, "limit", value)
+
+
+class ListAppIPAssignmentsQueryParamsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[Mapping[str, _builtins.str]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class ListAppIPAssignmentsQueryParams:
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: Optional[Mapping[str, _builtins.str]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class ListAppsQueryParamsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    org_slug: _builtins.str
+    """
+    The org slug, or 'personal', to filter apps
+    """
+    additional_params: NotRequired[Mapping[str, _builtins.str]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+    app_role: NotRequired[_builtins.str]
+    """
+    Filter apps by role
+    """
+
+@pulumi.input_type
+class ListAppsQueryParams:
+    def __init__(__self__, *,
+                 org_slug: _builtins.str,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None,
+                 app_role: Optional[_builtins.str] = None):
+        """
+        Query params for the API request.
+
+        :param _builtins.str org_slug: The org slug, or 'personal', to filter apps
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        :param _builtins.str app_role: Filter apps by role
+        """
+        pulumi.set(__self__, "org_slug", org_slug)
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+        if app_role is not None:
+            pulumi.set(__self__, "app_role", app_role)
+
+    @_builtins.property
+    @pulumi.getter(name="orgSlug")
+    def org_slug(self) -> _builtins.str:
+        """
+        The org slug, or 'personal', to filter apps
+        """
+        return pulumi.get(self, "org_slug")
+
+    @org_slug.setter
+    def org_slug(self, value: _builtins.str):
+        pulumi.set(self, "org_slug", value)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: Optional[Mapping[str, _builtins.str]]):
+        pulumi.set(self, "additional_params", value)
+
+    @_builtins.property
+    @pulumi.getter(name="appRole")
+    def app_role(self) -> Optional[_builtins.str]:
+        """
+        Filter apps by role
+        """
+        return pulumi.get(self, "app_role")
+
+    @app_role.setter
+    def app_role(self, value: Optional[_builtins.str]):
+        pulumi.set(self, "app_role", value)
+
+
+class ListMachinesEventsQueryParamsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[Mapping[str, _builtins.str]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+    limit: NotRequired[_builtins.int]
+    """
+    The number of events to fetch (max of 50). If omitted, this is set to 20 by default.
+    """
+
+@pulumi.input_type
+class ListMachinesEventsQueryParams:
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None,
+                 limit: Optional[_builtins.int] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        :param _builtins.int limit: The number of events to fetch (max of 50). If omitted, this is set to 20 by default.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+        if limit is not None:
+            pulumi.set(__self__, "limit", limit)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: Optional[Mapping[str, _builtins.str]]):
+        pulumi.set(self, "additional_params", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def limit(self) -> Optional[_builtins.int]:
+        """
+        The number of events to fetch (max of 50). If omitted, this is set to 20 by default.
+        """
+        return pulumi.get(self, "limit")
+
+    @limit.setter
+    def limit(self, value: Optional[_builtins.int]):
+        pulumi.set(self, "limit", value)
+
+
+class ListMachinesProcessesQueryParamsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[Mapping[str, _builtins.str]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+    order: NotRequired[_builtins.str]
+    """
+    Order
+    """
+    sort_by: NotRequired[_builtins.str]
+    """
+    Sort by
+    """
+
+@pulumi.input_type
+class ListMachinesProcessesQueryParams:
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None,
+                 order: Optional[_builtins.str] = None,
+                 sort_by: Optional[_builtins.str] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        :param _builtins.str order: Order
+        :param _builtins.str sort_by: Sort by
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+        if order is not None:
+            pulumi.set(__self__, "order", order)
+        if sort_by is not None:
+            pulumi.set(__self__, "sort_by", sort_by)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: Optional[Mapping[str, _builtins.str]]):
+        pulumi.set(self, "additional_params", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def order(self) -> Optional[_builtins.str]:
+        """
+        Order
+        """
+        return pulumi.get(self, "order")
+
+    @order.setter
+    def order(self, value: Optional[_builtins.str]):
+        pulumi.set(self, "order", value)
+
+    @_builtins.property
+    @pulumi.getter(name="sortBy")
+    def sort_by(self) -> Optional[_builtins.str]:
+        """
+        Sort by
+        """
+        return pulumi.get(self, "sort_by")
+
+    @sort_by.setter
+    def sort_by(self, value: Optional[_builtins.str]):
+        pulumi.set(self, "sort_by", value)
+
+
+class ListMachinesQueryParamsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[Mapping[str, _builtins.str]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+    cursor: NotRequired[_builtins.str]
+    """
+    Value of the fly-next-cursor response header from the previous page. Requires limit.
+    """
+    include_deleted: NotRequired[_builtins.bool]
+    """
+    Include deleted machines
+    """
+    include_leases: NotRequired[_builtins.bool]
+    """
+    Include machine leases
+    """
+    limit: NotRequired[_builtins.int]
+    """
+    The number of machines to fetch (must be between 1 and 1000). Providing a limit enables pagination. This limit is advisory; responses may be shorter, or even empty, even when more machines remain.
+    """
+    metadatakey: NotRequired[_builtins.str]
+    """
+    Filter by a machine metadata key and exact value. Replace {key} with the metadata key, for example metadata.foo=bar. Specify multiple metadata filters to require all matches.
+    """
+    region: NotRequired[_builtins.str]
+    """
+    Region filter
+    """
+    state: NotRequired[_builtins.str]
+    """
+    comma separated list of states to filter (created, started, stopped, suspended)
+    """
+    summary: NotRequired[_builtins.bool]
+    """
+    Only return summary info about machines (omit config, checks, events, host_status, nonce, etc.)
+    """
+
+@pulumi.input_type
+class ListMachinesQueryParams:
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None,
+                 cursor: Optional[_builtins.str] = None,
+                 include_deleted: Optional[_builtins.bool] = None,
+                 include_leases: Optional[_builtins.bool] = None,
+                 limit: Optional[_builtins.int] = None,
+                 metadatakey: Optional[_builtins.str] = None,
+                 region: Optional[_builtins.str] = None,
+                 state: Optional[_builtins.str] = None,
+                 summary: Optional[_builtins.bool] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        :param _builtins.str cursor: Value of the fly-next-cursor response header from the previous page. Requires limit.
+        :param _builtins.bool include_deleted: Include deleted machines
+        :param _builtins.bool include_leases: Include machine leases
+        :param _builtins.int limit: The number of machines to fetch (must be between 1 and 1000). Providing a limit enables pagination. This limit is advisory; responses may be shorter, or even empty, even when more machines remain.
+        :param _builtins.str metadatakey: Filter by a machine metadata key and exact value. Replace {key} with the metadata key, for example metadata.foo=bar. Specify multiple metadata filters to require all matches.
+        :param _builtins.str region: Region filter
+        :param _builtins.str state: comma separated list of states to filter (created, started, stopped, suspended)
+        :param _builtins.bool summary: Only return summary info about machines (omit config, checks, events, host_status, nonce, etc.)
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+        if cursor is not None:
+            pulumi.set(__self__, "cursor", cursor)
+        if include_deleted is not None:
+            pulumi.set(__self__, "include_deleted", include_deleted)
+        if include_leases is not None:
+            pulumi.set(__self__, "include_leases", include_leases)
+        if limit is not None:
+            pulumi.set(__self__, "limit", limit)
+        if metadatakey is not None:
+            pulumi.set(__self__, "metadatakey", metadatakey)
+        if region is not None:
+            pulumi.set(__self__, "region", region)
+        if state is not None:
+            pulumi.set(__self__, "state", state)
+        if summary is not None:
+            pulumi.set(__self__, "summary", summary)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: Optional[Mapping[str, _builtins.str]]):
+        pulumi.set(self, "additional_params", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def cursor(self) -> Optional[_builtins.str]:
+        """
+        Value of the fly-next-cursor response header from the previous page. Requires limit.
+        """
+        return pulumi.get(self, "cursor")
+
+    @cursor.setter
+    def cursor(self, value: Optional[_builtins.str]):
+        pulumi.set(self, "cursor", value)
+
+    @_builtins.property
+    @pulumi.getter(name="includeDeleted")
+    def include_deleted(self) -> Optional[_builtins.bool]:
+        """
+        Include deleted machines
+        """
+        return pulumi.get(self, "include_deleted")
+
+    @include_deleted.setter
+    def include_deleted(self, value: Optional[_builtins.bool]):
+        pulumi.set(self, "include_deleted", value)
+
+    @_builtins.property
+    @pulumi.getter(name="includeLeases")
+    def include_leases(self) -> Optional[_builtins.bool]:
+        """
+        Include machine leases
+        """
+        return pulumi.get(self, "include_leases")
+
+    @include_leases.setter
+    def include_leases(self, value: Optional[_builtins.bool]):
+        pulumi.set(self, "include_leases", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def limit(self) -> Optional[_builtins.int]:
+        """
+        The number of machines to fetch (must be between 1 and 1000). Providing a limit enables pagination. This limit is advisory; responses may be shorter, or even empty, even when more machines remain.
+        """
+        return pulumi.get(self, "limit")
+
+    @limit.setter
+    def limit(self, value: Optional[_builtins.int]):
+        pulumi.set(self, "limit", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def metadatakey(self) -> Optional[_builtins.str]:
+        """
+        Filter by a machine metadata key and exact value. Replace {key} with the metadata key, for example metadata.foo=bar. Specify multiple metadata filters to require all matches.
+        """
+        return pulumi.get(self, "metadatakey")
+
+    @metadatakey.setter
+    def metadatakey(self, value: Optional[_builtins.str]):
+        pulumi.set(self, "metadatakey", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def region(self) -> Optional[_builtins.str]:
+        """
+        Region filter
+        """
+        return pulumi.get(self, "region")
+
+    @region.setter
+    def region(self, value: Optional[_builtins.str]):
+        pulumi.set(self, "region", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def state(self) -> Optional[_builtins.str]:
+        """
+        comma separated list of states to filter (created, started, stopped, suspended)
+        """
+        return pulumi.get(self, "state")
+
+    @state.setter
+    def state(self, value: Optional[_builtins.str]):
+        pulumi.set(self, "state", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def summary(self) -> Optional[_builtins.bool]:
+        """
+        Only return summary info about machines (omit config, checks, events, host_status, nonce, etc.)
+        """
+        return pulumi.get(self, "summary")
+
+    @summary.setter
+    def summary(self, value: Optional[_builtins.bool]):
+        pulumi.set(self, "summary", value)
+
+
+class ListMachinesVersionsQueryParamsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[Mapping[str, _builtins.str]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class ListMachinesVersionsQueryParams:
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: Optional[Mapping[str, _builtins.str]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class ListSecretkeysQueryParamsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[Mapping[str, _builtins.str]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+    min_version: NotRequired[_builtins.str]
+    """
+    Minimum secrets version to return. Returned when setting a new secret
+    """
+    types: NotRequired[_builtins.str]
+    """
+    Comma-seperated list of secret keys to list
+    """
+
+@pulumi.input_type
+class ListSecretkeysQueryParams:
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None,
+                 min_version: Optional[_builtins.str] = None,
+                 types: Optional[_builtins.str] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        :param _builtins.str min_version: Minimum secrets version to return. Returned when setting a new secret
+        :param _builtins.str types: Comma-seperated list of secret keys to list
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+        if min_version is not None:
+            pulumi.set(__self__, "min_version", min_version)
+        if types is not None:
+            pulumi.set(__self__, "types", types)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: Optional[Mapping[str, _builtins.str]]):
+        pulumi.set(self, "additional_params", value)
+
+    @_builtins.property
+    @pulumi.getter(name="minVersion")
+    def min_version(self) -> Optional[_builtins.str]:
+        """
+        Minimum secrets version to return. Returned when setting a new secret
+        """
+        return pulumi.get(self, "min_version")
+
+    @min_version.setter
+    def min_version(self, value: Optional[_builtins.str]):
+        pulumi.set(self, "min_version", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def types(self) -> Optional[_builtins.str]:
+        """
+        Comma-seperated list of secret keys to list
+        """
+        return pulumi.get(self, "types")
+
+    @types.setter
+    def types(self, value: Optional[_builtins.str]):
+        pulumi.set(self, "types", value)
+
+
+class ListSecretsQueryParamsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[Mapping[str, _builtins.str]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+    min_version: NotRequired[_builtins.str]
+    """
+    Minimum secrets version to return. Returned when setting a new secret
+    """
+    show_secrets: NotRequired[_builtins.bool]
+    """
+    Show the secret values.
+    """
+
+@pulumi.input_type
+class ListSecretsQueryParams:
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None,
+                 min_version: Optional[_builtins.str] = None,
+                 show_secrets: Optional[_builtins.bool] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        :param _builtins.str min_version: Minimum secrets version to return. Returned when setting a new secret
+        :param _builtins.bool show_secrets: Show the secret values.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+        if min_version is not None:
+            pulumi.set(__self__, "min_version", min_version)
+        if show_secrets is not None:
+            pulumi.set(__self__, "show_secrets", show_secrets)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: Optional[Mapping[str, _builtins.str]]):
+        pulumi.set(self, "additional_params", value)
+
+    @_builtins.property
+    @pulumi.getter(name="minVersion")
+    def min_version(self) -> Optional[_builtins.str]:
+        """
+        Minimum secrets version to return. Returned when setting a new secret
+        """
+        return pulumi.get(self, "min_version")
+
+    @min_version.setter
+    def min_version(self, value: Optional[_builtins.str]):
+        pulumi.set(self, "min_version", value)
+
+    @_builtins.property
+    @pulumi.getter(name="showSecrets")
+    def show_secrets(self) -> Optional[_builtins.bool]:
+        """
+        Show the secret values.
+        """
+        return pulumi.get(self, "show_secrets")
+
+    @show_secrets.setter
+    def show_secrets(self, value: Optional[_builtins.bool]):
+        pulumi.set(self, "show_secrets", value)
+
+
+class ListVolumesQueryParamsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[Mapping[str, _builtins.str]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+    summary: NotRequired[_builtins.bool]
+    """
+    Only return summary info about volumes (omit blocks, block size, etc)
+    """
+
+@pulumi.input_type
+class ListVolumesQueryParams:
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None,
+                 summary: Optional[_builtins.bool] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        :param _builtins.bool summary: Only return summary info about volumes (omit blocks, block size, etc)
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+        if summary is not None:
+            pulumi.set(__self__, "summary", summary)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: Optional[Mapping[str, _builtins.str]]):
+        pulumi.set(self, "additional_params", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def summary(self) -> Optional[_builtins.bool]:
+        """
+        Only return summary info about volumes (omit blocks, block size, etc)
+        """
+        return pulumi.get(self, "summary")
+
+    @summary.setter
+    def summary(self, value: Optional[_builtins.bool]):
+        pulumi.set(self, "summary", value)
+
+
+class ListVolumesSnapshotsQueryParamsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[Mapping[str, _builtins.str]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class ListVolumesSnapshotsQueryParams:
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: Optional[Mapping[str, _builtins.str]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class MachineCreateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class MachineCreateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class MachineDeleteQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+    force: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    Force kill the machine if it's running
+    """
+
+@pulumi.input_type
+class MachineDeleteQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 force: pulumi.Input[Optional[_builtins.bool]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        :param pulumi.Input[_builtins.bool] force: Force kill the machine if it's running
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+        if force is not None:
+            pulumi.set(__self__, "force", force)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def force(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Force kill the machine if it's running
+        """
+        return pulumi.get(self, "force")
+
+    @force.setter
+    def force(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "force", value)
+
+
+class MachinePutQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class MachinePutQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class MachineQueryParamsArgsDict(TypedDict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    create: NotRequired[pulumi.Input[Optional['MachineCreateQueryParamsArgsDict']]]
+    """
+    Query params for the create operation.
+    """
+    delete: NotRequired[pulumi.Input[Optional['MachineDeleteQueryParamsArgsDict']]]
+    """
+    Query params for the delete operation.
+    """
+    put: NotRequired[pulumi.Input[Optional['MachinePutQueryParamsArgsDict']]]
+    """
+    Query params for the put operation.
+    """
+    read: NotRequired[pulumi.Input[Optional['MachineReadQueryParamsArgsDict']]]
+    """
+    Query params for the read operation.
+    """
+
+@pulumi.input_type
+class MachineQueryParamsArgs:
+    def __init__(__self__, *,
+                 create: pulumi.Input[Optional['MachineCreateQueryParamsArgs']] = None,
+                 delete: pulumi.Input[Optional['MachineDeleteQueryParamsArgs']] = None,
+                 put: pulumi.Input[Optional['MachinePutQueryParamsArgs']] = None,
+                 read: pulumi.Input[Optional['MachineReadQueryParamsArgs']] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param pulumi.Input['MachineCreateQueryParamsArgs'] create: Query params for the create operation.
+        :param pulumi.Input['MachineDeleteQueryParamsArgs'] delete: Query params for the delete operation.
+        :param pulumi.Input['MachinePutQueryParamsArgs'] put: Query params for the put operation.
+        :param pulumi.Input['MachineReadQueryParamsArgs'] read: Query params for the read operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+        if delete is not None:
+            pulumi.set(__self__, "delete", delete)
+        if put is not None:
+            pulumi.set(__self__, "put", put)
+        if read is not None:
+            pulumi.set(__self__, "read", read)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> pulumi.Input[Optional['MachineCreateQueryParamsArgs']]:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @create.setter
+    def create(self, value: pulumi.Input[Optional['MachineCreateQueryParamsArgs']]):
+        pulumi.set(self, "create", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def delete(self) -> pulumi.Input[Optional['MachineDeleteQueryParamsArgs']]:
+        """
+        Query params for the delete operation.
+        """
+        return pulumi.get(self, "delete")
+
+    @delete.setter
+    def delete(self, value: pulumi.Input[Optional['MachineDeleteQueryParamsArgs']]):
+        pulumi.set(self, "delete", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def put(self) -> pulumi.Input[Optional['MachinePutQueryParamsArgs']]:
+        """
+        Query params for the put operation.
+        """
+        return pulumi.get(self, "put")
+
+    @put.setter
+    def put(self, value: pulumi.Input[Optional['MachinePutQueryParamsArgs']]):
+        pulumi.set(self, "put", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def read(self) -> pulumi.Input[Optional['MachineReadQueryParamsArgs']]:
+        """
+        Query params for the read operation.
+        """
+        return pulumi.get(self, "read")
+
+    @read.setter
+    def read(self, value: pulumi.Input[Optional['MachineReadQueryParamsArgs']]):
+        pulumi.set(self, "read", value)
+
+
+class MachineReadQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+    include_leases: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    Include machine lease
+    """
+    version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    26-character Machine version ID; returns that version of the Machine instead of the current one
+    """
+
+@pulumi.input_type
+class MachineReadQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 include_leases: pulumi.Input[Optional[_builtins.bool]] = None,
+                 version: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        :param pulumi.Input[_builtins.bool] include_leases: Include machine lease
+        :param pulumi.Input[_builtins.str] version: 26-character Machine version ID; returns that version of the Machine instead of the current one
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+        if include_leases is not None:
+            pulumi.set(__self__, "include_leases", include_leases)
+        if version is not None:
+            pulumi.set(__self__, "version", version)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+    @_builtins.property
+    @pulumi.getter(name="includeLeases")
+    def include_leases(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Include machine lease
+        """
+        return pulumi.get(self, "include_leases")
+
+    @include_leases.setter
+    def include_leases(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "include_leases", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def version(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        26-character Machine version ID; returns that version of the Machine instead of the current one
+        """
+        return pulumi.get(self, "version")
+
+    @version.setter
+    def version(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "version", value)
+
+
+class MachinesCordonCreateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class MachinesCordonCreateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class MachinesCordonQueryParamsArgsDict(TypedDict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    create: NotRequired[pulumi.Input[Optional['MachinesCordonCreateQueryParamsArgsDict']]]
+    """
+    Query params for the create operation.
+    """
+
+@pulumi.input_type
+class MachinesCordonQueryParamsArgs:
+    def __init__(__self__, *,
+                 create: pulumi.Input[Optional['MachinesCordonCreateQueryParamsArgs']] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param pulumi.Input['MachinesCordonCreateQueryParamsArgs'] create: Query params for the create operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> pulumi.Input[Optional['MachinesCordonCreateQueryParamsArgs']]:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @create.setter
+    def create(self, value: pulumi.Input[Optional['MachinesCordonCreateQueryParamsArgs']]):
+        pulumi.set(self, "create", value)
+
+
+class MachinesExecCreateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class MachinesExecCreateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class MachinesExecQueryParamsArgsDict(TypedDict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    create: NotRequired[pulumi.Input[Optional['MachinesExecCreateQueryParamsArgsDict']]]
+    """
+    Query params for the create operation.
+    """
+
+@pulumi.input_type
+class MachinesExecQueryParamsArgs:
+    def __init__(__self__, *,
+                 create: pulumi.Input[Optional['MachinesExecCreateQueryParamsArgs']] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param pulumi.Input['MachinesExecCreateQueryParamsArgs'] create: Query params for the create operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> pulumi.Input[Optional['MachinesExecCreateQueryParamsArgs']]:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @create.setter
+    def create(self, value: pulumi.Input[Optional['MachinesExecCreateQueryParamsArgs']]):
+        pulumi.set(self, "create", value)
+
+
+class MachinesLeaseCreateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class MachinesLeaseCreateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class MachinesLeaseQueryParamsArgsDict(TypedDict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    create: NotRequired[pulumi.Input[Optional['MachinesLeaseCreateQueryParamsArgsDict']]]
+    """
+    Query params for the create operation.
+    """
+    read: NotRequired[pulumi.Input[Optional['MachinesLeaseReadQueryParamsArgsDict']]]
+    """
+    Query params for the read operation.
+    """
+
+@pulumi.input_type
+class MachinesLeaseQueryParamsArgs:
+    def __init__(__self__, *,
+                 create: pulumi.Input[Optional['MachinesLeaseCreateQueryParamsArgs']] = None,
+                 read: pulumi.Input[Optional['MachinesLeaseReadQueryParamsArgs']] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param pulumi.Input['MachinesLeaseCreateQueryParamsArgs'] create: Query params for the create operation.
+        :param pulumi.Input['MachinesLeaseReadQueryParamsArgs'] read: Query params for the read operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+        if read is not None:
+            pulumi.set(__self__, "read", read)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> pulumi.Input[Optional['MachinesLeaseCreateQueryParamsArgs']]:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @create.setter
+    def create(self, value: pulumi.Input[Optional['MachinesLeaseCreateQueryParamsArgs']]):
+        pulumi.set(self, "create", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def read(self) -> pulumi.Input[Optional['MachinesLeaseReadQueryParamsArgs']]:
+        """
+        Query params for the read operation.
+        """
+        return pulumi.get(self, "read")
+
+    @read.setter
+    def read(self, value: pulumi.Input[Optional['MachinesLeaseReadQueryParamsArgs']]):
+        pulumi.set(self, "read", value)
+
+
+class MachinesLeaseReadQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class MachinesLeaseReadQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class MachinesMemoryLimitCreateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class MachinesMemoryLimitCreateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class MachinesMemoryLimitPutQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class MachinesMemoryLimitPutQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class MachinesMemoryLimitQueryParamsArgsDict(TypedDict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    create: NotRequired[pulumi.Input[Optional['MachinesMemoryLimitCreateQueryParamsArgsDict']]]
+    """
+    Query params for the create operation.
+    """
+    put: NotRequired[pulumi.Input[Optional['MachinesMemoryLimitPutQueryParamsArgsDict']]]
+    """
+    Query params for the put operation.
+    """
+
+@pulumi.input_type
+class MachinesMemoryLimitQueryParamsArgs:
+    def __init__(__self__, *,
+                 create: pulumi.Input[Optional['MachinesMemoryLimitCreateQueryParamsArgs']] = None,
+                 put: pulumi.Input[Optional['MachinesMemoryLimitPutQueryParamsArgs']] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param pulumi.Input['MachinesMemoryLimitCreateQueryParamsArgs'] create: Query params for the create operation.
+        :param pulumi.Input['MachinesMemoryLimitPutQueryParamsArgs'] put: Query params for the put operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+        if put is not None:
+            pulumi.set(__self__, "put", put)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> pulumi.Input[Optional['MachinesMemoryLimitCreateQueryParamsArgs']]:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @create.setter
+    def create(self, value: pulumi.Input[Optional['MachinesMemoryLimitCreateQueryParamsArgs']]):
+        pulumi.set(self, "create", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def put(self) -> pulumi.Input[Optional['MachinesMemoryLimitPutQueryParamsArgs']]:
+        """
+        Query params for the put operation.
+        """
+        return pulumi.get(self, "put")
+
+    @put.setter
+    def put(self, value: pulumi.Input[Optional['MachinesMemoryLimitPutQueryParamsArgs']]):
+        pulumi.set(self, "put", value)
+
+
+class MachinesMetadataCreateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class MachinesMetadataCreateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class MachinesMetadataKeyCreateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class MachinesMetadataKeyCreateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class MachinesMetadataKeyDeleteQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class MachinesMetadataKeyDeleteQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class MachinesMetadataKeyQueryParamsArgsDict(TypedDict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    create: NotRequired[pulumi.Input[Optional['MachinesMetadataKeyCreateQueryParamsArgsDict']]]
+    """
+    Query params for the create operation.
+    """
+    delete: NotRequired[pulumi.Input[Optional['MachinesMetadataKeyDeleteQueryParamsArgsDict']]]
+    """
+    Query params for the delete operation.
+    """
+    read: NotRequired[pulumi.Input[Optional['MachinesMetadataKeyReadQueryParamsArgsDict']]]
+    """
+    Query params for the read operation.
+    """
+
+@pulumi.input_type
+class MachinesMetadataKeyQueryParamsArgs:
+    def __init__(__self__, *,
+                 create: pulumi.Input[Optional['MachinesMetadataKeyCreateQueryParamsArgs']] = None,
+                 delete: pulumi.Input[Optional['MachinesMetadataKeyDeleteQueryParamsArgs']] = None,
+                 read: pulumi.Input[Optional['MachinesMetadataKeyReadQueryParamsArgs']] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param pulumi.Input['MachinesMetadataKeyCreateQueryParamsArgs'] create: Query params for the create operation.
+        :param pulumi.Input['MachinesMetadataKeyDeleteQueryParamsArgs'] delete: Query params for the delete operation.
+        :param pulumi.Input['MachinesMetadataKeyReadQueryParamsArgs'] read: Query params for the read operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+        if delete is not None:
+            pulumi.set(__self__, "delete", delete)
+        if read is not None:
+            pulumi.set(__self__, "read", read)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> pulumi.Input[Optional['MachinesMetadataKeyCreateQueryParamsArgs']]:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @create.setter
+    def create(self, value: pulumi.Input[Optional['MachinesMetadataKeyCreateQueryParamsArgs']]):
+        pulumi.set(self, "create", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def delete(self) -> pulumi.Input[Optional['MachinesMetadataKeyDeleteQueryParamsArgs']]:
+        """
+        Query params for the delete operation.
+        """
+        return pulumi.get(self, "delete")
+
+    @delete.setter
+    def delete(self, value: pulumi.Input[Optional['MachinesMetadataKeyDeleteQueryParamsArgs']]):
+        pulumi.set(self, "delete", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def read(self) -> pulumi.Input[Optional['MachinesMetadataKeyReadQueryParamsArgs']]:
+        """
+        Query params for the read operation.
+        """
+        return pulumi.get(self, "read")
+
+    @read.setter
+    def read(self, value: pulumi.Input[Optional['MachinesMetadataKeyReadQueryParamsArgs']]):
+        pulumi.set(self, "read", value)
+
+
+class MachinesMetadataKeyReadQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class MachinesMetadataKeyReadQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class MachinesMetadataQueryParamsArgsDict(TypedDict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    create: NotRequired[pulumi.Input[Optional['MachinesMetadataCreateQueryParamsArgsDict']]]
+    """
+    Query params for the create operation.
+    """
+    read: NotRequired[pulumi.Input[Optional['MachinesMetadataReadQueryParamsArgsDict']]]
+    """
+    Query params for the read operation.
+    """
+    update: NotRequired[pulumi.Input[Optional['MachinesMetadataUpdateQueryParamsArgsDict']]]
+    """
+    Query params for the update operation.
+    """
+
+@pulumi.input_type
+class MachinesMetadataQueryParamsArgs:
+    def __init__(__self__, *,
+                 create: pulumi.Input[Optional['MachinesMetadataCreateQueryParamsArgs']] = None,
+                 read: pulumi.Input[Optional['MachinesMetadataReadQueryParamsArgs']] = None,
+                 update: pulumi.Input[Optional['MachinesMetadataUpdateQueryParamsArgs']] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param pulumi.Input['MachinesMetadataCreateQueryParamsArgs'] create: Query params for the create operation.
+        :param pulumi.Input['MachinesMetadataReadQueryParamsArgs'] read: Query params for the read operation.
+        :param pulumi.Input['MachinesMetadataUpdateQueryParamsArgs'] update: Query params for the update operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+        if read is not None:
+            pulumi.set(__self__, "read", read)
+        if update is not None:
+            pulumi.set(__self__, "update", update)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> pulumi.Input[Optional['MachinesMetadataCreateQueryParamsArgs']]:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @create.setter
+    def create(self, value: pulumi.Input[Optional['MachinesMetadataCreateQueryParamsArgs']]):
+        pulumi.set(self, "create", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def read(self) -> pulumi.Input[Optional['MachinesMetadataReadQueryParamsArgs']]:
+        """
+        Query params for the read operation.
+        """
+        return pulumi.get(self, "read")
+
+    @read.setter
+    def read(self, value: pulumi.Input[Optional['MachinesMetadataReadQueryParamsArgs']]):
+        pulumi.set(self, "read", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def update(self) -> pulumi.Input[Optional['MachinesMetadataUpdateQueryParamsArgs']]:
+        """
+        Query params for the update operation.
+        """
+        return pulumi.get(self, "update")
+
+    @update.setter
+    def update(self, value: pulumi.Input[Optional['MachinesMetadataUpdateQueryParamsArgs']]):
+        pulumi.set(self, "update", value)
+
+
+class MachinesMetadataReadQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class MachinesMetadataReadQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class MachinesMetadataUpdateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class MachinesMetadataUpdateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class MachinesReclaimMemoryCreateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class MachinesReclaimMemoryCreateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class MachinesReclaimMemoryQueryParamsArgsDict(TypedDict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    create: NotRequired[pulumi.Input[Optional['MachinesReclaimMemoryCreateQueryParamsArgsDict']]]
+    """
+    Query params for the create operation.
+    """
+
+@pulumi.input_type
+class MachinesReclaimMemoryQueryParamsArgs:
+    def __init__(__self__, *,
+                 create: pulumi.Input[Optional['MachinesReclaimMemoryCreateQueryParamsArgs']] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param pulumi.Input['MachinesReclaimMemoryCreateQueryParamsArgs'] create: Query params for the create operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> pulumi.Input[Optional['MachinesReclaimMemoryCreateQueryParamsArgs']]:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @create.setter
+    def create(self, value: pulumi.Input[Optional['MachinesReclaimMemoryCreateQueryParamsArgs']]):
+        pulumi.set(self, "create", value)
+
+
+class MachinesRestartCreateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+    signal: NotRequired[pulumi.Input[Optional['MachinesRestartCreateQueryParamsSignal']]]
+    """
+    Unix signal name
+    """
+    timeout: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Restart timeout as a Go duration string or number of seconds
+    """
+
+@pulumi.input_type
+class MachinesRestartCreateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 signal: pulumi.Input[Optional['MachinesRestartCreateQueryParamsSignal']] = None,
+                 timeout: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        :param pulumi.Input['MachinesRestartCreateQueryParamsSignal'] signal: Unix signal name
+        :param pulumi.Input[_builtins.str] timeout: Restart timeout as a Go duration string or number of seconds
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+        if signal is not None:
+            pulumi.set(__self__, "signal", signal)
+        if timeout is not None:
+            pulumi.set(__self__, "timeout", timeout)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def signal(self) -> pulumi.Input[Optional['MachinesRestartCreateQueryParamsSignal']]:
+        """
+        Unix signal name
+        """
+        return pulumi.get(self, "signal")
+
+    @signal.setter
+    def signal(self, value: pulumi.Input[Optional['MachinesRestartCreateQueryParamsSignal']]):
+        pulumi.set(self, "signal", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def timeout(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Restart timeout as a Go duration string or number of seconds
+        """
+        return pulumi.get(self, "timeout")
+
+    @timeout.setter
+    def timeout(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "timeout", value)
+
+
+class MachinesRestartQueryParamsArgsDict(TypedDict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    create: NotRequired[pulumi.Input[Optional['MachinesRestartCreateQueryParamsArgsDict']]]
+    """
+    Query params for the create operation.
+    """
+
+@pulumi.input_type
+class MachinesRestartQueryParamsArgs:
+    def __init__(__self__, *,
+                 create: pulumi.Input[Optional['MachinesRestartCreateQueryParamsArgs']] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param pulumi.Input['MachinesRestartCreateQueryParamsArgs'] create: Query params for the create operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> pulumi.Input[Optional['MachinesRestartCreateQueryParamsArgs']]:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @create.setter
+    def create(self, value: pulumi.Input[Optional['MachinesRestartCreateQueryParamsArgs']]):
+        pulumi.set(self, "create", value)
+
+
+class MachinesSignalCreateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class MachinesSignalCreateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class MachinesSignalQueryParamsArgsDict(TypedDict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    create: NotRequired[pulumi.Input[Optional['MachinesSignalCreateQueryParamsArgsDict']]]
+    """
+    Query params for the create operation.
+    """
+
+@pulumi.input_type
+class MachinesSignalQueryParamsArgs:
+    def __init__(__self__, *,
+                 create: pulumi.Input[Optional['MachinesSignalCreateQueryParamsArgs']] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param pulumi.Input['MachinesSignalCreateQueryParamsArgs'] create: Query params for the create operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> pulumi.Input[Optional['MachinesSignalCreateQueryParamsArgs']]:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @create.setter
+    def create(self, value: pulumi.Input[Optional['MachinesSignalCreateQueryParamsArgs']]):
+        pulumi.set(self, "create", value)
+
+
+class MachinesStartCreateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class MachinesStartCreateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class MachinesStartQueryParamsArgsDict(TypedDict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    create: NotRequired[pulumi.Input[Optional['MachinesStartCreateQueryParamsArgsDict']]]
+    """
+    Query params for the create operation.
+    """
+
+@pulumi.input_type
+class MachinesStartQueryParamsArgs:
+    def __init__(__self__, *,
+                 create: pulumi.Input[Optional['MachinesStartCreateQueryParamsArgs']] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param pulumi.Input['MachinesStartCreateQueryParamsArgs'] create: Query params for the create operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> pulumi.Input[Optional['MachinesStartCreateQueryParamsArgs']]:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @create.setter
+    def create(self, value: pulumi.Input[Optional['MachinesStartCreateQueryParamsArgs']]):
+        pulumi.set(self, "create", value)
+
+
+class MachinesStopCreateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class MachinesStopCreateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class MachinesStopQueryParamsArgsDict(TypedDict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    create: NotRequired[pulumi.Input[Optional['MachinesStopCreateQueryParamsArgsDict']]]
+    """
+    Query params for the create operation.
+    """
+
+@pulumi.input_type
+class MachinesStopQueryParamsArgs:
+    def __init__(__self__, *,
+                 create: pulumi.Input[Optional['MachinesStopCreateQueryParamsArgs']] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param pulumi.Input['MachinesStopCreateQueryParamsArgs'] create: Query params for the create operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> pulumi.Input[Optional['MachinesStopCreateQueryParamsArgs']]:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @create.setter
+    def create(self, value: pulumi.Input[Optional['MachinesStopCreateQueryParamsArgs']]):
+        pulumi.set(self, "create", value)
+
+
+class MachinesSuspendCreateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class MachinesSuspendCreateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class MachinesSuspendQueryParamsArgsDict(TypedDict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    create: NotRequired[pulumi.Input[Optional['MachinesSuspendCreateQueryParamsArgsDict']]]
+    """
+    Query params for the create operation.
+    """
+
+@pulumi.input_type
+class MachinesSuspendQueryParamsArgs:
+    def __init__(__self__, *,
+                 create: pulumi.Input[Optional['MachinesSuspendCreateQueryParamsArgs']] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param pulumi.Input['MachinesSuspendCreateQueryParamsArgs'] create: Query params for the create operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> pulumi.Input[Optional['MachinesSuspendCreateQueryParamsArgs']]:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @create.setter
+    def create(self, value: pulumi.Input[Optional['MachinesSuspendCreateQueryParamsArgs']]):
+        pulumi.set(self, "create", value)
+
+
+class MachinesUncordonCreateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class MachinesUncordonCreateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class MachinesUncordonQueryParamsArgsDict(TypedDict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    create: NotRequired[pulumi.Input[Optional['MachinesUncordonCreateQueryParamsArgsDict']]]
+    """
+    Query params for the create operation.
+    """
+
+@pulumi.input_type
+class MachinesUncordonQueryParamsArgs:
+    def __init__(__self__, *,
+                 create: pulumi.Input[Optional['MachinesUncordonCreateQueryParamsArgs']] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param pulumi.Input['MachinesUncordonCreateQueryParamsArgs'] create: Query params for the create operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> pulumi.Input[Optional['MachinesUncordonCreateQueryParamsArgs']]:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @create.setter
+    def create(self, value: pulumi.Input[Optional['MachinesUncordonCreateQueryParamsArgs']]):
+        pulumi.set(self, "create", value)
+
+
+class SecretCreateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class SecretCreateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class SecretDeleteQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class SecretDeleteQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class SecretQueryParamsArgsDict(TypedDict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    create: NotRequired[pulumi.Input[Optional['SecretCreateQueryParamsArgsDict']]]
+    """
+    Query params for the create operation.
+    """
+    delete: NotRequired[pulumi.Input[Optional['SecretDeleteQueryParamsArgsDict']]]
+    """
+    Query params for the delete operation.
+    """
+    read: NotRequired[pulumi.Input[Optional['SecretReadQueryParamsArgsDict']]]
+    """
+    Query params for the read operation.
+    """
+
+@pulumi.input_type
+class SecretQueryParamsArgs:
+    def __init__(__self__, *,
+                 create: pulumi.Input[Optional['SecretCreateQueryParamsArgs']] = None,
+                 delete: pulumi.Input[Optional['SecretDeleteQueryParamsArgs']] = None,
+                 read: pulumi.Input[Optional['SecretReadQueryParamsArgs']] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param pulumi.Input['SecretCreateQueryParamsArgs'] create: Query params for the create operation.
+        :param pulumi.Input['SecretDeleteQueryParamsArgs'] delete: Query params for the delete operation.
+        :param pulumi.Input['SecretReadQueryParamsArgs'] read: Query params for the read operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+        if delete is not None:
+            pulumi.set(__self__, "delete", delete)
+        if read is not None:
+            pulumi.set(__self__, "read", read)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> pulumi.Input[Optional['SecretCreateQueryParamsArgs']]:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @create.setter
+    def create(self, value: pulumi.Input[Optional['SecretCreateQueryParamsArgs']]):
+        pulumi.set(self, "create", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def delete(self) -> pulumi.Input[Optional['SecretDeleteQueryParamsArgs']]:
+        """
+        Query params for the delete operation.
+        """
+        return pulumi.get(self, "delete")
+
+    @delete.setter
+    def delete(self, value: pulumi.Input[Optional['SecretDeleteQueryParamsArgs']]):
+        pulumi.set(self, "delete", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def read(self) -> pulumi.Input[Optional['SecretReadQueryParamsArgs']]:
+        """
+        Query params for the read operation.
+        """
+        return pulumi.get(self, "read")
+
+    @read.setter
+    def read(self, value: pulumi.Input[Optional['SecretReadQueryParamsArgs']]):
+        pulumi.set(self, "read", value)
+
+
+class SecretReadQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+    min_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Minimum secrets version to return. Returned when setting a new secret
+    """
+    show_secrets: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    Show the secret value.
+    """
+
+@pulumi.input_type
+class SecretReadQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 min_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 show_secrets: pulumi.Input[Optional[_builtins.bool]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        :param pulumi.Input[_builtins.str] min_version: Minimum secrets version to return. Returned when setting a new secret
+        :param pulumi.Input[_builtins.bool] show_secrets: Show the secret value.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+        if min_version is not None:
+            pulumi.set(__self__, "min_version", min_version)
+        if show_secrets is not None:
+            pulumi.set(__self__, "show_secrets", show_secrets)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+    @_builtins.property
+    @pulumi.getter(name="minVersion")
+    def min_version(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Minimum secrets version to return. Returned when setting a new secret
+        """
+        return pulumi.get(self, "min_version")
+
+    @min_version.setter
+    def min_version(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "min_version", value)
+
+    @_builtins.property
+    @pulumi.getter(name="showSecrets")
+    def show_secrets(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Show the secret value.
+        """
+        return pulumi.get(self, "show_secrets")
+
+    @show_secrets.setter
+    def show_secrets(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "show_secrets", value)
+
+
+class SecretkeyCreateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class SecretkeyCreateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class SecretkeyDecryptCreateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+    min_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Minimum secrets version to return. Returned when setting a new secret
+    """
+
+@pulumi.input_type
+class SecretkeyDecryptCreateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 min_version: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        :param pulumi.Input[_builtins.str] min_version: Minimum secrets version to return. Returned when setting a new secret
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+        if min_version is not None:
+            pulumi.set(__self__, "min_version", min_version)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+    @_builtins.property
+    @pulumi.getter(name="minVersion")
+    def min_version(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Minimum secrets version to return. Returned when setting a new secret
+        """
+        return pulumi.get(self, "min_version")
+
+    @min_version.setter
+    def min_version(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "min_version", value)
+
+
+class SecretkeyDecryptQueryParamsArgsDict(TypedDict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    create: NotRequired[pulumi.Input[Optional['SecretkeyDecryptCreateQueryParamsArgsDict']]]
+    """
+    Query params for the create operation.
+    """
+
+@pulumi.input_type
+class SecretkeyDecryptQueryParamsArgs:
+    def __init__(__self__, *,
+                 create: pulumi.Input[Optional['SecretkeyDecryptCreateQueryParamsArgs']] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param pulumi.Input['SecretkeyDecryptCreateQueryParamsArgs'] create: Query params for the create operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> pulumi.Input[Optional['SecretkeyDecryptCreateQueryParamsArgs']]:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @create.setter
+    def create(self, value: pulumi.Input[Optional['SecretkeyDecryptCreateQueryParamsArgs']]):
+        pulumi.set(self, "create", value)
+
+
+class SecretkeyDeleteQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class SecretkeyDeleteQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class SecretkeyEncryptCreateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+    min_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Minimum secrets version to return. Returned when setting a new secret
+    """
+
+@pulumi.input_type
+class SecretkeyEncryptCreateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 min_version: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        :param pulumi.Input[_builtins.str] min_version: Minimum secrets version to return. Returned when setting a new secret
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+        if min_version is not None:
+            pulumi.set(__self__, "min_version", min_version)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+    @_builtins.property
+    @pulumi.getter(name="minVersion")
+    def min_version(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Minimum secrets version to return. Returned when setting a new secret
+        """
+        return pulumi.get(self, "min_version")
+
+    @min_version.setter
+    def min_version(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "min_version", value)
+
+
+class SecretkeyEncryptQueryParamsArgsDict(TypedDict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    create: NotRequired[pulumi.Input[Optional['SecretkeyEncryptCreateQueryParamsArgsDict']]]
+    """
+    Query params for the create operation.
+    """
+
+@pulumi.input_type
+class SecretkeyEncryptQueryParamsArgs:
+    def __init__(__self__, *,
+                 create: pulumi.Input[Optional['SecretkeyEncryptCreateQueryParamsArgs']] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param pulumi.Input['SecretkeyEncryptCreateQueryParamsArgs'] create: Query params for the create operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> pulumi.Input[Optional['SecretkeyEncryptCreateQueryParamsArgs']]:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @create.setter
+    def create(self, value: pulumi.Input[Optional['SecretkeyEncryptCreateQueryParamsArgs']]):
+        pulumi.set(self, "create", value)
+
+
+class SecretkeyGenerateCreateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class SecretkeyGenerateCreateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class SecretkeyGenerateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    create: NotRequired[pulumi.Input[Optional['SecretkeyGenerateCreateQueryParamsArgsDict']]]
+    """
+    Query params for the create operation.
+    """
+
+@pulumi.input_type
+class SecretkeyGenerateQueryParamsArgs:
+    def __init__(__self__, *,
+                 create: pulumi.Input[Optional['SecretkeyGenerateCreateQueryParamsArgs']] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param pulumi.Input['SecretkeyGenerateCreateQueryParamsArgs'] create: Query params for the create operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> pulumi.Input[Optional['SecretkeyGenerateCreateQueryParamsArgs']]:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @create.setter
+    def create(self, value: pulumi.Input[Optional['SecretkeyGenerateCreateQueryParamsArgs']]):
+        pulumi.set(self, "create", value)
+
+
+class SecretkeyQueryParamsArgsDict(TypedDict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    create: NotRequired[pulumi.Input[Optional['SecretkeyCreateQueryParamsArgsDict']]]
+    """
+    Query params for the create operation.
+    """
+    delete: NotRequired[pulumi.Input[Optional['SecretkeyDeleteQueryParamsArgsDict']]]
+    """
+    Query params for the delete operation.
+    """
+    read: NotRequired[pulumi.Input[Optional['SecretkeyReadQueryParamsArgsDict']]]
+    """
+    Query params for the read operation.
+    """
+
+@pulumi.input_type
+class SecretkeyQueryParamsArgs:
+    def __init__(__self__, *,
+                 create: pulumi.Input[Optional['SecretkeyCreateQueryParamsArgs']] = None,
+                 delete: pulumi.Input[Optional['SecretkeyDeleteQueryParamsArgs']] = None,
+                 read: pulumi.Input[Optional['SecretkeyReadQueryParamsArgs']] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param pulumi.Input['SecretkeyCreateQueryParamsArgs'] create: Query params for the create operation.
+        :param pulumi.Input['SecretkeyDeleteQueryParamsArgs'] delete: Query params for the delete operation.
+        :param pulumi.Input['SecretkeyReadQueryParamsArgs'] read: Query params for the read operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+        if delete is not None:
+            pulumi.set(__self__, "delete", delete)
+        if read is not None:
+            pulumi.set(__self__, "read", read)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> pulumi.Input[Optional['SecretkeyCreateQueryParamsArgs']]:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @create.setter
+    def create(self, value: pulumi.Input[Optional['SecretkeyCreateQueryParamsArgs']]):
+        pulumi.set(self, "create", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def delete(self) -> pulumi.Input[Optional['SecretkeyDeleteQueryParamsArgs']]:
+        """
+        Query params for the delete operation.
+        """
+        return pulumi.get(self, "delete")
+
+    @delete.setter
+    def delete(self, value: pulumi.Input[Optional['SecretkeyDeleteQueryParamsArgs']]):
+        pulumi.set(self, "delete", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def read(self) -> pulumi.Input[Optional['SecretkeyReadQueryParamsArgs']]:
+        """
+        Query params for the read operation.
+        """
+        return pulumi.get(self, "read")
+
+    @read.setter
+    def read(self, value: pulumi.Input[Optional['SecretkeyReadQueryParamsArgs']]):
+        pulumi.set(self, "read", value)
+
+
+class SecretkeyReadQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+    min_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Minimum secrets version to return. Returned when setting a new secret
+    """
+
+@pulumi.input_type
+class SecretkeyReadQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 min_version: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        :param pulumi.Input[_builtins.str] min_version: Minimum secrets version to return. Returned when setting a new secret
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+        if min_version is not None:
+            pulumi.set(__self__, "min_version", min_version)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+    @_builtins.property
+    @pulumi.getter(name="minVersion")
+    def min_version(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Minimum secrets version to return. Returned when setting a new secret
+        """
+        return pulumi.get(self, "min_version")
+
+    @min_version.setter
+    def min_version(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "min_version", value)
+
+
+class SecretkeySignCreateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+    min_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Minimum secrets version to return. Returned when setting a new secret
+    """
+
+@pulumi.input_type
+class SecretkeySignCreateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 min_version: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        :param pulumi.Input[_builtins.str] min_version: Minimum secrets version to return. Returned when setting a new secret
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+        if min_version is not None:
+            pulumi.set(__self__, "min_version", min_version)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+    @_builtins.property
+    @pulumi.getter(name="minVersion")
+    def min_version(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Minimum secrets version to return. Returned when setting a new secret
+        """
+        return pulumi.get(self, "min_version")
+
+    @min_version.setter
+    def min_version(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "min_version", value)
+
+
+class SecretkeySignQueryParamsArgsDict(TypedDict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    create: NotRequired[pulumi.Input[Optional['SecretkeySignCreateQueryParamsArgsDict']]]
+    """
+    Query params for the create operation.
+    """
+
+@pulumi.input_type
+class SecretkeySignQueryParamsArgs:
+    def __init__(__self__, *,
+                 create: pulumi.Input[Optional['SecretkeySignCreateQueryParamsArgs']] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param pulumi.Input['SecretkeySignCreateQueryParamsArgs'] create: Query params for the create operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> pulumi.Input[Optional['SecretkeySignCreateQueryParamsArgs']]:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @create.setter
+    def create(self, value: pulumi.Input[Optional['SecretkeySignCreateQueryParamsArgs']]):
+        pulumi.set(self, "create", value)
+
+
+class SecretkeyVerifyCreateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+    min_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Minimum secrets version to return. Returned when setting a new secret
+    """
+
+@pulumi.input_type
+class SecretkeyVerifyCreateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 min_version: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        :param pulumi.Input[_builtins.str] min_version: Minimum secrets version to return. Returned when setting a new secret
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+        if min_version is not None:
+            pulumi.set(__self__, "min_version", min_version)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+    @_builtins.property
+    @pulumi.getter(name="minVersion")
+    def min_version(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Minimum secrets version to return. Returned when setting a new secret
+        """
+        return pulumi.get(self, "min_version")
+
+    @min_version.setter
+    def min_version(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "min_version", value)
+
+
+class SecretkeyVerifyQueryParamsArgsDict(TypedDict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    create: NotRequired[pulumi.Input[Optional['SecretkeyVerifyCreateQueryParamsArgsDict']]]
+    """
+    Query params for the create operation.
+    """
+
+@pulumi.input_type
+class SecretkeyVerifyQueryParamsArgs:
+    def __init__(__self__, *,
+                 create: pulumi.Input[Optional['SecretkeyVerifyCreateQueryParamsArgs']] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param pulumi.Input['SecretkeyVerifyCreateQueryParamsArgs'] create: Query params for the create operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> pulumi.Input[Optional['SecretkeyVerifyCreateQueryParamsArgs']]:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @create.setter
+    def create(self, value: pulumi.Input[Optional['SecretkeyVerifyCreateQueryParamsArgs']]):
+        pulumi.set(self, "create", value)
+
+
+class SecretsUpdateCreateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class SecretsUpdateCreateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class SecretsUpdateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    create: NotRequired[pulumi.Input[Optional['SecretsUpdateCreateQueryParamsArgsDict']]]
+    """
+    Query params for the create operation.
+    """
+
+@pulumi.input_type
+class SecretsUpdateQueryParamsArgs:
+    def __init__(__self__, *,
+                 create: pulumi.Input[Optional['SecretsUpdateCreateQueryParamsArgs']] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param pulumi.Input['SecretsUpdateCreateQueryParamsArgs'] create: Query params for the create operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> pulumi.Input[Optional['SecretsUpdateCreateQueryParamsArgs']]:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @create.setter
+    def create(self, value: pulumi.Input[Optional['SecretsUpdateCreateQueryParamsArgs']]):
+        pulumi.set(self, "create", value)
+
+
+class VolumeCreateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class VolumeCreateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class VolumeDeleteQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class VolumeDeleteQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class VolumePutQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class VolumePutQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class VolumeQueryParamsArgsDict(TypedDict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    create: NotRequired[pulumi.Input[Optional['VolumeCreateQueryParamsArgsDict']]]
+    """
+    Query params for the create operation.
+    """
+    delete: NotRequired[pulumi.Input[Optional['VolumeDeleteQueryParamsArgsDict']]]
+    """
+    Query params for the delete operation.
+    """
+    put: NotRequired[pulumi.Input[Optional['VolumePutQueryParamsArgsDict']]]
+    """
+    Query params for the put operation.
+    """
+    read: NotRequired[pulumi.Input[Optional['VolumeReadQueryParamsArgsDict']]]
+    """
+    Query params for the read operation.
+    """
+
+@pulumi.input_type
+class VolumeQueryParamsArgs:
+    def __init__(__self__, *,
+                 create: pulumi.Input[Optional['VolumeCreateQueryParamsArgs']] = None,
+                 delete: pulumi.Input[Optional['VolumeDeleteQueryParamsArgs']] = None,
+                 put: pulumi.Input[Optional['VolumePutQueryParamsArgs']] = None,
+                 read: pulumi.Input[Optional['VolumeReadQueryParamsArgs']] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param pulumi.Input['VolumeCreateQueryParamsArgs'] create: Query params for the create operation.
+        :param pulumi.Input['VolumeDeleteQueryParamsArgs'] delete: Query params for the delete operation.
+        :param pulumi.Input['VolumePutQueryParamsArgs'] put: Query params for the put operation.
+        :param pulumi.Input['VolumeReadQueryParamsArgs'] read: Query params for the read operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+        if delete is not None:
+            pulumi.set(__self__, "delete", delete)
+        if put is not None:
+            pulumi.set(__self__, "put", put)
+        if read is not None:
+            pulumi.set(__self__, "read", read)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> pulumi.Input[Optional['VolumeCreateQueryParamsArgs']]:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @create.setter
+    def create(self, value: pulumi.Input[Optional['VolumeCreateQueryParamsArgs']]):
+        pulumi.set(self, "create", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def delete(self) -> pulumi.Input[Optional['VolumeDeleteQueryParamsArgs']]:
+        """
+        Query params for the delete operation.
+        """
+        return pulumi.get(self, "delete")
+
+    @delete.setter
+    def delete(self, value: pulumi.Input[Optional['VolumeDeleteQueryParamsArgs']]):
+        pulumi.set(self, "delete", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def put(self) -> pulumi.Input[Optional['VolumePutQueryParamsArgs']]:
+        """
+        Query params for the put operation.
+        """
+        return pulumi.get(self, "put")
+
+    @put.setter
+    def put(self, value: pulumi.Input[Optional['VolumePutQueryParamsArgs']]):
+        pulumi.set(self, "put", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def read(self) -> pulumi.Input[Optional['VolumeReadQueryParamsArgs']]:
+        """
+        Query params for the read operation.
+        """
+        return pulumi.get(self, "read")
+
+    @read.setter
+    def read(self, value: pulumi.Input[Optional['VolumeReadQueryParamsArgs']]):
+        pulumi.set(self, "read", value)
+
+
+class VolumeReadQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class VolumeReadQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class VolumeSnapshotCreateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class VolumeSnapshotCreateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class VolumeSnapshotQueryParamsArgsDict(TypedDict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    create: NotRequired[pulumi.Input[Optional['VolumeSnapshotCreateQueryParamsArgsDict']]]
+    """
+    Query params for the create operation.
+    """
+
+@pulumi.input_type
+class VolumeSnapshotQueryParamsArgs:
+    def __init__(__self__, *,
+                 create: pulumi.Input[Optional['VolumeSnapshotCreateQueryParamsArgs']] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param pulumi.Input['VolumeSnapshotCreateQueryParamsArgs'] create: Query params for the create operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> pulumi.Input[Optional['VolumeSnapshotCreateQueryParamsArgs']]:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @create.setter
+    def create(self, value: pulumi.Input[Optional['VolumeSnapshotCreateQueryParamsArgs']]):
+        pulumi.set(self, "create", value)
+
+
+class VolumesExtendCreateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class VolumesExtendCreateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class VolumesExtendPutQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class VolumesExtendPutQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class VolumesExtendQueryParamsArgsDict(TypedDict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    create: NotRequired[pulumi.Input[Optional['VolumesExtendCreateQueryParamsArgsDict']]]
+    """
+    Query params for the create operation.
+    """
+    put: NotRequired[pulumi.Input[Optional['VolumesExtendPutQueryParamsArgsDict']]]
+    """
+    Query params for the put operation.
+    """
+
+@pulumi.input_type
+class VolumesExtendQueryParamsArgs:
+    def __init__(__self__, *,
+                 create: pulumi.Input[Optional['VolumesExtendCreateQueryParamsArgs']] = None,
+                 put: pulumi.Input[Optional['VolumesExtendPutQueryParamsArgs']] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param pulumi.Input['VolumesExtendCreateQueryParamsArgs'] create: Query params for the create operation.
+        :param pulumi.Input['VolumesExtendPutQueryParamsArgs'] put: Query params for the put operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+        if put is not None:
+            pulumi.set(__self__, "put", put)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> pulumi.Input[Optional['VolumesExtendCreateQueryParamsArgs']]:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @create.setter
+    def create(self, value: pulumi.Input[Optional['VolumesExtendCreateQueryParamsArgs']]):
+        pulumi.set(self, "create", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def put(self) -> pulumi.Input[Optional['VolumesExtendPutQueryParamsArgs']]:
+        """
+        Query params for the put operation.
+        """
+        return pulumi.get(self, "put")
+
+    @put.setter
+    def put(self, value: pulumi.Input[Optional['VolumesExtendPutQueryParamsArgs']]):
+        pulumi.set(self, "put", value)
 
 

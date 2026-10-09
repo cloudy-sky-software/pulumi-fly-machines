@@ -22,6 +22,8 @@ type MachinesLease struct {
 	Nonce pulumi.StringPtrOutput `pulumi:"nonce"`
 	// Owner is the user identifier which acquired the Lease.
 	Owner pulumi.StringPtrOutput `pulumi:"owner"`
+	// Query params to send with the API requests for this resource.
+	QueryParams MachinesLeaseQueryParamsPtrOutput `pulumi:"queryParams"`
 	// seconds lease will be valid
 	Ttl pulumi.IntPtrOutput `pulumi:"ttl"`
 	// Machine version
@@ -73,6 +75,8 @@ type machinesLeaseArgs struct {
 	Description *string `pulumi:"description"`
 	// Machine ID
 	MachineId *string `pulumi:"machineId"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *MachinesLeaseQueryParams `pulumi:"queryParams"`
 	// seconds lease will be valid
 	Ttl *int `pulumi:"ttl"`
 }
@@ -84,6 +88,8 @@ type MachinesLeaseArgs struct {
 	Description pulumi.StringPtrInput
 	// Machine ID
 	MachineId pulumi.StringPtrInput
+	// Query params to send with the API requests for this resource.
+	QueryParams MachinesLeaseQueryParamsPtrInput
 	// seconds lease will be valid
 	Ttl pulumi.IntPtrInput
 }
@@ -143,6 +149,11 @@ func (o MachinesLeaseOutput) Nonce() pulumi.StringPtrOutput {
 // Owner is the user identifier which acquired the Lease.
 func (o MachinesLeaseOutput) Owner() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *MachinesLease) pulumi.StringPtrOutput { return v.Owner }).(pulumi.StringPtrOutput)
+}
+
+// Query params to send with the API requests for this resource.
+func (o MachinesLeaseOutput) QueryParams() MachinesLeaseQueryParamsPtrOutput {
+	return o.ApplyT(func(v *MachinesLease) MachinesLeaseQueryParamsPtrOutput { return v.QueryParams }).(MachinesLeaseQueryParamsPtrOutput)
 }
 
 // seconds lease will be valid

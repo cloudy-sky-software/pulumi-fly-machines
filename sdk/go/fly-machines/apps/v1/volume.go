@@ -14,27 +14,29 @@ import (
 type Volume struct {
 	pulumi.CustomResourceState
 
-	AttachedAllocId      pulumi.StringPtrOutput   `pulumi:"attachedAllocId"`
-	AttachedMachineId    pulumi.StringPtrOutput   `pulumi:"attachedMachineId"`
-	AutoBackupEnabled    pulumi.BoolPtrOutput     `pulumi:"autoBackupEnabled"`
-	BlockSize            pulumi.IntPtrOutput      `pulumi:"blockSize"`
-	Blocks               pulumi.IntPtrOutput      `pulumi:"blocks"`
-	BlocksAvail          pulumi.IntPtrOutput      `pulumi:"blocksAvail"`
-	BlocksFree           pulumi.IntPtrOutput      `pulumi:"blocksFree"`
-	BytesTotal           pulumi.IntPtrOutput      `pulumi:"bytesTotal"`
-	BytesUsed            pulumi.IntPtrOutput      `pulumi:"bytesUsed"`
-	Compute              FlyMachineGuestPtrOutput `pulumi:"compute"`
-	ComputeImage         pulumi.StringPtrOutput   `pulumi:"computeImage"`
-	CreatedAt            pulumi.StringPtrOutput   `pulumi:"createdAt"`
-	Encrypted            pulumi.BoolPtrOutput     `pulumi:"encrypted"`
-	Fstype               pulumi.StringPtrOutput   `pulumi:"fstype"`
-	HostFeatures         pulumi.StringArrayOutput `pulumi:"hostFeatures"`
-	HostStatus           HostStatusPtrOutput      `pulumi:"hostStatus"`
-	Name                 pulumi.StringPtrOutput   `pulumi:"name"`
-	Region               pulumi.StringPtrOutput   `pulumi:"region"`
-	RequireUniqueZone    pulumi.BoolPtrOutput     `pulumi:"requireUniqueZone"`
-	RequiredHostFeatures pulumi.StringArrayOutput `pulumi:"requiredHostFeatures"`
-	SizeGb               pulumi.IntPtrOutput      `pulumi:"sizeGb"`
+	AttachedAllocId   pulumi.StringPtrOutput   `pulumi:"attachedAllocId"`
+	AttachedMachineId pulumi.StringPtrOutput   `pulumi:"attachedMachineId"`
+	AutoBackupEnabled pulumi.BoolPtrOutput     `pulumi:"autoBackupEnabled"`
+	BlockSize         pulumi.IntPtrOutput      `pulumi:"blockSize"`
+	Blocks            pulumi.IntPtrOutput      `pulumi:"blocks"`
+	BlocksAvail       pulumi.IntPtrOutput      `pulumi:"blocksAvail"`
+	BlocksFree        pulumi.IntPtrOutput      `pulumi:"blocksFree"`
+	BytesTotal        pulumi.IntPtrOutput      `pulumi:"bytesTotal"`
+	BytesUsed         pulumi.IntPtrOutput      `pulumi:"bytesUsed"`
+	Compute           FlyMachineGuestPtrOutput `pulumi:"compute"`
+	ComputeImage      pulumi.StringPtrOutput   `pulumi:"computeImage"`
+	CreatedAt         pulumi.StringPtrOutput   `pulumi:"createdAt"`
+	Encrypted         pulumi.BoolPtrOutput     `pulumi:"encrypted"`
+	Fstype            pulumi.StringPtrOutput   `pulumi:"fstype"`
+	HostFeatures      pulumi.StringArrayOutput `pulumi:"hostFeatures"`
+	HostStatus        HostStatusPtrOutput      `pulumi:"hostStatus"`
+	Name              pulumi.StringPtrOutput   `pulumi:"name"`
+	// Query params to send with the API requests for this resource.
+	QueryParams          VolumeQueryParamsPtrOutput `pulumi:"queryParams"`
+	Region               pulumi.StringPtrOutput     `pulumi:"region"`
+	RequireUniqueZone    pulumi.BoolPtrOutput       `pulumi:"requireUniqueZone"`
+	RequiredHostFeatures pulumi.StringArrayOutput   `pulumi:"requiredHostFeatures"`
+	SizeGb               pulumi.IntPtrOutput        `pulumi:"sizeGb"`
 	// restore from snapshot
 	SnapshotId        pulumi.StringPtrOutput `pulumi:"snapshotId"`
 	SnapshotRetention pulumi.IntPtrOutput    `pulumi:"snapshotRetention"`
@@ -95,9 +97,11 @@ type volumeArgs struct {
 	Encrypted         *bool            `pulumi:"encrypted"`
 	Fstype            *string          `pulumi:"fstype"`
 	Name              *string          `pulumi:"name"`
-	Region            *string          `pulumi:"region"`
-	RequireUniqueZone *bool            `pulumi:"requireUniqueZone"`
-	SizeGb            *int             `pulumi:"sizeGb"`
+	// Query params to send with the API requests for this resource.
+	QueryParams       *VolumeQueryParams `pulumi:"queryParams"`
+	Region            *string            `pulumi:"region"`
+	RequireUniqueZone *bool              `pulumi:"requireUniqueZone"`
+	SizeGb            *int               `pulumi:"sizeGb"`
 	// restore from snapshot
 	SnapshotId        *string `pulumi:"snapshotId"`
 	SnapshotRetention *int    `pulumi:"snapshotRetention"`
@@ -117,6 +121,8 @@ type VolumeArgs struct {
 	Encrypted         pulumi.BoolPtrInput
 	Fstype            pulumi.StringPtrInput
 	Name              pulumi.StringPtrInput
+	// Query params to send with the API requests for this resource.
+	QueryParams       VolumeQueryParamsPtrInput
 	Region            pulumi.StringPtrInput
 	RequireUniqueZone pulumi.BoolPtrInput
 	SizeGb            pulumi.IntPtrInput
@@ -231,6 +237,11 @@ func (o VolumeOutput) HostStatus() HostStatusPtrOutput {
 
 func (o VolumeOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Volume) pulumi.StringPtrOutput { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+// Query params to send with the API requests for this resource.
+func (o VolumeOutput) QueryParams() VolumeQueryParamsPtrOutput {
+	return o.ApplyT(func(v *Volume) VolumeQueryParamsPtrOutput { return v.QueryParams }).(VolumeQueryParamsPtrOutput)
 }
 
 func (o VolumeOutput) Region() pulumi.StringPtrOutput {

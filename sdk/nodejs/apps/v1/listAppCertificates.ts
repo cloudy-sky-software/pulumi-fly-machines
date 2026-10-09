@@ -11,6 +11,7 @@ export function listAppCertificates(args: ListAppCertificatesArgs, opts?: pulumi
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("fly-machines:apps/v1:listAppCertificates", {
         "appName": args.appName,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -19,6 +20,10 @@ export interface ListAppCertificatesArgs {
      * Fly App Name
      */
     appName: string;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: inputs.apps.v1.ListAppCertificatesQueryParams;
 }
 
 export interface ListAppCertificatesResult {
@@ -30,6 +35,7 @@ export function listAppCertificatesOutput(args: ListAppCertificatesOutputArgs, o
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("fly-machines:apps/v1:listAppCertificates", {
         "appName": args.appName,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -38,4 +44,8 @@ export interface ListAppCertificatesOutputArgs {
      * Fly App Name
      */
     appName: pulumi.Input<string>;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.ListAppCertificatesQueryParamsArgs | undefined>;
 }

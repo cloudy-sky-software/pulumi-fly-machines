@@ -5,7 +5,7 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../../utilities";
 
 // Export members:
-export { GetPlatformRegionArgs, GetPlatformRegionResult } from "./getPlatformRegion";
+export { GetPlatformRegionArgs, GetPlatformRegionResult, GetPlatformRegionOutputArgs } from "./getPlatformRegion";
 export const getPlatformRegion: typeof import("./getPlatformRegion").getPlatformRegion = null as any;
 export const getPlatformRegionOutput: typeof import("./getPlatformRegion").getPlatformRegionOutput = null as any;
 utilities.lazyLoad(exports, ["getPlatformRegion","getPlatformRegionOutput"], () => require("./getPlatformRegion"));

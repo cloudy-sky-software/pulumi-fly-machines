@@ -26,6 +26,8 @@ type ListPostgresExtensionsArgs struct {
 	DatabaseName string `pulumi:"databaseName"`
 	// Managed Postgres Cluster ID
 	PostgresClusterId string `pulumi:"postgresClusterId"`
+	// Query params to send with the API request.
+	QueryParams *ListPostgresExtensionsQueryParams `pulumi:"queryParams"`
 }
 
 type ListPostgresExtensionsResult struct {
@@ -42,6 +44,8 @@ type ListPostgresExtensionsOutputArgs struct {
 	DatabaseName pulumi.StringInput `pulumi:"databaseName"`
 	// Managed Postgres Cluster ID
 	PostgresClusterId pulumi.StringInput `pulumi:"postgresClusterId"`
+	// Query params to send with the API request.
+	QueryParams ListPostgresExtensionsQueryParamsPtrInput `pulumi:"queryParams"`
 }
 
 func (ListPostgresExtensionsOutputArgs) ElementType() reflect.Type {

@@ -25,6 +25,7 @@ class PlatformPlacementArgs:
                  org_slug: pulumi.Input[_builtins.str],
                  compute: pulumi.Input[Optional['ComputeArgs']] = None,
                  count: pulumi.Input[Optional[_builtins.int]] = None,
+                 query_params: pulumi.Input[Optional['PlatformPlacementQueryParamsArgs']] = None,
                  region: pulumi.Input[Optional[_builtins.str]] = None,
                  volume_name: pulumi.Input[Optional[_builtins.str]] = None,
                  volume_size_bytes: pulumi.Input[Optional[_builtins.int]] = None,
@@ -35,6 +36,7 @@ class PlatformPlacementArgs:
         :param pulumi.Input['ComputeArgs'] compute: Resource requirements for the Machine to simulate. Defaults to a performance-1x machine
         :param pulumi.Input[_builtins.int] count: Number of machines to simulate placement.
                Defaults to 0, which returns the org-specific limit for each region.
+        :param pulumi.Input['PlatformPlacementQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input[_builtins.str] region: Region expression for placement as a comma-delimited set of regions or aliases.
                Defaults to "[region],any", to prefer the API endpoint's local region with any other region as fallback.
         :param pulumi.Input['WeightsArgs'] weights: Optional weights to override default placement preferences.
@@ -44,6 +46,8 @@ class PlatformPlacementArgs:
             pulumi.set(__self__, "compute", compute)
         if count is not None:
             pulumi.set(__self__, "count", count)
+        if query_params is not None:
+            pulumi.set(__self__, "query_params", query_params)
         if region is not None:
             pulumi.set(__self__, "region", region)
         if volume_name is not None:
@@ -86,6 +90,18 @@ class PlatformPlacementArgs:
     @count.setter
     def count(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "count", value)
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Input[Optional['PlatformPlacementQueryParamsArgs']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
+
+    @query_params.setter
+    def query_params(self, value: pulumi.Input[Optional['PlatformPlacementQueryParamsArgs']]):
+        pulumi.set(self, "query_params", value)
 
     @_builtins.property
     @pulumi.getter
@@ -140,6 +156,7 @@ class PlatformPlacement(pulumi.CustomResource):
                  compute: pulumi.Input[Optional[Union['ComputeArgs', 'ComputeArgsDict', 'outputs.Compute']]] = None,
                  count: pulumi.Input[Optional[_builtins.int]] = None,
                  org_slug: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['PlatformPlacementQueryParamsArgs', 'PlatformPlacementQueryParamsArgsDict', 'outputs.PlatformPlacementQueryParams']]] = None,
                  region: pulumi.Input[Optional[_builtins.str]] = None,
                  volume_name: pulumi.Input[Optional[_builtins.str]] = None,
                  volume_size_bytes: pulumi.Input[Optional[_builtins.int]] = None,
@@ -153,6 +170,7 @@ class PlatformPlacement(pulumi.CustomResource):
         :param pulumi.Input[Union['ComputeArgs', 'ComputeArgsDict', 'outputs.Compute']] compute: Resource requirements for the Machine to simulate. Defaults to a performance-1x machine
         :param pulumi.Input[_builtins.int] count: Number of machines to simulate placement.
                Defaults to 0, which returns the org-specific limit for each region.
+        :param pulumi.Input[Union['PlatformPlacementQueryParamsArgs', 'PlatformPlacementQueryParamsArgsDict', 'outputs.PlatformPlacementQueryParams']] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input[_builtins.str] region: Region expression for placement as a comma-delimited set of regions or aliases.
                Defaults to "[region],any", to prefer the API endpoint's local region with any other region as fallback.
         :param pulumi.Input[Union['WeightsArgs', 'WeightsArgsDict', 'outputs.Weights']] weights: Optional weights to override default placement preferences.
@@ -184,6 +202,7 @@ class PlatformPlacement(pulumi.CustomResource):
                  compute: pulumi.Input[Optional[Union['ComputeArgs', 'ComputeArgsDict', 'outputs.Compute']]] = None,
                  count: pulumi.Input[Optional[_builtins.int]] = None,
                  org_slug: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['PlatformPlacementQueryParamsArgs', 'PlatformPlacementQueryParamsArgsDict', 'outputs.PlatformPlacementQueryParams']]] = None,
                  region: pulumi.Input[Optional[_builtins.str]] = None,
                  volume_name: pulumi.Input[Optional[_builtins.str]] = None,
                  volume_size_bytes: pulumi.Input[Optional[_builtins.int]] = None,
@@ -202,6 +221,7 @@ class PlatformPlacement(pulumi.CustomResource):
             if org_slug is None and not opts.urn:
                 raise TypeError("Missing required property 'org_slug'")
             __props__.__dict__["org_slug"] = org_slug
+            __props__.__dict__["query_params"] = query_params
             __props__.__dict__["region"] = region
             __props__.__dict__["volume_name"] = volume_name
             __props__.__dict__["volume_size_bytes"] = volume_size_bytes
@@ -232,6 +252,7 @@ class PlatformPlacement(pulumi.CustomResource):
         __props__.__dict__["compute"] = None
         __props__.__dict__["count"] = None
         __props__.__dict__["org_slug"] = None
+        __props__.__dict__["query_params"] = None
         __props__.__dict__["region"] = None
         __props__.__dict__["regions"] = None
         __props__.__dict__["volume_name"] = None
@@ -260,6 +281,14 @@ class PlatformPlacement(pulumi.CustomResource):
     @pulumi.getter(name="orgSlug")
     def org_slug(self) -> pulumi.Output[_builtins.str]:
         return pulumi.get(self, "org_slug")
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Output[Optional['outputs.PlatformPlacementQueryParams']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
 
     @_builtins.property
     @pulumi.getter

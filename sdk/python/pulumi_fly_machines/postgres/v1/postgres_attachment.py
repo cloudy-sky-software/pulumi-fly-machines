@@ -14,6 +14,7 @@ else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
 from . import outputs
+from ._inputs import *
 
 __all__ = ['PostgresAttachmentArgs', 'PostgresAttachment']
 
@@ -21,16 +22,20 @@ __all__ = ['PostgresAttachmentArgs', 'PostgresAttachment']
 class PostgresAttachmentArgs:
     def __init__(__self__, *,
                  app_name: pulumi.Input[_builtins.str],
-                 postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None):
+                 postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional['PostgresAttachmentQueryParamsArgs']] = None):
         """
         The set of arguments for constructing a PostgresAttachment resource.
 
         :param pulumi.Input[_builtins.str] app_name: Name of the Fly app to attach.
         :param pulumi.Input[_builtins.str] postgres_cluster_id: Managed Postgres Cluster ID
+        :param pulumi.Input['PostgresAttachmentQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         """
         pulumi.set(__self__, "app_name", app_name)
         if postgres_cluster_id is not None:
             pulumi.set(__self__, "postgres_cluster_id", postgres_cluster_id)
+        if query_params is not None:
+            pulumi.set(__self__, "query_params", query_params)
 
     @_builtins.property
     @pulumi.getter(name="appName")
@@ -56,6 +61,18 @@ class PostgresAttachmentArgs:
     def postgres_cluster_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "postgres_cluster_id", value)
 
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Input[Optional['PostgresAttachmentQueryParamsArgs']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
+
+    @query_params.setter
+    def query_params(self, value: pulumi.Input[Optional['PostgresAttachmentQueryParamsArgs']]):
+        pulumi.set(self, "query_params", value)
+
 
 @pulumi.type_token("fly-machines:postgres/v1:PostgresAttachment")
 class PostgresAttachment(pulumi.CustomResource):
@@ -65,6 +82,7 @@ class PostgresAttachment(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['PostgresAttachmentQueryParamsArgs', 'PostgresAttachmentQueryParamsArgsDict', 'outputs.PostgresAttachmentQueryParams']]] = None,
                  __props__=None):
         """
         Create a PostgresAttachment resource with the given unique name, props, and options.
@@ -73,6 +91,7 @@ class PostgresAttachment(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] app_name: Name of the Fly app to attach.
         :param pulumi.Input[_builtins.str] postgres_cluster_id: Managed Postgres Cluster ID
+        :param pulumi.Input[Union['PostgresAttachmentQueryParamsArgs', 'PostgresAttachmentQueryParamsArgsDict', 'outputs.PostgresAttachmentQueryParams']] query_params: Query params to send with the API requests for this resource.
         """
         ...
     @overload
@@ -100,6 +119,7 @@ class PostgresAttachment(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['PostgresAttachmentQueryParamsArgs', 'PostgresAttachmentQueryParamsArgsDict', 'outputs.PostgresAttachmentQueryParams']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -113,6 +133,7 @@ class PostgresAttachment(pulumi.CustomResource):
                 raise TypeError("Missing required property 'app_name'")
             __props__.__dict__["app_name"] = app_name
             __props__.__dict__["postgres_cluster_id"] = postgres_cluster_id
+            __props__.__dict__["query_params"] = query_params
             __props__.__dict__["data"] = None
         super(PostgresAttachment, __self__).__init__(
             'fly-machines:postgres/v1:PostgresAttachment',
@@ -138,6 +159,7 @@ class PostgresAttachment(pulumi.CustomResource):
 
         __props__.__dict__["app_name"] = None
         __props__.__dict__["data"] = None
+        __props__.__dict__["query_params"] = None
         return PostgresAttachment(resource_name, opts=opts, __props__=__props__)
 
     @_builtins.property
@@ -152,4 +174,12 @@ class PostgresAttachment(pulumi.CustomResource):
     @pulumi.getter
     def data(self) -> pulumi.Output[Optional['outputs.PostgresAttachment']]:
         return pulumi.get(self, "data")
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Output[Optional['outputs.PostgresAttachmentQueryParams']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
 

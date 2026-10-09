@@ -2,6 +2,9 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
+import * as enums from "../../types/enums";
 import * as utilities from "../../utilities";
 
 export class AppDeployToken extends pulumi.CustomResource {
@@ -32,6 +35,10 @@ export class AppDeployToken extends pulumi.CustomResource {
     }
 
     declare public readonly expiry: pulumi.Output<string | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    declare public readonly queryParams: pulumi.Output<outputs.apps.v1.AppDeployTokenQueryParams | undefined>;
     declare public /*out*/ readonly token: pulumi.Output<string | undefined>;
 
     /**
@@ -47,9 +54,11 @@ export class AppDeployToken extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["appName"] = args?.appName;
             resourceInputs["expiry"] = args?.expiry;
+            resourceInputs["queryParams"] = args?.queryParams;
             resourceInputs["token"] = undefined /*out*/;
         } else {
             resourceInputs["expiry"] = undefined /*out*/;
+            resourceInputs["queryParams"] = undefined /*out*/;
             resourceInputs["token"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
@@ -66,4 +75,8 @@ export interface AppDeployTokenArgs {
      */
     appName?: pulumi.Input<string | undefined>;
     expiry?: pulumi.Input<string | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.AppDeployTokenQueryParamsArgs | undefined>;
 }

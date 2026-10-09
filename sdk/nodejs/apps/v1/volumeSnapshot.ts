@@ -2,6 +2,9 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
+import * as enums from "../../types/enums";
 import * as utilities from "../../utilities";
 
 export class VolumeSnapshot extends pulumi.CustomResource {
@@ -31,6 +34,10 @@ export class VolumeSnapshot extends pulumi.CustomResource {
         return obj['__pulumiType'] === VolumeSnapshot.__pulumiType;
     }
 
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    declare public readonly queryParams: pulumi.Output<outputs.apps.v1.VolumeSnapshotQueryParams | undefined>;
 
     /**
      * Create a VolumeSnapshot resource with the given unique name, arguments, and options.
@@ -44,8 +51,10 @@ export class VolumeSnapshot extends pulumi.CustomResource {
         opts = opts || {};
         if (!opts.id) {
             resourceInputs["appName"] = args?.appName;
+            resourceInputs["queryParams"] = args?.queryParams;
             resourceInputs["volumeId"] = args?.volumeId;
         } else {
+            resourceInputs["queryParams"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(VolumeSnapshot.__pulumiType, name, resourceInputs, opts);
@@ -60,6 +69,10 @@ export interface VolumeSnapshotArgs {
      * Fly App Name
      */
     appName?: pulumi.Input<string | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.VolumeSnapshotQueryParamsArgs | undefined>;
     /**
      * Volume ID
      */

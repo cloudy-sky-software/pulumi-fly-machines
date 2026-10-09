@@ -13,6 +13,8 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
+from . import outputs
+from ._inputs import *
 
 __all__ = ['MachinesSuspendArgs', 'MachinesSuspend']
 
@@ -20,17 +22,21 @@ __all__ = ['MachinesSuspendArgs', 'MachinesSuspend']
 class MachinesSuspendArgs:
     def __init__(__self__, *,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
-                 machine_id: pulumi.Input[Optional[_builtins.str]] = None):
+                 machine_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional['MachinesSuspendQueryParamsArgs']] = None):
         """
         The set of arguments for constructing a MachinesSuspend resource.
 
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input[_builtins.str] machine_id: Machine ID
+        :param pulumi.Input['MachinesSuspendQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         """
         if app_name is not None:
             pulumi.set(__self__, "app_name", app_name)
         if machine_id is not None:
             pulumi.set(__self__, "machine_id", machine_id)
+        if query_params is not None:
+            pulumi.set(__self__, "query_params", query_params)
 
     @_builtins.property
     @pulumi.getter(name="appName")
@@ -56,6 +62,18 @@ class MachinesSuspendArgs:
     def machine_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "machine_id", value)
 
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Input[Optional['MachinesSuspendQueryParamsArgs']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
+
+    @query_params.setter
+    def query_params(self, value: pulumi.Input[Optional['MachinesSuspendQueryParamsArgs']]):
+        pulumi.set(self, "query_params", value)
+
 
 @pulumi.type_token("fly-machines:apps/v1:MachinesSuspend")
 class MachinesSuspend(pulumi.CustomResource):
@@ -65,6 +83,7 @@ class MachinesSuspend(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  machine_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['MachinesSuspendQueryParamsArgs', 'MachinesSuspendQueryParamsArgsDict', 'outputs.MachinesSuspendQueryParams']]] = None,
                  __props__=None):
         """
         Create a MachinesSuspend resource with the given unique name, props, and options.
@@ -73,6 +92,7 @@ class MachinesSuspend(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input[_builtins.str] machine_id: Machine ID
+        :param pulumi.Input[Union['MachinesSuspendQueryParamsArgs', 'MachinesSuspendQueryParamsArgsDict', 'outputs.MachinesSuspendQueryParams']] query_params: Query params to send with the API requests for this resource.
         """
         ...
     @overload
@@ -100,6 +120,7 @@ class MachinesSuspend(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  machine_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['MachinesSuspendQueryParamsArgs', 'MachinesSuspendQueryParamsArgsDict', 'outputs.MachinesSuspendQueryParams']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -111,6 +132,7 @@ class MachinesSuspend(pulumi.CustomResource):
 
             __props__.__dict__["app_name"] = app_name
             __props__.__dict__["machine_id"] = machine_id
+            __props__.__dict__["query_params"] = query_params
         super(MachinesSuspend, __self__).__init__(
             'fly-machines:apps/v1:MachinesSuspend',
             resource_name,
@@ -133,5 +155,14 @@ class MachinesSuspend(pulumi.CustomResource):
 
         __props__ = MachinesSuspendArgs.__new__(MachinesSuspendArgs)
 
+        __props__.__dict__["query_params"] = None
         return MachinesSuspend(resource_name, opts=opts, __props__=__props__)
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Output[Optional['outputs.MachinesSuspendQueryParams']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
 

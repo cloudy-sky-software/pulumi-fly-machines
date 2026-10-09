@@ -13,6 +13,8 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
+from . import outputs
+from ._inputs import *
 
 __all__ = ['MachinesExecArgs', 'MachinesExec']
 
@@ -25,6 +27,7 @@ class MachinesExecArgs:
                  container: pulumi.Input[Optional[_builtins.str]] = None,
                  machine: pulumi.Input[Optional[_builtins.bool]] = None,
                  machine_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional['MachinesExecQueryParamsArgs']] = None,
                  stdin: pulumi.Input[Optional[_builtins.str]] = None,
                  timeout: pulumi.Input[Optional[_builtins.int]] = None):
         """
@@ -35,6 +38,7 @@ class MachinesExecArgs:
         :param pulumi.Input[_builtins.bool] machine: Machine runs the command in the machine's own namespace instead of in a
                container. It is mutually exclusive with Container.
         :param pulumi.Input[_builtins.str] machine_id: Machine ID
+        :param pulumi.Input['MachinesExecQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         """
         if app_name is not None:
             pulumi.set(__self__, "app_name", app_name)
@@ -48,6 +52,8 @@ class MachinesExecArgs:
             pulumi.set(__self__, "machine", machine)
         if machine_id is not None:
             pulumi.set(__self__, "machine_id", machine_id)
+        if query_params is not None:
+            pulumi.set(__self__, "query_params", query_params)
         if stdin is not None:
             pulumi.set(__self__, "stdin", stdin)
         if timeout is not None:
@@ -121,6 +127,18 @@ class MachinesExecArgs:
         pulumi.set(self, "machine_id", value)
 
     @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Input[Optional['MachinesExecQueryParamsArgs']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
+
+    @query_params.setter
+    def query_params(self, value: pulumi.Input[Optional['MachinesExecQueryParamsArgs']]):
+        pulumi.set(self, "query_params", value)
+
+    @_builtins.property
     @pulumi.getter
     def stdin(self) -> pulumi.Input[Optional[_builtins.str]]:
         return pulumi.get(self, "stdin")
@@ -151,6 +169,7 @@ class MachinesExec(pulumi.CustomResource):
                  container: pulumi.Input[Optional[_builtins.str]] = None,
                  machine: pulumi.Input[Optional[_builtins.bool]] = None,
                  machine_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['MachinesExecQueryParamsArgs', 'MachinesExecQueryParamsArgsDict', 'outputs.MachinesExecQueryParams']]] = None,
                  stdin: pulumi.Input[Optional[_builtins.str]] = None,
                  timeout: pulumi.Input[Optional[_builtins.int]] = None,
                  __props__=None):
@@ -164,6 +183,7 @@ class MachinesExec(pulumi.CustomResource):
         :param pulumi.Input[_builtins.bool] machine: Machine runs the command in the machine's own namespace instead of in a
                container. It is mutually exclusive with Container.
         :param pulumi.Input[_builtins.str] machine_id: Machine ID
+        :param pulumi.Input[Union['MachinesExecQueryParamsArgs', 'MachinesExecQueryParamsArgsDict', 'outputs.MachinesExecQueryParams']] query_params: Query params to send with the API requests for this resource.
         """
         ...
     @overload
@@ -195,6 +215,7 @@ class MachinesExec(pulumi.CustomResource):
                  container: pulumi.Input[Optional[_builtins.str]] = None,
                  machine: pulumi.Input[Optional[_builtins.bool]] = None,
                  machine_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['MachinesExecQueryParamsArgs', 'MachinesExecQueryParamsArgsDict', 'outputs.MachinesExecQueryParams']]] = None,
                  stdin: pulumi.Input[Optional[_builtins.str]] = None,
                  timeout: pulumi.Input[Optional[_builtins.int]] = None,
                  __props__=None):
@@ -212,6 +233,7 @@ class MachinesExec(pulumi.CustomResource):
             __props__.__dict__["container"] = container
             __props__.__dict__["machine"] = machine
             __props__.__dict__["machine_id"] = machine_id
+            __props__.__dict__["query_params"] = query_params
             __props__.__dict__["stdin"] = stdin
             __props__.__dict__["timeout"] = timeout
             __props__.__dict__["exit_code"] = None
@@ -246,6 +268,7 @@ class MachinesExec(pulumi.CustomResource):
         __props__.__dict__["exit_code"] = None
         __props__.__dict__["exit_signal"] = None
         __props__.__dict__["machine"] = None
+        __props__.__dict__["query_params"] = None
         __props__.__dict__["stderr"] = None
         __props__.__dict__["stdin"] = None
         __props__.__dict__["stdout"] = None
@@ -288,6 +311,14 @@ class MachinesExec(pulumi.CustomResource):
         container. It is mutually exclusive with Container.
         """
         return pulumi.get(self, "machine")
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Output[Optional['outputs.MachinesExecQueryParams']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
 
     @_builtins.property
     @pulumi.getter

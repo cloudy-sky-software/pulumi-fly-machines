@@ -15,6 +15,12 @@ namespace Pulumi.FlyMachines.AppsV1
         [Output("expiry")]
         public Output<string?> Expiry { get; private set; } = null!;
 
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Output("queryParams")]
+        public Output<Outputs.AppDeployTokenQueryParams?> QueryParams { get; private set; } = null!;
+
         [Output("token")]
         public Output<string?> Token { get; private set; } = null!;
 
@@ -72,6 +78,12 @@ namespace Pulumi.FlyMachines.AppsV1
 
         [Input("expiry")]
         public Input<string>? Expiry { get; set; }
+
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Input("queryParams")]
+        public Input<Inputs.AppDeployTokenQueryParamsArgs>? QueryParams { get; set; }
 
         public AppDeployTokenArgs()
         {

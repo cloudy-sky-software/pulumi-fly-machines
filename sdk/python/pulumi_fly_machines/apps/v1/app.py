@@ -13,6 +13,8 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
+from . import outputs
+from ._inputs import *
 
 __all__ = ['AppArgs', 'App']
 
@@ -23,7 +25,8 @@ class AppArgs:
                  idempotency_key: pulumi.Input[Optional[_builtins.str]] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
                  network: pulumi.Input[Optional[_builtins.str]] = None,
-                 org_slug: pulumi.Input[Optional[_builtins.str]] = None):
+                 org_slug: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional['AppQueryParamsArgs']] = None):
         """
         The set of arguments for constructing a App resource.
 
@@ -33,6 +36,7 @@ class AppArgs:
                conflict or creating a duplicate. A second create with the same key
                but a *different* name is rejected outright; it won't silently
                hand back the first app.
+        :param pulumi.Input['AppQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         """
         if enable_subdomains is not None:
             pulumi.set(__self__, "enable_subdomains", enable_subdomains)
@@ -44,6 +48,8 @@ class AppArgs:
             pulumi.set(__self__, "network", network)
         if org_slug is not None:
             pulumi.set(__self__, "org_slug", org_slug)
+        if query_params is not None:
+            pulumi.set(__self__, "query_params", query_params)
 
     @_builtins.property
     @pulumi.getter(name="enableSubdomains")
@@ -98,6 +104,18 @@ class AppArgs:
     def org_slug(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "org_slug", value)
 
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Input[Optional['AppQueryParamsArgs']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
+
+    @query_params.setter
+    def query_params(self, value: pulumi.Input[Optional['AppQueryParamsArgs']]):
+        pulumi.set(self, "query_params", value)
+
 
 @pulumi.type_token("fly-machines:apps/v1:App")
 class App(pulumi.CustomResource):
@@ -110,6 +128,7 @@ class App(pulumi.CustomResource):
                  name: pulumi.Input[Optional[_builtins.str]] = None,
                  network: pulumi.Input[Optional[_builtins.str]] = None,
                  org_slug: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['AppQueryParamsArgs', 'AppQueryParamsArgsDict', 'outputs.AppQueryParams']]] = None,
                  __props__=None):
         """
         Create a App resource with the given unique name, props, and options.
@@ -122,6 +141,7 @@ class App(pulumi.CustomResource):
                conflict or creating a duplicate. A second create with the same key
                but a *different* name is rejected outright; it won't silently
                hand back the first app.
+        :param pulumi.Input[Union['AppQueryParamsArgs', 'AppQueryParamsArgsDict', 'outputs.AppQueryParams']] query_params: Query params to send with the API requests for this resource.
         """
         ...
     @overload
@@ -152,6 +172,7 @@ class App(pulumi.CustomResource):
                  name: pulumi.Input[Optional[_builtins.str]] = None,
                  network: pulumi.Input[Optional[_builtins.str]] = None,
                  org_slug: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['AppQueryParamsArgs', 'AppQueryParamsArgsDict', 'outputs.AppQueryParams']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -166,6 +187,7 @@ class App(pulumi.CustomResource):
             __props__.__dict__["name"] = name
             __props__.__dict__["network"] = network
             __props__.__dict__["org_slug"] = org_slug
+            __props__.__dict__["query_params"] = query_params
             __props__.__dict__["created_at"] = None
         super(App, __self__).__init__(
             'fly-machines:apps/v1:App',
@@ -195,6 +217,7 @@ class App(pulumi.CustomResource):
         __props__.__dict__["name"] = None
         __props__.__dict__["network"] = None
         __props__.__dict__["org_slug"] = None
+        __props__.__dict__["query_params"] = None
         return App(resource_name, opts=opts, __props__=__props__)
 
     @_builtins.property
@@ -234,4 +257,12 @@ class App(pulumi.CustomResource):
     @pulumi.getter(name="orgSlug")
     def org_slug(self) -> pulumi.Output[Optional[_builtins.str]]:
         return pulumi.get(self, "org_slug")
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Output[Optional['outputs.AppQueryParams']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
 

@@ -24,6 +24,8 @@ func ListVolumesOrg(ctx *pulumi.Context, args *ListVolumesOrgArgs, opts ...pulum
 type ListVolumesOrgArgs struct {
 	// Fly Organization Slug
 	OrgSlug string `pulumi:"orgSlug"`
+	// Query params to send with the API request.
+	QueryParams *ListVolumesOrgQueryParams `pulumi:"queryParams"`
 }
 
 type ListVolumesOrgResult struct {
@@ -41,6 +43,8 @@ func ListVolumesOrgOutput(ctx *pulumi.Context, args ListVolumesOrgOutputArgs, op
 type ListVolumesOrgOutputArgs struct {
 	// Fly Organization Slug
 	OrgSlug pulumi.StringInput `pulumi:"orgSlug"`
+	// Query params to send with the API request.
+	QueryParams ListVolumesOrgQueryParamsPtrInput `pulumi:"queryParams"`
 }
 
 func (ListVolumesOrgOutputArgs) ElementType() reflect.Type {

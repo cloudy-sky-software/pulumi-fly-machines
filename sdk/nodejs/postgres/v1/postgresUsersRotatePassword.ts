@@ -39,6 +39,10 @@ export class PostgresUsersRotatePassword extends pulumi.CustomResource {
      * Terminate the user's existing sessions after rotating.
      */
     declare public readonly killSessions: pulumi.Output<boolean | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    declare public readonly queryParams: pulumi.Output<outputs.postgres.v1.PostgresUsersRotatePasswordQueryParams | undefined>;
 
     /**
      * Create a PostgresUsersRotatePassword resource with the given unique name, arguments, and options.
@@ -53,11 +57,13 @@ export class PostgresUsersRotatePassword extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["killSessions"] = args?.killSessions;
             resourceInputs["postgresClusterId"] = args?.postgresClusterId;
+            resourceInputs["queryParams"] = args?.queryParams;
             resourceInputs["username"] = args?.username;
             resourceInputs["data"] = undefined /*out*/;
         } else {
             resourceInputs["data"] = undefined /*out*/;
             resourceInputs["killSessions"] = undefined /*out*/;
+            resourceInputs["queryParams"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(PostgresUsersRotatePassword.__pulumiType, name, resourceInputs, opts);
@@ -76,6 +82,10 @@ export interface PostgresUsersRotatePasswordArgs {
      * Managed Postgres Cluster ID
      */
     postgresClusterId?: pulumi.Input<string | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    queryParams?: pulumi.Input<inputs.postgres.v1.PostgresUsersRotatePasswordQueryParamsArgs | undefined>;
     /**
      * Postgres User Name
      */

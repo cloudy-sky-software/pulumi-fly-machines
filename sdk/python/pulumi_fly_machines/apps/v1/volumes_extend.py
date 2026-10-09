@@ -15,6 +15,7 @@ else:
 from ... import _utilities
 from . import outputs
 from ._enums import *
+from ._inputs import *
 
 __all__ = ['VolumesExtendArgs', 'VolumesExtend']
 
@@ -22,16 +23,20 @@ __all__ = ['VolumesExtendArgs', 'VolumesExtend']
 class VolumesExtendArgs:
     def __init__(__self__, *,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional['VolumesExtendQueryParamsArgs']] = None,
                  size_gb: pulumi.Input[Optional[_builtins.int]] = None,
                  volume_id: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a VolumesExtend resource.
 
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
+        :param pulumi.Input['VolumesExtendQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input[_builtins.str] volume_id: Volume ID
         """
         if app_name is not None:
             pulumi.set(__self__, "app_name", app_name)
+        if query_params is not None:
+            pulumi.set(__self__, "query_params", query_params)
         if size_gb is not None:
             pulumi.set(__self__, "size_gb", size_gb)
         if volume_id is not None:
@@ -48,6 +53,18 @@ class VolumesExtendArgs:
     @app_name.setter
     def app_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "app_name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Input[Optional['VolumesExtendQueryParamsArgs']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
+
+    @query_params.setter
+    def query_params(self, value: pulumi.Input[Optional['VolumesExtendQueryParamsArgs']]):
+        pulumi.set(self, "query_params", value)
 
     @_builtins.property
     @pulumi.getter(name="sizeGb")
@@ -78,6 +95,7 @@ class VolumesExtend(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['VolumesExtendQueryParamsArgs', 'VolumesExtendQueryParamsArgsDict', 'outputs.VolumesExtendQueryParams']]] = None,
                  size_gb: pulumi.Input[Optional[_builtins.int]] = None,
                  volume_id: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
@@ -87,6 +105,7 @@ class VolumesExtend(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
+        :param pulumi.Input[Union['VolumesExtendQueryParamsArgs', 'VolumesExtendQueryParamsArgsDict', 'outputs.VolumesExtendQueryParams']] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input[_builtins.str] volume_id: Volume ID
         """
         ...
@@ -114,6 +133,7 @@ class VolumesExtend(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['VolumesExtendQueryParamsArgs', 'VolumesExtendQueryParamsArgsDict', 'outputs.VolumesExtendQueryParams']]] = None,
                  size_gb: pulumi.Input[Optional[_builtins.int]] = None,
                  volume_id: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
@@ -126,6 +146,7 @@ class VolumesExtend(pulumi.CustomResource):
             __props__ = VolumesExtendArgs.__new__(VolumesExtendArgs)
 
             __props__.__dict__["app_name"] = app_name
+            __props__.__dict__["query_params"] = query_params
             __props__.__dict__["size_gb"] = size_gb
             __props__.__dict__["volume_id"] = volume_id
             __props__.__dict__["needs_restart"] = None
@@ -153,6 +174,7 @@ class VolumesExtend(pulumi.CustomResource):
         __props__ = VolumesExtendArgs.__new__(VolumesExtendArgs)
 
         __props__.__dict__["needs_restart"] = None
+        __props__.__dict__["query_params"] = None
         __props__.__dict__["size_gb"] = None
         __props__.__dict__["volume"] = None
         return VolumesExtend(resource_name, opts=opts, __props__=__props__)
@@ -161,6 +183,14 @@ class VolumesExtend(pulumi.CustomResource):
     @pulumi.getter(name="needsRestart")
     def needs_restart(self) -> pulumi.Output[Optional[_builtins.bool]]:
         return pulumi.get(self, "needs_restart")
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Output[Optional['outputs.VolumesExtendQueryParams']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
 
     @_builtins.property
     @pulumi.getter(name="sizeGb")

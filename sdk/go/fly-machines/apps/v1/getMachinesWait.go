@@ -26,6 +26,8 @@ type GetMachinesWaitArgs struct {
 	AppName string `pulumi:"appName"`
 	// Machine ID
 	MachineId string `pulumi:"machineId"`
+	// Query params to send with the API request.
+	QueryParams *GetMachinesWaitQueryParams `pulumi:"queryParams"`
 }
 
 type GetMachinesWaitResult struct {
@@ -45,6 +47,8 @@ type GetMachinesWaitOutputArgs struct {
 	AppName pulumi.StringInput `pulumi:"appName"`
 	// Machine ID
 	MachineId pulumi.StringInput `pulumi:"machineId"`
+	// Query params to send with the API request.
+	QueryParams GetMachinesWaitQueryParamsPtrInput `pulumi:"queryParams"`
 }
 
 func (GetMachinesWaitOutputArgs) ElementType() reflect.Type {

@@ -25,7 +25,7 @@ export const getPostgresUsersCredential: typeof import("./getPostgresUsersCreden
 export const getPostgresUsersCredentialOutput: typeof import("./getPostgresUsersCredential").getPostgresUsersCredentialOutput = null as any;
 utilities.lazyLoad(exports, ["getPostgresUsersCredential","getPostgresUsersCredentialOutput"], () => require("./getPostgresUsersCredential"));
 
-export { ListPostgresArgs, ListPostgresResult } from "./listPostgres";
+export { ListPostgresArgs, ListPostgresResult, ListPostgresOutputArgs } from "./listPostgres";
 export const listPostgres: typeof import("./listPostgres").listPostgres = null as any;
 export const listPostgresOutput: typeof import("./listPostgres").listPostgresOutput = null as any;
 utilities.lazyLoad(exports, ["listPostgres","listPostgresOutput"], () => require("./listPostgres"));

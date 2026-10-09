@@ -13,6 +13,9 @@ import (
 
 type VolumeSnapshot struct {
 	pulumi.CustomResourceState
+
+	// Query params to send with the API requests for this resource.
+	QueryParams VolumeSnapshotQueryParamsPtrOutput `pulumi:"queryParams"`
 }
 
 // NewVolumeSnapshot registers a new resource with the given unique name, arguments, and options.
@@ -57,6 +60,8 @@ func (VolumeSnapshotState) ElementType() reflect.Type {
 type volumeSnapshotArgs struct {
 	// Fly App Name
 	AppName *string `pulumi:"appName"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *VolumeSnapshotQueryParams `pulumi:"queryParams"`
 	// Volume ID
 	VolumeId *string `pulumi:"volumeId"`
 }
@@ -65,6 +70,8 @@ type volumeSnapshotArgs struct {
 type VolumeSnapshotArgs struct {
 	// Fly App Name
 	AppName pulumi.StringPtrInput
+	// Query params to send with the API requests for this resource.
+	QueryParams VolumeSnapshotQueryParamsPtrInput
 	// Volume ID
 	VolumeId pulumi.StringPtrInput
 }
@@ -104,6 +111,11 @@ func (o VolumeSnapshotOutput) ToVolumeSnapshotOutput() VolumeSnapshotOutput {
 
 func (o VolumeSnapshotOutput) ToVolumeSnapshotOutputWithContext(ctx context.Context) VolumeSnapshotOutput {
 	return o
+}
+
+// Query params to send with the API requests for this resource.
+func (o VolumeSnapshotOutput) QueryParams() VolumeSnapshotQueryParamsPtrOutput {
+	return o.ApplyT(func(v *VolumeSnapshot) VolumeSnapshotQueryParamsPtrOutput { return v.QueryParams }).(VolumeSnapshotQueryParamsPtrOutput)
 }
 
 func init() {

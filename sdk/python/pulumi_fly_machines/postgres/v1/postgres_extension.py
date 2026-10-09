@@ -13,6 +13,8 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
+from . import outputs
+from ._inputs import *
 
 __all__ = ['PostgresExtensionArgs', 'PostgresExtension']
 
@@ -23,6 +25,7 @@ class PostgresExtensionArgs:
                  database_name: pulumi.Input[Optional[_builtins.str]] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
                  postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional['PostgresExtensionQueryParamsArgs']] = None,
                  schema: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a PostgresExtension resource.
@@ -31,6 +34,7 @@ class PostgresExtensionArgs:
         :param pulumi.Input[_builtins.str] database_name: Database Name
         :param pulumi.Input[_builtins.str] name: Extension to enable.
         :param pulumi.Input[_builtins.str] postgres_cluster_id: Managed Postgres Cluster ID
+        :param pulumi.Input['PostgresExtensionQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input[_builtins.str] schema: Schema to install the extension into. Defaults to the database's default schema.
         """
         if create_schema is not None:
@@ -41,6 +45,8 @@ class PostgresExtensionArgs:
             pulumi.set(__self__, "name", name)
         if postgres_cluster_id is not None:
             pulumi.set(__self__, "postgres_cluster_id", postgres_cluster_id)
+        if query_params is not None:
+            pulumi.set(__self__, "query_params", query_params)
         if schema is not None:
             pulumi.set(__self__, "schema", schema)
 
@@ -93,6 +99,18 @@ class PostgresExtensionArgs:
         pulumi.set(self, "postgres_cluster_id", value)
 
     @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Input[Optional['PostgresExtensionQueryParamsArgs']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
+
+    @query_params.setter
+    def query_params(self, value: pulumi.Input[Optional['PostgresExtensionQueryParamsArgs']]):
+        pulumi.set(self, "query_params", value)
+
+    @_builtins.property
     @pulumi.getter
     def schema(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
@@ -115,6 +133,7 @@ class PostgresExtension(pulumi.CustomResource):
                  database_name: pulumi.Input[Optional[_builtins.str]] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
                  postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['PostgresExtensionQueryParamsArgs', 'PostgresExtensionQueryParamsArgsDict', 'outputs.PostgresExtensionQueryParams']]] = None,
                  schema: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
@@ -126,6 +145,7 @@ class PostgresExtension(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] database_name: Database Name
         :param pulumi.Input[_builtins.str] name: Extension to enable.
         :param pulumi.Input[_builtins.str] postgres_cluster_id: Managed Postgres Cluster ID
+        :param pulumi.Input[Union['PostgresExtensionQueryParamsArgs', 'PostgresExtensionQueryParamsArgsDict', 'outputs.PostgresExtensionQueryParams']] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input[_builtins.str] schema: Schema to install the extension into. Defaults to the database's default schema.
         """
         ...
@@ -156,6 +176,7 @@ class PostgresExtension(pulumi.CustomResource):
                  database_name: pulumi.Input[Optional[_builtins.str]] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
                  postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['PostgresExtensionQueryParamsArgs', 'PostgresExtensionQueryParamsArgsDict', 'outputs.PostgresExtensionQueryParams']]] = None,
                  schema: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -170,6 +191,7 @@ class PostgresExtension(pulumi.CustomResource):
             __props__.__dict__["database_name"] = database_name
             __props__.__dict__["name"] = name
             __props__.__dict__["postgres_cluster_id"] = postgres_cluster_id
+            __props__.__dict__["query_params"] = query_params
             __props__.__dict__["schema"] = schema
         super(PostgresExtension, __self__).__init__(
             'fly-machines:postgres/v1:PostgresExtension',
@@ -195,6 +217,7 @@ class PostgresExtension(pulumi.CustomResource):
 
         __props__.__dict__["create_schema"] = None
         __props__.__dict__["name"] = None
+        __props__.__dict__["query_params"] = None
         __props__.__dict__["schema"] = None
         return PostgresExtension(resource_name, opts=opts, __props__=__props__)
 
@@ -213,6 +236,14 @@ class PostgresExtension(pulumi.CustomResource):
         Extension to enable.
         """
         return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Output[Optional['outputs.PostgresExtensionQueryParams']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
 
     @_builtins.property
     @pulumi.getter

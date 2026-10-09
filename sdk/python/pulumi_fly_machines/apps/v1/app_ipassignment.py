@@ -15,6 +15,7 @@ else:
 from ... import _utilities
 from . import outputs
 from ._enums import *
+from ._inputs import *
 
 __all__ = ['AppIPAssignmentArgs', 'AppIPAssignment']
 
@@ -24,6 +25,7 @@ class AppIPAssignmentArgs:
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  network: pulumi.Input[Optional[_builtins.str]] = None,
                  org_slug: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional['AppIPAssignmentQueryParamsArgs']] = None,
                  region: pulumi.Input[Optional[_builtins.str]] = None,
                  service_name: pulumi.Input[Optional[_builtins.str]] = None,
                  type: pulumi.Input[Optional['AppIPAssignmentType']] = None):
@@ -31,6 +33,7 @@ class AppIPAssignmentArgs:
         The set of arguments for constructing a AppIPAssignment resource.
 
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
+        :param pulumi.Input['AppIPAssignmentQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input['AppIPAssignmentType'] type: Type of IP address to allocate. "egress-pair" allocates both v4 and v6 egress IP addresses (recommended when using egress IPs).
         """
         if app_name is not None:
@@ -39,6 +42,8 @@ class AppIPAssignmentArgs:
             pulumi.set(__self__, "network", network)
         if org_slug is not None:
             pulumi.set(__self__, "org_slug", org_slug)
+        if query_params is not None:
+            pulumi.set(__self__, "query_params", query_params)
         if region is not None:
             pulumi.set(__self__, "region", region)
         if service_name is not None:
@@ -75,6 +80,18 @@ class AppIPAssignmentArgs:
     @org_slug.setter
     def org_slug(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "org_slug", value)
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Input[Optional['AppIPAssignmentQueryParamsArgs']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
+
+    @query_params.setter
+    def query_params(self, value: pulumi.Input[Optional['AppIPAssignmentQueryParamsArgs']]):
+        pulumi.set(self, "query_params", value)
 
     @_builtins.property
     @pulumi.getter
@@ -116,6 +133,7 @@ class AppIPAssignment(pulumi.CustomResource):
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  network: pulumi.Input[Optional[_builtins.str]] = None,
                  org_slug: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['AppIPAssignmentQueryParamsArgs', 'AppIPAssignmentQueryParamsArgsDict', 'outputs.AppIPAssignmentQueryParams']]] = None,
                  region: pulumi.Input[Optional[_builtins.str]] = None,
                  service_name: pulumi.Input[Optional[_builtins.str]] = None,
                  type: pulumi.Input[Optional['AppIPAssignmentType']] = None,
@@ -126,6 +144,7 @@ class AppIPAssignment(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
+        :param pulumi.Input[Union['AppIPAssignmentQueryParamsArgs', 'AppIPAssignmentQueryParamsArgsDict', 'outputs.AppIPAssignmentQueryParams']] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input['AppIPAssignmentType'] type: Type of IP address to allocate. "egress-pair" allocates both v4 and v6 egress IP addresses (recommended when using egress IPs).
         """
         ...
@@ -155,6 +174,7 @@ class AppIPAssignment(pulumi.CustomResource):
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  network: pulumi.Input[Optional[_builtins.str]] = None,
                  org_slug: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['AppIPAssignmentQueryParamsArgs', 'AppIPAssignmentQueryParamsArgsDict', 'outputs.AppIPAssignmentQueryParams']]] = None,
                  region: pulumi.Input[Optional[_builtins.str]] = None,
                  service_name: pulumi.Input[Optional[_builtins.str]] = None,
                  type: pulumi.Input[Optional['AppIPAssignmentType']] = None,
@@ -170,6 +190,7 @@ class AppIPAssignment(pulumi.CustomResource):
             __props__.__dict__["app_name"] = app_name
             __props__.__dict__["network"] = network
             __props__.__dict__["org_slug"] = org_slug
+            __props__.__dict__["query_params"] = query_params
             __props__.__dict__["region"] = region
             __props__.__dict__["service_name"] = service_name
             __props__.__dict__["type"] = type
@@ -206,6 +227,7 @@ class AppIPAssignment(pulumi.CustomResource):
         __props__.__dict__["ip_pair"] = None
         __props__.__dict__["network"] = None
         __props__.__dict__["org_slug"] = None
+        __props__.__dict__["query_params"] = None
         __props__.__dict__["region"] = None
         __props__.__dict__["service_name"] = None
         __props__.__dict__["shared"] = None
@@ -247,6 +269,14 @@ class AppIPAssignment(pulumi.CustomResource):
     @pulumi.getter(name="orgSlug")
     def org_slug(self) -> pulumi.Output[Optional[_builtins.str]]:
         return pulumi.get(self, "org_slug")
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Output[Optional['outputs.AppIPAssignmentQueryParams']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
 
     @_builtins.property
     @pulumi.getter

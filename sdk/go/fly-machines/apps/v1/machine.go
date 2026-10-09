@@ -34,13 +34,15 @@ type Machine struct {
 	// Nonce is only every returned on machine creation if a lease_duration was provided.
 	Nonce pulumi.StringPtrOutput `pulumi:"nonce"`
 	// PrivateIP is the internal 6PN address of the machine.
-	PrivateIp               pulumi.StringPtrOutput `pulumi:"privateIp"`
-	Region                  pulumi.StringPtrOutput `pulumi:"region"`
-	SkipLaunch              pulumi.BoolPtrOutput   `pulumi:"skipLaunch"`
-	SkipSecrets             pulumi.BoolPtrOutput   `pulumi:"skipSecrets"`
-	SkipServiceRegistration pulumi.BoolPtrOutput   `pulumi:"skipServiceRegistration"`
-	State                   pulumi.StringPtrOutput `pulumi:"state"`
-	UpdatedAt               pulumi.StringPtrOutput `pulumi:"updatedAt"`
+	PrivateIp pulumi.StringPtrOutput `pulumi:"privateIp"`
+	// Query params to send with the API requests for this resource.
+	QueryParams             MachineQueryParamsPtrOutput `pulumi:"queryParams"`
+	Region                  pulumi.StringPtrOutput      `pulumi:"region"`
+	SkipLaunch              pulumi.BoolPtrOutput        `pulumi:"skipLaunch"`
+	SkipSecrets             pulumi.BoolPtrOutput        `pulumi:"skipSecrets"`
+	SkipServiceRegistration pulumi.BoolPtrOutput        `pulumi:"skipServiceRegistration"`
+	State                   pulumi.StringPtrOutput      `pulumi:"state"`
+	UpdatedAt               pulumi.StringPtrOutput      `pulumi:"updatedAt"`
 	// Version is unique for each version of the machine. Pass it as
 	// `current_version` when updating the Machine to reject the update if the
 	// Machine has changed since this version.
@@ -95,6 +97,8 @@ type machineArgs struct {
 	MinSecretsVersion *int    `pulumi:"minSecretsVersion"`
 	// Unique name for this Machine. If omitted, one is generated for you
 	Name *string `pulumi:"name"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *MachineQueryParams `pulumi:"queryParams"`
 	// The target region. Omitting this param launches in the same region as your WireGuard peer connection (somewhere near you).
 	Region                  *string `pulumi:"region"`
 	SkipLaunch              *bool   `pulumi:"skipLaunch"`
@@ -112,6 +116,8 @@ type MachineArgs struct {
 	MinSecretsVersion pulumi.IntPtrInput
 	// Unique name for this Machine. If omitted, one is generated for you
 	Name pulumi.StringPtrInput
+	// Query params to send with the API requests for this resource.
+	QueryParams MachineQueryParamsPtrInput
 	// The target region. Omitting this param launches in the same region as your WireGuard peer connection (somewhere near you).
 	Region                  pulumi.StringPtrInput
 	SkipLaunch              pulumi.BoolPtrInput
@@ -223,6 +229,11 @@ func (o MachineOutput) Nonce() pulumi.StringPtrOutput {
 // PrivateIP is the internal 6PN address of the machine.
 func (o MachineOutput) PrivateIp() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Machine) pulumi.StringPtrOutput { return v.PrivateIp }).(pulumi.StringPtrOutput)
+}
+
+// Query params to send with the API requests for this resource.
+func (o MachineOutput) QueryParams() MachineQueryParamsPtrOutput {
+	return o.ApplyT(func(v *Machine) MachineQueryParamsPtrOutput { return v.QueryParams }).(MachineQueryParamsPtrOutput)
 }
 
 func (o MachineOutput) Region() pulumi.StringPtrOutput {

@@ -21,19 +21,43 @@ __all__ = [
     'PostgresActiveQuery',
     'PostgresAttachedApp',
     'PostgresAttachment',
+    'PostgresAttachmentCreateQueryParams',
+    'PostgresAttachmentDeleteQueryParams',
+    'PostgresAttachmentQueryParams',
     'PostgresBackup',
+    'PostgresBackupCreateQueryParams',
+    'PostgresBackupQueryParams',
     'PostgresCluster',
     'PostgresClusterEndpoints',
     'PostgresClusterEndpointsPrimary',
     'PostgresClusterSummary',
+    'PostgresCreateQueryParams',
     'PostgresDatabase',
+    'PostgresDatabaseCreateQueryParams',
+    'PostgresDatabaseDeleteQueryParams',
+    'PostgresDatabaseQueryParams',
+    'PostgresDeleteQueryParams',
     'PostgresExtension',
+    'PostgresExtensionCreateQueryParams',
+    'PostgresExtensionDeleteQueryParams',
     'PostgresExtensionInstalledProperties',
+    'PostgresExtensionQueryParams',
+    'PostgresForkCreateQueryParams',
+    'PostgresForkQueryParams',
     'PostgresNodeEndpointsDirect',
     'PostgresNodeEndpointsPooler',
+    'PostgresQueryParams',
+    'PostgresReadQueryParams',
+    'PostgresRestoreCreateQueryParams',
+    'PostgresRestoreQueryParams',
     'PostgresSlowQuery',
     'PostgresUser',
+    'PostgresUserCreateQueryParams',
     'PostgresUserCredentials',
+    'PostgresUserDeleteQueryParams',
+    'PostgresUserQueryParams',
+    'PostgresUsersRotatePasswordCreateQueryParams',
+    'PostgresUsersRotatePasswordQueryParams',
 ]
 
 @pulumi.output_type
@@ -290,6 +314,124 @@ class PostgresAttachment(dict):
 
 
 @pulumi.output_type
+class PostgresAttachmentCreateQueryParams(dict):
+    """
+    Query params for the API request.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "additionalParams":
+            suggest = "additional_params"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PostgresAttachmentCreateQueryParams. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PostgresAttachmentCreateQueryParams.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PostgresAttachmentCreateQueryParams.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+
+@pulumi.output_type
+class PostgresAttachmentDeleteQueryParams(dict):
+    """
+    Query params for the API request.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "additionalParams":
+            suggest = "additional_params"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PostgresAttachmentDeleteQueryParams. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PostgresAttachmentDeleteQueryParams.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PostgresAttachmentDeleteQueryParams.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+
+@pulumi.output_type
+class PostgresAttachmentQueryParams(dict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    def __init__(__self__, *,
+                 create: Optional['outputs.PostgresAttachmentCreateQueryParams'] = None,
+                 delete: Optional['outputs.PostgresAttachmentDeleteQueryParams'] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param 'PostgresAttachmentCreateQueryParams' create: Query params for the create operation.
+        :param 'PostgresAttachmentDeleteQueryParams' delete: Query params for the delete operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+        if delete is not None:
+            pulumi.set(__self__, "delete", delete)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> Optional['outputs.PostgresAttachmentCreateQueryParams']:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @_builtins.property
+    @pulumi.getter
+    def delete(self) -> Optional['outputs.PostgresAttachmentDeleteQueryParams']:
+        """
+        Query params for the delete operation.
+        """
+        return pulumi.get(self, "delete")
+
+
+@pulumi.output_type
 class PostgresBackup(dict):
     def __init__(__self__, *,
                  finished_at: Optional[_builtins.str] = None,
@@ -366,6 +508,71 @@ class PostgresBackup(dict):
         Backup type.
         """
         return pulumi.get(self, "type")
+
+
+@pulumi.output_type
+class PostgresBackupCreateQueryParams(dict):
+    """
+    Query params for the API request.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "additionalParams":
+            suggest = "additional_params"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PostgresBackupCreateQueryParams. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PostgresBackupCreateQueryParams.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PostgresBackupCreateQueryParams.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+
+@pulumi.output_type
+class PostgresBackupQueryParams(dict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    def __init__(__self__, *,
+                 create: Optional['outputs.PostgresBackupCreateQueryParams'] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param 'PostgresBackupCreateQueryParams' create: Query params for the create operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> Optional['outputs.PostgresBackupCreateQueryParams']:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
 
 
 @pulumi.output_type
@@ -788,6 +995,47 @@ class PostgresClusterSummary(dict):
 
 
 @pulumi.output_type
+class PostgresCreateQueryParams(dict):
+    """
+    Query params for the API request.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "additionalParams":
+            suggest = "additional_params"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PostgresCreateQueryParams. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PostgresCreateQueryParams.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PostgresCreateQueryParams.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+
+@pulumi.output_type
 class PostgresDatabase(dict):
     def __init__(__self__, *,
                  name: Optional[_builtins.str] = None):
@@ -804,6 +1052,165 @@ class PostgresDatabase(dict):
         Database name.
         """
         return pulumi.get(self, "name")
+
+
+@pulumi.output_type
+class PostgresDatabaseCreateQueryParams(dict):
+    """
+    Query params for the API request.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "additionalParams":
+            suggest = "additional_params"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PostgresDatabaseCreateQueryParams. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PostgresDatabaseCreateQueryParams.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PostgresDatabaseCreateQueryParams.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+
+@pulumi.output_type
+class PostgresDatabaseDeleteQueryParams(dict):
+    """
+    Query params for the API request.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "additionalParams":
+            suggest = "additional_params"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PostgresDatabaseDeleteQueryParams. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PostgresDatabaseDeleteQueryParams.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PostgresDatabaseDeleteQueryParams.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+
+@pulumi.output_type
+class PostgresDatabaseQueryParams(dict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    def __init__(__self__, *,
+                 create: Optional['outputs.PostgresDatabaseCreateQueryParams'] = None,
+                 delete: Optional['outputs.PostgresDatabaseDeleteQueryParams'] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param 'PostgresDatabaseCreateQueryParams' create: Query params for the create operation.
+        :param 'PostgresDatabaseDeleteQueryParams' delete: Query params for the delete operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+        if delete is not None:
+            pulumi.set(__self__, "delete", delete)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> Optional['outputs.PostgresDatabaseCreateQueryParams']:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @_builtins.property
+    @pulumi.getter
+    def delete(self) -> Optional['outputs.PostgresDatabaseDeleteQueryParams']:
+        """
+        Query params for the delete operation.
+        """
+        return pulumi.get(self, "delete")
+
+
+@pulumi.output_type
+class PostgresDeleteQueryParams(dict):
+    """
+    Query params for the API request.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "additionalParams":
+            suggest = "additional_params"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PostgresDeleteQueryParams. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PostgresDeleteQueryParams.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PostgresDeleteQueryParams.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
 
 
 @pulumi.output_type
@@ -874,6 +1281,100 @@ class PostgresExtension(dict):
 
 
 @pulumi.output_type
+class PostgresExtensionCreateQueryParams(dict):
+    """
+    Query params for the API request.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "additionalParams":
+            suggest = "additional_params"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PostgresExtensionCreateQueryParams. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PostgresExtensionCreateQueryParams.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PostgresExtensionCreateQueryParams.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+
+@pulumi.output_type
+class PostgresExtensionDeleteQueryParams(dict):
+    """
+    Query params for the API request.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "additionalParams":
+            suggest = "additional_params"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PostgresExtensionDeleteQueryParams. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PostgresExtensionDeleteQueryParams.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PostgresExtensionDeleteQueryParams.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None,
+                 force: Optional[_builtins.bool] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        :param _builtins.bool force: Also drop objects that depend on the extension
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+        if force is not None:
+            pulumi.set(__self__, "force", force)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @_builtins.property
+    @pulumi.getter
+    def force(self) -> Optional[_builtins.bool]:
+        """
+        Also drop objects that depend on the extension
+        """
+        return pulumi.get(self, "force")
+
+
+@pulumi.output_type
 class PostgresExtensionInstalledProperties(dict):
     """
     Installation details, or null when the extension is not installed.
@@ -907,6 +1408,107 @@ class PostgresExtensionInstalledProperties(dict):
         Installed version.
         """
         return pulumi.get(self, "version")
+
+
+@pulumi.output_type
+class PostgresExtensionQueryParams(dict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    def __init__(__self__, *,
+                 create: Optional['outputs.PostgresExtensionCreateQueryParams'] = None,
+                 delete: Optional['outputs.PostgresExtensionDeleteQueryParams'] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param 'PostgresExtensionCreateQueryParams' create: Query params for the create operation.
+        :param 'PostgresExtensionDeleteQueryParams' delete: Query params for the delete operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+        if delete is not None:
+            pulumi.set(__self__, "delete", delete)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> Optional['outputs.PostgresExtensionCreateQueryParams']:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @_builtins.property
+    @pulumi.getter
+    def delete(self) -> Optional['outputs.PostgresExtensionDeleteQueryParams']:
+        """
+        Query params for the delete operation.
+        """
+        return pulumi.get(self, "delete")
+
+
+@pulumi.output_type
+class PostgresForkCreateQueryParams(dict):
+    """
+    Query params for the API request.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "additionalParams":
+            suggest = "additional_params"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PostgresForkCreateQueryParams. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PostgresForkCreateQueryParams.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PostgresForkCreateQueryParams.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+
+@pulumi.output_type
+class PostgresForkQueryParams(dict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    def __init__(__self__, *,
+                 create: Optional['outputs.PostgresForkCreateQueryParams'] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param 'PostgresForkCreateQueryParams' create: Query params for the create operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> Optional['outputs.PostgresForkCreateQueryParams']:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
 
 
 @pulumi.output_type
@@ -979,6 +1581,160 @@ class PostgresNodeEndpointsPooler(dict):
         TCP port.
         """
         return pulumi.get(self, "port")
+
+
+@pulumi.output_type
+class PostgresQueryParams(dict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    def __init__(__self__, *,
+                 create: Optional['outputs.PostgresCreateQueryParams'] = None,
+                 delete: Optional['outputs.PostgresDeleteQueryParams'] = None,
+                 read: Optional['outputs.PostgresReadQueryParams'] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param 'PostgresCreateQueryParams' create: Query params for the create operation.
+        :param 'PostgresDeleteQueryParams' delete: Query params for the delete operation.
+        :param 'PostgresReadQueryParams' read: Query params for the read operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+        if delete is not None:
+            pulumi.set(__self__, "delete", delete)
+        if read is not None:
+            pulumi.set(__self__, "read", read)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> Optional['outputs.PostgresCreateQueryParams']:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @_builtins.property
+    @pulumi.getter
+    def delete(self) -> Optional['outputs.PostgresDeleteQueryParams']:
+        """
+        Query params for the delete operation.
+        """
+        return pulumi.get(self, "delete")
+
+    @_builtins.property
+    @pulumi.getter
+    def read(self) -> Optional['outputs.PostgresReadQueryParams']:
+        """
+        Query params for the read operation.
+        """
+        return pulumi.get(self, "read")
+
+
+@pulumi.output_type
+class PostgresReadQueryParams(dict):
+    """
+    Query params for the API request.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "additionalParams":
+            suggest = "additional_params"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PostgresReadQueryParams. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PostgresReadQueryParams.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PostgresReadQueryParams.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+
+@pulumi.output_type
+class PostgresRestoreCreateQueryParams(dict):
+    """
+    Query params for the API request.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "additionalParams":
+            suggest = "additional_params"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PostgresRestoreCreateQueryParams. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PostgresRestoreCreateQueryParams.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PostgresRestoreCreateQueryParams.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+
+@pulumi.output_type
+class PostgresRestoreQueryParams(dict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    def __init__(__self__, *,
+                 create: Optional['outputs.PostgresRestoreCreateQueryParams'] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param 'PostgresRestoreCreateQueryParams' create: Query params for the create operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> Optional['outputs.PostgresRestoreCreateQueryParams']:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
 
 
 @pulumi.output_type
@@ -1116,6 +1872,47 @@ class PostgresUser(dict):
 
 
 @pulumi.output_type
+class PostgresUserCreateQueryParams(dict):
+    """
+    Query params for the API request.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "additionalParams":
+            suggest = "additional_params"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PostgresUserCreateQueryParams. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PostgresUserCreateQueryParams.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PostgresUserCreateQueryParams.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+
+@pulumi.output_type
 class PostgresUserCredentials(dict):
     def __init__(__self__, *,
                  password: Optional[_builtins.str] = None,
@@ -1144,5 +1941,147 @@ class PostgresUserCredentials(dict):
         User name.
         """
         return pulumi.get(self, "username")
+
+
+@pulumi.output_type
+class PostgresUserDeleteQueryParams(dict):
+    """
+    Query params for the API request.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "additionalParams":
+            suggest = "additional_params"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PostgresUserDeleteQueryParams. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PostgresUserDeleteQueryParams.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PostgresUserDeleteQueryParams.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+
+@pulumi.output_type
+class PostgresUserQueryParams(dict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    def __init__(__self__, *,
+                 create: Optional['outputs.PostgresUserCreateQueryParams'] = None,
+                 delete: Optional['outputs.PostgresUserDeleteQueryParams'] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param 'PostgresUserCreateQueryParams' create: Query params for the create operation.
+        :param 'PostgresUserDeleteQueryParams' delete: Query params for the delete operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+        if delete is not None:
+            pulumi.set(__self__, "delete", delete)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> Optional['outputs.PostgresUserCreateQueryParams']:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @_builtins.property
+    @pulumi.getter
+    def delete(self) -> Optional['outputs.PostgresUserDeleteQueryParams']:
+        """
+        Query params for the delete operation.
+        """
+        return pulumi.get(self, "delete")
+
+
+@pulumi.output_type
+class PostgresUsersRotatePasswordCreateQueryParams(dict):
+    """
+    Query params for the API request.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "additionalParams":
+            suggest = "additional_params"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PostgresUsersRotatePasswordCreateQueryParams. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PostgresUsersRotatePasswordCreateQueryParams.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PostgresUsersRotatePasswordCreateQueryParams.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+
+@pulumi.output_type
+class PostgresUsersRotatePasswordQueryParams(dict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    def __init__(__self__, *,
+                 create: Optional['outputs.PostgresUsersRotatePasswordCreateQueryParams'] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param 'PostgresUsersRotatePasswordCreateQueryParams' create: Query params for the create operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> Optional['outputs.PostgresUsersRotatePasswordCreateQueryParams']:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
 
 

@@ -2,6 +2,9 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
+import * as enums from "../../types/enums";
 import * as utilities from "../../utilities";
 
 export class MachinesMemoryLimit extends pulumi.CustomResource {
@@ -33,6 +36,10 @@ export class MachinesMemoryLimit extends pulumi.CustomResource {
 
     declare public /*out*/ readonly availableMb: pulumi.Output<number | undefined>;
     declare public readonly limitMb: pulumi.Output<number | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    declare public readonly queryParams: pulumi.Output<outputs.apps.v1.MachinesMemoryLimitQueryParams | undefined>;
 
     /**
      * Create a MachinesMemoryLimit resource with the given unique name, arguments, and options.
@@ -48,10 +55,12 @@ export class MachinesMemoryLimit extends pulumi.CustomResource {
             resourceInputs["appName"] = args?.appName;
             resourceInputs["limitMb"] = args?.limitMb;
             resourceInputs["machineId"] = args?.machineId;
+            resourceInputs["queryParams"] = args?.queryParams;
             resourceInputs["availableMb"] = undefined /*out*/;
         } else {
             resourceInputs["availableMb"] = undefined /*out*/;
             resourceInputs["limitMb"] = undefined /*out*/;
+            resourceInputs["queryParams"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(MachinesMemoryLimit.__pulumiType, name, resourceInputs, opts);
@@ -71,4 +80,8 @@ export interface MachinesMemoryLimitArgs {
      * Machine ID
      */
     machineId?: pulumi.Input<string | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.MachinesMemoryLimitQueryParamsArgs | undefined>;
 }

@@ -29,6 +29,7 @@ class VolumeArgs:
                  encrypted: pulumi.Input[Optional[_builtins.bool]] = None,
                  fstype: pulumi.Input[Optional[_builtins.str]] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional['VolumeQueryParamsArgs']] = None,
                  region: pulumi.Input[Optional[_builtins.str]] = None,
                  require_unique_zone: pulumi.Input[Optional[_builtins.bool]] = None,
                  size_gb: pulumi.Input[Optional[_builtins.int]] = None,
@@ -41,6 +42,7 @@ class VolumeArgs:
 
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input[_builtins.bool] auto_backup_enabled: enable scheduled automatic snapshots. Defaults to `true`
+        :param pulumi.Input['VolumeQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input[_builtins.str] snapshot_id: restore from snapshot
         :param pulumi.Input[_builtins.str] source_volume_id: fork from remote volume
         """
@@ -58,6 +60,8 @@ class VolumeArgs:
             pulumi.set(__self__, "fstype", fstype)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if query_params is not None:
+            pulumi.set(__self__, "query_params", query_params)
         if region is not None:
             pulumi.set(__self__, "region", region)
         if require_unique_zone is not None:
@@ -143,6 +147,18 @@ class VolumeArgs:
         pulumi.set(self, "name", value)
 
     @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Input[Optional['VolumeQueryParamsArgs']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
+
+    @query_params.setter
+    def query_params(self, value: pulumi.Input[Optional['VolumeQueryParamsArgs']]):
+        pulumi.set(self, "query_params", value)
+
+    @_builtins.property
     @pulumi.getter
     def region(self) -> pulumi.Input[Optional[_builtins.str]]:
         return pulumi.get(self, "region")
@@ -225,6 +241,7 @@ class Volume(pulumi.CustomResource):
                  encrypted: pulumi.Input[Optional[_builtins.bool]] = None,
                  fstype: pulumi.Input[Optional[_builtins.str]] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['VolumeQueryParamsArgs', 'VolumeQueryParamsArgsDict', 'outputs.VolumeQueryParams']]] = None,
                  region: pulumi.Input[Optional[_builtins.str]] = None,
                  require_unique_zone: pulumi.Input[Optional[_builtins.bool]] = None,
                  size_gb: pulumi.Input[Optional[_builtins.int]] = None,
@@ -240,6 +257,7 @@ class Volume(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input[_builtins.bool] auto_backup_enabled: enable scheduled automatic snapshots. Defaults to `true`
+        :param pulumi.Input[Union['VolumeQueryParamsArgs', 'VolumeQueryParamsArgsDict', 'outputs.VolumeQueryParams']] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input[_builtins.str] snapshot_id: restore from snapshot
         :param pulumi.Input[_builtins.str] source_volume_id: fork from remote volume
         """
@@ -274,6 +292,7 @@ class Volume(pulumi.CustomResource):
                  encrypted: pulumi.Input[Optional[_builtins.bool]] = None,
                  fstype: pulumi.Input[Optional[_builtins.str]] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['VolumeQueryParamsArgs', 'VolumeQueryParamsArgsDict', 'outputs.VolumeQueryParams']]] = None,
                  region: pulumi.Input[Optional[_builtins.str]] = None,
                  require_unique_zone: pulumi.Input[Optional[_builtins.bool]] = None,
                  size_gb: pulumi.Input[Optional[_builtins.int]] = None,
@@ -297,6 +316,7 @@ class Volume(pulumi.CustomResource):
             __props__.__dict__["encrypted"] = encrypted
             __props__.__dict__["fstype"] = fstype
             __props__.__dict__["name"] = name
+            __props__.__dict__["query_params"] = query_params
             __props__.__dict__["region"] = region
             __props__.__dict__["require_unique_zone"] = require_unique_zone
             __props__.__dict__["size_gb"] = size_gb
@@ -358,6 +378,7 @@ class Volume(pulumi.CustomResource):
         __props__.__dict__["host_features"] = None
         __props__.__dict__["host_status"] = None
         __props__.__dict__["name"] = None
+        __props__.__dict__["query_params"] = None
         __props__.__dict__["region"] = None
         __props__.__dict__["require_unique_zone"] = None
         __props__.__dict__["required_host_features"] = None
@@ -455,6 +476,14 @@ class Volume(pulumi.CustomResource):
     @pulumi.getter
     def name(self) -> pulumi.Output[Optional[_builtins.str]]:
         return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Output[Optional['outputs.VolumeQueryParams']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
 
     @_builtins.property
     @pulumi.getter

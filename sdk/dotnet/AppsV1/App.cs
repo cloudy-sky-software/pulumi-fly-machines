@@ -38,6 +38,12 @@ namespace Pulumi.FlyMachines.AppsV1
         [Output("orgSlug")]
         public Output<string?> OrgSlug { get; private set; } = null!;
 
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Output("queryParams")]
+        public Output<Outputs.AppQueryParams?> QueryParams { get; private set; } = null!;
+
 
         /// <summary>
         /// Create a App resource with the given unique name, arguments, and options.
@@ -106,6 +112,12 @@ namespace Pulumi.FlyMachines.AppsV1
 
         [Input("orgSlug")]
         public Input<string>? OrgSlug { get; set; }
+
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Input("queryParams")]
+        public Input<Inputs.AppQueryParamsArgs>? QueryParams { get; set; }
 
         public AppArgs()
         {

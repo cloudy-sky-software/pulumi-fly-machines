@@ -11,6 +11,7 @@ export function listMachinesOrg(args: ListMachinesOrgArgs, opts?: pulumi.InvokeO
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("fly-machines:orgs/v1:listMachinesOrg", {
         "orgSlug": args.orgSlug,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -19,6 +20,10 @@ export interface ListMachinesOrgArgs {
      * Fly Organization Slug
      */
     orgSlug: string;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: inputs.orgs.v1.ListMachinesOrgQueryParams;
 }
 
 export interface ListMachinesOrgResult {
@@ -32,6 +37,7 @@ export function listMachinesOrgOutput(args: ListMachinesOrgOutputArgs, opts?: pu
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("fly-machines:orgs/v1:listMachinesOrg", {
         "orgSlug": args.orgSlug,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -40,4 +46,8 @@ export interface ListMachinesOrgOutputArgs {
      * Fly Organization Slug
      */
     orgSlug: pulumi.Input<string>;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: pulumi.Input<inputs.orgs.v1.ListMachinesOrgQueryParamsArgs | undefined>;
 }

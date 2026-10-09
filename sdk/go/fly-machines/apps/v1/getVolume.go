@@ -24,6 +24,8 @@ func LookupVolume(ctx *pulumi.Context, args *LookupVolumeArgs, opts ...pulumi.In
 type LookupVolumeArgs struct {
 	// Fly App Name
 	AppName string `pulumi:"appName"`
+	// Query params to send with the API request.
+	QueryParams *GetVolumeQueryParams `pulumi:"queryParams"`
 	// Volume ID
 	VolumeId string `pulumi:"volumeId"`
 }
@@ -62,6 +64,8 @@ func LookupVolumeOutput(ctx *pulumi.Context, args LookupVolumeOutputArgs, opts .
 type LookupVolumeOutputArgs struct {
 	// Fly App Name
 	AppName pulumi.StringInput `pulumi:"appName"`
+	// Query params to send with the API request.
+	QueryParams GetVolumeQueryParamsPtrInput `pulumi:"queryParams"`
 	// Volume ID
 	VolumeId pulumi.StringInput `pulumi:"volumeId"`
 }

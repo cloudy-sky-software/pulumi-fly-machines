@@ -16,6 +16,12 @@ namespace Pulumi.FlyMachines.PostgresV1
         public Output<Outputs.PostgresUser?> Data { get; private set; } = null!;
 
         /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Output("queryParams")]
+        public Output<Outputs.PostgresUserQueryParams?> QueryParams { get; private set; } = null!;
+
+        /// <summary>
         /// Role to grant the user.
         /// </summary>
         [Output("role")]
@@ -79,6 +85,12 @@ namespace Pulumi.FlyMachines.PostgresV1
         /// </summary>
         [Input("postgresClusterId")]
         public Input<string>? PostgresClusterId { get; set; }
+
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Input("queryParams")]
+        public Input<Inputs.PostgresUserQueryParamsArgs>? QueryParams { get; set; }
 
         /// <summary>
         /// Role to grant the user.

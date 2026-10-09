@@ -39,6 +39,10 @@ export class PostgresAttachment extends pulumi.CustomResource {
      */
     declare public readonly appName: pulumi.Output<string>;
     declare public /*out*/ readonly data: pulumi.Output<outputs.postgres.v1.PostgresAttachment | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    declare public readonly queryParams: pulumi.Output<outputs.postgres.v1.PostgresAttachmentQueryParams | undefined>;
 
     /**
      * Create a PostgresAttachment resource with the given unique name, arguments, and options.
@@ -56,10 +60,12 @@ export class PostgresAttachment extends pulumi.CustomResource {
             }
             resourceInputs["appName"] = args?.appName;
             resourceInputs["postgresClusterId"] = args?.postgresClusterId;
+            resourceInputs["queryParams"] = args?.queryParams;
             resourceInputs["data"] = undefined /*out*/;
         } else {
             resourceInputs["appName"] = undefined /*out*/;
             resourceInputs["data"] = undefined /*out*/;
+            resourceInputs["queryParams"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(PostgresAttachment.__pulumiType, name, resourceInputs, opts);
@@ -78,4 +84,8 @@ export interface PostgresAttachmentArgs {
      * Managed Postgres Cluster ID
      */
     postgresClusterId?: pulumi.Input<string | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    queryParams?: pulumi.Input<inputs.postgres.v1.PostgresAttachmentQueryParamsArgs | undefined>;
 }

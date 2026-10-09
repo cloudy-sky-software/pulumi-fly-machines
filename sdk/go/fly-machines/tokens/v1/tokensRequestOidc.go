@@ -17,6 +17,8 @@ type TokensRequestOidc struct {
 
 	Aud              pulumi.StringPtrOutput `pulumi:"aud"`
 	AwsPrincipalTags pulumi.BoolPtrOutput   `pulumi:"awsPrincipalTags"`
+	// Query params to send with the API requests for this resource.
+	QueryParams TokensRequestOidcQueryParamsPtrOutput `pulumi:"queryParams"`
 }
 
 // NewTokensRequestOidc registers a new resource with the given unique name, arguments, and options.
@@ -61,12 +63,16 @@ func (TokensRequestOidcState) ElementType() reflect.Type {
 type tokensRequestOidcArgs struct {
 	Aud              *string `pulumi:"aud"`
 	AwsPrincipalTags *bool   `pulumi:"awsPrincipalTags"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *TokensRequestOidcQueryParams `pulumi:"queryParams"`
 }
 
 // The set of arguments for constructing a TokensRequestOidc resource.
 type TokensRequestOidcArgs struct {
 	Aud              pulumi.StringPtrInput
 	AwsPrincipalTags pulumi.BoolPtrInput
+	// Query params to send with the API requests for this resource.
+	QueryParams TokensRequestOidcQueryParamsPtrInput
 }
 
 func (TokensRequestOidcArgs) ElementType() reflect.Type {
@@ -112,6 +118,11 @@ func (o TokensRequestOidcOutput) Aud() pulumi.StringPtrOutput {
 
 func (o TokensRequestOidcOutput) AwsPrincipalTags() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *TokensRequestOidc) pulumi.BoolPtrOutput { return v.AwsPrincipalTags }).(pulumi.BoolPtrOutput)
+}
+
+// Query params to send with the API requests for this resource.
+func (o TokensRequestOidcOutput) QueryParams() TokensRequestOidcQueryParamsPtrOutput {
+	return o.ApplyT(func(v *TokensRequestOidc) TokensRequestOidcQueryParamsPtrOutput { return v.QueryParams }).(TokensRequestOidcQueryParamsPtrOutput)
 }
 
 func init() {

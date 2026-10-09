@@ -15,6 +15,8 @@ import (
 type PostgresBackup struct {
 	pulumi.CustomResourceState
 
+	// Query params to send with the API requests for this resource.
+	QueryParams PostgresBackupQueryParamsPtrOutput `pulumi:"queryParams"`
 	// Backup type.
 	Type TypeOutput `pulumi:"type"`
 }
@@ -64,6 +66,8 @@ func (PostgresBackupState) ElementType() reflect.Type {
 type postgresBackupArgs struct {
 	// Managed Postgres Cluster ID
 	PostgresClusterId *string `pulumi:"postgresClusterId"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *PostgresBackupQueryParams `pulumi:"queryParams"`
 	// Backup type.
 	Type Type `pulumi:"type"`
 }
@@ -72,6 +76,8 @@ type postgresBackupArgs struct {
 type PostgresBackupArgs struct {
 	// Managed Postgres Cluster ID
 	PostgresClusterId pulumi.StringPtrInput
+	// Query params to send with the API requests for this resource.
+	QueryParams PostgresBackupQueryParamsPtrInput
 	// Backup type.
 	Type TypeInput
 }
@@ -111,6 +117,11 @@ func (o PostgresBackupOutput) ToPostgresBackupOutput() PostgresBackupOutput {
 
 func (o PostgresBackupOutput) ToPostgresBackupOutputWithContext(ctx context.Context) PostgresBackupOutput {
 	return o
+}
+
+// Query params to send with the API requests for this resource.
+func (o PostgresBackupOutput) QueryParams() PostgresBackupQueryParamsPtrOutput {
+	return o.ApplyT(func(v *PostgresBackup) PostgresBackupQueryParamsPtrOutput { return v.QueryParams }).(PostgresBackupQueryParamsPtrOutput)
 }
 
 // Backup type.

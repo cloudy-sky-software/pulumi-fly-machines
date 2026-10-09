@@ -37,6 +37,12 @@ namespace Pulumi.FlyMachines.AppsV1
         [Output("machine")]
         public Output<bool?> Machine { get; private set; } = null!;
 
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Output("queryParams")]
+        public Output<Outputs.MachinesExecQueryParams?> QueryParams { get; private set; } = null!;
+
         [Output("stderr")]
         public Output<string?> Stderr { get; private set; } = null!;
 
@@ -130,6 +136,12 @@ namespace Pulumi.FlyMachines.AppsV1
         /// </summary>
         [Input("machineId")]
         public Input<string>? MachineId { get; set; }
+
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Input("queryParams")]
+        public Input<Inputs.MachinesExecQueryParamsArgs>? QueryParams { get; set; }
 
         [Input("stdin")]
         public Input<string>? Stdin { get; set; }

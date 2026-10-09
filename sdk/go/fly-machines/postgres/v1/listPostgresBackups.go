@@ -24,6 +24,8 @@ func ListPostgresBackups(ctx *pulumi.Context, args *ListPostgresBackupsArgs, opt
 type ListPostgresBackupsArgs struct {
 	// Managed Postgres Cluster ID
 	PostgresClusterId string `pulumi:"postgresClusterId"`
+	// Query params to send with the API request.
+	QueryParams *ListPostgresBackupsQueryParams `pulumi:"queryParams"`
 }
 
 type ListPostgresBackupsResult struct {
@@ -38,6 +40,8 @@ func ListPostgresBackupsOutput(ctx *pulumi.Context, args ListPostgresBackupsOutp
 type ListPostgresBackupsOutputArgs struct {
 	// Managed Postgres Cluster ID
 	PostgresClusterId pulumi.StringInput `pulumi:"postgresClusterId"`
+	// Query params to send with the API request.
+	QueryParams ListPostgresBackupsQueryParamsPtrInput `pulumi:"queryParams"`
 }
 
 func (ListPostgresBackupsOutputArgs) ElementType() reflect.Type {

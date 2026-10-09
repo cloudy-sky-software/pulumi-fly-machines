@@ -14,6 +14,7 @@ else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
 from . import outputs
+from ._inputs import *
 
 __all__ = [
     'GetPlatformRegionResult',
@@ -53,22 +54,30 @@ class AwaitableGetPlatformRegionResult(GetPlatformRegionResult):
             regions=self.regions)
 
 
-def get_platform_region(opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetPlatformRegionResult:
+def get_platform_region(query_params: Optional[Union['GetPlatformRegionQueryParams', 'GetPlatformRegionQueryParamsDict']] = None,
+                        opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetPlatformRegionResult:
     """
     Use this data source to access information about an existing resource.
+
+    :param Union['GetPlatformRegionQueryParams', 'GetPlatformRegionQueryParamsDict'] query_params: Query params to send with the API request.
     """
     __args__ = dict()
+    __args__['queryParams'] = query_params
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke('fly-machines:platform/v1:getPlatformRegion', __args__, opts=opts, typ=GetPlatformRegionResult).value
 
     return AwaitableGetPlatformRegionResult(
         nearest=pulumi.get(__ret__, 'nearest'),
         regions=pulumi.get(__ret__, 'regions'))
-def get_platform_region_output(opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetPlatformRegionResult]:
+def get_platform_region_output(query_params: pulumi.Input[Optional[Optional[Union['GetPlatformRegionQueryParams', 'GetPlatformRegionQueryParamsDict']]]] = None,
+                               opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetPlatformRegionResult]:
     """
     Use this data source to access information about an existing resource.
+
+    :param Union['GetPlatformRegionQueryParams', 'GetPlatformRegionQueryParamsDict'] query_params: Query params to send with the API request.
     """
     __args__ = dict()
+    __args__['queryParams'] = query_params
     opts = pulumi.InvokeOutputOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke_output('fly-machines:platform/v1:getPlatformRegion', __args__, opts=opts, typ=GetPlatformRegionResult)
     return __ret__.apply(lambda __response__: GetPlatformRegionResult(

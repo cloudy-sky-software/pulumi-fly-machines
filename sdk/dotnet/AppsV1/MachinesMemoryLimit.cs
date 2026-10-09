@@ -18,6 +18,12 @@ namespace Pulumi.FlyMachines.AppsV1
         [Output("limitMb")]
         public Output<int?> LimitMb { get; private set; } = null!;
 
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Output("queryParams")]
+        public Output<Outputs.MachinesMemoryLimitQueryParams?> QueryParams { get; private set; } = null!;
+
 
         /// <summary>
         /// Create a MachinesMemoryLimit resource with the given unique name, arguments, and options.
@@ -78,6 +84,12 @@ namespace Pulumi.FlyMachines.AppsV1
         /// </summary>
         [Input("machineId")]
         public Input<string>? MachineId { get; set; }
+
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Input("queryParams")]
+        public Input<Inputs.MachinesMemoryLimitQueryParamsArgs>? QueryParams { get; set; }
 
         public MachinesMemoryLimitArgs()
         {

@@ -11,6 +11,7 @@ export function listPostgresDatabases(args: ListPostgresDatabasesArgs, opts?: pu
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("fly-machines:postgres/v1:listPostgresDatabases", {
         "postgresClusterId": args.postgresClusterId,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -19,6 +20,10 @@ export interface ListPostgresDatabasesArgs {
      * Managed Postgres Cluster ID
      */
     postgresClusterId: string;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: inputs.postgres.v1.ListPostgresDatabasesQueryParams;
 }
 
 export interface ListPostgresDatabasesResult {
@@ -28,6 +33,7 @@ export function listPostgresDatabasesOutput(args: ListPostgresDatabasesOutputArg
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("fly-machines:postgres/v1:listPostgresDatabases", {
         "postgresClusterId": args.postgresClusterId,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -36,4 +42,8 @@ export interface ListPostgresDatabasesOutputArgs {
      * Managed Postgres Cluster ID
      */
     postgresClusterId: pulumi.Input<string>;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: pulumi.Input<inputs.postgres.v1.ListPostgresDatabasesQueryParamsArgs | undefined>;
 }

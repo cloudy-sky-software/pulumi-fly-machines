@@ -13,16 +13,34 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
+from . import outputs
+from ._inputs import *
 
 __all__ = ['TokensRequestKmArgs', 'TokensRequestKm']
 
 @pulumi.input_type
 class TokensRequestKmArgs:
-    def __init__(__self__):
+    def __init__(__self__, *,
+                 query_params: pulumi.Input[Optional['TokensRequestKmQueryParamsArgs']] = None):
         """
         The set of arguments for constructing a TokensRequestKm resource.
+
+        :param pulumi.Input['TokensRequestKmQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         """
-        pass
+        if query_params is not None:
+            pulumi.set(__self__, "query_params", query_params)
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Input[Optional['TokensRequestKmQueryParamsArgs']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
+
+    @query_params.setter
+    def query_params(self, value: pulumi.Input[Optional['TokensRequestKmQueryParamsArgs']]):
+        pulumi.set(self, "query_params", value)
 
 
 @pulumi.type_token("fly-machines:tokens/v1:TokensRequestKm")
@@ -31,12 +49,14 @@ class TokensRequestKm(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 query_params: pulumi.Input[Optional[Union['TokensRequestKmQueryParamsArgs', 'TokensRequestKmQueryParamsArgsDict', 'outputs.TokensRequestKmQueryParams']]] = None,
                  __props__=None):
         """
         Create a TokensRequestKm resource with the given unique name, props, and options.
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[Union['TokensRequestKmQueryParamsArgs', 'TokensRequestKmQueryParamsArgsDict', 'outputs.TokensRequestKmQueryParams']] query_params: Query params to send with the API requests for this resource.
         """
         ...
     @overload
@@ -62,6 +82,7 @@ class TokensRequestKm(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 query_params: pulumi.Input[Optional[Union['TokensRequestKmQueryParamsArgs', 'TokensRequestKmQueryParamsArgsDict', 'outputs.TokensRequestKmQueryParams']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -71,6 +92,7 @@ class TokensRequestKm(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = TokensRequestKmArgs.__new__(TokensRequestKmArgs)
 
+            __props__.__dict__["query_params"] = query_params
         super(TokensRequestKm, __self__).__init__(
             'fly-machines:tokens/v1:TokensRequestKm',
             resource_name,
@@ -93,5 +115,14 @@ class TokensRequestKm(pulumi.CustomResource):
 
         __props__ = TokensRequestKmArgs.__new__(TokensRequestKmArgs)
 
+        __props__.__dict__["query_params"] = None
         return TokensRequestKm(resource_name, opts=opts, __props__=__props__)
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Output[Optional['outputs.TokensRequestKmQueryParams']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
 

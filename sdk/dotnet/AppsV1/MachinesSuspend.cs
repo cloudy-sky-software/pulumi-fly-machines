@@ -13,6 +13,13 @@ namespace Pulumi.FlyMachines.AppsV1
     public partial class MachinesSuspend : global::Pulumi.CustomResource
     {
         /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Output("queryParams")]
+        public Output<Outputs.MachinesSuspendQueryParams?> QueryParams { get; private set; } = null!;
+
+
+        /// <summary>
         /// Create a MachinesSuspend resource with the given unique name, arguments, and options.
         /// </summary>
         ///
@@ -68,6 +75,12 @@ namespace Pulumi.FlyMachines.AppsV1
         /// </summary>
         [Input("machineId")]
         public Input<string>? MachineId { get; set; }
+
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Input("queryParams")]
+        public Input<Inputs.MachinesSuspendQueryParamsArgs>? QueryParams { get; set; }
 
         public MachinesSuspendArgs()
         {

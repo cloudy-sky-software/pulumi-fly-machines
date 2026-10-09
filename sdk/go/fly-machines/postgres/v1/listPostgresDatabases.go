@@ -24,6 +24,8 @@ func ListPostgresDatabases(ctx *pulumi.Context, args *ListPostgresDatabasesArgs,
 type ListPostgresDatabasesArgs struct {
 	// Managed Postgres Cluster ID
 	PostgresClusterId string `pulumi:"postgresClusterId"`
+	// Query params to send with the API request.
+	QueryParams *ListPostgresDatabasesQueryParams `pulumi:"queryParams"`
 }
 
 type ListPostgresDatabasesResult struct {
@@ -38,6 +40,8 @@ func ListPostgresDatabasesOutput(ctx *pulumi.Context, args ListPostgresDatabases
 type ListPostgresDatabasesOutputArgs struct {
 	// Managed Postgres Cluster ID
 	PostgresClusterId pulumi.StringInput `pulumi:"postgresClusterId"`
+	// Query params to send with the API request.
+	QueryParams ListPostgresDatabasesQueryParamsPtrInput `pulumi:"queryParams"`
 }
 
 func (ListPostgresDatabasesOutputArgs) ElementType() reflect.Type {

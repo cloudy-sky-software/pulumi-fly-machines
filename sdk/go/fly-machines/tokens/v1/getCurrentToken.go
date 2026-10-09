@@ -22,6 +22,8 @@ func GetCurrentToken(ctx *pulumi.Context, args *GetCurrentTokenArgs, opts ...pul
 }
 
 type GetCurrentTokenArgs struct {
+	// Query params to send with the API request.
+	QueryParams *GetCurrentTokenQueryParams `pulumi:"queryParams"`
 }
 
 type GetCurrentTokenResult struct {
@@ -34,6 +36,8 @@ func GetCurrentTokenOutput(ctx *pulumi.Context, args GetCurrentTokenOutputArgs, 
 }
 
 type GetCurrentTokenOutputArgs struct {
+	// Query params to send with the API request.
+	QueryParams GetCurrentTokenQueryParamsPtrInput `pulumi:"queryParams"`
 }
 
 func (GetCurrentTokenOutputArgs) ElementType() reflect.Type {

@@ -21,6 +21,8 @@ type PostgresRestore struct {
 	Name pulumi.StringPtrOutput `pulumi:"name"`
 	// Point in time to restore to, as an RFC3339 timestamp with an explicit offset from UTC (e.g. Z or +02:00). Normalized to UTC and must fall within the cluster's PITR recovery window. Mutually exclusive with backup_id.
 	PitrTime pulumi.StringPtrOutput `pulumi:"pitrTime"`
+	// Query params to send with the API requests for this resource.
+	QueryParams PostgresRestoreQueryParamsPtrOutput `pulumi:"queryParams"`
 }
 
 // NewPostgresRestore registers a new resource with the given unique name, arguments, and options.
@@ -71,6 +73,8 @@ type postgresRestoreArgs struct {
 	PitrTime *string `pulumi:"pitrTime"`
 	// Managed Postgres Cluster ID
 	PostgresClusterId *string `pulumi:"postgresClusterId"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *PostgresRestoreQueryParams `pulumi:"queryParams"`
 }
 
 // The set of arguments for constructing a PostgresRestore resource.
@@ -83,6 +87,8 @@ type PostgresRestoreArgs struct {
 	PitrTime pulumi.StringPtrInput
 	// Managed Postgres Cluster ID
 	PostgresClusterId pulumi.StringPtrInput
+	// Query params to send with the API requests for this resource.
+	QueryParams PostgresRestoreQueryParamsPtrInput
 }
 
 func (PostgresRestoreArgs) ElementType() reflect.Type {
@@ -139,6 +145,11 @@ func (o PostgresRestoreOutput) Name() pulumi.StringPtrOutput {
 // Point in time to restore to, as an RFC3339 timestamp with an explicit offset from UTC (e.g. Z or +02:00). Normalized to UTC and must fall within the cluster's PITR recovery window. Mutually exclusive with backup_id.
 func (o PostgresRestoreOutput) PitrTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PostgresRestore) pulumi.StringPtrOutput { return v.PitrTime }).(pulumi.StringPtrOutput)
+}
+
+// Query params to send with the API requests for this resource.
+func (o PostgresRestoreOutput) QueryParams() PostgresRestoreQueryParamsPtrOutput {
+	return o.ApplyT(func(v *PostgresRestore) PostgresRestoreQueryParamsPtrOutput { return v.QueryParams }).(PostgresRestoreQueryParamsPtrOutput)
 }
 
 func init() {

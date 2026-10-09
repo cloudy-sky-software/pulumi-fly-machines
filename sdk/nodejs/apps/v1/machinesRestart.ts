@@ -2,6 +2,9 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
+import * as enums from "../../types/enums";
 import * as utilities from "../../utilities";
 
 export class MachinesRestart extends pulumi.CustomResource {
@@ -31,6 +34,10 @@ export class MachinesRestart extends pulumi.CustomResource {
         return obj['__pulumiType'] === MachinesRestart.__pulumiType;
     }
 
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    declare public readonly queryParams: pulumi.Output<outputs.apps.v1.MachinesRestartQueryParams | undefined>;
 
     /**
      * Create a MachinesRestart resource with the given unique name, arguments, and options.
@@ -45,7 +52,9 @@ export class MachinesRestart extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["appName"] = args?.appName;
             resourceInputs["machineId"] = args?.machineId;
+            resourceInputs["queryParams"] = args?.queryParams;
         } else {
+            resourceInputs["queryParams"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(MachinesRestart.__pulumiType, name, resourceInputs, opts);
@@ -64,4 +73,8 @@ export interface MachinesRestartArgs {
      * Machine ID
      */
     machineId?: pulumi.Input<string | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.MachinesRestartQueryParamsArgs | undefined>;
 }

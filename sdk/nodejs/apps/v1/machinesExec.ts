@@ -2,6 +2,9 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
+import * as enums from "../../types/enums";
 import * as utilities from "../../utilities";
 
 export class MachinesExec extends pulumi.CustomResource {
@@ -44,6 +47,10 @@ export class MachinesExec extends pulumi.CustomResource {
      * container. It is mutually exclusive with Container.
      */
     declare public readonly machine: pulumi.Output<boolean | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    declare public readonly queryParams: pulumi.Output<outputs.apps.v1.MachinesExecQueryParams | undefined>;
     declare public /*out*/ readonly stderr: pulumi.Output<string | undefined>;
     declare public readonly stdin: pulumi.Output<string | undefined>;
     declare public /*out*/ readonly stdout: pulumi.Output<string | undefined>;
@@ -66,6 +73,7 @@ export class MachinesExec extends pulumi.CustomResource {
             resourceInputs["container"] = args?.container;
             resourceInputs["machine"] = args?.machine;
             resourceInputs["machineId"] = args?.machineId;
+            resourceInputs["queryParams"] = args?.queryParams;
             resourceInputs["stdin"] = args?.stdin;
             resourceInputs["timeout"] = args?.timeout;
             resourceInputs["exitCode"] = undefined /*out*/;
@@ -79,6 +87,7 @@ export class MachinesExec extends pulumi.CustomResource {
             resourceInputs["exitCode"] = undefined /*out*/;
             resourceInputs["exitSignal"] = undefined /*out*/;
             resourceInputs["machine"] = undefined /*out*/;
+            resourceInputs["queryParams"] = undefined /*out*/;
             resourceInputs["stderr"] = undefined /*out*/;
             resourceInputs["stdin"] = undefined /*out*/;
             resourceInputs["stdout"] = undefined /*out*/;
@@ -112,6 +121,10 @@ export interface MachinesExecArgs {
      * Machine ID
      */
     machineId?: pulumi.Input<string | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.MachinesExecQueryParamsArgs | undefined>;
     stdin?: pulumi.Input<string | undefined>;
     timeout?: pulumi.Input<number | undefined>;
 }

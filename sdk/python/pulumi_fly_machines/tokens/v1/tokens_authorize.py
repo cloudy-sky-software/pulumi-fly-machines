@@ -23,14 +23,19 @@ __all__ = ['TokensAuthorizeArgs', 'TokensAuthorize']
 class TokensAuthorizeArgs:
     def __init__(__self__, *,
                  access: pulumi.Input[Optional['MainTokenAccessArgs']] = None,
-                 header: pulumi.Input[Optional[_builtins.str]] = None):
+                 header: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional['TokensAuthorizeQueryParamsArgs']] = None):
         """
         The set of arguments for constructing a TokensAuthorize resource.
+
+        :param pulumi.Input['TokensAuthorizeQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         """
         if access is not None:
             pulumi.set(__self__, "access", access)
         if header is not None:
             pulumi.set(__self__, "header", header)
+        if query_params is not None:
+            pulumi.set(__self__, "query_params", query_params)
 
     @_builtins.property
     @pulumi.getter
@@ -50,6 +55,18 @@ class TokensAuthorizeArgs:
     def header(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "header", value)
 
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Input[Optional['TokensAuthorizeQueryParamsArgs']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
+
+    @query_params.setter
+    def query_params(self, value: pulumi.Input[Optional['TokensAuthorizeQueryParamsArgs']]):
+        pulumi.set(self, "query_params", value)
+
 
 @pulumi.type_token("fly-machines:tokens/v1:TokensAuthorize")
 class TokensAuthorize(pulumi.CustomResource):
@@ -59,12 +76,14 @@ class TokensAuthorize(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  access: pulumi.Input[Optional[Union['MainTokenAccessArgs', 'MainTokenAccessArgsDict']]] = None,
                  header: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['TokensAuthorizeQueryParamsArgs', 'TokensAuthorizeQueryParamsArgsDict', 'outputs.TokensAuthorizeQueryParams']]] = None,
                  __props__=None):
         """
         Create a TokensAuthorize resource with the given unique name, props, and options.
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[Union['TokensAuthorizeQueryParamsArgs', 'TokensAuthorizeQueryParamsArgsDict', 'outputs.TokensAuthorizeQueryParams']] query_params: Query params to send with the API requests for this resource.
         """
         ...
     @overload
@@ -92,6 +111,7 @@ class TokensAuthorize(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  access: pulumi.Input[Optional[Union['MainTokenAccessArgs', 'MainTokenAccessArgsDict']]] = None,
                  header: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['TokensAuthorizeQueryParamsArgs', 'TokensAuthorizeQueryParamsArgsDict', 'outputs.TokensAuthorizeQueryParams']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -103,6 +123,7 @@ class TokensAuthorize(pulumi.CustomResource):
 
             __props__.__dict__["access"] = access
             __props__.__dict__["header"] = header
+            __props__.__dict__["query_params"] = query_params
             __props__.__dict__["verified_token"] = None
         super(TokensAuthorize, __self__).__init__(
             'fly-machines:tokens/v1:TokensAuthorize',
@@ -128,6 +149,7 @@ class TokensAuthorize(pulumi.CustomResource):
 
         __props__.__dict__["access"] = None
         __props__.__dict__["header"] = None
+        __props__.__dict__["query_params"] = None
         __props__.__dict__["verified_token"] = None
         return TokensAuthorize(resource_name, opts=opts, __props__=__props__)
 
@@ -140,6 +162,14 @@ class TokensAuthorize(pulumi.CustomResource):
     @pulumi.getter
     def header(self) -> pulumi.Output[Optional[_builtins.str]]:
         return pulumi.get(self, "header")
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Output[Optional['outputs.TokensAuthorizeQueryParams']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
 
     @_builtins.property
     @pulumi.getter(name="verifiedToken")

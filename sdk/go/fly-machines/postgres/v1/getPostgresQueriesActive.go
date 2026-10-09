@@ -24,6 +24,8 @@ func GetPostgresQueriesActive(ctx *pulumi.Context, args *GetPostgresQueriesActiv
 type GetPostgresQueriesActiveArgs struct {
 	// Managed Postgres Cluster ID
 	PostgresClusterId string `pulumi:"postgresClusterId"`
+	// Query params to send with the API request.
+	QueryParams GetPostgresQueriesActiveQueryParams `pulumi:"queryParams"`
 }
 
 type GetPostgresQueriesActiveResult struct {
@@ -38,6 +40,8 @@ func GetPostgresQueriesActiveOutput(ctx *pulumi.Context, args GetPostgresQueries
 type GetPostgresQueriesActiveOutputArgs struct {
 	// Managed Postgres Cluster ID
 	PostgresClusterId pulumi.StringInput `pulumi:"postgresClusterId"`
+	// Query params to send with the API request.
+	QueryParams GetPostgresQueriesActiveQueryParamsInput `pulumi:"queryParams"`
 }
 
 func (GetPostgresQueriesActiveOutputArgs) ElementType() reflect.Type {

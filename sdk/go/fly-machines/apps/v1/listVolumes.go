@@ -24,6 +24,8 @@ func ListVolumes(ctx *pulumi.Context, args *ListVolumesArgs, opts ...pulumi.Invo
 type ListVolumesArgs struct {
 	// Fly App Name
 	AppName string `pulumi:"appName"`
+	// Query params to send with the API request.
+	QueryParams *ListVolumesQueryParams `pulumi:"queryParams"`
 }
 
 type ListVolumesResult struct {
@@ -38,6 +40,8 @@ func ListVolumesOutput(ctx *pulumi.Context, args ListVolumesOutputArgs, opts ...
 type ListVolumesOutputArgs struct {
 	// Fly App Name
 	AppName pulumi.StringInput `pulumi:"appName"`
+	// Query params to send with the API request.
+	QueryParams ListVolumesQueryParamsPtrInput `pulumi:"queryParams"`
 }
 
 func (ListVolumesOutputArgs) ElementType() reflect.Type {

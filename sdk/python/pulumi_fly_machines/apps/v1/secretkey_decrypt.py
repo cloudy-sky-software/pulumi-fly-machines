@@ -13,6 +13,8 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
+from . import outputs
+from ._inputs import *
 
 __all__ = ['SecretkeyDecryptArgs', 'SecretkeyDecrypt']
 
@@ -22,11 +24,13 @@ class SecretkeyDecryptArgs:
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  associated_data: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]] = None,
                  ciphertext: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]] = None,
+                 query_params: pulumi.Input[Optional['SecretkeyDecryptQueryParamsArgs']] = None,
                  secret_name: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a SecretkeyDecrypt resource.
 
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
+        :param pulumi.Input['SecretkeyDecryptQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input[_builtins.str] secret_name: Secret key name
         """
         if app_name is not None:
@@ -35,6 +39,8 @@ class SecretkeyDecryptArgs:
             pulumi.set(__self__, "associated_data", associated_data)
         if ciphertext is not None:
             pulumi.set(__self__, "ciphertext", ciphertext)
+        if query_params is not None:
+            pulumi.set(__self__, "query_params", query_params)
         if secret_name is not None:
             pulumi.set(__self__, "secret_name", secret_name)
 
@@ -69,6 +75,18 @@ class SecretkeyDecryptArgs:
         pulumi.set(self, "ciphertext", value)
 
     @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Input[Optional['SecretkeyDecryptQueryParamsArgs']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
+
+    @query_params.setter
+    def query_params(self, value: pulumi.Input[Optional['SecretkeyDecryptQueryParamsArgs']]):
+        pulumi.set(self, "query_params", value)
+
+    @_builtins.property
     @pulumi.getter(name="secretName")
     def secret_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
@@ -90,6 +108,7 @@ class SecretkeyDecrypt(pulumi.CustomResource):
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  associated_data: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]] = None,
                  ciphertext: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]] = None,
+                 query_params: pulumi.Input[Optional[Union['SecretkeyDecryptQueryParamsArgs', 'SecretkeyDecryptQueryParamsArgsDict', 'outputs.SecretkeyDecryptQueryParams']]] = None,
                  secret_name: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
@@ -98,6 +117,7 @@ class SecretkeyDecrypt(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
+        :param pulumi.Input[Union['SecretkeyDecryptQueryParamsArgs', 'SecretkeyDecryptQueryParamsArgsDict', 'outputs.SecretkeyDecryptQueryParams']] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input[_builtins.str] secret_name: Secret key name
         """
         ...
@@ -127,6 +147,7 @@ class SecretkeyDecrypt(pulumi.CustomResource):
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  associated_data: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]] = None,
                  ciphertext: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]] = None,
+                 query_params: pulumi.Input[Optional[Union['SecretkeyDecryptQueryParamsArgs', 'SecretkeyDecryptQueryParamsArgsDict', 'outputs.SecretkeyDecryptQueryParams']]] = None,
                  secret_name: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -140,6 +161,7 @@ class SecretkeyDecrypt(pulumi.CustomResource):
             __props__.__dict__["app_name"] = app_name
             __props__.__dict__["associated_data"] = associated_data
             __props__.__dict__["ciphertext"] = ciphertext
+            __props__.__dict__["query_params"] = query_params
             __props__.__dict__["secret_name"] = secret_name
             __props__.__dict__["plaintext"] = None
         super(SecretkeyDecrypt, __self__).__init__(
@@ -167,6 +189,7 @@ class SecretkeyDecrypt(pulumi.CustomResource):
         __props__.__dict__["associated_data"] = None
         __props__.__dict__["ciphertext"] = None
         __props__.__dict__["plaintext"] = None
+        __props__.__dict__["query_params"] = None
         return SecretkeyDecrypt(resource_name, opts=opts, __props__=__props__)
 
     @_builtins.property
@@ -183,4 +206,12 @@ class SecretkeyDecrypt(pulumi.CustomResource):
     @pulumi.getter
     def plaintext(self) -> pulumi.Output[Optional[Sequence[_builtins.int]]]:
         return pulumi.get(self, "plaintext")
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Output[Optional['outputs.SecretkeyDecryptQueryParams']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
 

@@ -15,6 +15,7 @@ else:
 from ... import _utilities
 from . import outputs
 from ._enums import *
+from ._inputs import *
 
 __all__ = ['PostgresArgs', 'Postgres']
 
@@ -28,7 +29,8 @@ class PostgresArgs:
                  name: pulumi.Input[Optional[_builtins.str]] = None,
                  pg_major_version: pulumi.Input[Optional['PgMajorVersion']] = None,
                  pool_mode: pulumi.Input[Optional['PoolMode']] = None,
-                 postgis_enabled: pulumi.Input[Optional[_builtins.bool]] = None):
+                 postgis_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 query_params: pulumi.Input[Optional['PostgresQueryParamsArgs']] = None):
         """
         The set of arguments for constructing a Postgres resource.
 
@@ -40,6 +42,7 @@ class PostgresArgs:
         :param pulumi.Input['PgMajorVersion'] pg_major_version: Postgres major version.
         :param pulumi.Input['PoolMode'] pool_mode: Connection pooler mode.
         :param pulumi.Input[_builtins.bool] postgis_enabled: Enable PostGIS support, required to later enable PostGIS extensions.
+        :param pulumi.Input['PostgresQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         """
         pulumi.set(__self__, "org_slug", org_slug)
         pulumi.set(__self__, "plan", plan)
@@ -54,6 +57,8 @@ class PostgresArgs:
             pulumi.set(__self__, "pool_mode", pool_mode)
         if postgis_enabled is not None:
             pulumi.set(__self__, "postgis_enabled", postgis_enabled)
+        if query_params is not None:
+            pulumi.set(__self__, "query_params", query_params)
 
     @_builtins.property
     @pulumi.getter(name="orgSlug")
@@ -151,6 +156,18 @@ class PostgresArgs:
     def postgis_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "postgis_enabled", value)
 
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Input[Optional['PostgresQueryParamsArgs']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
+
+    @query_params.setter
+    def query_params(self, value: pulumi.Input[Optional['PostgresQueryParamsArgs']]):
+        pulumi.set(self, "query_params", value)
+
 
 @pulumi.type_token("fly-machines:postgres/v1:Postgres")
 class Postgres(pulumi.CustomResource):
@@ -165,6 +182,7 @@ class Postgres(pulumi.CustomResource):
                  plan: pulumi.Input[Optional['Plan']] = None,
                  pool_mode: pulumi.Input[Optional['PoolMode']] = None,
                  postgis_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 query_params: pulumi.Input[Optional[Union['PostgresQueryParamsArgs', 'PostgresQueryParamsArgsDict', 'outputs.PostgresQueryParams']]] = None,
                  region: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
@@ -179,6 +197,7 @@ class Postgres(pulumi.CustomResource):
         :param pulumi.Input['Plan'] plan: Plan slug selecting CPU, memory, and disk sizing. Matched case-insensitively.
         :param pulumi.Input['PoolMode'] pool_mode: Connection pooler mode.
         :param pulumi.Input[_builtins.bool] postgis_enabled: Enable PostGIS support, required to later enable PostGIS extensions.
+        :param pulumi.Input[Union['PostgresQueryParamsArgs', 'PostgresQueryParamsArgsDict', 'outputs.PostgresQueryParams']] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input[_builtins.str] region: Fly region code where the cluster's primary runs.
         """
         ...
@@ -212,6 +231,7 @@ class Postgres(pulumi.CustomResource):
                  plan: pulumi.Input[Optional['Plan']] = None,
                  pool_mode: pulumi.Input[Optional['PoolMode']] = None,
                  postgis_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 query_params: pulumi.Input[Optional[Union['PostgresQueryParamsArgs', 'PostgresQueryParamsArgsDict', 'outputs.PostgresQueryParams']]] = None,
                  region: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -233,6 +253,7 @@ class Postgres(pulumi.CustomResource):
             __props__.__dict__["plan"] = plan
             __props__.__dict__["pool_mode"] = pool_mode
             __props__.__dict__["postgis_enabled"] = postgis_enabled
+            __props__.__dict__["query_params"] = query_params
             if region is None and not opts.urn:
                 raise TypeError("Missing required property 'region'")
             __props__.__dict__["region"] = region
@@ -267,6 +288,7 @@ class Postgres(pulumi.CustomResource):
         __props__.__dict__["plan"] = None
         __props__.__dict__["pool_mode"] = None
         __props__.__dict__["postgis_enabled"] = None
+        __props__.__dict__["query_params"] = None
         __props__.__dict__["region"] = None
         return Postgres(resource_name, opts=opts, __props__=__props__)
 
@@ -330,6 +352,14 @@ class Postgres(pulumi.CustomResource):
         Enable PostGIS support, required to later enable PostGIS extensions.
         """
         return pulumi.get(self, "postgis_enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Output[Optional['outputs.PostgresQueryParams']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
 
     @_builtins.property
     @pulumi.getter

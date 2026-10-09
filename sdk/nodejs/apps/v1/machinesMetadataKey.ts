@@ -2,6 +2,9 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
+import * as enums from "../../types/enums";
 import * as utilities from "../../utilities";
 
 export class MachinesMetadataKey extends pulumi.CustomResource {
@@ -31,6 +34,10 @@ export class MachinesMetadataKey extends pulumi.CustomResource {
         return obj['__pulumiType'] === MachinesMetadataKey.__pulumiType;
     }
 
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    declare public readonly queryParams: pulumi.Output<outputs.apps.v1.MachinesMetadataKeyQueryParams | undefined>;
     declare public readonly updatedAt: pulumi.Output<string | undefined>;
     declare public readonly value: pulumi.Output<string | undefined>;
 
@@ -48,9 +55,11 @@ export class MachinesMetadataKey extends pulumi.CustomResource {
             resourceInputs["appName"] = args?.appName;
             resourceInputs["key"] = args?.key;
             resourceInputs["machineId"] = args?.machineId;
+            resourceInputs["queryParams"] = args?.queryParams;
             resourceInputs["updatedAt"] = args?.updatedAt;
             resourceInputs["value"] = args?.value;
         } else {
+            resourceInputs["queryParams"] = undefined /*out*/;
             resourceInputs["updatedAt"] = undefined /*out*/;
             resourceInputs["value"] = undefined /*out*/;
         }
@@ -75,6 +84,10 @@ export interface MachinesMetadataKeyArgs {
      * Machine ID
      */
     machineId?: pulumi.Input<string | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.MachinesMetadataKeyQueryParamsArgs | undefined>;
     updatedAt?: pulumi.Input<string | undefined>;
     value?: pulumi.Input<string | undefined>;
 }

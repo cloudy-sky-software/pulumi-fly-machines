@@ -16,6 +16,8 @@ type MachinesMemoryLimit struct {
 
 	AvailableMb pulumi.IntPtrOutput `pulumi:"availableMb"`
 	LimitMb     pulumi.IntPtrOutput `pulumi:"limitMb"`
+	// Query params to send with the API requests for this resource.
+	QueryParams MachinesMemoryLimitQueryParamsPtrOutput `pulumi:"queryParams"`
 }
 
 // NewMachinesMemoryLimit registers a new resource with the given unique name, arguments, and options.
@@ -63,6 +65,8 @@ type machinesMemoryLimitArgs struct {
 	LimitMb *int    `pulumi:"limitMb"`
 	// Machine ID
 	MachineId *string `pulumi:"machineId"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *MachinesMemoryLimitQueryParams `pulumi:"queryParams"`
 }
 
 // The set of arguments for constructing a MachinesMemoryLimit resource.
@@ -72,6 +76,8 @@ type MachinesMemoryLimitArgs struct {
 	LimitMb pulumi.IntPtrInput
 	// Machine ID
 	MachineId pulumi.StringPtrInput
+	// Query params to send with the API requests for this resource.
+	QueryParams MachinesMemoryLimitQueryParamsPtrInput
 }
 
 func (MachinesMemoryLimitArgs) ElementType() reflect.Type {
@@ -117,6 +123,11 @@ func (o MachinesMemoryLimitOutput) AvailableMb() pulumi.IntPtrOutput {
 
 func (o MachinesMemoryLimitOutput) LimitMb() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *MachinesMemoryLimit) pulumi.IntPtrOutput { return v.LimitMb }).(pulumi.IntPtrOutput)
+}
+
+// Query params to send with the API requests for this resource.
+func (o MachinesMemoryLimitOutput) QueryParams() MachinesMemoryLimitQueryParamsPtrOutput {
+	return o.ApplyT(func(v *MachinesMemoryLimit) MachinesMemoryLimitQueryParamsPtrOutput { return v.QueryParams }).(MachinesMemoryLimitQueryParamsPtrOutput)
 }
 
 func init() {

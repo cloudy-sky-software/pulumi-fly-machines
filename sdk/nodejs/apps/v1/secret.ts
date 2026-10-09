@@ -2,6 +2,9 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
+import * as enums from "../../types/enums";
 import * as utilities from "../../utilities";
 
 export class Secret extends pulumi.CustomResource {
@@ -34,6 +37,10 @@ export class Secret extends pulumi.CustomResource {
     declare public /*out*/ readonly createdAt: pulumi.Output<string | undefined>;
     declare public /*out*/ readonly digest: pulumi.Output<string | undefined>;
     declare public /*out*/ readonly name: pulumi.Output<string | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    declare public readonly queryParams: pulumi.Output<outputs.apps.v1.SecretQueryParams | undefined>;
     declare public /*out*/ readonly updatedAt: pulumi.Output<string | undefined>;
     declare public readonly value: pulumi.Output<string | undefined>;
     declare public /*out*/ readonly version: pulumi.Output<number | undefined>;
@@ -50,6 +57,7 @@ export class Secret extends pulumi.CustomResource {
         opts = opts || {};
         if (!opts.id) {
             resourceInputs["appName"] = args?.appName;
+            resourceInputs["queryParams"] = args?.queryParams;
             resourceInputs["secretName"] = args?.secretName;
             resourceInputs["value"] = args?.value;
             resourceInputs["createdAt"] = undefined /*out*/;
@@ -61,6 +69,7 @@ export class Secret extends pulumi.CustomResource {
             resourceInputs["createdAt"] = undefined /*out*/;
             resourceInputs["digest"] = undefined /*out*/;
             resourceInputs["name"] = undefined /*out*/;
+            resourceInputs["queryParams"] = undefined /*out*/;
             resourceInputs["updatedAt"] = undefined /*out*/;
             resourceInputs["value"] = undefined /*out*/;
             resourceInputs["version"] = undefined /*out*/;
@@ -78,6 +87,10 @@ export interface SecretArgs {
      * Fly App Name
      */
     appName?: pulumi.Input<string | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.SecretQueryParamsArgs | undefined>;
     /**
      * App secret name
      */

@@ -24,6 +24,8 @@ func ListMachinesOrg(ctx *pulumi.Context, args *ListMachinesOrgArgs, opts ...pul
 type ListMachinesOrgArgs struct {
 	// Fly Organization Slug
 	OrgSlug string `pulumi:"orgSlug"`
+	// Query params to send with the API request.
+	QueryParams *ListMachinesOrgQueryParams `pulumi:"queryParams"`
 }
 
 type ListMachinesOrgResult struct {
@@ -42,6 +44,8 @@ func ListMachinesOrgOutput(ctx *pulumi.Context, args ListMachinesOrgOutputArgs, 
 type ListMachinesOrgOutputArgs struct {
 	// Fly Organization Slug
 	OrgSlug pulumi.StringInput `pulumi:"orgSlug"`
+	// Query params to send with the API request.
+	QueryParams ListMachinesOrgQueryParamsPtrInput `pulumi:"queryParams"`
 }
 
 func (ListMachinesOrgOutputArgs) ElementType() reflect.Type {

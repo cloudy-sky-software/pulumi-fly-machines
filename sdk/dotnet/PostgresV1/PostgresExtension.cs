@@ -25,6 +25,12 @@ namespace Pulumi.FlyMachines.PostgresV1
         public Output<string> Name { get; private set; } = null!;
 
         /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Output("queryParams")]
+        public Output<Outputs.PostgresExtensionQueryParams?> QueryParams { get; private set; } = null!;
+
+        /// <summary>
         /// Schema to install the extension into. Defaults to the database's default schema.
         /// </summary>
         [Output("schema")]
@@ -99,6 +105,12 @@ namespace Pulumi.FlyMachines.PostgresV1
         /// </summary>
         [Input("postgresClusterId")]
         public Input<string>? PostgresClusterId { get; set; }
+
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Input("queryParams")]
+        public Input<Inputs.PostgresExtensionQueryParamsArgs>? QueryParams { get; set; }
 
         /// <summary>
         /// Schema to install the extension into. Defaults to the database's default schema.

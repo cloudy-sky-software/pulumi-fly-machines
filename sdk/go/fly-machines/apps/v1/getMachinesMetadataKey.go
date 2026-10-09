@@ -28,6 +28,8 @@ type LookupMachinesMetadataKeyArgs struct {
 	Key string `pulumi:"key"`
 	// Machine ID
 	MachineId string `pulumi:"machineId"`
+	// Query params to send with the API request.
+	QueryParams *GetMachinesMetadataKeyQueryParams `pulumi:"queryParams"`
 }
 
 type LookupMachinesMetadataKeyResult struct {
@@ -46,6 +48,8 @@ type LookupMachinesMetadataKeyOutputArgs struct {
 	Key pulumi.StringInput `pulumi:"key"`
 	// Machine ID
 	MachineId pulumi.StringInput `pulumi:"machineId"`
+	// Query params to send with the API request.
+	QueryParams GetMachinesMetadataKeyQueryParamsPtrInput `pulumi:"queryParams"`
 }
 
 func (LookupMachinesMetadataKeyOutputArgs) ElementType() reflect.Type {

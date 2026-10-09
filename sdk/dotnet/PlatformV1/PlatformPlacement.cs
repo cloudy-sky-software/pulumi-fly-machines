@@ -29,6 +29,12 @@ namespace Pulumi.FlyMachines.PlatformV1
         public Output<string> OrgSlug { get; private set; } = null!;
 
         /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Output("queryParams")]
+        public Output<Outputs.PlatformPlacementQueryParams?> QueryParams { get; private set; } = null!;
+
+        /// <summary>
         /// Region expression for placement as a comma-delimited set of regions or aliases.
         /// Defaults to "[region],any", to prefer the API endpoint's local region with any other region as fallback.
         /// </summary>
@@ -111,6 +117,12 @@ namespace Pulumi.FlyMachines.PlatformV1
 
         [Input("orgSlug", required: true)]
         public Input<string> OrgSlug { get; set; } = null!;
+
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Input("queryParams")]
+        public Input<Inputs.PlatformPlacementQueryParamsArgs>? QueryParams { get; set; }
 
         /// <summary>
         /// Region expression for placement as a comma-delimited set of regions or aliases.

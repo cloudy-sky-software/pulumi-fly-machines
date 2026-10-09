@@ -12,6 +12,7 @@ export function listMachinesVersions(args: ListMachinesVersionsArgs, opts?: pulu
     return pulumi.runtime.invoke("fly-machines:apps/v1:listMachinesVersions", {
         "appName": args.appName,
         "machineId": args.machineId,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -24,6 +25,10 @@ export interface ListMachinesVersionsArgs {
      * Machine ID
      */
     machineId: string;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: inputs.apps.v1.ListMachinesVersionsQueryParams;
 }
 
 export interface ListMachinesVersionsResult {
@@ -34,6 +39,7 @@ export function listMachinesVersionsOutput(args: ListMachinesVersionsOutputArgs,
     return pulumi.runtime.invokeOutput("fly-machines:apps/v1:listMachinesVersions", {
         "appName": args.appName,
         "machineId": args.machineId,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -46,4 +52,8 @@ export interface ListMachinesVersionsOutputArgs {
      * Machine ID
      */
     machineId: pulumi.Input<string>;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.ListMachinesVersionsQueryParamsArgs | undefined>;
 }

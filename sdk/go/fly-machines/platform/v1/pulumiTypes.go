@@ -288,6 +288,146 @@ func (o ComputePtrOutput) RequiredHostFeatures() pulumi.StringArrayOutput {
 	}).(pulumi.StringArrayOutput)
 }
 
+// Query params for the API request.
+type GetPlatformRegionQueryParams struct {
+	// Additional query params to send with the request that are not defined in the API spec.
+	AdditionalParams map[string]string `pulumi:"additionalParams"`
+}
+
+// GetPlatformRegionQueryParamsInput is an input type that accepts GetPlatformRegionQueryParamsArgs and GetPlatformRegionQueryParamsOutput values.
+// You can construct a concrete instance of `GetPlatformRegionQueryParamsInput` via:
+//
+//	GetPlatformRegionQueryParamsArgs{...}
+type GetPlatformRegionQueryParamsInput interface {
+	pulumi.Input
+
+	ToGetPlatformRegionQueryParamsOutput() GetPlatformRegionQueryParamsOutput
+	ToGetPlatformRegionQueryParamsOutputWithContext(context.Context) GetPlatformRegionQueryParamsOutput
+}
+
+// Query params for the API request.
+type GetPlatformRegionQueryParamsArgs struct {
+	// Additional query params to send with the request that are not defined in the API spec.
+	AdditionalParams pulumi.StringMapInput `pulumi:"additionalParams"`
+}
+
+func (GetPlatformRegionQueryParamsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetPlatformRegionQueryParams)(nil)).Elem()
+}
+
+func (i GetPlatformRegionQueryParamsArgs) ToGetPlatformRegionQueryParamsOutput() GetPlatformRegionQueryParamsOutput {
+	return i.ToGetPlatformRegionQueryParamsOutputWithContext(context.Background())
+}
+
+func (i GetPlatformRegionQueryParamsArgs) ToGetPlatformRegionQueryParamsOutputWithContext(ctx context.Context) GetPlatformRegionQueryParamsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetPlatformRegionQueryParamsOutput)
+}
+
+func (i GetPlatformRegionQueryParamsArgs) ToGetPlatformRegionQueryParamsPtrOutput() GetPlatformRegionQueryParamsPtrOutput {
+	return i.ToGetPlatformRegionQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (i GetPlatformRegionQueryParamsArgs) ToGetPlatformRegionQueryParamsPtrOutputWithContext(ctx context.Context) GetPlatformRegionQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetPlatformRegionQueryParamsOutput).ToGetPlatformRegionQueryParamsPtrOutputWithContext(ctx)
+}
+
+// GetPlatformRegionQueryParamsPtrInput is an input type that accepts GetPlatformRegionQueryParamsArgs, GetPlatformRegionQueryParamsPtr and GetPlatformRegionQueryParamsPtrOutput values.
+// You can construct a concrete instance of `GetPlatformRegionQueryParamsPtrInput` via:
+//
+//	        GetPlatformRegionQueryParamsArgs{...}
+//
+//	or:
+//
+//	        nil
+type GetPlatformRegionQueryParamsPtrInput interface {
+	pulumi.Input
+
+	ToGetPlatformRegionQueryParamsPtrOutput() GetPlatformRegionQueryParamsPtrOutput
+	ToGetPlatformRegionQueryParamsPtrOutputWithContext(context.Context) GetPlatformRegionQueryParamsPtrOutput
+}
+
+type getPlatformRegionQueryParamsPtrType GetPlatformRegionQueryParamsArgs
+
+func GetPlatformRegionQueryParamsPtr(v *GetPlatformRegionQueryParamsArgs) GetPlatformRegionQueryParamsPtrInput {
+	return (*getPlatformRegionQueryParamsPtrType)(v)
+}
+
+func (*getPlatformRegionQueryParamsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GetPlatformRegionQueryParams)(nil)).Elem()
+}
+
+func (i *getPlatformRegionQueryParamsPtrType) ToGetPlatformRegionQueryParamsPtrOutput() GetPlatformRegionQueryParamsPtrOutput {
+	return i.ToGetPlatformRegionQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (i *getPlatformRegionQueryParamsPtrType) ToGetPlatformRegionQueryParamsPtrOutputWithContext(ctx context.Context) GetPlatformRegionQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetPlatformRegionQueryParamsPtrOutput)
+}
+
+// Query params for the API request.
+type GetPlatformRegionQueryParamsOutput struct{ *pulumi.OutputState }
+
+func (GetPlatformRegionQueryParamsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetPlatformRegionQueryParams)(nil)).Elem()
+}
+
+func (o GetPlatformRegionQueryParamsOutput) ToGetPlatformRegionQueryParamsOutput() GetPlatformRegionQueryParamsOutput {
+	return o
+}
+
+func (o GetPlatformRegionQueryParamsOutput) ToGetPlatformRegionQueryParamsOutputWithContext(ctx context.Context) GetPlatformRegionQueryParamsOutput {
+	return o
+}
+
+func (o GetPlatformRegionQueryParamsOutput) ToGetPlatformRegionQueryParamsPtrOutput() GetPlatformRegionQueryParamsPtrOutput {
+	return o.ToGetPlatformRegionQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (o GetPlatformRegionQueryParamsOutput) ToGetPlatformRegionQueryParamsPtrOutputWithContext(ctx context.Context) GetPlatformRegionQueryParamsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GetPlatformRegionQueryParams) *GetPlatformRegionQueryParams {
+		return &v
+	}).(GetPlatformRegionQueryParamsPtrOutput)
+}
+
+// Additional query params to send with the request that are not defined in the API spec.
+func (o GetPlatformRegionQueryParamsOutput) AdditionalParams() pulumi.StringMapOutput {
+	return o.ApplyT(func(v GetPlatformRegionQueryParams) map[string]string { return v.AdditionalParams }).(pulumi.StringMapOutput)
+}
+
+type GetPlatformRegionQueryParamsPtrOutput struct{ *pulumi.OutputState }
+
+func (GetPlatformRegionQueryParamsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GetPlatformRegionQueryParams)(nil)).Elem()
+}
+
+func (o GetPlatformRegionQueryParamsPtrOutput) ToGetPlatformRegionQueryParamsPtrOutput() GetPlatformRegionQueryParamsPtrOutput {
+	return o
+}
+
+func (o GetPlatformRegionQueryParamsPtrOutput) ToGetPlatformRegionQueryParamsPtrOutputWithContext(ctx context.Context) GetPlatformRegionQueryParamsPtrOutput {
+	return o
+}
+
+func (o GetPlatformRegionQueryParamsPtrOutput) Elem() GetPlatformRegionQueryParamsOutput {
+	return o.ApplyT(func(v *GetPlatformRegionQueryParams) GetPlatformRegionQueryParams {
+		if v != nil {
+			return *v
+		}
+		var ret GetPlatformRegionQueryParams
+		return ret
+	}).(GetPlatformRegionQueryParamsOutput)
+}
+
+// Additional query params to send with the request that are not defined in the API spec.
+func (o GetPlatformRegionQueryParamsPtrOutput) AdditionalParams() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *GetPlatformRegionQueryParams) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.AdditionalParams
+	}).(pulumi.StringMapOutput)
+}
+
 type MainRegionResponse struct {
 	Nearest *string         `pulumi:"nearest"`
 	Regions []MainRegionRow `pulumi:"regions"`
@@ -427,6 +567,286 @@ func (o PlacementRegionPlacementArrayOutput) Index(i pulumi.IntInput) PlacementR
 	}).(PlacementRegionPlacementOutput)
 }
 
+// Query params for the API request.
+type PlatformPlacementCreateQueryParams struct {
+	// Additional query params to send with the request that are not defined in the API spec.
+	AdditionalParams map[string]string `pulumi:"additionalParams"`
+}
+
+// PlatformPlacementCreateQueryParamsInput is an input type that accepts PlatformPlacementCreateQueryParamsArgs and PlatformPlacementCreateQueryParamsOutput values.
+// You can construct a concrete instance of `PlatformPlacementCreateQueryParamsInput` via:
+//
+//	PlatformPlacementCreateQueryParamsArgs{...}
+type PlatformPlacementCreateQueryParamsInput interface {
+	pulumi.Input
+
+	ToPlatformPlacementCreateQueryParamsOutput() PlatformPlacementCreateQueryParamsOutput
+	ToPlatformPlacementCreateQueryParamsOutputWithContext(context.Context) PlatformPlacementCreateQueryParamsOutput
+}
+
+// Query params for the API request.
+type PlatformPlacementCreateQueryParamsArgs struct {
+	// Additional query params to send with the request that are not defined in the API spec.
+	AdditionalParams pulumi.StringMapInput `pulumi:"additionalParams"`
+}
+
+func (PlatformPlacementCreateQueryParamsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlatformPlacementCreateQueryParams)(nil)).Elem()
+}
+
+func (i PlatformPlacementCreateQueryParamsArgs) ToPlatformPlacementCreateQueryParamsOutput() PlatformPlacementCreateQueryParamsOutput {
+	return i.ToPlatformPlacementCreateQueryParamsOutputWithContext(context.Background())
+}
+
+func (i PlatformPlacementCreateQueryParamsArgs) ToPlatformPlacementCreateQueryParamsOutputWithContext(ctx context.Context) PlatformPlacementCreateQueryParamsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlatformPlacementCreateQueryParamsOutput)
+}
+
+func (i PlatformPlacementCreateQueryParamsArgs) ToPlatformPlacementCreateQueryParamsPtrOutput() PlatformPlacementCreateQueryParamsPtrOutput {
+	return i.ToPlatformPlacementCreateQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (i PlatformPlacementCreateQueryParamsArgs) ToPlatformPlacementCreateQueryParamsPtrOutputWithContext(ctx context.Context) PlatformPlacementCreateQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlatformPlacementCreateQueryParamsOutput).ToPlatformPlacementCreateQueryParamsPtrOutputWithContext(ctx)
+}
+
+// PlatformPlacementCreateQueryParamsPtrInput is an input type that accepts PlatformPlacementCreateQueryParamsArgs, PlatformPlacementCreateQueryParamsPtr and PlatformPlacementCreateQueryParamsPtrOutput values.
+// You can construct a concrete instance of `PlatformPlacementCreateQueryParamsPtrInput` via:
+//
+//	        PlatformPlacementCreateQueryParamsArgs{...}
+//
+//	or:
+//
+//	        nil
+type PlatformPlacementCreateQueryParamsPtrInput interface {
+	pulumi.Input
+
+	ToPlatformPlacementCreateQueryParamsPtrOutput() PlatformPlacementCreateQueryParamsPtrOutput
+	ToPlatformPlacementCreateQueryParamsPtrOutputWithContext(context.Context) PlatformPlacementCreateQueryParamsPtrOutput
+}
+
+type platformPlacementCreateQueryParamsPtrType PlatformPlacementCreateQueryParamsArgs
+
+func PlatformPlacementCreateQueryParamsPtr(v *PlatformPlacementCreateQueryParamsArgs) PlatformPlacementCreateQueryParamsPtrInput {
+	return (*platformPlacementCreateQueryParamsPtrType)(v)
+}
+
+func (*platformPlacementCreateQueryParamsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PlatformPlacementCreateQueryParams)(nil)).Elem()
+}
+
+func (i *platformPlacementCreateQueryParamsPtrType) ToPlatformPlacementCreateQueryParamsPtrOutput() PlatformPlacementCreateQueryParamsPtrOutput {
+	return i.ToPlatformPlacementCreateQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (i *platformPlacementCreateQueryParamsPtrType) ToPlatformPlacementCreateQueryParamsPtrOutputWithContext(ctx context.Context) PlatformPlacementCreateQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlatformPlacementCreateQueryParamsPtrOutput)
+}
+
+// Query params for the API request.
+type PlatformPlacementCreateQueryParamsOutput struct{ *pulumi.OutputState }
+
+func (PlatformPlacementCreateQueryParamsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlatformPlacementCreateQueryParams)(nil)).Elem()
+}
+
+func (o PlatformPlacementCreateQueryParamsOutput) ToPlatformPlacementCreateQueryParamsOutput() PlatformPlacementCreateQueryParamsOutput {
+	return o
+}
+
+func (o PlatformPlacementCreateQueryParamsOutput) ToPlatformPlacementCreateQueryParamsOutputWithContext(ctx context.Context) PlatformPlacementCreateQueryParamsOutput {
+	return o
+}
+
+func (o PlatformPlacementCreateQueryParamsOutput) ToPlatformPlacementCreateQueryParamsPtrOutput() PlatformPlacementCreateQueryParamsPtrOutput {
+	return o.ToPlatformPlacementCreateQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (o PlatformPlacementCreateQueryParamsOutput) ToPlatformPlacementCreateQueryParamsPtrOutputWithContext(ctx context.Context) PlatformPlacementCreateQueryParamsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PlatformPlacementCreateQueryParams) *PlatformPlacementCreateQueryParams {
+		return &v
+	}).(PlatformPlacementCreateQueryParamsPtrOutput)
+}
+
+// Additional query params to send with the request that are not defined in the API spec.
+func (o PlatformPlacementCreateQueryParamsOutput) AdditionalParams() pulumi.StringMapOutput {
+	return o.ApplyT(func(v PlatformPlacementCreateQueryParams) map[string]string { return v.AdditionalParams }).(pulumi.StringMapOutput)
+}
+
+type PlatformPlacementCreateQueryParamsPtrOutput struct{ *pulumi.OutputState }
+
+func (PlatformPlacementCreateQueryParamsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PlatformPlacementCreateQueryParams)(nil)).Elem()
+}
+
+func (o PlatformPlacementCreateQueryParamsPtrOutput) ToPlatformPlacementCreateQueryParamsPtrOutput() PlatformPlacementCreateQueryParamsPtrOutput {
+	return o
+}
+
+func (o PlatformPlacementCreateQueryParamsPtrOutput) ToPlatformPlacementCreateQueryParamsPtrOutputWithContext(ctx context.Context) PlatformPlacementCreateQueryParamsPtrOutput {
+	return o
+}
+
+func (o PlatformPlacementCreateQueryParamsPtrOutput) Elem() PlatformPlacementCreateQueryParamsOutput {
+	return o.ApplyT(func(v *PlatformPlacementCreateQueryParams) PlatformPlacementCreateQueryParams {
+		if v != nil {
+			return *v
+		}
+		var ret PlatformPlacementCreateQueryParams
+		return ret
+	}).(PlatformPlacementCreateQueryParamsOutput)
+}
+
+// Additional query params to send with the request that are not defined in the API spec.
+func (o PlatformPlacementCreateQueryParamsPtrOutput) AdditionalParams() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *PlatformPlacementCreateQueryParams) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.AdditionalParams
+	}).(pulumi.StringMapOutput)
+}
+
+// Query params for each of the operations of the resource.
+type PlatformPlacementQueryParams struct {
+	// Query params for the create operation.
+	Create *PlatformPlacementCreateQueryParams `pulumi:"create"`
+}
+
+// PlatformPlacementQueryParamsInput is an input type that accepts PlatformPlacementQueryParamsArgs and PlatformPlacementQueryParamsOutput values.
+// You can construct a concrete instance of `PlatformPlacementQueryParamsInput` via:
+//
+//	PlatformPlacementQueryParamsArgs{...}
+type PlatformPlacementQueryParamsInput interface {
+	pulumi.Input
+
+	ToPlatformPlacementQueryParamsOutput() PlatformPlacementQueryParamsOutput
+	ToPlatformPlacementQueryParamsOutputWithContext(context.Context) PlatformPlacementQueryParamsOutput
+}
+
+// Query params for each of the operations of the resource.
+type PlatformPlacementQueryParamsArgs struct {
+	// Query params for the create operation.
+	Create PlatformPlacementCreateQueryParamsPtrInput `pulumi:"create"`
+}
+
+func (PlatformPlacementQueryParamsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlatformPlacementQueryParams)(nil)).Elem()
+}
+
+func (i PlatformPlacementQueryParamsArgs) ToPlatformPlacementQueryParamsOutput() PlatformPlacementQueryParamsOutput {
+	return i.ToPlatformPlacementQueryParamsOutputWithContext(context.Background())
+}
+
+func (i PlatformPlacementQueryParamsArgs) ToPlatformPlacementQueryParamsOutputWithContext(ctx context.Context) PlatformPlacementQueryParamsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlatformPlacementQueryParamsOutput)
+}
+
+func (i PlatformPlacementQueryParamsArgs) ToPlatformPlacementQueryParamsPtrOutput() PlatformPlacementQueryParamsPtrOutput {
+	return i.ToPlatformPlacementQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (i PlatformPlacementQueryParamsArgs) ToPlatformPlacementQueryParamsPtrOutputWithContext(ctx context.Context) PlatformPlacementQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlatformPlacementQueryParamsOutput).ToPlatformPlacementQueryParamsPtrOutputWithContext(ctx)
+}
+
+// PlatformPlacementQueryParamsPtrInput is an input type that accepts PlatformPlacementQueryParamsArgs, PlatformPlacementQueryParamsPtr and PlatformPlacementQueryParamsPtrOutput values.
+// You can construct a concrete instance of `PlatformPlacementQueryParamsPtrInput` via:
+//
+//	        PlatformPlacementQueryParamsArgs{...}
+//
+//	or:
+//
+//	        nil
+type PlatformPlacementQueryParamsPtrInput interface {
+	pulumi.Input
+
+	ToPlatformPlacementQueryParamsPtrOutput() PlatformPlacementQueryParamsPtrOutput
+	ToPlatformPlacementQueryParamsPtrOutputWithContext(context.Context) PlatformPlacementQueryParamsPtrOutput
+}
+
+type platformPlacementQueryParamsPtrType PlatformPlacementQueryParamsArgs
+
+func PlatformPlacementQueryParamsPtr(v *PlatformPlacementQueryParamsArgs) PlatformPlacementQueryParamsPtrInput {
+	return (*platformPlacementQueryParamsPtrType)(v)
+}
+
+func (*platformPlacementQueryParamsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PlatformPlacementQueryParams)(nil)).Elem()
+}
+
+func (i *platformPlacementQueryParamsPtrType) ToPlatformPlacementQueryParamsPtrOutput() PlatformPlacementQueryParamsPtrOutput {
+	return i.ToPlatformPlacementQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (i *platformPlacementQueryParamsPtrType) ToPlatformPlacementQueryParamsPtrOutputWithContext(ctx context.Context) PlatformPlacementQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlatformPlacementQueryParamsPtrOutput)
+}
+
+// Query params for each of the operations of the resource.
+type PlatformPlacementQueryParamsOutput struct{ *pulumi.OutputState }
+
+func (PlatformPlacementQueryParamsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlatformPlacementQueryParams)(nil)).Elem()
+}
+
+func (o PlatformPlacementQueryParamsOutput) ToPlatformPlacementQueryParamsOutput() PlatformPlacementQueryParamsOutput {
+	return o
+}
+
+func (o PlatformPlacementQueryParamsOutput) ToPlatformPlacementQueryParamsOutputWithContext(ctx context.Context) PlatformPlacementQueryParamsOutput {
+	return o
+}
+
+func (o PlatformPlacementQueryParamsOutput) ToPlatformPlacementQueryParamsPtrOutput() PlatformPlacementQueryParamsPtrOutput {
+	return o.ToPlatformPlacementQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (o PlatformPlacementQueryParamsOutput) ToPlatformPlacementQueryParamsPtrOutputWithContext(ctx context.Context) PlatformPlacementQueryParamsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PlatformPlacementQueryParams) *PlatformPlacementQueryParams {
+		return &v
+	}).(PlatformPlacementQueryParamsPtrOutput)
+}
+
+// Query params for the create operation.
+func (o PlatformPlacementQueryParamsOutput) Create() PlatformPlacementCreateQueryParamsPtrOutput {
+	return o.ApplyT(func(v PlatformPlacementQueryParams) *PlatformPlacementCreateQueryParams { return v.Create }).(PlatformPlacementCreateQueryParamsPtrOutput)
+}
+
+type PlatformPlacementQueryParamsPtrOutput struct{ *pulumi.OutputState }
+
+func (PlatformPlacementQueryParamsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PlatformPlacementQueryParams)(nil)).Elem()
+}
+
+func (o PlatformPlacementQueryParamsPtrOutput) ToPlatformPlacementQueryParamsPtrOutput() PlatformPlacementQueryParamsPtrOutput {
+	return o
+}
+
+func (o PlatformPlacementQueryParamsPtrOutput) ToPlatformPlacementQueryParamsPtrOutputWithContext(ctx context.Context) PlatformPlacementQueryParamsPtrOutput {
+	return o
+}
+
+func (o PlatformPlacementQueryParamsPtrOutput) Elem() PlatformPlacementQueryParamsOutput {
+	return o.ApplyT(func(v *PlatformPlacementQueryParams) PlatformPlacementQueryParams {
+		if v != nil {
+			return *v
+		}
+		var ret PlatformPlacementQueryParams
+		return ret
+	}).(PlatformPlacementQueryParamsOutput)
+}
+
+// Query params for the create operation.
+func (o PlatformPlacementQueryParamsPtrOutput) Create() PlatformPlacementCreateQueryParamsPtrOutput {
+	return o.ApplyT(func(v *PlatformPlacementQueryParams) *PlatformPlacementCreateQueryParams {
+		if v == nil {
+			return nil
+		}
+		return v.Create
+	}).(PlatformPlacementCreateQueryParamsPtrOutput)
+}
+
 // Optional weights to override default placement preferences.
 type Weights struct {
 }
@@ -551,14 +971,26 @@ func (o WeightsPtrOutput) Elem() WeightsOutput {
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ComputeInput)(nil)).Elem(), ComputeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ComputePtrInput)(nil)).Elem(), ComputeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetPlatformRegionQueryParamsInput)(nil)).Elem(), GetPlatformRegionQueryParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetPlatformRegionQueryParamsPtrInput)(nil)).Elem(), GetPlatformRegionQueryParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlatformPlacementCreateQueryParamsInput)(nil)).Elem(), PlatformPlacementCreateQueryParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlatformPlacementCreateQueryParamsPtrInput)(nil)).Elem(), PlatformPlacementCreateQueryParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlatformPlacementQueryParamsInput)(nil)).Elem(), PlatformPlacementQueryParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlatformPlacementQueryParamsPtrInput)(nil)).Elem(), PlatformPlacementQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WeightsInput)(nil)).Elem(), WeightsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WeightsPtrInput)(nil)).Elem(), WeightsArgs{})
 	pulumi.RegisterOutputType(ComputeOutput{})
 	pulumi.RegisterOutputType(ComputePtrOutput{})
+	pulumi.RegisterOutputType(GetPlatformRegionQueryParamsOutput{})
+	pulumi.RegisterOutputType(GetPlatformRegionQueryParamsPtrOutput{})
 	pulumi.RegisterOutputType(MainRegionRowOutput{})
 	pulumi.RegisterOutputType(MainRegionRowArrayOutput{})
 	pulumi.RegisterOutputType(PlacementRegionPlacementOutput{})
 	pulumi.RegisterOutputType(PlacementRegionPlacementArrayOutput{})
+	pulumi.RegisterOutputType(PlatformPlacementCreateQueryParamsOutput{})
+	pulumi.RegisterOutputType(PlatformPlacementCreateQueryParamsPtrOutput{})
+	pulumi.RegisterOutputType(PlatformPlacementQueryParamsOutput{})
+	pulumi.RegisterOutputType(PlatformPlacementQueryParamsPtrOutput{})
 	pulumi.RegisterOutputType(WeightsOutput{})
 	pulumi.RegisterOutputType(WeightsPtrOutput{})
 }

@@ -63,6 +63,12 @@ namespace Pulumi.FlyMachines.AppsV1
         [Output("name")]
         public Output<string?> Name { get; private set; } = null!;
 
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Output("queryParams")]
+        public Output<Outputs.VolumeQueryParams?> QueryParams { get; private set; } = null!;
+
         [Output("region")]
         public Output<string?> Region { get; private set; } = null!;
 
@@ -174,6 +180,12 @@ namespace Pulumi.FlyMachines.AppsV1
 
         [Input("name")]
         public Input<string>? Name { get; set; }
+
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Input("queryParams")]
+        public Input<Inputs.VolumeQueryParamsArgs>? QueryParams { get; set; }
 
         [Input("region")]
         public Input<string>? Region { get; set; }

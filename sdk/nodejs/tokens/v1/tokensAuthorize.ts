@@ -36,6 +36,10 @@ export class TokensAuthorize extends pulumi.CustomResource {
 
     declare public readonly access: pulumi.Output<outputs.tokens.v1.FlyioAccess | undefined>;
     declare public readonly header: pulumi.Output<string | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    declare public readonly queryParams: pulumi.Output<outputs.tokens.v1.TokensAuthorizeQueryParams | undefined>;
     declare public /*out*/ readonly verifiedToken: pulumi.Output<outputs.tokens.v1.RootVerifiedToken | undefined>;
 
     /**
@@ -51,10 +55,12 @@ export class TokensAuthorize extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["access"] = args?.access;
             resourceInputs["header"] = args?.header;
+            resourceInputs["queryParams"] = args?.queryParams;
             resourceInputs["verifiedToken"] = undefined /*out*/;
         } else {
             resourceInputs["access"] = undefined /*out*/;
             resourceInputs["header"] = undefined /*out*/;
+            resourceInputs["queryParams"] = undefined /*out*/;
             resourceInputs["verifiedToken"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
@@ -68,4 +74,8 @@ export class TokensAuthorize extends pulumi.CustomResource {
 export interface TokensAuthorizeArgs {
     access?: pulumi.Input<inputs.tokens.v1.MainTokenAccessArgs | undefined>;
     header?: pulumi.Input<string | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    queryParams?: pulumi.Input<inputs.tokens.v1.TokensAuthorizeQueryParamsArgs | undefined>;
 }

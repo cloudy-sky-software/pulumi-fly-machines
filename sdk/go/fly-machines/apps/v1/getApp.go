@@ -24,6 +24,8 @@ func LookupApp(ctx *pulumi.Context, args *LookupAppArgs, opts ...pulumi.InvokeOp
 type LookupAppArgs struct {
 	// Fly App Name
 	Name string `pulumi:"name"`
+	// Query params to send with the API request.
+	QueryParams *GetAppQueryParams `pulumi:"queryParams"`
 }
 
 type LookupAppResult struct {
@@ -46,6 +48,8 @@ func LookupAppOutput(ctx *pulumi.Context, args LookupAppOutputArgs, opts ...pulu
 type LookupAppOutputArgs struct {
 	// Fly App Name
 	Name pulumi.StringInput `pulumi:"name"`
+	// Query params to send with the API request.
+	QueryParams GetAppQueryParamsPtrInput `pulumi:"queryParams"`
 }
 
 func (LookupAppOutputArgs) ElementType() reflect.Type {

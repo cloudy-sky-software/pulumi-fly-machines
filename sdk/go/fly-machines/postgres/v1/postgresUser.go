@@ -16,6 +16,8 @@ type PostgresUser struct {
 	pulumi.CustomResourceState
 
 	Data PostgresUserTypePtrOutput `pulumi:"data"`
+	// Query params to send with the API requests for this resource.
+	QueryParams PostgresUserQueryParamsPtrOutput `pulumi:"queryParams"`
 	// Role to grant the user.
 	Role RoleOutput `pulumi:"role"`
 	// Name for the new user. Must start and end with a lowercase alphanumeric
@@ -71,6 +73,8 @@ func (PostgresUserState) ElementType() reflect.Type {
 type postgresUserArgs struct {
 	// Managed Postgres Cluster ID
 	PostgresClusterId *string `pulumi:"postgresClusterId"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *PostgresUserQueryParams `pulumi:"queryParams"`
 	// Role to grant the user.
 	Role Role `pulumi:"role"`
 	// Name for the new user. Must start and end with a lowercase alphanumeric
@@ -82,6 +86,8 @@ type postgresUserArgs struct {
 type PostgresUserArgs struct {
 	// Managed Postgres Cluster ID
 	PostgresClusterId pulumi.StringPtrInput
+	// Query params to send with the API requests for this resource.
+	QueryParams PostgresUserQueryParamsPtrInput
 	// Role to grant the user.
 	Role RoleInput
 	// Name for the new user. Must start and end with a lowercase alphanumeric
@@ -128,6 +134,11 @@ func (o PostgresUserOutput) ToPostgresUserOutputWithContext(ctx context.Context)
 
 func (o PostgresUserOutput) Data() PostgresUserTypePtrOutput {
 	return o.ApplyT(func(v *PostgresUser) PostgresUserTypePtrOutput { return v.Data }).(PostgresUserTypePtrOutput)
+}
+
+// Query params to send with the API requests for this resource.
+func (o PostgresUserOutput) QueryParams() PostgresUserQueryParamsPtrOutput {
+	return o.ApplyT(func(v *PostgresUser) PostgresUserQueryParamsPtrOutput { return v.QueryParams }).(PostgresUserQueryParamsPtrOutput)
 }
 
 // Role to grant the user.

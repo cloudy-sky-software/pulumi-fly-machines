@@ -14,9 +14,11 @@ import (
 type SecretsUpdate struct {
 	pulumi.CustomResourceState
 
-	Secrets AppSecretArrayOutput `pulumi:"secrets"`
-	Values  pulumi.AnyOutput     `pulumi:"values"`
-	Version pulumi.IntPtrOutput  `pulumi:"version"`
+	// Query params to send with the API requests for this resource.
+	QueryParams SecretsUpdateQueryParamsPtrOutput `pulumi:"queryParams"`
+	Secrets     AppSecretArrayOutput              `pulumi:"secrets"`
+	Values      pulumi.AnyOutput                  `pulumi:"values"`
+	Version     pulumi.IntPtrOutput               `pulumi:"version"`
 }
 
 // NewSecretsUpdate registers a new resource with the given unique name, arguments, and options.
@@ -60,15 +62,19 @@ func (SecretsUpdateState) ElementType() reflect.Type {
 
 type secretsUpdateArgs struct {
 	// Fly App Name
-	AppName *string     `pulumi:"appName"`
-	Values  interface{} `pulumi:"values"`
+	AppName *string `pulumi:"appName"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *SecretsUpdateQueryParams `pulumi:"queryParams"`
+	Values      interface{}               `pulumi:"values"`
 }
 
 // The set of arguments for constructing a SecretsUpdate resource.
 type SecretsUpdateArgs struct {
 	// Fly App Name
 	AppName pulumi.StringPtrInput
-	Values  pulumi.Input
+	// Query params to send with the API requests for this resource.
+	QueryParams SecretsUpdateQueryParamsPtrInput
+	Values      pulumi.Input
 }
 
 func (SecretsUpdateArgs) ElementType() reflect.Type {
@@ -106,6 +112,11 @@ func (o SecretsUpdateOutput) ToSecretsUpdateOutput() SecretsUpdateOutput {
 
 func (o SecretsUpdateOutput) ToSecretsUpdateOutputWithContext(ctx context.Context) SecretsUpdateOutput {
 	return o
+}
+
+// Query params to send with the API requests for this resource.
+func (o SecretsUpdateOutput) QueryParams() SecretsUpdateQueryParamsPtrOutput {
+	return o.ApplyT(func(v *SecretsUpdate) SecretsUpdateQueryParamsPtrOutput { return v.QueryParams }).(SecretsUpdateQueryParamsPtrOutput)
 }
 
 func (o SecretsUpdateOutput) Secrets() AppSecretArrayOutput {

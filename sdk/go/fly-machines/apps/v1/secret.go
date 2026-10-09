@@ -17,9 +17,11 @@ type Secret struct {
 	CreatedAt pulumi.StringPtrOutput `pulumi:"createdAt"`
 	Digest    pulumi.StringPtrOutput `pulumi:"digest"`
 	Name      pulumi.StringPtrOutput `pulumi:"name"`
-	UpdatedAt pulumi.StringPtrOutput `pulumi:"updatedAt"`
-	Value     pulumi.StringPtrOutput `pulumi:"value"`
-	Version   pulumi.IntPtrOutput    `pulumi:"version"`
+	// Query params to send with the API requests for this resource.
+	QueryParams SecretQueryParamsPtrOutput `pulumi:"queryParams"`
+	UpdatedAt   pulumi.StringPtrOutput     `pulumi:"updatedAt"`
+	Value       pulumi.StringPtrOutput     `pulumi:"value"`
+	Version     pulumi.IntPtrOutput        `pulumi:"version"`
 }
 
 // NewSecret registers a new resource with the given unique name, arguments, and options.
@@ -64,6 +66,8 @@ func (SecretState) ElementType() reflect.Type {
 type secretArgs struct {
 	// Fly App Name
 	AppName *string `pulumi:"appName"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *SecretQueryParams `pulumi:"queryParams"`
 	// App secret name
 	SecretName *string `pulumi:"secretName"`
 	Value      *string `pulumi:"value"`
@@ -73,6 +77,8 @@ type secretArgs struct {
 type SecretArgs struct {
 	// Fly App Name
 	AppName pulumi.StringPtrInput
+	// Query params to send with the API requests for this resource.
+	QueryParams SecretQueryParamsPtrInput
 	// App secret name
 	SecretName pulumi.StringPtrInput
 	Value      pulumi.StringPtrInput
@@ -125,6 +131,11 @@ func (o SecretOutput) Digest() pulumi.StringPtrOutput {
 
 func (o SecretOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Secret) pulumi.StringPtrOutput { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+// Query params to send with the API requests for this resource.
+func (o SecretOutput) QueryParams() SecretQueryParamsPtrOutput {
+	return o.ApplyT(func(v *Secret) SecretQueryParamsPtrOutput { return v.QueryParams }).(SecretQueryParamsPtrOutput)
 }
 
 func (o SecretOutput) UpdatedAt() pulumi.StringPtrOutput {

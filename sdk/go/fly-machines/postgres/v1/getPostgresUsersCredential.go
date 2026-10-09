@@ -24,6 +24,8 @@ func GetPostgresUsersCredential(ctx *pulumi.Context, args *GetPostgresUsersCrede
 type GetPostgresUsersCredentialArgs struct {
 	// Managed Postgres Cluster ID
 	PostgresClusterId string `pulumi:"postgresClusterId"`
+	// Query params to send with the API request.
+	QueryParams *GetPostgresUsersCredentialQueryParams `pulumi:"queryParams"`
 	// Postgres User Name
 	Username string `pulumi:"username"`
 }
@@ -40,6 +42,8 @@ func GetPostgresUsersCredentialOutput(ctx *pulumi.Context, args GetPostgresUsers
 type GetPostgresUsersCredentialOutputArgs struct {
 	// Managed Postgres Cluster ID
 	PostgresClusterId pulumi.StringInput `pulumi:"postgresClusterId"`
+	// Query params to send with the API request.
+	QueryParams GetPostgresUsersCredentialQueryParamsPtrInput `pulumi:"queryParams"`
 	// Postgres User Name
 	Username pulumi.StringInput `pulumi:"username"`
 }

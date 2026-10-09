@@ -16,6 +16,8 @@ type MachinesReclaimMemory struct {
 
 	ActualMb pulumi.IntPtrOutput `pulumi:"actualMb"`
 	AmountMb pulumi.IntPtrOutput `pulumi:"amountMb"`
+	// Query params to send with the API requests for this resource.
+	QueryParams MachinesReclaimMemoryQueryParamsPtrOutput `pulumi:"queryParams"`
 }
 
 // NewMachinesReclaimMemory registers a new resource with the given unique name, arguments, and options.
@@ -63,6 +65,8 @@ type machinesReclaimMemoryArgs struct {
 	AppName *string `pulumi:"appName"`
 	// Machine ID
 	MachineId *string `pulumi:"machineId"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *MachinesReclaimMemoryQueryParams `pulumi:"queryParams"`
 }
 
 // The set of arguments for constructing a MachinesReclaimMemory resource.
@@ -72,6 +76,8 @@ type MachinesReclaimMemoryArgs struct {
 	AppName pulumi.StringPtrInput
 	// Machine ID
 	MachineId pulumi.StringPtrInput
+	// Query params to send with the API requests for this resource.
+	QueryParams MachinesReclaimMemoryQueryParamsPtrInput
 }
 
 func (MachinesReclaimMemoryArgs) ElementType() reflect.Type {
@@ -117,6 +123,11 @@ func (o MachinesReclaimMemoryOutput) ActualMb() pulumi.IntPtrOutput {
 
 func (o MachinesReclaimMemoryOutput) AmountMb() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *MachinesReclaimMemory) pulumi.IntPtrOutput { return v.AmountMb }).(pulumi.IntPtrOutput)
+}
+
+// Query params to send with the API requests for this resource.
+func (o MachinesReclaimMemoryOutput) QueryParams() MachinesReclaimMemoryQueryParamsPtrOutput {
+	return o.ApplyT(func(v *MachinesReclaimMemory) MachinesReclaimMemoryQueryParamsPtrOutput { return v.QueryParams }).(MachinesReclaimMemoryQueryParamsPtrOutput)
 }
 
 func init() {

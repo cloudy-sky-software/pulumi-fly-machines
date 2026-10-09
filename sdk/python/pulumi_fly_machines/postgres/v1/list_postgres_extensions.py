@@ -14,6 +14,7 @@ else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
 from . import outputs
+from ._inputs import *
 
 __all__ = [
     'ListPostgresExtensionsResult',
@@ -46,16 +47,19 @@ class AwaitableListPostgresExtensionsResult(ListPostgresExtensionsResult):
 
 def list_postgres_extensions(database_name: Optional[_builtins.str] = None,
                              postgres_cluster_id: Optional[_builtins.str] = None,
+                             query_params: Optional[Union['ListPostgresExtensionsQueryParams', 'ListPostgresExtensionsQueryParamsDict']] = None,
                              opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableListPostgresExtensionsResult:
     """
     Use this data source to access information about an existing resource.
 
     :param _builtins.str database_name: Database Name
     :param _builtins.str postgres_cluster_id: Managed Postgres Cluster ID
+    :param Union['ListPostgresExtensionsQueryParams', 'ListPostgresExtensionsQueryParamsDict'] query_params: Query params to send with the API request.
     """
     __args__ = dict()
     __args__['databaseName'] = database_name
     __args__['postgresClusterId'] = postgres_cluster_id
+    __args__['queryParams'] = query_params
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke('fly-machines:postgres/v1:listPostgresExtensions', __args__, opts=opts, typ=ListPostgresExtensionsResult).value
 
@@ -63,16 +67,19 @@ def list_postgres_extensions(database_name: Optional[_builtins.str] = None,
         data=pulumi.get(__ret__, 'data'))
 def list_postgres_extensions_output(database_name: pulumi.Input[Optional[_builtins.str]] = None,
                                     postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                                    query_params: pulumi.Input[Optional[Optional[Union['ListPostgresExtensionsQueryParams', 'ListPostgresExtensionsQueryParamsDict']]]] = None,
                                     opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[ListPostgresExtensionsResult]:
     """
     Use this data source to access information about an existing resource.
 
     :param _builtins.str database_name: Database Name
     :param _builtins.str postgres_cluster_id: Managed Postgres Cluster ID
+    :param Union['ListPostgresExtensionsQueryParams', 'ListPostgresExtensionsQueryParamsDict'] query_params: Query params to send with the API request.
     """
     __args__ = dict()
     __args__['databaseName'] = database_name
     __args__['postgresClusterId'] = postgres_cluster_id
+    __args__['queryParams'] = query_params
     opts = pulumi.InvokeOutputOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke_output('fly-machines:postgres/v1:listPostgresExtensions', __args__, opts=opts, typ=ListPostgresExtensionsResult)
     return __ret__.apply(lambda __response__: ListPostgresExtensionsResult(

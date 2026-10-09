@@ -13,7 +13,9 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
+from . import outputs
 from ._enums import *
+from ._inputs import *
 
 __all__ = ['MachinesSignalArgs', 'MachinesSignal']
 
@@ -22,17 +24,21 @@ class MachinesSignalArgs:
     def __init__(__self__, *,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  machine_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional['MachinesSignalQueryParamsArgs']] = None,
                  signal: pulumi.Input[Optional['MachinesSignalSignal']] = None):
         """
         The set of arguments for constructing a MachinesSignal resource.
 
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input[_builtins.str] machine_id: Machine ID
+        :param pulumi.Input['MachinesSignalQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         """
         if app_name is not None:
             pulumi.set(__self__, "app_name", app_name)
         if machine_id is not None:
             pulumi.set(__self__, "machine_id", machine_id)
+        if query_params is not None:
+            pulumi.set(__self__, "query_params", query_params)
         if signal is not None:
             pulumi.set(__self__, "signal", signal)
 
@@ -61,6 +67,18 @@ class MachinesSignalArgs:
         pulumi.set(self, "machine_id", value)
 
     @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Input[Optional['MachinesSignalQueryParamsArgs']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
+
+    @query_params.setter
+    def query_params(self, value: pulumi.Input[Optional['MachinesSignalQueryParamsArgs']]):
+        pulumi.set(self, "query_params", value)
+
+    @_builtins.property
     @pulumi.getter
     def signal(self) -> pulumi.Input[Optional['MachinesSignalSignal']]:
         return pulumi.get(self, "signal")
@@ -78,6 +96,7 @@ class MachinesSignal(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  machine_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['MachinesSignalQueryParamsArgs', 'MachinesSignalQueryParamsArgsDict', 'outputs.MachinesSignalQueryParams']]] = None,
                  signal: pulumi.Input[Optional['MachinesSignalSignal']] = None,
                  __props__=None):
         """
@@ -87,6 +106,7 @@ class MachinesSignal(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input[_builtins.str] machine_id: Machine ID
+        :param pulumi.Input[Union['MachinesSignalQueryParamsArgs', 'MachinesSignalQueryParamsArgsDict', 'outputs.MachinesSignalQueryParams']] query_params: Query params to send with the API requests for this resource.
         """
         ...
     @overload
@@ -114,6 +134,7 @@ class MachinesSignal(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  machine_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['MachinesSignalQueryParamsArgs', 'MachinesSignalQueryParamsArgsDict', 'outputs.MachinesSignalQueryParams']]] = None,
                  signal: pulumi.Input[Optional['MachinesSignalSignal']] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -126,6 +147,7 @@ class MachinesSignal(pulumi.CustomResource):
 
             __props__.__dict__["app_name"] = app_name
             __props__.__dict__["machine_id"] = machine_id
+            __props__.__dict__["query_params"] = query_params
             __props__.__dict__["signal"] = signal
         super(MachinesSignal, __self__).__init__(
             'fly-machines:apps/v1:MachinesSignal',
@@ -149,8 +171,17 @@ class MachinesSignal(pulumi.CustomResource):
 
         __props__ = MachinesSignalArgs.__new__(MachinesSignalArgs)
 
+        __props__.__dict__["query_params"] = None
         __props__.__dict__["signal"] = None
         return MachinesSignal(resource_name, opts=opts, __props__=__props__)
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Output[Optional['outputs.MachinesSignalQueryParams']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
 
     @_builtins.property
     @pulumi.getter

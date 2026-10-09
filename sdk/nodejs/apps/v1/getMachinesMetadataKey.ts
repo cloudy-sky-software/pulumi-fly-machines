@@ -2,6 +2,9 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
+import * as enums from "../../types/enums";
 import * as utilities from "../../utilities";
 
 export function getMachinesMetadataKey(args: GetMachinesMetadataKeyArgs, opts?: pulumi.InvokeOptions): Promise<GetMachinesMetadataKeyResult> {
@@ -10,6 +13,7 @@ export function getMachinesMetadataKey(args: GetMachinesMetadataKeyArgs, opts?: 
         "appName": args.appName,
         "key": args.key,
         "machineId": args.machineId,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -26,6 +30,10 @@ export interface GetMachinesMetadataKeyArgs {
      * Machine ID
      */
     machineId: string;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: inputs.apps.v1.GetMachinesMetadataKeyQueryParams;
 }
 
 export interface GetMachinesMetadataKeyResult {
@@ -37,6 +45,7 @@ export function getMachinesMetadataKeyOutput(args: GetMachinesMetadataKeyOutputA
         "appName": args.appName,
         "key": args.key,
         "machineId": args.machineId,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -53,4 +62,8 @@ export interface GetMachinesMetadataKeyOutputArgs {
      * Machine ID
      */
     machineId: pulumi.Input<string>;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.GetMachinesMetadataKeyQueryParamsArgs | undefined>;
 }

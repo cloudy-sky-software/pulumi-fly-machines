@@ -17,10 +17,12 @@ type Secretkey struct {
 	CreatedAt pulumi.StringPtrOutput `pulumi:"createdAt"`
 	Name      pulumi.StringPtrOutput `pulumi:"name"`
 	PublicKey pulumi.IntArrayOutput  `pulumi:"publicKey"`
-	Type      pulumi.StringPtrOutput `pulumi:"type"`
-	UpdatedAt pulumi.StringPtrOutput `pulumi:"updatedAt"`
-	Value     pulumi.IntArrayOutput  `pulumi:"value"`
-	Version   pulumi.IntPtrOutput    `pulumi:"version"`
+	// Query params to send with the API requests for this resource.
+	QueryParams SecretkeyQueryParamsPtrOutput `pulumi:"queryParams"`
+	Type        pulumi.StringPtrOutput        `pulumi:"type"`
+	UpdatedAt   pulumi.StringPtrOutput        `pulumi:"updatedAt"`
+	Value       pulumi.IntArrayOutput         `pulumi:"value"`
+	Version     pulumi.IntPtrOutput           `pulumi:"version"`
 }
 
 // NewSecretkey registers a new resource with the given unique name, arguments, and options.
@@ -65,6 +67,8 @@ func (SecretkeyState) ElementType() reflect.Type {
 type secretkeyArgs struct {
 	// Fly App Name
 	AppName *string `pulumi:"appName"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *SecretkeyQueryParams `pulumi:"queryParams"`
 	// Secret key name
 	SecretName *string `pulumi:"secretName"`
 	Type       *string `pulumi:"type"`
@@ -75,6 +79,8 @@ type secretkeyArgs struct {
 type SecretkeyArgs struct {
 	// Fly App Name
 	AppName pulumi.StringPtrInput
+	// Query params to send with the API requests for this resource.
+	QueryParams SecretkeyQueryParamsPtrInput
 	// Secret key name
 	SecretName pulumi.StringPtrInput
 	Type       pulumi.StringPtrInput
@@ -128,6 +134,11 @@ func (o SecretkeyOutput) Name() pulumi.StringPtrOutput {
 
 func (o SecretkeyOutput) PublicKey() pulumi.IntArrayOutput {
 	return o.ApplyT(func(v *Secretkey) pulumi.IntArrayOutput { return v.PublicKey }).(pulumi.IntArrayOutput)
+}
+
+// Query params to send with the API requests for this resource.
+func (o SecretkeyOutput) QueryParams() SecretkeyQueryParamsPtrOutput {
+	return o.ApplyT(func(v *Secretkey) SecretkeyQueryParamsPtrOutput { return v.QueryParams }).(SecretkeyQueryParamsPtrOutput)
 }
 
 func (o SecretkeyOutput) Type() pulumi.StringPtrOutput {

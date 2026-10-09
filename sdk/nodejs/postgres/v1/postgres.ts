@@ -64,6 +64,10 @@ export class Postgres extends pulumi.CustomResource {
      */
     declare public readonly postgisEnabled: pulumi.Output<boolean | undefined>;
     /**
+     * Query params to send with the API requests for this resource.
+     */
+    declare public readonly queryParams: pulumi.Output<outputs.postgres.v1.PostgresQueryParams | undefined>;
+    /**
      * Fly region code where the cluster's primary runs.
      */
     declare public readonly region: pulumi.Output<string>;
@@ -95,6 +99,7 @@ export class Postgres extends pulumi.CustomResource {
             resourceInputs["plan"] = args?.plan;
             resourceInputs["poolMode"] = args?.poolMode;
             resourceInputs["postgisEnabled"] = args?.postgisEnabled;
+            resourceInputs["queryParams"] = args?.queryParams;
             resourceInputs["region"] = args?.region;
             resourceInputs["data"] = undefined /*out*/;
         } else {
@@ -106,6 +111,7 @@ export class Postgres extends pulumi.CustomResource {
             resourceInputs["plan"] = undefined /*out*/;
             resourceInputs["poolMode"] = undefined /*out*/;
             resourceInputs["postgisEnabled"] = undefined /*out*/;
+            resourceInputs["queryParams"] = undefined /*out*/;
             resourceInputs["region"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
@@ -145,6 +151,10 @@ export interface PostgresArgs {
      * Enable PostGIS support, required to later enable PostGIS extensions.
      */
     postgisEnabled?: pulumi.Input<boolean | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    queryParams?: pulumi.Input<inputs.postgres.v1.PostgresQueryParamsArgs | undefined>;
     /**
      * Fly region code where the cluster's primary runs.
      */

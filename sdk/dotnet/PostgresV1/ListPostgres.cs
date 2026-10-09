@@ -11,23 +11,43 @@ namespace Pulumi.FlyMachines.PostgresV1
 {
     public static class ListPostgres
     {
-        public static Task<ListPostgresResult> InvokeAsync(ListPostgresArgs? args = null, InvokeOptions? options = null)
+        public static Task<ListPostgresResult> InvokeAsync(ListPostgresArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<ListPostgresResult>("fly-machines:postgres/v1:listPostgres", args ?? new ListPostgresArgs(), options.WithDefaults());
 
-        public static Output<ListPostgresResult> Invoke(InvokeOptions? options = null)
-            => global::Pulumi.Deployment.Instance.Invoke<ListPostgresResult>("fly-machines:postgres/v1:listPostgres", InvokeArgs.Empty, options.WithDefaults());
+        public static Output<ListPostgresResult> Invoke(ListPostgresInvokeArgs args, InvokeOptions? options = null)
+            => global::Pulumi.Deployment.Instance.Invoke<ListPostgresResult>("fly-machines:postgres/v1:listPostgres", args ?? new ListPostgresInvokeArgs(), options.WithDefaults());
 
-        public static Output<ListPostgresResult> Invoke(InvokeOutputOptions options)
-            => global::Pulumi.Deployment.Instance.Invoke<ListPostgresResult>("fly-machines:postgres/v1:listPostgres", InvokeArgs.Empty, options.WithDefaults());
+        public static Output<ListPostgresResult> Invoke(ListPostgresInvokeArgs args, InvokeOutputOptions options)
+            => global::Pulumi.Deployment.Instance.Invoke<ListPostgresResult>("fly-machines:postgres/v1:listPostgres", args ?? new ListPostgresInvokeArgs(), options.WithDefaults());
     }
 
 
     public sealed class ListPostgresArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// Query params to send with the API request.
+        /// </summary>
+        [Input("queryParams", required: true)]
+        public Inputs.ListPostgresQueryParams QueryParams { get; set; } = null!;
+
         public ListPostgresArgs()
         {
         }
         public static new ListPostgresArgs Empty => new ListPostgresArgs();
+    }
+
+    public sealed class ListPostgresInvokeArgs : global::Pulumi.InvokeArgs
+    {
+        /// <summary>
+        /// Query params to send with the API request.
+        /// </summary>
+        [Input("queryParams", required: true)]
+        public Input<Inputs.ListPostgresQueryParamsArgs> QueryParams { get; set; } = null!;
+
+        public ListPostgresInvokeArgs()
+        {
+        }
+        public static new ListPostgresInvokeArgs Empty => new ListPostgresInvokeArgs();
     }
 
 

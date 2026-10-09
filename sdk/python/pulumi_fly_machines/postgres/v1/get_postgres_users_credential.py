@@ -14,6 +14,7 @@ else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
 from . import outputs
+from ._inputs import *
 
 __all__ = [
     'GetPostgresUsersCredentialResult',
@@ -45,16 +46,19 @@ class AwaitableGetPostgresUsersCredentialResult(GetPostgresUsersCredentialResult
 
 
 def get_postgres_users_credential(postgres_cluster_id: Optional[_builtins.str] = None,
+                                  query_params: Optional[Union['GetPostgresUsersCredentialQueryParams', 'GetPostgresUsersCredentialQueryParamsDict']] = None,
                                   username: Optional[_builtins.str] = None,
                                   opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetPostgresUsersCredentialResult:
     """
     Use this data source to access information about an existing resource.
 
     :param _builtins.str postgres_cluster_id: Managed Postgres Cluster ID
+    :param Union['GetPostgresUsersCredentialQueryParams', 'GetPostgresUsersCredentialQueryParamsDict'] query_params: Query params to send with the API request.
     :param _builtins.str username: Postgres User Name
     """
     __args__ = dict()
     __args__['postgresClusterId'] = postgres_cluster_id
+    __args__['queryParams'] = query_params
     __args__['username'] = username
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke('fly-machines:postgres/v1:getPostgresUsersCredential', __args__, opts=opts, typ=GetPostgresUsersCredentialResult).value
@@ -62,16 +66,19 @@ def get_postgres_users_credential(postgres_cluster_id: Optional[_builtins.str] =
     return AwaitableGetPostgresUsersCredentialResult(
         data=pulumi.get(__ret__, 'data'))
 def get_postgres_users_credential_output(postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                                         query_params: pulumi.Input[Optional[Optional[Union['GetPostgresUsersCredentialQueryParams', 'GetPostgresUsersCredentialQueryParamsDict']]]] = None,
                                          username: pulumi.Input[Optional[_builtins.str]] = None,
                                          opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetPostgresUsersCredentialResult]:
     """
     Use this data source to access information about an existing resource.
 
     :param _builtins.str postgres_cluster_id: Managed Postgres Cluster ID
+    :param Union['GetPostgresUsersCredentialQueryParams', 'GetPostgresUsersCredentialQueryParamsDict'] query_params: Query params to send with the API request.
     :param _builtins.str username: Postgres User Name
     """
     __args__ = dict()
     __args__['postgresClusterId'] = postgres_cluster_id
+    __args__['queryParams'] = query_params
     __args__['username'] = username
     opts = pulumi.InvokeOutputOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke_output('fly-machines:postgres/v1:getPostgresUsersCredential', __args__, opts=opts, typ=GetPostgresUsersCredentialResult)

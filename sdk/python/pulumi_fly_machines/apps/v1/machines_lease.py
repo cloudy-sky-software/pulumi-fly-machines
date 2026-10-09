@@ -13,6 +13,8 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
+from . import outputs
+from ._inputs import *
 
 __all__ = ['MachinesLeaseArgs', 'MachinesLease']
 
@@ -22,12 +24,14 @@ class MachinesLeaseArgs:
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  description: pulumi.Input[Optional[_builtins.str]] = None,
                  machine_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional['MachinesLeaseQueryParamsArgs']] = None,
                  ttl: pulumi.Input[Optional[_builtins.int]] = None):
         """
         The set of arguments for constructing a MachinesLease resource.
 
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input[_builtins.str] machine_id: Machine ID
+        :param pulumi.Input['MachinesLeaseQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input[_builtins.int] ttl: seconds lease will be valid
         """
         if app_name is not None:
@@ -36,6 +40,8 @@ class MachinesLeaseArgs:
             pulumi.set(__self__, "description", description)
         if machine_id is not None:
             pulumi.set(__self__, "machine_id", machine_id)
+        if query_params is not None:
+            pulumi.set(__self__, "query_params", query_params)
         if ttl is not None:
             pulumi.set(__self__, "ttl", ttl)
 
@@ -73,6 +79,18 @@ class MachinesLeaseArgs:
         pulumi.set(self, "machine_id", value)
 
     @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Input[Optional['MachinesLeaseQueryParamsArgs']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
+
+    @query_params.setter
+    def query_params(self, value: pulumi.Input[Optional['MachinesLeaseQueryParamsArgs']]):
+        pulumi.set(self, "query_params", value)
+
+    @_builtins.property
     @pulumi.getter
     def ttl(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
@@ -94,6 +112,7 @@ class MachinesLease(pulumi.CustomResource):
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  description: pulumi.Input[Optional[_builtins.str]] = None,
                  machine_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['MachinesLeaseQueryParamsArgs', 'MachinesLeaseQueryParamsArgsDict', 'outputs.MachinesLeaseQueryParams']]] = None,
                  ttl: pulumi.Input[Optional[_builtins.int]] = None,
                  __props__=None):
         """
@@ -103,6 +122,7 @@ class MachinesLease(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input[_builtins.str] machine_id: Machine ID
+        :param pulumi.Input[Union['MachinesLeaseQueryParamsArgs', 'MachinesLeaseQueryParamsArgsDict', 'outputs.MachinesLeaseQueryParams']] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input[_builtins.int] ttl: seconds lease will be valid
         """
         ...
@@ -132,6 +152,7 @@ class MachinesLease(pulumi.CustomResource):
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  description: pulumi.Input[Optional[_builtins.str]] = None,
                  machine_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['MachinesLeaseQueryParamsArgs', 'MachinesLeaseQueryParamsArgsDict', 'outputs.MachinesLeaseQueryParams']]] = None,
                  ttl: pulumi.Input[Optional[_builtins.int]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -145,6 +166,7 @@ class MachinesLease(pulumi.CustomResource):
             __props__.__dict__["app_name"] = app_name
             __props__.__dict__["description"] = description
             __props__.__dict__["machine_id"] = machine_id
+            __props__.__dict__["query_params"] = query_params
             __props__.__dict__["ttl"] = ttl
             __props__.__dict__["expires_at"] = None
             __props__.__dict__["nonce"] = None
@@ -176,6 +198,7 @@ class MachinesLease(pulumi.CustomResource):
         __props__.__dict__["expires_at"] = None
         __props__.__dict__["nonce"] = None
         __props__.__dict__["owner"] = None
+        __props__.__dict__["query_params"] = None
         __props__.__dict__["ttl"] = None
         __props__.__dict__["version"] = None
         return MachinesLease(resource_name, opts=opts, __props__=__props__)
@@ -211,6 +234,14 @@ class MachinesLease(pulumi.CustomResource):
         Owner is the user identifier which acquired the Lease.
         """
         return pulumi.get(self, "owner")
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Output[Optional['outputs.MachinesLeaseQueryParams']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
 
     @_builtins.property
     @pulumi.getter

@@ -15,6 +15,7 @@ else:
 from ... import _utilities
 from . import outputs
 from ._enums import *
+from ._inputs import *
 
 __all__ = [
     'GetPostgresResult',
@@ -46,28 +47,34 @@ class AwaitableGetPostgresResult(GetPostgresResult):
 
 
 def get_postgres(postgres_cluster_id: Optional[_builtins.str] = None,
+                 query_params: Optional[Union['GetPostgresQueryParams', 'GetPostgresQueryParamsDict']] = None,
                  opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetPostgresResult:
     """
     Use this data source to access information about an existing resource.
 
     :param _builtins.str postgres_cluster_id: Managed Postgres Cluster ID
+    :param Union['GetPostgresQueryParams', 'GetPostgresQueryParamsDict'] query_params: Query params to send with the API request.
     """
     __args__ = dict()
     __args__['postgresClusterId'] = postgres_cluster_id
+    __args__['queryParams'] = query_params
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke('fly-machines:postgres/v1:getPostgres', __args__, opts=opts, typ=GetPostgresResult).value
 
     return AwaitableGetPostgresResult(
         data=pulumi.get(__ret__, 'data'))
 def get_postgres_output(postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                        query_params: pulumi.Input[Optional[Optional[Union['GetPostgresQueryParams', 'GetPostgresQueryParamsDict']]]] = None,
                         opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetPostgresResult]:
     """
     Use this data source to access information about an existing resource.
 
     :param _builtins.str postgres_cluster_id: Managed Postgres Cluster ID
+    :param Union['GetPostgresQueryParams', 'GetPostgresQueryParamsDict'] query_params: Query params to send with the API request.
     """
     __args__ = dict()
     __args__['postgresClusterId'] = postgres_cluster_id
+    __args__['queryParams'] = query_params
     opts = pulumi.InvokeOutputOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke_output('fly-machines:postgres/v1:getPostgres', __args__, opts=opts, typ=GetPostgresResult)
     return __ret__.apply(lambda __response__: GetPostgresResult(

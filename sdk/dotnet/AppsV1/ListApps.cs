@@ -11,23 +11,43 @@ namespace Pulumi.FlyMachines.AppsV1
 {
     public static class ListApps
     {
-        public static Task<ListAppsResult> InvokeAsync(ListAppsArgs? args = null, InvokeOptions? options = null)
+        public static Task<ListAppsResult> InvokeAsync(ListAppsArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<ListAppsResult>("fly-machines:apps/v1:listApps", args ?? new ListAppsArgs(), options.WithDefaults());
 
-        public static Output<ListAppsResult> Invoke(InvokeOptions? options = null)
-            => global::Pulumi.Deployment.Instance.Invoke<ListAppsResult>("fly-machines:apps/v1:listApps", InvokeArgs.Empty, options.WithDefaults());
+        public static Output<ListAppsResult> Invoke(ListAppsInvokeArgs args, InvokeOptions? options = null)
+            => global::Pulumi.Deployment.Instance.Invoke<ListAppsResult>("fly-machines:apps/v1:listApps", args ?? new ListAppsInvokeArgs(), options.WithDefaults());
 
-        public static Output<ListAppsResult> Invoke(InvokeOutputOptions options)
-            => global::Pulumi.Deployment.Instance.Invoke<ListAppsResult>("fly-machines:apps/v1:listApps", InvokeArgs.Empty, options.WithDefaults());
+        public static Output<ListAppsResult> Invoke(ListAppsInvokeArgs args, InvokeOutputOptions options)
+            => global::Pulumi.Deployment.Instance.Invoke<ListAppsResult>("fly-machines:apps/v1:listApps", args ?? new ListAppsInvokeArgs(), options.WithDefaults());
     }
 
 
     public sealed class ListAppsArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// Query params to send with the API request.
+        /// </summary>
+        [Input("queryParams", required: true)]
+        public Inputs.ListAppsQueryParams QueryParams { get; set; } = null!;
+
         public ListAppsArgs()
         {
         }
         public static new ListAppsArgs Empty => new ListAppsArgs();
+    }
+
+    public sealed class ListAppsInvokeArgs : global::Pulumi.InvokeArgs
+    {
+        /// <summary>
+        /// Query params to send with the API request.
+        /// </summary>
+        [Input("queryParams", required: true)]
+        public Input<Inputs.ListAppsQueryParamsArgs> QueryParams { get; set; } = null!;
+
+        public ListAppsInvokeArgs()
+        {
+        }
+        public static new ListAppsInvokeArgs Empty => new ListAppsInvokeArgs();
     }
 
 

@@ -71,6 +71,12 @@ namespace Pulumi.FlyMachines.AppsV1
         [Output("privateIp")]
         public Output<string?> PrivateIp { get; private set; } = null!;
 
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Output("queryParams")]
+        public Output<Outputs.MachineQueryParams?> QueryParams { get; private set; } = null!;
+
         [Output("region")]
         public Output<string?> Region { get; private set; } = null!;
 
@@ -166,6 +172,12 @@ namespace Pulumi.FlyMachines.AppsV1
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
+
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Input("queryParams")]
+        public Input<Inputs.MachineQueryParamsArgs>? QueryParams { get; set; }
 
         /// <summary>
         /// The target region. Omitting this param launches in the same region as your WireGuard peer connection (somewhere near you).

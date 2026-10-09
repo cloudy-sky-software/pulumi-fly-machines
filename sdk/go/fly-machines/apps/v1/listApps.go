@@ -22,6 +22,8 @@ func ListApps(ctx *pulumi.Context, args *ListAppsArgs, opts ...pulumi.InvokeOpti
 }
 
 type ListAppsArgs struct {
+	// Query params to send with the API request.
+	QueryParams ListAppsQueryParams `pulumi:"queryParams"`
 }
 
 type ListAppsResult struct {
@@ -35,6 +37,8 @@ func ListAppsOutput(ctx *pulumi.Context, args ListAppsOutputArgs, opts ...pulumi
 }
 
 type ListAppsOutputArgs struct {
+	// Query params to send with the API request.
+	QueryParams ListAppsQueryParamsInput `pulumi:"queryParams"`
 }
 
 func (ListAppsOutputArgs) ElementType() reflect.Type {

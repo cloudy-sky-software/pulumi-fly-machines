@@ -34,6 +34,10 @@ export class MachinesSignal extends pulumi.CustomResource {
         return obj['__pulumiType'] === MachinesSignal.__pulumiType;
     }
 
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    declare public readonly queryParams: pulumi.Output<outputs.apps.v1.MachinesSignalQueryParams | undefined>;
     declare public readonly signal: pulumi.Output<enums.apps.v1.MachinesSignalSignal | undefined>;
 
     /**
@@ -49,8 +53,10 @@ export class MachinesSignal extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["appName"] = args?.appName;
             resourceInputs["machineId"] = args?.machineId;
+            resourceInputs["queryParams"] = args?.queryParams;
             resourceInputs["signal"] = args?.signal;
         } else {
+            resourceInputs["queryParams"] = undefined /*out*/;
             resourceInputs["signal"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
@@ -70,5 +76,9 @@ export interface MachinesSignalArgs {
      * Machine ID
      */
     machineId?: pulumi.Input<string | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.MachinesSignalQueryParamsArgs | undefined>;
     signal?: pulumi.Input<enums.apps.v1.MachinesSignalSignal | undefined>;
 }

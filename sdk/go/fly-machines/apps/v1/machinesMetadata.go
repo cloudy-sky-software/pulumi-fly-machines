@@ -16,7 +16,9 @@ type MachinesMetadata struct {
 
 	MachineVersion pulumi.StringPtrOutput `pulumi:"machineVersion"`
 	Metadata       pulumi.AnyOutput       `pulumi:"metadata"`
-	UpdatedAt      pulumi.StringPtrOutput `pulumi:"updatedAt"`
+	// Query params to send with the API requests for this resource.
+	QueryParams MachinesMetadataQueryParamsPtrOutput `pulumi:"queryParams"`
+	UpdatedAt   pulumi.StringPtrOutput               `pulumi:"updatedAt"`
 }
 
 // NewMachinesMetadata registers a new resource with the given unique name, arguments, and options.
@@ -65,7 +67,9 @@ type machinesMetadataArgs struct {
 	MachineId      *string     `pulumi:"machineId"`
 	MachineVersion *string     `pulumi:"machineVersion"`
 	Metadata       interface{} `pulumi:"metadata"`
-	UpdatedAt      *string     `pulumi:"updatedAt"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *MachinesMetadataQueryParams `pulumi:"queryParams"`
+	UpdatedAt   *string                      `pulumi:"updatedAt"`
 }
 
 // The set of arguments for constructing a MachinesMetadata resource.
@@ -76,7 +80,9 @@ type MachinesMetadataArgs struct {
 	MachineId      pulumi.StringPtrInput
 	MachineVersion pulumi.StringPtrInput
 	Metadata       pulumi.Input
-	UpdatedAt      pulumi.StringPtrInput
+	// Query params to send with the API requests for this resource.
+	QueryParams MachinesMetadataQueryParamsPtrInput
+	UpdatedAt   pulumi.StringPtrInput
 }
 
 func (MachinesMetadataArgs) ElementType() reflect.Type {
@@ -122,6 +128,11 @@ func (o MachinesMetadataOutput) MachineVersion() pulumi.StringPtrOutput {
 
 func (o MachinesMetadataOutput) Metadata() pulumi.AnyOutput {
 	return o.ApplyT(func(v *MachinesMetadata) pulumi.AnyOutput { return v.Metadata }).(pulumi.AnyOutput)
+}
+
+// Query params to send with the API requests for this resource.
+func (o MachinesMetadataOutput) QueryParams() MachinesMetadataQueryParamsPtrOutput {
+	return o.ApplyT(func(v *MachinesMetadata) MachinesMetadataQueryParamsPtrOutput { return v.QueryParams }).(MachinesMetadataQueryParamsPtrOutput)
 }
 
 func (o MachinesMetadataOutput) UpdatedAt() pulumi.StringPtrOutput {
