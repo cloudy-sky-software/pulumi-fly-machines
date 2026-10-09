@@ -139,3 +139,5 @@ require (
 	google.golang.org/grpc v1.84.0 // indirect
 	lukechampine.com/frand v1.5.1 // indirect
 )
+
+replace github.com/cloudy-sky-software/pulumi-provider-framework => ../../pulumi-provider-framework

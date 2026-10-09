@@ -19,6 +19,16 @@ const machine = new fly.apps.v1.Machine(
   {
     appName: app.name,
     config: {
+      guest: {
+        cpuKind: "shared",
+        cpus: 1,
+        memoryMb: 256,
+      },
+      init: {},
+      restart: {
+        maxRetries: 10,
+        policy: "on-failure",
+      },
       // NOTE: Metadata can be set using the metadata
       // property or as individual `MachinesMetadataKey`
       // resources (see below.)

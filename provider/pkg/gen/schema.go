@@ -96,6 +96,12 @@ func PulumiSchema(openapiDoc openapi3.T) (pschema.PackageSpec, openapigen.Provid
 	openAPICtx := &openapigen.OpenAPIContext{
 		Doc: openapiDoc,
 		Pkg: &pkg,
+		AllowedResourcesWithoutReadEndpoint: []string{
+			// AppIPAssignment don't have a read endpoint.
+			// That is, once an IP is assigned to an app,
+			// there is nothing to read.
+			"fly-machines:apps/v1:AppIPAssignment",
+		},
 		Exclusions: []exclusions.Exclusion{
 			// DELETE /v1/apps/{app_name}/certificates/{hostname} simply
 			// allows deletion of any type of certificate -- Acme or custom.
@@ -151,11 +157,12 @@ func PulumiSchema(openapiDoc openapi3.T) (pschema.PackageSpec, openapigen.Provid
 	providerMetadata.ResourceCRUDMap["fly-machines:apps/v1:AppCertificatesAcme"].R = new(`/v1/apps/{app_name}/certificates/{hostname}`)
 
 	metadata := openapigen.ProviderMetadata{
-		ResourceCRUDMap:  providerMetadata.ResourceCRUDMap,
-		AutoNameMap:      providerMetadata.AutoNameMap,
-		SDKToAPINameMap:  providerMetadata.SDKToAPINameMap,
-		APIToSDKNameMap:  providerMetadata.APIToSDKNameMap,
-		PathParamNameMap: providerMetadata.PathParamNameMap,
+		AllowedResourcesWithoutReadEndpoint: providerMetadata.AllowedResourcesWithoutReadEndpoint,
+		ResourceCRUDMap:                     providerMetadata.ResourceCRUDMap,
+		AutoNameMap:                         providerMetadata.AutoNameMap,
+		SDKToAPINameMap:                     providerMetadata.SDKToAPINameMap,
+		APIToSDKNameMap:                     providerMetadata.APIToSDKNameMap,
+		PathParamNameMap:                    providerMetadata.PathParamNameMap,
 	}
 	return pkg, metadata, updatedOpenAPIDoc
 }
