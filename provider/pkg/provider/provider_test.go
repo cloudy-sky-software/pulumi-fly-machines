@@ -31,6 +31,8 @@ const (
 	testVersion    = "01H3JK5RZXQ8G6YF2N9W4T7B0C"
 	testMachineURN = "urn:pulumi:dev::fly-test::fly-machines:apps/v1:Machine::machine"
 	testMachineTyp = "fly-machines:apps/v1:Machine"
+	testKey1       = "key1"
+	testValue1     = "value1"
 )
 
 const testCreateJSONPayload = `{
@@ -358,7 +360,7 @@ func TestCreateMachinesMetadata(t *testing.T) {
 		assert.Equal(t, "/v1/apps/"+testAppName+"/machines/"+testMachineID+"/metadata", r.URL.Path)
 
 		body := readJSONBody(t, r.Body)
-		assert.Equal(t, map[string]interface{}{"key1": "value1"}, body["metadata"])
+		assert.Equal(t, map[string]interface{}{testKey1: testValue1}, body["metadata"])
 		assert.NotContains(t, body, "app_name", "path params should not be sent in the body")
 		assert.NotContains(t, body, "machine_id", "path params should not be sent in the body")
 
@@ -371,7 +373,7 @@ func TestCreateMachinesMetadata(t *testing.T) {
 	resp, err := p.Create(ctx, &pulumirpc.CreateRequest{
 		Urn:        testMachinesMetadataURN,
 		Type:       machinesMetadataTypeToken,
-		Properties: marshalInputs(t, testMachinesMetadataInputs(map[string]interface{}{"key1": "value1"})),
+		Properties: marshalInputs(t, testMachinesMetadataInputs(map[string]interface{}{testKey1: testValue1})),
 	})
 	require.NoError(t, err)
 	assert.Equal(t, testMachineID, resp.GetId())
@@ -385,7 +387,7 @@ func TestUpdateMachinesMetadata(t *testing.T) {
 		assert.Equal(t, "/v1/apps/"+testAppName+"/machines/"+testMachineID+"/metadata", r.URL.Path)
 
 		body := readJSONBody(t, r.Body)
-		assert.Equal(t, map[string]interface{}{"key1": "value2"}, body["metadata"])
+		assert.Equal(t, map[string]interface{}{testKey1: "value2"}, body["metadata"])
 		assert.NotContains(t, body, "app_name", "path params should not be sent in the body")
 		assert.NotContains(t, body, "machine_id", "path params should not be sent in the body")
 
@@ -395,8 +397,8 @@ func TestUpdateMachinesMetadata(t *testing.T) {
 
 	p := makeTestProvider(ctx, t, server.URL)
 
-	olds := testMachinesMetadataInputs(map[string]interface{}{"key1": "value1"})
-	news := testMachinesMetadataInputs(map[string]interface{}{"key1": "value2"})
+	olds := testMachinesMetadataInputs(map[string]interface{}{testKey1: testValue1})
+	news := testMachinesMetadataInputs(map[string]interface{}{testKey1: "value2"})
 
 	oldOutputs := make(map[string]interface{})
 	for k, v := range olds {
