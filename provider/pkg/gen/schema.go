@@ -97,13 +97,6 @@ func PulumiSchema(openapiDoc openapi3.T) (pschema.PackageSpec, openapigen.Provid
 		Doc: openapiDoc,
 		Pkg: &pkg,
 		Exclusions: []exclusions.Exclusion{
-			// PUT /v1/apps/{app_name}/machines/{machine_id}/metadata
-			// is deprecated.
-			{
-				Method:      "PUT",
-				PathPattern: "/v1/apps/{app_name}/machines/{machine_id}/metadata",
-				PatternType: exclusions.PatternTypeExact,
-			},
 			// DELETE /v1/apps/{app_name}/certificates/{hostname} simply
 			// allows deletion of any type of certificate -- Acme or custom.
 			// Those resource types have their own DELETE endpoints already.

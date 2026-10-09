@@ -43,6 +43,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &MachinesLease{}
 	case "fly-machines:apps/v1:MachinesMemoryLimit":
 		r = &MachinesMemoryLimit{}
+	case "fly-machines:apps/v1:MachinesMetadata":
+		r = &MachinesMetadata{}
 	case "fly-machines:apps/v1:MachinesMetadataKey":
 		r = &MachinesMetadataKey{}
 	case "fly-machines:apps/v1:MachinesReclaimMemory":

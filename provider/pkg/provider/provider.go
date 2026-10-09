@@ -31,6 +31,7 @@ type flyMachinesProvider struct {
 
 const appIPAssignmentTypeToken = "fly-machines:apps/v1:AppIPAssignment"
 const machineTypeToken = "fly-machines:apps/v1:Machine"
+const machinesMetadataTypeToken = "fly-machines:apps/v1:MachinesMetadata"
 
 var (
 	handler  *fwRest.Provider
@@ -83,16 +84,30 @@ func (p *flyMachinesProvider) OnConfigure(_ context.Context, req *pulumirpc.Conf
 	}, nil
 }
 
+// OnPreCreate is called by the provider framework before the create
+// HTTP request is sent.
+func (p *flyMachinesProvider) OnPreCreate(_ context.Context, req *pulumirpc.CreateRequest, httpReq *http.Request) error {
+	if req.GetType() != machinesMetadataTypeToken {
+		return nil
+	}
+
+	handleCreateMachinesMetadataRequest(httpReq)
+	return nil
+}
+
 // OnPostCreate is called by the provider framework after the create
 // HTTP request succeeds, allowing the outputs to be modified.
 func (p *flyMachinesProvider) OnPostCreate(_ context.Context, req *pulumirpc.CreateRequest, outputs interface{}) (map[string]interface{}, error) {
 	outputsMap := outputs.(map[string]interface{})
 
-	if fwRest.GetResourceTypeToken(req.GetUrn()) != appIPAssignmentTypeToken {
+	switch fwRest.GetResourceTypeToken(req.GetUrn()) {
+	case appIPAssignmentTypeToken:
+		return handleAppIPAssignmentPostCreate(outputsMap), nil
+	case machinesMetadataTypeToken:
+		return handleMachinesMetadataPostCreate(req, outputsMap)
+	default:
 		return outputsMap, nil
 	}
-
-	return handleAppIPAssignmentPostCreate(outputsMap), nil
 }
 
 // OnPreUpdate is called by the provider framework before the update

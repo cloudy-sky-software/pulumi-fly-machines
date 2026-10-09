@@ -49,6 +49,7 @@ _utilities.register(
    "fly-machines:apps/v1:MachinesExec": "MachinesExec",
    "fly-machines:apps/v1:MachinesLease": "MachinesLease",
    "fly-machines:apps/v1:MachinesMemoryLimit": "MachinesMemoryLimit",
+   "fly-machines:apps/v1:MachinesMetadata": "MachinesMetadata",
    "fly-machines:apps/v1:MachinesMetadataKey": "MachinesMetadataKey",
    "fly-machines:apps/v1:MachinesReclaimMemory": "MachinesReclaimMemory",
    "fly-machines:apps/v1:MachinesRestart": "MachinesRestart",

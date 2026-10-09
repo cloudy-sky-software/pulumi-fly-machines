@@ -76,6 +76,20 @@ func handleUpdateMachineRequest(httpReq *http.Request, updateReq *pulumirpc.Upda
 	return nil
 }
 
+// handleCreateMachinesMetadataRequest handles create
+// requests for machine metadata.
+//
+// The original API spec does not have a POST endpoint
+// for machine metadata. A fake one, matching the PATCH
+// endpoint, was added to the spec so that the CRUD
+// metadata would have a create endpoint for the
+// MachinesMetadata resource.
+//
+// The request is modified in-place to use the PATCH method.
+func handleCreateMachinesMetadataRequest(httpReq *http.Request) {
+	httpReq.Method = http.MethodPatch
+}
+
 // handleAppIPAssignmentPostCreate sets a pseudo id
 // for the AppIPAssignment resource since the API
 // response does not include an id. The ip property
@@ -84,4 +98,27 @@ func handleUpdateMachineRequest(httpReq *http.Request, updateReq *pulumirpc.Upda
 func handleAppIPAssignmentPostCreate(outputs map[string]interface{}) map[string]interface{} {
 	outputs["id"] = uuid.NewString()
 	return outputs
+}
+
+// handleMachinesMetadataPostCreate sets the id
+// for the MachinesMetadata resource to the id
+// of the machine that the metadata belongs to.
+// The create request (a PATCH) returns 204 No Content,
+// so there is no response body to get the id from.
+func handleMachinesMetadataPostCreate(req *pulumirpc.CreateRequest, outputs map[string]interface{}) (map[string]interface{}, error) {
+	inputs, err := plugin.UnmarshalProperties(req.GetProperties(), state.DefaultUnmarshalOpts)
+	if err != nil {
+		return nil, errors.Wrap(err, "unmarshal inputs")
+	}
+
+	// fly.io uses snake_case in its responses but we are
+	// looking for machineId from the inputs which uses
+	// camelCase.
+	machineID, ok := inputs["machineId"]
+	if !ok || !machineID.IsString() || machineID.StringValue() == "" {
+		return nil, errors.New("machineId input is required to set the id for the machine metadata resource")
+	}
+
+	outputs["id"] = machineID.StringValue()
+	return outputs, nil
 }

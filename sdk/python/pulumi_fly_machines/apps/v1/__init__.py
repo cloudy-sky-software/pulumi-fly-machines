@@ -40,6 +40,7 @@ from .machines_cordon import *
 from .machines_exec import *
 from .machines_lease import *
 from .machines_memory_limit import *
+from .machines_metadata import *
 from .machines_metadata_key import *
 from .machines_reclaim_memory import *
 from .machines_restart import *

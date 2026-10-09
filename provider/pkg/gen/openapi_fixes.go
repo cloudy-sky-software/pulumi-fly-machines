@@ -11,6 +11,7 @@ import (
 func FixOpenAPIDoc(openAPIDoc *openapi3.T) error {
 	fixAppEndpoint(openAPIDoc)
 	fixUpdateMachineEndpoint(openAPIDoc)
+	fixMachineMetadataEndpoint(openAPIDoc)
 	fixMachineMetadataKeyEndpoint(openAPIDoc)
 	fixVolumeEndpoint(openAPIDoc)
 	fixPostgresExtensionsEndpoints(openAPIDoc)
@@ -62,6 +63,32 @@ func fixUpdateMachineEndpoint(openAPIDoc *openapi3.T) {
 	pathItem.Put = pathItem.Post
 	pathItem.Put.OperationID = "Update_Machine"
 	pathItem.Post = nil
+}
+
+// fixMachineMetadataEndpoint adds a fake POST endpoint for
+// the machine metadata path so that a create operation
+// is available for it. The API spec only has a PATCH
+// method which is used to set/remove multiple keys.
+// The POST operation matches the PATCH operation.
+// In the OnPreCreate provider callback, we'll modify
+// the HTTP request to use the correct method.
+//
+// The deprecated PUT operation is also removed here
+// rather than excluded since excluding it causes
+// pulschema to skip the POST operation as well.
+func fixMachineMetadataEndpoint(openAPIDoc *openapi3.T) {
+	pathItem := openAPIDoc.Paths.Find("/v1/apps/{app_name}/machines/{machine_id}/metadata")
+	contract.Assertf(pathItem != nil, "Expected to find request path /v1/apps/{app_name}/machines/{machine_id}/metadata")
+
+	contract.Assertf(pathItem.Put != nil && pathItem.Put.Deprecated, "Expected deprecated PUT operation on /v1/apps/{app_name}/machines/{machine_id}/metadata")
+	pathItem.Put = nil
+
+	contract.Assertf(pathItem.Patch != nil, "Expected PATCH operation on /v1/apps/{app_name}/machines/{machine_id}/metadata")
+	contract.Assertf(pathItem.Post == nil, "Did not expect a POST operation on /v1/apps/{app_name}/machines/{machine_id}/metadata")
+
+	post := *pathItem.Patch
+	post.OperationID = "Machines_create_metadata"
+	pathItem.Post = &post
 }
 
 func fixMachineMetadataKeyEndpoint(openAPIDoc *openapi3.T) {

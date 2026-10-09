@@ -10,7 +10,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-func GetMachinesMetadata(ctx *pulumi.Context, args *GetMachinesMetadataArgs, opts ...pulumi.InvokeOption) (interface{}, error) {
+func LookupMachinesMetadata(ctx *pulumi.Context, args *LookupMachinesMetadataArgs, opts ...pulumi.InvokeOption) (interface{}, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv map[string]interface{}
 	err := ctx.Invoke("fly-machines:apps/v1:getMachinesMetadata", args, &rv, opts...)
@@ -25,14 +25,14 @@ func GetMachinesMetadata(ctx *pulumi.Context, args *GetMachinesMetadataArgs, opt
 	return result, nil
 }
 
-type GetMachinesMetadataArgs struct {
+type LookupMachinesMetadataArgs struct {
 	// Fly App Name
 	AppName string `pulumi:"appName"`
 	// Machine ID
 	MachineId string `pulumi:"machineId"`
 }
 
-func GetMachinesMetadataOutput(ctx *pulumi.Context, args GetMachinesMetadataOutputArgs, opts ...pulumi.InvokeOption) pulumi.AnyOutput {
+func LookupMachinesMetadataOutput(ctx *pulumi.Context, args LookupMachinesMetadataOutputArgs, opts ...pulumi.InvokeOption) pulumi.AnyOutput {
 	options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
 	rv := ctx.InvokeOutput("fly-machines:apps/v1:getMachinesMetadata", args, pulumi.MapOutput{}, options).(pulumi.MapOutput)
 	return rv.ApplyT(func(rv map[string]interface{}) interface{} {
@@ -44,13 +44,13 @@ func GetMachinesMetadataOutput(ctx *pulumi.Context, args GetMachinesMetadataOutp
 	}).(pulumi.AnyOutput)
 }
 
-type GetMachinesMetadataOutputArgs struct {
+type LookupMachinesMetadataOutputArgs struct {
 	// Fly App Name
 	AppName pulumi.StringInput `pulumi:"appName"`
 	// Machine ID
 	MachineId pulumi.StringInput `pulumi:"machineId"`
 }
 
-func (GetMachinesMetadataOutputArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetMachinesMetadataArgs)(nil)).Elem()
+func (LookupMachinesMetadataOutputArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*LookupMachinesMetadataArgs)(nil)).Elem()
 }

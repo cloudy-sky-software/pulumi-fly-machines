@@ -170,6 +170,11 @@ export type MachinesMemoryLimit = import("./machinesMemoryLimit").MachinesMemory
 export const MachinesMemoryLimit: typeof import("./machinesMemoryLimit").MachinesMemoryLimit = null as any;
 utilities.lazyLoad(exports, ["MachinesMemoryLimit"], () => require("./machinesMemoryLimit"));
 
+export { MachinesMetadataArgs } from "./machinesMetadata";
+export type MachinesMetadata = import("./machinesMetadata").MachinesMetadata;
+export const MachinesMetadata: typeof import("./machinesMetadata").MachinesMetadata = null as any;
+utilities.lazyLoad(exports, ["MachinesMetadata"], () => require("./machinesMetadata"));
+
 export { MachinesMetadataKeyArgs } from "./machinesMetadataKey";
 export type MachinesMetadataKey = import("./machinesMetadataKey").MachinesMetadataKey;
 export const MachinesMetadataKey: typeof import("./machinesMetadataKey").MachinesMetadataKey = null as any;
@@ -295,6 +300,8 @@ const _module = {
                 return new MachinesLease(name, <any>undefined, { urn })
             case "fly-machines:apps/v1:MachinesMemoryLimit":
                 return new MachinesMemoryLimit(name, <any>undefined, { urn })
+            case "fly-machines:apps/v1:MachinesMetadata":
+                return new MachinesMetadata(name, <any>undefined, { urn })
             case "fly-machines:apps/v1:MachinesMetadataKey":
                 return new MachinesMetadataKey(name, <any>undefined, { urn })
             case "fly-machines:apps/v1:MachinesReclaimMemory":

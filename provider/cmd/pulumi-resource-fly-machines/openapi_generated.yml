@@ -3915,13 +3915,11 @@ paths:
             tags:
                 - Machines
             x-codegen-request-body-name: request
-        put:
-            deprecated: true
+        post:
             description: |-
-                Deprecated: use `PATCH` on the same path, which this is identical to.
-                + Despite the method, this does not replace the metadata: keys that are not in the request are left untouched. Null values and empty strings remove keys.
+                Update multiple metadata keys at once. Keys that are not in the request are left untouched. Null values and empty strings remove keys.
                 + If `machine_version` is provided and no longer matches the current machine version, returns 412 Precondition Failed.
-            operationId: Machines_update_metadata_deprecated
+            operationId: Machines_create_metadata
             parameters:
                 - description: Fly App Name
                   in: path
@@ -3957,7 +3955,7 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/ErrorResponse'
                     description: Precondition Failed
-            summary: Update Metadata (deprecated PUT alias of PATCH)
+            summary: Update Metadata (set/remove multiple keys)
             tags:
                 - Machines
             x-codegen-request-body-name: request

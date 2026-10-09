@@ -54,6 +54,7 @@
         "apps/v1/machinesExec.ts",
         "apps/v1/machinesLease.ts",
         "apps/v1/machinesMemoryLimit.ts",
+        "apps/v1/machinesMetadata.ts",
         "apps/v1/machinesMetadataKey.ts",
         "apps/v1/machinesReclaimMemory.ts",
         "apps/v1/machinesRestart.ts",

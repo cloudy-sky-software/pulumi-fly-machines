@@ -4327,6 +4327,39 @@
                 }
             }
         },
+        "fly-machines:apps/v1:MachinesMetadata": {
+            "properties": {
+                "machineVersion": {
+                    "type": "string"
+                },
+                "metadata": {
+                    "$ref": "pulumi.json#/Any"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "appName": {
+                    "type": "string",
+                    "description": "Fly App Name"
+                },
+                "machineId": {
+                    "type": "string",
+                    "description": "Machine ID"
+                },
+                "machineVersion": {
+                    "type": "string"
+                },
+                "metadata": {
+                    "$ref": "pulumi.json#/Any"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
         "fly-machines:apps/v1:MachinesMetadataKey": {
             "properties": {
                 "updatedAt": {

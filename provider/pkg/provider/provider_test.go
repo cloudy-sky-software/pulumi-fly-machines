@@ -340,6 +340,83 @@ func TestUpdateMachine(t *testing.T) {
 	require.NoError(t, err)
 }
 
+const testMachinesMetadataURN = "urn:pulumi:dev::fly-test::" + machinesMetadataTypeToken + "::metadata"
+
+func testMachinesMetadataInputs(metadata map[string]interface{}) map[string]interface{} {
+	return map[string]interface{}{
+		"appName":   testAppName,
+		"machineId": testMachineID,
+		"metadata":  metadata,
+	}
+}
+
+func TestCreateMachinesMetadata(t *testing.T) {
+	ctx := context.Background()
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, http.MethodPatch, r.Method)
+		assert.Equal(t, "/v1/apps/"+testAppName+"/machines/"+testMachineID+"/metadata", r.URL.Path)
+
+		body := readJSONBody(t, r.Body)
+		assert.Equal(t, map[string]interface{}{"key1": "value1"}, body["metadata"])
+		assert.NotContains(t, body, "app_name", "path params should not be sent in the body")
+		assert.NotContains(t, body, "machine_id", "path params should not be sent in the body")
+
+		w.WriteHeader(http.StatusNoContent)
+	}))
+	defer server.Close()
+
+	p := makeTestProvider(ctx, t, server.URL)
+
+	resp, err := p.Create(ctx, &pulumirpc.CreateRequest{
+		Urn:        testMachinesMetadataURN,
+		Type:       machinesMetadataTypeToken,
+		Properties: marshalInputs(t, testMachinesMetadataInputs(map[string]interface{}{"key1": "value1"})),
+	})
+	require.NoError(t, err)
+	assert.Equal(t, testMachineID, resp.GetId())
+}
+
+func TestUpdateMachinesMetadata(t *testing.T) {
+	ctx := context.Background()
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, http.MethodPatch, r.Method)
+		assert.Equal(t, "/v1/apps/"+testAppName+"/machines/"+testMachineID+"/metadata", r.URL.Path)
+
+		body := readJSONBody(t, r.Body)
+		assert.Equal(t, map[string]interface{}{"key1": "value2"}, body["metadata"])
+		assert.NotContains(t, body, "app_name", "path params should not be sent in the body")
+		assert.NotContains(t, body, "machine_id", "path params should not be sent in the body")
+
+		w.WriteHeader(http.StatusNoContent)
+	}))
+	defer server.Close()
+
+	p := makeTestProvider(ctx, t, server.URL)
+
+	olds := testMachinesMetadataInputs(map[string]interface{}{"key1": "value1"})
+	news := testMachinesMetadataInputs(map[string]interface{}{"key1": "value2"})
+
+	oldOutputs := make(map[string]interface{})
+	for k, v := range olds {
+		oldOutputs[k] = v
+	}
+	oldOutputs["id"] = testMachineID
+	oldState, err := plugin.MarshalProperties(state.GetResourceState(oldOutputs, resource.NewPropertyMapFromMap(olds)), state.DefaultMarshalOpts)
+	require.NoError(t, err)
+
+	_, err = p.Update(ctx, &pulumirpc.UpdateRequest{
+		Id:        testMachineID,
+		Urn:       testMachinesMetadataURN,
+		Type:      machinesMetadataTypeToken,
+		Olds:      oldState,
+		OldInputs: marshalInputs(t, olds),
+		News:      marshalInputs(t, news),
+	})
+	require.NoError(t, err)
+}
+
 func TestHandleAppIPAssignmentPostCreate(t *testing.T) {
 	outputs := handleAppIPAssignmentPostCreate(map[string]interface{}{"ip": nil})
 	assert.NotEmpty(t, outputs["id"])
