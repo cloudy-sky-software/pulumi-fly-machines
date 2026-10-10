@@ -14,8 +14,10 @@ import (
 type MachinesMetadataKey struct {
 	pulumi.CustomResourceState
 
-	UpdatedAt pulumi.StringPtrOutput `pulumi:"updatedAt"`
-	Value     pulumi.StringPtrOutput `pulumi:"value"`
+	// Query params to send with the API requests for this resource.
+	QueryParams MachinesMetadataKeyQueryParamsPtrOutput `pulumi:"queryParams"`
+	UpdatedAt   pulumi.StringPtrOutput                  `pulumi:"updatedAt"`
+	Value       pulumi.StringPtrOutput                  `pulumi:"value"`
 }
 
 // NewMachinesMetadataKey registers a new resource with the given unique name, arguments, and options.
@@ -64,8 +66,10 @@ type machinesMetadataKeyArgs struct {
 	Key *string `pulumi:"key"`
 	// Machine ID
 	MachineId *string `pulumi:"machineId"`
-	UpdatedAt *string `pulumi:"updatedAt"`
-	Value     *string `pulumi:"value"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *MachinesMetadataKeyQueryParams `pulumi:"queryParams"`
+	UpdatedAt   *string                         `pulumi:"updatedAt"`
+	Value       *string                         `pulumi:"value"`
 }
 
 // The set of arguments for constructing a MachinesMetadataKey resource.
@@ -76,8 +80,10 @@ type MachinesMetadataKeyArgs struct {
 	Key pulumi.StringPtrInput
 	// Machine ID
 	MachineId pulumi.StringPtrInput
-	UpdatedAt pulumi.StringPtrInput
-	Value     pulumi.StringPtrInput
+	// Query params to send with the API requests for this resource.
+	QueryParams MachinesMetadataKeyQueryParamsPtrInput
+	UpdatedAt   pulumi.StringPtrInput
+	Value       pulumi.StringPtrInput
 }
 
 func (MachinesMetadataKeyArgs) ElementType() reflect.Type {
@@ -115,6 +121,11 @@ func (o MachinesMetadataKeyOutput) ToMachinesMetadataKeyOutput() MachinesMetadat
 
 func (o MachinesMetadataKeyOutput) ToMachinesMetadataKeyOutputWithContext(ctx context.Context) MachinesMetadataKeyOutput {
 	return o
+}
+
+// Query params to send with the API requests for this resource.
+func (o MachinesMetadataKeyOutput) QueryParams() MachinesMetadataKeyQueryParamsPtrOutput {
+	return o.ApplyT(func(v *MachinesMetadataKey) MachinesMetadataKeyQueryParamsPtrOutput { return v.QueryParams }).(MachinesMetadataKeyQueryParamsPtrOutput)
 }
 
 func (o MachinesMetadataKeyOutput) UpdatedAt() pulumi.StringPtrOutput {

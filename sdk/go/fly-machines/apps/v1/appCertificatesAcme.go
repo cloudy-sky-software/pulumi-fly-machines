@@ -14,16 +14,18 @@ import (
 type AppCertificatesAcme struct {
 	pulumi.CustomResourceState
 
-	AcmeRequested    pulumi.BoolPtrOutput                  `pulumi:"acmeRequested"`
-	Certificates     CertificateEntryArrayOutput           `pulumi:"certificates"`
-	Configured       pulumi.BoolPtrOutput                  `pulumi:"configured"`
-	DnsProvider      pulumi.StringPtrOutput                `pulumi:"dnsProvider"`
-	DnsRequirements  DNSRequirementsPtrOutput              `pulumi:"dnsRequirements"`
-	Hostname         pulumi.StringPtrOutput                `pulumi:"hostname"`
-	RateLimitedUntil pulumi.StringPtrOutput                `pulumi:"rateLimitedUntil"`
-	Status           pulumi.StringPtrOutput                `pulumi:"status"`
-	Validation       CertificateValidationPtrOutput        `pulumi:"validation"`
-	ValidationErrors CertificateValidationErrorArrayOutput `pulumi:"validationErrors"`
+	AcmeRequested   pulumi.BoolPtrOutput        `pulumi:"acmeRequested"`
+	Certificates    CertificateEntryArrayOutput `pulumi:"certificates"`
+	Configured      pulumi.BoolPtrOutput        `pulumi:"configured"`
+	DnsProvider     pulumi.StringPtrOutput      `pulumi:"dnsProvider"`
+	DnsRequirements DNSRequirementsPtrOutput    `pulumi:"dnsRequirements"`
+	Hostname        pulumi.StringPtrOutput      `pulumi:"hostname"`
+	// Query params to send with the API requests for this resource.
+	QueryParams      AppCertificatesAcmeQueryParamsPtrOutput `pulumi:"queryParams"`
+	RateLimitedUntil pulumi.StringPtrOutput                  `pulumi:"rateLimitedUntil"`
+	Status           pulumi.StringPtrOutput                  `pulumi:"status"`
+	Validation       CertificateValidationPtrOutput          `pulumi:"validation"`
+	ValidationErrors CertificateValidationErrorArrayOutput   `pulumi:"validationErrors"`
 }
 
 // NewAppCertificatesAcme registers a new resource with the given unique name, arguments, and options.
@@ -69,6 +71,8 @@ type appCertificatesAcmeArgs struct {
 	// Fly App Name
 	AppName  *string `pulumi:"appName"`
 	Hostname *string `pulumi:"hostname"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *AppCertificatesAcmeQueryParams `pulumi:"queryParams"`
 }
 
 // The set of arguments for constructing a AppCertificatesAcme resource.
@@ -76,6 +80,8 @@ type AppCertificatesAcmeArgs struct {
 	// Fly App Name
 	AppName  pulumi.StringPtrInput
 	Hostname pulumi.StringPtrInput
+	// Query params to send with the API requests for this resource.
+	QueryParams AppCertificatesAcmeQueryParamsPtrInput
 }
 
 func (AppCertificatesAcmeArgs) ElementType() reflect.Type {
@@ -137,6 +143,11 @@ func (o AppCertificatesAcmeOutput) DnsRequirements() DNSRequirementsPtrOutput {
 
 func (o AppCertificatesAcmeOutput) Hostname() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AppCertificatesAcme) pulumi.StringPtrOutput { return v.Hostname }).(pulumi.StringPtrOutput)
+}
+
+// Query params to send with the API requests for this resource.
+func (o AppCertificatesAcmeOutput) QueryParams() AppCertificatesAcmeQueryParamsPtrOutput {
+	return o.ApplyT(func(v *AppCertificatesAcme) AppCertificatesAcmeQueryParamsPtrOutput { return v.QueryParams }).(AppCertificatesAcmeQueryParamsPtrOutput)
 }
 
 func (o AppCertificatesAcmeOutput) RateLimitedUntil() pulumi.StringPtrOutput {

@@ -24,6 +24,8 @@ func ListMachines(ctx *pulumi.Context, args *ListMachinesArgs, opts ...pulumi.In
 type ListMachinesArgs struct {
 	// Fly App Name
 	AppName string `pulumi:"appName"`
+	// Query params to send with the API request.
+	QueryParams *ListMachinesQueryParams `pulumi:"queryParams"`
 }
 
 type ListMachinesResult struct {
@@ -38,6 +40,8 @@ func ListMachinesOutput(ctx *pulumi.Context, args ListMachinesOutputArgs, opts .
 type ListMachinesOutputArgs struct {
 	// Fly App Name
 	AppName pulumi.StringInput `pulumi:"appName"`
+	// Query params to send with the API request.
+	QueryParams ListMachinesQueryParamsPtrInput `pulumi:"queryParams"`
 }
 
 func (ListMachinesOutputArgs) ElementType() reflect.Type {

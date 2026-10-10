@@ -15,6 +15,12 @@ namespace Pulumi.FlyMachines.AppsV1
         [Output("plaintext")]
         public Output<ImmutableArray<int>> Plaintext { get; private set; } = null!;
 
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Output("queryParams")]
+        public Output<Outputs.SecretkeyVerifyQueryParams?> QueryParams { get; private set; } = null!;
+
         [Output("signature")]
         public Output<ImmutableArray<int>> Signature { get; private set; } = null!;
 
@@ -77,6 +83,12 @@ namespace Pulumi.FlyMachines.AppsV1
             get => _plaintext ?? (_plaintext = new InputList<int>());
             set => _plaintext = value;
         }
+
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Input("queryParams")]
+        public Input<Inputs.SecretkeyVerifyQueryParamsArgs>? QueryParams { get; set; }
 
         /// <summary>
         /// Secret key name

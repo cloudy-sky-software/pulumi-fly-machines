@@ -13,6 +13,8 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
+from . import outputs
+from ._inputs import *
 
 __all__ = ['SecretkeyGenerateArgs', 'SecretkeyGenerate']
 
@@ -20,6 +22,7 @@ __all__ = ['SecretkeyGenerateArgs', 'SecretkeyGenerate']
 class SecretkeyGenerateArgs:
     def __init__(__self__, *,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional['SecretkeyGenerateQueryParamsArgs']] = None,
                  secret_name: pulumi.Input[Optional[_builtins.str]] = None,
                  type: pulumi.Input[Optional[_builtins.str]] = None,
                  value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]] = None):
@@ -27,10 +30,13 @@ class SecretkeyGenerateArgs:
         The set of arguments for constructing a SecretkeyGenerate resource.
 
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
+        :param pulumi.Input['SecretkeyGenerateQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input[_builtins.str] secret_name: Secret key name
         """
         if app_name is not None:
             pulumi.set(__self__, "app_name", app_name)
+        if query_params is not None:
+            pulumi.set(__self__, "query_params", query_params)
         if secret_name is not None:
             pulumi.set(__self__, "secret_name", secret_name)
         if type is not None:
@@ -49,6 +55,18 @@ class SecretkeyGenerateArgs:
     @app_name.setter
     def app_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "app_name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Input[Optional['SecretkeyGenerateQueryParamsArgs']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
+
+    @query_params.setter
+    def query_params(self, value: pulumi.Input[Optional['SecretkeyGenerateQueryParamsArgs']]):
+        pulumi.set(self, "query_params", value)
 
     @_builtins.property
     @pulumi.getter(name="secretName")
@@ -88,6 +106,7 @@ class SecretkeyGenerate(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['SecretkeyGenerateQueryParamsArgs', 'SecretkeyGenerateQueryParamsArgsDict', 'outputs.SecretkeyGenerateQueryParams']]] = None,
                  secret_name: pulumi.Input[Optional[_builtins.str]] = None,
                  type: pulumi.Input[Optional[_builtins.str]] = None,
                  value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]] = None,
@@ -98,6 +117,7 @@ class SecretkeyGenerate(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
+        :param pulumi.Input[Union['SecretkeyGenerateQueryParamsArgs', 'SecretkeyGenerateQueryParamsArgsDict', 'outputs.SecretkeyGenerateQueryParams']] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input[_builtins.str] secret_name: Secret key name
         """
         ...
@@ -125,6 +145,7 @@ class SecretkeyGenerate(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['SecretkeyGenerateQueryParamsArgs', 'SecretkeyGenerateQueryParamsArgsDict', 'outputs.SecretkeyGenerateQueryParams']]] = None,
                  secret_name: pulumi.Input[Optional[_builtins.str]] = None,
                  type: pulumi.Input[Optional[_builtins.str]] = None,
                  value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]] = None,
@@ -138,6 +159,7 @@ class SecretkeyGenerate(pulumi.CustomResource):
             __props__ = SecretkeyGenerateArgs.__new__(SecretkeyGenerateArgs)
 
             __props__.__dict__["app_name"] = app_name
+            __props__.__dict__["query_params"] = query_params
             __props__.__dict__["secret_name"] = secret_name
             __props__.__dict__["type"] = type
             __props__.__dict__["value"] = value
@@ -171,6 +193,7 @@ class SecretkeyGenerate(pulumi.CustomResource):
         __props__.__dict__["created_at"] = None
         __props__.__dict__["name"] = None
         __props__.__dict__["public_key"] = None
+        __props__.__dict__["query_params"] = None
         __props__.__dict__["type"] = None
         __props__.__dict__["updated_at"] = None
         __props__.__dict__["value"] = None
@@ -191,6 +214,14 @@ class SecretkeyGenerate(pulumi.CustomResource):
     @pulumi.getter(name="publicKey")
     def public_key(self) -> pulumi.Output[Optional[Sequence[_builtins.int]]]:
         return pulumi.get(self, "public_key")
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Output[Optional['outputs.SecretkeyGenerateQueryParams']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
 
     @_builtins.property
     @pulumi.getter

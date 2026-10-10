@@ -24,6 +24,8 @@ func LookupSecretkey(ctx *pulumi.Context, args *LookupSecretkeyArgs, opts ...pul
 type LookupSecretkeyArgs struct {
 	// Fly App Name
 	AppName string `pulumi:"appName"`
+	// Query params to send with the API request.
+	QueryParams *GetSecretkeyQueryParams `pulumi:"queryParams"`
 	// Secret key name
 	SecretName string `pulumi:"secretName"`
 }
@@ -44,6 +46,8 @@ func LookupSecretkeyOutput(ctx *pulumi.Context, args LookupSecretkeyOutputArgs, 
 type LookupSecretkeyOutputArgs struct {
 	// Fly App Name
 	AppName pulumi.StringInput `pulumi:"appName"`
+	// Query params to send with the API request.
+	QueryParams GetSecretkeyQueryParamsPtrInput `pulumi:"queryParams"`
 	// Secret key name
 	SecretName pulumi.StringInput `pulumi:"secretName"`
 }

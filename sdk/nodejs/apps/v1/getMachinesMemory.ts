@@ -2,6 +2,9 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
+import * as enums from "../../types/enums";
 import * as utilities from "../../utilities";
 
 export function getMachinesMemory(args: GetMachinesMemoryArgs, opts?: pulumi.InvokeOptions): Promise<GetMachinesMemoryResult> {
@@ -9,6 +12,7 @@ export function getMachinesMemory(args: GetMachinesMemoryArgs, opts?: pulumi.Inv
     return pulumi.runtime.invoke("fly-machines:apps/v1:getMachinesMemory", {
         "appName": args.appName,
         "machineId": args.machineId,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -21,6 +25,10 @@ export interface GetMachinesMemoryArgs {
      * Machine ID
      */
     machineId: string;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: inputs.apps.v1.GetMachinesMemoryQueryParams;
 }
 
 export interface GetMachinesMemoryResult {
@@ -32,6 +40,7 @@ export function getMachinesMemoryOutput(args: GetMachinesMemoryOutputArgs, opts?
     return pulumi.runtime.invokeOutput("fly-machines:apps/v1:getMachinesMemory", {
         "appName": args.appName,
         "machineId": args.machineId,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -44,4 +53,8 @@ export interface GetMachinesMemoryOutputArgs {
      * Machine ID
      */
     machineId: pulumi.Input<string>;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.GetMachinesMemoryQueryParamsArgs | undefined>;
 }

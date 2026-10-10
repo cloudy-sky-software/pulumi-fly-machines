@@ -14,6 +14,7 @@ else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
 from . import outputs
+from ._inputs import *
 
 __all__ = [
     'ListAppsResult',
@@ -53,22 +54,30 @@ class AwaitableListAppsResult(ListAppsResult):
             total_apps=self.total_apps)
 
 
-def list_apps(opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableListAppsResult:
+def list_apps(query_params: Optional[Union['ListAppsQueryParams', 'ListAppsQueryParamsDict']] = None,
+              opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableListAppsResult:
     """
     Use this data source to access information about an existing resource.
+
+    :param Union['ListAppsQueryParams', 'ListAppsQueryParamsDict'] query_params: Query params to send with the API request.
     """
     __args__ = dict()
+    __args__['queryParams'] = query_params
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke('fly-machines:apps/v1:listApps', __args__, opts=opts, typ=ListAppsResult).value
 
     return AwaitableListAppsResult(
         apps=pulumi.get(__ret__, 'apps'),
         total_apps=pulumi.get(__ret__, 'total_apps'))
-def list_apps_output(opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[ListAppsResult]:
+def list_apps_output(query_params: pulumi.Input[Optional[Union['ListAppsQueryParams', 'ListAppsQueryParamsDict']]] = None,
+                     opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[ListAppsResult]:
     """
     Use this data source to access information about an existing resource.
+
+    :param Union['ListAppsQueryParams', 'ListAppsQueryParamsDict'] query_params: Query params to send with the API request.
     """
     __args__ = dict()
+    __args__['queryParams'] = query_params
     opts = pulumi.InvokeOutputOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke_output('fly-machines:apps/v1:listApps', __args__, opts=opts, typ=ListAppsResult)
     return __ret__.apply(lambda __response__: ListAppsResult(

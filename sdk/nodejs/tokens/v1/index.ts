@@ -5,7 +5,7 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../../utilities";
 
 // Export members:
-export { GetCurrentTokenArgs, GetCurrentTokenResult } from "./getCurrentToken";
+export { GetCurrentTokenArgs, GetCurrentTokenResult, GetCurrentTokenOutputArgs } from "./getCurrentToken";
 export const getCurrentToken: typeof import("./getCurrentToken").getCurrentToken = null as any;
 export const getCurrentTokenOutput: typeof import("./getCurrentToken").getCurrentTokenOutput = null as any;
 utilities.lazyLoad(exports, ["getCurrentToken","getCurrentTokenOutput"], () => require("./getCurrentToken"));

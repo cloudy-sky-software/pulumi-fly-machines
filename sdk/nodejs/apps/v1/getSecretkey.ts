@@ -2,12 +2,16 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
+import * as enums from "../../types/enums";
 import * as utilities from "../../utilities";
 
 export function getSecretkey(args: GetSecretkeyArgs, opts?: pulumi.InvokeOptions): Promise<GetSecretkeyResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("fly-machines:apps/v1:getSecretkey", {
         "appName": args.appName,
+        "queryParams": args.queryParams,
         "secretName": args.secretName,
     }, opts);
 }
@@ -17,6 +21,10 @@ export interface GetSecretkeyArgs {
      * Fly App Name
      */
     appName: string;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: inputs.apps.v1.GetSecretkeyQueryParams;
     /**
      * Secret key name
      */
@@ -34,6 +42,7 @@ export function getSecretkeyOutput(args: GetSecretkeyOutputArgs, opts?: pulumi.I
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("fly-machines:apps/v1:getSecretkey", {
         "appName": args.appName,
+        "queryParams": args.queryParams,
         "secretName": args.secretName,
     }, opts);
 }
@@ -43,6 +52,10 @@ export interface GetSecretkeyOutputArgs {
      * Fly App Name
      */
     appName: pulumi.Input<string>;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.GetSecretkeyQueryParamsArgs | undefined>;
     /**
      * Secret key name
      */

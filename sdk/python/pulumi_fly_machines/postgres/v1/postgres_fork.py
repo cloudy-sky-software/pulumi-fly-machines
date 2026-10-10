@@ -15,6 +15,7 @@ else:
 from ... import _utilities
 from . import outputs
 from ._enums import *
+from ._inputs import *
 
 __all__ = ['PostgresForkArgs', 'PostgresFork']
 
@@ -22,17 +23,21 @@ __all__ = ['PostgresForkArgs', 'PostgresFork']
 class PostgresForkArgs:
     def __init__(__self__, *,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
-                 postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None):
+                 postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional['PostgresForkQueryParamsArgs']] = None):
         """
         The set of arguments for constructing a PostgresFork resource.
 
         :param pulumi.Input[_builtins.str] name: Name for the forked cluster. Defaults to the source name with a -fork suffix.
         :param pulumi.Input[_builtins.str] postgres_cluster_id: Managed Postgres Cluster ID
+        :param pulumi.Input['PostgresForkQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         """
         if name is not None:
             pulumi.set(__self__, "name", name)
         if postgres_cluster_id is not None:
             pulumi.set(__self__, "postgres_cluster_id", postgres_cluster_id)
+        if query_params is not None:
+            pulumi.set(__self__, "query_params", query_params)
 
     @_builtins.property
     @pulumi.getter
@@ -58,6 +63,18 @@ class PostgresForkArgs:
     def postgres_cluster_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "postgres_cluster_id", value)
 
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Input[Optional['PostgresForkQueryParamsArgs']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
+
+    @query_params.setter
+    def query_params(self, value: pulumi.Input[Optional['PostgresForkQueryParamsArgs']]):
+        pulumi.set(self, "query_params", value)
+
 
 @pulumi.type_token("fly-machines:postgres/v1:PostgresFork")
 class PostgresFork(pulumi.CustomResource):
@@ -67,6 +84,7 @@ class PostgresFork(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
                  postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['PostgresForkQueryParamsArgs', 'PostgresForkQueryParamsArgsDict', 'outputs.PostgresForkQueryParams']]] = None,
                  __props__=None):
         """
         Create a PostgresFork resource with the given unique name, props, and options.
@@ -75,6 +93,7 @@ class PostgresFork(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] name: Name for the forked cluster. Defaults to the source name with a -fork suffix.
         :param pulumi.Input[_builtins.str] postgres_cluster_id: Managed Postgres Cluster ID
+        :param pulumi.Input[Union['PostgresForkQueryParamsArgs', 'PostgresForkQueryParamsArgsDict', 'outputs.PostgresForkQueryParams']] query_params: Query params to send with the API requests for this resource.
         """
         ...
     @overload
@@ -102,6 +121,7 @@ class PostgresFork(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
                  postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['PostgresForkQueryParamsArgs', 'PostgresForkQueryParamsArgsDict', 'outputs.PostgresForkQueryParams']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -113,6 +133,7 @@ class PostgresFork(pulumi.CustomResource):
 
             __props__.__dict__["name"] = name
             __props__.__dict__["postgres_cluster_id"] = postgres_cluster_id
+            __props__.__dict__["query_params"] = query_params
             __props__.__dict__["data"] = None
         super(PostgresFork, __self__).__init__(
             'fly-machines:postgres/v1:PostgresFork',
@@ -138,6 +159,7 @@ class PostgresFork(pulumi.CustomResource):
 
         __props__.__dict__["data"] = None
         __props__.__dict__["name"] = None
+        __props__.__dict__["query_params"] = None
         return PostgresFork(resource_name, opts=opts, __props__=__props__)
 
     @_builtins.property
@@ -152,4 +174,12 @@ class PostgresFork(pulumi.CustomResource):
         Name for the forked cluster. Defaults to the source name with a -fork suffix.
         """
         return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Output[Optional['outputs.PostgresForkQueryParams']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
 

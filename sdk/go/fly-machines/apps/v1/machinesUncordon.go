@@ -13,6 +13,9 @@ import (
 
 type MachinesUncordon struct {
 	pulumi.CustomResourceState
+
+	// Query params to send with the API requests for this resource.
+	QueryParams MachinesUncordonQueryParamsPtrOutput `pulumi:"queryParams"`
 }
 
 // NewMachinesUncordon registers a new resource with the given unique name, arguments, and options.
@@ -59,6 +62,8 @@ type machinesUncordonArgs struct {
 	AppName *string `pulumi:"appName"`
 	// Machine ID
 	MachineId *string `pulumi:"machineId"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *MachinesUncordonQueryParams `pulumi:"queryParams"`
 }
 
 // The set of arguments for constructing a MachinesUncordon resource.
@@ -67,6 +72,8 @@ type MachinesUncordonArgs struct {
 	AppName pulumi.StringPtrInput
 	// Machine ID
 	MachineId pulumi.StringPtrInput
+	// Query params to send with the API requests for this resource.
+	QueryParams MachinesUncordonQueryParamsPtrInput
 }
 
 func (MachinesUncordonArgs) ElementType() reflect.Type {
@@ -104,6 +111,11 @@ func (o MachinesUncordonOutput) ToMachinesUncordonOutput() MachinesUncordonOutpu
 
 func (o MachinesUncordonOutput) ToMachinesUncordonOutputWithContext(ctx context.Context) MachinesUncordonOutput {
 	return o
+}
+
+// Query params to send with the API requests for this resource.
+func (o MachinesUncordonOutput) QueryParams() MachinesUncordonQueryParamsPtrOutput {
+	return o.ApplyT(func(v *MachinesUncordon) MachinesUncordonQueryParamsPtrOutput { return v.QueryParams }).(MachinesUncordonQueryParamsPtrOutput)
 }
 
 func init() {

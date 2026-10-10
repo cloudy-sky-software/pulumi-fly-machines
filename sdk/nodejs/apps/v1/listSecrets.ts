@@ -11,6 +11,7 @@ export function listSecrets(args: ListSecretsArgs, opts?: pulumi.InvokeOptions):
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("fly-machines:apps/v1:listSecrets", {
         "appName": args.appName,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -19,6 +20,10 @@ export interface ListSecretsArgs {
      * Fly App Name
      */
     appName: string;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: inputs.apps.v1.ListSecretsQueryParams;
 }
 
 export interface ListSecretsResult {
@@ -28,6 +33,7 @@ export function listSecretsOutput(args: ListSecretsOutputArgs, opts?: pulumi.Inv
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("fly-machines:apps/v1:listSecrets", {
         "appName": args.appName,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -36,4 +42,8 @@ export interface ListSecretsOutputArgs {
      * Fly App Name
      */
     appName: pulumi.Input<string>;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.ListSecretsQueryParamsArgs | undefined>;
 }

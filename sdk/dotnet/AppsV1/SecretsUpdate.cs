@@ -12,6 +12,12 @@ namespace Pulumi.FlyMachines.AppsV1
     [FlyMachinesResourceType("fly-machines:apps/v1:SecretsUpdate")]
     public partial class SecretsUpdate : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Output("queryParams")]
+        public Output<Outputs.SecretsUpdateQueryParams?> QueryParams { get; private set; } = null!;
+
         [Output("secrets")]
         public Output<ImmutableArray<Outputs.AppSecret>> Secrets { get; private set; } = null!;
 
@@ -72,6 +78,12 @@ namespace Pulumi.FlyMachines.AppsV1
         /// </summary>
         [Input("appName")]
         public Input<string>? AppName { get; set; }
+
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Input("queryParams")]
+        public Input<Inputs.SecretsUpdateQueryParamsArgs>? QueryParams { get; set; }
 
         [Input("values")]
         public Input<object>? Values { get; set; }

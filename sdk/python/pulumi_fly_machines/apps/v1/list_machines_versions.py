@@ -15,6 +15,7 @@ else:
 from ... import _utilities
 from . import outputs
 from ._enums import *
+from ._inputs import *
 
 __all__ = [
     'ListMachinesVersionsResult',
@@ -47,16 +48,19 @@ class AwaitableListMachinesVersionsResult(ListMachinesVersionsResult):
 
 def list_machines_versions(app_name: Optional[_builtins.str] = None,
                            machine_id: Optional[_builtins.str] = None,
+                           query_params: Optional[Union['ListMachinesVersionsQueryParams', 'ListMachinesVersionsQueryParamsDict']] = None,
                            opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableListMachinesVersionsResult:
     """
     Use this data source to access information about an existing resource.
 
     :param _builtins.str app_name: Fly App Name
     :param _builtins.str machine_id: Machine ID
+    :param Union['ListMachinesVersionsQueryParams', 'ListMachinesVersionsQueryParamsDict'] query_params: Query params to send with the API request.
     """
     __args__ = dict()
     __args__['appName'] = app_name
     __args__['machineId'] = machine_id
+    __args__['queryParams'] = query_params
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke('fly-machines:apps/v1:listMachinesVersions', __args__, opts=opts, typ=ListMachinesVersionsResult).value
 
@@ -64,16 +68,19 @@ def list_machines_versions(app_name: Optional[_builtins.str] = None,
         items=pulumi.get(__ret__, 'items'))
 def list_machines_versions_output(app_name: pulumi.Input[Optional[_builtins.str]] = None,
                                   machine_id: pulumi.Input[Optional[_builtins.str]] = None,
+                                  query_params: pulumi.Input[Optional[Optional[Union['ListMachinesVersionsQueryParams', 'ListMachinesVersionsQueryParamsDict']]]] = None,
                                   opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[ListMachinesVersionsResult]:
     """
     Use this data source to access information about an existing resource.
 
     :param _builtins.str app_name: Fly App Name
     :param _builtins.str machine_id: Machine ID
+    :param Union['ListMachinesVersionsQueryParams', 'ListMachinesVersionsQueryParamsDict'] query_params: Query params to send with the API request.
     """
     __args__ = dict()
     __args__['appName'] = app_name
     __args__['machineId'] = machine_id
+    __args__['queryParams'] = query_params
     opts = pulumi.InvokeOutputOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke_output('fly-machines:apps/v1:listMachinesVersions', __args__, opts=opts, typ=ListMachinesVersionsResult)
     return __ret__.apply(lambda __response__: ListMachinesVersionsResult(

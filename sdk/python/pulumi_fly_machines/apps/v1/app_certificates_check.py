@@ -15,6 +15,7 @@ else:
 from ... import _utilities
 from . import outputs
 from ._enums import *
+from ._inputs import *
 
 __all__ = ['AppCertificatesCheckArgs', 'AppCertificatesCheck']
 
@@ -22,17 +23,21 @@ __all__ = ['AppCertificatesCheckArgs', 'AppCertificatesCheck']
 class AppCertificatesCheckArgs:
     def __init__(__self__, *,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
-                 hostname: pulumi.Input[Optional[_builtins.str]] = None):
+                 hostname: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional['AppCertificatesCheckQueryParamsArgs']] = None):
         """
         The set of arguments for constructing a AppCertificatesCheck resource.
 
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input[_builtins.str] hostname: Certificate Hostname
+        :param pulumi.Input['AppCertificatesCheckQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         """
         if app_name is not None:
             pulumi.set(__self__, "app_name", app_name)
         if hostname is not None:
             pulumi.set(__self__, "hostname", hostname)
+        if query_params is not None:
+            pulumi.set(__self__, "query_params", query_params)
 
     @_builtins.property
     @pulumi.getter(name="appName")
@@ -58,6 +63,18 @@ class AppCertificatesCheckArgs:
     def hostname(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "hostname", value)
 
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Input[Optional['AppCertificatesCheckQueryParamsArgs']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
+
+    @query_params.setter
+    def query_params(self, value: pulumi.Input[Optional['AppCertificatesCheckQueryParamsArgs']]):
+        pulumi.set(self, "query_params", value)
+
 
 @pulumi.type_token("fly-machines:apps/v1:AppCertificatesCheck")
 class AppCertificatesCheck(pulumi.CustomResource):
@@ -67,6 +84,7 @@ class AppCertificatesCheck(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  hostname: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['AppCertificatesCheckQueryParamsArgs', 'AppCertificatesCheckQueryParamsArgsDict', 'outputs.AppCertificatesCheckQueryParams']]] = None,
                  __props__=None):
         """
         Create a AppCertificatesCheck resource with the given unique name, props, and options.
@@ -75,6 +93,7 @@ class AppCertificatesCheck(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input[_builtins.str] hostname: Certificate Hostname
+        :param pulumi.Input[Union['AppCertificatesCheckQueryParamsArgs', 'AppCertificatesCheckQueryParamsArgsDict', 'outputs.AppCertificatesCheckQueryParams']] query_params: Query params to send with the API requests for this resource.
         """
         ...
     @overload
@@ -102,6 +121,7 @@ class AppCertificatesCheck(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  hostname: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['AppCertificatesCheckQueryParamsArgs', 'AppCertificatesCheckQueryParamsArgsDict', 'outputs.AppCertificatesCheckQueryParams']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -113,6 +133,7 @@ class AppCertificatesCheck(pulumi.CustomResource):
 
             __props__.__dict__["app_name"] = app_name
             __props__.__dict__["hostname"] = hostname
+            __props__.__dict__["query_params"] = query_params
             __props__.__dict__["acme_requested"] = None
             __props__.__dict__["certificates"] = None
             __props__.__dict__["configured"] = None
@@ -152,6 +173,7 @@ class AppCertificatesCheck(pulumi.CustomResource):
         __props__.__dict__["dns_records"] = None
         __props__.__dict__["dns_requirements"] = None
         __props__.__dict__["hostname"] = None
+        __props__.__dict__["query_params"] = None
         __props__.__dict__["rate_limited_until"] = None
         __props__.__dict__["status"] = None
         __props__.__dict__["validation"] = None
@@ -192,6 +214,14 @@ class AppCertificatesCheck(pulumi.CustomResource):
     @pulumi.getter
     def hostname(self) -> pulumi.Output[Optional[_builtins.str]]:
         return pulumi.get(self, "hostname")
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Output[Optional['outputs.AppCertificatesCheckQueryParams']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
 
     @_builtins.property
     @pulumi.getter(name="rateLimitedUntil")

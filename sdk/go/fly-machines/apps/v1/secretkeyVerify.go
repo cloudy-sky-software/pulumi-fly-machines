@@ -15,7 +15,9 @@ type SecretkeyVerify struct {
 	pulumi.CustomResourceState
 
 	Plaintext pulumi.IntArrayOutput `pulumi:"plaintext"`
-	Signature pulumi.IntArrayOutput `pulumi:"signature"`
+	// Query params to send with the API requests for this resource.
+	QueryParams SecretkeyVerifyQueryParamsPtrOutput `pulumi:"queryParams"`
+	Signature   pulumi.IntArrayOutput               `pulumi:"signature"`
 }
 
 // NewSecretkeyVerify registers a new resource with the given unique name, arguments, and options.
@@ -61,6 +63,8 @@ type secretkeyVerifyArgs struct {
 	// Fly App Name
 	AppName   *string `pulumi:"appName"`
 	Plaintext []int   `pulumi:"plaintext"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *SecretkeyVerifyQueryParams `pulumi:"queryParams"`
 	// Secret key name
 	SecretName *string `pulumi:"secretName"`
 	Signature  []int   `pulumi:"signature"`
@@ -71,6 +75,8 @@ type SecretkeyVerifyArgs struct {
 	// Fly App Name
 	AppName   pulumi.StringPtrInput
 	Plaintext pulumi.IntArrayInput
+	// Query params to send with the API requests for this resource.
+	QueryParams SecretkeyVerifyQueryParamsPtrInput
 	// Secret key name
 	SecretName pulumi.StringPtrInput
 	Signature  pulumi.IntArrayInput
@@ -115,6 +121,11 @@ func (o SecretkeyVerifyOutput) ToSecretkeyVerifyOutputWithContext(ctx context.Co
 
 func (o SecretkeyVerifyOutput) Plaintext() pulumi.IntArrayOutput {
 	return o.ApplyT(func(v *SecretkeyVerify) pulumi.IntArrayOutput { return v.Plaintext }).(pulumi.IntArrayOutput)
+}
+
+// Query params to send with the API requests for this resource.
+func (o SecretkeyVerifyOutput) QueryParams() SecretkeyVerifyQueryParamsPtrOutput {
+	return o.ApplyT(func(v *SecretkeyVerify) SecretkeyVerifyQueryParamsPtrOutput { return v.QueryParams }).(SecretkeyVerifyQueryParamsPtrOutput)
 }
 
 func (o SecretkeyVerifyOutput) Signature() pulumi.IntArrayOutput {

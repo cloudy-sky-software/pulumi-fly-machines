@@ -100,7 +100,7 @@ export const listAppIPAssignments: typeof import("./listAppIPAssignments").listA
 export const listAppIPAssignmentsOutput: typeof import("./listAppIPAssignments").listAppIPAssignmentsOutput = null as any;
 utilities.lazyLoad(exports, ["listAppIPAssignments","listAppIPAssignmentsOutput"], () => require("./listAppIPAssignments"));
 
-export { ListAppsArgs, ListAppsResult } from "./listApps";
+export { ListAppsArgs, ListAppsResult, ListAppsOutputArgs } from "./listApps";
 export const listApps: typeof import("./listApps").listApps = null as any;
 export const listAppsOutput: typeof import("./listApps").listAppsOutput = null as any;
 utilities.lazyLoad(exports, ["listApps","listAppsOutput"], () => require("./listApps"));

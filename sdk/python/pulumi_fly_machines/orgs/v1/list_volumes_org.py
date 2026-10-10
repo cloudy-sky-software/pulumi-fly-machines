@@ -15,6 +15,7 @@ else:
 from ... import _utilities
 from . import outputs
 from ._enums import *
+from ._inputs import *
 
 __all__ = [
     'ListVolumesOrgResult',
@@ -73,14 +74,17 @@ class AwaitableListVolumesOrgResult(ListVolumesOrgResult):
 
 
 def list_volumes_org(org_slug: Optional[_builtins.str] = None,
+                     query_params: Optional[Union['ListVolumesOrgQueryParams', 'ListVolumesOrgQueryParamsDict']] = None,
                      opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableListVolumesOrgResult:
     """
     Use this data source to access information about an existing resource.
 
     :param _builtins.str org_slug: Fly Organization Slug
+    :param Union['ListVolumesOrgQueryParams', 'ListVolumesOrgQueryParamsDict'] query_params: Query params to send with the API request.
     """
     __args__ = dict()
     __args__['orgSlug'] = org_slug
+    __args__['queryParams'] = query_params
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke('fly-machines:orgs/v1:listVolumesOrg', __args__, opts=opts, typ=ListVolumesOrgResult).value
 
@@ -90,14 +94,17 @@ def list_volumes_org(org_slug: Optional[_builtins.str] = None,
         next_cursor=pulumi.get(__ret__, 'next_cursor'),
         volumes=pulumi.get(__ret__, 'volumes'))
 def list_volumes_org_output(org_slug: pulumi.Input[Optional[_builtins.str]] = None,
+                            query_params: pulumi.Input[Optional[Optional[Union['ListVolumesOrgQueryParams', 'ListVolumesOrgQueryParamsDict']]]] = None,
                             opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[ListVolumesOrgResult]:
     """
     Use this data source to access information about an existing resource.
 
     :param _builtins.str org_slug: Fly Organization Slug
+    :param Union['ListVolumesOrgQueryParams', 'ListVolumesOrgQueryParamsDict'] query_params: Query params to send with the API request.
     """
     __args__ = dict()
     __args__['orgSlug'] = org_slug
+    __args__['queryParams'] = query_params
     opts = pulumi.InvokeOutputOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke_output('fly-machines:orgs/v1:listVolumesOrg', __args__, opts=opts, typ=ListVolumesOrgResult)
     return __ret__.apply(lambda __response__: ListVolumesOrgResult(

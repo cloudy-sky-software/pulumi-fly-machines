@@ -15,6 +15,8 @@ type TokensAuthenticate struct {
 	pulumi.CustomResourceState
 
 	Header pulumi.StringPtrOutput `pulumi:"header"`
+	// Query params to send with the API requests for this resource.
+	QueryParams TokensAuthenticateQueryParamsPtrOutput `pulumi:"queryParams"`
 }
 
 // NewTokensAuthenticate registers a new resource with the given unique name, arguments, and options.
@@ -58,11 +60,15 @@ func (TokensAuthenticateState) ElementType() reflect.Type {
 
 type tokensAuthenticateArgs struct {
 	Header *string `pulumi:"header"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *TokensAuthenticateQueryParams `pulumi:"queryParams"`
 }
 
 // The set of arguments for constructing a TokensAuthenticate resource.
 type TokensAuthenticateArgs struct {
 	Header pulumi.StringPtrInput
+	// Query params to send with the API requests for this resource.
+	QueryParams TokensAuthenticateQueryParamsPtrInput
 }
 
 func (TokensAuthenticateArgs) ElementType() reflect.Type {
@@ -104,6 +110,11 @@ func (o TokensAuthenticateOutput) ToTokensAuthenticateOutputWithContext(ctx cont
 
 func (o TokensAuthenticateOutput) Header() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *TokensAuthenticate) pulumi.StringPtrOutput { return v.Header }).(pulumi.StringPtrOutput)
+}
+
+// Query params to send with the API requests for this resource.
+func (o TokensAuthenticateOutput) QueryParams() TokensAuthenticateQueryParamsPtrOutput {
+	return o.ApplyT(func(v *TokensAuthenticate) TokensAuthenticateQueryParamsPtrOutput { return v.QueryParams }).(TokensAuthenticateQueryParamsPtrOutput)
 }
 
 func init() {

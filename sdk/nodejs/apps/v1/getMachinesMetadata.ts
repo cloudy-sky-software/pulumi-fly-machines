@@ -2,6 +2,9 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
+import * as enums from "../../types/enums";
 import * as utilities from "../../utilities";
 
 export function getMachinesMetadata(args: GetMachinesMetadataArgs, opts?: pulumi.InvokeOptions): Promise<any> {
@@ -9,6 +12,7 @@ export function getMachinesMetadata(args: GetMachinesMetadataArgs, opts?: pulumi
     return pulumi.runtime.invokeSingle("fly-machines:apps/v1:getMachinesMetadata", {
         "appName": args.appName,
         "machineId": args.machineId,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -21,12 +25,17 @@ export interface GetMachinesMetadataArgs {
      * Machine ID
      */
     machineId: string;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: inputs.apps.v1.GetMachinesMetadataQueryParams;
 }
 export function getMachinesMetadataOutput(args: GetMachinesMetadataOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<any> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeSingleOutput("fly-machines:apps/v1:getMachinesMetadata", {
         "appName": args.appName,
         "machineId": args.machineId,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -39,4 +48,8 @@ export interface GetMachinesMetadataOutputArgs {
      * Machine ID
      */
     machineId: pulumi.Input<string>;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.GetMachinesMetadataQueryParamsArgs | undefined>;
 }

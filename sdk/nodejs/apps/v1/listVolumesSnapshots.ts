@@ -11,6 +11,7 @@ export function listVolumesSnapshots(args: ListVolumesSnapshotsArgs, opts?: pulu
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("fly-machines:apps/v1:listVolumesSnapshots", {
         "appName": args.appName,
+        "queryParams": args.queryParams,
         "volumeId": args.volumeId,
     }, opts);
 }
@@ -20,6 +21,10 @@ export interface ListVolumesSnapshotsArgs {
      * Fly App Name
      */
     appName: string;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: inputs.apps.v1.ListVolumesSnapshotsQueryParams;
     /**
      * Volume ID
      */
@@ -33,6 +38,7 @@ export function listVolumesSnapshotsOutput(args: ListVolumesSnapshotsOutputArgs,
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("fly-machines:apps/v1:listVolumesSnapshots", {
         "appName": args.appName,
+        "queryParams": args.queryParams,
         "volumeId": args.volumeId,
     }, opts);
 }
@@ -42,6 +48,10 @@ export interface ListVolumesSnapshotsOutputArgs {
      * Fly App Name
      */
     appName: pulumi.Input<string>;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.ListVolumesSnapshotsQueryParamsArgs | undefined>;
     /**
      * Volume ID
      */

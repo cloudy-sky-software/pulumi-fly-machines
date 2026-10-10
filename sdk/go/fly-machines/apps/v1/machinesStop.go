@@ -14,8 +14,10 @@ import (
 type MachinesStop struct {
 	pulumi.CustomResourceState
 
-	Signal  SignalPtrOutput        `pulumi:"signal"`
-	Timeout pulumi.StringPtrOutput `pulumi:"timeout"`
+	// Query params to send with the API requests for this resource.
+	QueryParams MachinesStopQueryParamsPtrOutput `pulumi:"queryParams"`
+	Signal      SignalPtrOutput                  `pulumi:"signal"`
+	Timeout     pulumi.StringPtrOutput           `pulumi:"timeout"`
 }
 
 // NewMachinesStop registers a new resource with the given unique name, arguments, and options.
@@ -62,8 +64,10 @@ type machinesStopArgs struct {
 	AppName *string `pulumi:"appName"`
 	// Machine ID
 	MachineId *string `pulumi:"machineId"`
-	Signal    *Signal `pulumi:"signal"`
-	Timeout   *string `pulumi:"timeout"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *MachinesStopQueryParams `pulumi:"queryParams"`
+	Signal      *Signal                  `pulumi:"signal"`
+	Timeout     *string                  `pulumi:"timeout"`
 }
 
 // The set of arguments for constructing a MachinesStop resource.
@@ -72,8 +76,10 @@ type MachinesStopArgs struct {
 	AppName pulumi.StringPtrInput
 	// Machine ID
 	MachineId pulumi.StringPtrInput
-	Signal    SignalPtrInput
-	Timeout   pulumi.StringPtrInput
+	// Query params to send with the API requests for this resource.
+	QueryParams MachinesStopQueryParamsPtrInput
+	Signal      SignalPtrInput
+	Timeout     pulumi.StringPtrInput
 }
 
 func (MachinesStopArgs) ElementType() reflect.Type {
@@ -111,6 +117,11 @@ func (o MachinesStopOutput) ToMachinesStopOutput() MachinesStopOutput {
 
 func (o MachinesStopOutput) ToMachinesStopOutputWithContext(ctx context.Context) MachinesStopOutput {
 	return o
+}
+
+// Query params to send with the API requests for this resource.
+func (o MachinesStopOutput) QueryParams() MachinesStopQueryParamsPtrOutput {
+	return o.ApplyT(func(v *MachinesStop) MachinesStopQueryParamsPtrOutput { return v.QueryParams }).(MachinesStopQueryParamsPtrOutput)
 }
 
 func (o MachinesStopOutput) Signal() SignalPtrOutput {

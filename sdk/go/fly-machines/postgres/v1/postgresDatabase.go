@@ -18,6 +18,8 @@ type PostgresDatabase struct {
 	// Name of the database to create. Must start and end with an alphanumeric
 	// character and may contain hyphens and underscores, up to 63 characters.
 	Name pulumi.StringOutput `pulumi:"name"`
+	// Query params to send with the API requests for this resource.
+	QueryParams PostgresDatabaseQueryParamsPtrOutput `pulumi:"queryParams"`
 }
 
 // NewPostgresDatabase registers a new resource with the given unique name, arguments, and options.
@@ -65,6 +67,8 @@ type postgresDatabaseArgs struct {
 	Name *string `pulumi:"name"`
 	// Managed Postgres Cluster ID
 	PostgresClusterId *string `pulumi:"postgresClusterId"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *PostgresDatabaseQueryParams `pulumi:"queryParams"`
 }
 
 // The set of arguments for constructing a PostgresDatabase resource.
@@ -74,6 +78,8 @@ type PostgresDatabaseArgs struct {
 	Name pulumi.StringPtrInput
 	// Managed Postgres Cluster ID
 	PostgresClusterId pulumi.StringPtrInput
+	// Query params to send with the API requests for this resource.
+	QueryParams PostgresDatabaseQueryParamsPtrInput
 }
 
 func (PostgresDatabaseArgs) ElementType() reflect.Type {
@@ -121,6 +127,11 @@ func (o PostgresDatabaseOutput) Data() PostgresDatabaseTypePtrOutput {
 // character and may contain hyphens and underscores, up to 63 characters.
 func (o PostgresDatabaseOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *PostgresDatabase) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
+}
+
+// Query params to send with the API requests for this resource.
+func (o PostgresDatabaseOutput) QueryParams() PostgresDatabaseQueryParamsPtrOutput {
+	return o.ApplyT(func(v *PostgresDatabase) PostgresDatabaseQueryParamsPtrOutput { return v.QueryParams }).(PostgresDatabaseQueryParamsPtrOutput)
 }
 
 func init() {

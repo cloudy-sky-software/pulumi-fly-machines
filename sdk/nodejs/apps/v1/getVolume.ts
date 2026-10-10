@@ -11,6 +11,7 @@ export function getVolume(args: GetVolumeArgs, opts?: pulumi.InvokeOptions): Pro
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("fly-machines:apps/v1:getVolume", {
         "appName": args.appName,
+        "queryParams": args.queryParams,
         "volumeId": args.volumeId,
     }, opts);
 }
@@ -20,6 +21,10 @@ export interface GetVolumeArgs {
      * Fly App Name
      */
     appName: string;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: inputs.apps.v1.GetVolumeQueryParams;
     /**
      * Volume ID
      */
@@ -55,6 +60,7 @@ export function getVolumeOutput(args: GetVolumeOutputArgs, opts?: pulumi.InvokeO
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("fly-machines:apps/v1:getVolume", {
         "appName": args.appName,
+        "queryParams": args.queryParams,
         "volumeId": args.volumeId,
     }, opts);
 }
@@ -64,6 +70,10 @@ export interface GetVolumeOutputArgs {
      * Fly App Name
      */
     appName: pulumi.Input<string>;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.GetVolumeQueryParamsArgs | undefined>;
     /**
      * Volume ID
      */

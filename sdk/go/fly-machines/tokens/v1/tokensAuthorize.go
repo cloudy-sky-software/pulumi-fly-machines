@@ -14,9 +14,11 @@ import (
 type TokensAuthorize struct {
 	pulumi.CustomResourceState
 
-	Access        FlyioAccessPtrOutput       `pulumi:"access"`
-	Header        pulumi.StringPtrOutput     `pulumi:"header"`
-	VerifiedToken RootVerifiedTokenPtrOutput `pulumi:"verifiedToken"`
+	Access FlyioAccessPtrOutput   `pulumi:"access"`
+	Header pulumi.StringPtrOutput `pulumi:"header"`
+	// Query params to send with the API requests for this resource.
+	QueryParams   TokensAuthorizeQueryParamsPtrOutput `pulumi:"queryParams"`
+	VerifiedToken RootVerifiedTokenPtrOutput          `pulumi:"verifiedToken"`
 }
 
 // NewTokensAuthorize registers a new resource with the given unique name, arguments, and options.
@@ -61,12 +63,16 @@ func (TokensAuthorizeState) ElementType() reflect.Type {
 type tokensAuthorizeArgs struct {
 	Access *MainTokenAccess `pulumi:"access"`
 	Header *string          `pulumi:"header"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *TokensAuthorizeQueryParams `pulumi:"queryParams"`
 }
 
 // The set of arguments for constructing a TokensAuthorize resource.
 type TokensAuthorizeArgs struct {
 	Access MainTokenAccessPtrInput
 	Header pulumi.StringPtrInput
+	// Query params to send with the API requests for this resource.
+	QueryParams TokensAuthorizeQueryParamsPtrInput
 }
 
 func (TokensAuthorizeArgs) ElementType() reflect.Type {
@@ -112,6 +118,11 @@ func (o TokensAuthorizeOutput) Access() FlyioAccessPtrOutput {
 
 func (o TokensAuthorizeOutput) Header() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *TokensAuthorize) pulumi.StringPtrOutput { return v.Header }).(pulumi.StringPtrOutput)
+}
+
+// Query params to send with the API requests for this resource.
+func (o TokensAuthorizeOutput) QueryParams() TokensAuthorizeQueryParamsPtrOutput {
+	return o.ApplyT(func(v *TokensAuthorize) TokensAuthorizeQueryParamsPtrOutput { return v.QueryParams }).(TokensAuthorizeQueryParamsPtrOutput)
 }
 
 func (o TokensAuthorizeOutput) VerifiedToken() RootVerifiedTokenPtrOutput {

@@ -14,18 +14,20 @@ import (
 type AppCertificatesCustom struct {
 	pulumi.CustomResourceState
 
-	AcmeRequested    pulumi.BoolPtrOutput                  `pulumi:"acmeRequested"`
-	Certificates     CertificateEntryArrayOutput           `pulumi:"certificates"`
-	Configured       pulumi.BoolPtrOutput                  `pulumi:"configured"`
-	DnsProvider      pulumi.StringPtrOutput                `pulumi:"dnsProvider"`
-	DnsRequirements  DNSRequirementsPtrOutput              `pulumi:"dnsRequirements"`
-	Fullchain        pulumi.StringPtrOutput                `pulumi:"fullchain"`
-	Hostname         pulumi.StringPtrOutput                `pulumi:"hostname"`
-	PrivateKey       pulumi.StringPtrOutput                `pulumi:"privateKey"`
-	RateLimitedUntil pulumi.StringPtrOutput                `pulumi:"rateLimitedUntil"`
-	Status           pulumi.StringPtrOutput                `pulumi:"status"`
-	Validation       CertificateValidationPtrOutput        `pulumi:"validation"`
-	ValidationErrors CertificateValidationErrorArrayOutput `pulumi:"validationErrors"`
+	AcmeRequested   pulumi.BoolPtrOutput        `pulumi:"acmeRequested"`
+	Certificates    CertificateEntryArrayOutput `pulumi:"certificates"`
+	Configured      pulumi.BoolPtrOutput        `pulumi:"configured"`
+	DnsProvider     pulumi.StringPtrOutput      `pulumi:"dnsProvider"`
+	DnsRequirements DNSRequirementsPtrOutput    `pulumi:"dnsRequirements"`
+	Fullchain       pulumi.StringPtrOutput      `pulumi:"fullchain"`
+	Hostname        pulumi.StringPtrOutput      `pulumi:"hostname"`
+	PrivateKey      pulumi.StringPtrOutput      `pulumi:"privateKey"`
+	// Query params to send with the API requests for this resource.
+	QueryParams      AppCertificatesCustomQueryParamsPtrOutput `pulumi:"queryParams"`
+	RateLimitedUntil pulumi.StringPtrOutput                    `pulumi:"rateLimitedUntil"`
+	Status           pulumi.StringPtrOutput                    `pulumi:"status"`
+	Validation       CertificateValidationPtrOutput            `pulumi:"validation"`
+	ValidationErrors CertificateValidationErrorArrayOutput     `pulumi:"validationErrors"`
 }
 
 // NewAppCertificatesCustom registers a new resource with the given unique name, arguments, and options.
@@ -73,6 +75,8 @@ type appCertificatesCustomArgs struct {
 	Fullchain  *string `pulumi:"fullchain"`
 	Hostname   *string `pulumi:"hostname"`
 	PrivateKey *string `pulumi:"privateKey"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *AppCertificatesCustomQueryParams `pulumi:"queryParams"`
 }
 
 // The set of arguments for constructing a AppCertificatesCustom resource.
@@ -82,6 +86,8 @@ type AppCertificatesCustomArgs struct {
 	Fullchain  pulumi.StringPtrInput
 	Hostname   pulumi.StringPtrInput
 	PrivateKey pulumi.StringPtrInput
+	// Query params to send with the API requests for this resource.
+	QueryParams AppCertificatesCustomQueryParamsPtrInput
 }
 
 func (AppCertificatesCustomArgs) ElementType() reflect.Type {
@@ -151,6 +157,11 @@ func (o AppCertificatesCustomOutput) Hostname() pulumi.StringPtrOutput {
 
 func (o AppCertificatesCustomOutput) PrivateKey() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AppCertificatesCustom) pulumi.StringPtrOutput { return v.PrivateKey }).(pulumi.StringPtrOutput)
+}
+
+// Query params to send with the API requests for this resource.
+func (o AppCertificatesCustomOutput) QueryParams() AppCertificatesCustomQueryParamsPtrOutput {
+	return o.ApplyT(func(v *AppCertificatesCustom) AppCertificatesCustomQueryParamsPtrOutput { return v.QueryParams }).(AppCertificatesCustomQueryParamsPtrOutput)
 }
 
 func (o AppCertificatesCustomOutput) RateLimitedUntil() pulumi.StringPtrOutput {

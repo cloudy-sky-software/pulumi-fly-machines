@@ -15,8 +15,10 @@ type VolumesExtend struct {
 	pulumi.CustomResourceState
 
 	NeedsRestart pulumi.BoolPtrOutput `pulumi:"needsRestart"`
-	SizeGb       pulumi.IntPtrOutput  `pulumi:"sizeGb"`
-	Volume       VolumeTypePtrOutput  `pulumi:"volume"`
+	// Query params to send with the API requests for this resource.
+	QueryParams VolumesExtendQueryParamsPtrOutput `pulumi:"queryParams"`
+	SizeGb      pulumi.IntPtrOutput               `pulumi:"sizeGb"`
+	Volume      VolumeTypePtrOutput               `pulumi:"volume"`
 }
 
 // NewVolumesExtend registers a new resource with the given unique name, arguments, and options.
@@ -61,7 +63,9 @@ func (VolumesExtendState) ElementType() reflect.Type {
 type volumesExtendArgs struct {
 	// Fly App Name
 	AppName *string `pulumi:"appName"`
-	SizeGb  *int    `pulumi:"sizeGb"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *VolumesExtendQueryParams `pulumi:"queryParams"`
+	SizeGb      *int                      `pulumi:"sizeGb"`
 	// Volume ID
 	VolumeId *string `pulumi:"volumeId"`
 }
@@ -70,7 +74,9 @@ type volumesExtendArgs struct {
 type VolumesExtendArgs struct {
 	// Fly App Name
 	AppName pulumi.StringPtrInput
-	SizeGb  pulumi.IntPtrInput
+	// Query params to send with the API requests for this resource.
+	QueryParams VolumesExtendQueryParamsPtrInput
+	SizeGb      pulumi.IntPtrInput
 	// Volume ID
 	VolumeId pulumi.StringPtrInput
 }
@@ -114,6 +120,11 @@ func (o VolumesExtendOutput) ToVolumesExtendOutputWithContext(ctx context.Contex
 
 func (o VolumesExtendOutput) NeedsRestart() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *VolumesExtend) pulumi.BoolPtrOutput { return v.NeedsRestart }).(pulumi.BoolPtrOutput)
+}
+
+// Query params to send with the API requests for this resource.
+func (o VolumesExtendOutput) QueryParams() VolumesExtendQueryParamsPtrOutput {
+	return o.ApplyT(func(v *VolumesExtend) VolumesExtendQueryParamsPtrOutput { return v.QueryParams }).(VolumesExtendQueryParamsPtrOutput)
 }
 
 func (o VolumesExtendOutput) SizeGb() pulumi.IntPtrOutput {

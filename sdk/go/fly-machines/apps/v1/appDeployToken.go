@@ -15,7 +15,9 @@ type AppDeployToken struct {
 	pulumi.CustomResourceState
 
 	Expiry pulumi.StringPtrOutput `pulumi:"expiry"`
-	Token  pulumi.StringPtrOutput `pulumi:"token"`
+	// Query params to send with the API requests for this resource.
+	QueryParams AppDeployTokenQueryParamsPtrOutput `pulumi:"queryParams"`
+	Token       pulumi.StringPtrOutput             `pulumi:"token"`
 }
 
 // NewAppDeployToken registers a new resource with the given unique name, arguments, and options.
@@ -61,6 +63,8 @@ type appDeployTokenArgs struct {
 	// Fly App Name
 	AppName *string `pulumi:"appName"`
 	Expiry  *string `pulumi:"expiry"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *AppDeployTokenQueryParams `pulumi:"queryParams"`
 }
 
 // The set of arguments for constructing a AppDeployToken resource.
@@ -68,6 +72,8 @@ type AppDeployTokenArgs struct {
 	// Fly App Name
 	AppName pulumi.StringPtrInput
 	Expiry  pulumi.StringPtrInput
+	// Query params to send with the API requests for this resource.
+	QueryParams AppDeployTokenQueryParamsPtrInput
 }
 
 func (AppDeployTokenArgs) ElementType() reflect.Type {
@@ -109,6 +115,11 @@ func (o AppDeployTokenOutput) ToAppDeployTokenOutputWithContext(ctx context.Cont
 
 func (o AppDeployTokenOutput) Expiry() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AppDeployToken) pulumi.StringPtrOutput { return v.Expiry }).(pulumi.StringPtrOutput)
+}
+
+// Query params to send with the API requests for this resource.
+func (o AppDeployTokenOutput) QueryParams() AppDeployTokenQueryParamsPtrOutput {
+	return o.ApplyT(func(v *AppDeployToken) AppDeployTokenQueryParamsPtrOutput { return v.QueryParams }).(AppDeployTokenQueryParamsPtrOutput)
 }
 
 func (o AppDeployTokenOutput) Token() pulumi.StringPtrOutput {

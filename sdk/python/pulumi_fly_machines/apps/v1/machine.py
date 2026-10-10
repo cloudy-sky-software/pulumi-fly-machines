@@ -27,6 +27,7 @@ class MachineArgs:
                  lease_ttl: pulumi.Input[Optional[_builtins.int]] = None,
                  min_secrets_version: pulumi.Input[Optional[_builtins.int]] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional['MachineQueryParamsArgs']] = None,
                  region: pulumi.Input[Optional[_builtins.str]] = None,
                  skip_launch: pulumi.Input[Optional[_builtins.bool]] = None,
                  skip_secrets: pulumi.Input[Optional[_builtins.bool]] = None,
@@ -37,6 +38,7 @@ class MachineArgs:
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input['ConfigArgs'] config: An object defining the Machine configuration
         :param pulumi.Input[_builtins.str] name: Unique name for this Machine. If omitted, one is generated for you
+        :param pulumi.Input['MachineQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input[_builtins.str] region: The target region. Omitting this param launches in the same region as your WireGuard peer connection (somewhere near you).
         """
         if app_name is not None:
@@ -49,6 +51,8 @@ class MachineArgs:
             pulumi.set(__self__, "min_secrets_version", min_secrets_version)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if query_params is not None:
+            pulumi.set(__self__, "query_params", query_params)
         if region is not None:
             pulumi.set(__self__, "region", region)
         if skip_launch is not None:
@@ -113,6 +117,18 @@ class MachineArgs:
         pulumi.set(self, "name", value)
 
     @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Input[Optional['MachineQueryParamsArgs']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
+
+    @query_params.setter
+    def query_params(self, value: pulumi.Input[Optional['MachineQueryParamsArgs']]):
+        pulumi.set(self, "query_params", value)
+
+    @_builtins.property
     @pulumi.getter
     def region(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
@@ -163,6 +179,7 @@ class Machine(pulumi.CustomResource):
                  lease_ttl: pulumi.Input[Optional[_builtins.int]] = None,
                  min_secrets_version: pulumi.Input[Optional[_builtins.int]] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['MachineQueryParamsArgs', 'MachineQueryParamsArgsDict', 'outputs.MachineQueryParams']]] = None,
                  region: pulumi.Input[Optional[_builtins.str]] = None,
                  skip_launch: pulumi.Input[Optional[_builtins.bool]] = None,
                  skip_secrets: pulumi.Input[Optional[_builtins.bool]] = None,
@@ -176,6 +193,7 @@ class Machine(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input[Union['ConfigArgs', 'ConfigArgsDict']] config: An object defining the Machine configuration
         :param pulumi.Input[_builtins.str] name: Unique name for this Machine. If omitted, one is generated for you
+        :param pulumi.Input[Union['MachineQueryParamsArgs', 'MachineQueryParamsArgsDict', 'outputs.MachineQueryParams']] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input[_builtins.str] region: The target region. Omitting this param launches in the same region as your WireGuard peer connection (somewhere near you).
         """
         ...
@@ -207,6 +225,7 @@ class Machine(pulumi.CustomResource):
                  lease_ttl: pulumi.Input[Optional[_builtins.int]] = None,
                  min_secrets_version: pulumi.Input[Optional[_builtins.int]] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['MachineQueryParamsArgs', 'MachineQueryParamsArgsDict', 'outputs.MachineQueryParams']]] = None,
                  region: pulumi.Input[Optional[_builtins.str]] = None,
                  skip_launch: pulumi.Input[Optional[_builtins.bool]] = None,
                  skip_secrets: pulumi.Input[Optional[_builtins.bool]] = None,
@@ -225,6 +244,7 @@ class Machine(pulumi.CustomResource):
             __props__.__dict__["lease_ttl"] = lease_ttl
             __props__.__dict__["min_secrets_version"] = min_secrets_version
             __props__.__dict__["name"] = name
+            __props__.__dict__["query_params"] = query_params
             __props__.__dict__["region"] = region
             __props__.__dict__["skip_launch"] = skip_launch
             __props__.__dict__["skip_secrets"] = skip_secrets
@@ -282,6 +302,7 @@ class Machine(pulumi.CustomResource):
         __props__.__dict__["name"] = None
         __props__.__dict__["nonce"] = None
         __props__.__dict__["private_ip"] = None
+        __props__.__dict__["query_params"] = None
         __props__.__dict__["region"] = None
         __props__.__dict__["skip_launch"] = None
         __props__.__dict__["skip_secrets"] = None
@@ -381,6 +402,14 @@ class Machine(pulumi.CustomResource):
         PrivateIP is the internal 6PN address of the machine.
         """
         return pulumi.get(self, "private_ip")
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Output[Optional['outputs.MachineQueryParams']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
 
     @_builtins.property
     @pulumi.getter

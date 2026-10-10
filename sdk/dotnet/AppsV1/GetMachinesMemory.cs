@@ -36,6 +36,12 @@ namespace Pulumi.FlyMachines.AppsV1
         [Input("machineId", required: true)]
         public string MachineId { get; set; } = null!;
 
+        /// <summary>
+        /// Query params to send with the API request.
+        /// </summary>
+        [Input("queryParams")]
+        public Inputs.GetMachinesMemoryQueryParams? QueryParams { get; set; }
+
         public GetMachinesMemoryArgs()
         {
         }
@@ -55,6 +61,12 @@ namespace Pulumi.FlyMachines.AppsV1
         /// </summary>
         [Input("machineId", required: true)]
         public Input<string> MachineId { get; set; } = null!;
+
+        /// <summary>
+        /// Query params to send with the API request.
+        /// </summary>
+        [Input("queryParams")]
+        public Input<Inputs.GetMachinesMemoryQueryParamsArgs>? QueryParams { get; set; }
 
         public GetMachinesMemoryInvokeArgs()
         {

@@ -13,6 +13,7 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
+from ._inputs import *
 
 __all__ = [
     'GetSecretResult',
@@ -80,16 +81,19 @@ class AwaitableGetSecretResult(GetSecretResult):
 
 
 def get_secret(app_name: Optional[_builtins.str] = None,
+               query_params: Optional[Union['GetSecretQueryParams', 'GetSecretQueryParamsDict']] = None,
                secret_name: Optional[_builtins.str] = None,
                opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetSecretResult:
     """
     Use this data source to access information about an existing resource.
 
     :param _builtins.str app_name: Fly App Name
+    :param Union['GetSecretQueryParams', 'GetSecretQueryParamsDict'] query_params: Query params to send with the API request.
     :param _builtins.str secret_name: App secret name
     """
     __args__ = dict()
     __args__['appName'] = app_name
+    __args__['queryParams'] = query_params
     __args__['secretName'] = secret_name
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke('fly-machines:apps/v1:getSecret', __args__, opts=opts, typ=GetSecretResult).value
@@ -101,16 +105,19 @@ def get_secret(app_name: Optional[_builtins.str] = None,
         updated_at=pulumi.get(__ret__, 'updated_at'),
         value=pulumi.get(__ret__, 'value'))
 def get_secret_output(app_name: pulumi.Input[Optional[_builtins.str]] = None,
+                      query_params: pulumi.Input[Optional[Optional[Union['GetSecretQueryParams', 'GetSecretQueryParamsDict']]]] = None,
                       secret_name: pulumi.Input[Optional[_builtins.str]] = None,
                       opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetSecretResult]:
     """
     Use this data source to access information about an existing resource.
 
     :param _builtins.str app_name: Fly App Name
+    :param Union['GetSecretQueryParams', 'GetSecretQueryParamsDict'] query_params: Query params to send with the API request.
     :param _builtins.str secret_name: App secret name
     """
     __args__ = dict()
     __args__['appName'] = app_name
+    __args__['queryParams'] = query_params
     __args__['secretName'] = secret_name
     opts = pulumi.InvokeOutputOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke_output('fly-machines:apps/v1:getSecret', __args__, opts=opts, typ=GetSecretResult)

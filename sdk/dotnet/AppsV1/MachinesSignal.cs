@@ -12,6 +12,12 @@ namespace Pulumi.FlyMachines.AppsV1
     [FlyMachinesResourceType("fly-machines:apps/v1:MachinesSignal")]
     public partial class MachinesSignal : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Output("queryParams")]
+        public Output<Outputs.MachinesSignalQueryParams?> QueryParams { get; private set; } = null!;
+
         [Output("signal")]
         public Output<Pulumi.FlyMachines.AppsV1.MachinesSignalSignal?> Signal { get; private set; } = null!;
 
@@ -72,6 +78,12 @@ namespace Pulumi.FlyMachines.AppsV1
         /// </summary>
         [Input("machineId")]
         public Input<string>? MachineId { get; set; }
+
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Input("queryParams")]
+        public Input<Inputs.MachinesSignalQueryParamsArgs>? QueryParams { get; set; }
 
         [Input("signal")]
         public Input<Pulumi.FlyMachines.AppsV1.MachinesSignalSignal>? Signal { get; set; }

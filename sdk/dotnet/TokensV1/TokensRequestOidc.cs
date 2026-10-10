@@ -21,6 +21,12 @@ namespace Pulumi.FlyMachines.TokensV1
         [Output("awsPrincipalTags")]
         public Output<bool?> AwsPrincipalTags { get; private set; } = null!;
 
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Output("queryParams")]
+        public Output<Outputs.TokensRequestOidcQueryParams?> QueryParams { get; private set; } = null!;
+
 
         /// <summary>
         /// Create a TokensRequestOidc resource with the given unique name, arguments, and options.
@@ -72,6 +78,12 @@ namespace Pulumi.FlyMachines.TokensV1
 
         [Input("awsPrincipalTags")]
         public Input<bool>? AwsPrincipalTags { get; set; }
+
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Input("queryParams")]
+        public Input<Inputs.TokensRequestOidcQueryParamsArgs>? QueryParams { get; set; }
 
         public TokensRequestOidcArgs()
         {

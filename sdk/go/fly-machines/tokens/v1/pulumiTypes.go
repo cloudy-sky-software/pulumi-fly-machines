@@ -268,6 +268,146 @@ func (o FlyioAccessPtrOutput) Volume() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// Query params for the API request.
+type GetCurrentTokenQueryParams struct {
+	// Additional query params to send with the request that are not defined in the API spec.
+	AdditionalParams map[string]string `pulumi:"additionalParams"`
+}
+
+// GetCurrentTokenQueryParamsInput is an input type that accepts GetCurrentTokenQueryParamsArgs and GetCurrentTokenQueryParamsOutput values.
+// You can construct a concrete instance of `GetCurrentTokenQueryParamsInput` via:
+//
+//	GetCurrentTokenQueryParamsArgs{...}
+type GetCurrentTokenQueryParamsInput interface {
+	pulumi.Input
+
+	ToGetCurrentTokenQueryParamsOutput() GetCurrentTokenQueryParamsOutput
+	ToGetCurrentTokenQueryParamsOutputWithContext(context.Context) GetCurrentTokenQueryParamsOutput
+}
+
+// Query params for the API request.
+type GetCurrentTokenQueryParamsArgs struct {
+	// Additional query params to send with the request that are not defined in the API spec.
+	AdditionalParams pulumi.StringMapInput `pulumi:"additionalParams"`
+}
+
+func (GetCurrentTokenQueryParamsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetCurrentTokenQueryParams)(nil)).Elem()
+}
+
+func (i GetCurrentTokenQueryParamsArgs) ToGetCurrentTokenQueryParamsOutput() GetCurrentTokenQueryParamsOutput {
+	return i.ToGetCurrentTokenQueryParamsOutputWithContext(context.Background())
+}
+
+func (i GetCurrentTokenQueryParamsArgs) ToGetCurrentTokenQueryParamsOutputWithContext(ctx context.Context) GetCurrentTokenQueryParamsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetCurrentTokenQueryParamsOutput)
+}
+
+func (i GetCurrentTokenQueryParamsArgs) ToGetCurrentTokenQueryParamsPtrOutput() GetCurrentTokenQueryParamsPtrOutput {
+	return i.ToGetCurrentTokenQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (i GetCurrentTokenQueryParamsArgs) ToGetCurrentTokenQueryParamsPtrOutputWithContext(ctx context.Context) GetCurrentTokenQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetCurrentTokenQueryParamsOutput).ToGetCurrentTokenQueryParamsPtrOutputWithContext(ctx)
+}
+
+// GetCurrentTokenQueryParamsPtrInput is an input type that accepts GetCurrentTokenQueryParamsArgs, GetCurrentTokenQueryParamsPtr and GetCurrentTokenQueryParamsPtrOutput values.
+// You can construct a concrete instance of `GetCurrentTokenQueryParamsPtrInput` via:
+//
+//	        GetCurrentTokenQueryParamsArgs{...}
+//
+//	or:
+//
+//	        nil
+type GetCurrentTokenQueryParamsPtrInput interface {
+	pulumi.Input
+
+	ToGetCurrentTokenQueryParamsPtrOutput() GetCurrentTokenQueryParamsPtrOutput
+	ToGetCurrentTokenQueryParamsPtrOutputWithContext(context.Context) GetCurrentTokenQueryParamsPtrOutput
+}
+
+type getCurrentTokenQueryParamsPtrType GetCurrentTokenQueryParamsArgs
+
+func GetCurrentTokenQueryParamsPtr(v *GetCurrentTokenQueryParamsArgs) GetCurrentTokenQueryParamsPtrInput {
+	return (*getCurrentTokenQueryParamsPtrType)(v)
+}
+
+func (*getCurrentTokenQueryParamsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GetCurrentTokenQueryParams)(nil)).Elem()
+}
+
+func (i *getCurrentTokenQueryParamsPtrType) ToGetCurrentTokenQueryParamsPtrOutput() GetCurrentTokenQueryParamsPtrOutput {
+	return i.ToGetCurrentTokenQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (i *getCurrentTokenQueryParamsPtrType) ToGetCurrentTokenQueryParamsPtrOutputWithContext(ctx context.Context) GetCurrentTokenQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetCurrentTokenQueryParamsPtrOutput)
+}
+
+// Query params for the API request.
+type GetCurrentTokenQueryParamsOutput struct{ *pulumi.OutputState }
+
+func (GetCurrentTokenQueryParamsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetCurrentTokenQueryParams)(nil)).Elem()
+}
+
+func (o GetCurrentTokenQueryParamsOutput) ToGetCurrentTokenQueryParamsOutput() GetCurrentTokenQueryParamsOutput {
+	return o
+}
+
+func (o GetCurrentTokenQueryParamsOutput) ToGetCurrentTokenQueryParamsOutputWithContext(ctx context.Context) GetCurrentTokenQueryParamsOutput {
+	return o
+}
+
+func (o GetCurrentTokenQueryParamsOutput) ToGetCurrentTokenQueryParamsPtrOutput() GetCurrentTokenQueryParamsPtrOutput {
+	return o.ToGetCurrentTokenQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (o GetCurrentTokenQueryParamsOutput) ToGetCurrentTokenQueryParamsPtrOutputWithContext(ctx context.Context) GetCurrentTokenQueryParamsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GetCurrentTokenQueryParams) *GetCurrentTokenQueryParams {
+		return &v
+	}).(GetCurrentTokenQueryParamsPtrOutput)
+}
+
+// Additional query params to send with the request that are not defined in the API spec.
+func (o GetCurrentTokenQueryParamsOutput) AdditionalParams() pulumi.StringMapOutput {
+	return o.ApplyT(func(v GetCurrentTokenQueryParams) map[string]string { return v.AdditionalParams }).(pulumi.StringMapOutput)
+}
+
+type GetCurrentTokenQueryParamsPtrOutput struct{ *pulumi.OutputState }
+
+func (GetCurrentTokenQueryParamsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GetCurrentTokenQueryParams)(nil)).Elem()
+}
+
+func (o GetCurrentTokenQueryParamsPtrOutput) ToGetCurrentTokenQueryParamsPtrOutput() GetCurrentTokenQueryParamsPtrOutput {
+	return o
+}
+
+func (o GetCurrentTokenQueryParamsPtrOutput) ToGetCurrentTokenQueryParamsPtrOutputWithContext(ctx context.Context) GetCurrentTokenQueryParamsPtrOutput {
+	return o
+}
+
+func (o GetCurrentTokenQueryParamsPtrOutput) Elem() GetCurrentTokenQueryParamsOutput {
+	return o.ApplyT(func(v *GetCurrentTokenQueryParams) GetCurrentTokenQueryParams {
+		if v != nil {
+			return *v
+		}
+		var ret GetCurrentTokenQueryParams
+		return ret
+	}).(GetCurrentTokenQueryParamsOutput)
+}
+
+// Additional query params to send with the request that are not defined in the API spec.
+func (o GetCurrentTokenQueryParamsPtrOutput) AdditionalParams() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *GetCurrentTokenQueryParams) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.AdditionalParams
+	}).(pulumi.StringMapOutput)
+}
+
 type MacaroonCaveatSet struct {
 	Caveats []interface{} `pulumi:"caveats"`
 }
@@ -1158,13 +1298,1153 @@ func (o RootVerifiedTokenPtrOutput) PermissionToken() pulumi.IntArrayOutput {
 	}).(pulumi.IntArrayOutput)
 }
 
+// Query params for the API request.
+type TokensAuthenticateCreateQueryParams struct {
+	// Additional query params to send with the request that are not defined in the API spec.
+	AdditionalParams map[string]string `pulumi:"additionalParams"`
+}
+
+// TokensAuthenticateCreateQueryParamsInput is an input type that accepts TokensAuthenticateCreateQueryParamsArgs and TokensAuthenticateCreateQueryParamsOutput values.
+// You can construct a concrete instance of `TokensAuthenticateCreateQueryParamsInput` via:
+//
+//	TokensAuthenticateCreateQueryParamsArgs{...}
+type TokensAuthenticateCreateQueryParamsInput interface {
+	pulumi.Input
+
+	ToTokensAuthenticateCreateQueryParamsOutput() TokensAuthenticateCreateQueryParamsOutput
+	ToTokensAuthenticateCreateQueryParamsOutputWithContext(context.Context) TokensAuthenticateCreateQueryParamsOutput
+}
+
+// Query params for the API request.
+type TokensAuthenticateCreateQueryParamsArgs struct {
+	// Additional query params to send with the request that are not defined in the API spec.
+	AdditionalParams pulumi.StringMapInput `pulumi:"additionalParams"`
+}
+
+func (TokensAuthenticateCreateQueryParamsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TokensAuthenticateCreateQueryParams)(nil)).Elem()
+}
+
+func (i TokensAuthenticateCreateQueryParamsArgs) ToTokensAuthenticateCreateQueryParamsOutput() TokensAuthenticateCreateQueryParamsOutput {
+	return i.ToTokensAuthenticateCreateQueryParamsOutputWithContext(context.Background())
+}
+
+func (i TokensAuthenticateCreateQueryParamsArgs) ToTokensAuthenticateCreateQueryParamsOutputWithContext(ctx context.Context) TokensAuthenticateCreateQueryParamsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokensAuthenticateCreateQueryParamsOutput)
+}
+
+func (i TokensAuthenticateCreateQueryParamsArgs) ToTokensAuthenticateCreateQueryParamsPtrOutput() TokensAuthenticateCreateQueryParamsPtrOutput {
+	return i.ToTokensAuthenticateCreateQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (i TokensAuthenticateCreateQueryParamsArgs) ToTokensAuthenticateCreateQueryParamsPtrOutputWithContext(ctx context.Context) TokensAuthenticateCreateQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokensAuthenticateCreateQueryParamsOutput).ToTokensAuthenticateCreateQueryParamsPtrOutputWithContext(ctx)
+}
+
+// TokensAuthenticateCreateQueryParamsPtrInput is an input type that accepts TokensAuthenticateCreateQueryParamsArgs, TokensAuthenticateCreateQueryParamsPtr and TokensAuthenticateCreateQueryParamsPtrOutput values.
+// You can construct a concrete instance of `TokensAuthenticateCreateQueryParamsPtrInput` via:
+//
+//	        TokensAuthenticateCreateQueryParamsArgs{...}
+//
+//	or:
+//
+//	        nil
+type TokensAuthenticateCreateQueryParamsPtrInput interface {
+	pulumi.Input
+
+	ToTokensAuthenticateCreateQueryParamsPtrOutput() TokensAuthenticateCreateQueryParamsPtrOutput
+	ToTokensAuthenticateCreateQueryParamsPtrOutputWithContext(context.Context) TokensAuthenticateCreateQueryParamsPtrOutput
+}
+
+type tokensAuthenticateCreateQueryParamsPtrType TokensAuthenticateCreateQueryParamsArgs
+
+func TokensAuthenticateCreateQueryParamsPtr(v *TokensAuthenticateCreateQueryParamsArgs) TokensAuthenticateCreateQueryParamsPtrInput {
+	return (*tokensAuthenticateCreateQueryParamsPtrType)(v)
+}
+
+func (*tokensAuthenticateCreateQueryParamsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TokensAuthenticateCreateQueryParams)(nil)).Elem()
+}
+
+func (i *tokensAuthenticateCreateQueryParamsPtrType) ToTokensAuthenticateCreateQueryParamsPtrOutput() TokensAuthenticateCreateQueryParamsPtrOutput {
+	return i.ToTokensAuthenticateCreateQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (i *tokensAuthenticateCreateQueryParamsPtrType) ToTokensAuthenticateCreateQueryParamsPtrOutputWithContext(ctx context.Context) TokensAuthenticateCreateQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokensAuthenticateCreateQueryParamsPtrOutput)
+}
+
+// Query params for the API request.
+type TokensAuthenticateCreateQueryParamsOutput struct{ *pulumi.OutputState }
+
+func (TokensAuthenticateCreateQueryParamsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TokensAuthenticateCreateQueryParams)(nil)).Elem()
+}
+
+func (o TokensAuthenticateCreateQueryParamsOutput) ToTokensAuthenticateCreateQueryParamsOutput() TokensAuthenticateCreateQueryParamsOutput {
+	return o
+}
+
+func (o TokensAuthenticateCreateQueryParamsOutput) ToTokensAuthenticateCreateQueryParamsOutputWithContext(ctx context.Context) TokensAuthenticateCreateQueryParamsOutput {
+	return o
+}
+
+func (o TokensAuthenticateCreateQueryParamsOutput) ToTokensAuthenticateCreateQueryParamsPtrOutput() TokensAuthenticateCreateQueryParamsPtrOutput {
+	return o.ToTokensAuthenticateCreateQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (o TokensAuthenticateCreateQueryParamsOutput) ToTokensAuthenticateCreateQueryParamsPtrOutputWithContext(ctx context.Context) TokensAuthenticateCreateQueryParamsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TokensAuthenticateCreateQueryParams) *TokensAuthenticateCreateQueryParams {
+		return &v
+	}).(TokensAuthenticateCreateQueryParamsPtrOutput)
+}
+
+// Additional query params to send with the request that are not defined in the API spec.
+func (o TokensAuthenticateCreateQueryParamsOutput) AdditionalParams() pulumi.StringMapOutput {
+	return o.ApplyT(func(v TokensAuthenticateCreateQueryParams) map[string]string { return v.AdditionalParams }).(pulumi.StringMapOutput)
+}
+
+type TokensAuthenticateCreateQueryParamsPtrOutput struct{ *pulumi.OutputState }
+
+func (TokensAuthenticateCreateQueryParamsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TokensAuthenticateCreateQueryParams)(nil)).Elem()
+}
+
+func (o TokensAuthenticateCreateQueryParamsPtrOutput) ToTokensAuthenticateCreateQueryParamsPtrOutput() TokensAuthenticateCreateQueryParamsPtrOutput {
+	return o
+}
+
+func (o TokensAuthenticateCreateQueryParamsPtrOutput) ToTokensAuthenticateCreateQueryParamsPtrOutputWithContext(ctx context.Context) TokensAuthenticateCreateQueryParamsPtrOutput {
+	return o
+}
+
+func (o TokensAuthenticateCreateQueryParamsPtrOutput) Elem() TokensAuthenticateCreateQueryParamsOutput {
+	return o.ApplyT(func(v *TokensAuthenticateCreateQueryParams) TokensAuthenticateCreateQueryParams {
+		if v != nil {
+			return *v
+		}
+		var ret TokensAuthenticateCreateQueryParams
+		return ret
+	}).(TokensAuthenticateCreateQueryParamsOutput)
+}
+
+// Additional query params to send with the request that are not defined in the API spec.
+func (o TokensAuthenticateCreateQueryParamsPtrOutput) AdditionalParams() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *TokensAuthenticateCreateQueryParams) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.AdditionalParams
+	}).(pulumi.StringMapOutput)
+}
+
+// Query params for each of the operations of the resource.
+type TokensAuthenticateQueryParams struct {
+	// Query params for the create operation.
+	Create *TokensAuthenticateCreateQueryParams `pulumi:"create"`
+}
+
+// TokensAuthenticateQueryParamsInput is an input type that accepts TokensAuthenticateQueryParamsArgs and TokensAuthenticateQueryParamsOutput values.
+// You can construct a concrete instance of `TokensAuthenticateQueryParamsInput` via:
+//
+//	TokensAuthenticateQueryParamsArgs{...}
+type TokensAuthenticateQueryParamsInput interface {
+	pulumi.Input
+
+	ToTokensAuthenticateQueryParamsOutput() TokensAuthenticateQueryParamsOutput
+	ToTokensAuthenticateQueryParamsOutputWithContext(context.Context) TokensAuthenticateQueryParamsOutput
+}
+
+// Query params for each of the operations of the resource.
+type TokensAuthenticateQueryParamsArgs struct {
+	// Query params for the create operation.
+	Create TokensAuthenticateCreateQueryParamsPtrInput `pulumi:"create"`
+}
+
+func (TokensAuthenticateQueryParamsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TokensAuthenticateQueryParams)(nil)).Elem()
+}
+
+func (i TokensAuthenticateQueryParamsArgs) ToTokensAuthenticateQueryParamsOutput() TokensAuthenticateQueryParamsOutput {
+	return i.ToTokensAuthenticateQueryParamsOutputWithContext(context.Background())
+}
+
+func (i TokensAuthenticateQueryParamsArgs) ToTokensAuthenticateQueryParamsOutputWithContext(ctx context.Context) TokensAuthenticateQueryParamsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokensAuthenticateQueryParamsOutput)
+}
+
+func (i TokensAuthenticateQueryParamsArgs) ToTokensAuthenticateQueryParamsPtrOutput() TokensAuthenticateQueryParamsPtrOutput {
+	return i.ToTokensAuthenticateQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (i TokensAuthenticateQueryParamsArgs) ToTokensAuthenticateQueryParamsPtrOutputWithContext(ctx context.Context) TokensAuthenticateQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokensAuthenticateQueryParamsOutput).ToTokensAuthenticateQueryParamsPtrOutputWithContext(ctx)
+}
+
+// TokensAuthenticateQueryParamsPtrInput is an input type that accepts TokensAuthenticateQueryParamsArgs, TokensAuthenticateQueryParamsPtr and TokensAuthenticateQueryParamsPtrOutput values.
+// You can construct a concrete instance of `TokensAuthenticateQueryParamsPtrInput` via:
+//
+//	        TokensAuthenticateQueryParamsArgs{...}
+//
+//	or:
+//
+//	        nil
+type TokensAuthenticateQueryParamsPtrInput interface {
+	pulumi.Input
+
+	ToTokensAuthenticateQueryParamsPtrOutput() TokensAuthenticateQueryParamsPtrOutput
+	ToTokensAuthenticateQueryParamsPtrOutputWithContext(context.Context) TokensAuthenticateQueryParamsPtrOutput
+}
+
+type tokensAuthenticateQueryParamsPtrType TokensAuthenticateQueryParamsArgs
+
+func TokensAuthenticateQueryParamsPtr(v *TokensAuthenticateQueryParamsArgs) TokensAuthenticateQueryParamsPtrInput {
+	return (*tokensAuthenticateQueryParamsPtrType)(v)
+}
+
+func (*tokensAuthenticateQueryParamsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TokensAuthenticateQueryParams)(nil)).Elem()
+}
+
+func (i *tokensAuthenticateQueryParamsPtrType) ToTokensAuthenticateQueryParamsPtrOutput() TokensAuthenticateQueryParamsPtrOutput {
+	return i.ToTokensAuthenticateQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (i *tokensAuthenticateQueryParamsPtrType) ToTokensAuthenticateQueryParamsPtrOutputWithContext(ctx context.Context) TokensAuthenticateQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokensAuthenticateQueryParamsPtrOutput)
+}
+
+// Query params for each of the operations of the resource.
+type TokensAuthenticateQueryParamsOutput struct{ *pulumi.OutputState }
+
+func (TokensAuthenticateQueryParamsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TokensAuthenticateQueryParams)(nil)).Elem()
+}
+
+func (o TokensAuthenticateQueryParamsOutput) ToTokensAuthenticateQueryParamsOutput() TokensAuthenticateQueryParamsOutput {
+	return o
+}
+
+func (o TokensAuthenticateQueryParamsOutput) ToTokensAuthenticateQueryParamsOutputWithContext(ctx context.Context) TokensAuthenticateQueryParamsOutput {
+	return o
+}
+
+func (o TokensAuthenticateQueryParamsOutput) ToTokensAuthenticateQueryParamsPtrOutput() TokensAuthenticateQueryParamsPtrOutput {
+	return o.ToTokensAuthenticateQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (o TokensAuthenticateQueryParamsOutput) ToTokensAuthenticateQueryParamsPtrOutputWithContext(ctx context.Context) TokensAuthenticateQueryParamsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TokensAuthenticateQueryParams) *TokensAuthenticateQueryParams {
+		return &v
+	}).(TokensAuthenticateQueryParamsPtrOutput)
+}
+
+// Query params for the create operation.
+func (o TokensAuthenticateQueryParamsOutput) Create() TokensAuthenticateCreateQueryParamsPtrOutput {
+	return o.ApplyT(func(v TokensAuthenticateQueryParams) *TokensAuthenticateCreateQueryParams { return v.Create }).(TokensAuthenticateCreateQueryParamsPtrOutput)
+}
+
+type TokensAuthenticateQueryParamsPtrOutput struct{ *pulumi.OutputState }
+
+func (TokensAuthenticateQueryParamsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TokensAuthenticateQueryParams)(nil)).Elem()
+}
+
+func (o TokensAuthenticateQueryParamsPtrOutput) ToTokensAuthenticateQueryParamsPtrOutput() TokensAuthenticateQueryParamsPtrOutput {
+	return o
+}
+
+func (o TokensAuthenticateQueryParamsPtrOutput) ToTokensAuthenticateQueryParamsPtrOutputWithContext(ctx context.Context) TokensAuthenticateQueryParamsPtrOutput {
+	return o
+}
+
+func (o TokensAuthenticateQueryParamsPtrOutput) Elem() TokensAuthenticateQueryParamsOutput {
+	return o.ApplyT(func(v *TokensAuthenticateQueryParams) TokensAuthenticateQueryParams {
+		if v != nil {
+			return *v
+		}
+		var ret TokensAuthenticateQueryParams
+		return ret
+	}).(TokensAuthenticateQueryParamsOutput)
+}
+
+// Query params for the create operation.
+func (o TokensAuthenticateQueryParamsPtrOutput) Create() TokensAuthenticateCreateQueryParamsPtrOutput {
+	return o.ApplyT(func(v *TokensAuthenticateQueryParams) *TokensAuthenticateCreateQueryParams {
+		if v == nil {
+			return nil
+		}
+		return v.Create
+	}).(TokensAuthenticateCreateQueryParamsPtrOutput)
+}
+
+// Query params for the API request.
+type TokensAuthorizeCreateQueryParams struct {
+	// Additional query params to send with the request that are not defined in the API spec.
+	AdditionalParams map[string]string `pulumi:"additionalParams"`
+}
+
+// TokensAuthorizeCreateQueryParamsInput is an input type that accepts TokensAuthorizeCreateQueryParamsArgs and TokensAuthorizeCreateQueryParamsOutput values.
+// You can construct a concrete instance of `TokensAuthorizeCreateQueryParamsInput` via:
+//
+//	TokensAuthorizeCreateQueryParamsArgs{...}
+type TokensAuthorizeCreateQueryParamsInput interface {
+	pulumi.Input
+
+	ToTokensAuthorizeCreateQueryParamsOutput() TokensAuthorizeCreateQueryParamsOutput
+	ToTokensAuthorizeCreateQueryParamsOutputWithContext(context.Context) TokensAuthorizeCreateQueryParamsOutput
+}
+
+// Query params for the API request.
+type TokensAuthorizeCreateQueryParamsArgs struct {
+	// Additional query params to send with the request that are not defined in the API spec.
+	AdditionalParams pulumi.StringMapInput `pulumi:"additionalParams"`
+}
+
+func (TokensAuthorizeCreateQueryParamsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TokensAuthorizeCreateQueryParams)(nil)).Elem()
+}
+
+func (i TokensAuthorizeCreateQueryParamsArgs) ToTokensAuthorizeCreateQueryParamsOutput() TokensAuthorizeCreateQueryParamsOutput {
+	return i.ToTokensAuthorizeCreateQueryParamsOutputWithContext(context.Background())
+}
+
+func (i TokensAuthorizeCreateQueryParamsArgs) ToTokensAuthorizeCreateQueryParamsOutputWithContext(ctx context.Context) TokensAuthorizeCreateQueryParamsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokensAuthorizeCreateQueryParamsOutput)
+}
+
+func (i TokensAuthorizeCreateQueryParamsArgs) ToTokensAuthorizeCreateQueryParamsPtrOutput() TokensAuthorizeCreateQueryParamsPtrOutput {
+	return i.ToTokensAuthorizeCreateQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (i TokensAuthorizeCreateQueryParamsArgs) ToTokensAuthorizeCreateQueryParamsPtrOutputWithContext(ctx context.Context) TokensAuthorizeCreateQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokensAuthorizeCreateQueryParamsOutput).ToTokensAuthorizeCreateQueryParamsPtrOutputWithContext(ctx)
+}
+
+// TokensAuthorizeCreateQueryParamsPtrInput is an input type that accepts TokensAuthorizeCreateQueryParamsArgs, TokensAuthorizeCreateQueryParamsPtr and TokensAuthorizeCreateQueryParamsPtrOutput values.
+// You can construct a concrete instance of `TokensAuthorizeCreateQueryParamsPtrInput` via:
+//
+//	        TokensAuthorizeCreateQueryParamsArgs{...}
+//
+//	or:
+//
+//	        nil
+type TokensAuthorizeCreateQueryParamsPtrInput interface {
+	pulumi.Input
+
+	ToTokensAuthorizeCreateQueryParamsPtrOutput() TokensAuthorizeCreateQueryParamsPtrOutput
+	ToTokensAuthorizeCreateQueryParamsPtrOutputWithContext(context.Context) TokensAuthorizeCreateQueryParamsPtrOutput
+}
+
+type tokensAuthorizeCreateQueryParamsPtrType TokensAuthorizeCreateQueryParamsArgs
+
+func TokensAuthorizeCreateQueryParamsPtr(v *TokensAuthorizeCreateQueryParamsArgs) TokensAuthorizeCreateQueryParamsPtrInput {
+	return (*tokensAuthorizeCreateQueryParamsPtrType)(v)
+}
+
+func (*tokensAuthorizeCreateQueryParamsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TokensAuthorizeCreateQueryParams)(nil)).Elem()
+}
+
+func (i *tokensAuthorizeCreateQueryParamsPtrType) ToTokensAuthorizeCreateQueryParamsPtrOutput() TokensAuthorizeCreateQueryParamsPtrOutput {
+	return i.ToTokensAuthorizeCreateQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (i *tokensAuthorizeCreateQueryParamsPtrType) ToTokensAuthorizeCreateQueryParamsPtrOutputWithContext(ctx context.Context) TokensAuthorizeCreateQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokensAuthorizeCreateQueryParamsPtrOutput)
+}
+
+// Query params for the API request.
+type TokensAuthorizeCreateQueryParamsOutput struct{ *pulumi.OutputState }
+
+func (TokensAuthorizeCreateQueryParamsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TokensAuthorizeCreateQueryParams)(nil)).Elem()
+}
+
+func (o TokensAuthorizeCreateQueryParamsOutput) ToTokensAuthorizeCreateQueryParamsOutput() TokensAuthorizeCreateQueryParamsOutput {
+	return o
+}
+
+func (o TokensAuthorizeCreateQueryParamsOutput) ToTokensAuthorizeCreateQueryParamsOutputWithContext(ctx context.Context) TokensAuthorizeCreateQueryParamsOutput {
+	return o
+}
+
+func (o TokensAuthorizeCreateQueryParamsOutput) ToTokensAuthorizeCreateQueryParamsPtrOutput() TokensAuthorizeCreateQueryParamsPtrOutput {
+	return o.ToTokensAuthorizeCreateQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (o TokensAuthorizeCreateQueryParamsOutput) ToTokensAuthorizeCreateQueryParamsPtrOutputWithContext(ctx context.Context) TokensAuthorizeCreateQueryParamsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TokensAuthorizeCreateQueryParams) *TokensAuthorizeCreateQueryParams {
+		return &v
+	}).(TokensAuthorizeCreateQueryParamsPtrOutput)
+}
+
+// Additional query params to send with the request that are not defined in the API spec.
+func (o TokensAuthorizeCreateQueryParamsOutput) AdditionalParams() pulumi.StringMapOutput {
+	return o.ApplyT(func(v TokensAuthorizeCreateQueryParams) map[string]string { return v.AdditionalParams }).(pulumi.StringMapOutput)
+}
+
+type TokensAuthorizeCreateQueryParamsPtrOutput struct{ *pulumi.OutputState }
+
+func (TokensAuthorizeCreateQueryParamsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TokensAuthorizeCreateQueryParams)(nil)).Elem()
+}
+
+func (o TokensAuthorizeCreateQueryParamsPtrOutput) ToTokensAuthorizeCreateQueryParamsPtrOutput() TokensAuthorizeCreateQueryParamsPtrOutput {
+	return o
+}
+
+func (o TokensAuthorizeCreateQueryParamsPtrOutput) ToTokensAuthorizeCreateQueryParamsPtrOutputWithContext(ctx context.Context) TokensAuthorizeCreateQueryParamsPtrOutput {
+	return o
+}
+
+func (o TokensAuthorizeCreateQueryParamsPtrOutput) Elem() TokensAuthorizeCreateQueryParamsOutput {
+	return o.ApplyT(func(v *TokensAuthorizeCreateQueryParams) TokensAuthorizeCreateQueryParams {
+		if v != nil {
+			return *v
+		}
+		var ret TokensAuthorizeCreateQueryParams
+		return ret
+	}).(TokensAuthorizeCreateQueryParamsOutput)
+}
+
+// Additional query params to send with the request that are not defined in the API spec.
+func (o TokensAuthorizeCreateQueryParamsPtrOutput) AdditionalParams() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *TokensAuthorizeCreateQueryParams) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.AdditionalParams
+	}).(pulumi.StringMapOutput)
+}
+
+// Query params for each of the operations of the resource.
+type TokensAuthorizeQueryParams struct {
+	// Query params for the create operation.
+	Create *TokensAuthorizeCreateQueryParams `pulumi:"create"`
+}
+
+// TokensAuthorizeQueryParamsInput is an input type that accepts TokensAuthorizeQueryParamsArgs and TokensAuthorizeQueryParamsOutput values.
+// You can construct a concrete instance of `TokensAuthorizeQueryParamsInput` via:
+//
+//	TokensAuthorizeQueryParamsArgs{...}
+type TokensAuthorizeQueryParamsInput interface {
+	pulumi.Input
+
+	ToTokensAuthorizeQueryParamsOutput() TokensAuthorizeQueryParamsOutput
+	ToTokensAuthorizeQueryParamsOutputWithContext(context.Context) TokensAuthorizeQueryParamsOutput
+}
+
+// Query params for each of the operations of the resource.
+type TokensAuthorizeQueryParamsArgs struct {
+	// Query params for the create operation.
+	Create TokensAuthorizeCreateQueryParamsPtrInput `pulumi:"create"`
+}
+
+func (TokensAuthorizeQueryParamsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TokensAuthorizeQueryParams)(nil)).Elem()
+}
+
+func (i TokensAuthorizeQueryParamsArgs) ToTokensAuthorizeQueryParamsOutput() TokensAuthorizeQueryParamsOutput {
+	return i.ToTokensAuthorizeQueryParamsOutputWithContext(context.Background())
+}
+
+func (i TokensAuthorizeQueryParamsArgs) ToTokensAuthorizeQueryParamsOutputWithContext(ctx context.Context) TokensAuthorizeQueryParamsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokensAuthorizeQueryParamsOutput)
+}
+
+func (i TokensAuthorizeQueryParamsArgs) ToTokensAuthorizeQueryParamsPtrOutput() TokensAuthorizeQueryParamsPtrOutput {
+	return i.ToTokensAuthorizeQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (i TokensAuthorizeQueryParamsArgs) ToTokensAuthorizeQueryParamsPtrOutputWithContext(ctx context.Context) TokensAuthorizeQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokensAuthorizeQueryParamsOutput).ToTokensAuthorizeQueryParamsPtrOutputWithContext(ctx)
+}
+
+// TokensAuthorizeQueryParamsPtrInput is an input type that accepts TokensAuthorizeQueryParamsArgs, TokensAuthorizeQueryParamsPtr and TokensAuthorizeQueryParamsPtrOutput values.
+// You can construct a concrete instance of `TokensAuthorizeQueryParamsPtrInput` via:
+//
+//	        TokensAuthorizeQueryParamsArgs{...}
+//
+//	or:
+//
+//	        nil
+type TokensAuthorizeQueryParamsPtrInput interface {
+	pulumi.Input
+
+	ToTokensAuthorizeQueryParamsPtrOutput() TokensAuthorizeQueryParamsPtrOutput
+	ToTokensAuthorizeQueryParamsPtrOutputWithContext(context.Context) TokensAuthorizeQueryParamsPtrOutput
+}
+
+type tokensAuthorizeQueryParamsPtrType TokensAuthorizeQueryParamsArgs
+
+func TokensAuthorizeQueryParamsPtr(v *TokensAuthorizeQueryParamsArgs) TokensAuthorizeQueryParamsPtrInput {
+	return (*tokensAuthorizeQueryParamsPtrType)(v)
+}
+
+func (*tokensAuthorizeQueryParamsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TokensAuthorizeQueryParams)(nil)).Elem()
+}
+
+func (i *tokensAuthorizeQueryParamsPtrType) ToTokensAuthorizeQueryParamsPtrOutput() TokensAuthorizeQueryParamsPtrOutput {
+	return i.ToTokensAuthorizeQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (i *tokensAuthorizeQueryParamsPtrType) ToTokensAuthorizeQueryParamsPtrOutputWithContext(ctx context.Context) TokensAuthorizeQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokensAuthorizeQueryParamsPtrOutput)
+}
+
+// Query params for each of the operations of the resource.
+type TokensAuthorizeQueryParamsOutput struct{ *pulumi.OutputState }
+
+func (TokensAuthorizeQueryParamsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TokensAuthorizeQueryParams)(nil)).Elem()
+}
+
+func (o TokensAuthorizeQueryParamsOutput) ToTokensAuthorizeQueryParamsOutput() TokensAuthorizeQueryParamsOutput {
+	return o
+}
+
+func (o TokensAuthorizeQueryParamsOutput) ToTokensAuthorizeQueryParamsOutputWithContext(ctx context.Context) TokensAuthorizeQueryParamsOutput {
+	return o
+}
+
+func (o TokensAuthorizeQueryParamsOutput) ToTokensAuthorizeQueryParamsPtrOutput() TokensAuthorizeQueryParamsPtrOutput {
+	return o.ToTokensAuthorizeQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (o TokensAuthorizeQueryParamsOutput) ToTokensAuthorizeQueryParamsPtrOutputWithContext(ctx context.Context) TokensAuthorizeQueryParamsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TokensAuthorizeQueryParams) *TokensAuthorizeQueryParams {
+		return &v
+	}).(TokensAuthorizeQueryParamsPtrOutput)
+}
+
+// Query params for the create operation.
+func (o TokensAuthorizeQueryParamsOutput) Create() TokensAuthorizeCreateQueryParamsPtrOutput {
+	return o.ApplyT(func(v TokensAuthorizeQueryParams) *TokensAuthorizeCreateQueryParams { return v.Create }).(TokensAuthorizeCreateQueryParamsPtrOutput)
+}
+
+type TokensAuthorizeQueryParamsPtrOutput struct{ *pulumi.OutputState }
+
+func (TokensAuthorizeQueryParamsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TokensAuthorizeQueryParams)(nil)).Elem()
+}
+
+func (o TokensAuthorizeQueryParamsPtrOutput) ToTokensAuthorizeQueryParamsPtrOutput() TokensAuthorizeQueryParamsPtrOutput {
+	return o
+}
+
+func (o TokensAuthorizeQueryParamsPtrOutput) ToTokensAuthorizeQueryParamsPtrOutputWithContext(ctx context.Context) TokensAuthorizeQueryParamsPtrOutput {
+	return o
+}
+
+func (o TokensAuthorizeQueryParamsPtrOutput) Elem() TokensAuthorizeQueryParamsOutput {
+	return o.ApplyT(func(v *TokensAuthorizeQueryParams) TokensAuthorizeQueryParams {
+		if v != nil {
+			return *v
+		}
+		var ret TokensAuthorizeQueryParams
+		return ret
+	}).(TokensAuthorizeQueryParamsOutput)
+}
+
+// Query params for the create operation.
+func (o TokensAuthorizeQueryParamsPtrOutput) Create() TokensAuthorizeCreateQueryParamsPtrOutput {
+	return o.ApplyT(func(v *TokensAuthorizeQueryParams) *TokensAuthorizeCreateQueryParams {
+		if v == nil {
+			return nil
+		}
+		return v.Create
+	}).(TokensAuthorizeCreateQueryParamsPtrOutput)
+}
+
+// Query params for the API request.
+type TokensRequestKmCreateQueryParams struct {
+	// Additional query params to send with the request that are not defined in the API spec.
+	AdditionalParams map[string]string `pulumi:"additionalParams"`
+}
+
+// TokensRequestKmCreateQueryParamsInput is an input type that accepts TokensRequestKmCreateQueryParamsArgs and TokensRequestKmCreateQueryParamsOutput values.
+// You can construct a concrete instance of `TokensRequestKmCreateQueryParamsInput` via:
+//
+//	TokensRequestKmCreateQueryParamsArgs{...}
+type TokensRequestKmCreateQueryParamsInput interface {
+	pulumi.Input
+
+	ToTokensRequestKmCreateQueryParamsOutput() TokensRequestKmCreateQueryParamsOutput
+	ToTokensRequestKmCreateQueryParamsOutputWithContext(context.Context) TokensRequestKmCreateQueryParamsOutput
+}
+
+// Query params for the API request.
+type TokensRequestKmCreateQueryParamsArgs struct {
+	// Additional query params to send with the request that are not defined in the API spec.
+	AdditionalParams pulumi.StringMapInput `pulumi:"additionalParams"`
+}
+
+func (TokensRequestKmCreateQueryParamsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TokensRequestKmCreateQueryParams)(nil)).Elem()
+}
+
+func (i TokensRequestKmCreateQueryParamsArgs) ToTokensRequestKmCreateQueryParamsOutput() TokensRequestKmCreateQueryParamsOutput {
+	return i.ToTokensRequestKmCreateQueryParamsOutputWithContext(context.Background())
+}
+
+func (i TokensRequestKmCreateQueryParamsArgs) ToTokensRequestKmCreateQueryParamsOutputWithContext(ctx context.Context) TokensRequestKmCreateQueryParamsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokensRequestKmCreateQueryParamsOutput)
+}
+
+func (i TokensRequestKmCreateQueryParamsArgs) ToTokensRequestKmCreateQueryParamsPtrOutput() TokensRequestKmCreateQueryParamsPtrOutput {
+	return i.ToTokensRequestKmCreateQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (i TokensRequestKmCreateQueryParamsArgs) ToTokensRequestKmCreateQueryParamsPtrOutputWithContext(ctx context.Context) TokensRequestKmCreateQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokensRequestKmCreateQueryParamsOutput).ToTokensRequestKmCreateQueryParamsPtrOutputWithContext(ctx)
+}
+
+// TokensRequestKmCreateQueryParamsPtrInput is an input type that accepts TokensRequestKmCreateQueryParamsArgs, TokensRequestKmCreateQueryParamsPtr and TokensRequestKmCreateQueryParamsPtrOutput values.
+// You can construct a concrete instance of `TokensRequestKmCreateQueryParamsPtrInput` via:
+//
+//	        TokensRequestKmCreateQueryParamsArgs{...}
+//
+//	or:
+//
+//	        nil
+type TokensRequestKmCreateQueryParamsPtrInput interface {
+	pulumi.Input
+
+	ToTokensRequestKmCreateQueryParamsPtrOutput() TokensRequestKmCreateQueryParamsPtrOutput
+	ToTokensRequestKmCreateQueryParamsPtrOutputWithContext(context.Context) TokensRequestKmCreateQueryParamsPtrOutput
+}
+
+type tokensRequestKmCreateQueryParamsPtrType TokensRequestKmCreateQueryParamsArgs
+
+func TokensRequestKmCreateQueryParamsPtr(v *TokensRequestKmCreateQueryParamsArgs) TokensRequestKmCreateQueryParamsPtrInput {
+	return (*tokensRequestKmCreateQueryParamsPtrType)(v)
+}
+
+func (*tokensRequestKmCreateQueryParamsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TokensRequestKmCreateQueryParams)(nil)).Elem()
+}
+
+func (i *tokensRequestKmCreateQueryParamsPtrType) ToTokensRequestKmCreateQueryParamsPtrOutput() TokensRequestKmCreateQueryParamsPtrOutput {
+	return i.ToTokensRequestKmCreateQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (i *tokensRequestKmCreateQueryParamsPtrType) ToTokensRequestKmCreateQueryParamsPtrOutputWithContext(ctx context.Context) TokensRequestKmCreateQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokensRequestKmCreateQueryParamsPtrOutput)
+}
+
+// Query params for the API request.
+type TokensRequestKmCreateQueryParamsOutput struct{ *pulumi.OutputState }
+
+func (TokensRequestKmCreateQueryParamsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TokensRequestKmCreateQueryParams)(nil)).Elem()
+}
+
+func (o TokensRequestKmCreateQueryParamsOutput) ToTokensRequestKmCreateQueryParamsOutput() TokensRequestKmCreateQueryParamsOutput {
+	return o
+}
+
+func (o TokensRequestKmCreateQueryParamsOutput) ToTokensRequestKmCreateQueryParamsOutputWithContext(ctx context.Context) TokensRequestKmCreateQueryParamsOutput {
+	return o
+}
+
+func (o TokensRequestKmCreateQueryParamsOutput) ToTokensRequestKmCreateQueryParamsPtrOutput() TokensRequestKmCreateQueryParamsPtrOutput {
+	return o.ToTokensRequestKmCreateQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (o TokensRequestKmCreateQueryParamsOutput) ToTokensRequestKmCreateQueryParamsPtrOutputWithContext(ctx context.Context) TokensRequestKmCreateQueryParamsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TokensRequestKmCreateQueryParams) *TokensRequestKmCreateQueryParams {
+		return &v
+	}).(TokensRequestKmCreateQueryParamsPtrOutput)
+}
+
+// Additional query params to send with the request that are not defined in the API spec.
+func (o TokensRequestKmCreateQueryParamsOutput) AdditionalParams() pulumi.StringMapOutput {
+	return o.ApplyT(func(v TokensRequestKmCreateQueryParams) map[string]string { return v.AdditionalParams }).(pulumi.StringMapOutput)
+}
+
+type TokensRequestKmCreateQueryParamsPtrOutput struct{ *pulumi.OutputState }
+
+func (TokensRequestKmCreateQueryParamsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TokensRequestKmCreateQueryParams)(nil)).Elem()
+}
+
+func (o TokensRequestKmCreateQueryParamsPtrOutput) ToTokensRequestKmCreateQueryParamsPtrOutput() TokensRequestKmCreateQueryParamsPtrOutput {
+	return o
+}
+
+func (o TokensRequestKmCreateQueryParamsPtrOutput) ToTokensRequestKmCreateQueryParamsPtrOutputWithContext(ctx context.Context) TokensRequestKmCreateQueryParamsPtrOutput {
+	return o
+}
+
+func (o TokensRequestKmCreateQueryParamsPtrOutput) Elem() TokensRequestKmCreateQueryParamsOutput {
+	return o.ApplyT(func(v *TokensRequestKmCreateQueryParams) TokensRequestKmCreateQueryParams {
+		if v != nil {
+			return *v
+		}
+		var ret TokensRequestKmCreateQueryParams
+		return ret
+	}).(TokensRequestKmCreateQueryParamsOutput)
+}
+
+// Additional query params to send with the request that are not defined in the API spec.
+func (o TokensRequestKmCreateQueryParamsPtrOutput) AdditionalParams() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *TokensRequestKmCreateQueryParams) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.AdditionalParams
+	}).(pulumi.StringMapOutput)
+}
+
+// Query params for each of the operations of the resource.
+type TokensRequestKmQueryParams struct {
+	// Query params for the create operation.
+	Create *TokensRequestKmCreateQueryParams `pulumi:"create"`
+}
+
+// TokensRequestKmQueryParamsInput is an input type that accepts TokensRequestKmQueryParamsArgs and TokensRequestKmQueryParamsOutput values.
+// You can construct a concrete instance of `TokensRequestKmQueryParamsInput` via:
+//
+//	TokensRequestKmQueryParamsArgs{...}
+type TokensRequestKmQueryParamsInput interface {
+	pulumi.Input
+
+	ToTokensRequestKmQueryParamsOutput() TokensRequestKmQueryParamsOutput
+	ToTokensRequestKmQueryParamsOutputWithContext(context.Context) TokensRequestKmQueryParamsOutput
+}
+
+// Query params for each of the operations of the resource.
+type TokensRequestKmQueryParamsArgs struct {
+	// Query params for the create operation.
+	Create TokensRequestKmCreateQueryParamsPtrInput `pulumi:"create"`
+}
+
+func (TokensRequestKmQueryParamsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TokensRequestKmQueryParams)(nil)).Elem()
+}
+
+func (i TokensRequestKmQueryParamsArgs) ToTokensRequestKmQueryParamsOutput() TokensRequestKmQueryParamsOutput {
+	return i.ToTokensRequestKmQueryParamsOutputWithContext(context.Background())
+}
+
+func (i TokensRequestKmQueryParamsArgs) ToTokensRequestKmQueryParamsOutputWithContext(ctx context.Context) TokensRequestKmQueryParamsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokensRequestKmQueryParamsOutput)
+}
+
+func (i TokensRequestKmQueryParamsArgs) ToTokensRequestKmQueryParamsPtrOutput() TokensRequestKmQueryParamsPtrOutput {
+	return i.ToTokensRequestKmQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (i TokensRequestKmQueryParamsArgs) ToTokensRequestKmQueryParamsPtrOutputWithContext(ctx context.Context) TokensRequestKmQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokensRequestKmQueryParamsOutput).ToTokensRequestKmQueryParamsPtrOutputWithContext(ctx)
+}
+
+// TokensRequestKmQueryParamsPtrInput is an input type that accepts TokensRequestKmQueryParamsArgs, TokensRequestKmQueryParamsPtr and TokensRequestKmQueryParamsPtrOutput values.
+// You can construct a concrete instance of `TokensRequestKmQueryParamsPtrInput` via:
+//
+//	        TokensRequestKmQueryParamsArgs{...}
+//
+//	or:
+//
+//	        nil
+type TokensRequestKmQueryParamsPtrInput interface {
+	pulumi.Input
+
+	ToTokensRequestKmQueryParamsPtrOutput() TokensRequestKmQueryParamsPtrOutput
+	ToTokensRequestKmQueryParamsPtrOutputWithContext(context.Context) TokensRequestKmQueryParamsPtrOutput
+}
+
+type tokensRequestKmQueryParamsPtrType TokensRequestKmQueryParamsArgs
+
+func TokensRequestKmQueryParamsPtr(v *TokensRequestKmQueryParamsArgs) TokensRequestKmQueryParamsPtrInput {
+	return (*tokensRequestKmQueryParamsPtrType)(v)
+}
+
+func (*tokensRequestKmQueryParamsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TokensRequestKmQueryParams)(nil)).Elem()
+}
+
+func (i *tokensRequestKmQueryParamsPtrType) ToTokensRequestKmQueryParamsPtrOutput() TokensRequestKmQueryParamsPtrOutput {
+	return i.ToTokensRequestKmQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (i *tokensRequestKmQueryParamsPtrType) ToTokensRequestKmQueryParamsPtrOutputWithContext(ctx context.Context) TokensRequestKmQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokensRequestKmQueryParamsPtrOutput)
+}
+
+// Query params for each of the operations of the resource.
+type TokensRequestKmQueryParamsOutput struct{ *pulumi.OutputState }
+
+func (TokensRequestKmQueryParamsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TokensRequestKmQueryParams)(nil)).Elem()
+}
+
+func (o TokensRequestKmQueryParamsOutput) ToTokensRequestKmQueryParamsOutput() TokensRequestKmQueryParamsOutput {
+	return o
+}
+
+func (o TokensRequestKmQueryParamsOutput) ToTokensRequestKmQueryParamsOutputWithContext(ctx context.Context) TokensRequestKmQueryParamsOutput {
+	return o
+}
+
+func (o TokensRequestKmQueryParamsOutput) ToTokensRequestKmQueryParamsPtrOutput() TokensRequestKmQueryParamsPtrOutput {
+	return o.ToTokensRequestKmQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (o TokensRequestKmQueryParamsOutput) ToTokensRequestKmQueryParamsPtrOutputWithContext(ctx context.Context) TokensRequestKmQueryParamsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TokensRequestKmQueryParams) *TokensRequestKmQueryParams {
+		return &v
+	}).(TokensRequestKmQueryParamsPtrOutput)
+}
+
+// Query params for the create operation.
+func (o TokensRequestKmQueryParamsOutput) Create() TokensRequestKmCreateQueryParamsPtrOutput {
+	return o.ApplyT(func(v TokensRequestKmQueryParams) *TokensRequestKmCreateQueryParams { return v.Create }).(TokensRequestKmCreateQueryParamsPtrOutput)
+}
+
+type TokensRequestKmQueryParamsPtrOutput struct{ *pulumi.OutputState }
+
+func (TokensRequestKmQueryParamsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TokensRequestKmQueryParams)(nil)).Elem()
+}
+
+func (o TokensRequestKmQueryParamsPtrOutput) ToTokensRequestKmQueryParamsPtrOutput() TokensRequestKmQueryParamsPtrOutput {
+	return o
+}
+
+func (o TokensRequestKmQueryParamsPtrOutput) ToTokensRequestKmQueryParamsPtrOutputWithContext(ctx context.Context) TokensRequestKmQueryParamsPtrOutput {
+	return o
+}
+
+func (o TokensRequestKmQueryParamsPtrOutput) Elem() TokensRequestKmQueryParamsOutput {
+	return o.ApplyT(func(v *TokensRequestKmQueryParams) TokensRequestKmQueryParams {
+		if v != nil {
+			return *v
+		}
+		var ret TokensRequestKmQueryParams
+		return ret
+	}).(TokensRequestKmQueryParamsOutput)
+}
+
+// Query params for the create operation.
+func (o TokensRequestKmQueryParamsPtrOutput) Create() TokensRequestKmCreateQueryParamsPtrOutput {
+	return o.ApplyT(func(v *TokensRequestKmQueryParams) *TokensRequestKmCreateQueryParams {
+		if v == nil {
+			return nil
+		}
+		return v.Create
+	}).(TokensRequestKmCreateQueryParamsPtrOutput)
+}
+
+// Query params for the API request.
+type TokensRequestOidcCreateQueryParams struct {
+	// Additional query params to send with the request that are not defined in the API spec.
+	AdditionalParams map[string]string `pulumi:"additionalParams"`
+}
+
+// TokensRequestOidcCreateQueryParamsInput is an input type that accepts TokensRequestOidcCreateQueryParamsArgs and TokensRequestOidcCreateQueryParamsOutput values.
+// You can construct a concrete instance of `TokensRequestOidcCreateQueryParamsInput` via:
+//
+//	TokensRequestOidcCreateQueryParamsArgs{...}
+type TokensRequestOidcCreateQueryParamsInput interface {
+	pulumi.Input
+
+	ToTokensRequestOidcCreateQueryParamsOutput() TokensRequestOidcCreateQueryParamsOutput
+	ToTokensRequestOidcCreateQueryParamsOutputWithContext(context.Context) TokensRequestOidcCreateQueryParamsOutput
+}
+
+// Query params for the API request.
+type TokensRequestOidcCreateQueryParamsArgs struct {
+	// Additional query params to send with the request that are not defined in the API spec.
+	AdditionalParams pulumi.StringMapInput `pulumi:"additionalParams"`
+}
+
+func (TokensRequestOidcCreateQueryParamsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TokensRequestOidcCreateQueryParams)(nil)).Elem()
+}
+
+func (i TokensRequestOidcCreateQueryParamsArgs) ToTokensRequestOidcCreateQueryParamsOutput() TokensRequestOidcCreateQueryParamsOutput {
+	return i.ToTokensRequestOidcCreateQueryParamsOutputWithContext(context.Background())
+}
+
+func (i TokensRequestOidcCreateQueryParamsArgs) ToTokensRequestOidcCreateQueryParamsOutputWithContext(ctx context.Context) TokensRequestOidcCreateQueryParamsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokensRequestOidcCreateQueryParamsOutput)
+}
+
+func (i TokensRequestOidcCreateQueryParamsArgs) ToTokensRequestOidcCreateQueryParamsPtrOutput() TokensRequestOidcCreateQueryParamsPtrOutput {
+	return i.ToTokensRequestOidcCreateQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (i TokensRequestOidcCreateQueryParamsArgs) ToTokensRequestOidcCreateQueryParamsPtrOutputWithContext(ctx context.Context) TokensRequestOidcCreateQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokensRequestOidcCreateQueryParamsOutput).ToTokensRequestOidcCreateQueryParamsPtrOutputWithContext(ctx)
+}
+
+// TokensRequestOidcCreateQueryParamsPtrInput is an input type that accepts TokensRequestOidcCreateQueryParamsArgs, TokensRequestOidcCreateQueryParamsPtr and TokensRequestOidcCreateQueryParamsPtrOutput values.
+// You can construct a concrete instance of `TokensRequestOidcCreateQueryParamsPtrInput` via:
+//
+//	        TokensRequestOidcCreateQueryParamsArgs{...}
+//
+//	or:
+//
+//	        nil
+type TokensRequestOidcCreateQueryParamsPtrInput interface {
+	pulumi.Input
+
+	ToTokensRequestOidcCreateQueryParamsPtrOutput() TokensRequestOidcCreateQueryParamsPtrOutput
+	ToTokensRequestOidcCreateQueryParamsPtrOutputWithContext(context.Context) TokensRequestOidcCreateQueryParamsPtrOutput
+}
+
+type tokensRequestOidcCreateQueryParamsPtrType TokensRequestOidcCreateQueryParamsArgs
+
+func TokensRequestOidcCreateQueryParamsPtr(v *TokensRequestOidcCreateQueryParamsArgs) TokensRequestOidcCreateQueryParamsPtrInput {
+	return (*tokensRequestOidcCreateQueryParamsPtrType)(v)
+}
+
+func (*tokensRequestOidcCreateQueryParamsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TokensRequestOidcCreateQueryParams)(nil)).Elem()
+}
+
+func (i *tokensRequestOidcCreateQueryParamsPtrType) ToTokensRequestOidcCreateQueryParamsPtrOutput() TokensRequestOidcCreateQueryParamsPtrOutput {
+	return i.ToTokensRequestOidcCreateQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (i *tokensRequestOidcCreateQueryParamsPtrType) ToTokensRequestOidcCreateQueryParamsPtrOutputWithContext(ctx context.Context) TokensRequestOidcCreateQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokensRequestOidcCreateQueryParamsPtrOutput)
+}
+
+// Query params for the API request.
+type TokensRequestOidcCreateQueryParamsOutput struct{ *pulumi.OutputState }
+
+func (TokensRequestOidcCreateQueryParamsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TokensRequestOidcCreateQueryParams)(nil)).Elem()
+}
+
+func (o TokensRequestOidcCreateQueryParamsOutput) ToTokensRequestOidcCreateQueryParamsOutput() TokensRequestOidcCreateQueryParamsOutput {
+	return o
+}
+
+func (o TokensRequestOidcCreateQueryParamsOutput) ToTokensRequestOidcCreateQueryParamsOutputWithContext(ctx context.Context) TokensRequestOidcCreateQueryParamsOutput {
+	return o
+}
+
+func (o TokensRequestOidcCreateQueryParamsOutput) ToTokensRequestOidcCreateQueryParamsPtrOutput() TokensRequestOidcCreateQueryParamsPtrOutput {
+	return o.ToTokensRequestOidcCreateQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (o TokensRequestOidcCreateQueryParamsOutput) ToTokensRequestOidcCreateQueryParamsPtrOutputWithContext(ctx context.Context) TokensRequestOidcCreateQueryParamsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TokensRequestOidcCreateQueryParams) *TokensRequestOidcCreateQueryParams {
+		return &v
+	}).(TokensRequestOidcCreateQueryParamsPtrOutput)
+}
+
+// Additional query params to send with the request that are not defined in the API spec.
+func (o TokensRequestOidcCreateQueryParamsOutput) AdditionalParams() pulumi.StringMapOutput {
+	return o.ApplyT(func(v TokensRequestOidcCreateQueryParams) map[string]string { return v.AdditionalParams }).(pulumi.StringMapOutput)
+}
+
+type TokensRequestOidcCreateQueryParamsPtrOutput struct{ *pulumi.OutputState }
+
+func (TokensRequestOidcCreateQueryParamsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TokensRequestOidcCreateQueryParams)(nil)).Elem()
+}
+
+func (o TokensRequestOidcCreateQueryParamsPtrOutput) ToTokensRequestOidcCreateQueryParamsPtrOutput() TokensRequestOidcCreateQueryParamsPtrOutput {
+	return o
+}
+
+func (o TokensRequestOidcCreateQueryParamsPtrOutput) ToTokensRequestOidcCreateQueryParamsPtrOutputWithContext(ctx context.Context) TokensRequestOidcCreateQueryParamsPtrOutput {
+	return o
+}
+
+func (o TokensRequestOidcCreateQueryParamsPtrOutput) Elem() TokensRequestOidcCreateQueryParamsOutput {
+	return o.ApplyT(func(v *TokensRequestOidcCreateQueryParams) TokensRequestOidcCreateQueryParams {
+		if v != nil {
+			return *v
+		}
+		var ret TokensRequestOidcCreateQueryParams
+		return ret
+	}).(TokensRequestOidcCreateQueryParamsOutput)
+}
+
+// Additional query params to send with the request that are not defined in the API spec.
+func (o TokensRequestOidcCreateQueryParamsPtrOutput) AdditionalParams() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *TokensRequestOidcCreateQueryParams) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.AdditionalParams
+	}).(pulumi.StringMapOutput)
+}
+
+// Query params for each of the operations of the resource.
+type TokensRequestOidcQueryParams struct {
+	// Query params for the create operation.
+	Create *TokensRequestOidcCreateQueryParams `pulumi:"create"`
+}
+
+// TokensRequestOidcQueryParamsInput is an input type that accepts TokensRequestOidcQueryParamsArgs and TokensRequestOidcQueryParamsOutput values.
+// You can construct a concrete instance of `TokensRequestOidcQueryParamsInput` via:
+//
+//	TokensRequestOidcQueryParamsArgs{...}
+type TokensRequestOidcQueryParamsInput interface {
+	pulumi.Input
+
+	ToTokensRequestOidcQueryParamsOutput() TokensRequestOidcQueryParamsOutput
+	ToTokensRequestOidcQueryParamsOutputWithContext(context.Context) TokensRequestOidcQueryParamsOutput
+}
+
+// Query params for each of the operations of the resource.
+type TokensRequestOidcQueryParamsArgs struct {
+	// Query params for the create operation.
+	Create TokensRequestOidcCreateQueryParamsPtrInput `pulumi:"create"`
+}
+
+func (TokensRequestOidcQueryParamsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TokensRequestOidcQueryParams)(nil)).Elem()
+}
+
+func (i TokensRequestOidcQueryParamsArgs) ToTokensRequestOidcQueryParamsOutput() TokensRequestOidcQueryParamsOutput {
+	return i.ToTokensRequestOidcQueryParamsOutputWithContext(context.Background())
+}
+
+func (i TokensRequestOidcQueryParamsArgs) ToTokensRequestOidcQueryParamsOutputWithContext(ctx context.Context) TokensRequestOidcQueryParamsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokensRequestOidcQueryParamsOutput)
+}
+
+func (i TokensRequestOidcQueryParamsArgs) ToTokensRequestOidcQueryParamsPtrOutput() TokensRequestOidcQueryParamsPtrOutput {
+	return i.ToTokensRequestOidcQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (i TokensRequestOidcQueryParamsArgs) ToTokensRequestOidcQueryParamsPtrOutputWithContext(ctx context.Context) TokensRequestOidcQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokensRequestOidcQueryParamsOutput).ToTokensRequestOidcQueryParamsPtrOutputWithContext(ctx)
+}
+
+// TokensRequestOidcQueryParamsPtrInput is an input type that accepts TokensRequestOidcQueryParamsArgs, TokensRequestOidcQueryParamsPtr and TokensRequestOidcQueryParamsPtrOutput values.
+// You can construct a concrete instance of `TokensRequestOidcQueryParamsPtrInput` via:
+//
+//	        TokensRequestOidcQueryParamsArgs{...}
+//
+//	or:
+//
+//	        nil
+type TokensRequestOidcQueryParamsPtrInput interface {
+	pulumi.Input
+
+	ToTokensRequestOidcQueryParamsPtrOutput() TokensRequestOidcQueryParamsPtrOutput
+	ToTokensRequestOidcQueryParamsPtrOutputWithContext(context.Context) TokensRequestOidcQueryParamsPtrOutput
+}
+
+type tokensRequestOidcQueryParamsPtrType TokensRequestOidcQueryParamsArgs
+
+func TokensRequestOidcQueryParamsPtr(v *TokensRequestOidcQueryParamsArgs) TokensRequestOidcQueryParamsPtrInput {
+	return (*tokensRequestOidcQueryParamsPtrType)(v)
+}
+
+func (*tokensRequestOidcQueryParamsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TokensRequestOidcQueryParams)(nil)).Elem()
+}
+
+func (i *tokensRequestOidcQueryParamsPtrType) ToTokensRequestOidcQueryParamsPtrOutput() TokensRequestOidcQueryParamsPtrOutput {
+	return i.ToTokensRequestOidcQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (i *tokensRequestOidcQueryParamsPtrType) ToTokensRequestOidcQueryParamsPtrOutputWithContext(ctx context.Context) TokensRequestOidcQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokensRequestOidcQueryParamsPtrOutput)
+}
+
+// Query params for each of the operations of the resource.
+type TokensRequestOidcQueryParamsOutput struct{ *pulumi.OutputState }
+
+func (TokensRequestOidcQueryParamsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TokensRequestOidcQueryParams)(nil)).Elem()
+}
+
+func (o TokensRequestOidcQueryParamsOutput) ToTokensRequestOidcQueryParamsOutput() TokensRequestOidcQueryParamsOutput {
+	return o
+}
+
+func (o TokensRequestOidcQueryParamsOutput) ToTokensRequestOidcQueryParamsOutputWithContext(ctx context.Context) TokensRequestOidcQueryParamsOutput {
+	return o
+}
+
+func (o TokensRequestOidcQueryParamsOutput) ToTokensRequestOidcQueryParamsPtrOutput() TokensRequestOidcQueryParamsPtrOutput {
+	return o.ToTokensRequestOidcQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (o TokensRequestOidcQueryParamsOutput) ToTokensRequestOidcQueryParamsPtrOutputWithContext(ctx context.Context) TokensRequestOidcQueryParamsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TokensRequestOidcQueryParams) *TokensRequestOidcQueryParams {
+		return &v
+	}).(TokensRequestOidcQueryParamsPtrOutput)
+}
+
+// Query params for the create operation.
+func (o TokensRequestOidcQueryParamsOutput) Create() TokensRequestOidcCreateQueryParamsPtrOutput {
+	return o.ApplyT(func(v TokensRequestOidcQueryParams) *TokensRequestOidcCreateQueryParams { return v.Create }).(TokensRequestOidcCreateQueryParamsPtrOutput)
+}
+
+type TokensRequestOidcQueryParamsPtrOutput struct{ *pulumi.OutputState }
+
+func (TokensRequestOidcQueryParamsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TokensRequestOidcQueryParams)(nil)).Elem()
+}
+
+func (o TokensRequestOidcQueryParamsPtrOutput) ToTokensRequestOidcQueryParamsPtrOutput() TokensRequestOidcQueryParamsPtrOutput {
+	return o
+}
+
+func (o TokensRequestOidcQueryParamsPtrOutput) ToTokensRequestOidcQueryParamsPtrOutputWithContext(ctx context.Context) TokensRequestOidcQueryParamsPtrOutput {
+	return o
+}
+
+func (o TokensRequestOidcQueryParamsPtrOutput) Elem() TokensRequestOidcQueryParamsOutput {
+	return o.ApplyT(func(v *TokensRequestOidcQueryParams) TokensRequestOidcQueryParams {
+		if v != nil {
+			return *v
+		}
+		var ret TokensRequestOidcQueryParams
+		return ret
+	}).(TokensRequestOidcQueryParamsOutput)
+}
+
+// Query params for the create operation.
+func (o TokensRequestOidcQueryParamsPtrOutput) Create() TokensRequestOidcCreateQueryParamsPtrOutput {
+	return o.ApplyT(func(v *TokensRequestOidcQueryParams) *TokensRequestOidcCreateQueryParams {
+		if v == nil {
+			return nil
+		}
+		return v.Create
+	}).(TokensRequestOidcCreateQueryParamsPtrOutput)
+}
+
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*GetCurrentTokenQueryParamsInput)(nil)).Elem(), GetCurrentTokenQueryParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetCurrentTokenQueryParamsPtrInput)(nil)).Elem(), GetCurrentTokenQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MainTokenAccessInput)(nil)).Elem(), MainTokenAccessArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MainTokenAccessPtrInput)(nil)).Elem(), MainTokenAccessArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MainTokenAccessActionInput)(nil)).Elem(), MainTokenAccessActionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MainTokenAccessActionPtrInput)(nil)).Elem(), MainTokenAccessActionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokensAuthenticateCreateQueryParamsInput)(nil)).Elem(), TokensAuthenticateCreateQueryParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokensAuthenticateCreateQueryParamsPtrInput)(nil)).Elem(), TokensAuthenticateCreateQueryParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokensAuthenticateQueryParamsInput)(nil)).Elem(), TokensAuthenticateQueryParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokensAuthenticateQueryParamsPtrInput)(nil)).Elem(), TokensAuthenticateQueryParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokensAuthorizeCreateQueryParamsInput)(nil)).Elem(), TokensAuthorizeCreateQueryParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokensAuthorizeCreateQueryParamsPtrInput)(nil)).Elem(), TokensAuthorizeCreateQueryParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokensAuthorizeQueryParamsInput)(nil)).Elem(), TokensAuthorizeQueryParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokensAuthorizeQueryParamsPtrInput)(nil)).Elem(), TokensAuthorizeQueryParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokensRequestKmCreateQueryParamsInput)(nil)).Elem(), TokensRequestKmCreateQueryParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokensRequestKmCreateQueryParamsPtrInput)(nil)).Elem(), TokensRequestKmCreateQueryParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokensRequestKmQueryParamsInput)(nil)).Elem(), TokensRequestKmQueryParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokensRequestKmQueryParamsPtrInput)(nil)).Elem(), TokensRequestKmQueryParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokensRequestOidcCreateQueryParamsInput)(nil)).Elem(), TokensRequestOidcCreateQueryParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokensRequestOidcCreateQueryParamsPtrInput)(nil)).Elem(), TokensRequestOidcCreateQueryParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokensRequestOidcQueryParamsInput)(nil)).Elem(), TokensRequestOidcQueryParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokensRequestOidcQueryParamsPtrInput)(nil)).Elem(), TokensRequestOidcQueryParamsArgs{})
 	pulumi.RegisterOutputType(FlyioAccessOutput{})
 	pulumi.RegisterOutputType(FlyioAccessPtrOutput{})
+	pulumi.RegisterOutputType(GetCurrentTokenQueryParamsOutput{})
+	pulumi.RegisterOutputType(GetCurrentTokenQueryParamsPtrOutput{})
 	pulumi.RegisterOutputType(MacaroonCaveatSetOutput{})
 	pulumi.RegisterOutputType(MacaroonCaveatSetPtrOutput{})
 	pulumi.RegisterOutputType(MacaroonNonceOutput{})
@@ -1177,4 +2457,20 @@ func init() {
 	pulumi.RegisterOutputType(MainTokenInfoArrayOutput{})
 	pulumi.RegisterOutputType(RootVerifiedTokenOutput{})
 	pulumi.RegisterOutputType(RootVerifiedTokenPtrOutput{})
+	pulumi.RegisterOutputType(TokensAuthenticateCreateQueryParamsOutput{})
+	pulumi.RegisterOutputType(TokensAuthenticateCreateQueryParamsPtrOutput{})
+	pulumi.RegisterOutputType(TokensAuthenticateQueryParamsOutput{})
+	pulumi.RegisterOutputType(TokensAuthenticateQueryParamsPtrOutput{})
+	pulumi.RegisterOutputType(TokensAuthorizeCreateQueryParamsOutput{})
+	pulumi.RegisterOutputType(TokensAuthorizeCreateQueryParamsPtrOutput{})
+	pulumi.RegisterOutputType(TokensAuthorizeQueryParamsOutput{})
+	pulumi.RegisterOutputType(TokensAuthorizeQueryParamsPtrOutput{})
+	pulumi.RegisterOutputType(TokensRequestKmCreateQueryParamsOutput{})
+	pulumi.RegisterOutputType(TokensRequestKmCreateQueryParamsPtrOutput{})
+	pulumi.RegisterOutputType(TokensRequestKmQueryParamsOutput{})
+	pulumi.RegisterOutputType(TokensRequestKmQueryParamsPtrOutput{})
+	pulumi.RegisterOutputType(TokensRequestOidcCreateQueryParamsOutput{})
+	pulumi.RegisterOutputType(TokensRequestOidcCreateQueryParamsPtrOutput{})
+	pulumi.RegisterOutputType(TokensRequestOidcQueryParamsOutput{})
+	pulumi.RegisterOutputType(TokensRequestOidcQueryParamsPtrOutput{})
 }

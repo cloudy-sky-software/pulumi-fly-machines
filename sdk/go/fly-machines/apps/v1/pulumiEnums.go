@@ -1558,6 +1558,179 @@ func (in *flyStopConfigSignalPtr) ToFlyStopConfigSignalPtrOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, in).(FlyStopConfigSignalPtrOutput)
 }
 
+type GetMachinesWaitQueryParamsState string
+
+const (
+	GetMachinesWaitQueryParamsStateStarted   = GetMachinesWaitQueryParamsState("started")
+	GetMachinesWaitQueryParamsStateStopped   = GetMachinesWaitQueryParamsState("stopped")
+	GetMachinesWaitQueryParamsStateSuspended = GetMachinesWaitQueryParamsState("suspended")
+	GetMachinesWaitQueryParamsStateDestroyed = GetMachinesWaitQueryParamsState("destroyed")
+	GetMachinesWaitQueryParamsStateFailed    = GetMachinesWaitQueryParamsState("failed")
+	GetMachinesWaitQueryParamsStateSettled   = GetMachinesWaitQueryParamsState("settled")
+)
+
+func (GetMachinesWaitQueryParamsState) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetMachinesWaitQueryParamsState)(nil)).Elem()
+}
+
+func (e GetMachinesWaitQueryParamsState) ToGetMachinesWaitQueryParamsStateOutput() GetMachinesWaitQueryParamsStateOutput {
+	return pulumi.ToOutput(e).(GetMachinesWaitQueryParamsStateOutput)
+}
+
+func (e GetMachinesWaitQueryParamsState) ToGetMachinesWaitQueryParamsStateOutputWithContext(ctx context.Context) GetMachinesWaitQueryParamsStateOutput {
+	return pulumi.ToOutputWithContext(ctx, e).(GetMachinesWaitQueryParamsStateOutput)
+}
+
+func (e GetMachinesWaitQueryParamsState) ToGetMachinesWaitQueryParamsStatePtrOutput() GetMachinesWaitQueryParamsStatePtrOutput {
+	return e.ToGetMachinesWaitQueryParamsStatePtrOutputWithContext(context.Background())
+}
+
+func (e GetMachinesWaitQueryParamsState) ToGetMachinesWaitQueryParamsStatePtrOutputWithContext(ctx context.Context) GetMachinesWaitQueryParamsStatePtrOutput {
+	return GetMachinesWaitQueryParamsState(e).ToGetMachinesWaitQueryParamsStateOutputWithContext(ctx).ToGetMachinesWaitQueryParamsStatePtrOutputWithContext(ctx)
+}
+
+func (e GetMachinesWaitQueryParamsState) ToStringOutput() pulumi.StringOutput {
+	return pulumi.ToOutput(pulumi.String(e)).(pulumi.StringOutput)
+}
+
+func (e GetMachinesWaitQueryParamsState) ToStringOutputWithContext(ctx context.Context) pulumi.StringOutput {
+	return pulumi.ToOutputWithContext(ctx, pulumi.String(e)).(pulumi.StringOutput)
+}
+
+func (e GetMachinesWaitQueryParamsState) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return pulumi.String(e).ToStringPtrOutputWithContext(context.Background())
+}
+
+func (e GetMachinesWaitQueryParamsState) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return pulumi.String(e).ToStringOutputWithContext(ctx).ToStringPtrOutputWithContext(ctx)
+}
+
+type GetMachinesWaitQueryParamsStateOutput struct{ *pulumi.OutputState }
+
+func (GetMachinesWaitQueryParamsStateOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetMachinesWaitQueryParamsState)(nil)).Elem()
+}
+
+func (o GetMachinesWaitQueryParamsStateOutput) ToGetMachinesWaitQueryParamsStateOutput() GetMachinesWaitQueryParamsStateOutput {
+	return o
+}
+
+func (o GetMachinesWaitQueryParamsStateOutput) ToGetMachinesWaitQueryParamsStateOutputWithContext(ctx context.Context) GetMachinesWaitQueryParamsStateOutput {
+	return o
+}
+
+func (o GetMachinesWaitQueryParamsStateOutput) ToGetMachinesWaitQueryParamsStatePtrOutput() GetMachinesWaitQueryParamsStatePtrOutput {
+	return o.ToGetMachinesWaitQueryParamsStatePtrOutputWithContext(context.Background())
+}
+
+func (o GetMachinesWaitQueryParamsStateOutput) ToGetMachinesWaitQueryParamsStatePtrOutputWithContext(ctx context.Context) GetMachinesWaitQueryParamsStatePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GetMachinesWaitQueryParamsState) *GetMachinesWaitQueryParamsState {
+		return &v
+	}).(GetMachinesWaitQueryParamsStatePtrOutput)
+}
+
+func (o GetMachinesWaitQueryParamsStateOutput) ToStringOutput() pulumi.StringOutput {
+	return o.ToStringOutputWithContext(context.Background())
+}
+
+func (o GetMachinesWaitQueryParamsStateOutput) ToStringOutputWithContext(ctx context.Context) pulumi.StringOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e GetMachinesWaitQueryParamsState) string {
+		return string(e)
+	}).(pulumi.StringOutput)
+}
+
+func (o GetMachinesWaitQueryParamsStateOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o GetMachinesWaitQueryParamsStateOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e GetMachinesWaitQueryParamsState) *string {
+		v := string(e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+type GetMachinesWaitQueryParamsStatePtrOutput struct{ *pulumi.OutputState }
+
+func (GetMachinesWaitQueryParamsStatePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GetMachinesWaitQueryParamsState)(nil)).Elem()
+}
+
+func (o GetMachinesWaitQueryParamsStatePtrOutput) ToGetMachinesWaitQueryParamsStatePtrOutput() GetMachinesWaitQueryParamsStatePtrOutput {
+	return o
+}
+
+func (o GetMachinesWaitQueryParamsStatePtrOutput) ToGetMachinesWaitQueryParamsStatePtrOutputWithContext(ctx context.Context) GetMachinesWaitQueryParamsStatePtrOutput {
+	return o
+}
+
+func (o GetMachinesWaitQueryParamsStatePtrOutput) Elem() GetMachinesWaitQueryParamsStateOutput {
+	return o.ApplyT(func(v *GetMachinesWaitQueryParamsState) GetMachinesWaitQueryParamsState {
+		if v != nil {
+			return *v
+		}
+		var ret GetMachinesWaitQueryParamsState
+		return ret
+	}).(GetMachinesWaitQueryParamsStateOutput)
+}
+
+func (o GetMachinesWaitQueryParamsStatePtrOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o GetMachinesWaitQueryParamsStatePtrOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e *GetMachinesWaitQueryParamsState) *string {
+		if e == nil {
+			return nil
+		}
+		v := string(*e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+// GetMachinesWaitQueryParamsStateInput is an input type that accepts values of the GetMachinesWaitQueryParamsState enum
+// A concrete instance of `GetMachinesWaitQueryParamsStateInput` can be one of the following:
+//
+//	GetMachinesWaitQueryParamsStateStarted
+//	GetMachinesWaitQueryParamsStateStopped
+//	GetMachinesWaitQueryParamsStateSuspended
+//	GetMachinesWaitQueryParamsStateDestroyed
+//	GetMachinesWaitQueryParamsStateFailed
+//	GetMachinesWaitQueryParamsStateSettled
+type GetMachinesWaitQueryParamsStateInput interface {
+	pulumi.Input
+
+	ToGetMachinesWaitQueryParamsStateOutput() GetMachinesWaitQueryParamsStateOutput
+	ToGetMachinesWaitQueryParamsStateOutputWithContext(context.Context) GetMachinesWaitQueryParamsStateOutput
+}
+
+var getMachinesWaitQueryParamsStatePtrType = reflect.TypeOf((**GetMachinesWaitQueryParamsState)(nil)).Elem()
+
+type GetMachinesWaitQueryParamsStatePtrInput interface {
+	pulumi.Input
+
+	ToGetMachinesWaitQueryParamsStatePtrOutput() GetMachinesWaitQueryParamsStatePtrOutput
+	ToGetMachinesWaitQueryParamsStatePtrOutputWithContext(context.Context) GetMachinesWaitQueryParamsStatePtrOutput
+}
+
+type getMachinesWaitQueryParamsStatePtr string
+
+func GetMachinesWaitQueryParamsStatePtr(v string) GetMachinesWaitQueryParamsStatePtrInput {
+	return (*getMachinesWaitQueryParamsStatePtr)(&v)
+}
+
+func (*getMachinesWaitQueryParamsStatePtr) ElementType() reflect.Type {
+	return getMachinesWaitQueryParamsStatePtrType
+}
+
+func (in *getMachinesWaitQueryParamsStatePtr) ToGetMachinesWaitQueryParamsStatePtrOutput() GetMachinesWaitQueryParamsStatePtrOutput {
+	return pulumi.ToOutput(in).(GetMachinesWaitQueryParamsStatePtrOutput)
+}
+
+func (in *getMachinesWaitQueryParamsStatePtr) ToGetMachinesWaitQueryParamsStatePtrOutputWithContext(ctx context.Context) GetMachinesWaitQueryParamsStatePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, in).(GetMachinesWaitQueryParamsStatePtrOutput)
+}
+
 type HostStatus string
 
 const (
@@ -1828,6 +2001,181 @@ func (o MachineHostStatusPtrOutput) ToStringPtrOutputWithContext(ctx context.Con
 		v := string(*e)
 		return &v
 	}).(pulumi.StringPtrOutput)
+}
+
+type MachinesRestartCreateQueryParamsSignal string
+
+const (
+	MachinesRestartCreateQueryParamsSignalSighup  = MachinesRestartCreateQueryParamsSignal("SIGHUP")
+	MachinesRestartCreateQueryParamsSignalSigint  = MachinesRestartCreateQueryParamsSignal("SIGINT")
+	MachinesRestartCreateQueryParamsSignalSigquit = MachinesRestartCreateQueryParamsSignal("SIGQUIT")
+	MachinesRestartCreateQueryParamsSignalSigkill = MachinesRestartCreateQueryParamsSignal("SIGKILL")
+	MachinesRestartCreateQueryParamsSignalSigusr1 = MachinesRestartCreateQueryParamsSignal("SIGUSR1")
+	MachinesRestartCreateQueryParamsSignalSigusr2 = MachinesRestartCreateQueryParamsSignal("SIGUSR2")
+	MachinesRestartCreateQueryParamsSignalSigterm = MachinesRestartCreateQueryParamsSignal("SIGTERM")
+)
+
+func (MachinesRestartCreateQueryParamsSignal) ElementType() reflect.Type {
+	return reflect.TypeOf((*MachinesRestartCreateQueryParamsSignal)(nil)).Elem()
+}
+
+func (e MachinesRestartCreateQueryParamsSignal) ToMachinesRestartCreateQueryParamsSignalOutput() MachinesRestartCreateQueryParamsSignalOutput {
+	return pulumi.ToOutput(e).(MachinesRestartCreateQueryParamsSignalOutput)
+}
+
+func (e MachinesRestartCreateQueryParamsSignal) ToMachinesRestartCreateQueryParamsSignalOutputWithContext(ctx context.Context) MachinesRestartCreateQueryParamsSignalOutput {
+	return pulumi.ToOutputWithContext(ctx, e).(MachinesRestartCreateQueryParamsSignalOutput)
+}
+
+func (e MachinesRestartCreateQueryParamsSignal) ToMachinesRestartCreateQueryParamsSignalPtrOutput() MachinesRestartCreateQueryParamsSignalPtrOutput {
+	return e.ToMachinesRestartCreateQueryParamsSignalPtrOutputWithContext(context.Background())
+}
+
+func (e MachinesRestartCreateQueryParamsSignal) ToMachinesRestartCreateQueryParamsSignalPtrOutputWithContext(ctx context.Context) MachinesRestartCreateQueryParamsSignalPtrOutput {
+	return MachinesRestartCreateQueryParamsSignal(e).ToMachinesRestartCreateQueryParamsSignalOutputWithContext(ctx).ToMachinesRestartCreateQueryParamsSignalPtrOutputWithContext(ctx)
+}
+
+func (e MachinesRestartCreateQueryParamsSignal) ToStringOutput() pulumi.StringOutput {
+	return pulumi.ToOutput(pulumi.String(e)).(pulumi.StringOutput)
+}
+
+func (e MachinesRestartCreateQueryParamsSignal) ToStringOutputWithContext(ctx context.Context) pulumi.StringOutput {
+	return pulumi.ToOutputWithContext(ctx, pulumi.String(e)).(pulumi.StringOutput)
+}
+
+func (e MachinesRestartCreateQueryParamsSignal) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return pulumi.String(e).ToStringPtrOutputWithContext(context.Background())
+}
+
+func (e MachinesRestartCreateQueryParamsSignal) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return pulumi.String(e).ToStringOutputWithContext(ctx).ToStringPtrOutputWithContext(ctx)
+}
+
+type MachinesRestartCreateQueryParamsSignalOutput struct{ *pulumi.OutputState }
+
+func (MachinesRestartCreateQueryParamsSignalOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MachinesRestartCreateQueryParamsSignal)(nil)).Elem()
+}
+
+func (o MachinesRestartCreateQueryParamsSignalOutput) ToMachinesRestartCreateQueryParamsSignalOutput() MachinesRestartCreateQueryParamsSignalOutput {
+	return o
+}
+
+func (o MachinesRestartCreateQueryParamsSignalOutput) ToMachinesRestartCreateQueryParamsSignalOutputWithContext(ctx context.Context) MachinesRestartCreateQueryParamsSignalOutput {
+	return o
+}
+
+func (o MachinesRestartCreateQueryParamsSignalOutput) ToMachinesRestartCreateQueryParamsSignalPtrOutput() MachinesRestartCreateQueryParamsSignalPtrOutput {
+	return o.ToMachinesRestartCreateQueryParamsSignalPtrOutputWithContext(context.Background())
+}
+
+func (o MachinesRestartCreateQueryParamsSignalOutput) ToMachinesRestartCreateQueryParamsSignalPtrOutputWithContext(ctx context.Context) MachinesRestartCreateQueryParamsSignalPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v MachinesRestartCreateQueryParamsSignal) *MachinesRestartCreateQueryParamsSignal {
+		return &v
+	}).(MachinesRestartCreateQueryParamsSignalPtrOutput)
+}
+
+func (o MachinesRestartCreateQueryParamsSignalOutput) ToStringOutput() pulumi.StringOutput {
+	return o.ToStringOutputWithContext(context.Background())
+}
+
+func (o MachinesRestartCreateQueryParamsSignalOutput) ToStringOutputWithContext(ctx context.Context) pulumi.StringOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e MachinesRestartCreateQueryParamsSignal) string {
+		return string(e)
+	}).(pulumi.StringOutput)
+}
+
+func (o MachinesRestartCreateQueryParamsSignalOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o MachinesRestartCreateQueryParamsSignalOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e MachinesRestartCreateQueryParamsSignal) *string {
+		v := string(e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+type MachinesRestartCreateQueryParamsSignalPtrOutput struct{ *pulumi.OutputState }
+
+func (MachinesRestartCreateQueryParamsSignalPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**MachinesRestartCreateQueryParamsSignal)(nil)).Elem()
+}
+
+func (o MachinesRestartCreateQueryParamsSignalPtrOutput) ToMachinesRestartCreateQueryParamsSignalPtrOutput() MachinesRestartCreateQueryParamsSignalPtrOutput {
+	return o
+}
+
+func (o MachinesRestartCreateQueryParamsSignalPtrOutput) ToMachinesRestartCreateQueryParamsSignalPtrOutputWithContext(ctx context.Context) MachinesRestartCreateQueryParamsSignalPtrOutput {
+	return o
+}
+
+func (o MachinesRestartCreateQueryParamsSignalPtrOutput) Elem() MachinesRestartCreateQueryParamsSignalOutput {
+	return o.ApplyT(func(v *MachinesRestartCreateQueryParamsSignal) MachinesRestartCreateQueryParamsSignal {
+		if v != nil {
+			return *v
+		}
+		var ret MachinesRestartCreateQueryParamsSignal
+		return ret
+	}).(MachinesRestartCreateQueryParamsSignalOutput)
+}
+
+func (o MachinesRestartCreateQueryParamsSignalPtrOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o MachinesRestartCreateQueryParamsSignalPtrOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e *MachinesRestartCreateQueryParamsSignal) *string {
+		if e == nil {
+			return nil
+		}
+		v := string(*e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+// MachinesRestartCreateQueryParamsSignalInput is an input type that accepts values of the MachinesRestartCreateQueryParamsSignal enum
+// A concrete instance of `MachinesRestartCreateQueryParamsSignalInput` can be one of the following:
+//
+//	MachinesRestartCreateQueryParamsSignalSighup
+//	MachinesRestartCreateQueryParamsSignalSigint
+//	MachinesRestartCreateQueryParamsSignalSigquit
+//	MachinesRestartCreateQueryParamsSignalSigkill
+//	MachinesRestartCreateQueryParamsSignalSigusr1
+//	MachinesRestartCreateQueryParamsSignalSigusr2
+//	MachinesRestartCreateQueryParamsSignalSigterm
+type MachinesRestartCreateQueryParamsSignalInput interface {
+	pulumi.Input
+
+	ToMachinesRestartCreateQueryParamsSignalOutput() MachinesRestartCreateQueryParamsSignalOutput
+	ToMachinesRestartCreateQueryParamsSignalOutputWithContext(context.Context) MachinesRestartCreateQueryParamsSignalOutput
+}
+
+var machinesRestartCreateQueryParamsSignalPtrType = reflect.TypeOf((**MachinesRestartCreateQueryParamsSignal)(nil)).Elem()
+
+type MachinesRestartCreateQueryParamsSignalPtrInput interface {
+	pulumi.Input
+
+	ToMachinesRestartCreateQueryParamsSignalPtrOutput() MachinesRestartCreateQueryParamsSignalPtrOutput
+	ToMachinesRestartCreateQueryParamsSignalPtrOutputWithContext(context.Context) MachinesRestartCreateQueryParamsSignalPtrOutput
+}
+
+type machinesRestartCreateQueryParamsSignalPtr string
+
+func MachinesRestartCreateQueryParamsSignalPtr(v string) MachinesRestartCreateQueryParamsSignalPtrInput {
+	return (*machinesRestartCreateQueryParamsSignalPtr)(&v)
+}
+
+func (*machinesRestartCreateQueryParamsSignalPtr) ElementType() reflect.Type {
+	return machinesRestartCreateQueryParamsSignalPtrType
+}
+
+func (in *machinesRestartCreateQueryParamsSignalPtr) ToMachinesRestartCreateQueryParamsSignalPtrOutput() MachinesRestartCreateQueryParamsSignalPtrOutput {
+	return pulumi.ToOutput(in).(MachinesRestartCreateQueryParamsSignalPtrOutput)
+}
+
+func (in *machinesRestartCreateQueryParamsSignalPtr) ToMachinesRestartCreateQueryParamsSignalPtrOutputWithContext(ctx context.Context) MachinesRestartCreateQueryParamsSignalPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, in).(MachinesRestartCreateQueryParamsSignalPtrOutput)
 }
 
 type MachinesSignalSignal string
@@ -2482,6 +2830,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyReplayCacheTypePtrInput)(nil)).Elem(), FlyReplayCacheType("cookie"))
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyStopConfigSignalInput)(nil)).Elem(), FlyStopConfigSignal("SIGHUP"))
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyStopConfigSignalPtrInput)(nil)).Elem(), FlyStopConfigSignal("SIGHUP"))
+	pulumi.RegisterInputType(reflect.TypeOf((*GetMachinesWaitQueryParamsStateInput)(nil)).Elem(), GetMachinesWaitQueryParamsState("started"))
+	pulumi.RegisterInputType(reflect.TypeOf((*GetMachinesWaitQueryParamsStatePtrInput)(nil)).Elem(), GetMachinesWaitQueryParamsState("started"))
+	pulumi.RegisterInputType(reflect.TypeOf((*MachinesRestartCreateQueryParamsSignalInput)(nil)).Elem(), MachinesRestartCreateQueryParamsSignal("SIGHUP"))
+	pulumi.RegisterInputType(reflect.TypeOf((*MachinesRestartCreateQueryParamsSignalPtrInput)(nil)).Elem(), MachinesRestartCreateQueryParamsSignal("SIGHUP"))
 	pulumi.RegisterInputType(reflect.TypeOf((*MachinesSignalSignalInput)(nil)).Elem(), MachinesSignalSignal("SIGABRT"))
 	pulumi.RegisterInputType(reflect.TypeOf((*MachinesSignalSignalPtrInput)(nil)).Elem(), MachinesSignalSignal("SIGABRT"))
 	pulumi.RegisterInputType(reflect.TypeOf((*SignalInput)(nil)).Elem(), Signal("SIGHUP"))
@@ -2506,12 +2858,16 @@ func init() {
 	pulumi.RegisterOutputType(FlyReplayCacheTypePtrOutput{})
 	pulumi.RegisterOutputType(FlyStopConfigSignalOutput{})
 	pulumi.RegisterOutputType(FlyStopConfigSignalPtrOutput{})
+	pulumi.RegisterOutputType(GetMachinesWaitQueryParamsStateOutput{})
+	pulumi.RegisterOutputType(GetMachinesWaitQueryParamsStatePtrOutput{})
 	pulumi.RegisterOutputType(HostStatusOutput{})
 	pulumi.RegisterOutputType(HostStatusPtrOutput{})
 	pulumi.RegisterOutputType(IssuedCertificateTypeOutput{})
 	pulumi.RegisterOutputType(IssuedCertificateTypePtrOutput{})
 	pulumi.RegisterOutputType(MachineHostStatusOutput{})
 	pulumi.RegisterOutputType(MachineHostStatusPtrOutput{})
+	pulumi.RegisterOutputType(MachinesRestartCreateQueryParamsSignalOutput{})
+	pulumi.RegisterOutputType(MachinesRestartCreateQueryParamsSignalPtrOutput{})
 	pulumi.RegisterOutputType(MachinesSignalSignalOutput{})
 	pulumi.RegisterOutputType(MachinesSignalSignalPtrOutput{})
 	pulumi.RegisterOutputType(SignalOutput{})

@@ -58,6 +58,12 @@ namespace Pulumi.FlyMachines.PostgresV1
         public Output<bool?> PostgisEnabled { get; private set; } = null!;
 
         /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Output("queryParams")]
+        public Output<Outputs.PostgresQueryParams?> QueryParams { get; private set; } = null!;
+
+        /// <summary>
         /// Fly region code where the cluster's primary runs.
         /// </summary>
         [Output("region")]
@@ -150,6 +156,12 @@ namespace Pulumi.FlyMachines.PostgresV1
         /// </summary>
         [Input("postgisEnabled")]
         public Input<bool>? PostgisEnabled { get; set; }
+
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Input("queryParams")]
+        public Input<Inputs.PostgresQueryParamsArgs>? QueryParams { get; set; }
 
         /// <summary>
         /// Fly region code where the cluster's primary runs.

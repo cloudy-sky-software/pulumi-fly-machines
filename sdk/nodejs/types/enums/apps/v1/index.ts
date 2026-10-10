@@ -114,6 +114,17 @@ export const FlyStopConfigSignal = {
 
 export type FlyStopConfigSignal = (typeof FlyStopConfigSignal)[keyof typeof FlyStopConfigSignal];
 
+export const GetMachinesWaitQueryParamsState = {
+    Started: "started",
+    Stopped: "stopped",
+    Suspended: "suspended",
+    Destroyed: "destroyed",
+    Failed: "failed",
+    Settled: "settled",
+} as const;
+
+export type GetMachinesWaitQueryParamsState = (typeof GetMachinesWaitQueryParamsState)[keyof typeof GetMachinesWaitQueryParamsState];
+
 export const HostStatus = {
     Ok: "ok",
     Unknown: "unknown",
@@ -136,6 +147,18 @@ export const MachineHostStatus = {
 } as const;
 
 export type MachineHostStatus = (typeof MachineHostStatus)[keyof typeof MachineHostStatus];
+
+export const MachinesRestartCreateQueryParamsSignal = {
+    Sighup: "SIGHUP",
+    Sigint: "SIGINT",
+    Sigquit: "SIGQUIT",
+    Sigkill: "SIGKILL",
+    Sigusr1: "SIGUSR1",
+    Sigusr2: "SIGUSR2",
+    Sigterm: "SIGTERM",
+} as const;
+
+export type MachinesRestartCreateQueryParamsSignal = (typeof MachinesRestartCreateQueryParamsSignal)[keyof typeof MachinesRestartCreateQueryParamsSignal];
 
 export const MachinesSignalSignal = {
     Sigabrt: "SIGABRT",

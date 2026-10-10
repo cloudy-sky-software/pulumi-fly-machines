@@ -6,6 +6,8 @@ import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 import * as enums from "../types/enums";
 
+import * as utilities from "../utilities";
+
 export namespace apps {
     export namespace v1 {
         export interface AcmeChallenge {
@@ -25,10 +27,200 @@ export namespace apps {
             volumeCount?: number;
         }
 
+        /**
+         * Query params for the API request.
+         */
+        export interface AppCertificatesAcmeCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface AppCertificatesAcmeDeleteQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface AppCertificatesAcmeQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.apps.v1.AppCertificatesAcmeCreateQueryParams;
+            /**
+             * Query params for the delete operation.
+             */
+            delete?: outputs.apps.v1.AppCertificatesAcmeDeleteQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface AppCertificatesCheckCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface AppCertificatesCheckQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.apps.v1.AppCertificatesCheckCreateQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface AppCertificatesCustomCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface AppCertificatesCustomDeleteQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface AppCertificatesCustomQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.apps.v1.AppCertificatesCustomCreateQueryParams;
+            /**
+             * Query params for the delete operation.
+             */
+            delete?: outputs.apps.v1.AppCertificatesCustomDeleteQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface AppCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface AppDeleteQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface AppDeployTokenCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface AppDeployTokenQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.apps.v1.AppDeployTokenCreateQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface AppIPAssignmentCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface AppIPAssignmentDeleteQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface AppIPAssignmentQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.apps.v1.AppIPAssignmentCreateQueryParams;
+            /**
+             * Query params for the delete operation.
+             */
+            delete?: outputs.apps.v1.AppIPAssignmentDeleteQueryParams;
+        }
+
         export interface AppOrganizationInfo {
             internalNumericId?: number;
             name?: string;
             slug?: string;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface AppQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.apps.v1.AppCreateQueryParams;
+            /**
+             * Query params for the delete operation.
+             */
+            delete?: outputs.apps.v1.AppDeleteQueryParams;
+            /**
+             * Query params for the read operation.
+             */
+            read?: outputs.apps.v1.AppReadQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface AppReadQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
         }
 
         export interface AppSecret {
@@ -775,6 +967,30 @@ export namespace apps {
             version?: string;
         }
 
+        /**
+         * Query params for the API request.
+         */
+        export interface MachineCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachineDeleteQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+            /**
+             * Force kill the machine if it's running
+             */
+            force?: boolean;
+        }
+
         export interface MachineEvent {
             id?: string;
             request?: any;
@@ -784,9 +1000,411 @@ export namespace apps {
             type?: string;
         }
 
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinePutQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface MachineQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.apps.v1.MachineCreateQueryParams;
+            /**
+             * Query params for the delete operation.
+             */
+            delete?: outputs.apps.v1.MachineDeleteQueryParams;
+            /**
+             * Query params for the put operation.
+             */
+            put?: outputs.apps.v1.MachinePutQueryParams;
+            /**
+             * Query params for the read operation.
+             */
+            read?: outputs.apps.v1.MachineReadQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachineReadQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+            /**
+             * Include machine lease
+             */
+            includeLeases?: boolean;
+            /**
+             * 26-character Machine version ID; returns that version of the Machine instead of the current one
+             */
+            version?: string;
+        }
+
         export interface MachineVersion {
             userConfig?: outputs.apps.v1.FlyMachineConfig;
             version?: string;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesCordonCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface MachinesCordonQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.apps.v1.MachinesCordonCreateQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesExecCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface MachinesExecQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.apps.v1.MachinesExecCreateQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesLeaseCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface MachinesLeaseQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.apps.v1.MachinesLeaseCreateQueryParams;
+            /**
+             * Query params for the read operation.
+             */
+            read?: outputs.apps.v1.MachinesLeaseReadQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesLeaseReadQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesMemoryLimitCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesMemoryLimitPutQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface MachinesMemoryLimitQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.apps.v1.MachinesMemoryLimitCreateQueryParams;
+            /**
+             * Query params for the put operation.
+             */
+            put?: outputs.apps.v1.MachinesMemoryLimitPutQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesMetadataCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesMetadataKeyCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesMetadataKeyDeleteQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface MachinesMetadataKeyQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.apps.v1.MachinesMetadataKeyCreateQueryParams;
+            /**
+             * Query params for the delete operation.
+             */
+            delete?: outputs.apps.v1.MachinesMetadataKeyDeleteQueryParams;
+            /**
+             * Query params for the read operation.
+             */
+            read?: outputs.apps.v1.MachinesMetadataKeyReadQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesMetadataKeyReadQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface MachinesMetadataQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.apps.v1.MachinesMetadataCreateQueryParams;
+            /**
+             * Query params for the read operation.
+             */
+            read?: outputs.apps.v1.MachinesMetadataReadQueryParams;
+            /**
+             * Query params for the update operation.
+             */
+            update?: outputs.apps.v1.MachinesMetadataUpdateQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesMetadataReadQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesMetadataUpdateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesReclaimMemoryCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface MachinesReclaimMemoryQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.apps.v1.MachinesReclaimMemoryCreateQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesRestartCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+            /**
+             * Unix signal name
+             */
+            signal?: enums.apps.v1.MachinesRestartCreateQueryParamsSignal;
+            /**
+             * Restart timeout as a Go duration string or number of seconds
+             */
+            timeout?: string;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface MachinesRestartQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.apps.v1.MachinesRestartCreateQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesSignalCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface MachinesSignalQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.apps.v1.MachinesSignalCreateQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesStartCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface MachinesStartQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.apps.v1.MachinesStartCreateQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesStopCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface MachinesStopQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.apps.v1.MachinesStopCreateQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesSuspendCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface MachinesSuspendQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.apps.v1.MachinesSuspendCreateQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachinesUncordonCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface MachinesUncordonQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.apps.v1.MachinesUncordonCreateQueryParams;
         }
 
         export interface OwnershipVerification {
@@ -806,12 +1424,256 @@ export namespace apps {
             stime?: number;
         }
 
+        /**
+         * Query params for the API request.
+         */
+        export interface SecretCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface SecretDeleteQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
         export interface SecretKey {
             createdAt?: string;
             name?: string;
             publicKey?: number[];
             type?: string;
             updatedAt?: string;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface SecretQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.apps.v1.SecretCreateQueryParams;
+            /**
+             * Query params for the delete operation.
+             */
+            delete?: outputs.apps.v1.SecretDeleteQueryParams;
+            /**
+             * Query params for the read operation.
+             */
+            read?: outputs.apps.v1.SecretReadQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface SecretReadQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+            /**
+             * Minimum secrets version to return. Returned when setting a new secret
+             */
+            minVersion?: string;
+            /**
+             * Show the secret value.
+             */
+            showSecrets?: boolean;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface SecretkeyCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface SecretkeyDecryptCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+            /**
+             * Minimum secrets version to return. Returned when setting a new secret
+             */
+            minVersion?: string;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface SecretkeyDecryptQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.apps.v1.SecretkeyDecryptCreateQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface SecretkeyDeleteQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface SecretkeyEncryptCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+            /**
+             * Minimum secrets version to return. Returned when setting a new secret
+             */
+            minVersion?: string;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface SecretkeyEncryptQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.apps.v1.SecretkeyEncryptCreateQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface SecretkeyGenerateCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface SecretkeyGenerateQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.apps.v1.SecretkeyGenerateCreateQueryParams;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface SecretkeyQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.apps.v1.SecretkeyCreateQueryParams;
+            /**
+             * Query params for the delete operation.
+             */
+            delete?: outputs.apps.v1.SecretkeyDeleteQueryParams;
+            /**
+             * Query params for the read operation.
+             */
+            read?: outputs.apps.v1.SecretkeyReadQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface SecretkeyReadQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+            /**
+             * Minimum secrets version to return. Returned when setting a new secret
+             */
+            minVersion?: string;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface SecretkeySignCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+            /**
+             * Minimum secrets version to return. Returned when setting a new secret
+             */
+            minVersion?: string;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface SecretkeySignQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.apps.v1.SecretkeySignCreateQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface SecretkeyVerifyCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+            /**
+             * Minimum secrets version to return. Returned when setting a new secret
+             */
+            minVersion?: string;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface SecretkeyVerifyQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.apps.v1.SecretkeyVerifyCreateQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface SecretsUpdateCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface SecretsUpdateQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.apps.v1.SecretsUpdateCreateQueryParams;
         }
 
         export interface StrippedLease {
@@ -846,6 +1708,68 @@ export namespace apps {
             zone?: string;
         }
 
+        /**
+         * Query params for the API request.
+         */
+        export interface VolumeCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface VolumeDeleteQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface VolumePutQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface VolumeQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.apps.v1.VolumeCreateQueryParams;
+            /**
+             * Query params for the delete operation.
+             */
+            delete?: outputs.apps.v1.VolumeDeleteQueryParams;
+            /**
+             * Query params for the put operation.
+             */
+            put?: outputs.apps.v1.VolumePutQueryParams;
+            /**
+             * Query params for the read operation.
+             */
+            read?: outputs.apps.v1.VolumeReadQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface VolumeReadQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
         export interface VolumeSnapshot {
             createdAt?: string;
             digest?: string;
@@ -854,6 +1778,60 @@ export namespace apps {
             size?: number;
             status?: string;
             volumeSize?: number;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface VolumeSnapshotCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface VolumeSnapshotQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.apps.v1.VolumeSnapshotCreateQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface VolumesExtendCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface VolumesExtendPutQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface VolumesExtendQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.apps.v1.VolumesExtendCreateQueryParams;
+            /**
+             * Query params for the put operation.
+             */
+            put?: outputs.apps.v1.VolumesExtendPutQueryParams;
         }
 
     }
@@ -967,6 +1945,26 @@ export namespace platform {
         }
 
         /**
+         * Query params for the API request.
+         */
+        export interface PlatformPlacementCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface PlatformPlacementQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.platform.v1.PlatformPlacementCreateQueryParams;
+        }
+
+        /**
          * Optional weights to override default placement preferences.
          */
         export interface Weights {
@@ -1057,6 +2055,40 @@ export namespace postgres {
             postgresClusterId?: string;
         }
 
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresAttachmentCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresAttachmentDeleteQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface PostgresAttachmentQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.postgres.v1.PostgresAttachmentCreateQueryParams;
+            /**
+             * Query params for the delete operation.
+             */
+            delete?: outputs.postgres.v1.PostgresAttachmentDeleteQueryParams;
+        }
+
         export interface PostgresBackup {
             /**
              * RFC 3339 stop timestamp.
@@ -1082,6 +2114,26 @@ export namespace postgres {
              * Backup type.
              */
             type?: enums.postgres.v1.PostgresBackupType;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresBackupCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface PostgresBackupQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.postgres.v1.PostgresBackupCreateQueryParams;
         }
 
         export interface PostgresCluster {
@@ -1217,11 +2269,65 @@ export namespace postgres {
             status?: enums.postgres.v1.PostgresClusterSummaryStatus;
         }
 
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
         export interface PostgresDatabase {
             /**
              * Database name.
              */
             name?: string;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresDatabaseCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresDatabaseDeleteQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface PostgresDatabaseQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.postgres.v1.PostgresDatabaseCreateQueryParams;
+            /**
+             * Query params for the delete operation.
+             */
+            delete?: outputs.postgres.v1.PostgresDatabaseDeleteQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresDeleteQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
         }
 
         export interface PostgresExtension {
@@ -1248,6 +2354,30 @@ export namespace postgres {
         }
 
         /**
+         * Query params for the API request.
+         */
+        export interface PostgresExtensionCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresExtensionDeleteQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+            /**
+             * Also drop objects that depend on the extension
+             */
+            force?: boolean;
+        }
+
+        /**
          * Installation details, or null when the extension is not installed.
          */
         export interface PostgresExtensionInstalledProperties {
@@ -1259,6 +2389,40 @@ export namespace postgres {
              * Installed version.
              */
             version?: string;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface PostgresExtensionQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.postgres.v1.PostgresExtensionCreateQueryParams;
+            /**
+             * Query params for the delete operation.
+             */
+            delete?: outputs.postgres.v1.PostgresExtensionDeleteQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresForkCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface PostgresForkQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.postgres.v1.PostgresForkCreateQueryParams;
         }
 
         /**
@@ -1287,6 +2451,54 @@ export namespace postgres {
              * TCP port.
              */
             port?: number;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface PostgresQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.postgres.v1.PostgresCreateQueryParams;
+            /**
+             * Query params for the delete operation.
+             */
+            delete?: outputs.postgres.v1.PostgresDeleteQueryParams;
+            /**
+             * Query params for the read operation.
+             */
+            read?: outputs.postgres.v1.PostgresReadQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresReadQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresRestoreCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface PostgresRestoreQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.postgres.v1.PostgresRestoreCreateQueryParams;
         }
 
         export interface PostgresSlowQuery {
@@ -1335,6 +2547,16 @@ export namespace postgres {
             username?: string;
         }
 
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresUserCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
         export interface PostgresUserCredentials {
             /**
              * User password.
@@ -1344,6 +2566,50 @@ export namespace postgres {
              * User name.
              */
             username?: string;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresUserDeleteQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface PostgresUserQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.postgres.v1.PostgresUserCreateQueryParams;
+            /**
+             * Query params for the delete operation.
+             */
+            delete?: outputs.postgres.v1.PostgresUserDeleteQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresUsersRotatePasswordCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface PostgresUsersRotatePasswordQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.postgres.v1.PostgresUsersRotatePasswordCreateQueryParams;
         }
 
     }
@@ -1403,6 +2669,86 @@ export namespace tokens {
             header?: string;
             nonce?: outputs.tokens.v1.MacaroonNonce;
             permissionToken?: number[];
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface TokensAuthenticateCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface TokensAuthenticateQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.tokens.v1.TokensAuthenticateCreateQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface TokensAuthorizeCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface TokensAuthorizeQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.tokens.v1.TokensAuthorizeCreateQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface TokensRequestKmCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface TokensRequestKmQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.tokens.v1.TokensRequestKmCreateQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface TokensRequestOidcCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface TokensRequestOidcQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.tokens.v1.TokensRequestOidcCreateQueryParams;
         }
 
     }

@@ -2,6 +2,9 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
+import * as enums from "../../types/enums";
 import * as utilities from "../../utilities";
 
 export class SecretkeyEncrypt extends pulumi.CustomResource {
@@ -34,6 +37,10 @@ export class SecretkeyEncrypt extends pulumi.CustomResource {
     declare public readonly associatedData: pulumi.Output<number[] | undefined>;
     declare public /*out*/ readonly ciphertext: pulumi.Output<number[] | undefined>;
     declare public readonly plaintext: pulumi.Output<number[] | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    declare public readonly queryParams: pulumi.Output<outputs.apps.v1.SecretkeyEncryptQueryParams | undefined>;
 
     /**
      * Create a SecretkeyEncrypt resource with the given unique name, arguments, and options.
@@ -49,12 +56,14 @@ export class SecretkeyEncrypt extends pulumi.CustomResource {
             resourceInputs["appName"] = args?.appName;
             resourceInputs["associatedData"] = args?.associatedData;
             resourceInputs["plaintext"] = args?.plaintext;
+            resourceInputs["queryParams"] = args?.queryParams;
             resourceInputs["secretName"] = args?.secretName;
             resourceInputs["ciphertext"] = undefined /*out*/;
         } else {
             resourceInputs["associatedData"] = undefined /*out*/;
             resourceInputs["ciphertext"] = undefined /*out*/;
             resourceInputs["plaintext"] = undefined /*out*/;
+            resourceInputs["queryParams"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(SecretkeyEncrypt.__pulumiType, name, resourceInputs, opts);
@@ -71,6 +80,10 @@ export interface SecretkeyEncryptArgs {
     appName?: pulumi.Input<string | undefined>;
     associatedData?: pulumi.Input<pulumi.Input<number>[] | undefined>;
     plaintext?: pulumi.Input<pulumi.Input<number>[] | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.SecretkeyEncryptQueryParamsArgs | undefined>;
     /**
      * Secret key name
      */

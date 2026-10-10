@@ -45,6 +45,10 @@ export class PlatformPlacement extends pulumi.CustomResource {
     declare public readonly count: pulumi.Output<number | undefined>;
     declare public readonly orgSlug: pulumi.Output<string>;
     /**
+     * Query params to send with the API requests for this resource.
+     */
+    declare public readonly queryParams: pulumi.Output<outputs.platform.v1.PlatformPlacementQueryParams | undefined>;
+    /**
      * Region expression for placement as a comma-delimited set of regions or aliases.
      * Defaults to "[region],any", to prefer the API endpoint's local region with any other region as fallback.
      */
@@ -74,6 +78,7 @@ export class PlatformPlacement extends pulumi.CustomResource {
             resourceInputs["compute"] = args?.compute;
             resourceInputs["count"] = args?.count;
             resourceInputs["orgSlug"] = args?.orgSlug;
+            resourceInputs["queryParams"] = args?.queryParams;
             resourceInputs["region"] = args?.region;
             resourceInputs["volumeName"] = args?.volumeName;
             resourceInputs["volumeSizeBytes"] = args?.volumeSizeBytes;
@@ -83,6 +88,7 @@ export class PlatformPlacement extends pulumi.CustomResource {
             resourceInputs["compute"] = undefined /*out*/;
             resourceInputs["count"] = undefined /*out*/;
             resourceInputs["orgSlug"] = undefined /*out*/;
+            resourceInputs["queryParams"] = undefined /*out*/;
             resourceInputs["region"] = undefined /*out*/;
             resourceInputs["regions"] = undefined /*out*/;
             resourceInputs["volumeName"] = undefined /*out*/;
@@ -108,6 +114,10 @@ export interface PlatformPlacementArgs {
      */
     count?: pulumi.Input<number | undefined>;
     orgSlug: pulumi.Input<string>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    queryParams?: pulumi.Input<inputs.platform.v1.PlatformPlacementQueryParamsArgs | undefined>;
     /**
      * Region expression for placement as a comma-delimited set of regions or aliases.
      * Defaults to "[region],any", to prefer the API endpoint's local region with any other region as fallback.

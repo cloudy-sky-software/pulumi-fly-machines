@@ -22,6 +22,8 @@ func GetPlatformRegion(ctx *pulumi.Context, args *GetPlatformRegionArgs, opts ..
 }
 
 type GetPlatformRegionArgs struct {
+	// Query params to send with the API request.
+	QueryParams *GetPlatformRegionQueryParams `pulumi:"queryParams"`
 }
 
 type GetPlatformRegionResult struct {
@@ -35,6 +37,8 @@ func GetPlatformRegionOutput(ctx *pulumi.Context, args GetPlatformRegionOutputAr
 }
 
 type GetPlatformRegionOutputArgs struct {
+	// Query params to send with the API request.
+	QueryParams GetPlatformRegionQueryParamsPtrInput `pulumi:"queryParams"`
 }
 
 func (GetPlatformRegionOutputArgs) ElementType() reflect.Type {

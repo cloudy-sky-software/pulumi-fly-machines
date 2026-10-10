@@ -2,6 +2,9 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
+import * as enums from "../../types/enums";
 import * as utilities from "../../utilities";
 
 export class MachinesReclaimMemory extends pulumi.CustomResource {
@@ -33,6 +36,10 @@ export class MachinesReclaimMemory extends pulumi.CustomResource {
 
     declare public /*out*/ readonly actualMb: pulumi.Output<number | undefined>;
     declare public readonly amountMb: pulumi.Output<number | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    declare public readonly queryParams: pulumi.Output<outputs.apps.v1.MachinesReclaimMemoryQueryParams | undefined>;
 
     /**
      * Create a MachinesReclaimMemory resource with the given unique name, arguments, and options.
@@ -48,10 +55,12 @@ export class MachinesReclaimMemory extends pulumi.CustomResource {
             resourceInputs["amountMb"] = args?.amountMb;
             resourceInputs["appName"] = args?.appName;
             resourceInputs["machineId"] = args?.machineId;
+            resourceInputs["queryParams"] = args?.queryParams;
             resourceInputs["actualMb"] = undefined /*out*/;
         } else {
             resourceInputs["actualMb"] = undefined /*out*/;
             resourceInputs["amountMb"] = undefined /*out*/;
+            resourceInputs["queryParams"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(MachinesReclaimMemory.__pulumiType, name, resourceInputs, opts);
@@ -71,4 +80,8 @@ export interface MachinesReclaimMemoryArgs {
      * Machine ID
      */
     machineId?: pulumi.Input<string | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.MachinesReclaimMemoryQueryParamsArgs | undefined>;
 }

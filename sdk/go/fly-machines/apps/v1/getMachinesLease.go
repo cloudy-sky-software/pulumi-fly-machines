@@ -26,6 +26,8 @@ type LookupMachinesLeaseArgs struct {
 	AppName string `pulumi:"appName"`
 	// Machine ID
 	MachineId string `pulumi:"machineId"`
+	// Query params to send with the API request.
+	QueryParams *GetMachinesLeaseQueryParams `pulumi:"queryParams"`
 }
 
 type LookupMachinesLeaseResult struct {
@@ -51,6 +53,8 @@ type LookupMachinesLeaseOutputArgs struct {
 	AppName pulumi.StringInput `pulumi:"appName"`
 	// Machine ID
 	MachineId pulumi.StringInput `pulumi:"machineId"`
+	// Query params to send with the API request.
+	QueryParams GetMachinesLeaseQueryParamsPtrInput `pulumi:"queryParams"`
 }
 
 func (LookupMachinesLeaseOutputArgs) ElementType() reflect.Type {

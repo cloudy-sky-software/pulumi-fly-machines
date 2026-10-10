@@ -13,6 +13,9 @@ import (
 
 type TokensRequestKm struct {
 	pulumi.CustomResourceState
+
+	// Query params to send with the API requests for this resource.
+	QueryParams TokensRequestKmQueryParamsPtrOutput `pulumi:"queryParams"`
 }
 
 // NewTokensRequestKm registers a new resource with the given unique name, arguments, and options.
@@ -55,10 +58,14 @@ func (TokensRequestKmState) ElementType() reflect.Type {
 }
 
 type tokensRequestKmArgs struct {
+	// Query params to send with the API requests for this resource.
+	QueryParams *TokensRequestKmQueryParams `pulumi:"queryParams"`
 }
 
 // The set of arguments for constructing a TokensRequestKm resource.
 type TokensRequestKmArgs struct {
+	// Query params to send with the API requests for this resource.
+	QueryParams TokensRequestKmQueryParamsPtrInput
 }
 
 func (TokensRequestKmArgs) ElementType() reflect.Type {
@@ -96,6 +103,11 @@ func (o TokensRequestKmOutput) ToTokensRequestKmOutput() TokensRequestKmOutput {
 
 func (o TokensRequestKmOutput) ToTokensRequestKmOutputWithContext(ctx context.Context) TokensRequestKmOutput {
 	return o
+}
+
+// Query params to send with the API requests for this resource.
+func (o TokensRequestKmOutput) QueryParams() TokensRequestKmQueryParamsPtrOutput {
+	return o.ApplyT(func(v *TokensRequestKm) TokensRequestKmQueryParamsPtrOutput { return v.QueryParams }).(TokensRequestKmQueryParamsPtrOutput)
 }
 
 func init() {

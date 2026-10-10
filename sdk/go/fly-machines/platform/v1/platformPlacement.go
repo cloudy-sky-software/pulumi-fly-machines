@@ -21,6 +21,8 @@ type PlatformPlacement struct {
 	// Defaults to 0, which returns the org-specific limit for each region.
 	Count   pulumi.IntPtrOutput `pulumi:"count"`
 	OrgSlug pulumi.StringOutput `pulumi:"orgSlug"`
+	// Query params to send with the API requests for this resource.
+	QueryParams PlatformPlacementQueryParamsPtrOutput `pulumi:"queryParams"`
 	// Region expression for placement as a comma-delimited set of regions or aliases.
 	// Defaults to "[region],any", to prefer the API endpoint's local region with any other region as fallback.
 	Region          pulumi.StringPtrOutput              `pulumi:"region"`
@@ -80,6 +82,8 @@ type platformPlacementArgs struct {
 	// Defaults to 0, which returns the org-specific limit for each region.
 	Count   *int   `pulumi:"count"`
 	OrgSlug string `pulumi:"orgSlug"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *PlatformPlacementQueryParams `pulumi:"queryParams"`
 	// Region expression for placement as a comma-delimited set of regions or aliases.
 	// Defaults to "[region],any", to prefer the API endpoint's local region with any other region as fallback.
 	Region          *string `pulumi:"region"`
@@ -97,6 +101,8 @@ type PlatformPlacementArgs struct {
 	// Defaults to 0, which returns the org-specific limit for each region.
 	Count   pulumi.IntPtrInput
 	OrgSlug pulumi.StringInput
+	// Query params to send with the API requests for this resource.
+	QueryParams PlatformPlacementQueryParamsPtrInput
 	// Region expression for placement as a comma-delimited set of regions or aliases.
 	// Defaults to "[region],any", to prefer the API endpoint's local region with any other region as fallback.
 	Region          pulumi.StringPtrInput
@@ -156,6 +162,11 @@ func (o PlatformPlacementOutput) Count() pulumi.IntPtrOutput {
 
 func (o PlatformPlacementOutput) OrgSlug() pulumi.StringOutput {
 	return o.ApplyT(func(v *PlatformPlacement) pulumi.StringOutput { return v.OrgSlug }).(pulumi.StringOutput)
+}
+
+// Query params to send with the API requests for this resource.
+func (o PlatformPlacementOutput) QueryParams() PlatformPlacementQueryParamsPtrOutput {
+	return o.ApplyT(func(v *PlatformPlacement) PlatformPlacementQueryParamsPtrOutput { return v.QueryParams }).(PlatformPlacementQueryParamsPtrOutput)
 }
 
 // Region expression for placement as a comma-delimited set of regions or aliases.

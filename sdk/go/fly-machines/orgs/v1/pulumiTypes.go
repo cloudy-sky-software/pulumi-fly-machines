@@ -197,6 +197,552 @@ func (o FlyMachineGuestPtrOutput) RequiredHostFeatures() pulumi.StringArrayOutpu
 	}).(pulumi.StringArrayOutput)
 }
 
+// Query params for the API request.
+type ListMachinesOrgQueryParams struct {
+	// Additional query params to send with the request that are not defined in the API spec.
+	AdditionalParams map[string]string `pulumi:"additionalParams"`
+	// Pagination cursor from previous response (takes precedence over updated_after). Note that there is no guarantee that all machines returned by this endpoint are sorted by their updated_at fields. Pagination may reveal machines older than the last updated_at.
+	Cursor *string `pulumi:"cursor"`
+	// Include deleted machines
+	IncludeDeleted *bool `pulumi:"includeDeleted"`
+	// The number of machines to fetch (max of 1000). This limit is advisory. Responses may be shorter, or even empty, even when more machines remain. If omitted, the maximum is used
+	Limit *int `pulumi:"limit"`
+	// Region filter
+	Region *string `pulumi:"region"`
+	// Comma separated list of states to filter (created, started, stopped, suspended)
+	State *string `pulumi:"state"`
+	// Omit config from responses
+	Summary *bool `pulumi:"summary"`
+	// Only return machines updated after this time. Timestamp must be in the RFC 3339 format
+	UpdatedAfter *string `pulumi:"updatedAfter"`
+}
+
+// ListMachinesOrgQueryParamsInput is an input type that accepts ListMachinesOrgQueryParamsArgs and ListMachinesOrgQueryParamsOutput values.
+// You can construct a concrete instance of `ListMachinesOrgQueryParamsInput` via:
+//
+//	ListMachinesOrgQueryParamsArgs{...}
+type ListMachinesOrgQueryParamsInput interface {
+	pulumi.Input
+
+	ToListMachinesOrgQueryParamsOutput() ListMachinesOrgQueryParamsOutput
+	ToListMachinesOrgQueryParamsOutputWithContext(context.Context) ListMachinesOrgQueryParamsOutput
+}
+
+// Query params for the API request.
+type ListMachinesOrgQueryParamsArgs struct {
+	// Additional query params to send with the request that are not defined in the API spec.
+	AdditionalParams pulumi.StringMapInput `pulumi:"additionalParams"`
+	// Pagination cursor from previous response (takes precedence over updated_after). Note that there is no guarantee that all machines returned by this endpoint are sorted by their updated_at fields. Pagination may reveal machines older than the last updated_at.
+	Cursor pulumi.StringPtrInput `pulumi:"cursor"`
+	// Include deleted machines
+	IncludeDeleted pulumi.BoolPtrInput `pulumi:"includeDeleted"`
+	// The number of machines to fetch (max of 1000). This limit is advisory. Responses may be shorter, or even empty, even when more machines remain. If omitted, the maximum is used
+	Limit pulumi.IntPtrInput `pulumi:"limit"`
+	// Region filter
+	Region pulumi.StringPtrInput `pulumi:"region"`
+	// Comma separated list of states to filter (created, started, stopped, suspended)
+	State pulumi.StringPtrInput `pulumi:"state"`
+	// Omit config from responses
+	Summary pulumi.BoolPtrInput `pulumi:"summary"`
+	// Only return machines updated after this time. Timestamp must be in the RFC 3339 format
+	UpdatedAfter pulumi.StringPtrInput `pulumi:"updatedAfter"`
+}
+
+func (ListMachinesOrgQueryParamsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ListMachinesOrgQueryParams)(nil)).Elem()
+}
+
+func (i ListMachinesOrgQueryParamsArgs) ToListMachinesOrgQueryParamsOutput() ListMachinesOrgQueryParamsOutput {
+	return i.ToListMachinesOrgQueryParamsOutputWithContext(context.Background())
+}
+
+func (i ListMachinesOrgQueryParamsArgs) ToListMachinesOrgQueryParamsOutputWithContext(ctx context.Context) ListMachinesOrgQueryParamsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ListMachinesOrgQueryParamsOutput)
+}
+
+func (i ListMachinesOrgQueryParamsArgs) ToListMachinesOrgQueryParamsPtrOutput() ListMachinesOrgQueryParamsPtrOutput {
+	return i.ToListMachinesOrgQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (i ListMachinesOrgQueryParamsArgs) ToListMachinesOrgQueryParamsPtrOutputWithContext(ctx context.Context) ListMachinesOrgQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ListMachinesOrgQueryParamsOutput).ToListMachinesOrgQueryParamsPtrOutputWithContext(ctx)
+}
+
+// ListMachinesOrgQueryParamsPtrInput is an input type that accepts ListMachinesOrgQueryParamsArgs, ListMachinesOrgQueryParamsPtr and ListMachinesOrgQueryParamsPtrOutput values.
+// You can construct a concrete instance of `ListMachinesOrgQueryParamsPtrInput` via:
+//
+//	        ListMachinesOrgQueryParamsArgs{...}
+//
+//	or:
+//
+//	        nil
+type ListMachinesOrgQueryParamsPtrInput interface {
+	pulumi.Input
+
+	ToListMachinesOrgQueryParamsPtrOutput() ListMachinesOrgQueryParamsPtrOutput
+	ToListMachinesOrgQueryParamsPtrOutputWithContext(context.Context) ListMachinesOrgQueryParamsPtrOutput
+}
+
+type listMachinesOrgQueryParamsPtrType ListMachinesOrgQueryParamsArgs
+
+func ListMachinesOrgQueryParamsPtr(v *ListMachinesOrgQueryParamsArgs) ListMachinesOrgQueryParamsPtrInput {
+	return (*listMachinesOrgQueryParamsPtrType)(v)
+}
+
+func (*listMachinesOrgQueryParamsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ListMachinesOrgQueryParams)(nil)).Elem()
+}
+
+func (i *listMachinesOrgQueryParamsPtrType) ToListMachinesOrgQueryParamsPtrOutput() ListMachinesOrgQueryParamsPtrOutput {
+	return i.ToListMachinesOrgQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (i *listMachinesOrgQueryParamsPtrType) ToListMachinesOrgQueryParamsPtrOutputWithContext(ctx context.Context) ListMachinesOrgQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ListMachinesOrgQueryParamsPtrOutput)
+}
+
+// Query params for the API request.
+type ListMachinesOrgQueryParamsOutput struct{ *pulumi.OutputState }
+
+func (ListMachinesOrgQueryParamsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ListMachinesOrgQueryParams)(nil)).Elem()
+}
+
+func (o ListMachinesOrgQueryParamsOutput) ToListMachinesOrgQueryParamsOutput() ListMachinesOrgQueryParamsOutput {
+	return o
+}
+
+func (o ListMachinesOrgQueryParamsOutput) ToListMachinesOrgQueryParamsOutputWithContext(ctx context.Context) ListMachinesOrgQueryParamsOutput {
+	return o
+}
+
+func (o ListMachinesOrgQueryParamsOutput) ToListMachinesOrgQueryParamsPtrOutput() ListMachinesOrgQueryParamsPtrOutput {
+	return o.ToListMachinesOrgQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (o ListMachinesOrgQueryParamsOutput) ToListMachinesOrgQueryParamsPtrOutputWithContext(ctx context.Context) ListMachinesOrgQueryParamsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ListMachinesOrgQueryParams) *ListMachinesOrgQueryParams {
+		return &v
+	}).(ListMachinesOrgQueryParamsPtrOutput)
+}
+
+// Additional query params to send with the request that are not defined in the API spec.
+func (o ListMachinesOrgQueryParamsOutput) AdditionalParams() pulumi.StringMapOutput {
+	return o.ApplyT(func(v ListMachinesOrgQueryParams) map[string]string { return v.AdditionalParams }).(pulumi.StringMapOutput)
+}
+
+// Pagination cursor from previous response (takes precedence over updated_after). Note that there is no guarantee that all machines returned by this endpoint are sorted by their updated_at fields. Pagination may reveal machines older than the last updated_at.
+func (o ListMachinesOrgQueryParamsOutput) Cursor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ListMachinesOrgQueryParams) *string { return v.Cursor }).(pulumi.StringPtrOutput)
+}
+
+// Include deleted machines
+func (o ListMachinesOrgQueryParamsOutput) IncludeDeleted() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ListMachinesOrgQueryParams) *bool { return v.IncludeDeleted }).(pulumi.BoolPtrOutput)
+}
+
+// The number of machines to fetch (max of 1000). This limit is advisory. Responses may be shorter, or even empty, even when more machines remain. If omitted, the maximum is used
+func (o ListMachinesOrgQueryParamsOutput) Limit() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ListMachinesOrgQueryParams) *int { return v.Limit }).(pulumi.IntPtrOutput)
+}
+
+// Region filter
+func (o ListMachinesOrgQueryParamsOutput) Region() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ListMachinesOrgQueryParams) *string { return v.Region }).(pulumi.StringPtrOutput)
+}
+
+// Comma separated list of states to filter (created, started, stopped, suspended)
+func (o ListMachinesOrgQueryParamsOutput) State() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ListMachinesOrgQueryParams) *string { return v.State }).(pulumi.StringPtrOutput)
+}
+
+// Omit config from responses
+func (o ListMachinesOrgQueryParamsOutput) Summary() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ListMachinesOrgQueryParams) *bool { return v.Summary }).(pulumi.BoolPtrOutput)
+}
+
+// Only return machines updated after this time. Timestamp must be in the RFC 3339 format
+func (o ListMachinesOrgQueryParamsOutput) UpdatedAfter() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ListMachinesOrgQueryParams) *string { return v.UpdatedAfter }).(pulumi.StringPtrOutput)
+}
+
+type ListMachinesOrgQueryParamsPtrOutput struct{ *pulumi.OutputState }
+
+func (ListMachinesOrgQueryParamsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ListMachinesOrgQueryParams)(nil)).Elem()
+}
+
+func (o ListMachinesOrgQueryParamsPtrOutput) ToListMachinesOrgQueryParamsPtrOutput() ListMachinesOrgQueryParamsPtrOutput {
+	return o
+}
+
+func (o ListMachinesOrgQueryParamsPtrOutput) ToListMachinesOrgQueryParamsPtrOutputWithContext(ctx context.Context) ListMachinesOrgQueryParamsPtrOutput {
+	return o
+}
+
+func (o ListMachinesOrgQueryParamsPtrOutput) Elem() ListMachinesOrgQueryParamsOutput {
+	return o.ApplyT(func(v *ListMachinesOrgQueryParams) ListMachinesOrgQueryParams {
+		if v != nil {
+			return *v
+		}
+		var ret ListMachinesOrgQueryParams
+		return ret
+	}).(ListMachinesOrgQueryParamsOutput)
+}
+
+// Additional query params to send with the request that are not defined in the API spec.
+func (o ListMachinesOrgQueryParamsPtrOutput) AdditionalParams() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *ListMachinesOrgQueryParams) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.AdditionalParams
+	}).(pulumi.StringMapOutput)
+}
+
+// Pagination cursor from previous response (takes precedence over updated_after). Note that there is no guarantee that all machines returned by this endpoint are sorted by their updated_at fields. Pagination may reveal machines older than the last updated_at.
+func (o ListMachinesOrgQueryParamsPtrOutput) Cursor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ListMachinesOrgQueryParams) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Cursor
+	}).(pulumi.StringPtrOutput)
+}
+
+// Include deleted machines
+func (o ListMachinesOrgQueryParamsPtrOutput) IncludeDeleted() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ListMachinesOrgQueryParams) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.IncludeDeleted
+	}).(pulumi.BoolPtrOutput)
+}
+
+// The number of machines to fetch (max of 1000). This limit is advisory. Responses may be shorter, or even empty, even when more machines remain. If omitted, the maximum is used
+func (o ListMachinesOrgQueryParamsPtrOutput) Limit() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ListMachinesOrgQueryParams) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Limit
+	}).(pulumi.IntPtrOutput)
+}
+
+// Region filter
+func (o ListMachinesOrgQueryParamsPtrOutput) Region() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ListMachinesOrgQueryParams) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Region
+	}).(pulumi.StringPtrOutput)
+}
+
+// Comma separated list of states to filter (created, started, stopped, suspended)
+func (o ListMachinesOrgQueryParamsPtrOutput) State() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ListMachinesOrgQueryParams) *string {
+		if v == nil {
+			return nil
+		}
+		return v.State
+	}).(pulumi.StringPtrOutput)
+}
+
+// Omit config from responses
+func (o ListMachinesOrgQueryParamsPtrOutput) Summary() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ListMachinesOrgQueryParams) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Summary
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Only return machines updated after this time. Timestamp must be in the RFC 3339 format
+func (o ListMachinesOrgQueryParamsPtrOutput) UpdatedAfter() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ListMachinesOrgQueryParams) *string {
+		if v == nil {
+			return nil
+		}
+		return v.UpdatedAfter
+	}).(pulumi.StringPtrOutput)
+}
+
+// Query params for the API request.
+type ListVolumesOrgQueryParams struct {
+	// Additional query params to send with the request that are not defined in the API spec.
+	AdditionalParams map[string]string `pulumi:"additionalParams"`
+	// Pagination cursor from previous response (takes precedence over updated_after)
+	Cursor *string `pulumi:"cursor"`
+	// Include deleted volumes
+	IncludeDeleted *bool `pulumi:"includeDeleted"`
+	// The number of volumes to fetch (max of 1000). This limit is advisory. Responses may be shorter, even when more volumes remain. If omitted, the maximum is used
+	Limit *int `pulumi:"limit"`
+	// Region filter
+	Region *string `pulumi:"region"`
+	// Comma separated list of volume states to filter
+	State *string `pulumi:"state"`
+	// Only return summary info about volumes (omit blocks, block size, etc)
+	Summary *bool `pulumi:"summary"`
+	// Only return volumes updated after this time. Timestamp must be in the RFC 3339 format
+	UpdatedAfter *string `pulumi:"updatedAfter"`
+}
+
+// ListVolumesOrgQueryParamsInput is an input type that accepts ListVolumesOrgQueryParamsArgs and ListVolumesOrgQueryParamsOutput values.
+// You can construct a concrete instance of `ListVolumesOrgQueryParamsInput` via:
+//
+//	ListVolumesOrgQueryParamsArgs{...}
+type ListVolumesOrgQueryParamsInput interface {
+	pulumi.Input
+
+	ToListVolumesOrgQueryParamsOutput() ListVolumesOrgQueryParamsOutput
+	ToListVolumesOrgQueryParamsOutputWithContext(context.Context) ListVolumesOrgQueryParamsOutput
+}
+
+// Query params for the API request.
+type ListVolumesOrgQueryParamsArgs struct {
+	// Additional query params to send with the request that are not defined in the API spec.
+	AdditionalParams pulumi.StringMapInput `pulumi:"additionalParams"`
+	// Pagination cursor from previous response (takes precedence over updated_after)
+	Cursor pulumi.StringPtrInput `pulumi:"cursor"`
+	// Include deleted volumes
+	IncludeDeleted pulumi.BoolPtrInput `pulumi:"includeDeleted"`
+	// The number of volumes to fetch (max of 1000). This limit is advisory. Responses may be shorter, even when more volumes remain. If omitted, the maximum is used
+	Limit pulumi.IntPtrInput `pulumi:"limit"`
+	// Region filter
+	Region pulumi.StringPtrInput `pulumi:"region"`
+	// Comma separated list of volume states to filter
+	State pulumi.StringPtrInput `pulumi:"state"`
+	// Only return summary info about volumes (omit blocks, block size, etc)
+	Summary pulumi.BoolPtrInput `pulumi:"summary"`
+	// Only return volumes updated after this time. Timestamp must be in the RFC 3339 format
+	UpdatedAfter pulumi.StringPtrInput `pulumi:"updatedAfter"`
+}
+
+func (ListVolumesOrgQueryParamsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ListVolumesOrgQueryParams)(nil)).Elem()
+}
+
+func (i ListVolumesOrgQueryParamsArgs) ToListVolumesOrgQueryParamsOutput() ListVolumesOrgQueryParamsOutput {
+	return i.ToListVolumesOrgQueryParamsOutputWithContext(context.Background())
+}
+
+func (i ListVolumesOrgQueryParamsArgs) ToListVolumesOrgQueryParamsOutputWithContext(ctx context.Context) ListVolumesOrgQueryParamsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ListVolumesOrgQueryParamsOutput)
+}
+
+func (i ListVolumesOrgQueryParamsArgs) ToListVolumesOrgQueryParamsPtrOutput() ListVolumesOrgQueryParamsPtrOutput {
+	return i.ToListVolumesOrgQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (i ListVolumesOrgQueryParamsArgs) ToListVolumesOrgQueryParamsPtrOutputWithContext(ctx context.Context) ListVolumesOrgQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ListVolumesOrgQueryParamsOutput).ToListVolumesOrgQueryParamsPtrOutputWithContext(ctx)
+}
+
+// ListVolumesOrgQueryParamsPtrInput is an input type that accepts ListVolumesOrgQueryParamsArgs, ListVolumesOrgQueryParamsPtr and ListVolumesOrgQueryParamsPtrOutput values.
+// You can construct a concrete instance of `ListVolumesOrgQueryParamsPtrInput` via:
+//
+//	        ListVolumesOrgQueryParamsArgs{...}
+//
+//	or:
+//
+//	        nil
+type ListVolumesOrgQueryParamsPtrInput interface {
+	pulumi.Input
+
+	ToListVolumesOrgQueryParamsPtrOutput() ListVolumesOrgQueryParamsPtrOutput
+	ToListVolumesOrgQueryParamsPtrOutputWithContext(context.Context) ListVolumesOrgQueryParamsPtrOutput
+}
+
+type listVolumesOrgQueryParamsPtrType ListVolumesOrgQueryParamsArgs
+
+func ListVolumesOrgQueryParamsPtr(v *ListVolumesOrgQueryParamsArgs) ListVolumesOrgQueryParamsPtrInput {
+	return (*listVolumesOrgQueryParamsPtrType)(v)
+}
+
+func (*listVolumesOrgQueryParamsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ListVolumesOrgQueryParams)(nil)).Elem()
+}
+
+func (i *listVolumesOrgQueryParamsPtrType) ToListVolumesOrgQueryParamsPtrOutput() ListVolumesOrgQueryParamsPtrOutput {
+	return i.ToListVolumesOrgQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (i *listVolumesOrgQueryParamsPtrType) ToListVolumesOrgQueryParamsPtrOutputWithContext(ctx context.Context) ListVolumesOrgQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ListVolumesOrgQueryParamsPtrOutput)
+}
+
+// Query params for the API request.
+type ListVolumesOrgQueryParamsOutput struct{ *pulumi.OutputState }
+
+func (ListVolumesOrgQueryParamsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ListVolumesOrgQueryParams)(nil)).Elem()
+}
+
+func (o ListVolumesOrgQueryParamsOutput) ToListVolumesOrgQueryParamsOutput() ListVolumesOrgQueryParamsOutput {
+	return o
+}
+
+func (o ListVolumesOrgQueryParamsOutput) ToListVolumesOrgQueryParamsOutputWithContext(ctx context.Context) ListVolumesOrgQueryParamsOutput {
+	return o
+}
+
+func (o ListVolumesOrgQueryParamsOutput) ToListVolumesOrgQueryParamsPtrOutput() ListVolumesOrgQueryParamsPtrOutput {
+	return o.ToListVolumesOrgQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (o ListVolumesOrgQueryParamsOutput) ToListVolumesOrgQueryParamsPtrOutputWithContext(ctx context.Context) ListVolumesOrgQueryParamsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ListVolumesOrgQueryParams) *ListVolumesOrgQueryParams {
+		return &v
+	}).(ListVolumesOrgQueryParamsPtrOutput)
+}
+
+// Additional query params to send with the request that are not defined in the API spec.
+func (o ListVolumesOrgQueryParamsOutput) AdditionalParams() pulumi.StringMapOutput {
+	return o.ApplyT(func(v ListVolumesOrgQueryParams) map[string]string { return v.AdditionalParams }).(pulumi.StringMapOutput)
+}
+
+// Pagination cursor from previous response (takes precedence over updated_after)
+func (o ListVolumesOrgQueryParamsOutput) Cursor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ListVolumesOrgQueryParams) *string { return v.Cursor }).(pulumi.StringPtrOutput)
+}
+
+// Include deleted volumes
+func (o ListVolumesOrgQueryParamsOutput) IncludeDeleted() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ListVolumesOrgQueryParams) *bool { return v.IncludeDeleted }).(pulumi.BoolPtrOutput)
+}
+
+// The number of volumes to fetch (max of 1000). This limit is advisory. Responses may be shorter, even when more volumes remain. If omitted, the maximum is used
+func (o ListVolumesOrgQueryParamsOutput) Limit() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ListVolumesOrgQueryParams) *int { return v.Limit }).(pulumi.IntPtrOutput)
+}
+
+// Region filter
+func (o ListVolumesOrgQueryParamsOutput) Region() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ListVolumesOrgQueryParams) *string { return v.Region }).(pulumi.StringPtrOutput)
+}
+
+// Comma separated list of volume states to filter
+func (o ListVolumesOrgQueryParamsOutput) State() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ListVolumesOrgQueryParams) *string { return v.State }).(pulumi.StringPtrOutput)
+}
+
+// Only return summary info about volumes (omit blocks, block size, etc)
+func (o ListVolumesOrgQueryParamsOutput) Summary() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ListVolumesOrgQueryParams) *bool { return v.Summary }).(pulumi.BoolPtrOutput)
+}
+
+// Only return volumes updated after this time. Timestamp must be in the RFC 3339 format
+func (o ListVolumesOrgQueryParamsOutput) UpdatedAfter() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ListVolumesOrgQueryParams) *string { return v.UpdatedAfter }).(pulumi.StringPtrOutput)
+}
+
+type ListVolumesOrgQueryParamsPtrOutput struct{ *pulumi.OutputState }
+
+func (ListVolumesOrgQueryParamsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ListVolumesOrgQueryParams)(nil)).Elem()
+}
+
+func (o ListVolumesOrgQueryParamsPtrOutput) ToListVolumesOrgQueryParamsPtrOutput() ListVolumesOrgQueryParamsPtrOutput {
+	return o
+}
+
+func (o ListVolumesOrgQueryParamsPtrOutput) ToListVolumesOrgQueryParamsPtrOutputWithContext(ctx context.Context) ListVolumesOrgQueryParamsPtrOutput {
+	return o
+}
+
+func (o ListVolumesOrgQueryParamsPtrOutput) Elem() ListVolumesOrgQueryParamsOutput {
+	return o.ApplyT(func(v *ListVolumesOrgQueryParams) ListVolumesOrgQueryParams {
+		if v != nil {
+			return *v
+		}
+		var ret ListVolumesOrgQueryParams
+		return ret
+	}).(ListVolumesOrgQueryParamsOutput)
+}
+
+// Additional query params to send with the request that are not defined in the API spec.
+func (o ListVolumesOrgQueryParamsPtrOutput) AdditionalParams() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *ListVolumesOrgQueryParams) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.AdditionalParams
+	}).(pulumi.StringMapOutput)
+}
+
+// Pagination cursor from previous response (takes precedence over updated_after)
+func (o ListVolumesOrgQueryParamsPtrOutput) Cursor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ListVolumesOrgQueryParams) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Cursor
+	}).(pulumi.StringPtrOutput)
+}
+
+// Include deleted volumes
+func (o ListVolumesOrgQueryParamsPtrOutput) IncludeDeleted() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ListVolumesOrgQueryParams) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.IncludeDeleted
+	}).(pulumi.BoolPtrOutput)
+}
+
+// The number of volumes to fetch (max of 1000). This limit is advisory. Responses may be shorter, even when more volumes remain. If omitted, the maximum is used
+func (o ListVolumesOrgQueryParamsPtrOutput) Limit() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ListVolumesOrgQueryParams) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Limit
+	}).(pulumi.IntPtrOutput)
+}
+
+// Region filter
+func (o ListVolumesOrgQueryParamsPtrOutput) Region() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ListVolumesOrgQueryParams) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Region
+	}).(pulumi.StringPtrOutput)
+}
+
+// Comma separated list of volume states to filter
+func (o ListVolumesOrgQueryParamsPtrOutput) State() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ListVolumesOrgQueryParams) *string {
+		if v == nil {
+			return nil
+		}
+		return v.State
+	}).(pulumi.StringPtrOutput)
+}
+
+// Only return summary info about volumes (omit blocks, block size, etc)
+func (o ListVolumesOrgQueryParamsPtrOutput) Summary() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ListVolumesOrgQueryParams) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Summary
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Only return volumes updated after this time. Timestamp must be in the RFC 3339 format
+func (o ListVolumesOrgQueryParamsPtrOutput) UpdatedAfter() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ListVolumesOrgQueryParams) *string {
+		if v == nil {
+			return nil
+		}
+		return v.UpdatedAfter
+	}).(pulumi.StringPtrOutput)
+}
+
 type MachineOverviewConfig struct {
 	Guest    *FlyMachineGuest `pulumi:"guest"`
 	Image    *string          `pulumi:"image"`
@@ -545,8 +1091,16 @@ type OrgVolumesResponse struct {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*ListMachinesOrgQueryParamsInput)(nil)).Elem(), ListMachinesOrgQueryParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ListMachinesOrgQueryParamsPtrInput)(nil)).Elem(), ListMachinesOrgQueryParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ListVolumesOrgQueryParamsInput)(nil)).Elem(), ListVolumesOrgQueryParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ListVolumesOrgQueryParamsPtrInput)(nil)).Elem(), ListVolumesOrgQueryParamsArgs{})
 	pulumi.RegisterOutputType(FlyMachineGuestOutput{})
 	pulumi.RegisterOutputType(FlyMachineGuestPtrOutput{})
+	pulumi.RegisterOutputType(ListMachinesOrgQueryParamsOutput{})
+	pulumi.RegisterOutputType(ListMachinesOrgQueryParamsPtrOutput{})
+	pulumi.RegisterOutputType(ListVolumesOrgQueryParamsOutput{})
+	pulumi.RegisterOutputType(ListVolumesOrgQueryParamsPtrOutput{})
 	pulumi.RegisterOutputType(MachineOverviewConfigOutput{})
 	pulumi.RegisterOutputType(MachineOverviewConfigPtrOutput{})
 	pulumi.RegisterOutputType(OrgMachineOutput{})

@@ -14,6 +14,7 @@ else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
 from . import outputs
+from ._inputs import *
 
 __all__ = [
     'GetCurrentTokenResult',
@@ -44,21 +45,29 @@ class AwaitableGetCurrentTokenResult(GetCurrentTokenResult):
             tokens=self.tokens)
 
 
-def get_current_token(opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetCurrentTokenResult:
+def get_current_token(query_params: Optional[Union['GetCurrentTokenQueryParams', 'GetCurrentTokenQueryParamsDict']] = None,
+                      opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetCurrentTokenResult:
     """
     Use this data source to access information about an existing resource.
+
+    :param Union['GetCurrentTokenQueryParams', 'GetCurrentTokenQueryParamsDict'] query_params: Query params to send with the API request.
     """
     __args__ = dict()
+    __args__['queryParams'] = query_params
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke('fly-machines:tokens/v1:getCurrentToken', __args__, opts=opts, typ=GetCurrentTokenResult).value
 
     return AwaitableGetCurrentTokenResult(
         tokens=pulumi.get(__ret__, 'tokens'))
-def get_current_token_output(opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetCurrentTokenResult]:
+def get_current_token_output(query_params: pulumi.Input[Optional[Optional[Union['GetCurrentTokenQueryParams', 'GetCurrentTokenQueryParamsDict']]]] = None,
+                             opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetCurrentTokenResult]:
     """
     Use this data source to access information about an existing resource.
+
+    :param Union['GetCurrentTokenQueryParams', 'GetCurrentTokenQueryParamsDict'] query_params: Query params to send with the API request.
     """
     __args__ = dict()
+    __args__['queryParams'] = query_params
     opts = pulumi.InvokeOutputOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke_output('fly-machines:tokens/v1:getCurrentToken', __args__, opts=opts, typ=GetCurrentTokenResult)
     return __ret__.apply(lambda __response__: GetCurrentTokenResult(

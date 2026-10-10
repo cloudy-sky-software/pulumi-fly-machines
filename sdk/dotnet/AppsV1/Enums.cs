@@ -330,6 +330,38 @@ namespace Pulumi.FlyMachines.AppsV1
     }
 
     [EnumType]
+    public readonly struct GetMachinesWaitQueryParamsState : IEquatable<GetMachinesWaitQueryParamsState>
+    {
+        private readonly string _value;
+
+        private GetMachinesWaitQueryParamsState(string value)
+        {
+            _value = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        public static GetMachinesWaitQueryParamsState Started { get; } = new GetMachinesWaitQueryParamsState("started");
+        public static GetMachinesWaitQueryParamsState Stopped { get; } = new GetMachinesWaitQueryParamsState("stopped");
+        public static GetMachinesWaitQueryParamsState Suspended { get; } = new GetMachinesWaitQueryParamsState("suspended");
+        public static GetMachinesWaitQueryParamsState Destroyed { get; } = new GetMachinesWaitQueryParamsState("destroyed");
+        public static GetMachinesWaitQueryParamsState Failed { get; } = new GetMachinesWaitQueryParamsState("failed");
+        public static GetMachinesWaitQueryParamsState Settled { get; } = new GetMachinesWaitQueryParamsState("settled");
+
+        public static bool operator ==(GetMachinesWaitQueryParamsState left, GetMachinesWaitQueryParamsState right) => left.Equals(right);
+        public static bool operator !=(GetMachinesWaitQueryParamsState left, GetMachinesWaitQueryParamsState right) => !left.Equals(right);
+
+        public static explicit operator string(GetMachinesWaitQueryParamsState value) => value._value;
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object? obj) => obj is GetMachinesWaitQueryParamsState other && Equals(other);
+        public bool Equals(GetMachinesWaitQueryParamsState other) => string.Equals(_value, other._value, StringComparison.Ordinal);
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode() => _value?.GetHashCode() ?? 0;
+
+        public override string ToString() => _value;
+    }
+
+    [EnumType]
     public readonly struct HostStatus : IEquatable<HostStatus>
     {
         private readonly string _value;
@@ -408,6 +440,39 @@ namespace Pulumi.FlyMachines.AppsV1
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object? obj) => obj is MachineHostStatus other && Equals(other);
         public bool Equals(MachineHostStatus other) => string.Equals(_value, other._value, StringComparison.Ordinal);
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode() => _value?.GetHashCode() ?? 0;
+
+        public override string ToString() => _value;
+    }
+
+    [EnumType]
+    public readonly struct MachinesRestartCreateQueryParamsSignal : IEquatable<MachinesRestartCreateQueryParamsSignal>
+    {
+        private readonly string _value;
+
+        private MachinesRestartCreateQueryParamsSignal(string value)
+        {
+            _value = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        public static MachinesRestartCreateQueryParamsSignal Sighup { get; } = new MachinesRestartCreateQueryParamsSignal("SIGHUP");
+        public static MachinesRestartCreateQueryParamsSignal Sigint { get; } = new MachinesRestartCreateQueryParamsSignal("SIGINT");
+        public static MachinesRestartCreateQueryParamsSignal Sigquit { get; } = new MachinesRestartCreateQueryParamsSignal("SIGQUIT");
+        public static MachinesRestartCreateQueryParamsSignal Sigkill { get; } = new MachinesRestartCreateQueryParamsSignal("SIGKILL");
+        public static MachinesRestartCreateQueryParamsSignal Sigusr1 { get; } = new MachinesRestartCreateQueryParamsSignal("SIGUSR1");
+        public static MachinesRestartCreateQueryParamsSignal Sigusr2 { get; } = new MachinesRestartCreateQueryParamsSignal("SIGUSR2");
+        public static MachinesRestartCreateQueryParamsSignal Sigterm { get; } = new MachinesRestartCreateQueryParamsSignal("SIGTERM");
+
+        public static bool operator ==(MachinesRestartCreateQueryParamsSignal left, MachinesRestartCreateQueryParamsSignal right) => left.Equals(right);
+        public static bool operator !=(MachinesRestartCreateQueryParamsSignal left, MachinesRestartCreateQueryParamsSignal right) => !left.Equals(right);
+
+        public static explicit operator string(MachinesRestartCreateQueryParamsSignal value) => value._value;
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object? obj) => obj is MachinesRestartCreateQueryParamsSignal other && Equals(other);
+        public bool Equals(MachinesRestartCreateQueryParamsSignal other) => string.Equals(_value, other._value, StringComparison.Ordinal);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override int GetHashCode() => _value?.GetHashCode() ?? 0;

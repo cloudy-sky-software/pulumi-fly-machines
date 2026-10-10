@@ -13,6 +13,8 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
+from . import outputs
+from ._inputs import *
 
 __all__ = ['SecretArgs', 'Secret']
 
@@ -20,16 +22,20 @@ __all__ = ['SecretArgs', 'Secret']
 class SecretArgs:
     def __init__(__self__, *,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional['SecretQueryParamsArgs']] = None,
                  secret_name: pulumi.Input[Optional[_builtins.str]] = None,
                  value: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a Secret resource.
 
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
+        :param pulumi.Input['SecretQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input[_builtins.str] secret_name: App secret name
         """
         if app_name is not None:
             pulumi.set(__self__, "app_name", app_name)
+        if query_params is not None:
+            pulumi.set(__self__, "query_params", query_params)
         if secret_name is not None:
             pulumi.set(__self__, "secret_name", secret_name)
         if value is not None:
@@ -46,6 +52,18 @@ class SecretArgs:
     @app_name.setter
     def app_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "app_name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Input[Optional['SecretQueryParamsArgs']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
+
+    @query_params.setter
+    def query_params(self, value: pulumi.Input[Optional['SecretQueryParamsArgs']]):
+        pulumi.set(self, "query_params", value)
 
     @_builtins.property
     @pulumi.getter(name="secretName")
@@ -76,6 +94,7 @@ class Secret(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['SecretQueryParamsArgs', 'SecretQueryParamsArgsDict', 'outputs.SecretQueryParams']]] = None,
                  secret_name: pulumi.Input[Optional[_builtins.str]] = None,
                  value: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
@@ -85,6 +104,7 @@ class Secret(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
+        :param pulumi.Input[Union['SecretQueryParamsArgs', 'SecretQueryParamsArgsDict', 'outputs.SecretQueryParams']] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input[_builtins.str] secret_name: App secret name
         """
         ...
@@ -112,6 +132,7 @@ class Secret(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['SecretQueryParamsArgs', 'SecretQueryParamsArgsDict', 'outputs.SecretQueryParams']]] = None,
                  secret_name: pulumi.Input[Optional[_builtins.str]] = None,
                  value: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
@@ -124,6 +145,7 @@ class Secret(pulumi.CustomResource):
             __props__ = SecretArgs.__new__(SecretArgs)
 
             __props__.__dict__["app_name"] = app_name
+            __props__.__dict__["query_params"] = query_params
             __props__.__dict__["secret_name"] = secret_name
             __props__.__dict__["value"] = value
             __props__.__dict__["created_at"] = None
@@ -156,6 +178,7 @@ class Secret(pulumi.CustomResource):
         __props__.__dict__["created_at"] = None
         __props__.__dict__["digest"] = None
         __props__.__dict__["name"] = None
+        __props__.__dict__["query_params"] = None
         __props__.__dict__["updated_at"] = None
         __props__.__dict__["value"] = None
         __props__.__dict__["version"] = None
@@ -175,6 +198,14 @@ class Secret(pulumi.CustomResource):
     @pulumi.getter
     def name(self) -> pulumi.Output[Optional[_builtins.str]]:
         return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Output[Optional['outputs.SecretQueryParams']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
 
     @_builtins.property
     @pulumi.getter(name="updatedAt")

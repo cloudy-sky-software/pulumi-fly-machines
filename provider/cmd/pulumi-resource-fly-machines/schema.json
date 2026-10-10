@@ -103,6 +103,198 @@
             },
             "type": "object"
         },
+        "fly-machines:apps/v1:AppCertificatesAcmeCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:AppCertificatesAcmeDeleteQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:AppCertificatesAcmeQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:apps/v1:AppCertificatesAcmeCreateQueryParams",
+                    "description": "Query params for the create operation."
+                },
+                "delete": {
+                    "$ref": "#/types/fly-machines:apps/v1:AppCertificatesAcmeDeleteQueryParams",
+                    "description": "Query params for the delete operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:AppCertificatesCheckCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:AppCertificatesCheckQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:apps/v1:AppCertificatesCheckCreateQueryParams",
+                    "description": "Query params for the create operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:AppCertificatesCustomCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:AppCertificatesCustomDeleteQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:AppCertificatesCustomQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:apps/v1:AppCertificatesCustomCreateQueryParams",
+                    "description": "Query params for the create operation."
+                },
+                "delete": {
+                    "$ref": "#/types/fly-machines:apps/v1:AppCertificatesCustomDeleteQueryParams",
+                    "description": "Query params for the delete operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:AppCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:AppDeleteQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:AppDeployTokenCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:AppDeployTokenQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:apps/v1:AppDeployTokenCreateQueryParams",
+                    "description": "Query params for the create operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:AppIPAssignmentCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:AppIPAssignmentDeleteQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:AppIPAssignmentQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:apps/v1:AppIPAssignmentCreateQueryParams",
+                    "description": "Query params for the create operation."
+                },
+                "delete": {
+                    "$ref": "#/types/fly-machines:apps/v1:AppIPAssignmentDeleteQueryParams",
+                    "description": "Query params for the delete operation."
+                }
+            },
+            "type": "object"
+        },
         "fly-machines:apps/v1:AppIPAssignmentType": {
             "description": "Type of IP address to allocate. \"egress-pair\" allocates both v4 and v6 egress IP addresses (recommended when using egress IPs).",
             "type": "string",
@@ -147,6 +339,37 @@
                 },
                 "slug": {
                     "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:AppQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:apps/v1:AppCreateQueryParams",
+                    "description": "Query params for the create operation."
+                },
+                "delete": {
+                    "$ref": "#/types/fly-machines:apps/v1:AppDeleteQueryParams",
+                    "description": "Query params for the delete operation."
+                },
+                "read": {
+                    "$ref": "#/types/fly-machines:apps/v1:AppReadQueryParams",
+                    "description": "Query params for the read operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:AppReadQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
                 }
             },
             "type": "object"
@@ -1648,6 +1871,218 @@
             },
             "type": "object"
         },
+        "fly-machines:apps/v1:GetAppCertificateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:GetAppQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:GetMachineQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                },
+                "includeLeases": {
+                    "type": "boolean",
+                    "description": "Include machine lease"
+                },
+                "version": {
+                    "type": "string",
+                    "description": "26-character Machine version ID; returns that version of the Machine instead of the current one"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:GetMachinesLeaseQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:GetMachinesMemoryQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:GetMachinesMetadataKeyQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:GetMachinesMetadataQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:GetMachinesWaitQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                },
+                "fromEventId": {
+                    "type": "string",
+                    "description": "26-character Machine event ID to start waiting after"
+                },
+                "instanceId": {
+                    "type": "string",
+                    "description": "26-character Machine version ID (deprecated; use version)"
+                },
+                "state": {
+                    "$ref": "#/types/fly-machines:apps/v1:GetMachinesWaitQueryParamsState",
+                    "description": "desired state(s), supports repeated or comma-separated values"
+                },
+                "timeout": {
+                    "type": "integer",
+                    "description": "wait timeout. default 60s"
+                },
+                "version": {
+                    "type": "string",
+                    "description": "26-character Machine version ID"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:GetMachinesWaitQueryParamsState": {
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Started",
+                    "value": "started"
+                },
+                {
+                    "name": "Stopped",
+                    "value": "stopped"
+                },
+                {
+                    "name": "Suspended",
+                    "value": "suspended"
+                },
+                {
+                    "name": "Destroyed",
+                    "value": "destroyed"
+                },
+                {
+                    "name": "Failed",
+                    "value": "failed"
+                },
+                {
+                    "name": "Settled",
+                    "value": "settled"
+                }
+            ]
+        },
+        "fly-machines:apps/v1:GetSecretQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                },
+                "minVersion": {
+                    "type": "string",
+                    "description": "Minimum secrets version to return. Returned when setting a new secret"
+                },
+                "showSecrets": {
+                    "type": "boolean",
+                    "description": "Show the secret value."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:GetSecretkeyQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                },
+                "minVersion": {
+                    "type": "string",
+                    "description": "Minimum secrets version to return. Returned when setting a new secret"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:GetVolumeQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
         "fly-machines:apps/v1:HostStatus": {
             "type": "string",
             "enum": [
@@ -1789,6 +2224,68 @@
             },
             "type": "object"
         },
+        "fly-machines:apps/v1:ListAppCertificatesQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                },
+                "cursor": {
+                    "type": "string",
+                    "description": "Pagination cursor from previous response"
+                },
+                "filter": {
+                    "type": "string",
+                    "description": "Hostname filter (substring match)"
+                },
+                "limit": {
+                    "type": "integer",
+                    "description": "Number of results per page (default 25, max 500)"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:ListAppIPAssignmentsQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:ListAppsQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                },
+                "appRole": {
+                    "type": "string",
+                    "description": "Filter apps by role"
+                },
+                "orgSlug": {
+                    "type": "string",
+                    "description": "The org slug, or 'personal', to filter apps"
+                }
+            },
+            "type": "object",
+            "required": [
+                "orgSlug"
+            ]
+        },
         "fly-machines:apps/v1:ListAppsResponse": {
             "properties": {
                 "apps": {
@@ -1827,6 +2324,174 @@
                     "items": {
                         "$ref": "#/types/fly-machines:apps/v1:IPAssignment"
                     }
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:ListMachinesEventsQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                },
+                "limit": {
+                    "type": "integer",
+                    "description": "The number of events to fetch (max of 50). If omitted, this is set to 20 by default."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:ListMachinesProcessesQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                },
+                "order": {
+                    "type": "string",
+                    "description": "Order"
+                },
+                "sortBy": {
+                    "type": "string",
+                    "description": "Sort by"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:ListMachinesQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                },
+                "cursor": {
+                    "type": "string",
+                    "description": "Value of the fly-next-cursor response header from the previous page. Requires limit."
+                },
+                "includeDeleted": {
+                    "type": "boolean",
+                    "description": "Include deleted machines"
+                },
+                "includeLeases": {
+                    "type": "boolean",
+                    "description": "Include machine leases"
+                },
+                "limit": {
+                    "type": "integer",
+                    "description": "The number of machines to fetch (must be between 1 and 1000). Providing a limit enables pagination. This limit is advisory; responses may be shorter, or even empty, even when more machines remain."
+                },
+                "metadatakey": {
+                    "type": "string",
+                    "description": "Filter by a machine metadata key and exact value. Replace {key} with the metadata key, for example metadata.foo=bar. Specify multiple metadata filters to require all matches."
+                },
+                "region": {
+                    "type": "string",
+                    "description": "Region filter"
+                },
+                "state": {
+                    "type": "string",
+                    "description": "comma separated list of states to filter (created, started, stopped, suspended)"
+                },
+                "summary": {
+                    "type": "boolean",
+                    "description": "Only return summary info about machines (omit config, checks, events, host_status, nonce, etc.)"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:ListMachinesVersionsQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:ListSecretkeysQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                },
+                "minVersion": {
+                    "type": "string",
+                    "description": "Minimum secrets version to return. Returned when setting a new secret"
+                },
+                "types": {
+                    "type": "string",
+                    "description": "Comma-seperated list of secret keys to list"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:ListSecretsQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                },
+                "minVersion": {
+                    "type": "string",
+                    "description": "Minimum secrets version to return. Returned when setting a new secret"
+                },
+                "showSecrets": {
+                    "type": "boolean",
+                    "description": "Show the secret values."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:ListVolumesQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                },
+                "summary": {
+                    "type": "boolean",
+                    "description": "Only return summary info about volumes (omit blocks, block size, etc)"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:ListVolumesSnapshotsQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
                 }
             },
             "type": "object"
@@ -1917,6 +2582,36 @@
             },
             "type": "object"
         },
+        "fly-machines:apps/v1:MachineCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachineDeleteQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                },
+                "force": {
+                    "type": "boolean",
+                    "description": "Force kill the machine if it's running"
+                }
+            },
+            "type": "object"
+        },
         "fly-machines:apps/v1:MachineEvent": {
             "properties": {
                 "id": {
@@ -1957,6 +2652,62 @@
                 }
             ]
         },
+        "fly-machines:apps/v1:MachinePutQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachineQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachineCreateQueryParams",
+                    "description": "Query params for the create operation."
+                },
+                "delete": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachineDeleteQueryParams",
+                    "description": "Query params for the delete operation."
+                },
+                "put": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinePutQueryParams",
+                    "description": "Query params for the put operation."
+                },
+                "read": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachineReadQueryParams",
+                    "description": "Query params for the read operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachineReadQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                },
+                "includeLeases": {
+                    "type": "boolean",
+                    "description": "Include machine lease"
+                },
+                "version": {
+                    "type": "string",
+                    "description": "26-character Machine version ID; returns that version of the Machine instead of the current one"
+                }
+            },
+            "type": "object"
+        },
         "fly-machines:apps/v1:MachineVersion": {
             "properties": {
                 "userConfig": {
@@ -1964,6 +2715,356 @@
                 },
                 "version": {
                     "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachinesCordonCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachinesCordonQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesCordonCreateQueryParams",
+                    "description": "Query params for the create operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachinesExecCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachinesExecQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesExecCreateQueryParams",
+                    "description": "Query params for the create operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachinesLeaseCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachinesLeaseQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesLeaseCreateQueryParams",
+                    "description": "Query params for the create operation."
+                },
+                "read": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesLeaseReadQueryParams",
+                    "description": "Query params for the read operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachinesLeaseReadQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachinesMemoryLimitCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachinesMemoryLimitPutQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachinesMemoryLimitQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesMemoryLimitCreateQueryParams",
+                    "description": "Query params for the create operation."
+                },
+                "put": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesMemoryLimitPutQueryParams",
+                    "description": "Query params for the put operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachinesMetadataCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachinesMetadataKeyCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachinesMetadataKeyDeleteQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachinesMetadataKeyQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesMetadataKeyCreateQueryParams",
+                    "description": "Query params for the create operation."
+                },
+                "delete": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesMetadataKeyDeleteQueryParams",
+                    "description": "Query params for the delete operation."
+                },
+                "read": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesMetadataKeyReadQueryParams",
+                    "description": "Query params for the read operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachinesMetadataKeyReadQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachinesMetadataQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesMetadataCreateQueryParams",
+                    "description": "Query params for the create operation."
+                },
+                "read": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesMetadataReadQueryParams",
+                    "description": "Query params for the read operation."
+                },
+                "update": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesMetadataUpdateQueryParams",
+                    "description": "Query params for the update operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachinesMetadataReadQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachinesMetadataUpdateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachinesReclaimMemoryCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachinesReclaimMemoryQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesReclaimMemoryCreateQueryParams",
+                    "description": "Query params for the create operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachinesRestartCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                },
+                "signal": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesRestartCreateQueryParamsSignal",
+                    "description": "Unix signal name"
+                },
+                "timeout": {
+                    "type": "string",
+                    "description": "Restart timeout as a Go duration string or number of seconds"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachinesRestartCreateQueryParamsSignal": {
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Sighup",
+                    "value": "SIGHUP"
+                },
+                {
+                    "name": "Sigint",
+                    "value": "SIGINT"
+                },
+                {
+                    "name": "Sigquit",
+                    "value": "SIGQUIT"
+                },
+                {
+                    "name": "Sigkill",
+                    "value": "SIGKILL"
+                },
+                {
+                    "name": "Sigusr1",
+                    "value": "SIGUSR1"
+                },
+                {
+                    "name": "Sigusr2",
+                    "value": "SIGUSR2"
+                },
+                {
+                    "name": "Sigterm",
+                    "value": "SIGTERM"
+                }
+            ]
+        },
+        "fly-machines:apps/v1:MachinesRestartQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesRestartCreateQueryParams",
+                    "description": "Query params for the create operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachinesSignalCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachinesSignalQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesSignalCreateQueryParams",
+                    "description": "Query params for the create operation."
                 }
             },
             "type": "object"
@@ -2028,6 +3129,98 @@
                     "value": "SIGUSR2"
                 }
             ]
+        },
+        "fly-machines:apps/v1:MachinesStartCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachinesStartQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesStartCreateQueryParams",
+                    "description": "Query params for the create operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachinesStopCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachinesStopQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesStopCreateQueryParams",
+                    "description": "Query params for the create operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachinesSuspendCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachinesSuspendQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesSuspendCreateQueryParams",
+                    "description": "Query params for the create operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachinesUncordonCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachinesUncordonQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesUncordonCreateQueryParams",
+                    "description": "Query params for the create operation."
+                }
+            },
+            "type": "object"
         },
         "fly-machines:apps/v1:MainMemoryResponse": {
             "properties": {
@@ -2094,6 +3287,32 @@
             },
             "type": "object"
         },
+        "fly-machines:apps/v1:SecretCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:SecretDeleteQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
         "fly-machines:apps/v1:SecretKey": {
             "properties": {
                 "createdAt": {
@@ -2129,6 +3348,260 @@
                             "name": "SecretKeysValue"
                         }
                     }
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:SecretQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:apps/v1:SecretCreateQueryParams",
+                    "description": "Query params for the create operation."
+                },
+                "delete": {
+                    "$ref": "#/types/fly-machines:apps/v1:SecretDeleteQueryParams",
+                    "description": "Query params for the delete operation."
+                },
+                "read": {
+                    "$ref": "#/types/fly-machines:apps/v1:SecretReadQueryParams",
+                    "description": "Query params for the read operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:SecretReadQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                },
+                "minVersion": {
+                    "type": "string",
+                    "description": "Minimum secrets version to return. Returned when setting a new secret"
+                },
+                "showSecrets": {
+                    "type": "boolean",
+                    "description": "Show the secret value."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:SecretkeyCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:SecretkeyDecryptCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                },
+                "minVersion": {
+                    "type": "string",
+                    "description": "Minimum secrets version to return. Returned when setting a new secret"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:SecretkeyDecryptQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:apps/v1:SecretkeyDecryptCreateQueryParams",
+                    "description": "Query params for the create operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:SecretkeyDeleteQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:SecretkeyEncryptCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                },
+                "minVersion": {
+                    "type": "string",
+                    "description": "Minimum secrets version to return. Returned when setting a new secret"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:SecretkeyEncryptQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:apps/v1:SecretkeyEncryptCreateQueryParams",
+                    "description": "Query params for the create operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:SecretkeyGenerateCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:SecretkeyGenerateQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:apps/v1:SecretkeyGenerateCreateQueryParams",
+                    "description": "Query params for the create operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:SecretkeyQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:apps/v1:SecretkeyCreateQueryParams",
+                    "description": "Query params for the create operation."
+                },
+                "delete": {
+                    "$ref": "#/types/fly-machines:apps/v1:SecretkeyDeleteQueryParams",
+                    "description": "Query params for the delete operation."
+                },
+                "read": {
+                    "$ref": "#/types/fly-machines:apps/v1:SecretkeyReadQueryParams",
+                    "description": "Query params for the read operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:SecretkeyReadQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                },
+                "minVersion": {
+                    "type": "string",
+                    "description": "Minimum secrets version to return. Returned when setting a new secret"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:SecretkeySignCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                },
+                "minVersion": {
+                    "type": "string",
+                    "description": "Minimum secrets version to return. Returned when setting a new secret"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:SecretkeySignQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:apps/v1:SecretkeySignCreateQueryParams",
+                    "description": "Query params for the create operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:SecretkeyVerifyCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                },
+                "minVersion": {
+                    "type": "string",
+                    "description": "Minimum secrets version to return. Returned when setting a new secret"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:SecretkeyVerifyQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:apps/v1:SecretkeyVerifyCreateQueryParams",
+                    "description": "Query params for the create operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:SecretsUpdateCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:SecretsUpdateQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:apps/v1:SecretsUpdateCreateQueryParams",
+                    "description": "Query params for the create operation."
                 }
             },
             "type": "object"
@@ -2273,6 +3746,32 @@
             },
             "type": "object"
         },
+        "fly-machines:apps/v1:VolumeCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:VolumeDeleteQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
         "fly-machines:apps/v1:VolumeHostStatus": {
             "type": "string",
             "enum": [
@@ -2289,6 +3788,54 @@
                     "value": "unreachable"
                 }
             ]
+        },
+        "fly-machines:apps/v1:VolumePutQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:VolumeQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:apps/v1:VolumeCreateQueryParams",
+                    "description": "Query params for the create operation."
+                },
+                "delete": {
+                    "$ref": "#/types/fly-machines:apps/v1:VolumeDeleteQueryParams",
+                    "description": "Query params for the delete operation."
+                },
+                "put": {
+                    "$ref": "#/types/fly-machines:apps/v1:VolumePutQueryParams",
+                    "description": "Query params for the put operation."
+                },
+                "read": {
+                    "$ref": "#/types/fly-machines:apps/v1:VolumeReadQueryParams",
+                    "description": "Query params for the read operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:VolumeReadQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
         },
         "fly-machines:apps/v1:VolumeSnapshot": {
             "properties": {
@@ -2316,6 +3863,29 @@
             },
             "type": "object"
         },
+        "fly-machines:apps/v1:VolumeSnapshotCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:VolumeSnapshotQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:apps/v1:VolumeSnapshotCreateQueryParams",
+                    "description": "Query params for the create operation."
+                }
+            },
+            "type": "object"
+        },
         "fly-machines:apps/v1:VolumeType": {
             "type": "string",
             "enum": [
@@ -2328,6 +3898,46 @@
                     "value": "cache"
                 }
             ]
+        },
+        "fly-machines:apps/v1:VolumesExtendCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:VolumesExtendPutQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:VolumesExtendQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:apps/v1:VolumesExtendCreateQueryParams",
+                    "description": "Query params for the create operation."
+                },
+                "put": {
+                    "$ref": "#/types/fly-machines:apps/v1:VolumesExtendPutQueryParams",
+                    "description": "Query params for the put operation."
+                }
+            },
+            "type": "object"
         },
         "fly-machines:apps/v1:WaitMachineResponse": {
             "properties": {
@@ -2405,6 +4015,88 @@
                     "value": "restart"
                 }
             ]
+        },
+        "fly-machines:orgs/v1:ListMachinesOrgQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                },
+                "cursor": {
+                    "type": "string",
+                    "description": "Pagination cursor from previous response (takes precedence over updated_after). Note that there is no guarantee that all machines returned by this endpoint are sorted by their updated_at fields. Pagination may reveal machines older than the last updated_at."
+                },
+                "includeDeleted": {
+                    "type": "boolean",
+                    "description": "Include deleted machines"
+                },
+                "limit": {
+                    "type": "integer",
+                    "description": "The number of machines to fetch (max of 1000). This limit is advisory. Responses may be shorter, or even empty, even when more machines remain. If omitted, the maximum is used"
+                },
+                "region": {
+                    "type": "string",
+                    "description": "Region filter"
+                },
+                "state": {
+                    "type": "string",
+                    "description": "Comma separated list of states to filter (created, started, stopped, suspended)"
+                },
+                "summary": {
+                    "type": "boolean",
+                    "description": "Omit config from responses"
+                },
+                "updatedAfter": {
+                    "type": "string",
+                    "description": "Only return machines updated after this time. Timestamp must be in the RFC 3339 format"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:orgs/v1:ListVolumesOrgQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                },
+                "cursor": {
+                    "type": "string",
+                    "description": "Pagination cursor from previous response (takes precedence over updated_after)"
+                },
+                "includeDeleted": {
+                    "type": "boolean",
+                    "description": "Include deleted volumes"
+                },
+                "limit": {
+                    "type": "integer",
+                    "description": "The number of volumes to fetch (max of 1000). This limit is advisory. Responses may be shorter, even when more volumes remain. If omitted, the maximum is used"
+                },
+                "region": {
+                    "type": "string",
+                    "description": "Region filter"
+                },
+                "state": {
+                    "type": "string",
+                    "description": "Comma separated list of volume states to filter"
+                },
+                "summary": {
+                    "type": "boolean",
+                    "description": "Only return summary info about volumes (omit blocks, block size, etc)"
+                },
+                "updatedAfter": {
+                    "type": "string",
+                    "description": "Only return volumes updated after this time. Timestamp must be in the RFC 3339 format"
+                }
+            },
+            "type": "object"
         },
         "fly-machines:orgs/v1:MachineOverviewConfig": {
             "properties": {
@@ -2678,6 +4370,19 @@
                 }
             ]
         },
+        "fly-machines:platform/v1:GetPlatformRegionQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
         "fly-machines:platform/v1:MainRegionResponse": {
             "properties": {
                 "nearest": {
@@ -2738,14 +4443,101 @@
             },
             "type": "object"
         },
+        "fly-machines:platform/v1:PlatformPlacementCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:platform/v1:PlatformPlacementQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:platform/v1:PlatformPlacementCreateQueryParams",
+                    "description": "Query params for the create operation."
+                }
+            },
+            "type": "object"
+        },
         "fly-machines:platform/v1:Weights": {
             "description": "Optional weights to override default placement preferences.",
+            "type": "object"
+        },
+        "fly-machines:postgres/v1:GetPostgresQueriesActiveQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                },
+                "database": {
+                    "type": "string",
+                    "description": "Database to inspect (must not be empty or whitespace-only)"
+                }
+            },
+            "type": "object",
+            "required": [
+                "database"
+            ]
+        },
+        "fly-machines:postgres/v1:GetPostgresQueriesSlowQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                },
+                "range": {
+                    "type": "integer",
+                    "description": "Metrics lookback in seconds",
+                    "default": 3600
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres/v1:GetPostgresQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
             "type": "object"
         },
         "fly-machines:postgres/v1:GetPostgresUserCredentialsResponse": {
             "properties": {
                 "data": {
                     "$ref": "#/types/fly-machines:postgres/v1:PostgresUserCredentials"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres/v1:GetPostgresUsersCredentialQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
                 }
             },
             "type": "object"
@@ -2757,6 +4549,19 @@
                     "items": {
                         "$ref": "#/types/fly-machines:postgres/v1:PostgresActiveQuery"
                     }
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres/v1:ListPostgresBackupsQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
                 }
             },
             "type": "object"
@@ -2783,6 +4588,19 @@
             },
             "type": "object"
         },
+        "fly-machines:postgres/v1:ListPostgresDatabasesQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
         "fly-machines:postgres/v1:ListPostgresDatabasesResponse": {
             "properties": {
                 "data": {
@@ -2790,6 +4608,19 @@
                     "items": {
                         "$ref": "#/types/fly-machines:postgres/v1:PostgresDatabase"
                     }
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres/v1:ListPostgresExtensionsQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
                 }
             },
             "type": "object"
@@ -2805,6 +4636,30 @@
             },
             "type": "object"
         },
+        "fly-machines:postgres/v1:ListPostgresQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                },
+                "includeDeleted": {
+                    "type": "boolean",
+                    "description": "Include deleted clusters"
+                },
+                "orgSlug": {
+                    "type": "string",
+                    "description": "Fly Organization Slug, or 'personal' for the caller's personal organization"
+                }
+            },
+            "type": "object",
+            "required": [
+                "orgSlug"
+            ]
+        },
         "fly-machines:postgres/v1:ListPostgresSlowQueriesResponse": {
             "properties": {
                 "data": {
@@ -2812,6 +4667,19 @@
                     "items": {
                         "$ref": "#/types/fly-machines:postgres/v1:PostgresSlowQuery"
                     }
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres/v1:ListPostgresUsersQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
                 }
             },
             "type": "object"
@@ -2969,6 +4837,46 @@
             },
             "type": "object"
         },
+        "fly-machines:postgres/v1:PostgresAttachmentCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres/v1:PostgresAttachmentDeleteQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres/v1:PostgresAttachmentQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresAttachmentCreateQueryParams",
+                    "description": "Query params for the create operation."
+                },
+                "delete": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresAttachmentDeleteQueryParams",
+                    "description": "Query params for the delete operation."
+                }
+            },
+            "type": "object"
+        },
         "fly-machines:postgres/v1:PostgresBackup": {
             "properties": {
                 "finishedAt": {
@@ -2994,6 +4902,29 @@
                 "type": {
                     "$ref": "#/types/fly-machines:postgres/v1:PostgresBackupType",
                     "description": "Backup type."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres/v1:PostgresBackupCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres/v1:PostgresBackupQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresBackupCreateQueryParams",
+                    "description": "Query params for the create operation."
                 }
             },
             "type": "object"
@@ -3299,11 +5230,77 @@
                 }
             ]
         },
+        "fly-machines:postgres/v1:PostgresCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
         "fly-machines:postgres/v1:PostgresDatabase": {
             "properties": {
                 "name": {
                     "type": "string",
                     "description": "Database name."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres/v1:PostgresDatabaseCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres/v1:PostgresDatabaseDeleteQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres/v1:PostgresDatabaseQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresDatabaseCreateQueryParams",
+                    "description": "Query params for the create operation."
+                },
+                "delete": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresDatabaseDeleteQueryParams",
+                    "description": "Query params for the delete operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres/v1:PostgresDeleteQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
                 }
             },
             "type": "object"
@@ -3333,6 +5330,36 @@
             },
             "type": "object"
         },
+        "fly-machines:postgres/v1:PostgresExtensionCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres/v1:PostgresExtensionDeleteQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                },
+                "force": {
+                    "type": "boolean",
+                    "description": "Also drop objects that depend on the extension"
+                }
+            },
+            "type": "object"
+        },
         "fly-machines:postgres/v1:PostgresExtensionInstalledProperties": {
             "description": "Installation details, or null when the extension is not installed.",
             "properties": {
@@ -3343,6 +5370,43 @@
                 "version": {
                     "type": "string",
                     "description": "Installed version."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres/v1:PostgresExtensionQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresExtensionCreateQueryParams",
+                    "description": "Query params for the create operation."
+                },
+                "delete": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresExtensionDeleteQueryParams",
+                    "description": "Query params for the delete operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres/v1:PostgresForkCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres/v1:PostgresForkQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresForkCreateQueryParams",
+                    "description": "Query params for the create operation."
                 }
             },
             "type": "object"
@@ -3371,6 +5435,60 @@
                 "port": {
                     "type": "integer",
                     "description": "TCP port."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres/v1:PostgresQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresCreateQueryParams",
+                    "description": "Query params for the create operation."
+                },
+                "delete": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresDeleteQueryParams",
+                    "description": "Query params for the delete operation."
+                },
+                "read": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresReadQueryParams",
+                    "description": "Query params for the read operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres/v1:PostgresReadQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres/v1:PostgresRestoreCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres/v1:PostgresRestoreQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresRestoreCreateQueryParams",
+                    "description": "Query params for the create operation."
                 }
             },
             "type": "object"
@@ -3425,6 +5543,19 @@
             },
             "type": "object"
         },
+        "fly-machines:postgres/v1:PostgresUserCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
         "fly-machines:postgres/v1:PostgresUserCredentials": {
             "properties": {
                 "password": {
@@ -3434,6 +5565,33 @@
                 "username": {
                     "type": "string",
                     "description": "User name."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres/v1:PostgresUserDeleteQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres/v1:PostgresUserQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresUserCreateQueryParams",
+                    "description": "Query params for the create operation."
+                },
+                "delete": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresUserDeleteQueryParams",
+                    "description": "Query params for the delete operation."
                 }
             },
             "type": "object"
@@ -3455,6 +5613,29 @@
                     "value": "reader"
                 }
             ]
+        },
+        "fly-machines:postgres/v1:PostgresUsersRotatePasswordCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres/v1:PostgresUsersRotatePasswordQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresUsersRotatePasswordCreateQueryParams",
+                    "description": "Query params for the create operation."
+                }
+            },
+            "type": "object"
         },
         "fly-machines:postgres/v1:Role": {
             "description": "Role to grant the user.",
@@ -3596,6 +5777,19 @@
                     "value": 0
                 }
             ]
+        },
+        "fly-machines:tokens/v1:GetCurrentTokenQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
         },
         "fly-machines:tokens/v1:MacaroonCaveatSet": {
             "properties": {
@@ -3739,6 +5933,98 @@
                 }
             },
             "type": "object"
+        },
+        "fly-machines:tokens/v1:TokensAuthenticateCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:tokens/v1:TokensAuthenticateQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:tokens/v1:TokensAuthenticateCreateQueryParams",
+                    "description": "Query params for the create operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:tokens/v1:TokensAuthorizeCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:tokens/v1:TokensAuthorizeQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:tokens/v1:TokensAuthorizeCreateQueryParams",
+                    "description": "Query params for the create operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:tokens/v1:TokensRequestKmCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:tokens/v1:TokensRequestKmQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:tokens/v1:TokensRequestKmCreateQueryParams",
+                    "description": "Query params for the create operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:tokens/v1:TokensRequestOidcCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:tokens/v1:TokensRequestOidcQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:tokens/v1:TokensRequestOidcCreateQueryParams",
+                    "description": "Query params for the create operation."
+                }
+            },
+            "type": "object"
         }
     },
     "provider": {
@@ -3783,6 +6069,10 @@
                 },
                 "orgSlug": {
                     "type": "string"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:AppQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 }
             },
             "type": "object",
@@ -3802,6 +6092,10 @@
                 },
                 "orgSlug": {
                     "type": "string"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:AppQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 }
             }
         },
@@ -3828,6 +6122,10 @@
                 "hostname": {
                     "type": "string"
                 },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:AppCertificatesAcmeQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                },
                 "rateLimitedUntil": {
                     "type": "string"
                 },
@@ -3852,6 +6150,10 @@
                 },
                 "hostname": {
                     "type": "string"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:AppCertificatesAcmeQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 }
             }
         },
@@ -3881,6 +6183,10 @@
                 "hostname": {
                     "type": "string"
                 },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:AppCertificatesCheckQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                },
                 "rateLimitedUntil": {
                     "type": "string"
                 },
@@ -3906,6 +6212,10 @@
                 "hostname": {
                     "type": "string",
                     "description": "Certificate Hostname"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:AppCertificatesCheckQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 }
             }
         },
@@ -3938,6 +6248,10 @@
                 "privateKey": {
                     "type": "string"
                 },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:AppCertificatesCustomQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                },
                 "rateLimitedUntil": {
                     "type": "string"
                 },
@@ -3968,6 +6282,10 @@
                 },
                 "privateKey": {
                     "type": "string"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:AppCertificatesCustomQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 }
             }
         },
@@ -3975,6 +6293,10 @@
             "properties": {
                 "expiry": {
                     "type": "string"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:AppDeployTokenQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 },
                 "token": {
                     "type": "string"
@@ -3988,6 +6310,10 @@
                 },
                 "expiry": {
                     "type": "string"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:AppDeployTokenQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 }
             }
         },
@@ -4012,6 +6338,10 @@
                 },
                 "orgSlug": {
                     "type": "string"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:AppIPAssignmentQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 },
                 "region": {
                     "type": "string"
@@ -4038,6 +6368,10 @@
                 },
                 "orgSlug": {
                     "type": "string"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:AppIPAssignmentQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 },
                 "region": {
                     "type": "string"
@@ -4113,6 +6447,10 @@
                     "type": "string",
                     "description": "PrivateIP is the internal 6PN address of the machine."
                 },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachineQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                },
                 "region": {
                     "type": "string"
                 },
@@ -4156,6 +6494,10 @@
                     "type": "string",
                     "description": "Unique name for this Machine. If omitted, one is generated for you"
                 },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachineQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                },
                 "region": {
                     "type": "string",
                     "description": "The target region. Omitting this param launches in the same region as your WireGuard peer connection (somewhere near you)."
@@ -4172,6 +6514,12 @@
             }
         },
         "fly-machines:apps/v1:MachinesCordon": {
+            "properties": {
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesCordonQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                }
+            },
             "type": "object",
             "inputProperties": {
                 "appName": {
@@ -4181,6 +6529,10 @@
                 "machineId": {
                     "type": "string",
                     "description": "Machine ID"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesCordonQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 }
             }
         },
@@ -4208,6 +6560,10 @@
                 "machine": {
                     "type": "boolean",
                     "description": "Machine runs the command in the machine's own namespace instead of in a\ncontainer. It is mutually exclusive with Container."
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesExecQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 },
                 "stderr": {
                     "type": "string"
@@ -4249,6 +6605,10 @@
                     "type": "string",
                     "description": "Machine ID"
                 },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesExecQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                },
                 "stdin": {
                     "type": "string"
                 },
@@ -4275,6 +6635,10 @@
                     "type": "string",
                     "description": "Owner is the user identifier which acquired the Lease."
                 },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesLeaseQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                },
                 "ttl": {
                     "type": "integer",
                     "description": "seconds lease will be valid"
@@ -4297,6 +6661,10 @@
                     "type": "string",
                     "description": "Machine ID"
                 },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesLeaseQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                },
                 "ttl": {
                     "type": "integer",
                     "description": "seconds lease will be valid"
@@ -4310,6 +6678,10 @@
                 },
                 "limitMb": {
                     "type": "integer"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesMemoryLimitQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 }
             },
             "type": "object",
@@ -4324,6 +6696,10 @@
                 "machineId": {
                     "type": "string",
                     "description": "Machine ID"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesMemoryLimitQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 }
             }
         },
@@ -4334,6 +6710,10 @@
                 },
                 "metadata": {
                     "$ref": "pulumi.json#/Any"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesMetadataQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 },
                 "updatedAt": {
                     "type": "string"
@@ -4355,6 +6735,10 @@
                 "metadata": {
                     "$ref": "pulumi.json#/Any"
                 },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesMetadataQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                },
                 "updatedAt": {
                     "type": "string"
                 }
@@ -4362,6 +6746,10 @@
         },
         "fly-machines:apps/v1:MachinesMetadataKey": {
             "properties": {
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesMetadataKeyQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                },
                 "updatedAt": {
                     "type": "string"
                 },
@@ -4383,6 +6771,10 @@
                     "type": "string",
                     "description": "Machine ID"
                 },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesMetadataKeyQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                },
                 "updatedAt": {
                     "type": "string"
                 },
@@ -4398,6 +6790,10 @@
                 },
                 "amountMb": {
                     "type": "integer"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesReclaimMemoryQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 }
             },
             "type": "object",
@@ -4412,10 +6808,20 @@
                 "machineId": {
                     "type": "string",
                     "description": "Machine ID"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesReclaimMemoryQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 }
             }
         },
         "fly-machines:apps/v1:MachinesRestart": {
+            "properties": {
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesRestartQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                }
+            },
             "type": "object",
             "inputProperties": {
                 "appName": {
@@ -4425,11 +6831,19 @@
                 "machineId": {
                     "type": "string",
                     "description": "Machine ID"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesRestartQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 }
             }
         },
         "fly-machines:apps/v1:MachinesSignal": {
             "properties": {
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesSignalQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                },
                 "signal": {
                     "$ref": "#/types/fly-machines:apps/v1:MachinesSignalSignal"
                 }
@@ -4444,12 +6858,22 @@
                     "type": "string",
                     "description": "Machine ID"
                 },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesSignalQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                },
                 "signal": {
                     "$ref": "#/types/fly-machines:apps/v1:MachinesSignalSignal"
                 }
             }
         },
         "fly-machines:apps/v1:MachinesStart": {
+            "properties": {
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesStartQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                }
+            },
             "type": "object",
             "inputProperties": {
                 "appName": {
@@ -4459,11 +6883,19 @@
                 "machineId": {
                     "type": "string",
                     "description": "Machine ID"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesStartQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 }
             }
         },
         "fly-machines:apps/v1:MachinesStop": {
             "properties": {
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesStopQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                },
                 "signal": {
                     "$ref": "#/types/fly-machines:apps/v1:Signal"
                 },
@@ -4480,6 +6912,10 @@
                 "machineId": {
                     "type": "string",
                     "description": "Machine ID"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesStopQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 },
                 "signal": {
                     "$ref": "#/types/fly-machines:apps/v1:Signal"
@@ -4490,6 +6926,12 @@
             }
         },
         "fly-machines:apps/v1:MachinesSuspend": {
+            "properties": {
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesSuspendQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                }
+            },
             "type": "object",
             "inputProperties": {
                 "appName": {
@@ -4499,10 +6941,20 @@
                 "machineId": {
                     "type": "string",
                     "description": "Machine ID"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesSuspendQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 }
             }
         },
         "fly-machines:apps/v1:MachinesUncordon": {
+            "properties": {
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesUncordonQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                }
+            },
             "type": "object",
             "inputProperties": {
                 "appName": {
@@ -4512,6 +6964,10 @@
                 "machineId": {
                     "type": "string",
                     "description": "Machine ID"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:MachinesUncordonQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 }
             }
         },
@@ -4525,6 +6981,10 @@
                 },
                 "name": {
                     "type": "string"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:SecretQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 },
                 "updatedAt": {
                     "type": "string"
@@ -4541,6 +7001,10 @@
                 "appName": {
                     "type": "string",
                     "description": "Fly App Name"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:SecretQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 },
                 "secretName": {
                     "type": "string",
@@ -4565,6 +7029,10 @@
                         "type": "integer"
                     }
                 },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:SecretkeyQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                },
                 "type": {
                     "type": "string"
                 },
@@ -4586,6 +7054,10 @@
                 "appName": {
                     "type": "string",
                     "description": "Fly App Name"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:SecretkeyQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 },
                 "secretName": {
                     "type": "string",
@@ -4621,6 +7093,10 @@
                     "items": {
                         "type": "integer"
                     }
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:SecretkeyDecryptQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 }
             },
             "type": "object",
@@ -4640,6 +7116,10 @@
                     "items": {
                         "type": "integer"
                     }
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:SecretkeyDecryptQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 },
                 "secretName": {
                     "type": "string",
@@ -4666,6 +7146,10 @@
                     "items": {
                         "type": "integer"
                     }
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:SecretkeyEncryptQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 }
             },
             "type": "object",
@@ -4686,6 +7170,10 @@
                         "type": "integer"
                     }
                 },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:SecretkeyEncryptQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                },
                 "secretName": {
                     "type": "string",
                     "description": "Secret key name"
@@ -4705,6 +7193,10 @@
                     "items": {
                         "type": "integer"
                     }
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:SecretkeyGenerateQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 },
                 "type": {
                     "type": "string"
@@ -4727,6 +7219,10 @@
                 "appName": {
                     "type": "string",
                     "description": "Fly App Name"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:SecretkeyGenerateQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 },
                 "secretName": {
                     "type": "string",
@@ -4751,6 +7247,10 @@
                         "type": "integer"
                     }
                 },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:SecretkeySignQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                },
                 "signature": {
                     "type": "array",
                     "items": {
@@ -4769,6 +7269,10 @@
                     "items": {
                         "type": "integer"
                     }
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:SecretkeySignQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 },
                 "secretName": {
                     "type": "string",
@@ -4784,6 +7288,10 @@
                         "type": "integer"
                     }
                 },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:SecretkeyVerifyQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                },
                 "signature": {
                     "type": "array",
                     "items": {
@@ -4803,6 +7311,10 @@
                         "type": "integer"
                     }
                 },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:SecretkeyVerifyQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                },
                 "secretName": {
                     "type": "string",
                     "description": "Secret key name"
@@ -4817,6 +7329,10 @@
         },
         "fly-machines:apps/v1:SecretsUpdate": {
             "properties": {
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:SecretsUpdateQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                },
                 "secrets": {
                     "type": "array",
                     "items": {
@@ -4835,6 +7351,10 @@
                 "appName": {
                     "type": "string",
                     "description": "Fly App Name"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:SecretsUpdateQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 },
                 "values": {
                     "$ref": "pulumi.json#/Any"
@@ -4896,6 +7416,10 @@
                 },
                 "name": {
                     "type": "string"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:VolumeQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 },
                 "region": {
                     "type": "string"
@@ -4961,6 +7485,10 @@
                 "name": {
                     "type": "string"
                 },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:VolumeQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                },
                 "region": {
                     "type": "string"
                 },
@@ -4987,11 +7515,21 @@
             }
         },
         "fly-machines:apps/v1:VolumeSnapshot": {
+            "properties": {
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:VolumeSnapshotQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                }
+            },
             "type": "object",
             "inputProperties": {
                 "appName": {
                     "type": "string",
                     "description": "Fly App Name"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:VolumeSnapshotQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 },
                 "volumeId": {
                     "type": "string",
@@ -5003,6 +7541,10 @@
             "properties": {
                 "needsRestart": {
                     "type": "boolean"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:VolumesExtendQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 },
                 "sizeGb": {
                     "type": "integer"
@@ -5016,6 +7558,10 @@
                 "appName": {
                     "type": "string",
                     "description": "Fly App Name"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:apps/v1:VolumesExtendQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 },
                 "sizeGb": {
                     "type": "integer"
@@ -5038,6 +7584,10 @@
                 },
                 "orgSlug": {
                     "type": "string"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:platform/v1:PlatformPlacementQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 },
                 "region": {
                     "type": "string",
@@ -5075,6 +7625,10 @@
                 },
                 "orgSlug": {
                     "type": "string"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:platform/v1:PlatformPlacementQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 },
                 "region": {
                     "type": "string",
@@ -5128,6 +7682,10 @@
                     "type": "boolean",
                     "description": "Enable PostGIS support, required to later enable PostGIS extensions."
                 },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                },
                 "region": {
                     "type": "string",
                     "description": "Fly region code where the cluster's primary runs."
@@ -5168,6 +7726,10 @@
                     "type": "boolean",
                     "description": "Enable PostGIS support, required to later enable PostGIS extensions."
                 },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                },
                 "region": {
                     "type": "string",
                     "description": "Fly region code where the cluster's primary runs."
@@ -5187,6 +7749,10 @@
                 },
                 "data": {
                     "$ref": "#/types/fly-machines:postgres/v1:PostgresAttachment"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresAttachmentQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 }
             },
             "type": "object",
@@ -5201,6 +7767,10 @@
                 "postgresClusterId": {
                     "type": "string",
                     "description": "Managed Postgres Cluster ID"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresAttachmentQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 }
             },
             "requiredInputs": [
@@ -5209,6 +7779,10 @@
         },
         "fly-machines:postgres/v1:PostgresBackup": {
             "properties": {
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresBackupQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                },
                 "type": {
                     "$ref": "#/types/fly-machines:postgres/v1:Type",
                     "description": "Backup type."
@@ -5222,6 +7796,10 @@
                 "postgresClusterId": {
                     "type": "string",
                     "description": "Managed Postgres Cluster ID"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresBackupQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 },
                 "type": {
                     "$ref": "#/types/fly-machines:postgres/v1:Type",
@@ -5240,6 +7818,10 @@
                 "name": {
                     "type": "string",
                     "description": "Name of the database to create. Must start and end with an alphanumeric\ncharacter and may contain hyphens and underscores, up to 63 characters."
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresDatabaseQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 }
             },
             "type": "object",
@@ -5254,6 +7836,10 @@
                 "postgresClusterId": {
                     "type": "string",
                     "description": "Managed Postgres Cluster ID"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresDatabaseQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 }
             }
         },
@@ -5266,6 +7852,10 @@
                 "name": {
                     "type": "string",
                     "description": "Extension to enable."
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresExtensionQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 },
                 "schema": {
                     "type": "string",
@@ -5293,6 +7883,10 @@
                     "type": "string",
                     "description": "Managed Postgres Cluster ID"
                 },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresExtensionQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                },
                 "schema": {
                     "type": "string",
                     "description": "Schema to install the extension into. Defaults to the database's default schema."
@@ -5307,6 +7901,10 @@
                 "name": {
                     "type": "string",
                     "description": "Name for the forked cluster. Defaults to the source name with a -fork suffix."
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresForkQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 }
             },
             "type": "object",
@@ -5318,6 +7916,10 @@
                 "postgresClusterId": {
                     "type": "string",
                     "description": "Managed Postgres Cluster ID"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresForkQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 }
             }
         },
@@ -5337,6 +7939,10 @@
                 "pitrTime": {
                     "type": "string",
                     "description": "Point in time to restore to, as an RFC3339 timestamp with an explicit offset from UTC (e.g. Z or +02:00). Normalized to UTC and must fall within the cluster's PITR recovery window. Mutually exclusive with backup_id."
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresRestoreQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 }
             },
             "type": "object",
@@ -5356,6 +7962,10 @@
                 "postgresClusterId": {
                     "type": "string",
                     "description": "Managed Postgres Cluster ID"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresRestoreQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 }
             }
         },
@@ -5363,6 +7973,10 @@
             "properties": {
                 "data": {
                     "$ref": "#/types/fly-machines:postgres/v1:PostgresUser"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresUserQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 },
                 "role": {
                     "$ref": "#/types/fly-machines:postgres/v1:Role",
@@ -5382,6 +7996,10 @@
                 "postgresClusterId": {
                     "type": "string",
                     "description": "Managed Postgres Cluster ID"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresUserQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 },
                 "role": {
                     "$ref": "#/types/fly-machines:postgres/v1:Role",
@@ -5405,6 +8023,10 @@
                 "killSessions": {
                     "type": "boolean",
                     "description": "Terminate the user's existing sessions after rotating."
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresUsersRotatePasswordQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 }
             },
             "type": "object",
@@ -5417,6 +8039,10 @@
                     "type": "string",
                     "description": "Managed Postgres Cluster ID"
                 },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresUsersRotatePasswordQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                },
                 "username": {
                     "type": "string",
                     "description": "Postgres User Name"
@@ -5427,12 +8053,20 @@
             "properties": {
                 "header": {
                     "type": "string"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:tokens/v1:TokensAuthenticateQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 }
             },
             "type": "object",
             "inputProperties": {
                 "header": {
                     "type": "string"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:tokens/v1:TokensAuthenticateQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 }
             }
         },
@@ -5443,6 +8077,10 @@
                 },
                 "header": {
                     "type": "string"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:tokens/v1:TokensAuthorizeQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 },
                 "verifiedToken": {
                     "$ref": "#/types/fly-machines:tokens/v1:RootVerifiedToken"
@@ -5455,11 +8093,27 @@
                 },
                 "header": {
                     "type": "string"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:tokens/v1:TokensAuthorizeQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 }
             }
         },
         "fly-machines:tokens/v1:TokensRequestKm": {
-            "type": "object"
+            "properties": {
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:tokens/v1:TokensRequestKmQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:tokens/v1:TokensRequestKmQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                }
+            }
         },
         "fly-machines:tokens/v1:TokensRequestOidc": {
             "description": "Optional parameters",
@@ -5469,6 +8123,10 @@
                 },
                 "awsPrincipalTags": {
                     "type": "boolean"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:tokens/v1:TokensRequestOidcQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 }
             },
             "type": "object",
@@ -5478,6 +8136,10 @@
                 },
                 "awsPrincipalTags": {
                     "type": "boolean"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:tokens/v1:TokensRequestOidcQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
                 }
             }
         }
@@ -5489,6 +8151,10 @@
                     "name": {
                         "type": "string",
                         "description": "Fly App Name"
+                    },
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:apps/v1:GetAppQueryParams",
+                        "description": "Query params to send with the API request."
                     }
                 },
                 "required": [
@@ -5509,6 +8175,10 @@
                     "hostname": {
                         "type": "string",
                         "description": "Certificate Hostname"
+                    },
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:apps/v1:GetAppCertificateQueryParams",
+                        "description": "Query params to send with the API request."
                     }
                 },
                 "required": [
@@ -5530,6 +8200,10 @@
                     "machineId": {
                         "type": "string",
                         "description": "Machine ID"
+                    },
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:apps/v1:GetMachineQueryParams",
+                        "description": "Query params to send with the API request."
                     }
                 },
                 "required": [
@@ -5551,6 +8225,10 @@
                     "machineId": {
                         "type": "string",
                         "description": "Machine ID"
+                    },
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:apps/v1:GetMachinesLeaseQueryParams",
+                        "description": "Query params to send with the API request."
                     }
                 },
                 "required": [
@@ -5572,6 +8250,10 @@
                     "machineId": {
                         "type": "string",
                         "description": "Machine ID"
+                    },
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:apps/v1:GetMachinesMemoryQueryParams",
+                        "description": "Query params to send with the API request."
                     }
                 },
                 "required": [
@@ -5593,6 +8275,10 @@
                     "machineId": {
                         "type": "string",
                         "description": "Machine ID"
+                    },
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:apps/v1:GetMachinesMetadataQueryParams",
+                        "description": "Query params to send with the API request."
                     }
                 },
                 "required": [
@@ -5618,6 +8304,10 @@
                     "machineId": {
                         "type": "string",
                         "description": "Machine ID"
+                    },
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:apps/v1:GetMachinesMetadataKeyQueryParams",
+                        "description": "Query params to send with the API request."
                     }
                 },
                 "required": [
@@ -5640,6 +8330,10 @@
                     "machineId": {
                         "type": "string",
                         "description": "Machine ID"
+                    },
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:apps/v1:GetMachinesWaitQueryParams",
+                        "description": "Query params to send with the API request."
                     }
                 },
                 "required": [
@@ -5657,6 +8351,10 @@
                     "appName": {
                         "type": "string",
                         "description": "Fly App Name"
+                    },
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:apps/v1:GetSecretQueryParams",
+                        "description": "Query params to send with the API request."
                     },
                     "secretName": {
                         "type": "string",
@@ -5679,6 +8377,10 @@
                         "type": "string",
                         "description": "Fly App Name"
                     },
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:apps/v1:GetSecretkeyQueryParams",
+                        "description": "Query params to send with the API request."
+                    },
                     "secretName": {
                         "type": "string",
                         "description": "Secret key name"
@@ -5700,6 +8402,10 @@
                         "type": "string",
                         "description": "Fly App Name"
                     },
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:apps/v1:GetVolumeQueryParams",
+                        "description": "Query params to send with the API request."
+                    },
                     "volumeId": {
                         "type": "string",
                         "description": "Volume ID"
@@ -5720,6 +8426,10 @@
                     "appName": {
                         "type": "string",
                         "description": "Fly App Name"
+                    },
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:apps/v1:ListAppCertificatesQueryParams",
+                        "description": "Query params to send with the API request."
                     }
                 },
                 "required": [
@@ -5736,6 +8446,10 @@
                     "appName": {
                         "type": "string",
                         "description": "Fly App Name"
+                    },
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:apps/v1:ListAppIPAssignmentsQueryParams",
+                        "description": "Query params to send with the API request."
                     }
                 },
                 "required": [
@@ -5747,7 +8461,17 @@
             }
         },
         "fly-machines:apps/v1:listApps": {
-            "inputs": {},
+            "inputs": {
+                "properties": {
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:apps/v1:ListAppsQueryParams",
+                        "description": "Query params to send with the API request."
+                    }
+                },
+                "required": [
+                    "queryParams"
+                ]
+            },
             "outputs": {
                 "$ref": "#/types/fly-machines:apps/v1:ListAppsResponse"
             }
@@ -5758,6 +8482,10 @@
                     "appName": {
                         "type": "string",
                         "description": "Fly App Name"
+                    },
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:apps/v1:ListMachinesQueryParams",
+                        "description": "Query params to send with the API request."
                     }
                 },
                 "required": [
@@ -5788,6 +8516,10 @@
                     "machineId": {
                         "type": "string",
                         "description": "Machine ID"
+                    },
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:apps/v1:ListMachinesEventsQueryParams",
+                        "description": "Query params to send with the API request."
                     }
                 },
                 "required": [
@@ -5819,6 +8551,10 @@
                     "machineId": {
                         "type": "string",
                         "description": "Machine ID"
+                    },
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:apps/v1:ListMachinesProcessesQueryParams",
+                        "description": "Query params to send with the API request."
                     }
                 },
                 "required": [
@@ -5850,6 +8586,10 @@
                     "machineId": {
                         "type": "string",
                         "description": "Machine ID"
+                    },
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:apps/v1:ListMachinesVersionsQueryParams",
+                        "description": "Query params to send with the API request."
                     }
                 },
                 "required": [
@@ -5877,6 +8617,10 @@
                     "appName": {
                         "type": "string",
                         "description": "Fly App Name"
+                    },
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:apps/v1:ListSecretkeysQueryParams",
+                        "description": "Query params to send with the API request."
                     }
                 },
                 "required": [
@@ -5893,6 +8637,10 @@
                     "appName": {
                         "type": "string",
                         "description": "Fly App Name"
+                    },
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:apps/v1:ListSecretsQueryParams",
+                        "description": "Query params to send with the API request."
                     }
                 },
                 "required": [
@@ -5909,6 +8657,10 @@
                     "appName": {
                         "type": "string",
                         "description": "Fly App Name"
+                    },
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:apps/v1:ListVolumesQueryParams",
+                        "description": "Query params to send with the API request."
                     }
                 },
                 "required": [
@@ -5935,6 +8687,10 @@
                     "appName": {
                         "type": "string",
                         "description": "Fly App Name"
+                    },
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:apps/v1:ListVolumesSnapshotsQueryParams",
+                        "description": "Query params to send with the API request."
                     },
                     "volumeId": {
                         "type": "string",
@@ -5966,6 +8722,10 @@
                     "orgSlug": {
                         "type": "string",
                         "description": "Fly Organization Slug"
+                    },
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:orgs/v1:ListMachinesOrgQueryParams",
+                        "description": "Query params to send with the API request."
                     }
                 },
                 "required": [
@@ -5982,6 +8742,10 @@
                     "orgSlug": {
                         "type": "string",
                         "description": "Fly Organization Slug"
+                    },
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:orgs/v1:ListVolumesOrgQueryParams",
+                        "description": "Query params to send with the API request."
                     }
                 },
                 "required": [
@@ -5993,7 +8757,14 @@
             }
         },
         "fly-machines:platform/v1:getPlatformRegion": {
-            "inputs": {},
+            "inputs": {
+                "properties": {
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:platform/v1:GetPlatformRegionQueryParams",
+                        "description": "Query params to send with the API request."
+                    }
+                }
+            },
             "outputs": {
                 "$ref": "#/types/fly-machines:platform/v1:MainRegionResponse"
             }
@@ -6004,6 +8775,10 @@
                     "postgresClusterId": {
                         "type": "string",
                         "description": "Managed Postgres Cluster ID"
+                    },
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:postgres/v1:GetPostgresQueryParams",
+                        "description": "Query params to send with the API request."
                     }
                 },
                 "required": [
@@ -6020,10 +8795,15 @@
                     "postgresClusterId": {
                         "type": "string",
                         "description": "Managed Postgres Cluster ID"
+                    },
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:postgres/v1:GetPostgresQueriesActiveQueryParams",
+                        "description": "Query params to send with the API request."
                     }
                 },
                 "required": [
-                    "postgresClusterId"
+                    "postgresClusterId",
+                    "queryParams"
                 ]
             },
             "outputs": {
@@ -6036,6 +8816,10 @@
                     "postgresClusterId": {
                         "type": "string",
                         "description": "Managed Postgres Cluster ID"
+                    },
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:postgres/v1:GetPostgresQueriesSlowQueryParams",
+                        "description": "Query params to send with the API request."
                     }
                 },
                 "required": [
@@ -6053,6 +8837,10 @@
                         "type": "string",
                         "description": "Managed Postgres Cluster ID"
                     },
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:postgres/v1:GetPostgresUsersCredentialQueryParams",
+                        "description": "Query params to send with the API request."
+                    },
                     "username": {
                         "type": "string",
                         "description": "Postgres User Name"
@@ -6068,7 +8856,17 @@
             }
         },
         "fly-machines:postgres/v1:listPostgres": {
-            "inputs": {},
+            "inputs": {
+                "properties": {
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:postgres/v1:ListPostgresQueryParams",
+                        "description": "Query params to send with the API request."
+                    }
+                },
+                "required": [
+                    "queryParams"
+                ]
+            },
             "outputs": {
                 "$ref": "#/types/fly-machines:postgres/v1:ListPostgresClustersResponse"
             }
@@ -6079,6 +8877,10 @@
                     "postgresClusterId": {
                         "type": "string",
                         "description": "Managed Postgres Cluster ID"
+                    },
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:postgres/v1:ListPostgresBackupsQueryParams",
+                        "description": "Query params to send with the API request."
                     }
                 },
                 "required": [
@@ -6095,6 +8897,10 @@
                     "postgresClusterId": {
                         "type": "string",
                         "description": "Managed Postgres Cluster ID"
+                    },
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:postgres/v1:ListPostgresDatabasesQueryParams",
+                        "description": "Query params to send with the API request."
                     }
                 },
                 "required": [
@@ -6115,6 +8921,10 @@
                     "postgresClusterId": {
                         "type": "string",
                         "description": "Managed Postgres Cluster ID"
+                    },
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:postgres/v1:ListPostgresExtensionsQueryParams",
+                        "description": "Query params to send with the API request."
                     }
                 },
                 "required": [
@@ -6132,6 +8942,10 @@
                     "postgresClusterId": {
                         "type": "string",
                         "description": "Managed Postgres Cluster ID"
+                    },
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:postgres/v1:ListPostgresUsersQueryParams",
+                        "description": "Query params to send with the API request."
                     }
                 },
                 "required": [
@@ -6143,7 +8957,14 @@
             }
         },
         "fly-machines:tokens/v1:getCurrentToken": {
-            "inputs": {},
+            "inputs": {
+                "properties": {
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:tokens/v1:GetCurrentTokenQueryParams",
+                        "description": "Query params to send with the API request."
+                    }
+                }
+            },
             "outputs": {
                 "$ref": "#/types/fly-machines:tokens/v1:CurrentTokenResponse"
             }

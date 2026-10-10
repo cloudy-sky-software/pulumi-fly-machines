@@ -15,6 +15,7 @@ else:
 from ... import _utilities
 from . import outputs
 from ._enums import *
+from ._inputs import *
 
 __all__ = [
     'ListMachinesResult',
@@ -46,28 +47,34 @@ class AwaitableListMachinesResult(ListMachinesResult):
 
 
 def list_machines(app_name: Optional[_builtins.str] = None,
+                  query_params: Optional[Union['ListMachinesQueryParams', 'ListMachinesQueryParamsDict']] = None,
                   opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableListMachinesResult:
     """
     Use this data source to access information about an existing resource.
 
     :param _builtins.str app_name: Fly App Name
+    :param Union['ListMachinesQueryParams', 'ListMachinesQueryParamsDict'] query_params: Query params to send with the API request.
     """
     __args__ = dict()
     __args__['appName'] = app_name
+    __args__['queryParams'] = query_params
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke('fly-machines:apps/v1:listMachines', __args__, opts=opts, typ=ListMachinesResult).value
 
     return AwaitableListMachinesResult(
         items=pulumi.get(__ret__, 'items'))
 def list_machines_output(app_name: pulumi.Input[Optional[_builtins.str]] = None,
+                         query_params: pulumi.Input[Optional[Optional[Union['ListMachinesQueryParams', 'ListMachinesQueryParamsDict']]]] = None,
                          opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[ListMachinesResult]:
     """
     Use this data source to access information about an existing resource.
 
     :param _builtins.str app_name: Fly App Name
+    :param Union['ListMachinesQueryParams', 'ListMachinesQueryParamsDict'] query_params: Query params to send with the API request.
     """
     __args__ = dict()
     __args__['appName'] = app_name
+    __args__['queryParams'] = query_params
     opts = pulumi.InvokeOutputOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke_output('fly-machines:apps/v1:listMachines', __args__, opts=opts, typ=ListMachinesResult)
     return __ret__.apply(lambda __response__: ListMachinesResult(

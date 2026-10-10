@@ -7,23 +7,34 @@ import * as outputs from "../../types/output";
 import * as enums from "../../types/enums";
 import * as utilities from "../../utilities";
 
-export function listApps(args?: ListAppsArgs, opts?: pulumi.InvokeOptions): Promise<ListAppsResult> {
-    args = args || {};
+export function listApps(args: ListAppsArgs, opts?: pulumi.InvokeOptions): Promise<ListAppsResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("fly-machines:apps/v1:listApps", {
+        "queryParams": args.queryParams,
     }, opts);
 }
 
 export interface ListAppsArgs {
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams: inputs.apps.v1.ListAppsQueryParams;
 }
 
 export interface ListAppsResult {
     readonly apps?: outputs.apps.v1.App[];
     readonly totalApps?: number;
 }
-export function listAppsOutput(opts?: pulumi.InvokeOutputOptions): pulumi.Output<ListAppsResult> {
+export function listAppsOutput(args: ListAppsOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<ListAppsResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("fly-machines:apps/v1:listApps", {
+        "queryParams": args.queryParams,
     }, opts);
 }
 
+export interface ListAppsOutputArgs {
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams: pulumi.Input<inputs.apps.v1.ListAppsQueryParamsArgs>;
+}

@@ -2,6 +2,9 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
+import * as enums from "../../types/enums";
 import * as utilities from "../../utilities";
 
 export class App extends pulumi.CustomResource {
@@ -45,6 +48,10 @@ export class App extends pulumi.CustomResource {
     declare public readonly name: pulumi.Output<string | undefined>;
     declare public readonly network: pulumi.Output<string | undefined>;
     declare public readonly orgSlug: pulumi.Output<string | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    declare public readonly queryParams: pulumi.Output<outputs.apps.v1.AppQueryParams | undefined>;
 
     /**
      * Create a App resource with the given unique name, arguments, and options.
@@ -62,6 +69,7 @@ export class App extends pulumi.CustomResource {
             resourceInputs["name"] = args?.name;
             resourceInputs["network"] = args?.network;
             resourceInputs["orgSlug"] = args?.orgSlug;
+            resourceInputs["queryParams"] = args?.queryParams;
             resourceInputs["createdAt"] = undefined /*out*/;
         } else {
             resourceInputs["createdAt"] = undefined /*out*/;
@@ -70,6 +78,7 @@ export class App extends pulumi.CustomResource {
             resourceInputs["name"] = undefined /*out*/;
             resourceInputs["network"] = undefined /*out*/;
             resourceInputs["orgSlug"] = undefined /*out*/;
+            resourceInputs["queryParams"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(App.__pulumiType, name, resourceInputs, opts);
@@ -93,4 +102,8 @@ export interface AppArgs {
     name?: pulumi.Input<string | undefined>;
     network?: pulumi.Input<string | undefined>;
     orgSlug?: pulumi.Input<string | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.AppQueryParamsArgs | undefined>;
 }

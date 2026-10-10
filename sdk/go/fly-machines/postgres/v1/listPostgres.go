@@ -22,6 +22,8 @@ func ListPostgres(ctx *pulumi.Context, args *ListPostgresArgs, opts ...pulumi.In
 }
 
 type ListPostgresArgs struct {
+	// Query params to send with the API request.
+	QueryParams ListPostgresQueryParams `pulumi:"queryParams"`
 }
 
 type ListPostgresResult struct {
@@ -34,6 +36,8 @@ func ListPostgresOutput(ctx *pulumi.Context, args ListPostgresOutputArgs, opts .
 }
 
 type ListPostgresOutputArgs struct {
+	// Query params to send with the API request.
+	QueryParams ListPostgresQueryParamsInput `pulumi:"queryParams"`
 }
 
 func (ListPostgresOutputArgs) ElementType() reflect.Type {

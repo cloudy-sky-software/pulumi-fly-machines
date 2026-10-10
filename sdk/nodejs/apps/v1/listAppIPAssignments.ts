@@ -11,6 +11,7 @@ export function listAppIPAssignments(args: ListAppIPAssignmentsArgs, opts?: pulu
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("fly-machines:apps/v1:listAppIPAssignments", {
         "appName": args.appName,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -19,6 +20,10 @@ export interface ListAppIPAssignmentsArgs {
      * Fly App Name
      */
     appName: string;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: inputs.apps.v1.ListAppIPAssignmentsQueryParams;
 }
 
 export interface ListAppIPAssignmentsResult {
@@ -28,6 +33,7 @@ export function listAppIPAssignmentsOutput(args: ListAppIPAssignmentsOutputArgs,
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("fly-machines:apps/v1:listAppIPAssignments", {
         "appName": args.appName,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -36,4 +42,8 @@ export interface ListAppIPAssignmentsOutputArgs {
      * Fly App Name
      */
     appName: pulumi.Input<string>;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.ListAppIPAssignmentsQueryParamsArgs | undefined>;
 }

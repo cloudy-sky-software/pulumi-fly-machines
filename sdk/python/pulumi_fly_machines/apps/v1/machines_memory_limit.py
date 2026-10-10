@@ -13,6 +13,8 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
+from . import outputs
+from ._inputs import *
 
 __all__ = ['MachinesMemoryLimitArgs', 'MachinesMemoryLimit']
 
@@ -21,12 +23,14 @@ class MachinesMemoryLimitArgs:
     def __init__(__self__, *,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  limit_mb: pulumi.Input[Optional[_builtins.int]] = None,
-                 machine_id: pulumi.Input[Optional[_builtins.str]] = None):
+                 machine_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional['MachinesMemoryLimitQueryParamsArgs']] = None):
         """
         The set of arguments for constructing a MachinesMemoryLimit resource.
 
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input[_builtins.str] machine_id: Machine ID
+        :param pulumi.Input['MachinesMemoryLimitQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         """
         if app_name is not None:
             pulumi.set(__self__, "app_name", app_name)
@@ -34,6 +38,8 @@ class MachinesMemoryLimitArgs:
             pulumi.set(__self__, "limit_mb", limit_mb)
         if machine_id is not None:
             pulumi.set(__self__, "machine_id", machine_id)
+        if query_params is not None:
+            pulumi.set(__self__, "query_params", query_params)
 
     @_builtins.property
     @pulumi.getter(name="appName")
@@ -68,6 +74,18 @@ class MachinesMemoryLimitArgs:
     def machine_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "machine_id", value)
 
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Input[Optional['MachinesMemoryLimitQueryParamsArgs']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
+
+    @query_params.setter
+    def query_params(self, value: pulumi.Input[Optional['MachinesMemoryLimitQueryParamsArgs']]):
+        pulumi.set(self, "query_params", value)
+
 
 @pulumi.type_token("fly-machines:apps/v1:MachinesMemoryLimit")
 class MachinesMemoryLimit(pulumi.CustomResource):
@@ -78,6 +96,7 @@ class MachinesMemoryLimit(pulumi.CustomResource):
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  limit_mb: pulumi.Input[Optional[_builtins.int]] = None,
                  machine_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['MachinesMemoryLimitQueryParamsArgs', 'MachinesMemoryLimitQueryParamsArgsDict', 'outputs.MachinesMemoryLimitQueryParams']]] = None,
                  __props__=None):
         """
         Create a MachinesMemoryLimit resource with the given unique name, props, and options.
@@ -86,6 +105,7 @@ class MachinesMemoryLimit(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input[_builtins.str] machine_id: Machine ID
+        :param pulumi.Input[Union['MachinesMemoryLimitQueryParamsArgs', 'MachinesMemoryLimitQueryParamsArgsDict', 'outputs.MachinesMemoryLimitQueryParams']] query_params: Query params to send with the API requests for this resource.
         """
         ...
     @overload
@@ -114,6 +134,7 @@ class MachinesMemoryLimit(pulumi.CustomResource):
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  limit_mb: pulumi.Input[Optional[_builtins.int]] = None,
                  machine_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['MachinesMemoryLimitQueryParamsArgs', 'MachinesMemoryLimitQueryParamsArgsDict', 'outputs.MachinesMemoryLimitQueryParams']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -126,6 +147,7 @@ class MachinesMemoryLimit(pulumi.CustomResource):
             __props__.__dict__["app_name"] = app_name
             __props__.__dict__["limit_mb"] = limit_mb
             __props__.__dict__["machine_id"] = machine_id
+            __props__.__dict__["query_params"] = query_params
             __props__.__dict__["available_mb"] = None
         super(MachinesMemoryLimit, __self__).__init__(
             'fly-machines:apps/v1:MachinesMemoryLimit',
@@ -151,6 +173,7 @@ class MachinesMemoryLimit(pulumi.CustomResource):
 
         __props__.__dict__["available_mb"] = None
         __props__.__dict__["limit_mb"] = None
+        __props__.__dict__["query_params"] = None
         return MachinesMemoryLimit(resource_name, opts=opts, __props__=__props__)
 
     @_builtins.property
@@ -162,4 +185,12 @@ class MachinesMemoryLimit(pulumi.CustomResource):
     @pulumi.getter(name="limitMb")
     def limit_mb(self) -> pulumi.Output[Optional[_builtins.int]]:
         return pulumi.get(self, "limit_mb")
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Output[Optional['outputs.MachinesMemoryLimitQueryParams']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
 

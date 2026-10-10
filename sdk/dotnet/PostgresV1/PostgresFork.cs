@@ -21,6 +21,12 @@ namespace Pulumi.FlyMachines.PostgresV1
         [Output("name")]
         public Output<string?> Name { get; private set; } = null!;
 
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Output("queryParams")]
+        public Output<Outputs.PostgresForkQueryParams?> QueryParams { get; private set; } = null!;
+
 
         /// <summary>
         /// Create a PostgresFork resource with the given unique name, arguments, and options.
@@ -78,6 +84,12 @@ namespace Pulumi.FlyMachines.PostgresV1
         /// </summary>
         [Input("postgresClusterId")]
         public Input<string>? PostgresClusterId { get; set; }
+
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Input("queryParams")]
+        public Input<Inputs.PostgresForkQueryParamsArgs>? QueryParams { get; set; }
 
         public PostgresForkArgs()
         {

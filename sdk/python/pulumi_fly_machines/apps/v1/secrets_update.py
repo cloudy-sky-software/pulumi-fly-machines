@@ -14,6 +14,7 @@ else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
 from . import outputs
+from ._inputs import *
 
 __all__ = ['SecretsUpdateArgs', 'SecretsUpdate']
 
@@ -21,14 +22,18 @@ __all__ = ['SecretsUpdateArgs', 'SecretsUpdate']
 class SecretsUpdateArgs:
     def __init__(__self__, *,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional['SecretsUpdateQueryParamsArgs']] = None,
                  values: Optional[Any] = None):
         """
         The set of arguments for constructing a SecretsUpdate resource.
 
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
+        :param pulumi.Input['SecretsUpdateQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         """
         if app_name is not None:
             pulumi.set(__self__, "app_name", app_name)
+        if query_params is not None:
+            pulumi.set(__self__, "query_params", query_params)
         if values is not None:
             pulumi.set(__self__, "values", values)
 
@@ -43,6 +48,18 @@ class SecretsUpdateArgs:
     @app_name.setter
     def app_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "app_name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Input[Optional['SecretsUpdateQueryParamsArgs']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
+
+    @query_params.setter
+    def query_params(self, value: pulumi.Input[Optional['SecretsUpdateQueryParamsArgs']]):
+        pulumi.set(self, "query_params", value)
 
     @_builtins.property
     @pulumi.getter
@@ -61,6 +78,7 @@ class SecretsUpdate(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['SecretsUpdateQueryParamsArgs', 'SecretsUpdateQueryParamsArgsDict', 'outputs.SecretsUpdateQueryParams']]] = None,
                  values: Optional[Any] = None,
                  __props__=None):
         """
@@ -69,6 +87,7 @@ class SecretsUpdate(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
+        :param pulumi.Input[Union['SecretsUpdateQueryParamsArgs', 'SecretsUpdateQueryParamsArgsDict', 'outputs.SecretsUpdateQueryParams']] query_params: Query params to send with the API requests for this resource.
         """
         ...
     @overload
@@ -95,6 +114,7 @@ class SecretsUpdate(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['SecretsUpdateQueryParamsArgs', 'SecretsUpdateQueryParamsArgsDict', 'outputs.SecretsUpdateQueryParams']]] = None,
                  values: Optional[Any] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -106,6 +126,7 @@ class SecretsUpdate(pulumi.CustomResource):
             __props__ = SecretsUpdateArgs.__new__(SecretsUpdateArgs)
 
             __props__.__dict__["app_name"] = app_name
+            __props__.__dict__["query_params"] = query_params
             __props__.__dict__["values"] = values
             __props__.__dict__["secrets"] = None
             __props__.__dict__["version"] = None
@@ -131,10 +152,19 @@ class SecretsUpdate(pulumi.CustomResource):
 
         __props__ = SecretsUpdateArgs.__new__(SecretsUpdateArgs)
 
+        __props__.__dict__["query_params"] = None
         __props__.__dict__["secrets"] = None
         __props__.__dict__["values"] = None
         __props__.__dict__["version"] = None
         return SecretsUpdate(resource_name, opts=opts, __props__=__props__)
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Output[Optional['outputs.SecretsUpdateQueryParams']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
 
     @_builtins.property
     @pulumi.getter

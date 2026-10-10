@@ -11,18 +11,31 @@ export function getCurrentToken(args?: GetCurrentTokenArgs, opts?: pulumi.Invoke
     args = args || {};
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("fly-machines:tokens/v1:getCurrentToken", {
+        "queryParams": args.queryParams,
     }, opts);
 }
 
 export interface GetCurrentTokenArgs {
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: inputs.tokens.v1.GetCurrentTokenQueryParams;
 }
 
 export interface GetCurrentTokenResult {
     readonly tokens?: outputs.tokens.v1.MainTokenInfo[];
 }
-export function getCurrentTokenOutput(opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetCurrentTokenResult> {
+export function getCurrentTokenOutput(args?: GetCurrentTokenOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetCurrentTokenResult> {
+    args = args || {};
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("fly-machines:tokens/v1:getCurrentToken", {
+        "queryParams": args.queryParams,
     }, opts);
 }
 
+export interface GetCurrentTokenOutputArgs {
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: pulumi.Input<inputs.tokens.v1.GetCurrentTokenQueryParamsArgs | undefined>;
+}

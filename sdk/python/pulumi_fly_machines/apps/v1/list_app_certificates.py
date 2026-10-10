@@ -14,6 +14,7 @@ else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
 from . import outputs
+from ._inputs import *
 
 __all__ = [
     'ListAppCertificatesResult',
@@ -63,14 +64,17 @@ class AwaitableListAppCertificatesResult(ListAppCertificatesResult):
 
 
 def list_app_certificates(app_name: Optional[_builtins.str] = None,
+                          query_params: Optional[Union['ListAppCertificatesQueryParams', 'ListAppCertificatesQueryParamsDict']] = None,
                           opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableListAppCertificatesResult:
     """
     Use this data source to access information about an existing resource.
 
     :param _builtins.str app_name: Fly App Name
+    :param Union['ListAppCertificatesQueryParams', 'ListAppCertificatesQueryParamsDict'] query_params: Query params to send with the API request.
     """
     __args__ = dict()
     __args__['appName'] = app_name
+    __args__['queryParams'] = query_params
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke('fly-machines:apps/v1:listAppCertificates', __args__, opts=opts, typ=ListAppCertificatesResult).value
 
@@ -79,14 +83,17 @@ def list_app_certificates(app_name: Optional[_builtins.str] = None,
         next_cursor=pulumi.get(__ret__, 'next_cursor'),
         total_count=pulumi.get(__ret__, 'total_count'))
 def list_app_certificates_output(app_name: pulumi.Input[Optional[_builtins.str]] = None,
+                                 query_params: pulumi.Input[Optional[Optional[Union['ListAppCertificatesQueryParams', 'ListAppCertificatesQueryParamsDict']]]] = None,
                                  opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[ListAppCertificatesResult]:
     """
     Use this data source to access information about an existing resource.
 
     :param _builtins.str app_name: Fly App Name
+    :param Union['ListAppCertificatesQueryParams', 'ListAppCertificatesQueryParamsDict'] query_params: Query params to send with the API request.
     """
     __args__ = dict()
     __args__['appName'] = app_name
+    __args__['queryParams'] = query_params
     opts = pulumi.InvokeOutputOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke_output('fly-machines:apps/v1:listAppCertificates', __args__, opts=opts, typ=ListAppCertificatesResult)
     return __ret__.apply(lambda __response__: ListAppCertificatesResult(

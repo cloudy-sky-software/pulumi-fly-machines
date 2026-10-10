@@ -24,6 +24,8 @@ func ListSecretkeys(ctx *pulumi.Context, args *ListSecretkeysArgs, opts ...pulum
 type ListSecretkeysArgs struct {
 	// Fly App Name
 	AppName string `pulumi:"appName"`
+	// Query params to send with the API request.
+	QueryParams *ListSecretkeysQueryParams `pulumi:"queryParams"`
 }
 
 type ListSecretkeysResult struct {
@@ -38,6 +40,8 @@ func ListSecretkeysOutput(ctx *pulumi.Context, args ListSecretkeysOutputArgs, op
 type ListSecretkeysOutputArgs struct {
 	// Fly App Name
 	AppName pulumi.StringInput `pulumi:"appName"`
+	// Query params to send with the API request.
+	QueryParams ListSecretkeysQueryParamsPtrInput `pulumi:"queryParams"`
 }
 
 func (ListSecretkeysOutputArgs) ElementType() reflect.Type {

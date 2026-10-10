@@ -11,6 +11,7 @@ export function getPostgres(args: GetPostgresArgs, opts?: pulumi.InvokeOptions):
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("fly-machines:postgres/v1:getPostgres", {
         "postgresClusterId": args.postgresClusterId,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -19,6 +20,10 @@ export interface GetPostgresArgs {
      * Managed Postgres Cluster ID
      */
     postgresClusterId: string;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: inputs.postgres.v1.GetPostgresQueryParams;
 }
 
 export interface GetPostgresResult {
@@ -28,6 +33,7 @@ export function getPostgresOutput(args: GetPostgresOutputArgs, opts?: pulumi.Inv
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("fly-machines:postgres/v1:getPostgres", {
         "postgresClusterId": args.postgresClusterId,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -36,4 +42,8 @@ export interface GetPostgresOutputArgs {
      * Managed Postgres Cluster ID
      */
     postgresClusterId: pulumi.Input<string>;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: pulumi.Input<inputs.postgres.v1.GetPostgresQueryParamsArgs | undefined>;
 }

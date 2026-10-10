@@ -12,6 +12,12 @@ namespace Pulumi.FlyMachines.AppsV1
     [FlyMachinesResourceType("fly-machines:apps/v1:MachinesMetadataKey")]
     public partial class MachinesMetadataKey : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Output("queryParams")]
+        public Output<Outputs.MachinesMetadataKeyQueryParams?> QueryParams { get; private set; } = null!;
+
         [Output("updatedAt")]
         public Output<string?> UpdatedAt { get; private set; } = null!;
 
@@ -81,6 +87,12 @@ namespace Pulumi.FlyMachines.AppsV1
         /// </summary>
         [Input("machineId")]
         public Input<string>? MachineId { get; set; }
+
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Input("queryParams")]
+        public Input<Inputs.MachinesMetadataKeyQueryParamsArgs>? QueryParams { get; set; }
 
         [Input("updatedAt")]
         public Input<string>? UpdatedAt { get; set; }

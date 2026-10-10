@@ -36,6 +36,12 @@ namespace Pulumi.FlyMachines.AppsV1
         [Output("privateKey")]
         public Output<string?> PrivateKey { get; private set; } = null!;
 
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Output("queryParams")]
+        public Output<Outputs.AppCertificatesCustomQueryParams?> QueryParams { get; private set; } = null!;
+
         [Output("rateLimitedUntil")]
         public Output<string?> RateLimitedUntil { get; private set; } = null!;
 
@@ -108,6 +114,12 @@ namespace Pulumi.FlyMachines.AppsV1
 
         [Input("privateKey")]
         public Input<string>? PrivateKey { get; set; }
+
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Input("queryParams")]
+        public Input<Inputs.AppCertificatesCustomQueryParamsArgs>? QueryParams { get; set; }
 
         public AppCertificatesCustomArgs()
         {

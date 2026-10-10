@@ -14,6 +14,7 @@ else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
 from . import outputs
+from ._inputs import *
 
 __all__ = [
     'ListAppIPAssignmentsResult',
@@ -45,28 +46,34 @@ class AwaitableListAppIPAssignmentsResult(ListAppIPAssignmentsResult):
 
 
 def list_app_ipassignments(app_name: Optional[_builtins.str] = None,
+                           query_params: Optional[Union['ListAppIPAssignmentsQueryParams', 'ListAppIPAssignmentsQueryParamsDict']] = None,
                            opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableListAppIPAssignmentsResult:
     """
     Use this data source to access information about an existing resource.
 
     :param _builtins.str app_name: Fly App Name
+    :param Union['ListAppIPAssignmentsQueryParams', 'ListAppIPAssignmentsQueryParamsDict'] query_params: Query params to send with the API request.
     """
     __args__ = dict()
     __args__['appName'] = app_name
+    __args__['queryParams'] = query_params
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke('fly-machines:apps/v1:listAppIPAssignments', __args__, opts=opts, typ=ListAppIPAssignmentsResult).value
 
     return AwaitableListAppIPAssignmentsResult(
         ips=pulumi.get(__ret__, 'ips'))
 def list_app_ipassignments_output(app_name: pulumi.Input[Optional[_builtins.str]] = None,
+                                  query_params: pulumi.Input[Optional[Optional[Union['ListAppIPAssignmentsQueryParams', 'ListAppIPAssignmentsQueryParamsDict']]]] = None,
                                   opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[ListAppIPAssignmentsResult]:
     """
     Use this data source to access information about an existing resource.
 
     :param _builtins.str app_name: Fly App Name
+    :param Union['ListAppIPAssignmentsQueryParams', 'ListAppIPAssignmentsQueryParamsDict'] query_params: Query params to send with the API request.
     """
     __args__ = dict()
     __args__['appName'] = app_name
+    __args__['queryParams'] = query_params
     opts = pulumi.InvokeOutputOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke_output('fly-machines:apps/v1:listAppIPAssignments', __args__, opts=opts, typ=ListAppIPAssignmentsResult)
     return __ret__.apply(lambda __response__: ListAppIPAssignmentsResult(

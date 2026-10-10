@@ -30,6 +30,8 @@ type LookupMachinesMetadataArgs struct {
 	AppName string `pulumi:"appName"`
 	// Machine ID
 	MachineId string `pulumi:"machineId"`
+	// Query params to send with the API request.
+	QueryParams *GetMachinesMetadataQueryParams `pulumi:"queryParams"`
 }
 
 func LookupMachinesMetadataOutput(ctx *pulumi.Context, args LookupMachinesMetadataOutputArgs, opts ...pulumi.InvokeOption) pulumi.AnyOutput {
@@ -49,6 +51,8 @@ type LookupMachinesMetadataOutputArgs struct {
 	AppName pulumi.StringInput `pulumi:"appName"`
 	// Machine ID
 	MachineId pulumi.StringInput `pulumi:"machineId"`
+	// Query params to send with the API request.
+	QueryParams GetMachinesMetadataQueryParamsPtrInput `pulumi:"queryParams"`
 }
 
 func (LookupMachinesMetadataOutputArgs) ElementType() reflect.Type {

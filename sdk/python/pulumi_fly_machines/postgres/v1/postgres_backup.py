@@ -13,7 +13,9 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
+from . import outputs
 from ._enums import *
+from ._inputs import *
 
 __all__ = ['PostgresBackupArgs', 'PostgresBackup']
 
@@ -21,16 +23,20 @@ __all__ = ['PostgresBackupArgs', 'PostgresBackup']
 class PostgresBackupArgs:
     def __init__(__self__, *,
                  type: pulumi.Input['Type'],
-                 postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None):
+                 postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional['PostgresBackupQueryParamsArgs']] = None):
         """
         The set of arguments for constructing a PostgresBackup resource.
 
         :param pulumi.Input['Type'] type: Backup type.
         :param pulumi.Input[_builtins.str] postgres_cluster_id: Managed Postgres Cluster ID
+        :param pulumi.Input['PostgresBackupQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         """
         pulumi.set(__self__, "type", type)
         if postgres_cluster_id is not None:
             pulumi.set(__self__, "postgres_cluster_id", postgres_cluster_id)
+        if query_params is not None:
+            pulumi.set(__self__, "query_params", query_params)
 
     @_builtins.property
     @pulumi.getter
@@ -56,6 +62,18 @@ class PostgresBackupArgs:
     def postgres_cluster_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "postgres_cluster_id", value)
 
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Input[Optional['PostgresBackupQueryParamsArgs']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
+
+    @query_params.setter
+    def query_params(self, value: pulumi.Input[Optional['PostgresBackupQueryParamsArgs']]):
+        pulumi.set(self, "query_params", value)
+
 
 @pulumi.type_token("fly-machines:postgres/v1:PostgresBackup")
 class PostgresBackup(pulumi.CustomResource):
@@ -64,6 +82,7 @@ class PostgresBackup(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['PostgresBackupQueryParamsArgs', 'PostgresBackupQueryParamsArgsDict', 'outputs.PostgresBackupQueryParams']]] = None,
                  type: pulumi.Input[Optional['Type']] = None,
                  __props__=None):
         """
@@ -72,6 +91,7 @@ class PostgresBackup(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] postgres_cluster_id: Managed Postgres Cluster ID
+        :param pulumi.Input[Union['PostgresBackupQueryParamsArgs', 'PostgresBackupQueryParamsArgsDict', 'outputs.PostgresBackupQueryParams']] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input['Type'] type: Backup type.
         """
         ...
@@ -99,6 +119,7 @@ class PostgresBackup(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['PostgresBackupQueryParamsArgs', 'PostgresBackupQueryParamsArgsDict', 'outputs.PostgresBackupQueryParams']]] = None,
                  type: pulumi.Input[Optional['Type']] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -110,6 +131,7 @@ class PostgresBackup(pulumi.CustomResource):
             __props__ = PostgresBackupArgs.__new__(PostgresBackupArgs)
 
             __props__.__dict__["postgres_cluster_id"] = postgres_cluster_id
+            __props__.__dict__["query_params"] = query_params
             if type is None and not opts.urn:
                 raise TypeError("Missing required property 'type'")
             __props__.__dict__["type"] = type
@@ -135,8 +157,17 @@ class PostgresBackup(pulumi.CustomResource):
 
         __props__ = PostgresBackupArgs.__new__(PostgresBackupArgs)
 
+        __props__.__dict__["query_params"] = None
         __props__.__dict__["type"] = None
         return PostgresBackup(resource_name, opts=opts, __props__=__props__)
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Output[Optional['outputs.PostgresBackupQueryParams']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
 
     @_builtins.property
     @pulumi.getter

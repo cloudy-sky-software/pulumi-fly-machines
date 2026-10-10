@@ -13,6 +13,8 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
+from . import outputs
+from ._inputs import *
 
 __all__ = ['TokensRequestOidcArgs', 'TokensRequestOidc']
 
@@ -20,14 +22,19 @@ __all__ = ['TokensRequestOidcArgs', 'TokensRequestOidc']
 class TokensRequestOidcArgs:
     def __init__(__self__, *,
                  aud: pulumi.Input[Optional[_builtins.str]] = None,
-                 aws_principal_tags: pulumi.Input[Optional[_builtins.bool]] = None):
+                 aws_principal_tags: pulumi.Input[Optional[_builtins.bool]] = None,
+                 query_params: pulumi.Input[Optional['TokensRequestOidcQueryParamsArgs']] = None):
         """
         The set of arguments for constructing a TokensRequestOidc resource.
+
+        :param pulumi.Input['TokensRequestOidcQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         """
         if aud is not None:
             pulumi.set(__self__, "aud", aud)
         if aws_principal_tags is not None:
             pulumi.set(__self__, "aws_principal_tags", aws_principal_tags)
+        if query_params is not None:
+            pulumi.set(__self__, "query_params", query_params)
 
     @_builtins.property
     @pulumi.getter
@@ -47,6 +54,18 @@ class TokensRequestOidcArgs:
     def aws_principal_tags(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "aws_principal_tags", value)
 
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Input[Optional['TokensRequestOidcQueryParamsArgs']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
+
+    @query_params.setter
+    def query_params(self, value: pulumi.Input[Optional['TokensRequestOidcQueryParamsArgs']]):
+        pulumi.set(self, "query_params", value)
+
 
 @pulumi.type_token("fly-machines:tokens/v1:TokensRequestOidc")
 class TokensRequestOidc(pulumi.CustomResource):
@@ -56,12 +75,14 @@ class TokensRequestOidc(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  aud: pulumi.Input[Optional[_builtins.str]] = None,
                  aws_principal_tags: pulumi.Input[Optional[_builtins.bool]] = None,
+                 query_params: pulumi.Input[Optional[Union['TokensRequestOidcQueryParamsArgs', 'TokensRequestOidcQueryParamsArgsDict', 'outputs.TokensRequestOidcQueryParams']]] = None,
                  __props__=None):
         """
         Optional parameters
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[Union['TokensRequestOidcQueryParamsArgs', 'TokensRequestOidcQueryParamsArgsDict', 'outputs.TokensRequestOidcQueryParams']] query_params: Query params to send with the API requests for this resource.
         """
         ...
     @overload
@@ -89,6 +110,7 @@ class TokensRequestOidc(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  aud: pulumi.Input[Optional[_builtins.str]] = None,
                  aws_principal_tags: pulumi.Input[Optional[_builtins.bool]] = None,
+                 query_params: pulumi.Input[Optional[Union['TokensRequestOidcQueryParamsArgs', 'TokensRequestOidcQueryParamsArgsDict', 'outputs.TokensRequestOidcQueryParams']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -100,6 +122,7 @@ class TokensRequestOidc(pulumi.CustomResource):
 
             __props__.__dict__["aud"] = aud
             __props__.__dict__["aws_principal_tags"] = aws_principal_tags
+            __props__.__dict__["query_params"] = query_params
         super(TokensRequestOidc, __self__).__init__(
             'fly-machines:tokens/v1:TokensRequestOidc',
             resource_name,
@@ -124,6 +147,7 @@ class TokensRequestOidc(pulumi.CustomResource):
 
         __props__.__dict__["aud"] = None
         __props__.__dict__["aws_principal_tags"] = None
+        __props__.__dict__["query_params"] = None
         return TokensRequestOidc(resource_name, opts=opts, __props__=__props__)
 
     @_builtins.property
@@ -135,4 +159,12 @@ class TokensRequestOidc(pulumi.CustomResource):
     @pulumi.getter(name="awsPrincipalTags")
     def aws_principal_tags(self) -> pulumi.Output[Optional[_builtins.bool]]:
         return pulumi.get(self, "aws_principal_tags")
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Output[Optional['outputs.TokensRequestOidcQueryParams']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
 

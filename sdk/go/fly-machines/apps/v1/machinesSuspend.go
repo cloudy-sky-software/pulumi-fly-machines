@@ -13,6 +13,9 @@ import (
 
 type MachinesSuspend struct {
 	pulumi.CustomResourceState
+
+	// Query params to send with the API requests for this resource.
+	QueryParams MachinesSuspendQueryParamsPtrOutput `pulumi:"queryParams"`
 }
 
 // NewMachinesSuspend registers a new resource with the given unique name, arguments, and options.
@@ -59,6 +62,8 @@ type machinesSuspendArgs struct {
 	AppName *string `pulumi:"appName"`
 	// Machine ID
 	MachineId *string `pulumi:"machineId"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *MachinesSuspendQueryParams `pulumi:"queryParams"`
 }
 
 // The set of arguments for constructing a MachinesSuspend resource.
@@ -67,6 +72,8 @@ type MachinesSuspendArgs struct {
 	AppName pulumi.StringPtrInput
 	// Machine ID
 	MachineId pulumi.StringPtrInput
+	// Query params to send with the API requests for this resource.
+	QueryParams MachinesSuspendQueryParamsPtrInput
 }
 
 func (MachinesSuspendArgs) ElementType() reflect.Type {
@@ -104,6 +111,11 @@ func (o MachinesSuspendOutput) ToMachinesSuspendOutput() MachinesSuspendOutput {
 
 func (o MachinesSuspendOutput) ToMachinesSuspendOutputWithContext(ctx context.Context) MachinesSuspendOutput {
 	return o
+}
+
+// Query params to send with the API requests for this resource.
+func (o MachinesSuspendOutput) QueryParams() MachinesSuspendQueryParamsPtrOutput {
+	return o.ApplyT(func(v *MachinesSuspend) MachinesSuspendQueryParamsPtrOutput { return v.QueryParams }).(MachinesSuspendQueryParamsPtrOutput)
 }
 
 func init() {

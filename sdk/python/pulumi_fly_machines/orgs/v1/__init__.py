@@ -9,4 +9,5 @@ import typing
 from ._enums import *
 from .list_machines_org import *
 from .list_volumes_org import *
+from ._inputs import *
 from . import outputs

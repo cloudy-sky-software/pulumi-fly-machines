@@ -36,6 +36,12 @@ namespace Pulumi.FlyMachines.AppsV1
         [Input("hostname", required: true)]
         public string Hostname { get; set; } = null!;
 
+        /// <summary>
+        /// Query params to send with the API request.
+        /// </summary>
+        [Input("queryParams")]
+        public Inputs.GetAppCertificateQueryParams? QueryParams { get; set; }
+
         public GetAppCertificateArgs()
         {
         }
@@ -55,6 +61,12 @@ namespace Pulumi.FlyMachines.AppsV1
         /// </summary>
         [Input("hostname", required: true)]
         public Input<string> Hostname { get; set; } = null!;
+
+        /// <summary>
+        /// Query params to send with the API request.
+        /// </summary>
+        [Input("queryParams")]
+        public Input<Inputs.GetAppCertificateQueryParamsArgs>? QueryParams { get; set; }
 
         public GetAppCertificateInvokeArgs()
         {

@@ -12,6 +12,7 @@ export function getAppCertificate(args: GetAppCertificateArgs, opts?: pulumi.Inv
     return pulumi.runtime.invoke("fly-machines:apps/v1:getAppCertificate", {
         "appName": args.appName,
         "hostname": args.hostname,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -24,6 +25,10 @@ export interface GetAppCertificateArgs {
      * Certificate Hostname
      */
     hostname: string;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: inputs.apps.v1.GetAppCertificateQueryParams;
 }
 
 export interface GetAppCertificateResult {
@@ -43,6 +48,7 @@ export function getAppCertificateOutput(args: GetAppCertificateOutputArgs, opts?
     return pulumi.runtime.invokeOutput("fly-machines:apps/v1:getAppCertificate", {
         "appName": args.appName,
         "hostname": args.hostname,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -55,4 +61,8 @@ export interface GetAppCertificateOutputArgs {
      * Certificate Hostname
      */
     hostname: pulumi.Input<string>;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.GetAppCertificateQueryParamsArgs | undefined>;
 }

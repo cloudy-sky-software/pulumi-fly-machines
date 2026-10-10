@@ -34,6 +34,10 @@ export class SecretsUpdate extends pulumi.CustomResource {
         return obj['__pulumiType'] === SecretsUpdate.__pulumiType;
     }
 
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    declare public readonly queryParams: pulumi.Output<outputs.apps.v1.SecretsUpdateQueryParams | undefined>;
     declare public /*out*/ readonly secrets: pulumi.Output<outputs.apps.v1.AppSecret[] | undefined>;
     declare public readonly values: pulumi.Output<any | undefined>;
     declare public /*out*/ readonly version: pulumi.Output<number | undefined>;
@@ -50,10 +54,12 @@ export class SecretsUpdate extends pulumi.CustomResource {
         opts = opts || {};
         if (!opts.id) {
             resourceInputs["appName"] = args?.appName;
+            resourceInputs["queryParams"] = args?.queryParams;
             resourceInputs["values"] = args?.values;
             resourceInputs["secrets"] = undefined /*out*/;
             resourceInputs["version"] = undefined /*out*/;
         } else {
+            resourceInputs["queryParams"] = undefined /*out*/;
             resourceInputs["secrets"] = undefined /*out*/;
             resourceInputs["values"] = undefined /*out*/;
             resourceInputs["version"] = undefined /*out*/;
@@ -71,5 +77,9 @@ export interface SecretsUpdateArgs {
      * Fly App Name
      */
     appName?: pulumi.Input<string | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.SecretsUpdateQueryParamsArgs | undefined>;
     values?: any | undefined;
 }

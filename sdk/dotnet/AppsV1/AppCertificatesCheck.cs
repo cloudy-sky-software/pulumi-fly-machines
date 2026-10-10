@@ -33,6 +33,12 @@ namespace Pulumi.FlyMachines.AppsV1
         [Output("hostname")]
         public Output<string?> Hostname { get; private set; } = null!;
 
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Output("queryParams")]
+        public Output<Outputs.AppCertificatesCheckQueryParams?> QueryParams { get; private set; } = null!;
+
         [Output("rateLimitedUntil")]
         public Output<string?> RateLimitedUntil { get; private set; } = null!;
 
@@ -102,6 +108,12 @@ namespace Pulumi.FlyMachines.AppsV1
         /// </summary>
         [Input("hostname")]
         public Input<string>? Hostname { get; set; }
+
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Input("queryParams")]
+        public Input<Inputs.AppCertificatesCheckQueryParamsArgs>? QueryParams { get; set; }
 
         public AppCertificatesCheckArgs()
         {

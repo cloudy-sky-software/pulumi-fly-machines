@@ -14,7 +14,7 @@ import (
 func GetPostgresQueriesSlow(ctx *pulumi.Context, args *GetPostgresQueriesSlowArgs, opts ...pulumi.InvokeOption) (*GetPostgresQueriesSlowResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv GetPostgresQueriesSlowResult
-	err := ctx.Invoke("fly-machines:postgres/v1:getPostgresQueriesSlow", args, &rv, opts...)
+	err := ctx.Invoke("fly-machines:postgres/v1:getPostgresQueriesSlow", args.Defaults(), &rv, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -24,6 +24,19 @@ func GetPostgresQueriesSlow(ctx *pulumi.Context, args *GetPostgresQueriesSlowArg
 type GetPostgresQueriesSlowArgs struct {
 	// Managed Postgres Cluster ID
 	PostgresClusterId string `pulumi:"postgresClusterId"`
+	// Query params to send with the API request.
+	QueryParams *GetPostgresQueriesSlowQueryParams `pulumi:"queryParams"`
+}
+
+// Defaults sets the appropriate defaults for GetPostgresQueriesSlowArgs
+func (val *GetPostgresQueriesSlowArgs) Defaults() *GetPostgresQueriesSlowArgs {
+	if val == nil {
+		return nil
+	}
+	tmp := *val
+	tmp.QueryParams = tmp.QueryParams.Defaults()
+
+	return &tmp
 }
 
 type GetPostgresQueriesSlowResult struct {
@@ -31,13 +44,20 @@ type GetPostgresQueriesSlowResult struct {
 }
 
 func GetPostgresQueriesSlowOutput(ctx *pulumi.Context, args GetPostgresQueriesSlowOutputArgs, opts ...pulumi.InvokeOption) GetPostgresQueriesSlowResultOutput {
+	outputArgs := pulumi.ToOutputWithContext(ctx.Context(), args).
+		ApplyT(func(v interface{}) *GetPostgresQueriesSlowArgs {
+			args := v.(GetPostgresQueriesSlowArgs)
+			return args.Defaults()
+		})
 	options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
-	return ctx.InvokeOutput("fly-machines:postgres/v1:getPostgresQueriesSlow", args, GetPostgresQueriesSlowResultOutput{}, options).(GetPostgresQueriesSlowResultOutput)
+	return ctx.InvokeOutput("fly-machines:postgres/v1:getPostgresQueriesSlow", outputArgs, GetPostgresQueriesSlowResultOutput{}, options).(GetPostgresQueriesSlowResultOutput)
 }
 
 type GetPostgresQueriesSlowOutputArgs struct {
 	// Managed Postgres Cluster ID
 	PostgresClusterId pulumi.StringInput `pulumi:"postgresClusterId"`
+	// Query params to send with the API request.
+	QueryParams GetPostgresQueriesSlowQueryParamsPtrInput `pulumi:"queryParams"`
 }
 
 func (GetPostgresQueriesSlowOutputArgs) ElementType() reflect.Type {

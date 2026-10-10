@@ -2,6 +2,9 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
+import * as enums from "../../types/enums";
 import * as utilities from "../../utilities";
 
 export class SecretkeySign extends pulumi.CustomResource {
@@ -32,6 +35,10 @@ export class SecretkeySign extends pulumi.CustomResource {
     }
 
     declare public readonly plaintext: pulumi.Output<number[] | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    declare public readonly queryParams: pulumi.Output<outputs.apps.v1.SecretkeySignQueryParams | undefined>;
     declare public /*out*/ readonly signature: pulumi.Output<number[] | undefined>;
 
     /**
@@ -47,10 +54,12 @@ export class SecretkeySign extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["appName"] = args?.appName;
             resourceInputs["plaintext"] = args?.plaintext;
+            resourceInputs["queryParams"] = args?.queryParams;
             resourceInputs["secretName"] = args?.secretName;
             resourceInputs["signature"] = undefined /*out*/;
         } else {
             resourceInputs["plaintext"] = undefined /*out*/;
+            resourceInputs["queryParams"] = undefined /*out*/;
             resourceInputs["signature"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
@@ -67,6 +76,10 @@ export interface SecretkeySignArgs {
      */
     appName?: pulumi.Input<string | undefined>;
     plaintext?: pulumi.Input<pulumi.Input<number>[] | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.SecretkeySignQueryParamsArgs | undefined>;
     /**
      * Secret key name
      */

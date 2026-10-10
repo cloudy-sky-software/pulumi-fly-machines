@@ -51,6 +51,10 @@ export class Volume extends pulumi.CustomResource {
     declare public /*out*/ readonly hostFeatures: pulumi.Output<string[] | undefined>;
     declare public /*out*/ readonly hostStatus: pulumi.Output<enums.apps.v1.HostStatus | undefined>;
     declare public readonly name: pulumi.Output<string | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    declare public readonly queryParams: pulumi.Output<outputs.apps.v1.VolumeQueryParams | undefined>;
     declare public readonly region: pulumi.Output<string | undefined>;
     declare public readonly requireUniqueZone: pulumi.Output<boolean | undefined>;
     declare public /*out*/ readonly requiredHostFeatures: pulumi.Output<string[] | undefined>;
@@ -87,6 +91,7 @@ export class Volume extends pulumi.CustomResource {
             resourceInputs["encrypted"] = args?.encrypted;
             resourceInputs["fstype"] = args?.fstype;
             resourceInputs["name"] = args?.name;
+            resourceInputs["queryParams"] = args?.queryParams;
             resourceInputs["region"] = args?.region;
             resourceInputs["requireUniqueZone"] = args?.requireUniqueZone;
             resourceInputs["sizeGb"] = args?.sizeGb;
@@ -127,6 +132,7 @@ export class Volume extends pulumi.CustomResource {
             resourceInputs["hostFeatures"] = undefined /*out*/;
             resourceInputs["hostStatus"] = undefined /*out*/;
             resourceInputs["name"] = undefined /*out*/;
+            resourceInputs["queryParams"] = undefined /*out*/;
             resourceInputs["region"] = undefined /*out*/;
             resourceInputs["requireUniqueZone"] = undefined /*out*/;
             resourceInputs["requiredHostFeatures"] = undefined /*out*/;
@@ -161,6 +167,10 @@ export interface VolumeArgs {
     encrypted?: pulumi.Input<boolean | undefined>;
     fstype?: pulumi.Input<string | undefined>;
     name?: pulumi.Input<string | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.VolumeQueryParamsArgs | undefined>;
     region?: pulumi.Input<string | undefined>;
     requireUniqueZone?: pulumi.Input<boolean | undefined>;
     sizeGb?: pulumi.Input<number | undefined>;

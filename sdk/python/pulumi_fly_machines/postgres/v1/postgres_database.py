@@ -14,6 +14,7 @@ else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
 from . import outputs
+from ._inputs import *
 
 __all__ = ['PostgresDatabaseArgs', 'PostgresDatabase']
 
@@ -21,18 +22,22 @@ __all__ = ['PostgresDatabaseArgs', 'PostgresDatabase']
 class PostgresDatabaseArgs:
     def __init__(__self__, *,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
-                 postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None):
+                 postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional['PostgresDatabaseQueryParamsArgs']] = None):
         """
         The set of arguments for constructing a PostgresDatabase resource.
 
         :param pulumi.Input[_builtins.str] name: Name of the database to create. Must start and end with an alphanumeric
                character and may contain hyphens and underscores, up to 63 characters.
         :param pulumi.Input[_builtins.str] postgres_cluster_id: Managed Postgres Cluster ID
+        :param pulumi.Input['PostgresDatabaseQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         """
         if name is not None:
             pulumi.set(__self__, "name", name)
         if postgres_cluster_id is not None:
             pulumi.set(__self__, "postgres_cluster_id", postgres_cluster_id)
+        if query_params is not None:
+            pulumi.set(__self__, "query_params", query_params)
 
     @_builtins.property
     @pulumi.getter
@@ -59,6 +64,18 @@ class PostgresDatabaseArgs:
     def postgres_cluster_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "postgres_cluster_id", value)
 
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Input[Optional['PostgresDatabaseQueryParamsArgs']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
+
+    @query_params.setter
+    def query_params(self, value: pulumi.Input[Optional['PostgresDatabaseQueryParamsArgs']]):
+        pulumi.set(self, "query_params", value)
+
 
 @pulumi.type_token("fly-machines:postgres/v1:PostgresDatabase")
 class PostgresDatabase(pulumi.CustomResource):
@@ -68,6 +85,7 @@ class PostgresDatabase(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
                  postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['PostgresDatabaseQueryParamsArgs', 'PostgresDatabaseQueryParamsArgsDict', 'outputs.PostgresDatabaseQueryParams']]] = None,
                  __props__=None):
         """
         Create a PostgresDatabase resource with the given unique name, props, and options.
@@ -77,6 +95,7 @@ class PostgresDatabase(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] name: Name of the database to create. Must start and end with an alphanumeric
                character and may contain hyphens and underscores, up to 63 characters.
         :param pulumi.Input[_builtins.str] postgres_cluster_id: Managed Postgres Cluster ID
+        :param pulumi.Input[Union['PostgresDatabaseQueryParamsArgs', 'PostgresDatabaseQueryParamsArgsDict', 'outputs.PostgresDatabaseQueryParams']] query_params: Query params to send with the API requests for this resource.
         """
         ...
     @overload
@@ -104,6 +123,7 @@ class PostgresDatabase(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
                  postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['PostgresDatabaseQueryParamsArgs', 'PostgresDatabaseQueryParamsArgsDict', 'outputs.PostgresDatabaseQueryParams']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -115,6 +135,7 @@ class PostgresDatabase(pulumi.CustomResource):
 
             __props__.__dict__["name"] = name
             __props__.__dict__["postgres_cluster_id"] = postgres_cluster_id
+            __props__.__dict__["query_params"] = query_params
             __props__.__dict__["data"] = None
         super(PostgresDatabase, __self__).__init__(
             'fly-machines:postgres/v1:PostgresDatabase',
@@ -140,6 +161,7 @@ class PostgresDatabase(pulumi.CustomResource):
 
         __props__.__dict__["data"] = None
         __props__.__dict__["name"] = None
+        __props__.__dict__["query_params"] = None
         return PostgresDatabase(resource_name, opts=opts, __props__=__props__)
 
     @_builtins.property
@@ -155,4 +177,12 @@ class PostgresDatabase(pulumi.CustomResource):
         character and may contain hyphens and underscores, up to 63 characters.
         """
         return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Output[Optional['outputs.PostgresDatabaseQueryParams']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
 

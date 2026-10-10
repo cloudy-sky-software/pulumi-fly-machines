@@ -13,6 +13,12 @@ namespace Pulumi.FlyMachines.PostgresV1
     public partial class PostgresBackup : global::Pulumi.CustomResource
     {
         /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Output("queryParams")]
+        public Output<Outputs.PostgresBackupQueryParams?> QueryParams { get; private set; } = null!;
+
+        /// <summary>
         /// Backup type.
         /// </summary>
         [Output("type")]
@@ -69,6 +75,12 @@ namespace Pulumi.FlyMachines.PostgresV1
         /// </summary>
         [Input("postgresClusterId")]
         public Input<string>? PostgresClusterId { get; set; }
+
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Input("queryParams")]
+        public Input<Inputs.PostgresBackupQueryParamsArgs>? QueryParams { get; set; }
 
         /// <summary>
         /// Backup type.

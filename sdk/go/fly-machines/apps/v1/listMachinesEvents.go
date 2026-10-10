@@ -26,6 +26,8 @@ type ListMachinesEventsArgs struct {
 	AppName string `pulumi:"appName"`
 	// Machine ID
 	MachineId string `pulumi:"machineId"`
+	// Query params to send with the API request.
+	QueryParams *ListMachinesEventsQueryParams `pulumi:"queryParams"`
 }
 
 type ListMachinesEventsResult struct {
@@ -42,6 +44,8 @@ type ListMachinesEventsOutputArgs struct {
 	AppName pulumi.StringInput `pulumi:"appName"`
 	// Machine ID
 	MachineId pulumi.StringInput `pulumi:"machineId"`
+	// Query params to send with the API request.
+	QueryParams ListMachinesEventsQueryParamsPtrInput `pulumi:"queryParams"`
 }
 
 func (ListMachinesEventsOutputArgs) ElementType() reflect.Type {

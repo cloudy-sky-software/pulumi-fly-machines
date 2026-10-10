@@ -17,9 +17,11 @@ __all__ = [
     'FlyMachineServiceAutostop',
     'FlyReplayCacheType',
     'FlyStopConfigSignal',
+    'GetMachinesWaitQueryParamsState',
     'HostStatus',
     'IssuedCertificateType',
     'MachineHostStatus',
+    'MachinesRestartCreateQueryParamsSignal',
     'MachinesSignalSignal',
     'Signal',
     'Type',
@@ -130,6 +132,16 @@ class FlyStopConfigSignal(_builtins.str, Enum):
     SIGTERM = "SIGTERM"
 
 
+@pulumi.type_token("fly-machines:apps/v1:GetMachinesWaitQueryParamsState")
+class GetMachinesWaitQueryParamsState(_builtins.str, Enum):
+    STARTED = "started"
+    STOPPED = "stopped"
+    SUSPENDED = "suspended"
+    DESTROYED = "destroyed"
+    FAILED = "failed"
+    SETTLED = "settled"
+
+
 @pulumi.type_token("fly-machines:apps/v1:HostStatus")
 class HostStatus(_builtins.str, Enum):
     OK = "ok"
@@ -148,6 +160,17 @@ class MachineHostStatus(_builtins.str, Enum):
     OK = "ok"
     UNKNOWN = "unknown"
     UNREACHABLE = "unreachable"
+
+
+@pulumi.type_token("fly-machines:apps/v1:MachinesRestartCreateQueryParamsSignal")
+class MachinesRestartCreateQueryParamsSignal(_builtins.str, Enum):
+    SIGHUP = "SIGHUP"
+    SIGINT = "SIGINT"
+    SIGQUIT = "SIGQUIT"
+    SIGKILL = "SIGKILL"
+    SIGUSR1 = "SIGUSR1"
+    SIGUSR2 = "SIGUSR2"
+    SIGTERM = "SIGTERM"
 
 
 @pulumi.type_token("fly-machines:apps/v1:MachinesSignalSignal")

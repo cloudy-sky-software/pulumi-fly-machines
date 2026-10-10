@@ -35,6 +35,10 @@ export class PostgresBackup extends pulumi.CustomResource {
     }
 
     /**
+     * Query params to send with the API requests for this resource.
+     */
+    declare public readonly queryParams: pulumi.Output<outputs.postgres.v1.PostgresBackupQueryParams | undefined>;
+    /**
      * Backup type.
      */
     declare public readonly type: pulumi.Output<enums.postgres.v1.Type>;
@@ -54,8 +58,10 @@ export class PostgresBackup extends pulumi.CustomResource {
                 throw new Error("Missing required property 'type'");
             }
             resourceInputs["postgresClusterId"] = args?.postgresClusterId;
+            resourceInputs["queryParams"] = args?.queryParams;
             resourceInputs["type"] = args?.type;
         } else {
+            resourceInputs["queryParams"] = undefined /*out*/;
             resourceInputs["type"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
@@ -71,6 +77,10 @@ export interface PostgresBackupArgs {
      * Managed Postgres Cluster ID
      */
     postgresClusterId?: pulumi.Input<string | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    queryParams?: pulumi.Input<inputs.postgres.v1.PostgresBackupQueryParamsArgs | undefined>;
     /**
      * Backup type.
      */

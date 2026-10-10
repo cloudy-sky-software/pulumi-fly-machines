@@ -21,6 +21,12 @@ namespace Pulumi.FlyMachines.AppsV1
         [Output("publicKey")]
         public Output<ImmutableArray<int>> PublicKey { get; private set; } = null!;
 
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Output("queryParams")]
+        public Output<Outputs.SecretkeyGenerateQueryParams?> QueryParams { get; private set; } = null!;
+
         [Output("type")]
         public Output<string?> Type { get; private set; } = null!;
 
@@ -84,6 +90,12 @@ namespace Pulumi.FlyMachines.AppsV1
         /// </summary>
         [Input("appName")]
         public Input<string>? AppName { get; set; }
+
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Input("queryParams")]
+        public Input<Inputs.SecretkeyGenerateQueryParamsArgs>? QueryParams { get; set; }
 
         /// <summary>
         /// Secret key name

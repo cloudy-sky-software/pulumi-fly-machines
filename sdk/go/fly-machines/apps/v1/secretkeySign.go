@@ -15,7 +15,9 @@ type SecretkeySign struct {
 	pulumi.CustomResourceState
 
 	Plaintext pulumi.IntArrayOutput `pulumi:"plaintext"`
-	Signature pulumi.IntArrayOutput `pulumi:"signature"`
+	// Query params to send with the API requests for this resource.
+	QueryParams SecretkeySignQueryParamsPtrOutput `pulumi:"queryParams"`
+	Signature   pulumi.IntArrayOutput             `pulumi:"signature"`
 }
 
 // NewSecretkeySign registers a new resource with the given unique name, arguments, and options.
@@ -61,6 +63,8 @@ type secretkeySignArgs struct {
 	// Fly App Name
 	AppName   *string `pulumi:"appName"`
 	Plaintext []int   `pulumi:"plaintext"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *SecretkeySignQueryParams `pulumi:"queryParams"`
 	// Secret key name
 	SecretName *string `pulumi:"secretName"`
 }
@@ -70,6 +74,8 @@ type SecretkeySignArgs struct {
 	// Fly App Name
 	AppName   pulumi.StringPtrInput
 	Plaintext pulumi.IntArrayInput
+	// Query params to send with the API requests for this resource.
+	QueryParams SecretkeySignQueryParamsPtrInput
 	// Secret key name
 	SecretName pulumi.StringPtrInput
 }
@@ -113,6 +119,11 @@ func (o SecretkeySignOutput) ToSecretkeySignOutputWithContext(ctx context.Contex
 
 func (o SecretkeySignOutput) Plaintext() pulumi.IntArrayOutput {
 	return o.ApplyT(func(v *SecretkeySign) pulumi.IntArrayOutput { return v.Plaintext }).(pulumi.IntArrayOutput)
+}
+
+// Query params to send with the API requests for this resource.
+func (o SecretkeySignOutput) QueryParams() SecretkeySignQueryParamsPtrOutput {
+	return o.ApplyT(func(v *SecretkeySign) SecretkeySignQueryParamsPtrOutput { return v.QueryParams }).(SecretkeySignQueryParamsPtrOutput)
 }
 
 func (o SecretkeySignOutput) Signature() pulumi.IntArrayOutput {

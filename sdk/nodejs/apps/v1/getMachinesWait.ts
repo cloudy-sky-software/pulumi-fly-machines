@@ -2,6 +2,9 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "../../types/input";
+import * as outputs from "../../types/output";
+import * as enums from "../../types/enums";
 import * as utilities from "../../utilities";
 
 export function getMachinesWait(args: GetMachinesWaitArgs, opts?: pulumi.InvokeOptions): Promise<GetMachinesWaitResult> {
@@ -9,6 +12,7 @@ export function getMachinesWait(args: GetMachinesWaitArgs, opts?: pulumi.InvokeO
     return pulumi.runtime.invoke("fly-machines:apps/v1:getMachinesWait", {
         "appName": args.appName,
         "machineId": args.machineId,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -21,6 +25,10 @@ export interface GetMachinesWaitArgs {
      * Machine ID
      */
     machineId: string;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: inputs.apps.v1.GetMachinesWaitQueryParams;
 }
 
 export interface GetMachinesWaitResult {
@@ -34,6 +42,7 @@ export function getMachinesWaitOutput(args: GetMachinesWaitOutputArgs, opts?: pu
     return pulumi.runtime.invokeOutput("fly-machines:apps/v1:getMachinesWait", {
         "appName": args.appName,
         "machineId": args.machineId,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -46,4 +55,8 @@ export interface GetMachinesWaitOutputArgs {
      * Machine ID
      */
     machineId: pulumi.Input<string>;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.GetMachinesWaitQueryParamsArgs | undefined>;
 }

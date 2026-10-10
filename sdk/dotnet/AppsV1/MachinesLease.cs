@@ -37,6 +37,12 @@ namespace Pulumi.FlyMachines.AppsV1
         public Output<string?> Owner { get; private set; } = null!;
 
         /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Output("queryParams")]
+        public Output<Outputs.MachinesLeaseQueryParams?> QueryParams { get; private set; } = null!;
+
+        /// <summary>
         /// seconds lease will be valid
         /// </summary>
         [Output("ttl")]
@@ -108,6 +114,12 @@ namespace Pulumi.FlyMachines.AppsV1
         /// </summary>
         [Input("machineId")]
         public Input<string>? MachineId { get; set; }
+
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Input("queryParams")]
+        public Input<Inputs.MachinesLeaseQueryParamsArgs>? QueryParams { get; set; }
 
         /// <summary>
         /// seconds lease will be valid

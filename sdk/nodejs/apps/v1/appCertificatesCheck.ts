@@ -41,6 +41,10 @@ export class AppCertificatesCheck extends pulumi.CustomResource {
     declare public /*out*/ readonly dnsRecords: pulumi.Output<outputs.apps.v1.DNSRecords | undefined>;
     declare public /*out*/ readonly dnsRequirements: pulumi.Output<outputs.apps.v1.DNSRequirements | undefined>;
     declare public readonly hostname: pulumi.Output<string | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    declare public readonly queryParams: pulumi.Output<outputs.apps.v1.AppCertificatesCheckQueryParams | undefined>;
     declare public /*out*/ readonly rateLimitedUntil: pulumi.Output<string | undefined>;
     declare public /*out*/ readonly status: pulumi.Output<string | undefined>;
     declare public /*out*/ readonly validation: pulumi.Output<outputs.apps.v1.CertificateValidation | undefined>;
@@ -59,6 +63,7 @@ export class AppCertificatesCheck extends pulumi.CustomResource {
         if (!opts.id) {
             resourceInputs["appName"] = args?.appName;
             resourceInputs["hostname"] = args?.hostname;
+            resourceInputs["queryParams"] = args?.queryParams;
             resourceInputs["acmeRequested"] = undefined /*out*/;
             resourceInputs["certificates"] = undefined /*out*/;
             resourceInputs["configured"] = undefined /*out*/;
@@ -77,6 +82,7 @@ export class AppCertificatesCheck extends pulumi.CustomResource {
             resourceInputs["dnsRecords"] = undefined /*out*/;
             resourceInputs["dnsRequirements"] = undefined /*out*/;
             resourceInputs["hostname"] = undefined /*out*/;
+            resourceInputs["queryParams"] = undefined /*out*/;
             resourceInputs["rateLimitedUntil"] = undefined /*out*/;
             resourceInputs["status"] = undefined /*out*/;
             resourceInputs["validation"] = undefined /*out*/;
@@ -99,4 +105,8 @@ export interface AppCertificatesCheckArgs {
      * Certificate Hostname
      */
     hostname?: pulumi.Input<string | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.AppCertificatesCheckQueryParamsArgs | undefined>;
 }

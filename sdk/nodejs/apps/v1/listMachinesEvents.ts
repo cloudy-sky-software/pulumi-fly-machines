@@ -12,6 +12,7 @@ export function listMachinesEvents(args: ListMachinesEventsArgs, opts?: pulumi.I
     return pulumi.runtime.invoke("fly-machines:apps/v1:listMachinesEvents", {
         "appName": args.appName,
         "machineId": args.machineId,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -24,6 +25,10 @@ export interface ListMachinesEventsArgs {
      * Machine ID
      */
     machineId: string;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: inputs.apps.v1.ListMachinesEventsQueryParams;
 }
 
 export interface ListMachinesEventsResult {
@@ -34,6 +39,7 @@ export function listMachinesEventsOutput(args: ListMachinesEventsOutputArgs, opt
     return pulumi.runtime.invokeOutput("fly-machines:apps/v1:listMachinesEvents", {
         "appName": args.appName,
         "machineId": args.machineId,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -46,4 +52,8 @@ export interface ListMachinesEventsOutputArgs {
      * Machine ID
      */
     machineId: pulumi.Input<string>;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.ListMachinesEventsQueryParamsArgs | undefined>;
 }

@@ -61,6 +61,10 @@ export class Machine extends pulumi.CustomResource {
      * PrivateIP is the internal 6PN address of the machine.
      */
     declare public /*out*/ readonly privateIp: pulumi.Output<string | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    declare public readonly queryParams: pulumi.Output<outputs.apps.v1.MachineQueryParams | undefined>;
     declare public readonly region: pulumi.Output<string | undefined>;
     declare public readonly skipLaunch: pulumi.Output<boolean | undefined>;
     declare public readonly skipSecrets: pulumi.Output<boolean | undefined>;
@@ -90,6 +94,7 @@ export class Machine extends pulumi.CustomResource {
             resourceInputs["leaseTtl"] = args?.leaseTtl;
             resourceInputs["minSecretsVersion"] = args?.minSecretsVersion;
             resourceInputs["name"] = args?.name;
+            resourceInputs["queryParams"] = args?.queryParams;
             resourceInputs["region"] = args?.region;
             resourceInputs["skipLaunch"] = args?.skipLaunch;
             resourceInputs["skipSecrets"] = args?.skipSecrets;
@@ -126,6 +131,7 @@ export class Machine extends pulumi.CustomResource {
             resourceInputs["name"] = undefined /*out*/;
             resourceInputs["nonce"] = undefined /*out*/;
             resourceInputs["privateIp"] = undefined /*out*/;
+            resourceInputs["queryParams"] = undefined /*out*/;
             resourceInputs["region"] = undefined /*out*/;
             resourceInputs["skipLaunch"] = undefined /*out*/;
             resourceInputs["skipSecrets"] = undefined /*out*/;
@@ -157,6 +163,10 @@ export interface MachineArgs {
      * Unique name for this Machine. If omitted, one is generated for you
      */
     name?: pulumi.Input<string | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.MachineQueryParamsArgs | undefined>;
     /**
      * The target region. Omitting this param launches in the same region as your WireGuard peer connection (somewhere near you).
      */

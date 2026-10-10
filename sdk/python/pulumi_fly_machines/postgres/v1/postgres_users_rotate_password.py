@@ -14,6 +14,7 @@ else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
 from . import outputs
+from ._inputs import *
 
 __all__ = ['PostgresUsersRotatePasswordArgs', 'PostgresUsersRotatePassword']
 
@@ -22,18 +23,22 @@ class PostgresUsersRotatePasswordArgs:
     def __init__(__self__, *,
                  kill_sessions: pulumi.Input[Optional[_builtins.bool]] = None,
                  postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional['PostgresUsersRotatePasswordQueryParamsArgs']] = None,
                  username: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a PostgresUsersRotatePassword resource.
 
         :param pulumi.Input[_builtins.bool] kill_sessions: Terminate the user's existing sessions after rotating.
         :param pulumi.Input[_builtins.str] postgres_cluster_id: Managed Postgres Cluster ID
+        :param pulumi.Input['PostgresUsersRotatePasswordQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input[_builtins.str] username: Postgres User Name
         """
         if kill_sessions is not None:
             pulumi.set(__self__, "kill_sessions", kill_sessions)
         if postgres_cluster_id is not None:
             pulumi.set(__self__, "postgres_cluster_id", postgres_cluster_id)
+        if query_params is not None:
+            pulumi.set(__self__, "query_params", query_params)
         if username is not None:
             pulumi.set(__self__, "username", username)
 
@@ -62,6 +67,18 @@ class PostgresUsersRotatePasswordArgs:
         pulumi.set(self, "postgres_cluster_id", value)
 
     @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Input[Optional['PostgresUsersRotatePasswordQueryParamsArgs']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
+
+    @query_params.setter
+    def query_params(self, value: pulumi.Input[Optional['PostgresUsersRotatePasswordQueryParamsArgs']]):
+        pulumi.set(self, "query_params", value)
+
+    @_builtins.property
     @pulumi.getter
     def username(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
@@ -82,6 +99,7 @@ class PostgresUsersRotatePassword(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  kill_sessions: pulumi.Input[Optional[_builtins.bool]] = None,
                  postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['PostgresUsersRotatePasswordQueryParamsArgs', 'PostgresUsersRotatePasswordQueryParamsArgsDict', 'outputs.PostgresUsersRotatePasswordQueryParams']]] = None,
                  username: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
@@ -91,6 +109,7 @@ class PostgresUsersRotatePassword(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] kill_sessions: Terminate the user's existing sessions after rotating.
         :param pulumi.Input[_builtins.str] postgres_cluster_id: Managed Postgres Cluster ID
+        :param pulumi.Input[Union['PostgresUsersRotatePasswordQueryParamsArgs', 'PostgresUsersRotatePasswordQueryParamsArgsDict', 'outputs.PostgresUsersRotatePasswordQueryParams']] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input[_builtins.str] username: Postgres User Name
         """
         ...
@@ -119,6 +138,7 @@ class PostgresUsersRotatePassword(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  kill_sessions: pulumi.Input[Optional[_builtins.bool]] = None,
                  postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['PostgresUsersRotatePasswordQueryParamsArgs', 'PostgresUsersRotatePasswordQueryParamsArgsDict', 'outputs.PostgresUsersRotatePasswordQueryParams']]] = None,
                  username: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -131,6 +151,7 @@ class PostgresUsersRotatePassword(pulumi.CustomResource):
 
             __props__.__dict__["kill_sessions"] = kill_sessions
             __props__.__dict__["postgres_cluster_id"] = postgres_cluster_id
+            __props__.__dict__["query_params"] = query_params
             __props__.__dict__["username"] = username
             __props__.__dict__["data"] = None
         super(PostgresUsersRotatePassword, __self__).__init__(
@@ -157,6 +178,7 @@ class PostgresUsersRotatePassword(pulumi.CustomResource):
 
         __props__.__dict__["data"] = None
         __props__.__dict__["kill_sessions"] = None
+        __props__.__dict__["query_params"] = None
         return PostgresUsersRotatePassword(resource_name, opts=opts, __props__=__props__)
 
     @_builtins.property
@@ -171,4 +193,12 @@ class PostgresUsersRotatePassword(pulumi.CustomResource):
         Terminate the user's existing sessions after rotating.
         """
         return pulumi.get(self, "kill_sessions")
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Output[Optional['outputs.PostgresUsersRotatePasswordQueryParams']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
 

@@ -11,6 +11,7 @@ export function getPostgresQueriesSlow(args: GetPostgresQueriesSlowArgs, opts?: 
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("fly-machines:postgres/v1:getPostgresQueriesSlow", {
         "postgresClusterId": args.postgresClusterId,
+        "queryParams": args.queryParams ? inputs.postgres.v1.getPostgresQueriesSlowQueryParamsProvideDefaults(args.queryParams) : undefined,
     }, opts);
 }
 
@@ -19,6 +20,10 @@ export interface GetPostgresQueriesSlowArgs {
      * Managed Postgres Cluster ID
      */
     postgresClusterId: string;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: inputs.postgres.v1.GetPostgresQueriesSlowQueryParams;
 }
 
 export interface GetPostgresQueriesSlowResult {
@@ -28,6 +33,7 @@ export function getPostgresQueriesSlowOutput(args: GetPostgresQueriesSlowOutputA
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("fly-machines:postgres/v1:getPostgresQueriesSlow", {
         "postgresClusterId": args.postgresClusterId,
+        "queryParams": pulumi.output(args.queryParams).apply(v => v === undefined ? undefined : inputs.postgres.v1.getPostgresQueriesSlowQueryParamsProvideDefaults(v)),
     }, opts);
 }
 
@@ -36,4 +42,8 @@ export interface GetPostgresQueriesSlowOutputArgs {
      * Managed Postgres Cluster ID
      */
     postgresClusterId: pulumi.Input<string>;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: pulumi.Input<inputs.postgres.v1.GetPostgresQueriesSlowQueryParamsArgs | undefined>;
 }

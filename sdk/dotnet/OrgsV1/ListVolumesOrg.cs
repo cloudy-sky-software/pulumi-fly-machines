@@ -30,6 +30,12 @@ namespace Pulumi.FlyMachines.OrgsV1
         [Input("orgSlug", required: true)]
         public string OrgSlug { get; set; } = null!;
 
+        /// <summary>
+        /// Query params to send with the API request.
+        /// </summary>
+        [Input("queryParams")]
+        public Inputs.ListVolumesOrgQueryParams? QueryParams { get; set; }
+
         public ListVolumesOrgArgs()
         {
         }
@@ -43,6 +49,12 @@ namespace Pulumi.FlyMachines.OrgsV1
         /// </summary>
         [Input("orgSlug", required: true)]
         public Input<string> OrgSlug { get; set; } = null!;
+
+        /// <summary>
+        /// Query params to send with the API request.
+        /// </summary>
+        [Input("queryParams")]
+        public Input<Inputs.ListVolumesOrgQueryParamsArgs>? QueryParams { get; set; }
 
         public ListVolumesOrgInvokeArgs()
         {

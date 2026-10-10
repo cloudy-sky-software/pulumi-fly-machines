@@ -24,6 +24,8 @@ func ListAppIPAssignments(ctx *pulumi.Context, args *ListAppIPAssignmentsArgs, o
 type ListAppIPAssignmentsArgs struct {
 	// Fly App Name
 	AppName string `pulumi:"appName"`
+	// Query params to send with the API request.
+	QueryParams *ListAppIPAssignmentsQueryParams `pulumi:"queryParams"`
 }
 
 type ListAppIPAssignmentsResult struct {
@@ -38,6 +40,8 @@ func ListAppIPAssignmentsOutput(ctx *pulumi.Context, args ListAppIPAssignmentsOu
 type ListAppIPAssignmentsOutputArgs struct {
 	// Fly App Name
 	AppName pulumi.StringInput `pulumi:"appName"`
+	// Query params to send with the API request.
+	QueryParams ListAppIPAssignmentsQueryParamsPtrInput `pulumi:"queryParams"`
 }
 
 func (ListAppIPAssignmentsOutputArgs) ElementType() reflect.Type {

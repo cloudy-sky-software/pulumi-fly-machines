@@ -15,6 +15,7 @@ else:
 from ... import _utilities
 from . import outputs
 from ._enums import *
+from ._inputs import *
 
 __all__ = ['PostgresRestoreArgs', 'PostgresRestore']
 
@@ -24,7 +25,8 @@ class PostgresRestoreArgs:
                  backup_id: pulumi.Input[Optional[_builtins.str]] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
                  pitr_time: pulumi.Input[Optional[_builtins.str]] = None,
-                 postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None):
+                 postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional['PostgresRestoreQueryParamsArgs']] = None):
         """
         The set of arguments for constructing a PostgresRestore resource.
 
@@ -32,6 +34,7 @@ class PostgresRestoreArgs:
         :param pulumi.Input[_builtins.str] name: Name for the restored cluster. Defaults to a generated name derived from the source cluster and backup/point in time when omitted or blank.
         :param pulumi.Input[_builtins.str] pitr_time: Point in time to restore to, as an RFC3339 timestamp with an explicit offset from UTC (e.g. Z or +02:00). Normalized to UTC and must fall within the cluster's PITR recovery window. Mutually exclusive with backup_id.
         :param pulumi.Input[_builtins.str] postgres_cluster_id: Managed Postgres Cluster ID
+        :param pulumi.Input['PostgresRestoreQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         """
         if backup_id is not None:
             pulumi.set(__self__, "backup_id", backup_id)
@@ -41,6 +44,8 @@ class PostgresRestoreArgs:
             pulumi.set(__self__, "pitr_time", pitr_time)
         if postgres_cluster_id is not None:
             pulumi.set(__self__, "postgres_cluster_id", postgres_cluster_id)
+        if query_params is not None:
+            pulumi.set(__self__, "query_params", query_params)
 
     @_builtins.property
     @pulumi.getter(name="backupId")
@@ -90,6 +95,18 @@ class PostgresRestoreArgs:
     def postgres_cluster_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "postgres_cluster_id", value)
 
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Input[Optional['PostgresRestoreQueryParamsArgs']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
+
+    @query_params.setter
+    def query_params(self, value: pulumi.Input[Optional['PostgresRestoreQueryParamsArgs']]):
+        pulumi.set(self, "query_params", value)
+
 
 @pulumi.type_token("fly-machines:postgres/v1:PostgresRestore")
 class PostgresRestore(pulumi.CustomResource):
@@ -101,6 +118,7 @@ class PostgresRestore(pulumi.CustomResource):
                  name: pulumi.Input[Optional[_builtins.str]] = None,
                  pitr_time: pulumi.Input[Optional[_builtins.str]] = None,
                  postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['PostgresRestoreQueryParamsArgs', 'PostgresRestoreQueryParamsArgsDict', 'outputs.PostgresRestoreQueryParams']]] = None,
                  __props__=None):
         """
         Create a PostgresRestore resource with the given unique name, props, and options.
@@ -111,6 +129,7 @@ class PostgresRestore(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] name: Name for the restored cluster. Defaults to a generated name derived from the source cluster and backup/point in time when omitted or blank.
         :param pulumi.Input[_builtins.str] pitr_time: Point in time to restore to, as an RFC3339 timestamp with an explicit offset from UTC (e.g. Z or +02:00). Normalized to UTC and must fall within the cluster's PITR recovery window. Mutually exclusive with backup_id.
         :param pulumi.Input[_builtins.str] postgres_cluster_id: Managed Postgres Cluster ID
+        :param pulumi.Input[Union['PostgresRestoreQueryParamsArgs', 'PostgresRestoreQueryParamsArgsDict', 'outputs.PostgresRestoreQueryParams']] query_params: Query params to send with the API requests for this resource.
         """
         ...
     @overload
@@ -140,6 +159,7 @@ class PostgresRestore(pulumi.CustomResource):
                  name: pulumi.Input[Optional[_builtins.str]] = None,
                  pitr_time: pulumi.Input[Optional[_builtins.str]] = None,
                  postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 query_params: pulumi.Input[Optional[Union['PostgresRestoreQueryParamsArgs', 'PostgresRestoreQueryParamsArgsDict', 'outputs.PostgresRestoreQueryParams']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -153,6 +173,7 @@ class PostgresRestore(pulumi.CustomResource):
             __props__.__dict__["name"] = name
             __props__.__dict__["pitr_time"] = pitr_time
             __props__.__dict__["postgres_cluster_id"] = postgres_cluster_id
+            __props__.__dict__["query_params"] = query_params
             __props__.__dict__["data"] = None
         super(PostgresRestore, __self__).__init__(
             'fly-machines:postgres/v1:PostgresRestore',
@@ -180,6 +201,7 @@ class PostgresRestore(pulumi.CustomResource):
         __props__.__dict__["data"] = None
         __props__.__dict__["name"] = None
         __props__.__dict__["pitr_time"] = None
+        __props__.__dict__["query_params"] = None
         return PostgresRestore(resource_name, opts=opts, __props__=__props__)
 
     @_builtins.property
@@ -210,4 +232,12 @@ class PostgresRestore(pulumi.CustomResource):
         Point in time to restore to, as an RFC3339 timestamp with an explicit offset from UTC (e.g. Z or +02:00). Normalized to UTC and must fall within the cluster's PITR recovery window. Mutually exclusive with backup_id.
         """
         return pulumi.get(self, "pitr_time")
+
+    @_builtins.property
+    @pulumi.getter(name="queryParams")
+    def query_params(self) -> pulumi.Output[Optional['outputs.PostgresRestoreQueryParams']]:
+        """
+        Query params to send with the API requests for this resource.
+        """
+        return pulumi.get(self, "query_params")
 

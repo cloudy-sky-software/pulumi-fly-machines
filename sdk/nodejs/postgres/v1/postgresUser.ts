@@ -36,6 +36,10 @@ export class PostgresUser extends pulumi.CustomResource {
 
     declare public /*out*/ readonly data: pulumi.Output<outputs.postgres.v1.PostgresUser | undefined>;
     /**
+     * Query params to send with the API requests for this resource.
+     */
+    declare public readonly queryParams: pulumi.Output<outputs.postgres.v1.PostgresUserQueryParams | undefined>;
+    /**
      * Role to grant the user.
      */
     declare public readonly role: pulumi.Output<enums.postgres.v1.Role>;
@@ -63,11 +67,13 @@ export class PostgresUser extends pulumi.CustomResource {
                 throw new Error("Missing required property 'username'");
             }
             resourceInputs["postgresClusterId"] = args?.postgresClusterId;
+            resourceInputs["queryParams"] = args?.queryParams;
             resourceInputs["role"] = args?.role;
             resourceInputs["username"] = args?.username;
             resourceInputs["data"] = undefined /*out*/;
         } else {
             resourceInputs["data"] = undefined /*out*/;
+            resourceInputs["queryParams"] = undefined /*out*/;
             resourceInputs["role"] = undefined /*out*/;
             resourceInputs["username"] = undefined /*out*/;
         }
@@ -84,6 +90,10 @@ export interface PostgresUserArgs {
      * Managed Postgres Cluster ID
      */
     postgresClusterId?: pulumi.Input<string | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    queryParams?: pulumi.Input<inputs.postgres.v1.PostgresUserQueryParamsArgs | undefined>;
     /**
      * Role to grant the user.
      */

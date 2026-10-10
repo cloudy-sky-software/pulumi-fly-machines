@@ -13,6 +13,9 @@ import (
 
 type MachinesRestart struct {
 	pulumi.CustomResourceState
+
+	// Query params to send with the API requests for this resource.
+	QueryParams MachinesRestartQueryParamsPtrOutput `pulumi:"queryParams"`
 }
 
 // NewMachinesRestart registers a new resource with the given unique name, arguments, and options.
@@ -59,6 +62,8 @@ type machinesRestartArgs struct {
 	AppName *string `pulumi:"appName"`
 	// Machine ID
 	MachineId *string `pulumi:"machineId"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *MachinesRestartQueryParams `pulumi:"queryParams"`
 }
 
 // The set of arguments for constructing a MachinesRestart resource.
@@ -67,6 +72,8 @@ type MachinesRestartArgs struct {
 	AppName pulumi.StringPtrInput
 	// Machine ID
 	MachineId pulumi.StringPtrInput
+	// Query params to send with the API requests for this resource.
+	QueryParams MachinesRestartQueryParamsPtrInput
 }
 
 func (MachinesRestartArgs) ElementType() reflect.Type {
@@ -104,6 +111,11 @@ func (o MachinesRestartOutput) ToMachinesRestartOutput() MachinesRestartOutput {
 
 func (o MachinesRestartOutput) ToMachinesRestartOutputWithContext(ctx context.Context) MachinesRestartOutput {
 	return o
+}
+
+// Query params to send with the API requests for this resource.
+func (o MachinesRestartOutput) QueryParams() MachinesRestartQueryParamsPtrOutput {
+	return o.ApplyT(func(v *MachinesRestart) MachinesRestartQueryParamsPtrOutput { return v.QueryParams }).(MachinesRestartQueryParamsPtrOutput)
 }
 
 func init() {

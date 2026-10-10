@@ -35,6 +35,10 @@ export class VolumesExtend extends pulumi.CustomResource {
     }
 
     declare public /*out*/ readonly needsRestart: pulumi.Output<boolean | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    declare public readonly queryParams: pulumi.Output<outputs.apps.v1.VolumesExtendQueryParams | undefined>;
     declare public readonly sizeGb: pulumi.Output<number | undefined>;
     declare public /*out*/ readonly volume: pulumi.Output<outputs.apps.v1.Volume | undefined>;
 
@@ -50,12 +54,14 @@ export class VolumesExtend extends pulumi.CustomResource {
         opts = opts || {};
         if (!opts.id) {
             resourceInputs["appName"] = args?.appName;
+            resourceInputs["queryParams"] = args?.queryParams;
             resourceInputs["sizeGb"] = args?.sizeGb;
             resourceInputs["volumeId"] = args?.volumeId;
             resourceInputs["needsRestart"] = undefined /*out*/;
             resourceInputs["volume"] = undefined /*out*/;
         } else {
             resourceInputs["needsRestart"] = undefined /*out*/;
+            resourceInputs["queryParams"] = undefined /*out*/;
             resourceInputs["sizeGb"] = undefined /*out*/;
             resourceInputs["volume"] = undefined /*out*/;
         }
@@ -72,6 +78,10 @@ export interface VolumesExtendArgs {
      * Fly App Name
      */
     appName?: pulumi.Input<string | undefined>;
+    /**
+     * Query params to send with the API requests for this resource.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.VolumesExtendQueryParamsArgs | undefined>;
     sizeGb?: pulumi.Input<number | undefined>;
     /**
      * Volume ID

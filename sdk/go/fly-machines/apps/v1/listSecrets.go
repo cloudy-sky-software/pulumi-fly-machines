@@ -24,6 +24,8 @@ func ListSecrets(ctx *pulumi.Context, args *ListSecretsArgs, opts ...pulumi.Invo
 type ListSecretsArgs struct {
 	// Fly App Name
 	AppName string `pulumi:"appName"`
+	// Query params to send with the API request.
+	QueryParams *ListSecretsQueryParams `pulumi:"queryParams"`
 }
 
 type ListSecretsResult struct {
@@ -38,6 +40,8 @@ func ListSecretsOutput(ctx *pulumi.Context, args ListSecretsOutputArgs, opts ...
 type ListSecretsOutputArgs struct {
 	// Fly App Name
 	AppName pulumi.StringInput `pulumi:"appName"`
+	// Query params to send with the API request.
+	QueryParams ListSecretsQueryParamsPtrInput `pulumi:"queryParams"`
 }
 
 func (ListSecretsOutputArgs) ElementType() reflect.Type {

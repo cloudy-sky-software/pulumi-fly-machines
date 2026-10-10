@@ -17,6 +17,8 @@ type SecretkeyEncrypt struct {
 	AssociatedData pulumi.IntArrayOutput `pulumi:"associatedData"`
 	Ciphertext     pulumi.IntArrayOutput `pulumi:"ciphertext"`
 	Plaintext      pulumi.IntArrayOutput `pulumi:"plaintext"`
+	// Query params to send with the API requests for this resource.
+	QueryParams SecretkeyEncryptQueryParamsPtrOutput `pulumi:"queryParams"`
 }
 
 // NewSecretkeyEncrypt registers a new resource with the given unique name, arguments, and options.
@@ -63,6 +65,8 @@ type secretkeyEncryptArgs struct {
 	AppName        *string `pulumi:"appName"`
 	AssociatedData []int   `pulumi:"associatedData"`
 	Plaintext      []int   `pulumi:"plaintext"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *SecretkeyEncryptQueryParams `pulumi:"queryParams"`
 	// Secret key name
 	SecretName *string `pulumi:"secretName"`
 }
@@ -73,6 +77,8 @@ type SecretkeyEncryptArgs struct {
 	AppName        pulumi.StringPtrInput
 	AssociatedData pulumi.IntArrayInput
 	Plaintext      pulumi.IntArrayInput
+	// Query params to send with the API requests for this resource.
+	QueryParams SecretkeyEncryptQueryParamsPtrInput
 	// Secret key name
 	SecretName pulumi.StringPtrInput
 }
@@ -124,6 +130,11 @@ func (o SecretkeyEncryptOutput) Ciphertext() pulumi.IntArrayOutput {
 
 func (o SecretkeyEncryptOutput) Plaintext() pulumi.IntArrayOutput {
 	return o.ApplyT(func(v *SecretkeyEncrypt) pulumi.IntArrayOutput { return v.Plaintext }).(pulumi.IntArrayOutput)
+}
+
+// Query params to send with the API requests for this resource.
+func (o SecretkeyEncryptOutput) QueryParams() SecretkeyEncryptQueryParamsPtrOutput {
+	return o.ApplyT(func(v *SecretkeyEncrypt) SecretkeyEncryptQueryParamsPtrOutput { return v.QueryParams }).(SecretkeyEncryptQueryParamsPtrOutput)
 }
 
 func init() {

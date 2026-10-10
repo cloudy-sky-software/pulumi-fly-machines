@@ -11,6 +11,7 @@ export function getPostgresUsersCredential(args: GetPostgresUsersCredentialArgs,
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("fly-machines:postgres/v1:getPostgresUsersCredential", {
         "postgresClusterId": args.postgresClusterId,
+        "queryParams": args.queryParams,
         "username": args.username,
     }, opts);
 }
@@ -20,6 +21,10 @@ export interface GetPostgresUsersCredentialArgs {
      * Managed Postgres Cluster ID
      */
     postgresClusterId: string;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: inputs.postgres.v1.GetPostgresUsersCredentialQueryParams;
     /**
      * Postgres User Name
      */
@@ -33,6 +38,7 @@ export function getPostgresUsersCredentialOutput(args: GetPostgresUsersCredentia
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("fly-machines:postgres/v1:getPostgresUsersCredential", {
         "postgresClusterId": args.postgresClusterId,
+        "queryParams": args.queryParams,
         "username": args.username,
     }, opts);
 }
@@ -42,6 +48,10 @@ export interface GetPostgresUsersCredentialOutputArgs {
      * Managed Postgres Cluster ID
      */
     postgresClusterId: pulumi.Input<string>;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: pulumi.Input<inputs.postgres.v1.GetPostgresUsersCredentialQueryParamsArgs | undefined>;
     /**
      * Postgres User Name
      */

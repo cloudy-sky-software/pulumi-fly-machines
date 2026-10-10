@@ -26,6 +26,8 @@ type GetMachinesMemoryArgs struct {
 	AppName string `pulumi:"appName"`
 	// Machine ID
 	MachineId string `pulumi:"machineId"`
+	// Query params to send with the API request.
+	QueryParams *GetMachinesMemoryQueryParams `pulumi:"queryParams"`
 }
 
 type GetMachinesMemoryResult struct {
@@ -43,6 +45,8 @@ type GetMachinesMemoryOutputArgs struct {
 	AppName pulumi.StringInput `pulumi:"appName"`
 	// Machine ID
 	MachineId pulumi.StringInput `pulumi:"machineId"`
+	// Query params to send with the API request.
+	QueryParams GetMachinesMemoryQueryParamsPtrInput `pulumi:"queryParams"`
 }
 
 func (GetMachinesMemoryOutputArgs) ElementType() reflect.Type {

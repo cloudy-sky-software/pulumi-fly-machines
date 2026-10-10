@@ -30,6 +30,12 @@ namespace Pulumi.FlyMachines.AppsV1
         [Input("name", required: true)]
         public string Name { get; set; } = null!;
 
+        /// <summary>
+        /// Query params to send with the API request.
+        /// </summary>
+        [Input("queryParams")]
+        public Inputs.GetAppQueryParams? QueryParams { get; set; }
+
         public GetAppArgs()
         {
         }
@@ -43,6 +49,12 @@ namespace Pulumi.FlyMachines.AppsV1
         /// </summary>
         [Input("name", required: true)]
         public Input<string> Name { get; set; } = null!;
+
+        /// <summary>
+        /// Query params to send with the API request.
+        /// </summary>
+        [Input("queryParams")]
+        public Input<Inputs.GetAppQueryParamsArgs>? QueryParams { get; set; }
 
         public GetAppInvokeArgs()
         {

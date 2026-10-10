@@ -21,6 +21,12 @@ namespace Pulumi.FlyMachines.AppsV1
         [Output("plaintext")]
         public Output<ImmutableArray<int>> Plaintext { get; private set; } = null!;
 
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Output("queryParams")]
+        public Output<Outputs.SecretkeyDecryptQueryParams?> QueryParams { get; private set; } = null!;
+
 
         /// <summary>
         /// Create a SecretkeyDecrypt resource with the given unique name, arguments, and options.
@@ -88,6 +94,12 @@ namespace Pulumi.FlyMachines.AppsV1
             get => _ciphertext ?? (_ciphertext = new InputList<int>());
             set => _ciphertext = value;
         }
+
+        /// <summary>
+        /// Query params to send with the API requests for this resource.
+        /// </summary>
+        [Input("queryParams")]
+        public Input<Inputs.SecretkeyDecryptQueryParamsArgs>? QueryParams { get; set; }
 
         /// <summary>
         /// Secret key name

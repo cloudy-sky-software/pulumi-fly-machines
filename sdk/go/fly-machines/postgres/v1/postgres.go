@@ -30,6 +30,8 @@ type Postgres struct {
 	PoolMode PoolModePtrOutput `pulumi:"poolMode"`
 	// Enable PostGIS support, required to later enable PostGIS extensions.
 	PostgisEnabled pulumi.BoolPtrOutput `pulumi:"postgisEnabled"`
+	// Query params to send with the API requests for this resource.
+	QueryParams PostgresQueryParamsPtrOutput `pulumi:"queryParams"`
 	// Fly region code where the cluster's primary runs.
 	Region pulumi.StringOutput `pulumi:"region"`
 }
@@ -97,6 +99,8 @@ type postgresArgs struct {
 	PoolMode *PoolMode `pulumi:"poolMode"`
 	// Enable PostGIS support, required to later enable PostGIS extensions.
 	PostgisEnabled *bool `pulumi:"postgisEnabled"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *PostgresQueryParams `pulumi:"queryParams"`
 	// Fly region code where the cluster's primary runs.
 	Region string `pulumi:"region"`
 }
@@ -117,6 +121,8 @@ type PostgresArgs struct {
 	PoolMode PoolModePtrInput
 	// Enable PostGIS support, required to later enable PostGIS extensions.
 	PostgisEnabled pulumi.BoolPtrInput
+	// Query params to send with the API requests for this resource.
+	QueryParams PostgresQueryParamsPtrInput
 	// Fly region code where the cluster's primary runs.
 	Region pulumi.StringInput
 }
@@ -195,6 +201,11 @@ func (o PostgresOutput) PoolMode() PoolModePtrOutput {
 // Enable PostGIS support, required to later enable PostGIS extensions.
 func (o PostgresOutput) PostgisEnabled() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Postgres) pulumi.BoolPtrOutput { return v.PostgisEnabled }).(pulumi.BoolPtrOutput)
+}
+
+// Query params to send with the API requests for this resource.
+func (o PostgresOutput) QueryParams() PostgresQueryParamsPtrOutput {
+	return o.ApplyT(func(v *Postgres) PostgresQueryParamsPtrOutput { return v.QueryParams }).(PostgresQueryParamsPtrOutput)
 }
 
 // Fly region code where the cluster's primary runs.

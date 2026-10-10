@@ -25,4 +25,5 @@ from .postgres_fork import *
 from .postgres_restore import *
 from .postgres_user import *
 from .postgres_users_rotate_password import *
+from ._inputs import *
 from . import outputs

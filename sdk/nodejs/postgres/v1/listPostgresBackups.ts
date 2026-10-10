@@ -11,6 +11,7 @@ export function listPostgresBackups(args: ListPostgresBackupsArgs, opts?: pulumi
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("fly-machines:postgres/v1:listPostgresBackups", {
         "postgresClusterId": args.postgresClusterId,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -19,6 +20,10 @@ export interface ListPostgresBackupsArgs {
      * Managed Postgres Cluster ID
      */
     postgresClusterId: string;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: inputs.postgres.v1.ListPostgresBackupsQueryParams;
 }
 
 export interface ListPostgresBackupsResult {
@@ -28,6 +33,7 @@ export function listPostgresBackupsOutput(args: ListPostgresBackupsOutputArgs, o
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("fly-machines:postgres/v1:listPostgresBackups", {
         "postgresClusterId": args.postgresClusterId,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -36,4 +42,8 @@ export interface ListPostgresBackupsOutputArgs {
      * Managed Postgres Cluster ID
      */
     postgresClusterId: pulumi.Input<string>;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: pulumi.Input<inputs.postgres.v1.ListPostgresBackupsQueryParamsArgs | undefined>;
 }

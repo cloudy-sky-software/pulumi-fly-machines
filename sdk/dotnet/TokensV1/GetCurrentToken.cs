@@ -14,20 +14,40 @@ namespace Pulumi.FlyMachines.TokensV1
         public static Task<GetCurrentTokenResult> InvokeAsync(GetCurrentTokenArgs? args = null, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetCurrentTokenResult>("fly-machines:tokens/v1:getCurrentToken", args ?? new GetCurrentTokenArgs(), options.WithDefaults());
 
-        public static Output<GetCurrentTokenResult> Invoke(InvokeOptions? options = null)
-            => global::Pulumi.Deployment.Instance.Invoke<GetCurrentTokenResult>("fly-machines:tokens/v1:getCurrentToken", InvokeArgs.Empty, options.WithDefaults());
+        public static Output<GetCurrentTokenResult> Invoke(GetCurrentTokenInvokeArgs? args = null, InvokeOptions? options = null)
+            => global::Pulumi.Deployment.Instance.Invoke<GetCurrentTokenResult>("fly-machines:tokens/v1:getCurrentToken", args ?? new GetCurrentTokenInvokeArgs(), options.WithDefaults());
 
-        public static Output<GetCurrentTokenResult> Invoke(InvokeOutputOptions options)
-            => global::Pulumi.Deployment.Instance.Invoke<GetCurrentTokenResult>("fly-machines:tokens/v1:getCurrentToken", InvokeArgs.Empty, options.WithDefaults());
+        public static Output<GetCurrentTokenResult> Invoke(GetCurrentTokenInvokeArgs args, InvokeOutputOptions options)
+            => global::Pulumi.Deployment.Instance.Invoke<GetCurrentTokenResult>("fly-machines:tokens/v1:getCurrentToken", args ?? new GetCurrentTokenInvokeArgs(), options.WithDefaults());
     }
 
 
     public sealed class GetCurrentTokenArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// Query params to send with the API request.
+        /// </summary>
+        [Input("queryParams")]
+        public Inputs.GetCurrentTokenQueryParams? QueryParams { get; set; }
+
         public GetCurrentTokenArgs()
         {
         }
         public static new GetCurrentTokenArgs Empty => new GetCurrentTokenArgs();
+    }
+
+    public sealed class GetCurrentTokenInvokeArgs : global::Pulumi.InvokeArgs
+    {
+        /// <summary>
+        /// Query params to send with the API request.
+        /// </summary>
+        [Input("queryParams")]
+        public Input<Inputs.GetCurrentTokenQueryParamsArgs>? QueryParams { get; set; }
+
+        public GetCurrentTokenInvokeArgs()
+        {
+        }
+        public static new GetCurrentTokenInvokeArgs Empty => new GetCurrentTokenInvokeArgs();
     }
 
 

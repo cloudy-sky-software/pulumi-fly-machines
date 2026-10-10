@@ -24,6 +24,8 @@ func ListAppCertificates(ctx *pulumi.Context, args *ListAppCertificatesArgs, opt
 type ListAppCertificatesArgs struct {
 	// Fly App Name
 	AppName string `pulumi:"appName"`
+	// Query params to send with the API request.
+	QueryParams *ListAppCertificatesQueryParams `pulumi:"queryParams"`
 }
 
 type ListAppCertificatesResult struct {
@@ -40,6 +42,8 @@ func ListAppCertificatesOutput(ctx *pulumi.Context, args ListAppCertificatesOutp
 type ListAppCertificatesOutputArgs struct {
 	// Fly App Name
 	AppName pulumi.StringInput `pulumi:"appName"`
+	// Query params to send with the API request.
+	QueryParams ListAppCertificatesQueryParamsPtrInput `pulumi:"queryParams"`
 }
 
 func (ListAppCertificatesOutputArgs) ElementType() reflect.Type {

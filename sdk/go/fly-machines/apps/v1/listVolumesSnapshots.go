@@ -24,6 +24,8 @@ func ListVolumesSnapshots(ctx *pulumi.Context, args *ListVolumesSnapshotsArgs, o
 type ListVolumesSnapshotsArgs struct {
 	// Fly App Name
 	AppName string `pulumi:"appName"`
+	// Query params to send with the API request.
+	QueryParams *ListVolumesSnapshotsQueryParams `pulumi:"queryParams"`
 	// Volume ID
 	VolumeId string `pulumi:"volumeId"`
 }
@@ -40,6 +42,8 @@ func ListVolumesSnapshotsOutput(ctx *pulumi.Context, args ListVolumesSnapshotsOu
 type ListVolumesSnapshotsOutputArgs struct {
 	// Fly App Name
 	AppName pulumi.StringInput `pulumi:"appName"`
+	// Query params to send with the API request.
+	QueryParams ListVolumesSnapshotsQueryParamsPtrInput `pulumi:"queryParams"`
 	// Volume ID
 	VolumeId pulumi.StringInput `pulumi:"volumeId"`
 }

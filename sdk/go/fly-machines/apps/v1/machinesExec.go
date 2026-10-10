@@ -22,11 +22,13 @@ type MachinesExec struct {
 	ExitSignal pulumi.IntPtrOutput      `pulumi:"exitSignal"`
 	// Machine runs the command in the machine's own namespace instead of in a
 	// container. It is mutually exclusive with Container.
-	Machine pulumi.BoolPtrOutput   `pulumi:"machine"`
-	Stderr  pulumi.StringPtrOutput `pulumi:"stderr"`
-	Stdin   pulumi.StringPtrOutput `pulumi:"stdin"`
-	Stdout  pulumi.StringPtrOutput `pulumi:"stdout"`
-	Timeout pulumi.IntPtrOutput    `pulumi:"timeout"`
+	Machine pulumi.BoolPtrOutput `pulumi:"machine"`
+	// Query params to send with the API requests for this resource.
+	QueryParams MachinesExecQueryParamsPtrOutput `pulumi:"queryParams"`
+	Stderr      pulumi.StringPtrOutput           `pulumi:"stderr"`
+	Stdin       pulumi.StringPtrOutput           `pulumi:"stdin"`
+	Stdout      pulumi.StringPtrOutput           `pulumi:"stdout"`
+	Timeout     pulumi.IntPtrOutput              `pulumi:"timeout"`
 }
 
 // NewMachinesExec registers a new resource with the given unique name, arguments, and options.
@@ -80,8 +82,10 @@ type machinesExecArgs struct {
 	Machine *bool `pulumi:"machine"`
 	// Machine ID
 	MachineId *string `pulumi:"machineId"`
-	Stdin     *string `pulumi:"stdin"`
-	Timeout   *int    `pulumi:"timeout"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *MachinesExecQueryParams `pulumi:"queryParams"`
+	Stdin       *string                  `pulumi:"stdin"`
+	Timeout     *int                     `pulumi:"timeout"`
 }
 
 // The set of arguments for constructing a MachinesExec resource.
@@ -97,8 +101,10 @@ type MachinesExecArgs struct {
 	Machine pulumi.BoolPtrInput
 	// Machine ID
 	MachineId pulumi.StringPtrInput
-	Stdin     pulumi.StringPtrInput
-	Timeout   pulumi.IntPtrInput
+	// Query params to send with the API requests for this resource.
+	QueryParams MachinesExecQueryParamsPtrInput
+	Stdin       pulumi.StringPtrInput
+	Timeout     pulumi.IntPtrInput
 }
 
 func (MachinesExecArgs) ElementType() reflect.Type {
@@ -163,6 +169,11 @@ func (o MachinesExecOutput) ExitSignal() pulumi.IntPtrOutput {
 // container. It is mutually exclusive with Container.
 func (o MachinesExecOutput) Machine() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *MachinesExec) pulumi.BoolPtrOutput { return v.Machine }).(pulumi.BoolPtrOutput)
+}
+
+// Query params to send with the API requests for this resource.
+func (o MachinesExecOutput) QueryParams() MachinesExecQueryParamsPtrOutput {
+	return o.ApplyT(func(v *MachinesExec) MachinesExecQueryParamsPtrOutput { return v.QueryParams }).(MachinesExecQueryParamsPtrOutput)
 }
 
 func (o MachinesExecOutput) Stderr() pulumi.StringPtrOutput {

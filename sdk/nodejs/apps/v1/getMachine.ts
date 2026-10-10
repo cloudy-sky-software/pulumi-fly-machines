@@ -12,6 +12,7 @@ export function getMachine(args: GetMachineArgs, opts?: pulumi.InvokeOptions): P
     return pulumi.runtime.invoke("fly-machines:apps/v1:getMachine", {
         "appName": args.appName,
         "machineId": args.machineId,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -24,6 +25,10 @@ export interface GetMachineArgs {
      * Machine ID
      */
     machineId: string;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: inputs.apps.v1.GetMachineQueryParams;
 }
 
 export interface GetMachineResult {
@@ -68,6 +73,7 @@ export function getMachineOutput(args: GetMachineOutputArgs, opts?: pulumi.Invok
     return pulumi.runtime.invokeOutput("fly-machines:apps/v1:getMachine", {
         "appName": args.appName,
         "machineId": args.machineId,
+        "queryParams": args.queryParams,
     }, opts);
 }
 
@@ -80,4 +86,8 @@ export interface GetMachineOutputArgs {
      * Machine ID
      */
     machineId: pulumi.Input<string>;
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams?: pulumi.Input<inputs.apps.v1.GetMachineQueryParamsArgs | undefined>;
 }

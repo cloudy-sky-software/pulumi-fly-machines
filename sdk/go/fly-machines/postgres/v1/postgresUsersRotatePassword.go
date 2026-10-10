@@ -17,6 +17,8 @@ type PostgresUsersRotatePassword struct {
 	Data PostgresUserCredentialsPtrOutput `pulumi:"data"`
 	// Terminate the user's existing sessions after rotating.
 	KillSessions pulumi.BoolPtrOutput `pulumi:"killSessions"`
+	// Query params to send with the API requests for this resource.
+	QueryParams PostgresUsersRotatePasswordQueryParamsPtrOutput `pulumi:"queryParams"`
 }
 
 // NewPostgresUsersRotatePassword registers a new resource with the given unique name, arguments, and options.
@@ -63,6 +65,8 @@ type postgresUsersRotatePasswordArgs struct {
 	KillSessions *bool `pulumi:"killSessions"`
 	// Managed Postgres Cluster ID
 	PostgresClusterId *string `pulumi:"postgresClusterId"`
+	// Query params to send with the API requests for this resource.
+	QueryParams *PostgresUsersRotatePasswordQueryParams `pulumi:"queryParams"`
 	// Postgres User Name
 	Username *string `pulumi:"username"`
 }
@@ -73,6 +77,8 @@ type PostgresUsersRotatePasswordArgs struct {
 	KillSessions pulumi.BoolPtrInput
 	// Managed Postgres Cluster ID
 	PostgresClusterId pulumi.StringPtrInput
+	// Query params to send with the API requests for this resource.
+	QueryParams PostgresUsersRotatePasswordQueryParamsPtrInput
 	// Postgres User Name
 	Username pulumi.StringPtrInput
 }
@@ -121,6 +127,13 @@ func (o PostgresUsersRotatePasswordOutput) Data() PostgresUserCredentialsPtrOutp
 // Terminate the user's existing sessions after rotating.
 func (o PostgresUsersRotatePasswordOutput) KillSessions() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *PostgresUsersRotatePassword) pulumi.BoolPtrOutput { return v.KillSessions }).(pulumi.BoolPtrOutput)
+}
+
+// Query params to send with the API requests for this resource.
+func (o PostgresUsersRotatePasswordOutput) QueryParams() PostgresUsersRotatePasswordQueryParamsPtrOutput {
+	return o.ApplyT(func(v *PostgresUsersRotatePassword) PostgresUsersRotatePasswordQueryParamsPtrOutput {
+		return v.QueryParams
+	}).(PostgresUsersRotatePasswordQueryParamsPtrOutput)
 }
 
 func init() {

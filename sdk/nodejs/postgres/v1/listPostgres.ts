@@ -7,22 +7,33 @@ import * as outputs from "../../types/output";
 import * as enums from "../../types/enums";
 import * as utilities from "../../utilities";
 
-export function listPostgres(args?: ListPostgresArgs, opts?: pulumi.InvokeOptions): Promise<ListPostgresResult> {
-    args = args || {};
+export function listPostgres(args: ListPostgresArgs, opts?: pulumi.InvokeOptions): Promise<ListPostgresResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("fly-machines:postgres/v1:listPostgres", {
+        "queryParams": args.queryParams,
     }, opts);
 }
 
 export interface ListPostgresArgs {
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams: inputs.postgres.v1.ListPostgresQueryParams;
 }
 
 export interface ListPostgresResult {
     readonly data?: outputs.postgres.v1.PostgresClusterSummary[];
 }
-export function listPostgresOutput(opts?: pulumi.InvokeOutputOptions): pulumi.Output<ListPostgresResult> {
+export function listPostgresOutput(args: ListPostgresOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<ListPostgresResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("fly-machines:postgres/v1:listPostgres", {
+        "queryParams": args.queryParams,
     }, opts);
 }
 
+export interface ListPostgresOutputArgs {
+    /**
+     * Query params to send with the API request.
+     */
+    queryParams: pulumi.Input<inputs.postgres.v1.ListPostgresQueryParamsArgs>;
+}
