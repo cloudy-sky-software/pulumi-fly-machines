@@ -744,6 +744,7 @@ export namespace apps {
         }
 
         export interface FlyProxyProtoOptionsArgs {
+            flySrc?: pulumi.Input<boolean | undefined>;
             version?: pulumi.Input<string | undefined>;
         }
 
@@ -1163,6 +1164,14 @@ export namespace apps {
              */
             appRole?: string;
             /**
+             * Value of next_cursor from the previous page. Requires limit. Later pages only include apps that existed when the first page was requested. Apps created in the seconds before the first page was requested may be missing. Cursors expire 30 minutes after the first page was requested.
+             */
+            cursor?: string;
+            /**
+             * The number of apps to fetch (must be between 1 and 5000). Providing a limit enables pagination. Without it, all apps are returned in one response.
+             */
+            limit?: number;
+            /**
              * The org slug, or 'personal', to filter apps
              */
             orgSlug: string;
@@ -1180,6 +1189,14 @@ export namespace apps {
              * Filter apps by role
              */
             appRole?: pulumi.Input<string | undefined>;
+            /**
+             * Value of next_cursor from the previous page. Requires limit. Later pages only include apps that existed when the first page was requested. Apps created in the seconds before the first page was requested may be missing. Cursors expire 30 minutes after the first page was requested.
+             */
+            cursor?: pulumi.Input<string | undefined>;
+            /**
+             * The number of apps to fetch (must be between 1 and 5000). Providing a limit enables pagination. Without it, all apps are returned in one response.
+             */
+            limit?: pulumi.Input<number | undefined>;
             /**
              * The org slug, or 'personal', to filter apps
              */
@@ -1435,6 +1452,14 @@ export namespace apps {
              */
             additionalParams?: {[key: string]: string};
             /**
+             * Value of the fly-next-cursor response header from the previous page. Requires limit.
+             */
+            cursor?: string;
+            /**
+             * The number of volumes to fetch (must be between 1 and 1000). Providing a limit enables pagination. This limit is advisory; responses may be shorter, or even empty, even when more volumes remain.
+             */
+            limit?: number;
+            /**
              * Only return summary info about volumes (omit blocks, block size, etc)
              */
             summary?: boolean;
@@ -1448,6 +1473,14 @@ export namespace apps {
              * Additional query params to send with the request that are not defined in the API spec.
              */
             additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+            /**
+             * Value of the fly-next-cursor response header from the previous page. Requires limit.
+             */
+            cursor?: pulumi.Input<string | undefined>;
+            /**
+             * The number of volumes to fetch (must be between 1 and 1000). Providing a limit enables pagination. This limit is advisory; responses may be shorter, or even empty, even when more volumes remain.
+             */
+            limit?: pulumi.Input<number | undefined>;
             /**
              * Only return summary info about volumes (omit blocks, block size, etc)
              */

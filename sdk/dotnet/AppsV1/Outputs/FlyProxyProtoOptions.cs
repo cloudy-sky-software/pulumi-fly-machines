@@ -13,11 +13,16 @@ namespace Pulumi.FlyMachines.AppsV1.Outputs
     [OutputType]
     public sealed class FlyProxyProtoOptions
     {
+        public readonly bool? FlySrc;
         public readonly string? Version;
 
         [OutputConstructor]
-        private FlyProxyProtoOptions(string? version)
+        private FlyProxyProtoOptions(
+            bool? flySrc,
+
+            string? version)
         {
+            FlySrc = flySrc;
             Version = version;
         }
     }

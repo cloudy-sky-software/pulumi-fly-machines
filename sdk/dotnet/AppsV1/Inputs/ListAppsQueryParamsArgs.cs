@@ -34,6 +34,18 @@ namespace Pulumi.FlyMachines.AppsV1.Inputs
         public Input<string>? AppRole { get; set; }
 
         /// <summary>
+        /// Value of next_cursor from the previous page. Requires limit. Later pages only include apps that existed when the first page was requested. Apps created in the seconds before the first page was requested may be missing. Cursors expire 30 minutes after the first page was requested.
+        /// </summary>
+        [Input("cursor")]
+        public Input<string>? Cursor { get; set; }
+
+        /// <summary>
+        /// The number of apps to fetch (must be between 1 and 5000). Providing a limit enables pagination. Without it, all apps are returned in one response.
+        /// </summary>
+        [Input("limit")]
+        public Input<int>? Limit { get; set; }
+
+        /// <summary>
         /// The org slug, or 'personal', to filter apps
         /// </summary>
         [Input("orgSlug", required: true)]

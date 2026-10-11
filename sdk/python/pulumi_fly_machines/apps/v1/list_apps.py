@@ -25,10 +25,13 @@ __all__ = [
 
 @pulumi.output_type
 class ListAppsResult:
-    def __init__(__self__, apps=None, total_apps=None):
+    def __init__(__self__, apps=None, next_cursor=None, total_apps=None):
         if apps and not isinstance(apps, list):
             raise TypeError("Expected argument 'apps' to be a list")
         pulumi.set(__self__, "apps", apps)
+        if next_cursor and not isinstance(next_cursor, str):
+            raise TypeError("Expected argument 'next_cursor' to be a str")
+        pulumi.set(__self__, "next_cursor", next_cursor)
         if total_apps and not isinstance(total_apps, int):
             raise TypeError("Expected argument 'total_apps' to be a int")
         pulumi.set(__self__, "total_apps", total_apps)
@@ -39,8 +42,25 @@ class ListAppsResult:
         return pulumi.get(self, "apps")
 
     @_builtins.property
+    @pulumi.getter(name="nextCursor")
+    def next_cursor(self) -> Optional[_builtins.str]:
+        """
+        Pagination cursor for the next page. Absent when no more apps remain.
+        Cursors expire 30 minutes after the first page was requested.
+        """
+        return pulumi.get(self, "next_cursor")
+
+    @_builtins.property
     @pulumi.getter(name="totalApps")
     def total_apps(self) -> Optional[_builtins.int]:
+        """
+        The number of apps matching the request, across all pages. When
+        paginating, it is counted once when the first page is requested and not
+        updated afterwards, so it may differ slightly from the number of apps
+        returned: it excludes apps created later and includes apps deleted while
+        paginating. Apps created in the seconds before the first page may also be
+        counted but missing from the pages.
+        """
         return pulumi.get(self, "total_apps")
 
 
@@ -51,6 +71,7 @@ class AwaitableListAppsResult(ListAppsResult):
             yield self
         return ListAppsResult(
             apps=self.apps,
+            next_cursor=self.next_cursor,
             total_apps=self.total_apps)
 
 
@@ -68,6 +89,7 @@ def list_apps(query_params: Optional[Union['ListAppsQueryParams', 'ListAppsQuery
 
     return AwaitableListAppsResult(
         apps=pulumi.get(__ret__, 'apps'),
+        next_cursor=pulumi.get(__ret__, 'next_cursor'),
         total_apps=pulumi.get(__ret__, 'total_apps'))
 def list_apps_output(query_params: pulumi.Input[Optional[Union['ListAppsQueryParams', 'ListAppsQueryParamsDict']]] = None,
                      opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[ListAppsResult]:
@@ -82,4 +104,5 @@ def list_apps_output(query_params: pulumi.Input[Optional[Union['ListAppsQueryPar
     __ret__ = pulumi.runtime.invoke_output('fly-machines:apps/v1:listApps', __args__, opts=opts, typ=ListAppsResult)
     return __ret__.apply(lambda __response__: ListAppsResult(
         apps=pulumi.get(__response__, 'apps'),
+        next_cursor=pulumi.get(__response__, 'next_cursor'),
         total_apps=pulumi.get(__response__, 'total_apps')))

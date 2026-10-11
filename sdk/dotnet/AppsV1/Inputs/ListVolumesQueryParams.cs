@@ -28,6 +28,18 @@ namespace Pulumi.FlyMachines.AppsV1.Inputs
         }
 
         /// <summary>
+        /// Value of the fly-next-cursor response header from the previous page. Requires limit.
+        /// </summary>
+        [Input("cursor")]
+        public string? Cursor { get; set; }
+
+        /// <summary>
+        /// The number of volumes to fetch (must be between 1 and 1000). Providing a limit enables pagination. This limit is advisory; responses may be shorter, or even empty, even when more volumes remain.
+        /// </summary>
+        [Input("limit")]
+        public int? Limit { get; set; }
+
+        /// <summary>
         /// Only return summary info about volumes (omit blocks, block size, etc)
         /// </summary>
         [Input("summary")]

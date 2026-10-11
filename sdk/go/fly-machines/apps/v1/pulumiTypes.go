@@ -9497,6 +9497,7 @@ func (o FlyMachineSpotPtrOutput) MaxPriceFraction() pulumi.Float64PtrOutput {
 }
 
 type FlyProxyProtoOptions struct {
+	FlySrc  *bool   `pulumi:"flySrc"`
 	Version *string `pulumi:"version"`
 }
 
@@ -9512,6 +9513,7 @@ type FlyProxyProtoOptionsInput interface {
 }
 
 type FlyProxyProtoOptionsArgs struct {
+	FlySrc  pulumi.BoolPtrInput   `pulumi:"flySrc"`
 	Version pulumi.StringPtrInput `pulumi:"version"`
 }
 
@@ -9592,6 +9594,10 @@ func (o FlyProxyProtoOptionsOutput) ToFlyProxyProtoOptionsPtrOutputWithContext(c
 	}).(FlyProxyProtoOptionsPtrOutput)
 }
 
+func (o FlyProxyProtoOptionsOutput) FlySrc() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v FlyProxyProtoOptions) *bool { return v.FlySrc }).(pulumi.BoolPtrOutput)
+}
+
 func (o FlyProxyProtoOptionsOutput) Version() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v FlyProxyProtoOptions) *string { return v.Version }).(pulumi.StringPtrOutput)
 }
@@ -9618,6 +9624,15 @@ func (o FlyProxyProtoOptionsPtrOutput) Elem() FlyProxyProtoOptionsOutput {
 		var ret FlyProxyProtoOptions
 		return ret
 	}).(FlyProxyProtoOptionsOutput)
+}
+
+func (o FlyProxyProtoOptionsPtrOutput) FlySrc() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *FlyProxyProtoOptions) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.FlySrc
+	}).(pulumi.BoolPtrOutput)
 }
 
 func (o FlyProxyProtoOptionsPtrOutput) Version() pulumi.StringPtrOutput {
@@ -12781,6 +12796,10 @@ type ListAppsQueryParams struct {
 	AdditionalParams map[string]string `pulumi:"additionalParams"`
 	// Filter apps by role
 	AppRole *string `pulumi:"appRole"`
+	// Value of next_cursor from the previous page. Requires limit. Later pages only include apps that existed when the first page was requested. Apps created in the seconds before the first page was requested may be missing. Cursors expire 30 minutes after the first page was requested.
+	Cursor *string `pulumi:"cursor"`
+	// The number of apps to fetch (must be between 1 and 5000). Providing a limit enables pagination. Without it, all apps are returned in one response.
+	Limit *int `pulumi:"limit"`
 	// The org slug, or 'personal', to filter apps
 	OrgSlug string `pulumi:"orgSlug"`
 }
@@ -12802,6 +12821,10 @@ type ListAppsQueryParamsArgs struct {
 	AdditionalParams pulumi.StringMapInput `pulumi:"additionalParams"`
 	// Filter apps by role
 	AppRole pulumi.StringPtrInput `pulumi:"appRole"`
+	// Value of next_cursor from the previous page. Requires limit. Later pages only include apps that existed when the first page was requested. Apps created in the seconds before the first page was requested may be missing. Cursors expire 30 minutes after the first page was requested.
+	Cursor pulumi.StringPtrInput `pulumi:"cursor"`
+	// The number of apps to fetch (must be between 1 and 5000). Providing a limit enables pagination. Without it, all apps are returned in one response.
+	Limit pulumi.IntPtrInput `pulumi:"limit"`
 	// The org slug, or 'personal', to filter apps
 	OrgSlug pulumi.StringInput `pulumi:"orgSlug"`
 }
@@ -12843,14 +12866,33 @@ func (o ListAppsQueryParamsOutput) AppRole() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ListAppsQueryParams) *string { return v.AppRole }).(pulumi.StringPtrOutput)
 }
 
+// Value of next_cursor from the previous page. Requires limit. Later pages only include apps that existed when the first page was requested. Apps created in the seconds before the first page was requested may be missing. Cursors expire 30 minutes after the first page was requested.
+func (o ListAppsQueryParamsOutput) Cursor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ListAppsQueryParams) *string { return v.Cursor }).(pulumi.StringPtrOutput)
+}
+
+// The number of apps to fetch (must be between 1 and 5000). Providing a limit enables pagination. Without it, all apps are returned in one response.
+func (o ListAppsQueryParamsOutput) Limit() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ListAppsQueryParams) *int { return v.Limit }).(pulumi.IntPtrOutput)
+}
+
 // The org slug, or 'personal', to filter apps
 func (o ListAppsQueryParamsOutput) OrgSlug() pulumi.StringOutput {
 	return o.ApplyT(func(v ListAppsQueryParams) string { return v.OrgSlug }).(pulumi.StringOutput)
 }
 
 type ListAppsResponse struct {
-	Apps      []AppType `pulumi:"apps"`
-	TotalApps *int      `pulumi:"totalApps"`
+	Apps []AppType `pulumi:"apps"`
+	// Pagination cursor for the next page. Absent when no more apps remain.
+	// Cursors expire 30 minutes after the first page was requested.
+	NextCursor *string `pulumi:"nextCursor"`
+	// The number of apps matching the request, across all pages. When
+	// paginating, it is counted once when the first page is requested and not
+	// updated afterwards, so it may differ slightly from the number of apps
+	// returned: it excludes apps created later and includes apps deleted while
+	// paginating. Apps created in the seconds before the first page may also be
+	// counted but missing from the pages.
+	TotalApps *int `pulumi:"totalApps"`
 }
 
 type ListCertificatesResponse struct {
@@ -13992,6 +14034,10 @@ func (o ListSecretsQueryParamsPtrOutput) ShowSecrets() pulumi.BoolPtrOutput {
 type ListVolumesQueryParams struct {
 	// Additional query params to send with the request that are not defined in the API spec.
 	AdditionalParams map[string]string `pulumi:"additionalParams"`
+	// Value of the fly-next-cursor response header from the previous page. Requires limit.
+	Cursor *string `pulumi:"cursor"`
+	// The number of volumes to fetch (must be between 1 and 1000). Providing a limit enables pagination. This limit is advisory; responses may be shorter, or even empty, even when more volumes remain.
+	Limit *int `pulumi:"limit"`
 	// Only return summary info about volumes (omit blocks, block size, etc)
 	Summary *bool `pulumi:"summary"`
 }
@@ -14011,6 +14057,10 @@ type ListVolumesQueryParamsInput interface {
 type ListVolumesQueryParamsArgs struct {
 	// Additional query params to send with the request that are not defined in the API spec.
 	AdditionalParams pulumi.StringMapInput `pulumi:"additionalParams"`
+	// Value of the fly-next-cursor response header from the previous page. Requires limit.
+	Cursor pulumi.StringPtrInput `pulumi:"cursor"`
+	// The number of volumes to fetch (must be between 1 and 1000). Providing a limit enables pagination. This limit is advisory; responses may be shorter, or even empty, even when more volumes remain.
+	Limit pulumi.IntPtrInput `pulumi:"limit"`
 	// Only return summary info about volumes (omit blocks, block size, etc)
 	Summary pulumi.BoolPtrInput `pulumi:"summary"`
 }
@@ -14098,6 +14148,16 @@ func (o ListVolumesQueryParamsOutput) AdditionalParams() pulumi.StringMapOutput 
 	return o.ApplyT(func(v ListVolumesQueryParams) map[string]string { return v.AdditionalParams }).(pulumi.StringMapOutput)
 }
 
+// Value of the fly-next-cursor response header from the previous page. Requires limit.
+func (o ListVolumesQueryParamsOutput) Cursor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ListVolumesQueryParams) *string { return v.Cursor }).(pulumi.StringPtrOutput)
+}
+
+// The number of volumes to fetch (must be between 1 and 1000). Providing a limit enables pagination. This limit is advisory; responses may be shorter, or even empty, even when more volumes remain.
+func (o ListVolumesQueryParamsOutput) Limit() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ListVolumesQueryParams) *int { return v.Limit }).(pulumi.IntPtrOutput)
+}
+
 // Only return summary info about volumes (omit blocks, block size, etc)
 func (o ListVolumesQueryParamsOutput) Summary() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ListVolumesQueryParams) *bool { return v.Summary }).(pulumi.BoolPtrOutput)
@@ -14135,6 +14195,26 @@ func (o ListVolumesQueryParamsPtrOutput) AdditionalParams() pulumi.StringMapOutp
 		}
 		return v.AdditionalParams
 	}).(pulumi.StringMapOutput)
+}
+
+// Value of the fly-next-cursor response header from the previous page. Requires limit.
+func (o ListVolumesQueryParamsPtrOutput) Cursor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ListVolumesQueryParams) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Cursor
+	}).(pulumi.StringPtrOutput)
+}
+
+// The number of volumes to fetch (must be between 1 and 1000). Providing a limit enables pagination. This limit is advisory; responses may be shorter, or even empty, even when more volumes remain.
+func (o ListVolumesQueryParamsPtrOutput) Limit() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ListVolumesQueryParams) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Limit
+	}).(pulumi.IntPtrOutput)
 }
 
 // Only return summary info about volumes (omit blocks, block size, etc)
