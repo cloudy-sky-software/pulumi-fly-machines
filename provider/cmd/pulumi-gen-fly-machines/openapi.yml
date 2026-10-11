@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.1.0
 info:
   title: Machines API
   description: This site hosts documentation generated from the Fly.io Machines API OpenAPI specification. Visit our complete [Machines API docs](https://fly.io/docs/machines/api/) for how to get started, more information about each endpoint, parameter descriptions, and examples.
@@ -11,6 +11,8 @@ externalDocs:
   url: https://fly.io/docs/machines/working-with-machines/
 servers:
   - url: https://api.machines.dev
+security:
+  - FlyBearerAuth: []
 tags:
   - name: Apps
     description: This site hosts documentation generated from the Fly.io Machines API OpenAPI specification. Visit our complete [Machines API docs](https://fly.io/docs/machines/api/apps-resource/) for details about using the Apps resource.
@@ -44,6 +46,16 @@ paths:
           description: Filter apps by role
           schema:
             type: string
+        - name: limit
+          in: query
+          description: The number of apps to fetch (must be between 1 and 5000). Providing a limit enables pagination. Without it, all apps are returned in one response.
+          schema:
+            type: integer
+        - name: cursor
+          in: query
+          description: Value of next_cursor from the previous page. Requires limit. Later pages only include apps that existed when the first page was requested. Apps created in the seconds before the first page was requested may be missing. Cursors expire 30 minutes after the first page was requested.
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -51,6 +63,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ListAppsResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
     post:
       tags:
         - Apps
@@ -521,6 +539,12 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Machine"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
     post:
       tags:
         - Machines
@@ -2074,15 +2098,36 @@ paths:
           description: Only return summary info about volumes (omit blocks, block size, etc)
           schema:
             type: boolean
+        - name: cursor
+          in: query
+          description: Value of the fly-next-cursor response header from the previous page. Requires limit.
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: The number of volumes to fetch (must be between 1 and 1000). Providing a limit enables pagination. This limit is advisory; responses may be shorter, or even empty, even when more volumes remain.
+          schema:
+            type: integer
       responses:
         "200":
           description: OK
+          headers:
+            fly-next-cursor:
+              description: Pagination cursor for the next page. Absent when no more volumes remain. Cursor expires 30 minutes after the first page was requested.
+              schema:
+                type: string
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: "#/components/schemas/Volume"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
     post:
       tags:
         - Volumes
@@ -2449,6 +2494,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/main.regionResponse"
+      security: []
   /v1/postgres:
     get:
       tags:
@@ -2499,8 +2545,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PostgresErrorResponse"
-      security:
-        - FlyBearerAuth: []
     post:
       tags:
         - Postgres Clusters
@@ -2545,8 +2589,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PostgresErrorResponse"
-      security:
-        - FlyBearerAuth: []
       x-codegen-request-body-name: request
   /v1/postgres/{postgres_cluster_id}:
     get:
@@ -2581,8 +2623,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PostgresErrorResponse"
-      security:
-        - FlyBearerAuth: []
     delete:
       tags:
         - Postgres Clusters
@@ -2618,8 +2658,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PostgresErrorResponse"
-      security:
-        - FlyBearerAuth: []
   /v1/postgres/{postgres_cluster_id}/attachments:
     post:
       tags:
@@ -2672,8 +2710,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PostgresErrorResponse"
-      security:
-        - FlyBearerAuth: []
       x-codegen-request-body-name: request
   /v1/postgres/{postgres_cluster_id}/attachments/{app_name}:
     delete:
@@ -2717,8 +2753,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PostgresErrorResponse"
-      security:
-        - FlyBearerAuth: []
   /v1/postgres/{postgres_cluster_id}/backups:
     get:
       tags:
@@ -2752,8 +2786,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PostgresErrorResponse"
-      security:
-        - FlyBearerAuth: []
     post:
       tags:
         - Postgres Clusters
@@ -2796,8 +2828,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PostgresErrorResponse"
-      security:
-        - FlyBearerAuth: []
       x-codegen-request-body-name: request
   /v1/postgres/{postgres_cluster_id}/databases:
     get:
@@ -2838,8 +2868,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PostgresErrorResponse"
-      security:
-        - FlyBearerAuth: []
     post:
       tags:
         - Postgres Clusters
@@ -2897,8 +2925,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PostgresErrorResponse"
-      security:
-        - FlyBearerAuth: []
       x-codegen-request-body-name: request
   /v1/postgres/{postgres_cluster_id}/databases/{database_name}:
     delete:
@@ -2951,8 +2977,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PostgresErrorResponse"
-      security:
-        - FlyBearerAuth: []
   /v1/postgres/{postgres_cluster_id}/databases/{database_name}/extensions:
     get:
       tags:
@@ -3004,8 +3028,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PostgresErrorResponse"
-      security:
-        - FlyBearerAuth: []
     post:
       tags:
         - Postgres Clusters
@@ -3072,8 +3094,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PostgresErrorResponse"
-      security:
-        - FlyBearerAuth: []
       x-codegen-request-body-name: request
   /v1/postgres/{postgres_cluster_id}/databases/{database_name}/extensions/{extension_name}:
     delete:
@@ -3140,8 +3160,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PostgresErrorResponse"
-      security:
-        - FlyBearerAuth: []
   /v1/postgres/{postgres_cluster_id}/fork:
     post:
       tags:
@@ -3206,8 +3224,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PostgresErrorResponse"
-      security:
-        - FlyBearerAuth: []
       x-codegen-request-body-name: request
   /v1/postgres/{postgres_cluster_id}/queries/active:
     get:
@@ -3261,8 +3277,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PostgresErrorResponse"
-      security:
-        - FlyBearerAuth: []
   /v1/postgres/{postgres_cluster_id}/queries/slow:
     get:
       tags:
@@ -3316,8 +3330,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PostgresErrorResponse"
-      security:
-        - FlyBearerAuth: []
   /v1/postgres/{postgres_cluster_id}/restore:
     post:
       tags:
@@ -3370,8 +3382,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PostgresErrorResponse"
-      security:
-        - FlyBearerAuth: []
       x-codegen-request-body-name: request
   /v1/postgres/{postgres_cluster_id}/users:
     get:
@@ -3412,8 +3422,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PostgresErrorResponse"
-      security:
-        - FlyBearerAuth: []
     post:
       tags:
         - Postgres Clusters
@@ -3477,8 +3485,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PostgresErrorResponse"
-      security:
-        - FlyBearerAuth: []
       x-codegen-request-body-name: request
   /v1/postgres/{postgres_cluster_id}/users/{username}:
     delete:
@@ -3528,8 +3534,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PostgresErrorResponse"
-      security:
-        - FlyBearerAuth: []
     patch:
       tags:
         - Postgres Clusters
@@ -3590,8 +3594,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PostgresErrorResponse"
-      security:
-        - FlyBearerAuth: []
       x-codegen-request-body-name: request
   /v1/postgres/{postgres_cluster_id}/users/{username}/credentials:
     get:
@@ -3644,8 +3646,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PostgresErrorResponse"
-      security:
-        - FlyBearerAuth: []
   /v1/postgres/{postgres_cluster_id}/users/{username}/rotate_password:
     post:
       tags:
@@ -3710,14 +3710,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PostgresErrorResponse"
+        "500":
+          description: "Password rotation failed, or rotation succeeded but session termination failed (status: sessions_not_terminated)"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostgresErrorResponse"
         "503":
           description: pg-admin is unavailable; retry after the interval given by the Retry-After header
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/PostgresErrorResponse"
-      security:
-        - FlyBearerAuth: []
       x-codegen-request-body-name: request
   /v1/tokens/authenticate:
     post:
@@ -3748,6 +3752,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+      security: []
       x-codegen-request-body-name: request
   /v1/tokens/authorize:
     post:
@@ -3782,6 +3787,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+      security: []
       x-codegen-request-body-name: request
   /v1/tokens/current:
     get:
@@ -3814,7 +3820,6 @@ paths:
       tags:
         - Tokens
       summary: Request a Petsem token for accessing KMS
-      description: This site hosts documentation generated from the Fly.io Machines API OpenAPI specification. Visit our complete [Machines API docs](https://fly.io/docs/machines/api/apps-resource/) for details about using the Apps resource.
       operationId: Tokens_request_Kms
       responses:
         "200":
@@ -3829,7 +3834,7 @@ paths:
         - Tokens
       summary: Request an OIDC token
       description: |
-        Request an Open ID Connect token for your machine. Customize the audience claim with the `aud` parameter. This returns a JWT token. Learn more about [using OpenID Connect](/security/openid-connect) on Fly.io.
+        Request an Open ID Connect token for your machine. Customize the audience claim with the `aud` parameter. This returns a JWT token. Learn more about [using OpenID Connect](/docs/reference/openid-connect/) on Fly.io.
       operationId: Tokens_request_OIDC
       requestBody:
         description: Optional request body
@@ -4431,8 +4436,20 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/App"
+        next_cursor:
+          type: string
+          description: |-
+            Pagination cursor for the next page. Absent when no more apps remain.
+            Cursors expire 30 minutes after the first page was requested.
         total_apps:
           type: integer
+          description: |-
+            The number of apps matching the request, across all pages. When
+            paginating, it is counted once when the first page is requested and not
+            updated afterwards, so it may differ slightly from the number of apps
+            returned: it excludes apps created later and includes apps deleted while
+            paginating. Apps created in the seconds before the first page may also be
+            counted but missing from the pages.
     ListenSocket:
       type: object
       properties:
@@ -4854,18 +4871,20 @@ components:
             - deleted
             - failed
         storage_provisioned_bytes:
-          type: integer
+          type:
+            - integer
+            - "null"
           description: |-
             Storage provisioned, summed across the cluster's volumes and measured hourly.
             Null until first measured.
-          nullable: true
           example: 10737418240
         storage_used_bytes:
-          type: integer
+          type:
+            - integer
+            - "null"
           description: |-
             Storage used, summed across the cluster's volumes and measured hourly. Null
             until first measured.
-          nullable: true
           example: 5368709120
     PostgresClusterEndpoints:
       type: object
@@ -4942,6 +4961,10 @@ components:
         error:
           type: string
           description: Human-readable error message.
+        status:
+          type: string
+          description: Optional machine-readable error status.
+          example: sessions_not_terminated
     PostgresExtension:
       type: object
       properties:
@@ -4952,7 +4975,9 @@ components:
           type: string
           description: Human-readable description.
         installed:
-          type: object
+          type:
+            - object
+            - "null"
           properties:
             schema:
               type: string
@@ -4963,7 +4988,6 @@ components:
               description: Installed version.
               example: "1.0"
           description: Installation details, or null when the extension is not installed.
-          nullable: true
         name:
           type: string
           description: Extension name.
@@ -6122,7 +6146,7 @@ components:
             * always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.
             * on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules.
           enum:
-            - "no"
+            - no
             - always
             - on-failure
       description: The Machine restart policy defines whether and how flyd restarts a Machine after its main process exits. See https://fly.io/docs/machines/guides-examples/machine-restart-policy/.
@@ -6164,7 +6188,7 @@ components:
             * "stop" or true - Automatically stop the Machine.
             * "suspend" - Automatically suspend the Machine, falling back to a full stop if this is not possible.
           enum:
-            - "off"
+            - off
             - stop
             - suspend
         checks:
@@ -6246,6 +6270,8 @@ components:
     fly.ProxyProtoOptions:
       type: object
       properties:
+        fly_src:
+          type: boolean
         version:
           type: string
     fly.ReplayCache:
@@ -6700,6 +6726,7 @@ components:
       type: object
       additionalProperties:
         type: integer
+        format: int64
     postgresDatabaseResponse:
       type: object
       properties:
@@ -6707,6 +6734,7 @@ components:
           $ref: "#/components/schemas/PostgresDatabase"
     resset.Action:
       type: integer
+      format: int32
       enum:
         - 1
         - 2
@@ -6797,8 +6825,7 @@ components:
           type: string
   securitySchemes:
     FlyBearerAuth:
-      type: apiKey
+      type: http
+      scheme: bearer
       description: "A Fly API token with access to the requested organization or resource. Send it as `Authorization: Bearer <Fly API token>`."
-      name: Authorization
-      in: header
 x-original-swagger-version: "2.0"
