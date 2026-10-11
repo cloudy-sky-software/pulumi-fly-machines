@@ -836,6 +836,7 @@ export namespace apps {
         }
 
         export interface FlyProxyProtoOptions {
+            flySrc?: boolean;
             version?: string;
         }
 

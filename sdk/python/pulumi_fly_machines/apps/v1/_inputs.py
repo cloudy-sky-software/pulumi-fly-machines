@@ -4086,14 +4086,27 @@ class FlyMachineSpotArgs:
 
 
 class FlyProxyProtoOptionsArgsDict(TypedDict):
+    fly_src: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
 
 @pulumi.input_type
 class FlyProxyProtoOptionsArgs:
     def __init__(__self__, *,
+                 fly_src: pulumi.Input[Optional[_builtins.bool]] = None,
                  version: pulumi.Input[Optional[_builtins.str]] = None):
+        if fly_src is not None:
+            pulumi.set(__self__, "fly_src", fly_src)
         if version is not None:
             pulumi.set(__self__, "version", version)
+
+    @_builtins.property
+    @pulumi.getter(name="flySrc")
+    def fly_src(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        return pulumi.get(self, "fly_src")
+
+    @fly_src.setter
+    def fly_src(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "fly_src", value)
 
     @_builtins.property
     @pulumi.getter
@@ -5076,25 +5089,41 @@ class ListAppsQueryParamsDict(TypedDict):
     """
     Filter apps by role
     """
+    cursor: NotRequired[_builtins.str]
+    """
+    Value of next_cursor from the previous page. Requires limit. Later pages only include apps that existed when the first page was requested. Apps created in the seconds before the first page was requested may be missing. Cursors expire 30 minutes after the first page was requested.
+    """
+    limit: NotRequired[_builtins.int]
+    """
+    The number of apps to fetch (must be between 1 and 5000). Providing a limit enables pagination. Without it, all apps are returned in one response.
+    """
 
 @pulumi.input_type
 class ListAppsQueryParams:
     def __init__(__self__, *,
                  org_slug: _builtins.str,
                  additional_params: Optional[Mapping[str, _builtins.str]] = None,
-                 app_role: Optional[_builtins.str] = None):
+                 app_role: Optional[_builtins.str] = None,
+                 cursor: Optional[_builtins.str] = None,
+                 limit: Optional[_builtins.int] = None):
         """
         Query params for the API request.
 
         :param _builtins.str org_slug: The org slug, or 'personal', to filter apps
         :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
         :param _builtins.str app_role: Filter apps by role
+        :param _builtins.str cursor: Value of next_cursor from the previous page. Requires limit. Later pages only include apps that existed when the first page was requested. Apps created in the seconds before the first page was requested may be missing. Cursors expire 30 minutes after the first page was requested.
+        :param _builtins.int limit: The number of apps to fetch (must be between 1 and 5000). Providing a limit enables pagination. Without it, all apps are returned in one response.
         """
         pulumi.set(__self__, "org_slug", org_slug)
         if additional_params is not None:
             pulumi.set(__self__, "additional_params", additional_params)
         if app_role is not None:
             pulumi.set(__self__, "app_role", app_role)
+        if cursor is not None:
+            pulumi.set(__self__, "cursor", cursor)
+        if limit is not None:
+            pulumi.set(__self__, "limit", limit)
 
     @_builtins.property
     @pulumi.getter(name="orgSlug")
@@ -5131,6 +5160,30 @@ class ListAppsQueryParams:
     @app_role.setter
     def app_role(self, value: Optional[_builtins.str]):
         pulumi.set(self, "app_role", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def cursor(self) -> Optional[_builtins.str]:
+        """
+        Value of next_cursor from the previous page. Requires limit. Later pages only include apps that existed when the first page was requested. Apps created in the seconds before the first page was requested may be missing. Cursors expire 30 minutes after the first page was requested.
+        """
+        return pulumi.get(self, "cursor")
+
+    @cursor.setter
+    def cursor(self, value: Optional[_builtins.str]):
+        pulumi.set(self, "cursor", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def limit(self) -> Optional[_builtins.int]:
+        """
+        The number of apps to fetch (must be between 1 and 5000). Providing a limit enables pagination. Without it, all apps are returned in one response.
+        """
+        return pulumi.get(self, "limit")
+
+    @limit.setter
+    def limit(self, value: Optional[_builtins.int]):
+        pulumi.set(self, "limit", value)
 
 
 class ListMachinesEventsQueryParamsDict(TypedDict):
@@ -5645,6 +5698,14 @@ class ListVolumesQueryParamsDict(TypedDict):
     """
     Additional query params to send with the request that are not defined in the API spec.
     """
+    cursor: NotRequired[_builtins.str]
+    """
+    Value of the fly-next-cursor response header from the previous page. Requires limit.
+    """
+    limit: NotRequired[_builtins.int]
+    """
+    The number of volumes to fetch (must be between 1 and 1000). Providing a limit enables pagination. This limit is advisory; responses may be shorter, or even empty, even when more volumes remain.
+    """
     summary: NotRequired[_builtins.bool]
     """
     Only return summary info about volumes (omit blocks, block size, etc)
@@ -5654,15 +5715,23 @@ class ListVolumesQueryParamsDict(TypedDict):
 class ListVolumesQueryParams:
     def __init__(__self__, *,
                  additional_params: Optional[Mapping[str, _builtins.str]] = None,
+                 cursor: Optional[_builtins.str] = None,
+                 limit: Optional[_builtins.int] = None,
                  summary: Optional[_builtins.bool] = None):
         """
         Query params for the API request.
 
         :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        :param _builtins.str cursor: Value of the fly-next-cursor response header from the previous page. Requires limit.
+        :param _builtins.int limit: The number of volumes to fetch (must be between 1 and 1000). Providing a limit enables pagination. This limit is advisory; responses may be shorter, or even empty, even when more volumes remain.
         :param _builtins.bool summary: Only return summary info about volumes (omit blocks, block size, etc)
         """
         if additional_params is not None:
             pulumi.set(__self__, "additional_params", additional_params)
+        if cursor is not None:
+            pulumi.set(__self__, "cursor", cursor)
+        if limit is not None:
+            pulumi.set(__self__, "limit", limit)
         if summary is not None:
             pulumi.set(__self__, "summary", summary)
 
@@ -5677,6 +5746,30 @@ class ListVolumesQueryParams:
     @additional_params.setter
     def additional_params(self, value: Optional[Mapping[str, _builtins.str]]):
         pulumi.set(self, "additional_params", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def cursor(self) -> Optional[_builtins.str]:
+        """
+        Value of the fly-next-cursor response header from the previous page. Requires limit.
+        """
+        return pulumi.get(self, "cursor")
+
+    @cursor.setter
+    def cursor(self, value: Optional[_builtins.str]):
+        pulumi.set(self, "cursor", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def limit(self) -> Optional[_builtins.int]:
+        """
+        The number of volumes to fetch (must be between 1 and 1000). Providing a limit enables pagination. This limit is advisory; responses may be shorter, or even empty, even when more volumes remain.
+        """
+        return pulumi.get(self, "limit")
+
+    @limit.setter
+    def limit(self, value: Optional[_builtins.int]):
+        pulumi.set(self, "limit", value)
 
     @_builtins.property
     @pulumi.getter

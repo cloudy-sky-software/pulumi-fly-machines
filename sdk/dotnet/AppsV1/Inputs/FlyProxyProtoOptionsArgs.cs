@@ -12,6 +12,9 @@ namespace Pulumi.FlyMachines.AppsV1.Inputs
 
     public sealed class FlyProxyProtoOptionsArgs : global::Pulumi.ResourceArgs
     {
+        [Input("flySrc")]
+        public Input<bool>? FlySrc { get; set; }
+
         [Input("version")]
         public Input<string>? Version { get; set; }
 

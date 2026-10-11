@@ -23,6 +23,19 @@ export interface ListAppsArgs {
 
 export interface ListAppsResult {
     readonly apps?: outputs.apps.v1.App[];
+    /**
+     * Pagination cursor for the next page. Absent when no more apps remain.
+     * Cursors expire 30 minutes after the first page was requested.
+     */
+    readonly nextCursor?: string;
+    /**
+     * The number of apps matching the request, across all pages. When
+     * paginating, it is counted once when the first page is requested and not
+     * updated afterwards, so it may differ slightly from the number of apps
+     * returned: it excludes apps created later and includes apps deleted while
+     * paginating. Apps created in the seconds before the first page may also be
+     * counted but missing from the pages.
+     */
     readonly totalApps?: number;
 }
 export function listAppsOutput(args: ListAppsOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<ListAppsResult> {

@@ -55,15 +55,31 @@ namespace Pulumi.FlyMachines.AppsV1
     public sealed class ListAppsResult
     {
         public readonly ImmutableArray<Outputs.App> Apps;
+        /// <summary>
+        /// Pagination cursor for the next page. Absent when no more apps remain.
+        /// Cursors expire 30 minutes after the first page was requested.
+        /// </summary>
+        public readonly string? NextCursor;
+        /// <summary>
+        /// The number of apps matching the request, across all pages. When
+        /// paginating, it is counted once when the first page is requested and not
+        /// updated afterwards, so it may differ slightly from the number of apps
+        /// returned: it excludes apps created later and includes apps deleted while
+        /// paginating. Apps created in the seconds before the first page may also be
+        /// counted but missing from the pages.
+        /// </summary>
         public readonly int? TotalApps;
 
         [OutputConstructor]
         private ListAppsResult(
             ImmutableArray<Outputs.App> apps,
 
+            string? nextCursor,
+
             int? totalApps)
         {
             Apps = apps;
+            NextCursor = nextCursor;
             TotalApps = totalApps;
         }
     }

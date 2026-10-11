@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.1.0
 components:
     schemas:
         AcmeChallenge:
@@ -568,7 +568,19 @@ components:
                     items:
                         $ref: '#/components/schemas/App'
                     type: array
+                next_cursor:
+                    description: |-
+                        Pagination cursor for the next page. Absent when no more apps remain.
+                        Cursors expire 30 minutes after the first page was requested.
+                    type: string
                 total_apps:
+                    description: |-
+                        The number of apps matching the request, across all pages. When
+                        paginating, it is counted once when the first page is requested and not
+                        updated afterwards, so it may differ slightly from the number of apps
+                        returned: it excludes apps created later and includes apps deleted while
+                        paginating. Apps created in the seconds before the first page may also be
+                        counted but missing from the pages.
                     type: integer
             type: object
         ListenSocket:
@@ -995,15 +1007,17 @@ components:
                         Storage provisioned, summed across the cluster's volumes and measured hourly.
                         Null until first measured.
                     example: 1.073741824e+10
-                    nullable: true
-                    type: integer
+                    type:
+                        - integer
+                        - "null"
                 storage_used_bytes:
                     description: |-
                         Storage used, summed across the cluster's volumes and measured hourly. Null
                         until first measured.
                     example: 5.36870912e+09
-                    nullable: true
-                    type: integer
+                    type:
+                        - integer
+                        - "null"
             type: object
         PostgresClusterEndpoints:
             properties:
@@ -1079,6 +1093,10 @@ components:
                 error:
                     description: Human-readable error message.
                     type: string
+                status:
+                    description: Optional machine-readable error status.
+                    example: sessions_not_terminated
+                    type: string
             type: object
         PostgresExtension:
             properties:
@@ -1090,7 +1108,6 @@ components:
                     type: string
                 installed:
                     description: Installation details, or null when the extension is not installed.
-                    nullable: true
                     properties:
                         schema:
                             description: Schema the extension is installed into.
@@ -1100,7 +1117,9 @@ components:
                             description: Installed version.
                             example: "1.0"
                             type: string
-                    type: object
+                    type:
+                        - object
+                        - "null"
                 name:
                     description: Extension name.
                     example: citext
@@ -2377,6 +2396,8 @@ components:
             type: object
         fly.ProxyProtoOptions:
             properties:
+                fly_src:
+                    type: boolean
                 version:
                     type: string
             type: object
@@ -2830,6 +2851,7 @@ components:
             type: object
         placement.Weights:
             additionalProperties:
+                format: int64
                 type: integer
             type: object
         postgresDatabaseResponse:
@@ -2846,6 +2868,7 @@ components:
                 - 16
                 - 31
                 - 0
+            format: int32
             type: integer
             x-enum-varnames:
                 - ActionRead
@@ -2930,9 +2953,8 @@ components:
     securitySchemes:
         FlyBearerAuth:
             description: 'A Fly API token with access to the requested organization or resource. Send it as `Authorization: Bearer <Fly API token>`.'
-            in: header
-            name: Authorization
-            type: apiKey
+            scheme: bearer
+            type: http
 info:
     contact: {}
     description: This site hosts documentation generated from the Fly.io Machines API OpenAPI specification. Visit our complete [Machines API docs](https://fly.io/docs/machines/api/) for how to get started, more information about each endpoint, parameter descriptions, and examples.
@@ -2959,6 +2981,16 @@ paths:
                   name: app_role
                   schema:
                     type: string
+                - description: The number of apps to fetch (must be between 1 and 5000). Providing a limit enables pagination. Without it, all apps are returned in one response.
+                  in: query
+                  name: limit
+                  schema:
+                    type: integer
+                - description: Value of next_cursor from the previous page. Requires limit. Later pages only include apps that existed when the first page was requested. Apps created in the seconds before the first page was requested may be missing. Cursors expire 30 minutes after the first page was requested.
+                  in: query
+                  name: cursor
+                  schema:
+                    type: string
             responses:
                 "200":
                     content:
@@ -2966,6 +2998,12 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/ListAppsResponse'
                     description: OK
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ErrorResponse'
+                    description: Bad Request
             summary: List Apps
             tags:
                 - Apps
@@ -3394,6 +3432,12 @@ paths:
                             description: Pagination cursor for the next page. Absent when no more machines remain. Cursor expires 30 minutes after the first page was requested.
                             schema:
                                 type: string
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ErrorResponse'
+                    description: Bad Request
             summary: List Machines
             tags:
                 - Machines
@@ -4930,6 +4974,16 @@ paths:
                   name: summary
                   schema:
                     type: boolean
+                - description: Value of the fly-next-cursor response header from the previous page. Requires limit.
+                  in: query
+                  name: cursor
+                  schema:
+                    type: string
+                - description: The number of volumes to fetch (must be between 1 and 1000). Providing a limit enables pagination. This limit is advisory; responses may be shorter, or even empty, even when more volumes remain.
+                  in: query
+                  name: limit
+                  schema:
+                    type: integer
             responses:
                 "200":
                     content:
@@ -4939,6 +4993,17 @@ paths:
                                     $ref: '#/components/schemas/Volume'
                                 type: array
                     description: OK
+                    headers:
+                        fly-next-cursor:
+                            description: Pagination cursor for the next page. Absent when no more volumes remain. Cursor expires 30 minutes after the first page was requested.
+                            schema:
+                                type: string
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ErrorResponse'
+                    description: Bad Request
             summary: List Volumes
             tags:
                 - Volumes
@@ -5343,6 +5408,7 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/main.regionResponse'
                     description: OK
+            security: []
             summary: Get Regions
             tags:
                 - Platform
@@ -5393,8 +5459,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: include_deleted must be true or false
-            security:
-                - FlyBearerAuth: []
             summary: List Postgres Clusters
             tags:
                 - Postgres Clusters
@@ -5439,8 +5503,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: Invalid attributes
-            security:
-                - FlyBearerAuth: []
             summary: Create Postgres Cluster
             tags:
                 - Postgres Clusters
@@ -5477,8 +5539,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: '''This cluster has been deleted'' or ''This cluster is being deleted'''
-            security:
-                - FlyBearerAuth: []
             summary: Delete Postgres Cluster
             tags:
                 - Postgres Clusters
@@ -5511,8 +5571,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: Cluster not found
-            security:
-                - FlyBearerAuth: []
             summary: Get Postgres Cluster
             tags:
                 - Postgres Clusters
@@ -5565,8 +5623,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: '''This cluster has been deleted'' or ''This cluster is being deleted'''
-            security:
-                - FlyBearerAuth: []
             summary: Attach Cluster to App
             tags:
                 - Postgres Clusters
@@ -5609,8 +5665,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: '''This cluster has been deleted'' or ''This cluster is being deleted'''
-            security:
-                - FlyBearerAuth: []
             summary: Detach Cluster from App
             tags:
                 - Postgres Clusters
@@ -5644,8 +5698,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: Cluster not found
-            security:
-                - FlyBearerAuth: []
             summary: List Backups
             tags:
                 - Postgres Clusters
@@ -5687,8 +5739,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: A backup is currently running
-            security:
-                - FlyBearerAuth: []
             summary: Create Backup
             tags:
                 - Postgres Clusters
@@ -5729,8 +5779,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: pg-admin is unavailable; retry after the interval given by the Retry-After header
-            security:
-                - FlyBearerAuth: []
             summary: List Databases
             tags:
                 - Postgres Clusters
@@ -5788,8 +5836,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: pg-admin is unavailable; retry after the interval given by the Retry-After header
-            security:
-                - FlyBearerAuth: []
             summary: Create Database
             tags:
                 - Postgres Clusters
@@ -5842,8 +5888,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: pg-admin is unavailable; retry after the interval given by the Retry-After header
-            security:
-                - FlyBearerAuth: []
             summary: Drop Database
             tags:
                 - Postgres Clusters
@@ -5895,8 +5939,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: pg-admin is unavailable; retry after the interval given by the Retry-After header
-            security:
-                - FlyBearerAuth: []
             summary: List Extensions
             tags:
                 - Postgres Clusters
@@ -5962,8 +6004,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: pg-admin is unavailable; retry after the interval given by the Retry-After header
-            security:
-                - FlyBearerAuth: []
             summary: Enable Extension
             tags:
                 - Postgres Clusters
@@ -6029,8 +6069,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: pg-admin is unavailable; retry after the interval given by the Retry-After header
-            security:
-                - FlyBearerAuth: []
             summary: Disable Extension
             tags:
                 - Postgres Clusters
@@ -6094,8 +6132,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: Invalid attributes
-            security:
-                - FlyBearerAuth: []
             summary: Fork Cluster to New Cluster
             tags:
                 - Postgres Clusters
@@ -6149,8 +6185,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: Unable to load active queries
-            security:
-                - FlyBearerAuth: []
             summary: List Active Queries
             tags:
                 - Postgres Clusters
@@ -6204,8 +6238,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: Unable to load slow query metrics
-            security:
-                - FlyBearerAuth: []
             summary: List Slow Queries
             tags:
                 - Postgres Clusters
@@ -6258,8 +6290,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: A restore target is missing, both backup_id and pitr_time were supplied, point-in-time restore is outside the recovery window or unavailable, or name is invalid
-            security:
-                - FlyBearerAuth: []
             summary: Restore Backup or Point in Time to New Cluster
             tags:
                 - Postgres Clusters
@@ -6300,8 +6330,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: pg-admin is unavailable; retry after the interval given by the Retry-After header
-            security:
-                - FlyBearerAuth: []
             summary: List Users
             tags:
                 - Postgres Clusters
@@ -6365,8 +6393,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: pg-admin is unavailable; retry after the interval given by the Retry-After header
-            security:
-                - FlyBearerAuth: []
             summary: Create User
             tags:
                 - Postgres Clusters
@@ -6415,8 +6441,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: pg-admin is unavailable; retry after the interval given by the Retry-After header
-            security:
-                - FlyBearerAuth: []
             summary: Delete User
             tags:
                 - Postgres Clusters
@@ -6476,8 +6500,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: pg-admin is unavailable; retry after the interval given by the Retry-After header
-            security:
-                - FlyBearerAuth: []
             summary: Update User Role
             tags:
                 - Postgres Clusters
@@ -6530,8 +6552,6 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: pg-admin is unavailable; retry after the interval given by the Retry-After header
-            security:
-                - FlyBearerAuth: []
             summary: Get User Credentials
             tags:
                 - Postgres Clusters
@@ -6595,14 +6615,18 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: kill_sessions must be true or false
+                "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: 'Password rotation failed, or rotation succeeded but session termination failed (status: sessions_not_terminated)'
                 "503":
                     content:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: pg-admin is unavailable; retry after the interval given by the Retry-After header
-            security:
-                - FlyBearerAuth: []
             summary: Rotate User Password
             tags:
                 - Postgres Clusters
@@ -6633,6 +6657,7 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/ErrorResponse'
                     description: Bad Request
+            security: []
             summary: Authenticate token header
             tags:
                 - Tokens
@@ -6667,6 +6692,7 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/ErrorResponse'
                     description: Internal Server Error
+            security: []
             summary: Authorize token for resource access
             tags:
                 - Tokens
@@ -6699,7 +6725,6 @@ paths:
                 - Tokens
     /v1/tokens/kms:
         post:
-            description: This site hosts documentation generated from the Fly.io Machines API OpenAPI specification. Visit our complete [Machines API docs](https://fly.io/docs/machines/api/apps-resource/) for details about using the Apps resource.
             operationId: Tokens_request_Kms
             responses:
                 "200":
@@ -6714,7 +6739,7 @@ paths:
     /v1/tokens/oidc:
         post:
             description: |
-                Request an Open ID Connect token for your machine. Customize the audience claim with the `aud` parameter. This returns a JWT token. Learn more about [using OpenID Connect](/security/openid-connect) on Fly.io.
+                Request an Open ID Connect token for your machine. Customize the audience claim with the `aud` parameter. This returns a JWT token. Learn more about [using OpenID Connect](/docs/reference/openid-connect/) on Fly.io.
             operationId: Tokens_request_OIDC
             requestBody:
                 content:
@@ -6739,6 +6764,8 @@ paths:
             tags:
                 - Tokens
             x-codegen-request-body-name: request
+security:
+    - FlyBearerAuth: []
 servers:
     - url: https://api.machines.dev
 tags:

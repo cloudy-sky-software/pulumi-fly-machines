@@ -3897,10 +3897,35 @@ class FlyMachineSpot(dict):
 
 @pulumi.output_type
 class FlyProxyProtoOptions(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "flySrc":
+            suggest = "fly_src"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in FlyProxyProtoOptions. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        FlyProxyProtoOptions.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        FlyProxyProtoOptions.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
+                 fly_src: Optional[_builtins.bool] = None,
                  version: Optional[_builtins.str] = None):
+        if fly_src is not None:
+            pulumi.set(__self__, "fly_src", fly_src)
         if version is not None:
             pulumi.set(__self__, "version", version)
+
+    @_builtins.property
+    @pulumi.getter(name="flySrc")
+    def fly_src(self) -> Optional[_builtins.bool]:
+        return pulumi.get(self, "fly_src")
 
     @_builtins.property
     @pulumi.getter

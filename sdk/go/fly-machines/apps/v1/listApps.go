@@ -27,8 +27,17 @@ type ListAppsArgs struct {
 }
 
 type ListAppsResult struct {
-	Apps      []AppType `pulumi:"apps"`
-	TotalApps *int      `pulumi:"totalApps"`
+	Apps []AppType `pulumi:"apps"`
+	// Pagination cursor for the next page. Absent when no more apps remain.
+	// Cursors expire 30 minutes after the first page was requested.
+	NextCursor *string `pulumi:"nextCursor"`
+	// The number of apps matching the request, across all pages. When
+	// paginating, it is counted once when the first page is requested and not
+	// updated afterwards, so it may differ slightly from the number of apps
+	// returned: it excludes apps created later and includes apps deleted while
+	// paginating. Apps created in the seconds before the first page may also be
+	// counted but missing from the pages.
+	TotalApps *int `pulumi:"totalApps"`
 }
 
 func ListAppsOutput(ctx *pulumi.Context, args ListAppsOutputArgs, opts ...pulumi.InvokeOption) ListAppsResultOutput {
@@ -63,6 +72,18 @@ func (o ListAppsResultOutput) Apps() AppTypeArrayOutput {
 	return o.ApplyT(func(v ListAppsResult) []AppType { return v.Apps }).(AppTypeArrayOutput)
 }
 
+// Pagination cursor for the next page. Absent when no more apps remain.
+// Cursors expire 30 minutes after the first page was requested.
+func (o ListAppsResultOutput) NextCursor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ListAppsResult) *string { return v.NextCursor }).(pulumi.StringPtrOutput)
+}
+
+// The number of apps matching the request, across all pages. When
+// paginating, it is counted once when the first page is requested and not
+// updated afterwards, so it may differ slightly from the number of apps
+// returned: it excludes apps created later and includes apps deleted while
+// paginating. Apps created in the seconds before the first page may also be
+// counted but missing from the pages.
 func (o ListAppsResultOutput) TotalApps() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ListAppsResult) *int { return v.TotalApps }).(pulumi.IntPtrOutput)
 }

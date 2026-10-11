@@ -1,5 +1,5 @@
 {
-    "openapi": "3.0.1",
+    "openapi": "3.1.0",
     "info": {
         "title": "Machines API",
         "description": "This site hosts documentation generated from the Fly.io Machines API OpenAPI specification. Visit our complete [Machines API docs](https://fly.io/docs/machines/api/) for how to get started, more information about each endpoint, parameter descriptions, and examples.",
@@ -14,6 +14,7 @@
         "url": "https://fly.io/docs/machines/working-with-machines/"
     },
     "servers": [{ "url": "https://api.machines.dev" }],
+    "security": [{ "FlyBearerAuth": [] }],
     "tags": [
         {
             "name": "Apps",
@@ -56,6 +57,18 @@
                         "in": "query",
                         "description": "Filter apps by role",
                         "schema": { "type": "string" }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "The number of apps to fetch (must be between 1 and 5000). Providing a limit enables pagination. Without it, all apps are returned in one response.",
+                        "schema": { "type": "integer" }
+                    },
+                    {
+                        "name": "cursor",
+                        "in": "query",
+                        "description": "Value of next_cursor from the previous page. Requires limit. Later pages only include apps that existed when the first page was requested. Apps created in the seconds before the first page was requested may be missing. Cursors expire 30 minutes after the first page was requested.",
+                        "schema": { "type": "string" }
                     }
                 ],
                 "responses": {
@@ -65,6 +78,16 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/ListAppsResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
                                 }
                             }
                         }
@@ -691,13 +714,23 @@
                                 }
                             }
                         }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "post": {
                 "tags": ["Machines"],
                 "summary": "Create Machine",
-                "description": "Create a Machine within a specific app using the details provided in the request body.\n\n**Important**: This request can fail, and you\u2019re responsible for handling that failure. If you ask for a large Machine, or a Machine in a region we happen to be at capacity for, you might need to retry the request, or to fall back to another region. If you\u2019re working directly with the Machines API, you\u2019re taking some responsibility for your own orchestration!\n",
+                "description": "Create a Machine within a specific app using the details provided in the request body.\n\n**Important**: This request can fail, and you’re responsible for handling that failure. If you ask for a large Machine, or a Machine in a region we happen to be at capacity for, you might need to retry the request, or to fall back to another region. If you’re working directly with the Machines API, you’re taking some responsibility for your own orchestration!\n",
                 "operationId": "Machines_create",
                 "parameters": [
                     {
@@ -881,7 +914,7 @@
             "post": {
                 "tags": ["Machines"],
                 "summary": "Cordon Machine",
-                "description": "\u201cCordoning\u201d a Machine refers to disabling its services, so the Fly Proxy won\u2019t route requests to it. In flyctl this is used by blue/green deployments; one set of Machines is started up with services disabled, and when they are all healthy, the services are enabled on the new Machines and disabled on the old ones.\n",
+                "description": "“Cordoning” a Machine refers to disabling its services, so the Fly Proxy won’t route requests to it. In flyctl this is used by blue/green deployments; one set of Machines is started up with services disabled, and when they are all healthy, the services are enabled on the new Machines and disabled on the old ones.\n",
                 "operationId": "Machines_cordon",
                 "parameters": [
                     {
@@ -1827,7 +1860,7 @@
             "post": {
                 "tags": ["Machines"],
                 "summary": "Uncordon Machine",
-                "description": "\u201cCordoning\u201d a Machine refers to disabling its services, so the Fly Proxy won\u2019t route requests to it. In flyctl this is used by blue/green deployments; one set of Machines is started up with services disabled, and when they are all healthy, the services are enabled on the new Machines and disabled on the old ones.\n",
+                "description": "“Cordoning” a Machine refers to disabling its services, so the Fly Proxy won’t route requests to it. In flyctl this is used by blue/green deployments; one set of Machines is started up with services disabled, and when they are all healthy, the services are enabled on the new Machines and disabled on the old ones.\n",
                 "operationId": "Machines_uncordon",
                 "parameters": [
                     {
@@ -2684,11 +2717,29 @@
                         "in": "query",
                         "description": "Only return summary info about volumes (omit blocks, block size, etc)",
                         "schema": { "type": "boolean" }
+                    },
+                    {
+                        "name": "cursor",
+                        "in": "query",
+                        "description": "Value of the fly-next-cursor response header from the previous page. Requires limit.",
+                        "schema": { "type": "string" }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "The number of volumes to fetch (must be between 1 and 1000). Providing a limit enables pagination. This limit is advisory; responses may be shorter, or even empty, even when more volumes remain.",
+                        "schema": { "type": "integer" }
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
+                        "headers": {
+                            "fly-next-cursor": {
+                                "description": "Pagination cursor for the next page. Absent when no more volumes remain. Cursor expires 30 minutes after the first page was requested.",
+                                "schema": { "type": "string" }
+                            }
+                        },
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2696,6 +2747,16 @@
                                     "items": {
                                         "$ref": "#/components/schemas/Volume"
                                     }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
                                 }
                             }
                         }
@@ -3169,7 +3230,8 @@
                             }
                         }
                     }
-                }
+                },
+                "security": []
             }
         },
         "/v1/postgres": {
@@ -3244,8 +3306,7 @@
                             }
                         }
                     }
-                },
-                "security": [{ "FlyBearerAuth": [] }]
+                }
             },
             "post": {
                 "tags": ["Postgres Clusters"],
@@ -3315,7 +3376,6 @@
                         }
                     }
                 },
-                "security": [{ "FlyBearerAuth": [] }],
                 "x-codegen-request-body-name": "request"
             }
         },
@@ -3365,8 +3425,7 @@
                             }
                         }
                     }
-                },
-                "security": [{ "FlyBearerAuth": [] }]
+                }
             },
             "delete": {
                 "tags": ["Postgres Clusters"],
@@ -3414,8 +3473,7 @@
                             }
                         }
                     }
-                },
-                "security": [{ "FlyBearerAuth": [] }]
+                }
             }
         },
         "/v1/postgres/{postgres_cluster_id}/attachments": {
@@ -3496,7 +3554,6 @@
                         }
                     }
                 },
-                "security": [{ "FlyBearerAuth": [] }],
                 "x-codegen-request-body-name": "request"
             }
         },
@@ -3554,8 +3611,7 @@
                             }
                         }
                     }
-                },
-                "security": [{ "FlyBearerAuth": [] }]
+                }
             }
         },
         "/v1/postgres/{postgres_cluster_id}/backups": {
@@ -3604,8 +3660,7 @@
                             }
                         }
                     }
-                },
-                "security": [{ "FlyBearerAuth": [] }]
+                }
             },
             "post": {
                 "tags": ["Postgres Clusters"],
@@ -3665,7 +3720,6 @@
                         }
                     }
                 },
-                "security": [{ "FlyBearerAuth": [] }],
                 "x-codegen-request-body-name": "request"
             }
         },
@@ -3725,8 +3779,7 @@
                             }
                         }
                     }
-                },
-                "security": [{ "FlyBearerAuth": [] }]
+                }
             },
             "post": {
                 "tags": ["Postgres Clusters"],
@@ -3815,7 +3868,6 @@
                         }
                     }
                 },
-                "security": [{ "FlyBearerAuth": [] }],
                 "x-codegen-request-body-name": "request"
             }
         },
@@ -3892,8 +3944,7 @@
                             }
                         }
                     }
-                },
-                "security": [{ "FlyBearerAuth": [] }]
+                }
             }
         },
         "/v1/postgres/{postgres_cluster_id}/databases/{database_name}/extensions": {
@@ -3969,8 +4020,7 @@
                             }
                         }
                     }
-                },
-                "security": [{ "FlyBearerAuth": [] }]
+                }
             },
             "post": {
                 "tags": ["Postgres Clusters"],
@@ -4067,7 +4117,6 @@
                         }
                     }
                 },
-                "security": [{ "FlyBearerAuth": [] }],
                 "x-codegen-request-body-name": "request"
             }
         },
@@ -4158,8 +4207,7 @@
                             }
                         }
                     }
-                },
-                "security": [{ "FlyBearerAuth": [] }]
+                }
             }
         },
         "/v1/postgres/{postgres_cluster_id}/fork": {
@@ -4260,7 +4308,6 @@
                         }
                     }
                 },
-                "security": [{ "FlyBearerAuth": [] }],
                 "x-codegen-request-body-name": "request"
             }
         },
@@ -4337,8 +4384,7 @@
                             }
                         }
                     }
-                },
-                "security": [{ "FlyBearerAuth": [] }]
+                }
             }
         },
         "/v1/postgres/{postgres_cluster_id}/queries/slow": {
@@ -4418,8 +4464,7 @@
                             }
                         }
                     }
-                },
-                "security": [{ "FlyBearerAuth": [] }]
+                }
             }
         },
         "/v1/postgres/{postgres_cluster_id}/restore": {
@@ -4500,7 +4545,6 @@
                         }
                     }
                 },
-                "security": [{ "FlyBearerAuth": [] }],
                 "x-codegen-request-body-name": "request"
             }
         },
@@ -4560,8 +4604,7 @@
                             }
                         }
                     }
-                },
-                "security": [{ "FlyBearerAuth": [] }]
+                }
             },
             "post": {
                 "tags": ["Postgres Clusters"],
@@ -4660,7 +4703,6 @@
                         }
                     }
                 },
-                "security": [{ "FlyBearerAuth": [] }],
                 "x-codegen-request-body-name": "request"
             }
         },
@@ -4728,8 +4770,7 @@
                             }
                         }
                     }
-                },
-                "security": [{ "FlyBearerAuth": [] }]
+                }
             },
             "patch": {
                 "tags": ["Postgres Clusters"],
@@ -4816,7 +4857,6 @@
                         }
                     }
                 },
-                "security": [{ "FlyBearerAuth": [] }],
                 "x-codegen-request-body-name": "request"
             }
         },
@@ -4893,8 +4933,7 @@
                             }
                         }
                     }
-                },
-                "security": [{ "FlyBearerAuth": [] }]
+                }
             }
         },
         "/v1/postgres/{postgres_cluster_id}/users/{username}/rotate_password": {
@@ -4991,6 +5030,16 @@
                             }
                         }
                     },
+                    "500": {
+                        "description": "Password rotation failed, or rotation succeeded but session termination failed (status: sessions_not_terminated)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostgresErrorResponse"
+                                }
+                            }
+                        }
+                    },
                     "503": {
                         "description": "pg-admin is unavailable; retry after the interval given by the Retry-After header",
                         "content": {
@@ -5002,7 +5051,6 @@
                         }
                     }
                 },
-                "security": [{ "FlyBearerAuth": [] }],
                 "x-codegen-request-body-name": "request"
             }
         },
@@ -5048,6 +5096,7 @@
                         }
                     }
                 },
+                "security": [],
                 "x-codegen-request-body-name": "request"
             }
         },
@@ -5100,6 +5149,7 @@
                         }
                     }
                 },
+                "security": [],
                 "x-codegen-request-body-name": "request"
             }
         },
@@ -5147,7 +5197,6 @@
             "post": {
                 "tags": ["Tokens"],
                 "summary": "Request a Petsem token for accessing KMS",
-                "description": "This site hosts documentation generated from the Fly.io Machines API OpenAPI specification. Visit our complete [Machines API docs](https://fly.io/docs/machines/api/apps-resource/) for details about using the Apps resource.",
                 "operationId": "Tokens_request_Kms",
                 "responses": {
                     "200": {
@@ -5163,7 +5212,7 @@
             "post": {
                 "tags": ["Tokens"],
                 "summary": "Request an OIDC token",
-                "description": "Request an Open ID Connect token for your machine. Customize the audience claim with the `aud` parameter. This returns a JWT token. Learn more about [using OpenID Connect](/security/openid-connect) on Fly.io.\n",
+                "description": "Request an Open ID Connect token for your machine. Customize the audience claim with the `aud` parameter. This returns a JWT token. Learn more about [using OpenID Connect](/docs/reference/openid-connect/) on Fly.io.\n",
                 "operationId": "Tokens_request_OIDC",
                 "requestBody": {
                     "description": "Optional request body",
@@ -5757,7 +5806,14 @@
                         "type": "array",
                         "items": { "$ref": "#/components/schemas/App" }
                     },
-                    "total_apps": { "type": "integer" }
+                    "next_cursor": {
+                        "type": "string",
+                        "description": "Pagination cursor for the next page. Absent when no more apps remain.\nCursors expire 30 minutes after the first page was requested."
+                    },
+                    "total_apps": {
+                        "type": "integer",
+                        "description": "The number of apps matching the request, across all pages. When\npaginating, it is counted once when the first page is requested and not\nupdated afterwards, so it may differ slightly from the number of apps\nreturned: it excludes apps created later and includes apps deleted while\npaginating. Apps created in the seconds before the first page may also be\ncounted but missing from the pages."
+                    }
                 }
             },
             "ListenSocket": {
@@ -6179,15 +6235,13 @@
                         ]
                     },
                     "storage_provisioned_bytes": {
-                        "type": "integer",
+                        "type": ["integer", "null"],
                         "description": "Storage provisioned, summed across the cluster's volumes and measured hourly.\nNull until first measured.",
-                        "nullable": true,
                         "example": 10737418240
                     },
                     "storage_used_bytes": {
-                        "type": "integer",
+                        "type": ["integer", "null"],
                         "description": "Storage used, summed across the cluster's volumes and measured hourly. Null\nuntil first measured.",
-                        "nullable": true,
                         "example": 5368709120
                     }
                 }
@@ -6287,6 +6341,11 @@
                     "error": {
                         "type": "string",
                         "description": "Human-readable error message."
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "Optional machine-readable error status.",
+                        "example": "sessions_not_terminated"
                     }
                 }
             },
@@ -6302,7 +6361,7 @@
                         "description": "Human-readable description."
                     },
                     "installed": {
-                        "type": "object",
+                        "type": ["object", "null"],
                         "properties": {
                             "schema": {
                                 "type": "string",
@@ -6315,8 +6374,7 @@
                                 "example": "1.0"
                             }
                         },
-                        "description": "Installation details, or null when the extension is not installed.",
-                        "nullable": true
+                        "description": "Installation details, or null when the extension is not installed."
                     },
                     "name": {
                         "type": "string",
@@ -7286,7 +7344,7 @@
                 "properties": {
                     "auto_destroy": {
                         "type": "boolean",
-                        "description": "Optional boolean telling the Machine to destroy itself once it\u2019s complete (default false)"
+                        "description": "Optional boolean telling the Machine to destroy itself once it’s complete (default false)"
                     },
                     "cache_drive": {
                         "$ref": "#/components/schemas/fly.MachineCacheDrive"
@@ -7527,7 +7585,7 @@
                     },
                     "policy": {
                         "type": "string",
-                        "description": "* no - Never try to restart a Machine automatically when its main process exits, whether that\u2019s on purpose or on a crash.\n* always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.\n* on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules.",
+                        "description": "* no - Never try to restart a Machine automatically when its main process exits, whether that’s on purpose or on a crash.\n* always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.\n* on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules.",
                         "enum": ["no", "always", "on-failure"]
                     }
                 },
@@ -7659,7 +7717,10 @@
             },
             "fly.ProxyProtoOptions": {
                 "type": "object",
-                "properties": { "version": { "type": "string" } }
+                "properties": {
+                    "fly_src": { "type": "boolean" },
+                    "version": { "type": "string" }
+                }
             },
             "fly.ReplayCache": {
                 "type": "object",
@@ -8104,7 +8165,7 @@
             },
             "placement.Weights": {
                 "type": "object",
-                "additionalProperties": { "type": "integer" }
+                "additionalProperties": { "type": "integer", "format": "int64" }
             },
             "postgresDatabaseResponse": {
                 "type": "object",
@@ -8114,6 +8175,7 @@
             },
             "resset.Action": {
                 "type": "integer",
+                "format": "int32",
                 "enum": [1, 2, 4, 8, 16, 31, 0],
                 "x-enum-varnames": [
                     "ActionRead",
@@ -8212,10 +8274,9 @@
         },
         "securitySchemes": {
             "FlyBearerAuth": {
-                "type": "apiKey",
-                "description": "A Fly API token with access to the requested organization or resource. Send it as `Authorization: Bearer <Fly API token>`.",
-                "name": "Authorization",
-                "in": "header"
+                "type": "http",
+                "scheme": "bearer",
+                "description": "A Fly API token with access to the requested organization or resource. Send it as `Authorization: Bearer <Fly API token>`."
             }
         }
     },

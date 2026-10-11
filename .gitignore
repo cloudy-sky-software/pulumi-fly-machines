@@ -11,7 +11,8 @@ yarn.lock
 .pulumi
 Pulumi.*.yaml
 
-/sdk/dotnet/version.txt
+sdk/dotnet/version.txt
+sdk/python/venv
 **/dist
 
 go.work.sum
