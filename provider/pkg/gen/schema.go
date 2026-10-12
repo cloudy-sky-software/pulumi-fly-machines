@@ -135,7 +135,7 @@ func PulumiSchema(openapiDoc openapi3.T) (pschema.PackageSpec, openapigen.Provid
 	}
 
 	pkg.Language["csharp"] = rawMessage(dotnetgen.CSharpPackageInfo{
-		RootNamespace: "Pulumi",
+		RootNamespace: "CloudySkySoftware.Pulumi",
 		PackageReferences: map[string]string{
 			"Pulumi": "3.*",
 		},
