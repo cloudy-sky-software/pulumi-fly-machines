@@ -73,6 +73,9 @@ jobs:
           version: latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish GH release
+        run: gh release edit ${{ github.ref_name }} --draft=false
     strategy:
       fail-fast: true
       matrix:
