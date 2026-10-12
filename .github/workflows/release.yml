@@ -137,6 +137,11 @@ jobs:
 
       - name: Generate SDK
         run: make gen ${{ matrix.language }}_sdk
+        env:
+          # The setup-node action creates an .npmrc file
+          # referencing `NODE_AUTH_TOKEN`.
+          # https://docs.github.com/en/actions/tutorials/publish-packages/publish-nodejs-packages
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTOMATION_TOKEN }}
 
       - name: Check worktree clean
         run: |
@@ -205,6 +210,9 @@ jobs:
       # To allow GH CLI to edit the GH release.
       contents: write
     steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v7
+
       - name: Publish GH release
         run: gh release edit ${{ github.ref_name }} --draft=false
         env:
