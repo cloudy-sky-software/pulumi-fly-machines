@@ -1,3 +1,7 @@
+## 0.0.5
+
+Add a separate job to publish the release in `release.yml`.
+
 ## 0.0.4
 
 Change goreleaser config to create draft GH releases in order
