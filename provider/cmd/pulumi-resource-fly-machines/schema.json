@@ -27,7 +27,7 @@
                 "postgres/v1": "PostgresV1",
                 "tokens/v1": "TokensV1"
             },
-            "rootNamespace": "Pulumi"
+            "rootNamespace": "CloudySkySoftware.Pulumi"
         },
         "go": {
             "importBasePath": "github.com/cloudy-sky-software/pulumi-fly-machines/sdk/go/fly-machines"
