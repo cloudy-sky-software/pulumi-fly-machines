@@ -53,7 +53,7 @@ jobs:
 
       - name: Fetch OpenAPI spec
         run: |
-          curl -fsSL https://docs.fly.io/api/machines/openapi.json -o spec.json
+          make fetch_api_spec
           make format_json_spec
 
       - name: Convert JSON spec to YAML

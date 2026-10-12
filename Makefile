@@ -24,6 +24,9 @@ ensure::
 	cd provider && GO111MODULE=on go mod tidy
 	cd sdk && GO111MODULE=on go mod tidy
 
+fetch_api_spec::
+	curl -fsSL https://docs.fly.io/api/machines/openapi.json -o spec.json
+
 gen::
 	(cd provider && go build -o $(WORKING_DIR)/bin/${CODEGEN} -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION}" ${PROJECT}/${PROVIDER_PATH}/cmd/$(CODEGEN))
 

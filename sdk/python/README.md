@@ -8,7 +8,7 @@
 
 - Node.js: https://www.npmjs.com/package/@cloudyskysoftware/pulumi-fly-machines
 - Python: https://pypi.org/project/pulumi-fly-machines/
-- .NET: https://www.nuget.org/packages/Pulumi.FlyMachines
+- .NET: https://www.nuget.org/packages/CloudySkySoftware.Pulumi.FlyMachines
 - Go: `import github.com/cloudy-sky-software/pulumi-fly-machines/sdk/go/fly-machines`
 
 ## Using The Provider
@@ -90,7 +90,7 @@ const myMachine = new fly.apps.v1.Machine(
   {
     protect: true,
     import: `/my-app/<machine-id>`,
-  }
+  },
 );
 ```
 
