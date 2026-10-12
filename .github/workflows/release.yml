@@ -91,6 +91,8 @@ jobs:
     needs: publish-binary
     permissions:
       contents: read
+      # Needed for OIDC token exchange with language registries
+      # for Trusted Publishing.
       id-token: write
     steps:
       - name: Checkout Repo
