@@ -1,3 +1,6 @@
+# This workflow name is referenced in `auto-regen-sdks.yml`.
+name: "Update API spec"
+
 on:
   workflow_dispatch:
 
@@ -56,14 +59,15 @@ jobs:
           make fetch_api_spec
           make format_json_spec
 
+      - name: Exit if no changes
+        run: |
+          git update-index -q --refresh
+          if git diff-files --quiet; then
+              exit 0
+          fi
+
       - name: Convert JSON spec to YAML
         run: make json2yaml
-
-      - name: Generate Pulumi schema
-        run: make gen generate_schema
-
-      - name: Build SDKs
-        run: make build
 
       - name: Create PR
         uses: peter-evans/create-pull-request@bd09a93810788ce61d2d5fb7d6b221b9b4a4aab7
