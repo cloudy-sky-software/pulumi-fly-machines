@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Immutable;
 
-namespace Pulumi.FlyMachines
+namespace CloudySkySoftware.Pulumi.FlyMachines
 {
     public static class Config
     {
