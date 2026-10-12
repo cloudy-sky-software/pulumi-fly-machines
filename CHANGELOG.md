@@ -1,3 +1,7 @@
+## 0.0.7
+
+Update `pulumi-provider-framework` to the latest version.
+
 ## 0.0.6
 
 Set NODE_AUTH_TOKEN for the SDK build step in `release.yml`.
