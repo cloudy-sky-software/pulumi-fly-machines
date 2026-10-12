@@ -81,6 +81,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Install Pulumi CLI
+        uses: pulumi/actions@598b17045ce608f3af1f68e06c04649a0ab4a829
+        with:
+          pulumi-version: latest
+
       - name: Generate schema and build SDKs
         run: make gen generate_schema build
 
