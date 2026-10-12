@@ -183,7 +183,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTOMATION_TOKEN }}
 
       - name: NuGet login (OIDC → temp API key)
-        uses: NuGet/login@e12aa70ccb4d344b799c19f5ceef68a8fb96164d
+        uses: NuGet/login@v1.2.0
         if: ${{ matrix.language == 'dotnet' }}
         id: login
         with:
