@@ -1,3 +1,8 @@
+## 0.0.8
+
+Update the dotnet SDK root namespace to `CloudySkySoftware.Pulumi` to
+avoid collision with the reserved namespace `Pulumi`.
+
 ## 0.0.7
 
 Update `pulumi-provider-framework` to the latest version.
