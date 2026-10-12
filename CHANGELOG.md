@@ -1,3 +1,7 @@
+## 0.0.6
+
+Set NODE_AUTH_TOKEN for the SDK build step in `release.yml`.
+
 ## 0.0.5
 
 Add a separate job to publish the release in `release.yml`.
