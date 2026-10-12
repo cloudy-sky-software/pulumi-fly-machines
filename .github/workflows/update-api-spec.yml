@@ -1,4 +1,3 @@
-# This workflow name is referenced in `auto-regen-sdks.yml`.
 name: "Update API spec"
 
 on:
