@@ -1,3 +1,7 @@
+## 0.0.10
+
+Fixes the `headers` type in `FlyHTTPResponseOptions`.
+
 ## 0.0.9
 
 Fixes the schema type for some properties that have
