@@ -33,6 +33,7 @@ const (
 	appIPAssignmentTypeToken  = "fly-machines:apps/v1:AppIPAssignment"
 	machineTypeToken          = "fly-machines:apps/v1:Machine"
 	machinesMetadataTypeToken = "fly-machines:apps/v1:MachinesMetadata"
+	secretKeyTypeToken        = "fly-machines:apps/v1:Secretkey"
 	secretTypeToken           = "fly-machines:apps/v1:Secret"
 )
 
@@ -108,6 +109,8 @@ func (p *flyMachinesProvider) OnPostCreate(_ context.Context, req *pulumirpc.Cre
 		return assignRandomId(outputsMap), nil
 	case machinesMetadataTypeToken:
 		return handleMachinesMetadataPostCreate(req, outputsMap)
+	case secretKeyTypeToken:
+		fallthrough
 	case secretTypeToken:
 		return assignRandomId(outputsMap), nil
 	default:
