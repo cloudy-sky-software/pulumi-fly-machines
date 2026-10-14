@@ -1,3 +1,8 @@
+## 0.0.9
+
+Fixes the schema type for some properties that have
+an `additionalProperties` configuration.
+
 ## 0.0.8
 
 Update the dotnet SDK root namespace to `CloudySkySoftware.Pulumi` to
