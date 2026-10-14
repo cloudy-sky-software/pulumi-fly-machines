@@ -420,6 +420,6 @@ func TestUpdateMachinesMetadata(t *testing.T) {
 }
 
 func TestHandleAppIPAssignmentPostCreate(t *testing.T) {
-	outputs := handleAppIPAssignmentPostCreate(map[string]interface{}{"ip": nil})
+	outputs := assignRandomId(map[string]interface{}{"ip": nil})
 	assert.NotEmpty(t, outputs["id"])
 }

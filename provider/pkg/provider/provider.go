@@ -29,9 +29,12 @@ type flyMachinesProvider struct {
 	apiKey string
 }
 
-const appIPAssignmentTypeToken = "fly-machines:apps/v1:AppIPAssignment"
-const machineTypeToken = "fly-machines:apps/v1:Machine"
-const machinesMetadataTypeToken = "fly-machines:apps/v1:MachinesMetadata"
+const (
+	appIPAssignmentTypeToken  = "fly-machines:apps/v1:AppIPAssignment"
+	machineTypeToken          = "fly-machines:apps/v1:Machine"
+	machinesMetadataTypeToken = "fly-machines:apps/v1:MachinesMetadata"
+	secretTypeToken           = "fly-machines:apps/v1:Secret"
+)
 
 var (
 	handler  *fwRest.Provider
@@ -102,9 +105,11 @@ func (p *flyMachinesProvider) OnPostCreate(_ context.Context, req *pulumirpc.Cre
 
 	switch fwRest.GetResourceTypeToken(req.GetUrn()) {
 	case appIPAssignmentTypeToken:
-		return handleAppIPAssignmentPostCreate(outputsMap), nil
+		return assignRandomId(outputsMap), nil
 	case machinesMetadataTypeToken:
 		return handleMachinesMetadataPostCreate(req, outputsMap)
+	case secretTypeToken:
+		return assignRandomId(outputsMap), nil
 	default:
 		return outputsMap, nil
 	}

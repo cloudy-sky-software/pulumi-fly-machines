@@ -90,12 +90,9 @@ func handleCreateMachinesMetadataRequest(httpReq *http.Request) {
 	httpReq.Method = http.MethodPatch
 }
 
-// handleAppIPAssignmentPostCreate sets a pseudo id
-// for the AppIPAssignment resource since the API
-// response does not include an id. The ip property
-// can't be used because it is null for egress-pair
-// assignments, which set ip_pair instead.
-func handleAppIPAssignmentPostCreate(outputs map[string]interface{}) map[string]interface{} {
+// assignRandomId sets a pseudo id in the outputs map.
+// Some resources don't have an id.
+func assignRandomId(outputs map[string]interface{}) map[string]interface{} {
 	outputs["id"] = uuid.NewString()
 	return outputs
 }
