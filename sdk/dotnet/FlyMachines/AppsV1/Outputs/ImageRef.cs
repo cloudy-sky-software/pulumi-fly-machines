@@ -15,7 +15,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     public sealed class ImageRef
     {
         public readonly string? Digest;
-        public readonly object? Labels;
+        public readonly ImmutableDictionary<string, string>? Labels;
         public readonly string? Registry;
         public readonly string? Repository;
         public readonly string? Tag;
@@ -24,7 +24,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         private ImageRef(
             string? digest,
 
-            object? labels,
+            ImmutableDictionary<string, string>? labels,
 
             string? registry,
 

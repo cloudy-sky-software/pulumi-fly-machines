@@ -10,6 +10,7 @@ __all__ = [
     'AppIPAssignmentType',
     'CertificateEntrySource',
     'CertificateEntryStatus',
+    'ChecksKind',
     'FlyEnvFromFieldRef',
     'FlyMachineGuestPersistRootfs',
     'FlyMachineRestartPolicy',
@@ -55,6 +56,15 @@ class CertificateEntryStatus(_builtins.str, Enum):
     ACTIVE = "active"
     PENDING_OWNERSHIP = "pending_ownership"
     PENDING_VALIDATION = "pending_validation"
+
+
+@pulumi.type_token("fly-machines:apps/v1:ChecksKind")
+class ChecksKind(_builtins.str, Enum):
+    """
+    Kind of the check (informational, readiness)
+    """
+    INFORMATIONAL = "informational"
+    READINESS = "readiness"
 
 
 @pulumi.type_token("fly-machines:apps/v1:FlyEnvFromFieldRef")

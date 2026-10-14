@@ -30,7 +30,12 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         }
 
         [Input("env")]
-        public Input<object>? Env { get; set; }
+        private InputMap<string>? _env;
+        public InputMap<string> Env
+        {
+            get => _env ?? (_env = new InputMap<string>());
+            set => _env = value;
+        }
 
         [Input("envFrom")]
         private InputList<Inputs.FlyEnvFromArgs>? _envFrom;

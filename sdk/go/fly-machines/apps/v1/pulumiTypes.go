@@ -3187,7 +3187,7 @@ type Config struct {
 	AutoDestroy *bool                 `pulumi:"autoDestroy"`
 	CacheDrive  *FlyMachineCacheDrive `pulumi:"cacheDrive"`
 	// An optional object that defines one or more named top-level checks. The key for each check is the check name.
-	Checks interface{} `pulumi:"checks"`
+	Checks map[string]FlyMachineConfigChecksProperties `pulumi:"checks"`
 	// Containers are a list of containers that will run in the machine. Currently restricted to
 	// only specific organizations.
 	Containers []FlyContainerConfig `pulumi:"containers"`
@@ -3195,13 +3195,13 @@ type Config struct {
 	DisableMachineAutostart *bool         `pulumi:"disableMachineAutostart"`
 	Dns                     *FlyDNSConfig `pulumi:"dns"`
 	// An object filled with key/value pairs to be set as environment variables
-	Env   interface{}      `pulumi:"env"`
-	Files []FlyFile        `pulumi:"files"`
-	Guest *FlyMachineGuest `pulumi:"guest"`
+	Env   map[string]string `pulumi:"env"`
+	Files []FlyFile         `pulumi:"files"`
+	Guest *FlyMachineGuest  `pulumi:"guest"`
 	// The docker image to run
 	Image     *string             `pulumi:"image"`
 	Init      *FlyMachineInit     `pulumi:"init"`
-	Metadata  interface{}         `pulumi:"metadata"`
+	Metadata  map[string]string   `pulumi:"metadata"`
 	Metrics   *FlyMachineMetrics  `pulumi:"metrics"`
 	Mounts    []FlyMachineMount   `pulumi:"mounts"`
 	Processes []FlyMachineProcess `pulumi:"processes"`
@@ -3237,7 +3237,7 @@ type ConfigArgs struct {
 	AutoDestroy pulumi.BoolPtrInput          `pulumi:"autoDestroy"`
 	CacheDrive  FlyMachineCacheDrivePtrInput `pulumi:"cacheDrive"`
 	// An optional object that defines one or more named top-level checks. The key for each check is the check name.
-	Checks pulumi.Input `pulumi:"checks"`
+	Checks FlyMachineConfigChecksPropertiesMapInput `pulumi:"checks"`
 	// Containers are a list of containers that will run in the machine. Currently restricted to
 	// only specific organizations.
 	Containers FlyContainerConfigArrayInput `pulumi:"containers"`
@@ -3245,13 +3245,13 @@ type ConfigArgs struct {
 	DisableMachineAutostart pulumi.BoolPtrInput  `pulumi:"disableMachineAutostart"`
 	Dns                     FlyDNSConfigPtrInput `pulumi:"dns"`
 	// An object filled with key/value pairs to be set as environment variables
-	Env   pulumi.Input            `pulumi:"env"`
+	Env   pulumi.StringMapInput   `pulumi:"env"`
 	Files FlyFileArrayInput       `pulumi:"files"`
 	Guest FlyMachineGuestPtrInput `pulumi:"guest"`
 	// The docker image to run
 	Image     pulumi.StringPtrInput       `pulumi:"image"`
 	Init      FlyMachineInitPtrInput      `pulumi:"init"`
-	Metadata  pulumi.Input                `pulumi:"metadata"`
+	Metadata  pulumi.StringMapInput       `pulumi:"metadata"`
 	Metrics   FlyMachineMetricsPtrInput   `pulumi:"metrics"`
 	Mounts    FlyMachineMountArrayInput   `pulumi:"mounts"`
 	Processes FlyMachineProcessArrayInput `pulumi:"processes"`
@@ -3358,8 +3358,8 @@ func (o ConfigOutput) CacheDrive() FlyMachineCacheDrivePtrOutput {
 }
 
 // An optional object that defines one or more named top-level checks. The key for each check is the check name.
-func (o ConfigOutput) Checks() pulumi.AnyOutput {
-	return o.ApplyT(func(v Config) interface{} { return v.Checks }).(pulumi.AnyOutput)
+func (o ConfigOutput) Checks() FlyMachineConfigChecksPropertiesMapOutput {
+	return o.ApplyT(func(v Config) map[string]FlyMachineConfigChecksProperties { return v.Checks }).(FlyMachineConfigChecksPropertiesMapOutput)
 }
 
 // Containers are a list of containers that will run in the machine. Currently restricted to
@@ -3378,8 +3378,8 @@ func (o ConfigOutput) Dns() FlyDNSConfigPtrOutput {
 }
 
 // An object filled with key/value pairs to be set as environment variables
-func (o ConfigOutput) Env() pulumi.AnyOutput {
-	return o.ApplyT(func(v Config) interface{} { return v.Env }).(pulumi.AnyOutput)
+func (o ConfigOutput) Env() pulumi.StringMapOutput {
+	return o.ApplyT(func(v Config) map[string]string { return v.Env }).(pulumi.StringMapOutput)
 }
 
 func (o ConfigOutput) Files() FlyFileArrayOutput {
@@ -3399,8 +3399,8 @@ func (o ConfigOutput) Init() FlyMachineInitPtrOutput {
 	return o.ApplyT(func(v Config) *FlyMachineInit { return v.Init }).(FlyMachineInitPtrOutput)
 }
 
-func (o ConfigOutput) Metadata() pulumi.AnyOutput {
-	return o.ApplyT(func(v Config) interface{} { return v.Metadata }).(pulumi.AnyOutput)
+func (o ConfigOutput) Metadata() pulumi.StringMapOutput {
+	return o.ApplyT(func(v Config) map[string]string { return v.Metadata }).(pulumi.StringMapOutput)
 }
 
 func (o ConfigOutput) Metrics() FlyMachineMetricsPtrOutput {
@@ -3499,13 +3499,13 @@ func (o ConfigPtrOutput) CacheDrive() FlyMachineCacheDrivePtrOutput {
 }
 
 // An optional object that defines one or more named top-level checks. The key for each check is the check name.
-func (o ConfigPtrOutput) Checks() pulumi.AnyOutput {
-	return o.ApplyT(func(v *Config) interface{} {
+func (o ConfigPtrOutput) Checks() FlyMachineConfigChecksPropertiesMapOutput {
+	return o.ApplyT(func(v *Config) map[string]FlyMachineConfigChecksProperties {
 		if v == nil {
 			return nil
 		}
 		return v.Checks
-	}).(pulumi.AnyOutput)
+	}).(FlyMachineConfigChecksPropertiesMapOutput)
 }
 
 // Containers are a list of containers that will run in the machine. Currently restricted to
@@ -3539,13 +3539,13 @@ func (o ConfigPtrOutput) Dns() FlyDNSConfigPtrOutput {
 }
 
 // An object filled with key/value pairs to be set as environment variables
-func (o ConfigPtrOutput) Env() pulumi.AnyOutput {
-	return o.ApplyT(func(v *Config) interface{} {
+func (o ConfigPtrOutput) Env() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *Config) map[string]string {
 		if v == nil {
 			return nil
 		}
 		return v.Env
-	}).(pulumi.AnyOutput)
+	}).(pulumi.StringMapOutput)
 }
 
 func (o ConfigPtrOutput) Files() FlyFileArrayOutput {
@@ -3585,13 +3585,13 @@ func (o ConfigPtrOutput) Init() FlyMachineInitPtrOutput {
 	}).(FlyMachineInitPtrOutput)
 }
 
-func (o ConfigPtrOutput) Metadata() pulumi.AnyOutput {
-	return o.ApplyT(func(v *Config) interface{} {
+func (o ConfigPtrOutput) Metadata() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *Config) map[string]string {
 		if v == nil {
 			return nil
 		}
 		return v.Metadata
-	}).(pulumi.AnyOutput)
+	}).(pulumi.StringMapOutput)
 }
 
 func (o ConfigPtrOutput) Metrics() FlyMachineMetricsPtrOutput {
@@ -3965,7 +3965,7 @@ type FlyContainerConfig struct {
 	// EntrypointOverride is used to override the default entrypoint of the image.
 	Entrypoint []string `pulumi:"entrypoint"`
 	// ExtraEnv is used to add additional environment variables to the container.
-	Env interface{} `pulumi:"env"`
+	Env map[string]string `pulumi:"env"`
 	// EnvFrom can be provided to set environment variables from machine fields.
 	EnvFrom []FlyEnvFrom `pulumi:"envFrom"`
 	// Image Config overrides - these fields are used to override the image configuration.
@@ -4011,7 +4011,7 @@ type FlyContainerConfigArgs struct {
 	// EntrypointOverride is used to override the default entrypoint of the image.
 	Entrypoint pulumi.StringArrayInput `pulumi:"entrypoint"`
 	// ExtraEnv is used to add additional environment variables to the container.
-	Env pulumi.Input `pulumi:"env"`
+	Env pulumi.StringMapInput `pulumi:"env"`
 	// EnvFrom can be provided to set environment variables from machine fields.
 	EnvFrom FlyEnvFromArrayInput `pulumi:"envFrom"`
 	// Image Config overrides - these fields are used to override the image configuration.
@@ -4105,8 +4105,8 @@ func (o FlyContainerConfigOutput) Entrypoint() pulumi.StringArrayOutput {
 }
 
 // ExtraEnv is used to add additional environment variables to the container.
-func (o FlyContainerConfigOutput) Env() pulumi.AnyOutput {
-	return o.ApplyT(func(v FlyContainerConfig) interface{} { return v.Env }).(pulumi.AnyOutput)
+func (o FlyContainerConfigOutput) Env() pulumi.StringMapOutput {
+	return o.ApplyT(func(v FlyContainerConfig) map[string]string { return v.Env }).(pulumi.StringMapOutput)
 }
 
 // EnvFrom can be provided to set environment variables from machine fields.
@@ -6530,8 +6530,8 @@ func (o FlyHTTPOptionsPtrOutput) Response() FlyHTTPResponseOptionsPtrOutput {
 }
 
 type FlyHTTPResponseOptions struct {
-	Headers  interface{} `pulumi:"headers"`
-	Pristine *bool       `pulumi:"pristine"`
+	Headers  map[string]map[string]string `pulumi:"headers"`
+	Pristine *bool                        `pulumi:"pristine"`
 }
 
 // FlyHTTPResponseOptionsInput is an input type that accepts FlyHTTPResponseOptionsArgs and FlyHTTPResponseOptionsOutput values.
@@ -6546,8 +6546,8 @@ type FlyHTTPResponseOptionsInput interface {
 }
 
 type FlyHTTPResponseOptionsArgs struct {
-	Headers  pulumi.Input        `pulumi:"headers"`
-	Pristine pulumi.BoolPtrInput `pulumi:"pristine"`
+	Headers  pulumi.StringMapMapInput `pulumi:"headers"`
+	Pristine pulumi.BoolPtrInput      `pulumi:"pristine"`
 }
 
 func (FlyHTTPResponseOptionsArgs) ElementType() reflect.Type {
@@ -6627,8 +6627,8 @@ func (o FlyHTTPResponseOptionsOutput) ToFlyHTTPResponseOptionsPtrOutputWithConte
 	}).(FlyHTTPResponseOptionsPtrOutput)
 }
 
-func (o FlyHTTPResponseOptionsOutput) Headers() pulumi.AnyOutput {
-	return o.ApplyT(func(v FlyHTTPResponseOptions) interface{} { return v.Headers }).(pulumi.AnyOutput)
+func (o FlyHTTPResponseOptionsOutput) Headers() pulumi.StringMapMapOutput {
+	return o.ApplyT(func(v FlyHTTPResponseOptions) map[string]map[string]string { return v.Headers }).(pulumi.StringMapMapOutput)
 }
 
 func (o FlyHTTPResponseOptionsOutput) Pristine() pulumi.BoolPtrOutput {
@@ -6659,13 +6659,13 @@ func (o FlyHTTPResponseOptionsPtrOutput) Elem() FlyHTTPResponseOptionsOutput {
 	}).(FlyHTTPResponseOptionsOutput)
 }
 
-func (o FlyHTTPResponseOptionsPtrOutput) Headers() pulumi.AnyOutput {
-	return o.ApplyT(func(v *FlyHTTPResponseOptions) interface{} {
+func (o FlyHTTPResponseOptionsPtrOutput) Headers() pulumi.StringMapMapOutput {
+	return o.ApplyT(func(v *FlyHTTPResponseOptions) map[string]map[string]string {
 		if v == nil {
 			return nil
 		}
 		return v.Headers
-	}).(pulumi.AnyOutput)
+	}).(pulumi.StringMapMapOutput)
 }
 
 func (o FlyHTTPResponseOptionsPtrOutput) Pristine() pulumi.BoolPtrOutput {
@@ -6815,7 +6815,7 @@ type FlyMachineConfig struct {
 	AutoDestroy *bool                 `pulumi:"autoDestroy"`
 	CacheDrive  *FlyMachineCacheDrive `pulumi:"cacheDrive"`
 	// An optional object that defines one or more named top-level checks. The key for each check is the check name.
-	Checks interface{} `pulumi:"checks"`
+	Checks map[string]FlyMachineConfigChecksProperties `pulumi:"checks"`
 	// Containers are a list of containers that will run in the machine. Currently restricted to
 	// only specific organizations.
 	Containers []FlyContainerConfig `pulumi:"containers"`
@@ -6823,13 +6823,13 @@ type FlyMachineConfig struct {
 	DisableMachineAutostart *bool         `pulumi:"disableMachineAutostart"`
 	Dns                     *FlyDNSConfig `pulumi:"dns"`
 	// An object filled with key/value pairs to be set as environment variables
-	Env   interface{}      `pulumi:"env"`
-	Files []FlyFile        `pulumi:"files"`
-	Guest *FlyMachineGuest `pulumi:"guest"`
+	Env   map[string]string `pulumi:"env"`
+	Files []FlyFile         `pulumi:"files"`
+	Guest *FlyMachineGuest  `pulumi:"guest"`
 	// The docker image to run
 	Image     *string             `pulumi:"image"`
 	Init      *FlyMachineInit     `pulumi:"init"`
-	Metadata  interface{}         `pulumi:"metadata"`
+	Metadata  map[string]string   `pulumi:"metadata"`
 	Metrics   *FlyMachineMetrics  `pulumi:"metrics"`
 	Mounts    []FlyMachineMount   `pulumi:"mounts"`
 	Processes []FlyMachineProcess `pulumi:"processes"`
@@ -6872,8 +6872,8 @@ func (o FlyMachineConfigOutput) CacheDrive() FlyMachineCacheDrivePtrOutput {
 }
 
 // An optional object that defines one or more named top-level checks. The key for each check is the check name.
-func (o FlyMachineConfigOutput) Checks() pulumi.AnyOutput {
-	return o.ApplyT(func(v FlyMachineConfig) interface{} { return v.Checks }).(pulumi.AnyOutput)
+func (o FlyMachineConfigOutput) Checks() FlyMachineConfigChecksPropertiesMapOutput {
+	return o.ApplyT(func(v FlyMachineConfig) map[string]FlyMachineConfigChecksProperties { return v.Checks }).(FlyMachineConfigChecksPropertiesMapOutput)
 }
 
 // Containers are a list of containers that will run in the machine. Currently restricted to
@@ -6892,8 +6892,8 @@ func (o FlyMachineConfigOutput) Dns() FlyDNSConfigPtrOutput {
 }
 
 // An object filled with key/value pairs to be set as environment variables
-func (o FlyMachineConfigOutput) Env() pulumi.AnyOutput {
-	return o.ApplyT(func(v FlyMachineConfig) interface{} { return v.Env }).(pulumi.AnyOutput)
+func (o FlyMachineConfigOutput) Env() pulumi.StringMapOutput {
+	return o.ApplyT(func(v FlyMachineConfig) map[string]string { return v.Env }).(pulumi.StringMapOutput)
 }
 
 func (o FlyMachineConfigOutput) Files() FlyFileArrayOutput {
@@ -6913,8 +6913,8 @@ func (o FlyMachineConfigOutput) Init() FlyMachineInitPtrOutput {
 	return o.ApplyT(func(v FlyMachineConfig) *FlyMachineInit { return v.Init }).(FlyMachineInitPtrOutput)
 }
 
-func (o FlyMachineConfigOutput) Metadata() pulumi.AnyOutput {
-	return o.ApplyT(func(v FlyMachineConfig) interface{} { return v.Metadata }).(pulumi.AnyOutput)
+func (o FlyMachineConfigOutput) Metadata() pulumi.StringMapOutput {
+	return o.ApplyT(func(v FlyMachineConfig) map[string]string { return v.Metadata }).(pulumi.StringMapOutput)
 }
 
 func (o FlyMachineConfigOutput) Metrics() FlyMachineMetricsPtrOutput {
@@ -7013,13 +7013,13 @@ func (o FlyMachineConfigPtrOutput) CacheDrive() FlyMachineCacheDrivePtrOutput {
 }
 
 // An optional object that defines one or more named top-level checks. The key for each check is the check name.
-func (o FlyMachineConfigPtrOutput) Checks() pulumi.AnyOutput {
-	return o.ApplyT(func(v *FlyMachineConfig) interface{} {
+func (o FlyMachineConfigPtrOutput) Checks() FlyMachineConfigChecksPropertiesMapOutput {
+	return o.ApplyT(func(v *FlyMachineConfig) map[string]FlyMachineConfigChecksProperties {
 		if v == nil {
 			return nil
 		}
 		return v.Checks
-	}).(pulumi.AnyOutput)
+	}).(FlyMachineConfigChecksPropertiesMapOutput)
 }
 
 // Containers are a list of containers that will run in the machine. Currently restricted to
@@ -7053,13 +7053,13 @@ func (o FlyMachineConfigPtrOutput) Dns() FlyDNSConfigPtrOutput {
 }
 
 // An object filled with key/value pairs to be set as environment variables
-func (o FlyMachineConfigPtrOutput) Env() pulumi.AnyOutput {
-	return o.ApplyT(func(v *FlyMachineConfig) interface{} {
+func (o FlyMachineConfigPtrOutput) Env() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *FlyMachineConfig) map[string]string {
 		if v == nil {
 			return nil
 		}
 		return v.Env
-	}).(pulumi.AnyOutput)
+	}).(pulumi.StringMapOutput)
 }
 
 func (o FlyMachineConfigPtrOutput) Files() FlyFileArrayOutput {
@@ -7099,13 +7099,13 @@ func (o FlyMachineConfigPtrOutput) Init() FlyMachineInitPtrOutput {
 	}).(FlyMachineInitPtrOutput)
 }
 
-func (o FlyMachineConfigPtrOutput) Metadata() pulumi.AnyOutput {
-	return o.ApplyT(func(v *FlyMachineConfig) interface{} {
+func (o FlyMachineConfigPtrOutput) Metadata() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *FlyMachineConfig) map[string]string {
 		if v == nil {
 			return nil
 		}
 		return v.Metadata
-	}).(pulumi.AnyOutput)
+	}).(pulumi.StringMapOutput)
 }
 
 func (o FlyMachineConfigPtrOutput) Metrics() FlyMachineMetricsPtrOutput {
@@ -7218,6 +7218,202 @@ func (o FlyMachineConfigPtrOutput) StopConfig() FlyStopConfigPtrOutput {
 		}
 		return v.StopConfig
 	}).(FlyStopConfigPtrOutput)
+}
+
+// An optional object that defines one or more named top-level checks. The key for each check is the check name.
+type FlyMachineConfigChecksProperties struct {
+	// The time to wait after a VM starts before checking its health
+	GracePeriod *string                `pulumi:"gracePeriod"`
+	Headers     []FlyMachineHTTPHeader `pulumi:"headers"`
+	// The time between connectivity checks
+	Interval *string `pulumi:"interval"`
+	// Kind of the check (informational, readiness)
+	Kind *ChecksKind `pulumi:"kind"`
+	// For http checks, the HTTP method to use to when making the request
+	Method *string `pulumi:"method"`
+	// For http checks, the path to send the request to
+	Path *string `pulumi:"path"`
+	// The port to connect to, often the same as internal_port
+	Port *int `pulumi:"port"`
+	// For http checks, whether to use http or https
+	Protocol *string `pulumi:"protocol"`
+	// The maximum time a connection can take before being reported as failing its health check
+	Timeout *string `pulumi:"timeout"`
+	// If the protocol is https, the hostname to use for TLS certificate validation
+	TlsServerName *string `pulumi:"tlsServerName"`
+	// For http checks with https protocol, whether or not to verify the TLS certificate
+	TlsSkipVerify *bool `pulumi:"tlsSkipVerify"`
+	// tcp or http
+	Type *string `pulumi:"type"`
+}
+
+// FlyMachineConfigChecksPropertiesInput is an input type that accepts FlyMachineConfigChecksPropertiesArgs and FlyMachineConfigChecksPropertiesOutput values.
+// You can construct a concrete instance of `FlyMachineConfigChecksPropertiesInput` via:
+//
+//	FlyMachineConfigChecksPropertiesArgs{...}
+type FlyMachineConfigChecksPropertiesInput interface {
+	pulumi.Input
+
+	ToFlyMachineConfigChecksPropertiesOutput() FlyMachineConfigChecksPropertiesOutput
+	ToFlyMachineConfigChecksPropertiesOutputWithContext(context.Context) FlyMachineConfigChecksPropertiesOutput
+}
+
+// An optional object that defines one or more named top-level checks. The key for each check is the check name.
+type FlyMachineConfigChecksPropertiesArgs struct {
+	// The time to wait after a VM starts before checking its health
+	GracePeriod pulumi.StringPtrInput          `pulumi:"gracePeriod"`
+	Headers     FlyMachineHTTPHeaderArrayInput `pulumi:"headers"`
+	// The time between connectivity checks
+	Interval pulumi.StringPtrInput `pulumi:"interval"`
+	// Kind of the check (informational, readiness)
+	Kind ChecksKindPtrInput `pulumi:"kind"`
+	// For http checks, the HTTP method to use to when making the request
+	Method pulumi.StringPtrInput `pulumi:"method"`
+	// For http checks, the path to send the request to
+	Path pulumi.StringPtrInput `pulumi:"path"`
+	// The port to connect to, often the same as internal_port
+	Port pulumi.IntPtrInput `pulumi:"port"`
+	// For http checks, whether to use http or https
+	Protocol pulumi.StringPtrInput `pulumi:"protocol"`
+	// The maximum time a connection can take before being reported as failing its health check
+	Timeout pulumi.StringPtrInput `pulumi:"timeout"`
+	// If the protocol is https, the hostname to use for TLS certificate validation
+	TlsServerName pulumi.StringPtrInput `pulumi:"tlsServerName"`
+	// For http checks with https protocol, whether or not to verify the TLS certificate
+	TlsSkipVerify pulumi.BoolPtrInput `pulumi:"tlsSkipVerify"`
+	// tcp or http
+	Type pulumi.StringPtrInput `pulumi:"type"`
+}
+
+func (FlyMachineConfigChecksPropertiesArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FlyMachineConfigChecksProperties)(nil)).Elem()
+}
+
+func (i FlyMachineConfigChecksPropertiesArgs) ToFlyMachineConfigChecksPropertiesOutput() FlyMachineConfigChecksPropertiesOutput {
+	return i.ToFlyMachineConfigChecksPropertiesOutputWithContext(context.Background())
+}
+
+func (i FlyMachineConfigChecksPropertiesArgs) ToFlyMachineConfigChecksPropertiesOutputWithContext(ctx context.Context) FlyMachineConfigChecksPropertiesOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineConfigChecksPropertiesOutput)
+}
+
+// FlyMachineConfigChecksPropertiesMapInput is an input type that accepts FlyMachineConfigChecksPropertiesMap and FlyMachineConfigChecksPropertiesMapOutput values.
+// You can construct a concrete instance of `FlyMachineConfigChecksPropertiesMapInput` via:
+//
+//	FlyMachineConfigChecksPropertiesMap{ "key": FlyMachineConfigChecksPropertiesArgs{...} }
+type FlyMachineConfigChecksPropertiesMapInput interface {
+	pulumi.Input
+
+	ToFlyMachineConfigChecksPropertiesMapOutput() FlyMachineConfigChecksPropertiesMapOutput
+	ToFlyMachineConfigChecksPropertiesMapOutputWithContext(context.Context) FlyMachineConfigChecksPropertiesMapOutput
+}
+
+type FlyMachineConfigChecksPropertiesMap map[string]FlyMachineConfigChecksPropertiesInput
+
+func (FlyMachineConfigChecksPropertiesMap) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]FlyMachineConfigChecksProperties)(nil)).Elem()
+}
+
+func (i FlyMachineConfigChecksPropertiesMap) ToFlyMachineConfigChecksPropertiesMapOutput() FlyMachineConfigChecksPropertiesMapOutput {
+	return i.ToFlyMachineConfigChecksPropertiesMapOutputWithContext(context.Background())
+}
+
+func (i FlyMachineConfigChecksPropertiesMap) ToFlyMachineConfigChecksPropertiesMapOutputWithContext(ctx context.Context) FlyMachineConfigChecksPropertiesMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineConfigChecksPropertiesMapOutput)
+}
+
+// An optional object that defines one or more named top-level checks. The key for each check is the check name.
+type FlyMachineConfigChecksPropertiesOutput struct{ *pulumi.OutputState }
+
+func (FlyMachineConfigChecksPropertiesOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FlyMachineConfigChecksProperties)(nil)).Elem()
+}
+
+func (o FlyMachineConfigChecksPropertiesOutput) ToFlyMachineConfigChecksPropertiesOutput() FlyMachineConfigChecksPropertiesOutput {
+	return o
+}
+
+func (o FlyMachineConfigChecksPropertiesOutput) ToFlyMachineConfigChecksPropertiesOutputWithContext(ctx context.Context) FlyMachineConfigChecksPropertiesOutput {
+	return o
+}
+
+// The time to wait after a VM starts before checking its health
+func (o FlyMachineConfigChecksPropertiesOutput) GracePeriod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FlyMachineConfigChecksProperties) *string { return v.GracePeriod }).(pulumi.StringPtrOutput)
+}
+
+func (o FlyMachineConfigChecksPropertiesOutput) Headers() FlyMachineHTTPHeaderArrayOutput {
+	return o.ApplyT(func(v FlyMachineConfigChecksProperties) []FlyMachineHTTPHeader { return v.Headers }).(FlyMachineHTTPHeaderArrayOutput)
+}
+
+// The time between connectivity checks
+func (o FlyMachineConfigChecksPropertiesOutput) Interval() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FlyMachineConfigChecksProperties) *string { return v.Interval }).(pulumi.StringPtrOutput)
+}
+
+// Kind of the check (informational, readiness)
+func (o FlyMachineConfigChecksPropertiesOutput) Kind() ChecksKindPtrOutput {
+	return o.ApplyT(func(v FlyMachineConfigChecksProperties) *ChecksKind { return v.Kind }).(ChecksKindPtrOutput)
+}
+
+// For http checks, the HTTP method to use to when making the request
+func (o FlyMachineConfigChecksPropertiesOutput) Method() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FlyMachineConfigChecksProperties) *string { return v.Method }).(pulumi.StringPtrOutput)
+}
+
+// For http checks, the path to send the request to
+func (o FlyMachineConfigChecksPropertiesOutput) Path() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FlyMachineConfigChecksProperties) *string { return v.Path }).(pulumi.StringPtrOutput)
+}
+
+// The port to connect to, often the same as internal_port
+func (o FlyMachineConfigChecksPropertiesOutput) Port() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v FlyMachineConfigChecksProperties) *int { return v.Port }).(pulumi.IntPtrOutput)
+}
+
+// For http checks, whether to use http or https
+func (o FlyMachineConfigChecksPropertiesOutput) Protocol() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FlyMachineConfigChecksProperties) *string { return v.Protocol }).(pulumi.StringPtrOutput)
+}
+
+// The maximum time a connection can take before being reported as failing its health check
+func (o FlyMachineConfigChecksPropertiesOutput) Timeout() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FlyMachineConfigChecksProperties) *string { return v.Timeout }).(pulumi.StringPtrOutput)
+}
+
+// If the protocol is https, the hostname to use for TLS certificate validation
+func (o FlyMachineConfigChecksPropertiesOutput) TlsServerName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FlyMachineConfigChecksProperties) *string { return v.TlsServerName }).(pulumi.StringPtrOutput)
+}
+
+// For http checks with https protocol, whether or not to verify the TLS certificate
+func (o FlyMachineConfigChecksPropertiesOutput) TlsSkipVerify() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v FlyMachineConfigChecksProperties) *bool { return v.TlsSkipVerify }).(pulumi.BoolPtrOutput)
+}
+
+// tcp or http
+func (o FlyMachineConfigChecksPropertiesOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FlyMachineConfigChecksProperties) *string { return v.Type }).(pulumi.StringPtrOutput)
+}
+
+type FlyMachineConfigChecksPropertiesMapOutput struct{ *pulumi.OutputState }
+
+func (FlyMachineConfigChecksPropertiesMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]FlyMachineConfigChecksProperties)(nil)).Elem()
+}
+
+func (o FlyMachineConfigChecksPropertiesMapOutput) ToFlyMachineConfigChecksPropertiesMapOutput() FlyMachineConfigChecksPropertiesMapOutput {
+	return o
+}
+
+func (o FlyMachineConfigChecksPropertiesMapOutput) ToFlyMachineConfigChecksPropertiesMapOutputWithContext(ctx context.Context) FlyMachineConfigChecksPropertiesMapOutput {
+	return o
+}
+
+func (o FlyMachineConfigChecksPropertiesMapOutput) MapIndex(k pulumi.StringInput) FlyMachineConfigChecksPropertiesOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) FlyMachineConfigChecksProperties {
+		return vs[0].(map[string]FlyMachineConfigChecksProperties)[vs[1].(string)]
+	}).(FlyMachineConfigChecksPropertiesOutput)
 }
 
 type FlyMachineGuest struct {
@@ -8266,9 +8462,9 @@ func (o FlyMachinePortArrayOutput) Index(i pulumi.IntInput) FlyMachinePortOutput
 }
 
 type FlyMachineProcess struct {
-	Cmd        []string    `pulumi:"cmd"`
-	Entrypoint []string    `pulumi:"entrypoint"`
-	Env        interface{} `pulumi:"env"`
+	Cmd        []string          `pulumi:"cmd"`
+	Entrypoint []string          `pulumi:"entrypoint"`
+	Env        map[string]string `pulumi:"env"`
 	// EnvFrom can be provided to set environment variables from machine fields.
 	EnvFrom []FlyEnvFrom `pulumi:"envFrom"`
 	Exec    []string     `pulumi:"exec"`
@@ -8296,7 +8492,7 @@ type FlyMachineProcessInput interface {
 type FlyMachineProcessArgs struct {
 	Cmd        pulumi.StringArrayInput `pulumi:"cmd"`
 	Entrypoint pulumi.StringArrayInput `pulumi:"entrypoint"`
-	Env        pulumi.Input            `pulumi:"env"`
+	Env        pulumi.StringMapInput   `pulumi:"env"`
 	// EnvFrom can be provided to set environment variables from machine fields.
 	EnvFrom FlyEnvFromArrayInput    `pulumi:"envFrom"`
 	Exec    pulumi.StringArrayInput `pulumi:"exec"`
@@ -8369,8 +8565,8 @@ func (o FlyMachineProcessOutput) Entrypoint() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v FlyMachineProcess) []string { return v.Entrypoint }).(pulumi.StringArrayOutput)
 }
 
-func (o FlyMachineProcessOutput) Env() pulumi.AnyOutput {
-	return o.ApplyT(func(v FlyMachineProcess) interface{} { return v.Env }).(pulumi.AnyOutput)
+func (o FlyMachineProcessOutput) Env() pulumi.StringMapOutput {
+	return o.ApplyT(func(v FlyMachineProcess) map[string]string { return v.Env }).(pulumi.StringMapOutput)
 }
 
 // EnvFrom can be provided to set environment variables from machine fields.
@@ -12207,11 +12403,11 @@ func (o IPAssignmentNetworkPtrOutput) OrgSlug() pulumi.StringPtrOutput {
 }
 
 type ImageRef struct {
-	Digest     *string     `pulumi:"digest"`
-	Labels     interface{} `pulumi:"labels"`
-	Registry   *string     `pulumi:"registry"`
-	Repository *string     `pulumi:"repository"`
-	Tag        *string     `pulumi:"tag"`
+	Digest     *string           `pulumi:"digest"`
+	Labels     map[string]string `pulumi:"labels"`
+	Registry   *string           `pulumi:"registry"`
+	Repository *string           `pulumi:"repository"`
+	Tag        *string           `pulumi:"tag"`
 }
 
 type ImageRefOutput struct{ *pulumi.OutputState }
@@ -12232,8 +12428,8 @@ func (o ImageRefOutput) Digest() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ImageRef) *string { return v.Digest }).(pulumi.StringPtrOutput)
 }
 
-func (o ImageRefOutput) Labels() pulumi.AnyOutput {
-	return o.ApplyT(func(v ImageRef) interface{} { return v.Labels }).(pulumi.AnyOutput)
+func (o ImageRefOutput) Labels() pulumi.StringMapOutput {
+	return o.ApplyT(func(v ImageRef) map[string]string { return v.Labels }).(pulumi.StringMapOutput)
 }
 
 func (o ImageRefOutput) Registry() pulumi.StringPtrOutput {
@@ -12281,13 +12477,13 @@ func (o ImageRefPtrOutput) Digest() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-func (o ImageRefPtrOutput) Labels() pulumi.AnyOutput {
-	return o.ApplyT(func(v *ImageRef) interface{} {
+func (o ImageRefPtrOutput) Labels() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *ImageRef) map[string]string {
 		if v == nil {
 			return nil
 		}
 		return v.Labels
-	}).(pulumi.AnyOutput)
+	}).(pulumi.StringMapOutput)
 }
 
 func (o ImageRefPtrOutput) Registry() pulumi.StringPtrOutput {
@@ -25462,6 +25658,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyHTTPResponseOptionsPtrInput)(nil)).Elem(), FlyHTTPResponseOptionsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineCacheDriveInput)(nil)).Elem(), FlyMachineCacheDriveArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineCacheDrivePtrInput)(nil)).Elem(), FlyMachineCacheDriveArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineConfigChecksPropertiesInput)(nil)).Elem(), FlyMachineConfigChecksPropertiesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineConfigChecksPropertiesMapInput)(nil)).Elem(), FlyMachineConfigChecksPropertiesMap{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineGuestInput)(nil)).Elem(), FlyMachineGuestArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineGuestPtrInput)(nil)).Elem(), FlyMachineGuestArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineHTTPHeaderInput)(nil)).Elem(), FlyMachineHTTPHeaderArgs{})
@@ -25777,6 +25975,8 @@ func init() {
 	pulumi.RegisterOutputType(FlyMachineCacheDrivePtrOutput{})
 	pulumi.RegisterOutputType(FlyMachineConfigOutput{})
 	pulumi.RegisterOutputType(FlyMachineConfigPtrOutput{})
+	pulumi.RegisterOutputType(FlyMachineConfigChecksPropertiesOutput{})
+	pulumi.RegisterOutputType(FlyMachineConfigChecksPropertiesMapOutput{})
 	pulumi.RegisterOutputType(FlyMachineGuestOutput{})
 	pulumi.RegisterOutputType(FlyMachineGuestPtrOutput{})
 	pulumi.RegisterOutputType(FlyMachineHTTPHeaderOutput{})

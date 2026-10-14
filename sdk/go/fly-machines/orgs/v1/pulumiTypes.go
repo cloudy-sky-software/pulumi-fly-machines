@@ -744,9 +744,9 @@ func (o ListVolumesOrgQueryParamsPtrOutput) UpdatedAfter() pulumi.StringPtrOutpu
 }
 
 type MachineOverviewConfig struct {
-	Guest    *FlyMachineGuest `pulumi:"guest"`
-	Image    *string          `pulumi:"image"`
-	Metadata interface{}      `pulumi:"metadata"`
+	Guest    *FlyMachineGuest  `pulumi:"guest"`
+	Image    *string           `pulumi:"image"`
+	Metadata map[string]string `pulumi:"metadata"`
 }
 
 type MachineOverviewConfigOutput struct{ *pulumi.OutputState }
@@ -771,8 +771,8 @@ func (o MachineOverviewConfigOutput) Image() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v MachineOverviewConfig) *string { return v.Image }).(pulumi.StringPtrOutput)
 }
 
-func (o MachineOverviewConfigOutput) Metadata() pulumi.AnyOutput {
-	return o.ApplyT(func(v MachineOverviewConfig) interface{} { return v.Metadata }).(pulumi.AnyOutput)
+func (o MachineOverviewConfigOutput) Metadata() pulumi.StringMapOutput {
+	return o.ApplyT(func(v MachineOverviewConfig) map[string]string { return v.Metadata }).(pulumi.StringMapOutput)
 }
 
 type MachineOverviewConfigPtrOutput struct{ *pulumi.OutputState }
@@ -817,13 +817,13 @@ func (o MachineOverviewConfigPtrOutput) Image() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-func (o MachineOverviewConfigPtrOutput) Metadata() pulumi.AnyOutput {
-	return o.ApplyT(func(v *MachineOverviewConfig) interface{} {
+func (o MachineOverviewConfigPtrOutput) Metadata() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *MachineOverviewConfig) map[string]string {
 		if v == nil {
 			return nil
 		}
 		return v.Metadata
-	}).(pulumi.AnyOutput)
+	}).(pulumi.StringMapOutput)
 }
 
 type OrgMachine struct {

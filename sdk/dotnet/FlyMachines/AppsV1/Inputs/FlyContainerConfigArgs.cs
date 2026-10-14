@@ -50,11 +50,17 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
             set => _entrypoint = value;
         }
 
+        [Input("env")]
+        private InputMap<string>? _env;
+
         /// <summary>
         /// ExtraEnv is used to add additional environment variables to the container.
         /// </summary>
-        [Input("env")]
-        public Input<object>? Env { get; set; }
+        public InputMap<string> Env
+        {
+            get => _env ?? (_env = new InputMap<string>());
+            set => _env = value;
+        }
 
         [Input("envFrom")]
         private InputList<Inputs.FlyEnvFromArgs>? _envFrom;

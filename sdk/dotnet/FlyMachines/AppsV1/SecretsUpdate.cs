@@ -23,7 +23,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         public Output<ImmutableArray<Outputs.AppSecret>> Secrets { get; private set; } = null!;
 
         [Output("values")]
-        public Output<object?> Values { get; private set; } = null!;
+        public Output<ImmutableDictionary<string, string>?> Values { get; private set; } = null!;
 
         [Output("version")]
         public Output<int?> Version { get; private set; } = null!;
@@ -87,7 +87,12 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         public Input<Inputs.SecretsUpdateQueryParamsArgs>? QueryParams { get; set; }
 
         [Input("values")]
-        public Input<object>? Values { get; set; }
+        private InputMap<string>? _values;
+        public InputMap<string> Values
+        {
+            get => _values ?? (_values = new InputMap<string>());
+            set => _values = value;
+        }
 
         public SecretsUpdateArgs()
         {

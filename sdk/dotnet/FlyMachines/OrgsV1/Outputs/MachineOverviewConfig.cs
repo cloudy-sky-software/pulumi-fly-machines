@@ -16,7 +16,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.OrgsV1.Outputs
     {
         public readonly Outputs.FlyMachineGuest? Guest;
         public readonly string? Image;
-        public readonly object? Metadata;
+        public readonly ImmutableDictionary<string, string>? Metadata;
 
         [OutputConstructor]
         private MachineOverviewConfig(
@@ -24,7 +24,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.OrgsV1.Outputs
 
             string? image,
 
-            object? metadata)
+            ImmutableDictionary<string, string>? metadata)
         {
             Guest = guest;
             Image = image;

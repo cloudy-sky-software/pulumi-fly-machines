@@ -14,7 +14,12 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
     public sealed class FlyHTTPResponseOptionsArgs : global::Pulumi.ResourceArgs
     {
         [Input("headers")]
-        public Input<object>? Headers { get; set; }
+        private InputMap<ImmutableDictionary<string, string>>? _headers;
+        public InputMap<ImmutableDictionary<string, string>> Headers
+        {
+            get => _headers ?? (_headers = new InputMap<ImmutableDictionary<string, string>>());
+            set => _headers = value;
+        }
 
         [Input("pristine")]
         public Input<bool>? Pristine { get; set; }

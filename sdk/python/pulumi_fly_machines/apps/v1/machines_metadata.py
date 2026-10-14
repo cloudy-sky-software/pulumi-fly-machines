@@ -24,7 +24,7 @@ class MachinesMetadataArgs:
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  machine_id: pulumi.Input[Optional[_builtins.str]] = None,
                  machine_version: pulumi.Input[Optional[_builtins.str]] = None,
-                 metadata: Optional[Any] = None,
+                 metadata: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
                  query_params: pulumi.Input[Optional['MachinesMetadataQueryParamsArgs']] = None,
                  updated_at: pulumi.Input[Optional[_builtins.str]] = None):
         """
@@ -82,11 +82,11 @@ class MachinesMetadataArgs:
 
     @_builtins.property
     @pulumi.getter
-    def metadata(self) -> Optional[Any]:
+    def metadata(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
         return pulumi.get(self, "metadata")
 
     @metadata.setter
-    def metadata(self, value: Optional[Any]):
+    def metadata(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "metadata", value)
 
     @_builtins.property
@@ -120,7 +120,7 @@ class MachinesMetadata(pulumi.CustomResource):
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  machine_id: pulumi.Input[Optional[_builtins.str]] = None,
                  machine_version: pulumi.Input[Optional[_builtins.str]] = None,
-                 metadata: Optional[Any] = None,
+                 metadata: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
                  query_params: pulumi.Input[Optional[Union['MachinesMetadataQueryParamsArgs', 'MachinesMetadataQueryParamsArgsDict', 'outputs.MachinesMetadataQueryParams']]] = None,
                  updated_at: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
@@ -160,7 +160,7 @@ class MachinesMetadata(pulumi.CustomResource):
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  machine_id: pulumi.Input[Optional[_builtins.str]] = None,
                  machine_version: pulumi.Input[Optional[_builtins.str]] = None,
-                 metadata: Optional[Any] = None,
+                 metadata: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
                  query_params: pulumi.Input[Optional[Union['MachinesMetadataQueryParamsArgs', 'MachinesMetadataQueryParamsArgsDict', 'outputs.MachinesMetadataQueryParams']]] = None,
                  updated_at: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
@@ -213,7 +213,7 @@ class MachinesMetadata(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter
-    def metadata(self) -> pulumi.Output[Optional[Any]]:
+    def metadata(self) -> pulumi.Output[Optional[Mapping[str, _builtins.str]]]:
         return pulumi.get(self, "metadata")
 
     @_builtins.property

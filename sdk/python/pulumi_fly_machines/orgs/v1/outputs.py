@@ -119,7 +119,7 @@ class MachineOverviewConfig(dict):
     def __init__(__self__, *,
                  guest: Optional['outputs.FlyMachineGuest'] = None,
                  image: Optional[_builtins.str] = None,
-                 metadata: Optional[Any] = None):
+                 metadata: Optional[Mapping[str, _builtins.str]] = None):
         if guest is not None:
             pulumi.set(__self__, "guest", guest)
         if image is not None:
@@ -139,7 +139,7 @@ class MachineOverviewConfig(dict):
 
     @_builtins.property
     @pulumi.getter
-    def metadata(self) -> Optional[Any]:
+    def metadata(self) -> Optional[Mapping[str, _builtins.str]]:
         return pulumi.get(self, "metadata")
 
 

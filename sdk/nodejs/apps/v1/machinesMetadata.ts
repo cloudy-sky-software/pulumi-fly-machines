@@ -35,7 +35,7 @@ export class MachinesMetadata extends pulumi.CustomResource {
     }
 
     declare public readonly machineVersion: pulumi.Output<string | undefined>;
-    declare public readonly metadata: pulumi.Output<any | undefined>;
+    declare public readonly metadata: pulumi.Output<{[key: string]: string} | undefined>;
     /**
      * Query params to send with the API requests for this resource.
      */
@@ -83,7 +83,7 @@ export interface MachinesMetadataArgs {
      */
     machineId?: pulumi.Input<string | undefined>;
     machineVersion?: pulumi.Input<string | undefined>;
-    metadata?: any | undefined;
+    metadata?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
     /**
      * Query params to send with the API requests for this resource.
      */

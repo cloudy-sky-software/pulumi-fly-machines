@@ -367,6 +367,172 @@ func (o CertificateEntryStatusPtrOutput) ToStringPtrOutputWithContext(ctx contex
 	}).(pulumi.StringPtrOutput)
 }
 
+// Kind of the check (informational, readiness)
+type ChecksKind string
+
+const (
+	ChecksKindInformational = ChecksKind("informational")
+	ChecksKindReadiness     = ChecksKind("readiness")
+)
+
+func (ChecksKind) ElementType() reflect.Type {
+	return reflect.TypeOf((*ChecksKind)(nil)).Elem()
+}
+
+func (e ChecksKind) ToChecksKindOutput() ChecksKindOutput {
+	return pulumi.ToOutput(e).(ChecksKindOutput)
+}
+
+func (e ChecksKind) ToChecksKindOutputWithContext(ctx context.Context) ChecksKindOutput {
+	return pulumi.ToOutputWithContext(ctx, e).(ChecksKindOutput)
+}
+
+func (e ChecksKind) ToChecksKindPtrOutput() ChecksKindPtrOutput {
+	return e.ToChecksKindPtrOutputWithContext(context.Background())
+}
+
+func (e ChecksKind) ToChecksKindPtrOutputWithContext(ctx context.Context) ChecksKindPtrOutput {
+	return ChecksKind(e).ToChecksKindOutputWithContext(ctx).ToChecksKindPtrOutputWithContext(ctx)
+}
+
+func (e ChecksKind) ToStringOutput() pulumi.StringOutput {
+	return pulumi.ToOutput(pulumi.String(e)).(pulumi.StringOutput)
+}
+
+func (e ChecksKind) ToStringOutputWithContext(ctx context.Context) pulumi.StringOutput {
+	return pulumi.ToOutputWithContext(ctx, pulumi.String(e)).(pulumi.StringOutput)
+}
+
+func (e ChecksKind) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return pulumi.String(e).ToStringPtrOutputWithContext(context.Background())
+}
+
+func (e ChecksKind) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return pulumi.String(e).ToStringOutputWithContext(ctx).ToStringPtrOutputWithContext(ctx)
+}
+
+type ChecksKindOutput struct{ *pulumi.OutputState }
+
+func (ChecksKindOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ChecksKind)(nil)).Elem()
+}
+
+func (o ChecksKindOutput) ToChecksKindOutput() ChecksKindOutput {
+	return o
+}
+
+func (o ChecksKindOutput) ToChecksKindOutputWithContext(ctx context.Context) ChecksKindOutput {
+	return o
+}
+
+func (o ChecksKindOutput) ToChecksKindPtrOutput() ChecksKindPtrOutput {
+	return o.ToChecksKindPtrOutputWithContext(context.Background())
+}
+
+func (o ChecksKindOutput) ToChecksKindPtrOutputWithContext(ctx context.Context) ChecksKindPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ChecksKind) *ChecksKind {
+		return &v
+	}).(ChecksKindPtrOutput)
+}
+
+func (o ChecksKindOutput) ToStringOutput() pulumi.StringOutput {
+	return o.ToStringOutputWithContext(context.Background())
+}
+
+func (o ChecksKindOutput) ToStringOutputWithContext(ctx context.Context) pulumi.StringOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e ChecksKind) string {
+		return string(e)
+	}).(pulumi.StringOutput)
+}
+
+func (o ChecksKindOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o ChecksKindOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e ChecksKind) *string {
+		v := string(e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+type ChecksKindPtrOutput struct{ *pulumi.OutputState }
+
+func (ChecksKindPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ChecksKind)(nil)).Elem()
+}
+
+func (o ChecksKindPtrOutput) ToChecksKindPtrOutput() ChecksKindPtrOutput {
+	return o
+}
+
+func (o ChecksKindPtrOutput) ToChecksKindPtrOutputWithContext(ctx context.Context) ChecksKindPtrOutput {
+	return o
+}
+
+func (o ChecksKindPtrOutput) Elem() ChecksKindOutput {
+	return o.ApplyT(func(v *ChecksKind) ChecksKind {
+		if v != nil {
+			return *v
+		}
+		var ret ChecksKind
+		return ret
+	}).(ChecksKindOutput)
+}
+
+func (o ChecksKindPtrOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o ChecksKindPtrOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e *ChecksKind) *string {
+		if e == nil {
+			return nil
+		}
+		v := string(*e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+// ChecksKindInput is an input type that accepts values of the ChecksKind enum
+// A concrete instance of `ChecksKindInput` can be one of the following:
+//
+//	ChecksKindInformational
+//	ChecksKindReadiness
+type ChecksKindInput interface {
+	pulumi.Input
+
+	ToChecksKindOutput() ChecksKindOutput
+	ToChecksKindOutputWithContext(context.Context) ChecksKindOutput
+}
+
+var checksKindPtrType = reflect.TypeOf((**ChecksKind)(nil)).Elem()
+
+type ChecksKindPtrInput interface {
+	pulumi.Input
+
+	ToChecksKindPtrOutput() ChecksKindPtrOutput
+	ToChecksKindPtrOutputWithContext(context.Context) ChecksKindPtrOutput
+}
+
+type checksKindPtr string
+
+func ChecksKindPtr(v string) ChecksKindPtrInput {
+	return (*checksKindPtr)(&v)
+}
+
+func (*checksKindPtr) ElementType() reflect.Type {
+	return checksKindPtrType
+}
+
+func (in *checksKindPtr) ToChecksKindPtrOutput() ChecksKindPtrOutput {
+	return pulumi.ToOutput(in).(ChecksKindPtrOutput)
+}
+
+func (in *checksKindPtr) ToChecksKindPtrOutputWithContext(ctx context.Context) ChecksKindPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, in).(ChecksKindPtrOutput)
+}
+
 // FieldRef selects a field of the Machine: supports id, version, app_name, private_ip, region, image.
 type FlyEnvFromFieldRef string
 
@@ -2816,6 +2982,8 @@ func (o VolumeTypeEnumPtrOutput) ToStringPtrOutputWithContext(ctx context.Contex
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*AppIPAssignmentTypeInput)(nil)).Elem(), AppIPAssignmentType("v4"))
 	pulumi.RegisterInputType(reflect.TypeOf((*AppIPAssignmentTypePtrInput)(nil)).Elem(), AppIPAssignmentType("v4"))
+	pulumi.RegisterInputType(reflect.TypeOf((*ChecksKindInput)(nil)).Elem(), ChecksKind("informational"))
+	pulumi.RegisterInputType(reflect.TypeOf((*ChecksKindPtrInput)(nil)).Elem(), ChecksKind("informational"))
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyEnvFromFieldRefInput)(nil)).Elem(), FlyEnvFromFieldRef("id"))
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyEnvFromFieldRefPtrInput)(nil)).Elem(), FlyEnvFromFieldRef("id"))
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineGuestPersistRootfsInput)(nil)).Elem(), FlyMachineGuestPersistRootfs("never"))
@@ -2844,6 +3012,8 @@ func init() {
 	pulumi.RegisterOutputType(CertificateEntrySourcePtrOutput{})
 	pulumi.RegisterOutputType(CertificateEntryStatusOutput{})
 	pulumi.RegisterOutputType(CertificateEntryStatusPtrOutput{})
+	pulumi.RegisterOutputType(ChecksKindOutput{})
+	pulumi.RegisterOutputType(ChecksKindPtrOutput{})
 	pulumi.RegisterOutputType(FlyEnvFromFieldRefOutput{})
 	pulumi.RegisterOutputType(FlyEnvFromFieldRefPtrOutput{})
 	pulumi.RegisterOutputType(FlyMachineGuestPersistRootfsOutput{})

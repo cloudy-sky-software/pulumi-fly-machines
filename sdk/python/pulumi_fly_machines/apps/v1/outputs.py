@@ -65,6 +65,7 @@ __all__ = [
     'FlyHTTPResponseOptions',
     'FlyMachineCacheDrive',
     'FlyMachineConfig',
+    'FlyMachineConfigChecksProperties',
     'FlyMachineGuest',
     'FlyMachineHTTPHeader',
     'FlyMachineInit',
@@ -1518,7 +1519,7 @@ class FlyContainerConfig(dict):
                  cmd: Optional[Sequence[_builtins.str]] = None,
                  depends_on: Optional[Sequence['outputs.FlyContainerDependency']] = None,
                  entrypoint: Optional[Sequence[_builtins.str]] = None,
-                 env: Optional[Any] = None,
+                 env: Optional[Mapping[str, _builtins.str]] = None,
                  env_from: Optional[Sequence['outputs.FlyEnvFrom']] = None,
                  exec_: Optional[Sequence[_builtins.str]] = None,
                  files: Optional[Sequence['outputs.FlyFile']] = None,
@@ -1534,7 +1535,7 @@ class FlyContainerConfig(dict):
         :param Sequence['FlyContainerDependency'] depends_on: DependsOn can be used to define dependencies between containers. The container will only be
                started after all of its dependent conditions have been satisfied.
         :param Sequence[_builtins.str] entrypoint: EntrypointOverride is used to override the default entrypoint of the image.
-        :param Any env: ExtraEnv is used to add additional environment variables to the container.
+        :param Mapping[str, _builtins.str] env: ExtraEnv is used to add additional environment variables to the container.
         :param Sequence['FlyEnvFrom'] env_from: EnvFrom can be provided to set environment variables from machine fields.
         :param Sequence[_builtins.str] exec_: Image Config overrides - these fields are used to override the image configuration.
                If not provided, the image configuration will be used.
@@ -1605,7 +1606,7 @@ class FlyContainerConfig(dict):
 
     @_builtins.property
     @pulumi.getter
-    def env(self) -> Optional[Any]:
+    def env(self) -> Optional[Mapping[str, _builtins.str]]:
         """
         ExtraEnv is used to add additional environment variables to the container.
         """
@@ -2478,7 +2479,7 @@ class FlyHTTPOptions(dict):
 @pulumi.output_type
 class FlyHTTPResponseOptions(dict):
     def __init__(__self__, *,
-                 headers: Optional[Any] = None,
+                 headers: Optional[Mapping[str, Mapping[str, _builtins.str]]] = None,
                  pristine: Optional[_builtins.bool] = None):
         if headers is not None:
             pulumi.set(__self__, "headers", headers)
@@ -2487,7 +2488,7 @@ class FlyHTTPResponseOptions(dict):
 
     @_builtins.property
     @pulumi.getter
-    def headers(self) -> Optional[Any]:
+    def headers(self) -> Optional[Mapping[str, Mapping[str, _builtins.str]]]:
         return pulumi.get(self, "headers")
 
     @_builtins.property
@@ -2554,16 +2555,16 @@ class FlyMachineConfig(dict):
     def __init__(__self__, *,
                  auto_destroy: Optional[_builtins.bool] = None,
                  cache_drive: Optional['outputs.FlyMachineCacheDrive'] = None,
-                 checks: Optional[Any] = None,
+                 checks: Optional[Mapping[str, 'outputs.FlyMachineConfigChecksProperties']] = None,
                  containers: Optional[Sequence['outputs.FlyContainerConfig']] = None,
                  disable_machine_autostart: Optional[_builtins.bool] = None,
                  dns: Optional['outputs.FlyDNSConfig'] = None,
-                 env: Optional[Any] = None,
+                 env: Optional[Mapping[str, _builtins.str]] = None,
                  files: Optional[Sequence['outputs.FlyFile']] = None,
                  guest: Optional['outputs.FlyMachineGuest'] = None,
                  image: Optional[_builtins.str] = None,
                  init: Optional['outputs.FlyMachineInit'] = None,
-                 metadata: Optional[Any] = None,
+                 metadata: Optional[Mapping[str, _builtins.str]] = None,
                  metrics: Optional['outputs.FlyMachineMetrics'] = None,
                  mounts: Optional[Sequence['outputs.FlyMachineMount']] = None,
                  processes: Optional[Sequence['outputs.FlyMachineProcess']] = None,
@@ -2578,11 +2579,11 @@ class FlyMachineConfig(dict):
                  stop_config: Optional['outputs.FlyStopConfig'] = None):
         """
         :param _builtins.bool auto_destroy: Optional boolean telling the Machine to destroy itself once it’s complete (default false)
-        :param Any checks: An optional object that defines one or more named top-level checks. The key for each check is the check name.
+        :param Mapping[str, 'FlyMachineConfigChecksProperties'] checks: An optional object that defines one or more named top-level checks. The key for each check is the check name.
         :param Sequence['FlyContainerConfig'] containers: Containers are a list of containers that will run in the machine. Currently restricted to
                only specific organizations.
         :param _builtins.bool disable_machine_autostart: Deprecated: use Service.Autostart instead
-        :param Any env: An object filled with key/value pairs to be set as environment variables
+        :param Mapping[str, _builtins.str] env: An object filled with key/value pairs to be set as environment variables
         :param _builtins.str image: The docker image to run
         :param 'FlyMachineRestart' restart: The Machine restart policy defines whether and how flyd restarts a Machine after its main process exits. See https://fly.io/docs/machines/guides-examples/machine-restart-policy/.
         :param _builtins.str size: Deprecated: use Guest instead
@@ -2653,7 +2654,7 @@ class FlyMachineConfig(dict):
 
     @_builtins.property
     @pulumi.getter
-    def checks(self) -> Optional[Any]:
+    def checks(self) -> Optional[Mapping[str, 'outputs.FlyMachineConfigChecksProperties']]:
         """
         An optional object that defines one or more named top-level checks. The key for each check is the check name.
         """
@@ -2683,7 +2684,7 @@ class FlyMachineConfig(dict):
 
     @_builtins.property
     @pulumi.getter
-    def env(self) -> Optional[Any]:
+    def env(self) -> Optional[Mapping[str, _builtins.str]]:
         """
         An object filled with key/value pairs to be set as environment variables
         """
@@ -2714,7 +2715,7 @@ class FlyMachineConfig(dict):
 
     @_builtins.property
     @pulumi.getter
-    def metadata(self) -> Optional[Any]:
+    def metadata(self) -> Optional[Mapping[str, _builtins.str]]:
         return pulumi.get(self, "metadata")
 
     @_builtins.property
@@ -2786,6 +2787,179 @@ class FlyMachineConfig(dict):
     @pulumi.getter(name="stopConfig")
     def stop_config(self) -> Optional['outputs.FlyStopConfig']:
         return pulumi.get(self, "stop_config")
+
+
+@pulumi.output_type
+class FlyMachineConfigChecksProperties(dict):
+    """
+    An optional object that defines one or more named top-level checks. The key for each check is the check name.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "gracePeriod":
+            suggest = "grace_period"
+        elif key == "tlsServerName":
+            suggest = "tls_server_name"
+        elif key == "tlsSkipVerify":
+            suggest = "tls_skip_verify"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in FlyMachineConfigChecksProperties. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        FlyMachineConfigChecksProperties.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        FlyMachineConfigChecksProperties.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 grace_period: Optional[_builtins.str] = None,
+                 headers: Optional[Sequence['outputs.FlyMachineHTTPHeader']] = None,
+                 interval: Optional[_builtins.str] = None,
+                 kind: Optional['ChecksKind'] = None,
+                 method: Optional[_builtins.str] = None,
+                 path: Optional[_builtins.str] = None,
+                 port: Optional[_builtins.int] = None,
+                 protocol: Optional[_builtins.str] = None,
+                 timeout: Optional[_builtins.str] = None,
+                 tls_server_name: Optional[_builtins.str] = None,
+                 tls_skip_verify: Optional[_builtins.bool] = None,
+                 type: Optional[_builtins.str] = None):
+        """
+        An optional object that defines one or more named top-level checks. The key for each check is the check name.
+
+        :param _builtins.str grace_period: The time to wait after a VM starts before checking its health
+        :param _builtins.str interval: The time between connectivity checks
+        :param 'ChecksKind' kind: Kind of the check (informational, readiness)
+        :param _builtins.str method: For http checks, the HTTP method to use to when making the request
+        :param _builtins.str path: For http checks, the path to send the request to
+        :param _builtins.int port: The port to connect to, often the same as internal_port
+        :param _builtins.str protocol: For http checks, whether to use http or https
+        :param _builtins.str timeout: The maximum time a connection can take before being reported as failing its health check
+        :param _builtins.str tls_server_name: If the protocol is https, the hostname to use for TLS certificate validation
+        :param _builtins.bool tls_skip_verify: For http checks with https protocol, whether or not to verify the TLS certificate
+        :param _builtins.str type: tcp or http
+        """
+        if grace_period is not None:
+            pulumi.set(__self__, "grace_period", grace_period)
+        if headers is not None:
+            pulumi.set(__self__, "headers", headers)
+        if interval is not None:
+            pulumi.set(__self__, "interval", interval)
+        if kind is not None:
+            pulumi.set(__self__, "kind", kind)
+        if method is not None:
+            pulumi.set(__self__, "method", method)
+        if path is not None:
+            pulumi.set(__self__, "path", path)
+        if port is not None:
+            pulumi.set(__self__, "port", port)
+        if protocol is not None:
+            pulumi.set(__self__, "protocol", protocol)
+        if timeout is not None:
+            pulumi.set(__self__, "timeout", timeout)
+        if tls_server_name is not None:
+            pulumi.set(__self__, "tls_server_name", tls_server_name)
+        if tls_skip_verify is not None:
+            pulumi.set(__self__, "tls_skip_verify", tls_skip_verify)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @_builtins.property
+    @pulumi.getter(name="gracePeriod")
+    def grace_period(self) -> Optional[_builtins.str]:
+        """
+        The time to wait after a VM starts before checking its health
+        """
+        return pulumi.get(self, "grace_period")
+
+    @_builtins.property
+    @pulumi.getter
+    def headers(self) -> Optional[Sequence['outputs.FlyMachineHTTPHeader']]:
+        return pulumi.get(self, "headers")
+
+    @_builtins.property
+    @pulumi.getter
+    def interval(self) -> Optional[_builtins.str]:
+        """
+        The time between connectivity checks
+        """
+        return pulumi.get(self, "interval")
+
+    @_builtins.property
+    @pulumi.getter
+    def kind(self) -> Optional['ChecksKind']:
+        """
+        Kind of the check (informational, readiness)
+        """
+        return pulumi.get(self, "kind")
+
+    @_builtins.property
+    @pulumi.getter
+    def method(self) -> Optional[_builtins.str]:
+        """
+        For http checks, the HTTP method to use to when making the request
+        """
+        return pulumi.get(self, "method")
+
+    @_builtins.property
+    @pulumi.getter
+    def path(self) -> Optional[_builtins.str]:
+        """
+        For http checks, the path to send the request to
+        """
+        return pulumi.get(self, "path")
+
+    @_builtins.property
+    @pulumi.getter
+    def port(self) -> Optional[_builtins.int]:
+        """
+        The port to connect to, often the same as internal_port
+        """
+        return pulumi.get(self, "port")
+
+    @_builtins.property
+    @pulumi.getter
+    def protocol(self) -> Optional[_builtins.str]:
+        """
+        For http checks, whether to use http or https
+        """
+        return pulumi.get(self, "protocol")
+
+    @_builtins.property
+    @pulumi.getter
+    def timeout(self) -> Optional[_builtins.str]:
+        """
+        The maximum time a connection can take before being reported as failing its health check
+        """
+        return pulumi.get(self, "timeout")
+
+    @_builtins.property
+    @pulumi.getter(name="tlsServerName")
+    def tls_server_name(self) -> Optional[_builtins.str]:
+        """
+        If the protocol is https, the hostname to use for TLS certificate validation
+        """
+        return pulumi.get(self, "tls_server_name")
+
+    @_builtins.property
+    @pulumi.getter(name="tlsSkipVerify")
+    def tls_skip_verify(self) -> Optional[_builtins.bool]:
+        """
+        For http checks with https protocol, whether or not to verify the TLS certificate
+        """
+        return pulumi.get(self, "tls_skip_verify")
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> Optional[_builtins.str]:
+        """
+        tcp or http
+        """
+        return pulumi.get(self, "type")
 
 
 @pulumi.output_type
@@ -3295,7 +3469,7 @@ class FlyMachineProcess(dict):
     def __init__(__self__, *,
                  cmd: Optional[Sequence[_builtins.str]] = None,
                  entrypoint: Optional[Sequence[_builtins.str]] = None,
-                 env: Optional[Any] = None,
+                 env: Optional[Mapping[str, _builtins.str]] = None,
                  env_from: Optional[Sequence['outputs.FlyEnvFrom']] = None,
                  exec_: Optional[Sequence[_builtins.str]] = None,
                  ignore_app_secrets: Optional[_builtins.bool] = None,
@@ -3338,7 +3512,7 @@ class FlyMachineProcess(dict):
 
     @_builtins.property
     @pulumi.getter
-    def env(self) -> Optional[Any]:
+    def env(self) -> Optional[Mapping[str, _builtins.str]]:
         return pulumi.get(self, "env")
 
     @_builtins.property
@@ -4273,7 +4447,7 @@ class IPAssignmentNetwork(dict):
 class ImageRef(dict):
     def __init__(__self__, *,
                  digest: Optional[_builtins.str] = None,
-                 labels: Optional[Any] = None,
+                 labels: Optional[Mapping[str, _builtins.str]] = None,
                  registry: Optional[_builtins.str] = None,
                  repository: Optional[_builtins.str] = None,
                  tag: Optional[_builtins.str] = None):
@@ -4295,7 +4469,7 @@ class ImageRef(dict):
 
     @_builtins.property
     @pulumi.getter
-    def labels(self) -> Optional[Any]:
+    def labels(self) -> Optional[Mapping[str, _builtins.str]]:
         return pulumi.get(self, "labels")
 
     @_builtins.property

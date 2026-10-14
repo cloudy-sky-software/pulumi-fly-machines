@@ -90,6 +90,8 @@ __all__ = [
     'FlyHTTPResponseOptionsArgsDict',
     'FlyMachineCacheDriveArgs',
     'FlyMachineCacheDriveArgsDict',
+    'FlyMachineConfigChecksPropertiesArgs',
+    'FlyMachineConfigChecksPropertiesArgsDict',
     'FlyMachineGuestArgs',
     'FlyMachineGuestArgsDict',
     'FlyMachineHTTPHeaderArgs',
@@ -997,7 +999,7 @@ class ConfigArgsDict(TypedDict):
     Optional boolean telling the Machine to destroy itself once it’s complete (default false)
     """
     cache_drive: NotRequired[pulumi.Input[Optional['FlyMachineCacheDriveArgsDict']]]
-    checks: NotRequired[Any]
+    checks: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input['FlyMachineConfigChecksPropertiesArgsDict']]]]]
     """
     An optional object that defines one or more named top-level checks. The key for each check is the check name.
     """
@@ -1011,7 +1013,7 @@ class ConfigArgsDict(TypedDict):
     Deprecated: use Service.Autostart instead
     """
     dns: NotRequired[pulumi.Input[Optional['FlyDNSConfigArgsDict']]]
-    env: NotRequired[Any]
+    env: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
     """
     An object filled with key/value pairs to be set as environment variables
     """
@@ -1022,7 +1024,7 @@ class ConfigArgsDict(TypedDict):
     The docker image to run
     """
     init: NotRequired[pulumi.Input[Optional['FlyMachineInitArgsDict']]]
-    metadata: NotRequired[Any]
+    metadata: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
     metrics: NotRequired[pulumi.Input[Optional['FlyMachineMetricsArgsDict']]]
     mounts: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['FlyMachineMountArgsDict']]]]]
     processes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['FlyMachineProcessArgsDict']]]]]
@@ -1051,16 +1053,16 @@ class ConfigArgs:
     def __init__(__self__, *,
                  auto_destroy: pulumi.Input[Optional[_builtins.bool]] = None,
                  cache_drive: pulumi.Input[Optional['FlyMachineCacheDriveArgs']] = None,
-                 checks: Optional[Any] = None,
+                 checks: pulumi.Input[Optional[Mapping[str, pulumi.Input['FlyMachineConfigChecksPropertiesArgs']]]] = None,
                  containers: pulumi.Input[Optional[Sequence[pulumi.Input['FlyContainerConfigArgs']]]] = None,
                  disable_machine_autostart: pulumi.Input[Optional[_builtins.bool]] = None,
                  dns: pulumi.Input[Optional['FlyDNSConfigArgs']] = None,
-                 env: Optional[Any] = None,
+                 env: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
                  files: pulumi.Input[Optional[Sequence[pulumi.Input['FlyFileArgs']]]] = None,
                  guest: pulumi.Input[Optional['FlyMachineGuestArgs']] = None,
                  image: pulumi.Input[Optional[_builtins.str]] = None,
                  init: pulumi.Input[Optional['FlyMachineInitArgs']] = None,
-                 metadata: Optional[Any] = None,
+                 metadata: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
                  metrics: pulumi.Input[Optional['FlyMachineMetricsArgs']] = None,
                  mounts: pulumi.Input[Optional[Sequence[pulumi.Input['FlyMachineMountArgs']]]] = None,
                  processes: pulumi.Input[Optional[Sequence[pulumi.Input['FlyMachineProcessArgs']]]] = None,
@@ -1077,11 +1079,11 @@ class ConfigArgs:
         An object defining the Machine configuration
 
         :param pulumi.Input[_builtins.bool] auto_destroy: Optional boolean telling the Machine to destroy itself once it’s complete (default false)
-        :param Any checks: An optional object that defines one or more named top-level checks. The key for each check is the check name.
+        :param pulumi.Input[Mapping[str, pulumi.Input['FlyMachineConfigChecksPropertiesArgs']]] checks: An optional object that defines one or more named top-level checks. The key for each check is the check name.
         :param pulumi.Input[Sequence[pulumi.Input['FlyContainerConfigArgs']]] containers: Containers are a list of containers that will run in the machine. Currently restricted to
                only specific organizations.
         :param pulumi.Input[_builtins.bool] disable_machine_autostart: Deprecated: use Service.Autostart instead
-        :param Any env: An object filled with key/value pairs to be set as environment variables
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] env: An object filled with key/value pairs to be set as environment variables
         :param pulumi.Input[_builtins.str] image: The docker image to run
         :param pulumi.Input['FlyMachineRestartArgs'] restart: The Machine restart policy defines whether and how flyd restarts a Machine after its main process exits. See https://fly.io/docs/machines/guides-examples/machine-restart-policy/.
         :param pulumi.Input[_builtins.str] size: Deprecated: use Guest instead
@@ -1160,14 +1162,14 @@ class ConfigArgs:
 
     @_builtins.property
     @pulumi.getter
-    def checks(self) -> Optional[Any]:
+    def checks(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input['FlyMachineConfigChecksPropertiesArgs']]]]:
         """
         An optional object that defines one or more named top-level checks. The key for each check is the check name.
         """
         return pulumi.get(self, "checks")
 
     @checks.setter
-    def checks(self, value: Optional[Any]):
+    def checks(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input['FlyMachineConfigChecksPropertiesArgs']]]]):
         pulumi.set(self, "checks", value)
 
     @_builtins.property
@@ -1206,14 +1208,14 @@ class ConfigArgs:
 
     @_builtins.property
     @pulumi.getter
-    def env(self) -> Optional[Any]:
+    def env(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
         An object filled with key/value pairs to be set as environment variables
         """
         return pulumi.get(self, "env")
 
     @env.setter
-    def env(self, value: Optional[Any]):
+    def env(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "env", value)
 
     @_builtins.property
@@ -1257,11 +1259,11 @@ class ConfigArgs:
 
     @_builtins.property
     @pulumi.getter
-    def metadata(self) -> Optional[Any]:
+    def metadata(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
         return pulumi.get(self, "metadata")
 
     @metadata.setter
-    def metadata(self, value: Optional[Any]):
+    def metadata(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "metadata", value)
 
     @_builtins.property
@@ -1397,7 +1399,7 @@ class FlyContainerConfigArgsDict(TypedDict):
     """
     EntrypointOverride is used to override the default entrypoint of the image.
     """
-    env: NotRequired[Any]
+    env: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
     """
     ExtraEnv is used to add additional environment variables to the container.
     """
@@ -1451,7 +1453,7 @@ class FlyContainerConfigArgs:
                  cmd: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  depends_on: pulumi.Input[Optional[Sequence[pulumi.Input['FlyContainerDependencyArgs']]]] = None,
                  entrypoint: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 env: Optional[Any] = None,
+                 env: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
                  env_from: pulumi.Input[Optional[Sequence[pulumi.Input['FlyEnvFromArgs']]]] = None,
                  exec_: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  files: pulumi.Input[Optional[Sequence[pulumi.Input['FlyFileArgs']]]] = None,
@@ -1467,7 +1469,7 @@ class FlyContainerConfigArgs:
         :param pulumi.Input[Sequence[pulumi.Input['FlyContainerDependencyArgs']]] depends_on: DependsOn can be used to define dependencies between containers. The container will only be
                started after all of its dependent conditions have been satisfied.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] entrypoint: EntrypointOverride is used to override the default entrypoint of the image.
-        :param Any env: ExtraEnv is used to add additional environment variables to the container.
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] env: ExtraEnv is used to add additional environment variables to the container.
         :param pulumi.Input[Sequence[pulumi.Input['FlyEnvFromArgs']]] env_from: EnvFrom can be provided to set environment variables from machine fields.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] exec_: Image Config overrides - these fields are used to override the image configuration.
                If not provided, the image configuration will be used.
@@ -1550,14 +1552,14 @@ class FlyContainerConfigArgs:
 
     @_builtins.property
     @pulumi.getter
-    def env(self) -> Optional[Any]:
+    def env(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
         ExtraEnv is used to add additional environment variables to the container.
         """
         return pulumi.get(self, "env")
 
     @env.setter
-    def env(self, value: Optional[Any]):
+    def env(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "env", value)
 
     @_builtins.property
@@ -2680,13 +2682,13 @@ class FlyHTTPOptionsArgs:
 
 
 class FlyHTTPResponseOptionsArgsDict(TypedDict):
-    headers: NotRequired[Any]
+    headers: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]]]]
     pristine: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
 
 @pulumi.input_type
 class FlyHTTPResponseOptionsArgs:
     def __init__(__self__, *,
-                 headers: Optional[Any] = None,
+                 headers: pulumi.Input[Optional[Mapping[str, pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]]] = None,
                  pristine: pulumi.Input[Optional[_builtins.bool]] = None):
         if headers is not None:
             pulumi.set(__self__, "headers", headers)
@@ -2695,11 +2697,11 @@ class FlyHTTPResponseOptionsArgs:
 
     @_builtins.property
     @pulumi.getter
-    def headers(self) -> Optional[Any]:
+    def headers(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]]]:
         return pulumi.get(self, "headers")
 
     @headers.setter
-    def headers(self, value: Optional[Any]):
+    def headers(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]]]):
         pulumi.set(self, "headers", value)
 
     @_builtins.property
@@ -2730,6 +2732,253 @@ class FlyMachineCacheDriveArgs:
     @size_mb.setter
     def size_mb(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "size_mb", value)
+
+
+class FlyMachineConfigChecksPropertiesArgsDict(TypedDict):
+    """
+    An optional object that defines one or more named top-level checks. The key for each check is the check name.
+    """
+    grace_period: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    The time to wait after a VM starts before checking its health
+    """
+    headers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['FlyMachineHTTPHeaderArgsDict']]]]]
+    interval: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    The time between connectivity checks
+    """
+    kind: NotRequired[pulumi.Input[Optional['ChecksKind']]]
+    """
+    Kind of the check (informational, readiness)
+    """
+    method: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    For http checks, the HTTP method to use to when making the request
+    """
+    path: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    For http checks, the path to send the request to
+    """
+    port: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    The port to connect to, often the same as internal_port
+    """
+    protocol: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    For http checks, whether to use http or https
+    """
+    timeout: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    The maximum time a connection can take before being reported as failing its health check
+    """
+    tls_server_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    If the protocol is https, the hostname to use for TLS certificate validation
+    """
+    tls_skip_verify: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    For http checks with https protocol, whether or not to verify the TLS certificate
+    """
+    type: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    tcp or http
+    """
+
+@pulumi.input_type
+class FlyMachineConfigChecksPropertiesArgs:
+    def __init__(__self__, *,
+                 grace_period: pulumi.Input[Optional[_builtins.str]] = None,
+                 headers: pulumi.Input[Optional[Sequence[pulumi.Input['FlyMachineHTTPHeaderArgs']]]] = None,
+                 interval: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional['ChecksKind']] = None,
+                 method: pulumi.Input[Optional[_builtins.str]] = None,
+                 path: pulumi.Input[Optional[_builtins.str]] = None,
+                 port: pulumi.Input[Optional[_builtins.int]] = None,
+                 protocol: pulumi.Input[Optional[_builtins.str]] = None,
+                 timeout: pulumi.Input[Optional[_builtins.str]] = None,
+                 tls_server_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 tls_skip_verify: pulumi.Input[Optional[_builtins.bool]] = None,
+                 type: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        An optional object that defines one or more named top-level checks. The key for each check is the check name.
+
+        :param pulumi.Input[_builtins.str] grace_period: The time to wait after a VM starts before checking its health
+        :param pulumi.Input[_builtins.str] interval: The time between connectivity checks
+        :param pulumi.Input['ChecksKind'] kind: Kind of the check (informational, readiness)
+        :param pulumi.Input[_builtins.str] method: For http checks, the HTTP method to use to when making the request
+        :param pulumi.Input[_builtins.str] path: For http checks, the path to send the request to
+        :param pulumi.Input[_builtins.int] port: The port to connect to, often the same as internal_port
+        :param pulumi.Input[_builtins.str] protocol: For http checks, whether to use http or https
+        :param pulumi.Input[_builtins.str] timeout: The maximum time a connection can take before being reported as failing its health check
+        :param pulumi.Input[_builtins.str] tls_server_name: If the protocol is https, the hostname to use for TLS certificate validation
+        :param pulumi.Input[_builtins.bool] tls_skip_verify: For http checks with https protocol, whether or not to verify the TLS certificate
+        :param pulumi.Input[_builtins.str] type: tcp or http
+        """
+        if grace_period is not None:
+            pulumi.set(__self__, "grace_period", grace_period)
+        if headers is not None:
+            pulumi.set(__self__, "headers", headers)
+        if interval is not None:
+            pulumi.set(__self__, "interval", interval)
+        if kind is not None:
+            pulumi.set(__self__, "kind", kind)
+        if method is not None:
+            pulumi.set(__self__, "method", method)
+        if path is not None:
+            pulumi.set(__self__, "path", path)
+        if port is not None:
+            pulumi.set(__self__, "port", port)
+        if protocol is not None:
+            pulumi.set(__self__, "protocol", protocol)
+        if timeout is not None:
+            pulumi.set(__self__, "timeout", timeout)
+        if tls_server_name is not None:
+            pulumi.set(__self__, "tls_server_name", tls_server_name)
+        if tls_skip_verify is not None:
+            pulumi.set(__self__, "tls_skip_verify", tls_skip_verify)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @_builtins.property
+    @pulumi.getter(name="gracePeriod")
+    def grace_period(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        The time to wait after a VM starts before checking its health
+        """
+        return pulumi.get(self, "grace_period")
+
+    @grace_period.setter
+    def grace_period(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "grace_period", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def headers(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['FlyMachineHTTPHeaderArgs']]]]:
+        return pulumi.get(self, "headers")
+
+    @headers.setter
+    def headers(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['FlyMachineHTTPHeaderArgs']]]]):
+        pulumi.set(self, "headers", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def interval(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        The time between connectivity checks
+        """
+        return pulumi.get(self, "interval")
+
+    @interval.setter
+    def interval(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "interval", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def kind(self) -> pulumi.Input[Optional['ChecksKind']]:
+        """
+        Kind of the check (informational, readiness)
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: pulumi.Input[Optional['ChecksKind']]):
+        pulumi.set(self, "kind", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def method(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        For http checks, the HTTP method to use to when making the request
+        """
+        return pulumi.get(self, "method")
+
+    @method.setter
+    def method(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "method", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def path(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        For http checks, the path to send the request to
+        """
+        return pulumi.get(self, "path")
+
+    @path.setter
+    def path(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "path", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def port(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        The port to connect to, often the same as internal_port
+        """
+        return pulumi.get(self, "port")
+
+    @port.setter
+    def port(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "port", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def protocol(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        For http checks, whether to use http or https
+        """
+        return pulumi.get(self, "protocol")
+
+    @protocol.setter
+    def protocol(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "protocol", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def timeout(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        The maximum time a connection can take before being reported as failing its health check
+        """
+        return pulumi.get(self, "timeout")
+
+    @timeout.setter
+    def timeout(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "timeout", value)
+
+    @_builtins.property
+    @pulumi.getter(name="tlsServerName")
+    def tls_server_name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        If the protocol is https, the hostname to use for TLS certificate validation
+        """
+        return pulumi.get(self, "tls_server_name")
+
+    @tls_server_name.setter
+    def tls_server_name(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "tls_server_name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="tlsSkipVerify")
+    def tls_skip_verify(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        For http checks with https protocol, whether or not to verify the TLS certificate
+        """
+        return pulumi.get(self, "tls_skip_verify")
+
+    @tls_skip_verify.setter
+    def tls_skip_verify(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "tls_skip_verify", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        tcp or http
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "type", value)
 
 
 class FlyMachineGuestArgsDict(TypedDict):
@@ -3333,7 +3582,7 @@ class FlyMachinePortArgs:
 class FlyMachineProcessArgsDict(TypedDict):
     cmd: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     entrypoint: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
-    env: NotRequired[Any]
+    env: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
     env_from: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['FlyEnvFromArgsDict']]]]]
     """
     EnvFrom can be provided to set environment variables from machine fields.
@@ -3357,7 +3606,7 @@ class FlyMachineProcessArgs:
     def __init__(__self__, *,
                  cmd: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  entrypoint: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 env: Optional[Any] = None,
+                 env: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
                  env_from: pulumi.Input[Optional[Sequence[pulumi.Input['FlyEnvFromArgs']]]] = None,
                  exec_: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  ignore_app_secrets: pulumi.Input[Optional[_builtins.bool]] = None,
@@ -3408,11 +3657,11 @@ class FlyMachineProcessArgs:
 
     @_builtins.property
     @pulumi.getter
-    def env(self) -> Optional[Any]:
+    def env(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
         return pulumi.get(self, "env")
 
     @env.setter
-    def env(self, value: Optional[Any]):
+    def env(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "env", value)
 
     @_builtins.property

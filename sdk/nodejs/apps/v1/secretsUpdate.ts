@@ -39,7 +39,7 @@ export class SecretsUpdate extends pulumi.CustomResource {
      */
     declare public readonly queryParams: pulumi.Output<outputs.apps.v1.SecretsUpdateQueryParams | undefined>;
     declare public /*out*/ readonly secrets: pulumi.Output<outputs.apps.v1.AppSecret[] | undefined>;
-    declare public readonly values: pulumi.Output<any | undefined>;
+    declare public readonly values: pulumi.Output<{[key: string]: string} | undefined>;
     declare public /*out*/ readonly version: pulumi.Output<number | undefined>;
 
     /**
@@ -81,5 +81,5 @@ export interface SecretsUpdateArgs {
      * Query params to send with the API requests for this resource.
      */
     queryParams?: pulumi.Input<inputs.apps.v1.SecretsUpdateQueryParamsArgs | undefined>;
-    values?: any | undefined;
+    values?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
 }

@@ -17,7 +17,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         public Output<string?> MachineVersion { get; private set; } = null!;
 
         [Output("metadata")]
-        public Output<object?> Metadata { get; private set; } = null!;
+        public Output<ImmutableDictionary<string, string>?> Metadata { get; private set; } = null!;
 
         /// <summary>
         /// Query params to send with the API requests for this resource.
@@ -90,7 +90,12 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         public Input<string>? MachineVersion { get; set; }
 
         [Input("metadata")]
-        public Input<object>? Metadata { get; set; }
+        private InputMap<string>? _metadata;
+        public InputMap<string> Metadata
+        {
+            get => _metadata ?? (_metadata = new InputMap<string>());
+            set => _metadata = value;
+        }
 
         /// <summary>
         /// Query params to send with the API requests for this resource.

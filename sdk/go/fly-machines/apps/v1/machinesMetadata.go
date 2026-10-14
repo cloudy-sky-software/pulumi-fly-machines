@@ -15,7 +15,7 @@ type MachinesMetadata struct {
 	pulumi.CustomResourceState
 
 	MachineVersion pulumi.StringPtrOutput `pulumi:"machineVersion"`
-	Metadata       pulumi.AnyOutput       `pulumi:"metadata"`
+	Metadata       pulumi.StringMapOutput `pulumi:"metadata"`
 	// Query params to send with the API requests for this resource.
 	QueryParams MachinesMetadataQueryParamsPtrOutput `pulumi:"queryParams"`
 	UpdatedAt   pulumi.StringPtrOutput               `pulumi:"updatedAt"`
@@ -64,9 +64,9 @@ type machinesMetadataArgs struct {
 	// Fly App Name
 	AppName *string `pulumi:"appName"`
 	// Machine ID
-	MachineId      *string     `pulumi:"machineId"`
-	MachineVersion *string     `pulumi:"machineVersion"`
-	Metadata       interface{} `pulumi:"metadata"`
+	MachineId      *string           `pulumi:"machineId"`
+	MachineVersion *string           `pulumi:"machineVersion"`
+	Metadata       map[string]string `pulumi:"metadata"`
 	// Query params to send with the API requests for this resource.
 	QueryParams *MachinesMetadataQueryParams `pulumi:"queryParams"`
 	UpdatedAt   *string                      `pulumi:"updatedAt"`
@@ -79,7 +79,7 @@ type MachinesMetadataArgs struct {
 	// Machine ID
 	MachineId      pulumi.StringPtrInput
 	MachineVersion pulumi.StringPtrInput
-	Metadata       pulumi.Input
+	Metadata       pulumi.StringMapInput
 	// Query params to send with the API requests for this resource.
 	QueryParams MachinesMetadataQueryParamsPtrInput
 	UpdatedAt   pulumi.StringPtrInput
@@ -126,8 +126,8 @@ func (o MachinesMetadataOutput) MachineVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *MachinesMetadata) pulumi.StringPtrOutput { return v.MachineVersion }).(pulumi.StringPtrOutput)
 }
 
-func (o MachinesMetadataOutput) Metadata() pulumi.AnyOutput {
-	return o.ApplyT(func(v *MachinesMetadata) pulumi.AnyOutput { return v.Metadata }).(pulumi.AnyOutput)
+func (o MachinesMetadataOutput) Metadata() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *MachinesMetadata) pulumi.StringMapOutput { return v.Metadata }).(pulumi.StringMapOutput)
 }
 
 // Query params to send with the API requests for this resource.
