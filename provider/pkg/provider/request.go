@@ -90,9 +90,9 @@ func handleCreateMachinesMetadataRequest(httpReq *http.Request) {
 	httpReq.Method = http.MethodPatch
 }
 
-// assignRandomId sets a pseudo id in the outputs map.
+// assignRandomID sets a pseudo id in the outputs map.
 // Some resources don't have an id.
-func assignRandomId(outputs map[string]interface{}) map[string]interface{} {
+func assignRandomID(outputs map[string]interface{}) map[string]interface{} {
 	outputs["id"] = uuid.NewString()
 	return outputs
 }

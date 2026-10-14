@@ -106,13 +106,13 @@ func (p *flyMachinesProvider) OnPostCreate(_ context.Context, req *pulumirpc.Cre
 
 	switch fwRest.GetResourceTypeToken(req.GetUrn()) {
 	case appIPAssignmentTypeToken:
-		return assignRandomId(outputsMap), nil
+		return assignRandomID(outputsMap), nil
 	case machinesMetadataTypeToken:
 		return handleMachinesMetadataPostCreate(req, outputsMap)
 	case secretKeyTypeToken:
 		fallthrough
 	case secretTypeToken:
-		return assignRandomId(outputsMap), nil
+		return assignRandomID(outputsMap), nil
 	default:
 		return outputsMap, nil
 	}
