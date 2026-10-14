@@ -1,3 +1,8 @@
+## 0.0.11
+
+Handle `Secret` and `Secretkey` resources for pseudo-id
+assignment since the API does not assign one.
+
 ## 0.0.10
 
 Fixes the `headers` type in `FlyHTTPResponseOptions`.
