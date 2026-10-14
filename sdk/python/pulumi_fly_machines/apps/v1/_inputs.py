@@ -2682,13 +2682,13 @@ class FlyHTTPOptionsArgs:
 
 
 class FlyHTTPResponseOptionsArgsDict(TypedDict):
-    headers: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]]]]
+    headers: NotRequired[pulumi.Input[Optional[Mapping[str, Any]]]]
     pristine: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
 
 @pulumi.input_type
 class FlyHTTPResponseOptionsArgs:
     def __init__(__self__, *,
-                 headers: pulumi.Input[Optional[Mapping[str, pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]]] = None,
+                 headers: pulumi.Input[Optional[Mapping[str, Any]]] = None,
                  pristine: pulumi.Input[Optional[_builtins.bool]] = None):
         if headers is not None:
             pulumi.set(__self__, "headers", headers)
@@ -2697,11 +2697,11 @@ class FlyHTTPResponseOptionsArgs:
 
     @_builtins.property
     @pulumi.getter
-    def headers(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]]]:
+    def headers(self) -> pulumi.Input[Optional[Mapping[str, Any]]]:
         return pulumi.get(self, "headers")
 
     @headers.setter
-    def headers(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]]]):
+    def headers(self, value: pulumi.Input[Optional[Mapping[str, Any]]]):
         pulumi.set(self, "headers", value)
 
     @_builtins.property

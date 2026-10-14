@@ -2479,7 +2479,7 @@ class FlyHTTPOptions(dict):
 @pulumi.output_type
 class FlyHTTPResponseOptions(dict):
     def __init__(__self__, *,
-                 headers: Optional[Mapping[str, Mapping[str, _builtins.str]]] = None,
+                 headers: Optional[Mapping[str, Any]] = None,
                  pristine: Optional[_builtins.bool] = None):
         if headers is not None:
             pulumi.set(__self__, "headers", headers)
@@ -2488,7 +2488,7 @@ class FlyHTTPResponseOptions(dict):
 
     @_builtins.property
     @pulumi.getter
-    def headers(self) -> Optional[Mapping[str, Mapping[str, _builtins.str]]]:
+    def headers(self) -> Optional[Mapping[str, Any]]:
         return pulumi.get(self, "headers")
 
     @_builtins.property

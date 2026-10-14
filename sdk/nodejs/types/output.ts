@@ -556,7 +556,7 @@ export namespace apps {
         }
 
         export interface FlyHTTPResponseOptions {
-            headers?: {[key: string]: {[key: string]: string}};
+            headers?: {[key: string]: any};
             pristine?: boolean;
         }
 
