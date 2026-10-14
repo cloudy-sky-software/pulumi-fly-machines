@@ -25,11 +25,17 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         [Input("cacheDrive")]
         public Input<Inputs.FlyMachineCacheDriveArgs>? CacheDrive { get; set; }
 
+        [Input("checks")]
+        private InputMap<Inputs.FlyMachineConfigChecksPropertiesArgs>? _checks;
+
         /// <summary>
         /// An optional object that defines one or more named top-level checks. The key for each check is the check name.
         /// </summary>
-        [Input("checks")]
-        public Input<object>? Checks { get; set; }
+        public InputMap<Inputs.FlyMachineConfigChecksPropertiesArgs> Checks
+        {
+            get => _checks ?? (_checks = new InputMap<Inputs.FlyMachineConfigChecksPropertiesArgs>());
+            set => _checks = value;
+        }
 
         [Input("containers")]
         private InputList<Inputs.FlyContainerConfigArgs>? _containers;
@@ -53,11 +59,17 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         [Input("dns")]
         public Input<Inputs.FlyDNSConfigArgs>? Dns { get; set; }
 
+        [Input("env")]
+        private InputMap<string>? _env;
+
         /// <summary>
         /// An object filled with key/value pairs to be set as environment variables
         /// </summary>
-        [Input("env")]
-        public Input<object>? Env { get; set; }
+        public InputMap<string> Env
+        {
+            get => _env ?? (_env = new InputMap<string>());
+            set => _env = value;
+        }
 
         [Input("files")]
         private InputList<Inputs.FlyFileArgs>? _files;
@@ -80,7 +92,12 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         public Input<Inputs.FlyMachineInitArgs>? Init { get; set; }
 
         [Input("metadata")]
-        public Input<object>? Metadata { get; set; }
+        private InputMap<string>? _metadata;
+        public InputMap<string> Metadata
+        {
+            get => _metadata ?? (_metadata = new InputMap<string>());
+            set => _metadata = value;
+        }
 
         [Input("metrics")]
         public Input<Inputs.FlyMachineMetricsArgs>? Metrics { get; set; }

@@ -212,7 +212,7 @@ export namespace apps {
             /**
              * An optional object that defines one or more named top-level checks. The key for each check is the check name.
              */
-            checks?: any | undefined;
+            checks?: pulumi.Input<{[key: string]: pulumi.Input<inputs.apps.v1.FlyMachineConfigChecksPropertiesArgs>} | undefined>;
             /**
              * Containers are a list of containers that will run in the machine. Currently restricted to
              * only specific organizations.
@@ -226,7 +226,7 @@ export namespace apps {
             /**
              * An object filled with key/value pairs to be set as environment variables
              */
-            env?: any | undefined;
+            env?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
             files?: pulumi.Input<pulumi.Input<inputs.apps.v1.FlyFileArgs>[] | undefined>;
             guest?: pulumi.Input<inputs.apps.v1.FlyMachineGuestArgs | undefined>;
             /**
@@ -234,7 +234,7 @@ export namespace apps {
              */
             image?: pulumi.Input<string | undefined>;
             init?: pulumi.Input<inputs.apps.v1.FlyMachineInitArgs | undefined>;
-            metadata?: any | undefined;
+            metadata?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
             metrics?: pulumi.Input<inputs.apps.v1.FlyMachineMetricsArgs | undefined>;
             mounts?: pulumi.Input<pulumi.Input<inputs.apps.v1.FlyMachineMountArgs>[] | undefined>;
             processes?: pulumi.Input<pulumi.Input<inputs.apps.v1.FlyMachineProcessArgs>[] | undefined>;
@@ -276,7 +276,7 @@ export namespace apps {
             /**
              * ExtraEnv is used to add additional environment variables to the container.
              */
-            env?: any | undefined;
+            env?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
             /**
              * EnvFrom can be provided to set environment variables from machine fields.
              */
@@ -520,12 +520,63 @@ export namespace apps {
         }
 
         export interface FlyHTTPResponseOptionsArgs {
-            headers?: any | undefined;
+            headers?: pulumi.Input<{[key: string]: pulumi.Input<{[key: string]: pulumi.Input<string>}>} | undefined>;
             pristine?: pulumi.Input<boolean | undefined>;
         }
 
         export interface FlyMachineCacheDriveArgs {
             sizeMb?: pulumi.Input<number | undefined>;
+        }
+
+        /**
+         * An optional object that defines one or more named top-level checks. The key for each check is the check name.
+         */
+        export interface FlyMachineConfigChecksPropertiesArgs {
+            /**
+             * The time to wait after a VM starts before checking its health
+             */
+            gracePeriod?: pulumi.Input<string | undefined>;
+            headers?: pulumi.Input<pulumi.Input<inputs.apps.v1.FlyMachineHTTPHeaderArgs>[] | undefined>;
+            /**
+             * The time between connectivity checks
+             */
+            interval?: pulumi.Input<string | undefined>;
+            /**
+             * Kind of the check (informational, readiness)
+             */
+            kind?: pulumi.Input<enums.apps.v1.ChecksKind | undefined>;
+            /**
+             * For http checks, the HTTP method to use to when making the request
+             */
+            method?: pulumi.Input<string | undefined>;
+            /**
+             * For http checks, the path to send the request to
+             */
+            path?: pulumi.Input<string | undefined>;
+            /**
+             * The port to connect to, often the same as internal_port
+             */
+            port?: pulumi.Input<number | undefined>;
+            /**
+             * For http checks, whether to use http or https
+             */
+            protocol?: pulumi.Input<string | undefined>;
+            /**
+             * The maximum time a connection can take before being reported as failing its health check
+             */
+            timeout?: pulumi.Input<string | undefined>;
+            /**
+             * If the protocol is https, the hostname to use for TLS certificate validation
+             */
+            tlsServerName?: pulumi.Input<string | undefined>;
+            /**
+             * For http checks with https protocol, whether or not to verify the TLS certificate
+             */
+            tlsSkipVerify?: pulumi.Input<boolean | undefined>;
+            /**
+             * tcp or http
+             */
+            type?: pulumi.Input<string | undefined>;
         }
 
         export interface FlyMachineGuestArgs {
@@ -607,7 +658,7 @@ export namespace apps {
         export interface FlyMachineProcessArgs {
             cmd?: pulumi.Input<pulumi.Input<string>[] | undefined>;
             entrypoint?: pulumi.Input<pulumi.Input<string>[] | undefined>;
-            env?: any | undefined;
+            env?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
             /**
              * EnvFrom can be provided to set environment variables from machine fields.
              */

@@ -17,7 +17,7 @@ type SecretsUpdate struct {
 	// Query params to send with the API requests for this resource.
 	QueryParams SecretsUpdateQueryParamsPtrOutput `pulumi:"queryParams"`
 	Secrets     AppSecretArrayOutput              `pulumi:"secrets"`
-	Values      pulumi.AnyOutput                  `pulumi:"values"`
+	Values      pulumi.StringMapOutput            `pulumi:"values"`
 	Version     pulumi.IntPtrOutput               `pulumi:"version"`
 }
 
@@ -65,7 +65,7 @@ type secretsUpdateArgs struct {
 	AppName *string `pulumi:"appName"`
 	// Query params to send with the API requests for this resource.
 	QueryParams *SecretsUpdateQueryParams `pulumi:"queryParams"`
-	Values      interface{}               `pulumi:"values"`
+	Values      map[string]string         `pulumi:"values"`
 }
 
 // The set of arguments for constructing a SecretsUpdate resource.
@@ -74,7 +74,7 @@ type SecretsUpdateArgs struct {
 	AppName pulumi.StringPtrInput
 	// Query params to send with the API requests for this resource.
 	QueryParams SecretsUpdateQueryParamsPtrInput
-	Values      pulumi.Input
+	Values      pulumi.StringMapInput
 }
 
 func (SecretsUpdateArgs) ElementType() reflect.Type {
@@ -123,8 +123,8 @@ func (o SecretsUpdateOutput) Secrets() AppSecretArrayOutput {
 	return o.ApplyT(func(v *SecretsUpdate) AppSecretArrayOutput { return v.Secrets }).(AppSecretArrayOutput)
 }
 
-func (o SecretsUpdateOutput) Values() pulumi.AnyOutput {
-	return o.ApplyT(func(v *SecretsUpdate) pulumi.AnyOutput { return v.Values }).(pulumi.AnyOutput)
+func (o SecretsUpdateOutput) Values() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *SecretsUpdate) pulumi.StringMapOutput { return v.Values }).(pulumi.StringMapOutput)
 }
 
 func (o SecretsUpdateOutput) Version() pulumi.IntPtrOutput {

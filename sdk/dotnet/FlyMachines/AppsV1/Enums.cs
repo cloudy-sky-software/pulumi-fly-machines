@@ -101,6 +101,37 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
     }
 
     /// <summary>
+    /// Kind of the check (informational, readiness)
+    /// </summary>
+    [EnumType]
+    public readonly struct ChecksKind : IEquatable<ChecksKind>
+    {
+        private readonly string _value;
+
+        private ChecksKind(string value)
+        {
+            _value = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        public static ChecksKind Informational { get; } = new ChecksKind("informational");
+        public static ChecksKind Readiness { get; } = new ChecksKind("readiness");
+
+        public static bool operator ==(ChecksKind left, ChecksKind right) => left.Equals(right);
+        public static bool operator !=(ChecksKind left, ChecksKind right) => !left.Equals(right);
+
+        public static explicit operator string(ChecksKind value) => value._value;
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object? obj) => obj is ChecksKind other && Equals(other);
+        public bool Equals(ChecksKind other) => string.Equals(_value, other._value, StringComparison.Ordinal);
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode() => _value?.GetHashCode() ?? 0;
+
+        public override string ToString() => _value;
+    }
+
+    /// <summary>
     /// FieldRef selects a field of the Machine: supports id, version, app_name, private_ip, region, image.
     /// </summary>
     [EnumType]

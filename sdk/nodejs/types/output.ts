@@ -312,7 +312,7 @@ export namespace apps {
             /**
              * ExtraEnv is used to add additional environment variables to the container.
              */
-            env?: any;
+            env?: {[key: string]: string};
             /**
              * EnvFrom can be provided to set environment variables from machine fields.
              */
@@ -556,7 +556,7 @@ export namespace apps {
         }
 
         export interface FlyHTTPResponseOptions {
-            headers?: any;
+            headers?: {[key: string]: {[key: string]: string}};
             pristine?: boolean;
         }
 
@@ -573,7 +573,7 @@ export namespace apps {
             /**
              * An optional object that defines one or more named top-level checks. The key for each check is the check name.
              */
-            checks?: any;
+            checks?: {[key: string]: outputs.apps.v1.FlyMachineConfigChecksProperties};
             /**
              * Containers are a list of containers that will run in the machine. Currently restricted to
              * only specific organizations.
@@ -587,7 +587,7 @@ export namespace apps {
             /**
              * An object filled with key/value pairs to be set as environment variables
              */
-            env?: any;
+            env?: {[key: string]: string};
             files?: outputs.apps.v1.FlyFile[];
             guest?: outputs.apps.v1.FlyMachineGuest;
             /**
@@ -595,7 +595,7 @@ export namespace apps {
              */
             image?: string;
             init?: outputs.apps.v1.FlyMachineInit;
-            metadata?: any;
+            metadata?: {[key: string]: string};
             metrics?: outputs.apps.v1.FlyMachineMetrics;
             mounts?: outputs.apps.v1.FlyMachineMount[];
             processes?: outputs.apps.v1.FlyMachineProcess[];
@@ -618,6 +618,57 @@ export namespace apps {
             standbys?: string[];
             statics?: outputs.apps.v1.FlyStatic[];
             stopConfig?: outputs.apps.v1.FlyStopConfig;
+        }
+
+        /**
+         * An optional object that defines one or more named top-level checks. The key for each check is the check name.
+         */
+        export interface FlyMachineConfigChecksProperties {
+            /**
+             * The time to wait after a VM starts before checking its health
+             */
+            gracePeriod?: string;
+            headers?: outputs.apps.v1.FlyMachineHTTPHeader[];
+            /**
+             * The time between connectivity checks
+             */
+            interval?: string;
+            /**
+             * Kind of the check (informational, readiness)
+             */
+            kind?: enums.apps.v1.ChecksKind;
+            /**
+             * For http checks, the HTTP method to use to when making the request
+             */
+            method?: string;
+            /**
+             * For http checks, the path to send the request to
+             */
+            path?: string;
+            /**
+             * The port to connect to, often the same as internal_port
+             */
+            port?: number;
+            /**
+             * For http checks, whether to use http or https
+             */
+            protocol?: string;
+            /**
+             * The maximum time a connection can take before being reported as failing its health check
+             */
+            timeout?: string;
+            /**
+             * If the protocol is https, the hostname to use for TLS certificate validation
+             */
+            tlsServerName?: string;
+            /**
+             * For http checks with https protocol, whether or not to verify the TLS certificate
+             */
+            tlsSkipVerify?: boolean;
+            /**
+             * tcp or http
+             */
+            type?: string;
         }
 
         export interface FlyMachineGuest {
@@ -699,7 +750,7 @@ export namespace apps {
         export interface FlyMachineProcess {
             cmd?: string[];
             entrypoint?: string[];
-            env?: any;
+            env?: {[key: string]: string};
             /**
              * EnvFrom can be provided to set environment variables from machine fields.
              */
@@ -905,7 +956,7 @@ export namespace apps {
 
         export interface ImageRef {
             digest?: string;
-            labels?: any;
+            labels?: {[key: string]: string};
             registry?: string;
             repository?: string;
             tag?: string;
@@ -1859,7 +1910,7 @@ export namespace orgs {
         export interface MachineOverviewConfig {
             guest?: outputs.orgs.v1.FlyMachineGuest;
             image?: string;
-            metadata?: any;
+            metadata?: {[key: string]: string};
         }
 
         export interface OrgMachine {

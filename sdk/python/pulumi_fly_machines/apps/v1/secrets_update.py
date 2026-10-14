@@ -23,7 +23,7 @@ class SecretsUpdateArgs:
     def __init__(__self__, *,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  query_params: pulumi.Input[Optional['SecretsUpdateQueryParamsArgs']] = None,
-                 values: Optional[Any] = None):
+                 values: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
         """
         The set of arguments for constructing a SecretsUpdate resource.
 
@@ -63,11 +63,11 @@ class SecretsUpdateArgs:
 
     @_builtins.property
     @pulumi.getter
-    def values(self) -> Optional[Any]:
+    def values(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
         return pulumi.get(self, "values")
 
     @values.setter
-    def values(self, value: Optional[Any]):
+    def values(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "values", value)
 
 
@@ -79,7 +79,7 @@ class SecretsUpdate(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  query_params: pulumi.Input[Optional[Union['SecretsUpdateQueryParamsArgs', 'SecretsUpdateQueryParamsArgsDict', 'outputs.SecretsUpdateQueryParams']]] = None,
-                 values: Optional[Any] = None,
+                 values: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
                  __props__=None):
         """
         Create a SecretsUpdate resource with the given unique name, props, and options.
@@ -115,7 +115,7 @@ class SecretsUpdate(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  query_params: pulumi.Input[Optional[Union['SecretsUpdateQueryParamsArgs', 'SecretsUpdateQueryParamsArgsDict', 'outputs.SecretsUpdateQueryParams']]] = None,
-                 values: Optional[Any] = None,
+                 values: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -173,7 +173,7 @@ class SecretsUpdate(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter
-    def values(self) -> pulumi.Output[Optional[Any]]:
+    def values(self) -> pulumi.Output[Optional[Mapping[str, _builtins.str]]]:
         return pulumi.get(self, "values")
 
     @_builtins.property

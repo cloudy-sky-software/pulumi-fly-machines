@@ -30,7 +30,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         /// <summary>
         /// ExtraEnv is used to add additional environment variables to the container.
         /// </summary>
-        public readonly object? Env;
+        public readonly ImmutableDictionary<string, string>? Env;
         /// <summary>
         /// EnvFrom can be provided to set environment variables from machine fields.
         /// </summary>
@@ -83,7 +83,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
 
             ImmutableArray<string> entrypoint,
 
-            object? env,
+            ImmutableDictionary<string, string>? env,
 
             ImmutableArray<Outputs.FlyEnvFrom> envFrom,
 

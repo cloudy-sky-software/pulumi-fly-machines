@@ -597,6 +597,20 @@
             },
             "type": "object"
         },
+        "fly-machines:apps/v1:ChecksKind": {
+            "description": "Kind of the check (informational, readiness)",
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Informational",
+                    "value": "informational"
+                },
+                {
+                    "name": "Readiness",
+                    "value": "readiness"
+                }
+            ]
+        },
         "fly-machines:apps/v1:Config": {
             "description": "An object defining the Machine configuration",
             "properties": {
@@ -608,7 +622,10 @@
                     "$ref": "#/types/fly-machines:apps/v1:FlyMachineCacheDrive"
                 },
                 "checks": {
-                    "$ref": "pulumi.json#/Any",
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigChecksProperties"
+                    },
                     "description": "An optional object that defines one or more named top-level checks. The key for each check is the check name."
                 },
                 "containers": {
@@ -626,7 +643,10 @@
                     "$ref": "#/types/fly-machines:apps/v1:FlyDNSConfig"
                 },
                 "env": {
-                    "$ref": "pulumi.json#/Any",
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
                     "description": "An object filled with key/value pairs to be set as environment variables"
                 },
                 "files": {
@@ -646,7 +666,10 @@
                     "$ref": "#/types/fly-machines:apps/v1:FlyMachineInit"
                 },
                 "metadata": {
-                    "$ref": "pulumi.json#/Any"
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 },
                 "metrics": {
                     "$ref": "#/types/fly-machines:apps/v1:FlyMachineMetrics"
@@ -793,7 +816,10 @@
                     "description": "EntrypointOverride is used to override the default entrypoint of the image."
                 },
                 "env": {
-                    "$ref": "pulumi.json#/Any",
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
                     "description": "ExtraEnv is used to add additional environment variables to the container."
                 },
                 "envFrom": {
@@ -1159,7 +1185,10 @@
         "fly-machines:apps/v1:FlyHTTPResponseOptions": {
             "properties": {
                 "headers": {
-                    "$ref": "pulumi.json#/Any"
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "object"
+                    }
                 },
                 "pristine": {
                     "type": "boolean"
@@ -1185,7 +1214,10 @@
                     "$ref": "#/types/fly-machines:apps/v1:FlyMachineCacheDrive"
                 },
                 "checks": {
-                    "$ref": "pulumi.json#/Any",
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigChecksProperties"
+                    },
                     "description": "An optional object that defines one or more named top-level checks. The key for each check is the check name."
                 },
                 "containers": {
@@ -1203,7 +1235,10 @@
                     "$ref": "#/types/fly-machines:apps/v1:FlyDNSConfig"
                 },
                 "env": {
-                    "$ref": "pulumi.json#/Any",
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
                     "description": "An object filled with key/value pairs to be set as environment variables"
                 },
                 "files": {
@@ -1223,7 +1258,10 @@
                     "$ref": "#/types/fly-machines:apps/v1:FlyMachineInit"
                 },
                 "metadata": {
-                    "$ref": "pulumi.json#/Any"
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 },
                 "metrics": {
                     "$ref": "#/types/fly-machines:apps/v1:FlyMachineMetrics"
@@ -1278,6 +1316,62 @@
                 },
                 "stopConfig": {
                     "$ref": "#/types/fly-machines:apps/v1:FlyStopConfig"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:FlyMachineConfigChecksProperties": {
+            "description": "An optional object that defines one or more named top-level checks. The key for each check is the check name.",
+            "properties": {
+                "gracePeriod": {
+                    "type": "string",
+                    "description": "The time to wait after a VM starts before checking its health"
+                },
+                "headers": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps/v1:FlyMachineHTTPHeader"
+                    }
+                },
+                "interval": {
+                    "type": "string",
+                    "description": "The time between connectivity checks"
+                },
+                "kind": {
+                    "$ref": "#/types/fly-machines:apps/v1:ChecksKind",
+                    "description": "Kind of the check (informational, readiness)"
+                },
+                "method": {
+                    "type": "string",
+                    "description": "For http checks, the HTTP method to use to when making the request"
+                },
+                "path": {
+                    "type": "string",
+                    "description": "For http checks, the path to send the request to"
+                },
+                "port": {
+                    "type": "integer",
+                    "description": "The port to connect to, often the same as internal_port"
+                },
+                "protocol": {
+                    "type": "string",
+                    "description": "For http checks, whether to use http or https"
+                },
+                "timeout": {
+                    "type": "string",
+                    "description": "The maximum time a connection can take before being reported as failing its health check"
+                },
+                "tlsServerName": {
+                    "type": "string",
+                    "description": "If the protocol is https, the hostname to use for TLS certificate validation"
+                },
+                "tlsSkipVerify": {
+                    "type": "boolean",
+                    "description": "For http checks with https protocol, whether or not to verify the TLS certificate"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "tcp or http"
                 }
             },
             "type": "object"
@@ -1492,7 +1586,10 @@
                     }
                 },
                 "env": {
-                    "$ref": "pulumi.json#/Any"
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 },
                 "envFrom": {
                     "type": "array",
@@ -2149,7 +2246,10 @@
                     "type": "string"
                 },
                 "labels": {
-                    "$ref": "pulumi.json#/Any"
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 },
                 "registry": {
                     "type": "string"
@@ -4131,7 +4231,10 @@
                     "type": "string"
                 },
                 "metadata": {
-                    "$ref": "pulumi.json#/Any"
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 }
             },
             "type": "object"
@@ -6733,7 +6836,10 @@
                     "type": "string"
                 },
                 "metadata": {
-                    "$ref": "pulumi.json#/Any"
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 },
                 "queryParams": {
                     "$ref": "#/types/fly-machines:apps/v1:MachinesMetadataQueryParams",
@@ -6757,7 +6863,10 @@
                     "type": "string"
                 },
                 "metadata": {
-                    "$ref": "pulumi.json#/Any"
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 },
                 "queryParams": {
                     "$ref": "#/types/fly-machines:apps/v1:MachinesMetadataQueryParams",
@@ -7364,7 +7473,10 @@
                     }
                 },
                 "values": {
-                    "$ref": "pulumi.json#/Any"
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 },
                 "version": {
                     "type": "integer"
@@ -7381,7 +7493,10 @@
                     "description": "Query params to send with the API requests for this resource."
                 },
                 "values": {
-                    "$ref": "pulumi.json#/Any"
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 }
             }
         },

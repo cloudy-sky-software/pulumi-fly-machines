@@ -16,7 +16,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     {
         public readonly ImmutableArray<string> Cmd;
         public readonly ImmutableArray<string> Entrypoint;
-        public readonly object? Env;
+        public readonly ImmutableDictionary<string, string>? Env;
         /// <summary>
         /// EnvFrom can be provided to set environment variables from machine fields.
         /// </summary>
@@ -41,7 +41,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
 
             ImmutableArray<string> entrypoint,
 
-            object? env,
+            ImmutableDictionary<string, string>? env,
 
             ImmutableArray<Outputs.FlyEnvFrom> envFrom,
 

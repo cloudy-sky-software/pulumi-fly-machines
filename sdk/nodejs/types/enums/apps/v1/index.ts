@@ -32,6 +32,16 @@ export const CertificateEntryStatus = {
 
 export type CertificateEntryStatus = (typeof CertificateEntryStatus)[keyof typeof CertificateEntryStatus];
 
+export const ChecksKind = {
+    Informational: "informational",
+    Readiness: "readiness",
+} as const;
+
+/**
+ * Kind of the check (informational, readiness)
+ */
+export type ChecksKind = (typeof ChecksKind)[keyof typeof ChecksKind];
+
 export const FlyEnvFromFieldRef = {
     Id: "id",
     Version: "version",

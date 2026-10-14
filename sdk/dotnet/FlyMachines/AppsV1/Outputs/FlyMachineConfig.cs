@@ -22,7 +22,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         /// <summary>
         /// An optional object that defines one or more named top-level checks. The key for each check is the check name.
         /// </summary>
-        public readonly object? Checks;
+        public readonly ImmutableDictionary<string, Outputs.FlyMachineConfigChecksProperties>? Checks;
         /// <summary>
         /// Containers are a list of containers that will run in the machine. Currently restricted to
         /// only specific organizations.
@@ -36,7 +36,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         /// <summary>
         /// An object filled with key/value pairs to be set as environment variables
         /// </summary>
-        public readonly object? Env;
+        public readonly ImmutableDictionary<string, string>? Env;
         public readonly ImmutableArray<Outputs.FlyFile> Files;
         public readonly Outputs.FlyMachineGuest? Guest;
         /// <summary>
@@ -44,7 +44,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         /// </summary>
         public readonly string? Image;
         public readonly Outputs.FlyMachineInit? Init;
-        public readonly object? Metadata;
+        public readonly ImmutableDictionary<string, string>? Metadata;
         public readonly Outputs.FlyMachineMetrics? Metrics;
         public readonly ImmutableArray<Outputs.FlyMachineMount> Mounts;
         public readonly ImmutableArray<Outputs.FlyMachineProcess> Processes;
@@ -74,7 +74,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
 
             Outputs.FlyMachineCacheDrive? cacheDrive,
 
-            object? checks,
+            ImmutableDictionary<string, Outputs.FlyMachineConfigChecksProperties>? checks,
 
             ImmutableArray<Outputs.FlyContainerConfig> containers,
 
@@ -82,7 +82,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
 
             Outputs.FlyDNSConfig? dns,
 
-            object? env,
+            ImmutableDictionary<string, string>? env,
 
             ImmutableArray<Outputs.FlyFile> files,
 
@@ -92,7 +92,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
 
             Outputs.FlyMachineInit? init,
 
-            object? metadata,
+            ImmutableDictionary<string, string>? metadata,
 
             Outputs.FlyMachineMetrics? metrics,
 
