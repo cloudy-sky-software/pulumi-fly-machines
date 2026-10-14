@@ -6530,8 +6530,8 @@ func (o FlyHTTPOptionsPtrOutput) Response() FlyHTTPResponseOptionsPtrOutput {
 }
 
 type FlyHTTPResponseOptions struct {
-	Headers  map[string]map[string]string `pulumi:"headers"`
-	Pristine *bool                        `pulumi:"pristine"`
+	Headers  map[string]interface{} `pulumi:"headers"`
+	Pristine *bool                  `pulumi:"pristine"`
 }
 
 // FlyHTTPResponseOptionsInput is an input type that accepts FlyHTTPResponseOptionsArgs and FlyHTTPResponseOptionsOutput values.
@@ -6546,8 +6546,8 @@ type FlyHTTPResponseOptionsInput interface {
 }
 
 type FlyHTTPResponseOptionsArgs struct {
-	Headers  pulumi.StringMapMapInput `pulumi:"headers"`
-	Pristine pulumi.BoolPtrInput      `pulumi:"pristine"`
+	Headers  pulumi.MapInput     `pulumi:"headers"`
+	Pristine pulumi.BoolPtrInput `pulumi:"pristine"`
 }
 
 func (FlyHTTPResponseOptionsArgs) ElementType() reflect.Type {
@@ -6627,8 +6627,8 @@ func (o FlyHTTPResponseOptionsOutput) ToFlyHTTPResponseOptionsPtrOutputWithConte
 	}).(FlyHTTPResponseOptionsPtrOutput)
 }
 
-func (o FlyHTTPResponseOptionsOutput) Headers() pulumi.StringMapMapOutput {
-	return o.ApplyT(func(v FlyHTTPResponseOptions) map[string]map[string]string { return v.Headers }).(pulumi.StringMapMapOutput)
+func (o FlyHTTPResponseOptionsOutput) Headers() pulumi.MapOutput {
+	return o.ApplyT(func(v FlyHTTPResponseOptions) map[string]interface{} { return v.Headers }).(pulumi.MapOutput)
 }
 
 func (o FlyHTTPResponseOptionsOutput) Pristine() pulumi.BoolPtrOutput {
@@ -6659,13 +6659,13 @@ func (o FlyHTTPResponseOptionsPtrOutput) Elem() FlyHTTPResponseOptionsOutput {
 	}).(FlyHTTPResponseOptionsOutput)
 }
 
-func (o FlyHTTPResponseOptionsPtrOutput) Headers() pulumi.StringMapMapOutput {
-	return o.ApplyT(func(v *FlyHTTPResponseOptions) map[string]map[string]string {
+func (o FlyHTTPResponseOptionsPtrOutput) Headers() pulumi.MapOutput {
+	return o.ApplyT(func(v *FlyHTTPResponseOptions) map[string]interface{} {
 		if v == nil {
 			return nil
 		}
 		return v.Headers
-	}).(pulumi.StringMapMapOutput)
+	}).(pulumi.MapOutput)
 }
 
 func (o FlyHTTPResponseOptionsPtrOutput) Pristine() pulumi.BoolPtrOutput {

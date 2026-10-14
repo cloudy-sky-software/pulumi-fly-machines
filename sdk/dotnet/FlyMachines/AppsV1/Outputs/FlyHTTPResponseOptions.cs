@@ -14,12 +14,12 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     [OutputType]
     public sealed class FlyHTTPResponseOptions
     {
-        public readonly ImmutableDictionary<string, ImmutableDictionary<string, string>>? Headers;
+        public readonly ImmutableDictionary<string, object>? Headers;
         public readonly bool? Pristine;
 
         [OutputConstructor]
         private FlyHTTPResponseOptions(
-            ImmutableDictionary<string, ImmutableDictionary<string, string>>? headers,
+            ImmutableDictionary<string, object>? headers,
 
             bool? pristine)
         {

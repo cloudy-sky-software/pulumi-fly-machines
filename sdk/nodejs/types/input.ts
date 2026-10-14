@@ -520,7 +520,7 @@ export namespace apps {
         }
 
         export interface FlyHTTPResponseOptionsArgs {
-            headers?: pulumi.Input<{[key: string]: pulumi.Input<{[key: string]: pulumi.Input<string>}>} | undefined>;
+            headers?: pulumi.Input<{[key: string]: any} | undefined>;
             pristine?: pulumi.Input<boolean | undefined>;
         }
 

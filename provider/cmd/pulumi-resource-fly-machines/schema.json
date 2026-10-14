@@ -1187,7 +1187,7 @@
                 "headers": {
                     "type": "object",
                     "additionalProperties": {
-                        "type": "object"
+                        "$ref": "pulumi.json#/Any"
                     }
                 },
                 "pristine": {
