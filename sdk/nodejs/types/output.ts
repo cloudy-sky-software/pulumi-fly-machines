@@ -2505,6 +2505,29 @@ export namespace postgres {
             port?: number;
         }
 
+        export interface PostgresPlan {
+            /**
+             * CPU class.
+             */
+            cpuKind?: enums.postgres.v1.PostgresPlanCpuKind;
+            /**
+             * vCPUs per node.
+             */
+            cpus?: number;
+            /**
+             * Memory per node in megabytes.
+             */
+            memoryMb?: number;
+            /**
+             * Base monthly price in US dollars.
+             */
+            monthlyPriceUsd?: number;
+            /**
+             * Plan slug. Pass it as `plan` when creating or forking a cluster.
+             */
+            plan?: enums.postgres.v1.PostgresPlanPlan;
+        }
+
         /**
          * Query params for each of the operations of the resource.
          */

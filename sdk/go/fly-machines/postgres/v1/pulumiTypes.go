@@ -985,6 +985,74 @@ type ListPostgresExtensionsResponse struct {
 }
 
 // Query params for the API request.
+type ListPostgresPlansQueryParams struct {
+	// Additional query params to send with the request that are not defined in the API spec.
+	AdditionalParams map[string]string `pulumi:"additionalParams"`
+	// Fly Organization Slug, or 'personal' for the caller's personal organization
+	OrgSlug string `pulumi:"orgSlug"`
+}
+
+// ListPostgresPlansQueryParamsInput is an input type that accepts ListPostgresPlansQueryParamsArgs and ListPostgresPlansQueryParamsOutput values.
+// You can construct a concrete instance of `ListPostgresPlansQueryParamsInput` via:
+//
+//	ListPostgresPlansQueryParamsArgs{...}
+type ListPostgresPlansQueryParamsInput interface {
+	pulumi.Input
+
+	ToListPostgresPlansQueryParamsOutput() ListPostgresPlansQueryParamsOutput
+	ToListPostgresPlansQueryParamsOutputWithContext(context.Context) ListPostgresPlansQueryParamsOutput
+}
+
+// Query params for the API request.
+type ListPostgresPlansQueryParamsArgs struct {
+	// Additional query params to send with the request that are not defined in the API spec.
+	AdditionalParams pulumi.StringMapInput `pulumi:"additionalParams"`
+	// Fly Organization Slug, or 'personal' for the caller's personal organization
+	OrgSlug pulumi.StringInput `pulumi:"orgSlug"`
+}
+
+func (ListPostgresPlansQueryParamsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ListPostgresPlansQueryParams)(nil)).Elem()
+}
+
+func (i ListPostgresPlansQueryParamsArgs) ToListPostgresPlansQueryParamsOutput() ListPostgresPlansQueryParamsOutput {
+	return i.ToListPostgresPlansQueryParamsOutputWithContext(context.Background())
+}
+
+func (i ListPostgresPlansQueryParamsArgs) ToListPostgresPlansQueryParamsOutputWithContext(ctx context.Context) ListPostgresPlansQueryParamsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ListPostgresPlansQueryParamsOutput)
+}
+
+// Query params for the API request.
+type ListPostgresPlansQueryParamsOutput struct{ *pulumi.OutputState }
+
+func (ListPostgresPlansQueryParamsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ListPostgresPlansQueryParams)(nil)).Elem()
+}
+
+func (o ListPostgresPlansQueryParamsOutput) ToListPostgresPlansQueryParamsOutput() ListPostgresPlansQueryParamsOutput {
+	return o
+}
+
+func (o ListPostgresPlansQueryParamsOutput) ToListPostgresPlansQueryParamsOutputWithContext(ctx context.Context) ListPostgresPlansQueryParamsOutput {
+	return o
+}
+
+// Additional query params to send with the request that are not defined in the API spec.
+func (o ListPostgresPlansQueryParamsOutput) AdditionalParams() pulumi.StringMapOutput {
+	return o.ApplyT(func(v ListPostgresPlansQueryParams) map[string]string { return v.AdditionalParams }).(pulumi.StringMapOutput)
+}
+
+// Fly Organization Slug, or 'personal' for the caller's personal organization
+func (o ListPostgresPlansQueryParamsOutput) OrgSlug() pulumi.StringOutput {
+	return o.ApplyT(func(v ListPostgresPlansQueryParams) string { return v.OrgSlug }).(pulumi.StringOutput)
+}
+
+type ListPostgresPlansResponse struct {
+	Data []PostgresPlan `pulumi:"data"`
+}
+
+// Query params for the API request.
 type ListPostgresQueryParams struct {
 	// Additional query params to send with the request that are not defined in the API spec.
 	AdditionalParams map[string]string `pulumi:"additionalParams"`
@@ -4746,6 +4814,78 @@ func (o PostgresNodeEndpointsPoolerPtrOutput) Port() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
+type PostgresPlan struct {
+	// CPU class.
+	CpuKind *PostgresPlanCpuKind `pulumi:"cpuKind"`
+	// vCPUs per node.
+	Cpus *int `pulumi:"cpus"`
+	// Memory per node in megabytes.
+	MemoryMb *int `pulumi:"memoryMb"`
+	// Base monthly price in US dollars.
+	MonthlyPriceUsd *int `pulumi:"monthlyPriceUsd"`
+	// Plan slug. Pass it as `plan` when creating or forking a cluster.
+	Plan *PostgresPlanPlan `pulumi:"plan"`
+}
+
+type PostgresPlanOutput struct{ *pulumi.OutputState }
+
+func (PostgresPlanOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PostgresPlan)(nil)).Elem()
+}
+
+func (o PostgresPlanOutput) ToPostgresPlanOutput() PostgresPlanOutput {
+	return o
+}
+
+func (o PostgresPlanOutput) ToPostgresPlanOutputWithContext(ctx context.Context) PostgresPlanOutput {
+	return o
+}
+
+// CPU class.
+func (o PostgresPlanOutput) CpuKind() PostgresPlanCpuKindPtrOutput {
+	return o.ApplyT(func(v PostgresPlan) *PostgresPlanCpuKind { return v.CpuKind }).(PostgresPlanCpuKindPtrOutput)
+}
+
+// vCPUs per node.
+func (o PostgresPlanOutput) Cpus() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PostgresPlan) *int { return v.Cpus }).(pulumi.IntPtrOutput)
+}
+
+// Memory per node in megabytes.
+func (o PostgresPlanOutput) MemoryMb() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PostgresPlan) *int { return v.MemoryMb }).(pulumi.IntPtrOutput)
+}
+
+// Base monthly price in US dollars.
+func (o PostgresPlanOutput) MonthlyPriceUsd() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PostgresPlan) *int { return v.MonthlyPriceUsd }).(pulumi.IntPtrOutput)
+}
+
+// Plan slug. Pass it as `plan` when creating or forking a cluster.
+func (o PostgresPlanOutput) Plan() PostgresPlanPlanPtrOutput {
+	return o.ApplyT(func(v PostgresPlan) *PostgresPlanPlan { return v.Plan }).(PostgresPlanPlanPtrOutput)
+}
+
+type PostgresPlanArrayOutput struct{ *pulumi.OutputState }
+
+func (PostgresPlanArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PostgresPlan)(nil)).Elem()
+}
+
+func (o PostgresPlanArrayOutput) ToPostgresPlanArrayOutput() PostgresPlanArrayOutput {
+	return o
+}
+
+func (o PostgresPlanArrayOutput) ToPostgresPlanArrayOutputWithContext(ctx context.Context) PostgresPlanArrayOutput {
+	return o
+}
+
+func (o PostgresPlanArrayOutput) Index(i pulumi.IntInput) PostgresPlanOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PostgresPlan {
+		return vs[0].([]PostgresPlan)[vs[1].(int)]
+	}).(PostgresPlanOutput)
+}
+
 // Query params for each of the operations of the resource.
 type PostgresQueryParams struct {
 	// Query params for the create operation.
@@ -6346,6 +6486,7 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ListPostgresDatabasesQueryParamsPtrInput)(nil)).Elem(), ListPostgresDatabasesQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ListPostgresExtensionsQueryParamsInput)(nil)).Elem(), ListPostgresExtensionsQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ListPostgresExtensionsQueryParamsPtrInput)(nil)).Elem(), ListPostgresExtensionsQueryParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ListPostgresPlansQueryParamsInput)(nil)).Elem(), ListPostgresPlansQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ListPostgresQueryParamsInput)(nil)).Elem(), ListPostgresQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ListPostgresUsersQueryParamsInput)(nil)).Elem(), ListPostgresUsersQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ListPostgresUsersQueryParamsPtrInput)(nil)).Elem(), ListPostgresUsersQueryParamsArgs{})
@@ -6410,6 +6551,7 @@ func init() {
 	pulumi.RegisterOutputType(ListPostgresDatabasesQueryParamsPtrOutput{})
 	pulumi.RegisterOutputType(ListPostgresExtensionsQueryParamsOutput{})
 	pulumi.RegisterOutputType(ListPostgresExtensionsQueryParamsPtrOutput{})
+	pulumi.RegisterOutputType(ListPostgresPlansQueryParamsOutput{})
 	pulumi.RegisterOutputType(ListPostgresQueryParamsOutput{})
 	pulumi.RegisterOutputType(ListPostgresUsersQueryParamsOutput{})
 	pulumi.RegisterOutputType(ListPostgresUsersQueryParamsPtrOutput{})
@@ -6472,6 +6614,8 @@ func init() {
 	pulumi.RegisterOutputType(PostgresNodeEndpointsDirectPtrOutput{})
 	pulumi.RegisterOutputType(PostgresNodeEndpointsPoolerOutput{})
 	pulumi.RegisterOutputType(PostgresNodeEndpointsPoolerPtrOutput{})
+	pulumi.RegisterOutputType(PostgresPlanOutput{})
+	pulumi.RegisterOutputType(PostgresPlanArrayOutput{})
 	pulumi.RegisterOutputType(PostgresQueryParamsOutput{})
 	pulumi.RegisterOutputType(PostgresQueryParamsPtrOutput{})
 	pulumi.RegisterOutputType(PostgresReadQueryParamsOutput{})

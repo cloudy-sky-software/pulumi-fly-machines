@@ -23,17 +23,21 @@ __all__ = ['PostgresForkArgs', 'PostgresFork']
 class PostgresForkArgs:
     def __init__(__self__, *,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
+                 plan: pulumi.Input[Optional['Plan']] = None,
                  postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
                  query_params: pulumi.Input[Optional['PostgresForkQueryParamsArgs']] = None):
         """
         The set of arguments for constructing a PostgresFork resource.
 
         :param pulumi.Input[_builtins.str] name: Name for the forked cluster. Defaults to the source name with a -fork suffix.
+        :param pulumi.Input['Plan'] plan: Plan slug selecting CPU and memory sizing for the fork. Defaults to the source cluster's plan. Matched case-insensitively.
         :param pulumi.Input[_builtins.str] postgres_cluster_id: Managed Postgres Cluster ID
         :param pulumi.Input['PostgresForkQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         """
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if plan is not None:
+            pulumi.set(__self__, "plan", plan)
         if postgres_cluster_id is not None:
             pulumi.set(__self__, "postgres_cluster_id", postgres_cluster_id)
         if query_params is not None:
@@ -50,6 +54,18 @@ class PostgresForkArgs:
     @name.setter
     def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def plan(self) -> pulumi.Input[Optional['Plan']]:
+        """
+        Plan slug selecting CPU and memory sizing for the fork. Defaults to the source cluster's plan. Matched case-insensitively.
+        """
+        return pulumi.get(self, "plan")
+
+    @plan.setter
+    def plan(self, value: pulumi.Input[Optional['Plan']]):
+        pulumi.set(self, "plan", value)
 
     @_builtins.property
     @pulumi.getter(name="postgresClusterId")
@@ -83,6 +99,7 @@ class PostgresFork(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
+                 plan: pulumi.Input[Optional['Plan']] = None,
                  postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
                  query_params: pulumi.Input[Optional[Union['PostgresForkQueryParamsArgs', 'PostgresForkQueryParamsArgsDict', 'outputs.PostgresForkQueryParams']]] = None,
                  __props__=None):
@@ -92,6 +109,7 @@ class PostgresFork(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] name: Name for the forked cluster. Defaults to the source name with a -fork suffix.
+        :param pulumi.Input['Plan'] plan: Plan slug selecting CPU and memory sizing for the fork. Defaults to the source cluster's plan. Matched case-insensitively.
         :param pulumi.Input[_builtins.str] postgres_cluster_id: Managed Postgres Cluster ID
         :param pulumi.Input[Union['PostgresForkQueryParamsArgs', 'PostgresForkQueryParamsArgsDict', 'outputs.PostgresForkQueryParams']] query_params: Query params to send with the API requests for this resource.
         """
@@ -120,6 +138,7 @@ class PostgresFork(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
+                 plan: pulumi.Input[Optional['Plan']] = None,
                  postgres_cluster_id: pulumi.Input[Optional[_builtins.str]] = None,
                  query_params: pulumi.Input[Optional[Union['PostgresForkQueryParamsArgs', 'PostgresForkQueryParamsArgsDict', 'outputs.PostgresForkQueryParams']]] = None,
                  __props__=None):
@@ -132,6 +151,7 @@ class PostgresFork(pulumi.CustomResource):
             __props__ = PostgresForkArgs.__new__(PostgresForkArgs)
 
             __props__.__dict__["name"] = name
+            __props__.__dict__["plan"] = plan
             __props__.__dict__["postgres_cluster_id"] = postgres_cluster_id
             __props__.__dict__["query_params"] = query_params
             __props__.__dict__["data"] = None
@@ -159,6 +179,7 @@ class PostgresFork(pulumi.CustomResource):
 
         __props__.__dict__["data"] = None
         __props__.__dict__["name"] = None
+        __props__.__dict__["plan"] = None
         __props__.__dict__["query_params"] = None
         return PostgresFork(resource_name, opts=opts, __props__=__props__)
 
@@ -174,6 +195,14 @@ class PostgresFork(pulumi.CustomResource):
         Name for the forked cluster. Defaults to the source name with a -fork suffix.
         """
         return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter
+    def plan(self) -> pulumi.Output[Optional['Plan']]:
+        """
+        Plan slug selecting CPU and memory sizing for the fork. Defaults to the source cluster's plan. Matched case-insensitively.
+        """
+        return pulumi.get(self, "plan")
 
     @_builtins.property
     @pulumi.getter(name="queryParams")

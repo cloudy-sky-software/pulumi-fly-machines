@@ -23,6 +23,12 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.PostgresV1
         public Output<string?> Name { get; private set; } = null!;
 
         /// <summary>
+        /// Plan slug selecting CPU and memory sizing for the fork. Defaults to the source cluster's plan. Matched case-insensitively.
+        /// </summary>
+        [Output("plan")]
+        public Output<CloudySkySoftware.Pulumi.FlyMachines.PostgresV1.Plan?> Plan { get; private set; } = null!;
+
+        /// <summary>
         /// Query params to send with the API requests for this resource.
         /// </summary>
         [Output("queryParams")]
@@ -79,6 +85,12 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.PostgresV1
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
+
+        /// <summary>
+        /// Plan slug selecting CPU and memory sizing for the fork. Defaults to the source cluster's plan. Matched case-insensitively.
+        /// </summary>
+        [Input("plan")]
+        public Input<CloudySkySoftware.Pulumi.FlyMachines.PostgresV1.Plan>? Plan { get; set; }
 
         /// <summary>
         /// Managed Postgres Cluster ID

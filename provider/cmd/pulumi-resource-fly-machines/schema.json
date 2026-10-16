@@ -4763,6 +4763,37 @@
             },
             "type": "object"
         },
+        "fly-machines:postgres/v1:ListPostgresPlansQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                },
+                "orgSlug": {
+                    "type": "string",
+                    "description": "Fly Organization Slug, or 'personal' for the caller's personal organization"
+                }
+            },
+            "type": "object",
+            "required": [
+                "orgSlug"
+            ]
+        },
+        "fly-machines:postgres/v1:ListPostgresPlansResponse": {
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:postgres/v1:PostgresPlan"
+                    }
+                }
+            },
+            "type": "object"
+        },
         "fly-machines:postgres/v1:ListPostgresQueryParams": {
             "description": "Query params for the API request.",
             "properties": {
@@ -5565,6 +5596,71 @@
                 }
             },
             "type": "object"
+        },
+        "fly-machines:postgres/v1:PostgresPlan": {
+            "properties": {
+                "cpuKind": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresPlanCpuKind",
+                    "description": "CPU class."
+                },
+                "cpus": {
+                    "type": "integer",
+                    "description": "vCPUs per node."
+                },
+                "memoryMb": {
+                    "type": "integer",
+                    "description": "Memory per node in megabytes."
+                },
+                "monthlyPriceUsd": {
+                    "type": "integer",
+                    "description": "Base monthly price in US dollars."
+                },
+                "plan": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresPlanPlan",
+                    "description": "Plan slug. Pass it as `plan` when creating or forking a cluster."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres/v1:PostgresPlanCpuKind": {
+            "description": "CPU class.",
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Shared",
+                    "value": "shared"
+                },
+                {
+                    "name": "Performance",
+                    "value": "performance"
+                }
+            ]
+        },
+        "fly-machines:postgres/v1:PostgresPlanPlan": {
+            "description": "Plan slug. Pass it as `plan` when creating or forking a cluster.",
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Basic",
+                    "value": "basic"
+                },
+                {
+                    "name": "Starter",
+                    "value": "starter"
+                },
+                {
+                    "name": "Launch",
+                    "value": "launch"
+                },
+                {
+                    "name": "Scale",
+                    "value": "scale"
+                },
+                {
+                    "name": "Performance",
+                    "value": "Performance"
+                }
+            ]
         },
         "fly-machines:postgres/v1:PostgresQueryParams": {
             "description": "Query params for each of the operations of the resource.",
@@ -8041,6 +8137,10 @@
                     "type": "string",
                     "description": "Name for the forked cluster. Defaults to the source name with a -fork suffix."
                 },
+                "plan": {
+                    "$ref": "#/types/fly-machines:postgres/v1:Plan",
+                    "description": "Plan slug selecting CPU and memory sizing for the fork. Defaults to the source cluster's plan. Matched case-insensitively."
+                },
                 "queryParams": {
                     "$ref": "#/types/fly-machines:postgres/v1:PostgresForkQueryParams",
                     "description": "Query params to send with the API requests for this resource."
@@ -8051,6 +8151,10 @@
                 "name": {
                     "type": "string",
                     "description": "Name for the forked cluster. Defaults to the source name with a -fork suffix."
+                },
+                "plan": {
+                    "$ref": "#/types/fly-machines:postgres/v1:Plan",
+                    "description": "Plan slug selecting CPU and memory sizing for the fork. Defaults to the source cluster's plan. Matched case-insensitively."
                 },
                 "postgresClusterId": {
                     "type": "string",
@@ -9073,6 +9177,22 @@
             },
             "outputs": {
                 "$ref": "#/types/fly-machines:postgres/v1:ListPostgresExtensionsResponse"
+            }
+        },
+        "fly-machines:postgres/v1:listPostgresPlans": {
+            "inputs": {
+                "properties": {
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:postgres/v1:ListPostgresPlansQueryParams",
+                        "description": "Query params to send with the API request."
+                    }
+                },
+                "required": [
+                    "queryParams"
+                ]
+            },
+            "outputs": {
+                "$ref": "#/types/fly-machines:postgres/v1:ListPostgresPlansResponse"
             }
         },
         "fly-machines:postgres/v1:listPostgresUsers": {

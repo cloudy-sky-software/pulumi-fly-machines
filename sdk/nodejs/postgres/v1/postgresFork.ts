@@ -40,6 +40,10 @@ export class PostgresFork extends pulumi.CustomResource {
      */
     declare public readonly name: pulumi.Output<string | undefined>;
     /**
+     * Plan slug selecting CPU and memory sizing for the fork. Defaults to the source cluster's plan. Matched case-insensitively.
+     */
+    declare public readonly plan: pulumi.Output<enums.postgres.v1.Plan | undefined>;
+    /**
      * Query params to send with the API requests for this resource.
      */
     declare public readonly queryParams: pulumi.Output<outputs.postgres.v1.PostgresForkQueryParams | undefined>;
@@ -56,12 +60,14 @@ export class PostgresFork extends pulumi.CustomResource {
         opts = opts || {};
         if (!opts.id) {
             resourceInputs["name"] = args?.name;
+            resourceInputs["plan"] = args?.plan;
             resourceInputs["postgresClusterId"] = args?.postgresClusterId;
             resourceInputs["queryParams"] = args?.queryParams;
             resourceInputs["data"] = undefined /*out*/;
         } else {
             resourceInputs["data"] = undefined /*out*/;
             resourceInputs["name"] = undefined /*out*/;
+            resourceInputs["plan"] = undefined /*out*/;
             resourceInputs["queryParams"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
@@ -77,6 +83,10 @@ export interface PostgresForkArgs {
      * Name for the forked cluster. Defaults to the source name with a -fork suffix.
      */
     name?: pulumi.Input<string | undefined>;
+    /**
+     * Plan slug selecting CPU and memory sizing for the fork. Defaults to the source cluster's plan. Matched case-insensitively.
+     */
+    plan?: pulumi.Input<enums.postgres.v1.Plan | undefined>;
     /**
      * Managed Postgres Cluster ID
      */

@@ -45,6 +45,11 @@ export const listPostgresExtensions: typeof import("./listPostgresExtensions").l
 export const listPostgresExtensionsOutput: typeof import("./listPostgresExtensions").listPostgresExtensionsOutput = null as any;
 utilities.lazyLoad(exports, ["listPostgresExtensions","listPostgresExtensionsOutput"], () => require("./listPostgresExtensions"));
 
+export { ListPostgresPlansArgs, ListPostgresPlansResult, ListPostgresPlansOutputArgs } from "./listPostgresPlans";
+export const listPostgresPlans: typeof import("./listPostgresPlans").listPostgresPlans = null as any;
+export const listPostgresPlansOutput: typeof import("./listPostgresPlans").listPostgresPlansOutput = null as any;
+utilities.lazyLoad(exports, ["listPostgresPlans","listPostgresPlansOutput"], () => require("./listPostgresPlans"));
+
 export { ListPostgresUsersArgs, ListPostgresUsersResult, ListPostgresUsersOutputArgs } from "./listPostgresUsers";
 export const listPostgresUsers: typeof import("./listPostgresUsers").listPostgresUsers = null as any;
 export const listPostgresUsersOutput: typeof import("./listPostgresUsers").listPostgresUsersOutput = null as any;
