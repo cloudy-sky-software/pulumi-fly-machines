@@ -65,9 +65,6 @@ jobs:
               exit 0
           fi
 
-      - name: Convert JSON spec to YAML
-        run: make json2yaml
-
       - name: Create PR
         uses: peter-evans/create-pull-request@bd09a93810788ce61d2d5fb7d6b221b9b4a4aab7
         with:
