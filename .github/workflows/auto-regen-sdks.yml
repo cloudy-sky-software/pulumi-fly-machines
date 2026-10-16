@@ -56,6 +56,9 @@ jobs:
         with:
           pulumi-version: latest
 
+      - name: Convert JSON spec to YAML
+        run: make json2yaml
+
       - name: Generate Pulumi schema
         run: make gen generate_schema
 
