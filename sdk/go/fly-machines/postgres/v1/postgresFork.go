@@ -17,6 +17,8 @@ type PostgresFork struct {
 	Data PostgresClusterPtrOutput `pulumi:"data"`
 	// Name for the forked cluster. Defaults to the source name with a -fork suffix.
 	Name pulumi.StringPtrOutput `pulumi:"name"`
+	// Plan slug selecting CPU and memory sizing for the fork. Defaults to the source cluster's plan. Matched case-insensitively.
+	Plan PlanPtrOutput `pulumi:"plan"`
 	// Query params to send with the API requests for this resource.
 	QueryParams PostgresForkQueryParamsPtrOutput `pulumi:"queryParams"`
 }
@@ -63,6 +65,8 @@ func (PostgresForkState) ElementType() reflect.Type {
 type postgresForkArgs struct {
 	// Name for the forked cluster. Defaults to the source name with a -fork suffix.
 	Name *string `pulumi:"name"`
+	// Plan slug selecting CPU and memory sizing for the fork. Defaults to the source cluster's plan. Matched case-insensitively.
+	Plan *Plan `pulumi:"plan"`
 	// Managed Postgres Cluster ID
 	PostgresClusterId *string `pulumi:"postgresClusterId"`
 	// Query params to send with the API requests for this resource.
@@ -73,6 +77,8 @@ type postgresForkArgs struct {
 type PostgresForkArgs struct {
 	// Name for the forked cluster. Defaults to the source name with a -fork suffix.
 	Name pulumi.StringPtrInput
+	// Plan slug selecting CPU and memory sizing for the fork. Defaults to the source cluster's plan. Matched case-insensitively.
+	Plan PlanPtrInput
 	// Managed Postgres Cluster ID
 	PostgresClusterId pulumi.StringPtrInput
 	// Query params to send with the API requests for this resource.
@@ -123,6 +129,11 @@ func (o PostgresForkOutput) Data() PostgresClusterPtrOutput {
 // Name for the forked cluster. Defaults to the source name with a -fork suffix.
 func (o PostgresForkOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PostgresFork) pulumi.StringPtrOutput { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+// Plan slug selecting CPU and memory sizing for the fork. Defaults to the source cluster's plan. Matched case-insensitively.
+func (o PostgresForkOutput) Plan() PlanPtrOutput {
+	return o.ApplyT(func(v *PostgresFork) PlanPtrOutput { return v.Plan }).(PlanPtrOutput)
 }
 
 // Query params to send with the API requests for this resource.

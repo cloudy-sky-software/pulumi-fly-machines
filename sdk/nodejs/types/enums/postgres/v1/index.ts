@@ -120,6 +120,29 @@ export const PostgresClusterSummaryStatus = {
  */
 export type PostgresClusterSummaryStatus = (typeof PostgresClusterSummaryStatus)[keyof typeof PostgresClusterSummaryStatus];
 
+export const PostgresPlanCpuKind = {
+    Shared: "shared",
+    Performance: "performance",
+} as const;
+
+/**
+ * CPU class.
+ */
+export type PostgresPlanCpuKind = (typeof PostgresPlanCpuKind)[keyof typeof PostgresPlanCpuKind];
+
+export const PostgresPlanPlan = {
+    Basic: "basic",
+    Starter: "starter",
+    Launch: "launch",
+    Scale: "scale",
+    Performance: "Performance",
+} as const;
+
+/**
+ * Plan slug. Pass it as `plan` when creating or forking a cluster.
+ */
+export type PostgresPlanPlan = (typeof PostgresPlanPlan)[keyof typeof PostgresPlanPlan];
+
 export const PostgresUserRole = {
     SchemaAdmin: "schema_admin",
     Writer: "writer",

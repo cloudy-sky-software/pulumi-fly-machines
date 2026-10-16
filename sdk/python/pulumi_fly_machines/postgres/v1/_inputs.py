@@ -30,6 +30,8 @@ __all__ = [
     'ListPostgresDatabasesQueryParamsDict',
     'ListPostgresExtensionsQueryParams',
     'ListPostgresExtensionsQueryParamsDict',
+    'ListPostgresPlansQueryParams',
+    'ListPostgresPlansQueryParamsDict',
     'ListPostgresQueryParams',
     'ListPostgresQueryParamsDict',
     'ListPostgresUsersQueryParams',
@@ -349,6 +351,59 @@ class ListPostgresExtensionsQueryParams:
         """
         if additional_params is not None:
             pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: Optional[Mapping[str, _builtins.str]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class ListPostgresPlansQueryParamsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    org_slug: _builtins.str
+    """
+    Fly Organization Slug, or 'personal' for the caller's personal organization
+    """
+    additional_params: NotRequired[Mapping[str, _builtins.str]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class ListPostgresPlansQueryParams:
+    def __init__(__self__, *,
+                 org_slug: _builtins.str,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param _builtins.str org_slug: Fly Organization Slug, or 'personal' for the caller's personal organization
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        pulumi.set(__self__, "org_slug", org_slug)
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="orgSlug")
+    def org_slug(self) -> _builtins.str:
+        """
+        Fly Organization Slug, or 'personal' for the caller's personal organization
+        """
+        return pulumi.get(self, "org_slug")
+
+    @org_slug.setter
+    def org_slug(self, value: _builtins.str):
+        pulumi.set(self, "org_slug", value)
 
     @_builtins.property
     @pulumi.getter(name="additionalParams")

@@ -95,6 +95,7 @@
         "postgres/v1/listPostgresBackups.ts",
         "postgres/v1/listPostgresDatabases.ts",
         "postgres/v1/listPostgresExtensions.ts",
+        "postgres/v1/listPostgresPlans.ts",
         "postgres/v1/listPostgresUsers.ts",
         "postgres/v1/postgres.ts",
         "postgres/v1/postgresAttachment.ts",

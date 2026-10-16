@@ -17,6 +17,8 @@ __all__ = [
     'PostgresClusterStatus',
     'PostgresClusterSummaryPlan',
     'PostgresClusterSummaryStatus',
+    'PostgresPlanCpuKind',
+    'PostgresPlanPlan',
     'PostgresUserRole',
     'Role',
     'Type',
@@ -129,6 +131,27 @@ class PostgresClusterSummaryStatus(_builtins.str, Enum):
     DELETING = "deleting"
     DELETED = "deleted"
     FAILED = "failed"
+
+
+@pulumi.type_token("fly-machines:postgres/v1:PostgresPlanCpuKind")
+class PostgresPlanCpuKind(_builtins.str, Enum):
+    """
+    CPU class.
+    """
+    SHARED = "shared"
+    PERFORMANCE = "performance"
+
+
+@pulumi.type_token("fly-machines:postgres/v1:PostgresPlanPlan")
+class PostgresPlanPlan(_builtins.str, Enum):
+    """
+    Plan slug. Pass it as `plan` when creating or forking a cluster.
+    """
+    BASIC = "basic"
+    STARTER = "starter"
+    LAUNCH = "launch"
+    SCALE = "scale"
+    PERFORMANCE = "Performance"
 
 
 @pulumi.type_token("fly-machines:postgres/v1:PostgresUserRole")

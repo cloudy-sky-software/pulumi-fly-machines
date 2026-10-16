@@ -46,6 +46,7 @@ __all__ = [
     'PostgresForkQueryParams',
     'PostgresNodeEndpointsDirect',
     'PostgresNodeEndpointsPooler',
+    'PostgresPlan',
     'PostgresQueryParams',
     'PostgresReadQueryParams',
     'PostgresRestoreCreateQueryParams',
@@ -1581,6 +1582,73 @@ class PostgresNodeEndpointsPooler(dict):
         TCP port.
         """
         return pulumi.get(self, "port")
+
+
+@pulumi.output_type
+class PostgresPlan(dict):
+    def __init__(__self__, *,
+                 cpu_kind: Optional['PostgresPlanCpuKind'] = None,
+                 cpus: Optional[_builtins.int] = None,
+                 memory_mb: Optional[_builtins.int] = None,
+                 monthly_price_usd: Optional[_builtins.int] = None,
+                 plan: Optional['PostgresPlanPlan'] = None):
+        """
+        :param 'PostgresPlanCpuKind' cpu_kind: CPU class.
+        :param _builtins.int cpus: vCPUs per node.
+        :param _builtins.int memory_mb: Memory per node in megabytes.
+        :param _builtins.int monthly_price_usd: Base monthly price in US dollars.
+        :param 'PostgresPlanPlan' plan: Plan slug. Pass it as `plan` when creating or forking a cluster.
+        """
+        if cpu_kind is not None:
+            pulumi.set(__self__, "cpu_kind", cpu_kind)
+        if cpus is not None:
+            pulumi.set(__self__, "cpus", cpus)
+        if memory_mb is not None:
+            pulumi.set(__self__, "memory_mb", memory_mb)
+        if monthly_price_usd is not None:
+            pulumi.set(__self__, "monthly_price_usd", monthly_price_usd)
+        if plan is not None:
+            pulumi.set(__self__, "plan", plan)
+
+    @_builtins.property
+    @pulumi.getter(name="cpuKind")
+    def cpu_kind(self) -> Optional['PostgresPlanCpuKind']:
+        """
+        CPU class.
+        """
+        return pulumi.get(self, "cpu_kind")
+
+    @_builtins.property
+    @pulumi.getter
+    def cpus(self) -> Optional[_builtins.int]:
+        """
+        vCPUs per node.
+        """
+        return pulumi.get(self, "cpus")
+
+    @_builtins.property
+    @pulumi.getter(name="memoryMb")
+    def memory_mb(self) -> Optional[_builtins.int]:
+        """
+        Memory per node in megabytes.
+        """
+        return pulumi.get(self, "memory_mb")
+
+    @_builtins.property
+    @pulumi.getter(name="monthlyPriceUsd")
+    def monthly_price_usd(self) -> Optional[_builtins.int]:
+        """
+        Base monthly price in US dollars.
+        """
+        return pulumi.get(self, "monthly_price_usd")
+
+    @_builtins.property
+    @pulumi.getter
+    def plan(self) -> Optional['PostgresPlanPlan']:
+        """
+        Plan slug. Pass it as `plan` when creating or forking a cluster.
+        """
+        return pulumi.get(self, "plan")
 
 
 @pulumi.output_type

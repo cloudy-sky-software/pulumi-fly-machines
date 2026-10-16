@@ -336,6 +336,71 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.PostgresV1
     }
 
     /// <summary>
+    /// CPU class.
+    /// </summary>
+    [EnumType]
+    public readonly struct PostgresPlanCpuKind : IEquatable<PostgresPlanCpuKind>
+    {
+        private readonly string _value;
+
+        private PostgresPlanCpuKind(string value)
+        {
+            _value = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        public static PostgresPlanCpuKind Shared { get; } = new PostgresPlanCpuKind("shared");
+        public static PostgresPlanCpuKind Performance { get; } = new PostgresPlanCpuKind("performance");
+
+        public static bool operator ==(PostgresPlanCpuKind left, PostgresPlanCpuKind right) => left.Equals(right);
+        public static bool operator !=(PostgresPlanCpuKind left, PostgresPlanCpuKind right) => !left.Equals(right);
+
+        public static explicit operator string(PostgresPlanCpuKind value) => value._value;
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object? obj) => obj is PostgresPlanCpuKind other && Equals(other);
+        public bool Equals(PostgresPlanCpuKind other) => string.Equals(_value, other._value, StringComparison.Ordinal);
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode() => _value?.GetHashCode() ?? 0;
+
+        public override string ToString() => _value;
+    }
+
+    /// <summary>
+    /// Plan slug. Pass it as `plan` when creating or forking a cluster.
+    /// </summary>
+    [EnumType]
+    public readonly struct PostgresPlanPlan : IEquatable<PostgresPlanPlan>
+    {
+        private readonly string _value;
+
+        private PostgresPlanPlan(string value)
+        {
+            _value = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        public static PostgresPlanPlan Basic { get; } = new PostgresPlanPlan("basic");
+        public static PostgresPlanPlan Starter { get; } = new PostgresPlanPlan("starter");
+        public static PostgresPlanPlan Launch { get; } = new PostgresPlanPlan("launch");
+        public static PostgresPlanPlan Scale { get; } = new PostgresPlanPlan("scale");
+        public static PostgresPlanPlan Performance { get; } = new PostgresPlanPlan("Performance");
+
+        public static bool operator ==(PostgresPlanPlan left, PostgresPlanPlan right) => left.Equals(right);
+        public static bool operator !=(PostgresPlanPlan left, PostgresPlanPlan right) => !left.Equals(right);
+
+        public static explicit operator string(PostgresPlanPlan value) => value._value;
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object? obj) => obj is PostgresPlanPlan other && Equals(other);
+        public bool Equals(PostgresPlanPlan other) => string.Equals(_value, other._value, StringComparison.Ordinal);
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode() => _value?.GetHashCode() ?? 0;
+
+        public override string ToString() => _value;
+    }
+
+    /// <summary>
     /// User role.
     /// </summary>
     [EnumType]

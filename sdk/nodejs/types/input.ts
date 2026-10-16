@@ -2752,6 +2752,34 @@ export namespace postgres {
         /**
          * Query params for the API request.
          */
+        export interface ListPostgresPlansQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+            /**
+             * Fly Organization Slug, or 'personal' for the caller's personal organization
+             */
+            orgSlug: string;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface ListPostgresPlansQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+            /**
+             * Fly Organization Slug, or 'personal' for the caller's personal organization
+             */
+            orgSlug: pulumi.Input<string>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
         export interface ListPostgresQueryParams {
             /**
              * Additional query params to send with the request that are not defined in the API spec.

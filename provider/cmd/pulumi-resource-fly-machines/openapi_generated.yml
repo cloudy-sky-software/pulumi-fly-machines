@@ -1152,6 +1152,38 @@ components:
                     description: Pooled connection to the cluster node (through PgBouncer).
                     type: object
             type: object
+        PostgresPlan:
+            properties:
+                cpu_kind:
+                    description: CPU class.
+                    enum:
+                        - shared
+                        - performance
+                    example: shared
+                    type: string
+                cpus:
+                    description: vCPUs per node.
+                    example: 2
+                    type: integer
+                memory_mb:
+                    description: Memory per node in megabytes.
+                    example: 1024
+                    type: integer
+                monthly_price_usd:
+                    description: Base monthly price in US dollars.
+                    example: 38
+                    type: integer
+                plan:
+                    description: Plan slug. Pass it as `plan` when creating or forking a cluster.
+                    enum:
+                        - basic
+                        - starter
+                        - launch
+                        - scale
+                        - Performance
+                    example: basic
+                    type: string
+            type: object
         PostgresSlowQuery:
             properties:
                 calls:
@@ -2539,6 +2571,16 @@ components:
                 name:
                     description: Name for the forked cluster. Defaults to the source name with a -fork suffix.
                     type: string
+                plan:
+                    description: Plan slug selecting CPU and memory sizing for the fork. Defaults to the source cluster's plan. Matched case-insensitively.
+                    enum:
+                        - basic
+                        - starter
+                        - launch
+                        - scale
+                        - Performance
+                    example: launch
+                    type: string
             type: object
         getPostgresUserCredentialsResponse:
             properties:
@@ -2596,6 +2638,13 @@ components:
                 data:
                     items:
                         $ref: '#/components/schemas/PostgresExtension'
+                    type: array
+            type: object
+        listPostgresPlansResponse:
+            properties:
+                data:
+                    items:
+                        $ref: '#/components/schemas/PostgresPlan'
                     type: array
             type: object
         listPostgresSlowQueriesResponse:
@@ -6074,7 +6123,7 @@ paths:
                 - Postgres Clusters
     /v1/postgres/{postgres_cluster_id}/fork:
         post:
-            description: Fork a ready Managed Postgres cluster into a new cluster that inherits the source's settings. The source cluster is left unchanged, and the fork is provisioned asynchronously.
+            description: Fork a ready Managed Postgres cluster into a new cluster that inherits the source's settings, on the source's plan unless `plan` is given. The source cluster is left unchanged, and the fork is provisioned asynchronously.
             operationId: Postgres_fork
             parameters:
                 - description: Managed Postgres Cluster ID
@@ -6131,7 +6180,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
-                    description: Invalid attributes
+                    description: Invalid attributes, such as an unknown or unavailable plan
             summary: Fork Cluster to New Cluster
             tags:
                 - Postgres Clusters
@@ -6631,6 +6680,45 @@ paths:
             tags:
                 - Postgres Clusters
             x-codegen-request-body-name: request
+    /v1/postgres/plans:
+        get:
+            description: List the Managed Postgres plans the caller can choose when creating or forking a cluster in an organization, cheapest first.
+            operationId: Postgres_plans_list
+            parameters:
+                - description: Fly Organization Slug, or 'personal' for the caller's personal organization
+                  in: query
+                  name: org_slug
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/listPostgresPlansResponse'
+                    description: OK
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: org_slug is required and must be a string
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Unauthorized
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Organization not found
+            summary: List Postgres Plans
+            tags:
+                - Postgres Clusters
     /v1/tokens/authenticate:
         post:
             description: Verify a token header without checking resource access.

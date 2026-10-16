@@ -1166,6 +1166,191 @@ func (o PostgresClusterSummaryStatusPtrOutput) ToStringPtrOutputWithContext(ctx 
 	}).(pulumi.StringPtrOutput)
 }
 
+// CPU class.
+type PostgresPlanCpuKind string
+
+const (
+	PostgresPlanCpuKindShared      = PostgresPlanCpuKind("shared")
+	PostgresPlanCpuKindPerformance = PostgresPlanCpuKind("performance")
+)
+
+type PostgresPlanCpuKindOutput struct{ *pulumi.OutputState }
+
+func (PostgresPlanCpuKindOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PostgresPlanCpuKind)(nil)).Elem()
+}
+
+func (o PostgresPlanCpuKindOutput) ToPostgresPlanCpuKindOutput() PostgresPlanCpuKindOutput {
+	return o
+}
+
+func (o PostgresPlanCpuKindOutput) ToPostgresPlanCpuKindOutputWithContext(ctx context.Context) PostgresPlanCpuKindOutput {
+	return o
+}
+
+func (o PostgresPlanCpuKindOutput) ToPostgresPlanCpuKindPtrOutput() PostgresPlanCpuKindPtrOutput {
+	return o.ToPostgresPlanCpuKindPtrOutputWithContext(context.Background())
+}
+
+func (o PostgresPlanCpuKindOutput) ToPostgresPlanCpuKindPtrOutputWithContext(ctx context.Context) PostgresPlanCpuKindPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PostgresPlanCpuKind) *PostgresPlanCpuKind {
+		return &v
+	}).(PostgresPlanCpuKindPtrOutput)
+}
+
+func (o PostgresPlanCpuKindOutput) ToStringOutput() pulumi.StringOutput {
+	return o.ToStringOutputWithContext(context.Background())
+}
+
+func (o PostgresPlanCpuKindOutput) ToStringOutputWithContext(ctx context.Context) pulumi.StringOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e PostgresPlanCpuKind) string {
+		return string(e)
+	}).(pulumi.StringOutput)
+}
+
+func (o PostgresPlanCpuKindOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o PostgresPlanCpuKindOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e PostgresPlanCpuKind) *string {
+		v := string(e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+type PostgresPlanCpuKindPtrOutput struct{ *pulumi.OutputState }
+
+func (PostgresPlanCpuKindPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PostgresPlanCpuKind)(nil)).Elem()
+}
+
+func (o PostgresPlanCpuKindPtrOutput) ToPostgresPlanCpuKindPtrOutput() PostgresPlanCpuKindPtrOutput {
+	return o
+}
+
+func (o PostgresPlanCpuKindPtrOutput) ToPostgresPlanCpuKindPtrOutputWithContext(ctx context.Context) PostgresPlanCpuKindPtrOutput {
+	return o
+}
+
+func (o PostgresPlanCpuKindPtrOutput) Elem() PostgresPlanCpuKindOutput {
+	return o.ApplyT(func(v *PostgresPlanCpuKind) PostgresPlanCpuKind {
+		if v != nil {
+			return *v
+		}
+		var ret PostgresPlanCpuKind
+		return ret
+	}).(PostgresPlanCpuKindOutput)
+}
+
+func (o PostgresPlanCpuKindPtrOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o PostgresPlanCpuKindPtrOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e *PostgresPlanCpuKind) *string {
+		if e == nil {
+			return nil
+		}
+		v := string(*e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+// Plan slug. Pass it as `plan` when creating or forking a cluster.
+type PostgresPlanPlan string
+
+const (
+	PostgresPlanPlanBasic       = PostgresPlanPlan("basic")
+	PostgresPlanPlanStarter     = PostgresPlanPlan("starter")
+	PostgresPlanPlanLaunch      = PostgresPlanPlan("launch")
+	PostgresPlanPlanScale       = PostgresPlanPlan("scale")
+	PostgresPlanPlanPerformance = PostgresPlanPlan("Performance")
+)
+
+type PostgresPlanPlanOutput struct{ *pulumi.OutputState }
+
+func (PostgresPlanPlanOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PostgresPlanPlan)(nil)).Elem()
+}
+
+func (o PostgresPlanPlanOutput) ToPostgresPlanPlanOutput() PostgresPlanPlanOutput {
+	return o
+}
+
+func (o PostgresPlanPlanOutput) ToPostgresPlanPlanOutputWithContext(ctx context.Context) PostgresPlanPlanOutput {
+	return o
+}
+
+func (o PostgresPlanPlanOutput) ToPostgresPlanPlanPtrOutput() PostgresPlanPlanPtrOutput {
+	return o.ToPostgresPlanPlanPtrOutputWithContext(context.Background())
+}
+
+func (o PostgresPlanPlanOutput) ToPostgresPlanPlanPtrOutputWithContext(ctx context.Context) PostgresPlanPlanPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PostgresPlanPlan) *PostgresPlanPlan {
+		return &v
+	}).(PostgresPlanPlanPtrOutput)
+}
+
+func (o PostgresPlanPlanOutput) ToStringOutput() pulumi.StringOutput {
+	return o.ToStringOutputWithContext(context.Background())
+}
+
+func (o PostgresPlanPlanOutput) ToStringOutputWithContext(ctx context.Context) pulumi.StringOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e PostgresPlanPlan) string {
+		return string(e)
+	}).(pulumi.StringOutput)
+}
+
+func (o PostgresPlanPlanOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o PostgresPlanPlanOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e PostgresPlanPlan) *string {
+		v := string(e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+type PostgresPlanPlanPtrOutput struct{ *pulumi.OutputState }
+
+func (PostgresPlanPlanPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PostgresPlanPlan)(nil)).Elem()
+}
+
+func (o PostgresPlanPlanPtrOutput) ToPostgresPlanPlanPtrOutput() PostgresPlanPlanPtrOutput {
+	return o
+}
+
+func (o PostgresPlanPlanPtrOutput) ToPostgresPlanPlanPtrOutputWithContext(ctx context.Context) PostgresPlanPlanPtrOutput {
+	return o
+}
+
+func (o PostgresPlanPlanPtrOutput) Elem() PostgresPlanPlanOutput {
+	return o.ApplyT(func(v *PostgresPlanPlan) PostgresPlanPlan {
+		if v != nil {
+			return *v
+		}
+		var ret PostgresPlanPlan
+		return ret
+	}).(PostgresPlanPlanOutput)
+}
+
+func (o PostgresPlanPlanPtrOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o PostgresPlanPlanPtrOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e *PostgresPlanPlan) *string {
+		if e == nil {
+			return nil
+		}
+		v := string(*e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
 // User role.
 type PostgresUserRole string
 
@@ -1625,6 +1810,10 @@ func init() {
 	pulumi.RegisterOutputType(PostgresClusterSummaryPlanPtrOutput{})
 	pulumi.RegisterOutputType(PostgresClusterSummaryStatusOutput{})
 	pulumi.RegisterOutputType(PostgresClusterSummaryStatusPtrOutput{})
+	pulumi.RegisterOutputType(PostgresPlanCpuKindOutput{})
+	pulumi.RegisterOutputType(PostgresPlanCpuKindPtrOutput{})
+	pulumi.RegisterOutputType(PostgresPlanPlanOutput{})
+	pulumi.RegisterOutputType(PostgresPlanPlanPtrOutput{})
 	pulumi.RegisterOutputType(PostgresUserRoleOutput{})
 	pulumi.RegisterOutputType(PostgresUserRolePtrOutput{})
 	pulumi.RegisterOutputType(RoleOutput{})

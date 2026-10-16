@@ -15,6 +15,7 @@ from .list_postgres import *
 from .list_postgres_backups import *
 from .list_postgres_databases import *
 from .list_postgres_extensions import *
+from .list_postgres_plans import *
 from .list_postgres_users import *
 from .postgres import *
 from .postgres_attachment import *
