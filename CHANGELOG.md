@@ -1,3 +1,10 @@
+## 0.0.12
+
+- Adds `listPostgresPlans` function to list the available
+  Postgres plans.
+- You can now specify the `plan` when forking an existing
+  Postgres cluster.
+
 ## 0.0.11
 
 Handle `Secret` and `Secretkey` resources for pseudo-id
