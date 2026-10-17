@@ -16,6 +16,7 @@ func FixOpenAPIDoc(openAPIDoc *openapi3.T) error {
 	fixVolumeEndpoint(openAPIDoc)
 	fixPostgresExtensionsEndpoints(openAPIDoc)
 	removeDeprecatedVersionProperty(openAPIDoc)
+	fixEnums(openAPIDoc)
 
 	return nil
 }
@@ -144,4 +145,15 @@ func removeDeprecatedVersionProperty(openAPIDoc *openapi3.T) {
 		contract.Assertf(ok, "Expected to find schema %s", s)
 		delete(schema.Value.Properties, "Version")
 	}
+}
+
+func fixEnums(openAPIDoc *openapi3.T) {
+	containerHealthcheck := openAPIDoc.Components.Schemas["fly.ContainerHealthcheck"]
+	kind := containerHealthcheck.Value.Properties["kind"]
+	s := openapi3.NewSchema()
+	s.Description = kind.Value.Description
+	s.Enum = kind.Value.AllOf[0].Value.Enum
+	s.Type = kind.Value.AllOf[0].Value.Type
+	ref := kind.Value.AllOf[0].Ref
+	containerHealthcheck.Value.Properties["kind"] = openapi3.NewSchemaRef(ref, s)
 }

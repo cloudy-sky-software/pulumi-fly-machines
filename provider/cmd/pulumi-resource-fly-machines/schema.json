@@ -968,7 +968,17 @@
         },
         "fly-machines:apps/v1:FlyContainerHealthcheckKind": {
             "description": "Kind of healthcheck (readiness, liveness)",
-            "type": "object"
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Readiness",
+                    "value": "readiness"
+                },
+                {
+                    "name": "Liveness",
+                    "value": "liveness"
+                }
+            ]
         },
         "fly-machines:apps/v1:FlyContainerHealthcheckUnhealthy": {
             "description": "Unhealthy policy that determines what action to take if a container is deemed unhealthy",

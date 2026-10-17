@@ -1831,10 +1831,7 @@ components:
                     description: The time in seconds between executing the defined check.
                     type: integer
                 kind:
-                    allOf:
-                        - $ref: '#/components/schemas/fly.ContainerHealthcheckKind'
-                    description: Kind of healthcheck (readiness, liveness)
-                    type: object
+                    $ref: '#/components/schemas/fly.ContainerHealthcheckKind'
                 name:
                     description: The name of the check. Must be unique within the container.
                     type: string
