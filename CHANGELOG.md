@@ -1,3 +1,12 @@
+## 0.0.13
+
+Fix for some enums not generating correctly.
+
+Some enum types that were previously typed
+as `any` will now be properly typed.
+
+There are no changes to resources.
+
 ## 0.0.12
 
 - Adds `listPostgresPlans` function to list the available
