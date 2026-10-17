@@ -3,13 +3,13 @@
 
 
 export const AppIPAssignmentType = {
-    V4: "v4",
-    V6: "v6",
-    SharedV4: "shared_v4",
-    PrivateV6: "private_v6",
-    EgressV4: "egress_v4",
-    EgressV6: "egress_v6",
-    EgressPair: "egress_pair",
+    IPAssignmentType_v4: "v4",
+    IPAssignmentType_v6: "v6",
+    IPAssignmentType_shared_v4: "shared_v4",
+    IPAssignmentType_private_v6: "private_v6",
+    IPAssignmentType_egress_v4: "egress_v4",
+    IPAssignmentType_egress_v6: "egress_v6",
+    IPAssignmentType_egress_pair: "egress_pair",
 } as const;
 
 /**
@@ -42,6 +42,33 @@ export const ChecksKind = {
  */
 export type ChecksKind = (typeof ChecksKind)[keyof typeof ChecksKind];
 
+export const FlyContainerDependencyCondition = {
+    ExitedSuccessfully: "exited_successfully",
+    Healthy: "healthy",
+    Started: "started",
+} as const;
+
+export type FlyContainerDependencyCondition = (typeof FlyContainerDependencyCondition)[keyof typeof FlyContainerDependencyCondition];
+
+export const FlyContainerHealthcheckKind = {
+    Readiness: "readiness",
+    Liveness: "liveness",
+} as const;
+
+/**
+ * Kind of healthcheck (readiness, liveness)
+ */
+export type FlyContainerHealthcheckKind = (typeof FlyContainerHealthcheckKind)[keyof typeof FlyContainerHealthcheckKind];
+
+export const FlyContainerHealthcheckUnhealthy = {
+    UnhealthyPolicyStop: "stop",
+} as const;
+
+/**
+ * Unhealthy policy that determines what action to take if a container is deemed unhealthy
+ */
+export type FlyContainerHealthcheckUnhealthy = (typeof FlyContainerHealthcheckUnhealthy)[keyof typeof FlyContainerHealthcheckUnhealthy];
+
 export const FlyEnvFromFieldRef = {
     Id: "id",
     Version: "version",
@@ -55,6 +82,16 @@ export const FlyEnvFromFieldRef = {
  * FieldRef selects a field of the Machine: supports id, version, app_name, private_ip, region, image.
  */
 export type FlyEnvFromFieldRef = (typeof FlyEnvFromFieldRef)[keyof typeof FlyEnvFromFieldRef];
+
+export const FlyHTTPHealthcheckScheme = {
+    HTTP: "http",
+    HTTPS: "https",
+} as const;
+
+/**
+ * Whether to use http or https
+ */
+export type FlyHTTPHealthcheckScheme = (typeof FlyHTTPHealthcheckScheme)[keyof typeof FlyHTTPHealthcheckScheme];
 
 export const FlyMachineGuestPersistRootfs = {
     Never: "never",

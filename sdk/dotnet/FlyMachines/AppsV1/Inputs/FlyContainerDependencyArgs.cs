@@ -14,7 +14,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
     public sealed class FlyContainerDependencyArgs : global::Pulumi.ResourceArgs
     {
         [Input("condition")]
-        public Input<Inputs.FlyContainerDependencyConditionArgs>? Condition { get; set; }
+        public Input<CloudySkySoftware.Pulumi.FlyMachines.AppsV1.FlyContainerDependencyCondition>? Condition { get; set; }
 
         [Input("name")]
         public Input<string>? Name { get; set; }

@@ -16,6 +16,7 @@ func FixOpenAPIDoc(openAPIDoc *openapi3.T) error {
 	fixVolumeEndpoint(openAPIDoc)
 	fixPostgresExtensionsEndpoints(openAPIDoc)
 	removeDeprecatedVersionProperty(openAPIDoc)
+	fixEnums(openAPIDoc)
 
 	return nil
 }
@@ -143,5 +144,27 @@ func removeDeprecatedVersionProperty(openAPIDoc *openapi3.T) {
 		schema, ok := openAPIDoc.Components.Schemas[s]
 		contract.Assertf(ok, "Expected to find schema %s", s)
 		delete(schema.Value.Properties, "Version")
+	}
+}
+
+// fixEnums looks for types with enum properties that are
+// unnecessarily wrapped in an allOf definition. This
+// method strips flattens the allOf of such properties
+// and makes them simple ref's to their enum type.
+func fixEnums(openAPIDoc *openapi3.T) {
+	for _, s := range openAPIDoc.Components.Schemas {
+		for prop, propSchema := range s.Value.Properties {
+			if !propSchema.Value.Type.Is(openapi3.TypeObject) || len(propSchema.Value.AllOf) != 1 || len(propSchema.Value.AllOf[0].Value.Enum) == 0 {
+				continue
+			}
+
+			sourceEnumSchema := propSchema.Value.AllOf[0].Value
+			replaceSchema := openapi3.NewSchema()
+			replaceSchema.Description = propSchema.Value.Description
+			replaceSchema.Enum = sourceEnumSchema.Enum
+			replaceSchema.Type = sourceEnumSchema.Type
+			replaceSchema.Extensions = sourceEnumSchema.Extensions
+			s.Value.Properties[prop] = openapi3.NewSchemaRef(propSchema.Value.AllOf[0].Ref, replaceSchema)
+		}
 	}
 }

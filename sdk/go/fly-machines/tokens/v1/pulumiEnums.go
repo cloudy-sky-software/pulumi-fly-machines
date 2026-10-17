@@ -13,13 +13,13 @@ import (
 type FlyioAccessAction int
 
 const (
-	FlyioAccessAction_d_float64_1_  = FlyioAccessAction(1)
-	FlyioAccessAction_d_float64_2_  = FlyioAccessAction(2)
-	FlyioAccessAction_d_float64_4_  = FlyioAccessAction(4)
-	FlyioAccessAction_d_float64_8_  = FlyioAccessAction(8)
-	FlyioAccessAction_d_float64_16_ = FlyioAccessAction(16)
-	FlyioAccessAction_d_float64_31_ = FlyioAccessAction(31)
-	FlyioAccessAction_d_float64_0_  = FlyioAccessAction(0)
+	FlyioAccessActionActionRead    = FlyioAccessAction(1)
+	FlyioAccessActionActionWrite   = FlyioAccessAction(2)
+	FlyioAccessActionActionCreate  = FlyioAccessAction(4)
+	FlyioAccessActionActionDelete  = FlyioAccessAction(8)
+	FlyioAccessActionActionControl = FlyioAccessAction(16)
+	FlyioAccessActionActionAll     = FlyioAccessAction(31)
+	FlyioAccessActionActionNone    = FlyioAccessAction(0)
 )
 
 type FlyioAccessActionOutput struct{ *pulumi.OutputState }
@@ -105,7 +105,193 @@ func (o FlyioAccessActionPtrOutput) ToIntPtrOutputWithContext(ctx context.Contex
 	}).(pulumi.IntPtrOutput)
 }
 
+// Action is the action being taken on the specified resource. This is the
+// combination of individual action characters (e.g "rw")
+//   - r: read
+//   - w: write
+//   - c: create
+//   - d: delete
+//   - C: control
+type MainTokenAccessAction int
+
+const (
+	MainTokenAccessActionActionRead    = MainTokenAccessAction(1)
+	MainTokenAccessActionActionWrite   = MainTokenAccessAction(2)
+	MainTokenAccessActionActionCreate  = MainTokenAccessAction(4)
+	MainTokenAccessActionActionDelete  = MainTokenAccessAction(8)
+	MainTokenAccessActionActionControl = MainTokenAccessAction(16)
+	MainTokenAccessActionActionAll     = MainTokenAccessAction(31)
+	MainTokenAccessActionActionNone    = MainTokenAccessAction(0)
+)
+
+func (MainTokenAccessAction) ElementType() reflect.Type {
+	return reflect.TypeOf((*MainTokenAccessAction)(nil)).Elem()
+}
+
+func (e MainTokenAccessAction) ToMainTokenAccessActionOutput() MainTokenAccessActionOutput {
+	return pulumi.ToOutput(e).(MainTokenAccessActionOutput)
+}
+
+func (e MainTokenAccessAction) ToMainTokenAccessActionOutputWithContext(ctx context.Context) MainTokenAccessActionOutput {
+	return pulumi.ToOutputWithContext(ctx, e).(MainTokenAccessActionOutput)
+}
+
+func (e MainTokenAccessAction) ToMainTokenAccessActionPtrOutput() MainTokenAccessActionPtrOutput {
+	return e.ToMainTokenAccessActionPtrOutputWithContext(context.Background())
+}
+
+func (e MainTokenAccessAction) ToMainTokenAccessActionPtrOutputWithContext(ctx context.Context) MainTokenAccessActionPtrOutput {
+	return MainTokenAccessAction(e).ToMainTokenAccessActionOutputWithContext(ctx).ToMainTokenAccessActionPtrOutputWithContext(ctx)
+}
+
+func (e MainTokenAccessAction) ToIntOutput() pulumi.IntOutput {
+	return pulumi.ToOutput(pulumi.Int(e)).(pulumi.IntOutput)
+}
+
+func (e MainTokenAccessAction) ToIntOutputWithContext(ctx context.Context) pulumi.IntOutput {
+	return pulumi.ToOutputWithContext(ctx, pulumi.Int(e)).(pulumi.IntOutput)
+}
+
+func (e MainTokenAccessAction) ToIntPtrOutput() pulumi.IntPtrOutput {
+	return pulumi.Int(e).ToIntPtrOutputWithContext(context.Background())
+}
+
+func (e MainTokenAccessAction) ToIntPtrOutputWithContext(ctx context.Context) pulumi.IntPtrOutput {
+	return pulumi.Int(e).ToIntOutputWithContext(ctx).ToIntPtrOutputWithContext(ctx)
+}
+
+type MainTokenAccessActionOutput struct{ *pulumi.OutputState }
+
+func (MainTokenAccessActionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MainTokenAccessAction)(nil)).Elem()
+}
+
+func (o MainTokenAccessActionOutput) ToMainTokenAccessActionOutput() MainTokenAccessActionOutput {
+	return o
+}
+
+func (o MainTokenAccessActionOutput) ToMainTokenAccessActionOutputWithContext(ctx context.Context) MainTokenAccessActionOutput {
+	return o
+}
+
+func (o MainTokenAccessActionOutput) ToMainTokenAccessActionPtrOutput() MainTokenAccessActionPtrOutput {
+	return o.ToMainTokenAccessActionPtrOutputWithContext(context.Background())
+}
+
+func (o MainTokenAccessActionOutput) ToMainTokenAccessActionPtrOutputWithContext(ctx context.Context) MainTokenAccessActionPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v MainTokenAccessAction) *MainTokenAccessAction {
+		return &v
+	}).(MainTokenAccessActionPtrOutput)
+}
+
+func (o MainTokenAccessActionOutput) ToIntOutput() pulumi.IntOutput {
+	return o.ToIntOutputWithContext(context.Background())
+}
+
+func (o MainTokenAccessActionOutput) ToIntOutputWithContext(ctx context.Context) pulumi.IntOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e MainTokenAccessAction) int {
+		return int(e)
+	}).(pulumi.IntOutput)
+}
+
+func (o MainTokenAccessActionOutput) ToIntPtrOutput() pulumi.IntPtrOutput {
+	return o.ToIntPtrOutputWithContext(context.Background())
+}
+
+func (o MainTokenAccessActionOutput) ToIntPtrOutputWithContext(ctx context.Context) pulumi.IntPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e MainTokenAccessAction) *int {
+		v := int(e)
+		return &v
+	}).(pulumi.IntPtrOutput)
+}
+
+type MainTokenAccessActionPtrOutput struct{ *pulumi.OutputState }
+
+func (MainTokenAccessActionPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**MainTokenAccessAction)(nil)).Elem()
+}
+
+func (o MainTokenAccessActionPtrOutput) ToMainTokenAccessActionPtrOutput() MainTokenAccessActionPtrOutput {
+	return o
+}
+
+func (o MainTokenAccessActionPtrOutput) ToMainTokenAccessActionPtrOutputWithContext(ctx context.Context) MainTokenAccessActionPtrOutput {
+	return o
+}
+
+func (o MainTokenAccessActionPtrOutput) Elem() MainTokenAccessActionOutput {
+	return o.ApplyT(func(v *MainTokenAccessAction) MainTokenAccessAction {
+		if v != nil {
+			return *v
+		}
+		var ret MainTokenAccessAction
+		return ret
+	}).(MainTokenAccessActionOutput)
+}
+
+func (o MainTokenAccessActionPtrOutput) ToIntPtrOutput() pulumi.IntPtrOutput {
+	return o.ToIntPtrOutputWithContext(context.Background())
+}
+
+func (o MainTokenAccessActionPtrOutput) ToIntPtrOutputWithContext(ctx context.Context) pulumi.IntPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e *MainTokenAccessAction) *int {
+		if e == nil {
+			return nil
+		}
+		v := int(*e)
+		return &v
+	}).(pulumi.IntPtrOutput)
+}
+
+// MainTokenAccessActionInput is an input type that accepts values of the MainTokenAccessAction enum
+// A concrete instance of `MainTokenAccessActionInput` can be one of the following:
+//
+//	MainTokenAccessActionActionRead
+//	MainTokenAccessActionActionWrite
+//	MainTokenAccessActionActionCreate
+//	MainTokenAccessActionActionDelete
+//	MainTokenAccessActionActionControl
+//	MainTokenAccessActionActionAll
+//	MainTokenAccessActionActionNone
+type MainTokenAccessActionInput interface {
+	pulumi.Input
+
+	ToMainTokenAccessActionOutput() MainTokenAccessActionOutput
+	ToMainTokenAccessActionOutputWithContext(context.Context) MainTokenAccessActionOutput
+}
+
+var mainTokenAccessActionPtrType = reflect.TypeOf((**MainTokenAccessAction)(nil)).Elem()
+
+type MainTokenAccessActionPtrInput interface {
+	pulumi.Input
+
+	ToMainTokenAccessActionPtrOutput() MainTokenAccessActionPtrOutput
+	ToMainTokenAccessActionPtrOutputWithContext(context.Context) MainTokenAccessActionPtrOutput
+}
+
+type mainTokenAccessActionPtr int
+
+func MainTokenAccessActionPtr(v int) MainTokenAccessActionPtrInput {
+	return (*mainTokenAccessActionPtr)(&v)
+}
+
+func (*mainTokenAccessActionPtr) ElementType() reflect.Type {
+	return mainTokenAccessActionPtrType
+}
+
+func (in *mainTokenAccessActionPtr) ToMainTokenAccessActionPtrOutput() MainTokenAccessActionPtrOutput {
+	return pulumi.ToOutput(in).(MainTokenAccessActionPtrOutput)
+}
+
+func (in *mainTokenAccessActionPtr) ToMainTokenAccessActionPtrOutputWithContext(ctx context.Context) MainTokenAccessActionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, in).(MainTokenAccessActionPtrOutput)
+}
+
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*MainTokenAccessActionInput)(nil)).Elem(), MainTokenAccessAction(1))
+	pulumi.RegisterInputType(reflect.TypeOf((*MainTokenAccessActionPtrInput)(nil)).Elem(), MainTokenAccessAction(1))
 	pulumi.RegisterOutputType(FlyioAccessActionOutput{})
 	pulumi.RegisterOutputType(FlyioAccessActionPtrOutput{})
+	pulumi.RegisterOutputType(MainTokenAccessActionOutput{})
+	pulumi.RegisterOutputType(MainTokenAccessActionPtrOutput{})
 }

@@ -347,11 +347,8 @@ export namespace apps {
         }
 
         export interface FlyContainerDependencyArgs {
-            condition?: pulumi.Input<inputs.apps.v1.FlyContainerDependencyConditionArgs | undefined>;
+            condition?: pulumi.Input<enums.apps.v1.FlyContainerDependencyCondition | undefined>;
             name?: pulumi.Input<string | undefined>;
-        }
-
-        export interface FlyContainerDependencyConditionArgs {
         }
 
         export interface FlyContainerHealthcheckArgs {
@@ -372,7 +369,7 @@ export namespace apps {
             /**
              * Kind of healthcheck (readiness, liveness)
              */
-            kind?: pulumi.Input<inputs.apps.v1.FlyContainerHealthcheckKindArgs | undefined>;
+            kind?: pulumi.Input<enums.apps.v1.FlyContainerHealthcheckKind | undefined>;
             /**
              * The name of the check. Must be unique within the container.
              */
@@ -389,19 +386,7 @@ export namespace apps {
             /**
              * Unhealthy policy that determines what action to take if a container is deemed unhealthy
              */
-            unhealthy?: pulumi.Input<inputs.apps.v1.FlyContainerHealthcheckUnhealthyArgs | undefined>;
-        }
-
-        /**
-         * Kind of healthcheck (readiness, liveness)
-         */
-        export interface FlyContainerHealthcheckKindArgs {
-        }
-
-        /**
-         * Unhealthy policy that determines what action to take if a container is deemed unhealthy
-         */
-        export interface FlyContainerHealthcheckUnhealthyArgs {
+            unhealthy?: pulumi.Input<enums.apps.v1.FlyContainerHealthcheckUnhealthy | undefined>;
         }
 
         export interface FlyDNSConfigArgs {
@@ -493,7 +478,7 @@ export namespace apps {
             /**
              * Whether to use http or https
              */
-            scheme?: pulumi.Input<inputs.apps.v1.FlyHTTPHealthcheckSchemeArgs | undefined>;
+            scheme?: pulumi.Input<enums.apps.v1.FlyHTTPHealthcheckScheme | undefined>;
             /**
              * If the protocol is https, the hostname to use for TLS certificate validation
              */
@@ -502,12 +487,6 @@ export namespace apps {
              * If the protocol is https, whether or not to verify the TLS certificate
              */
             tlsSkipVerify?: pulumi.Input<boolean | undefined>;
-        }
-
-        /**
-         * Whether to use http or https
-         */
-        export interface FlyHTTPHealthcheckSchemeArgs {
         }
 
         export interface FlyHTTPOptionsArgs {
@@ -3136,7 +3115,7 @@ export namespace tokens {
              *   - d: delete
              *   - C: control
              */
-            action?: pulumi.Input<inputs.tokens.v1.MainTokenAccessActionArgs | undefined>;
+            action?: pulumi.Input<enums.tokens.v1.MainTokenAccessAction | undefined>;
             /**
              * AppFeature is a named set of functionality associated with the app. If
              * this is specified, the AppName field must be set.
@@ -3198,18 +3177,6 @@ export namespace tokens {
              * vol_r1p6pln1k9m9j7zr).
              */
             volumeId?: pulumi.Input<string | undefined>;
-        }
-
-        /**
-         * Action is the action being taken on the specified resource. This is the
-         * combination of individual action characters (e.g "rw")
-         *   - r: read
-         *   - w: write
-         *   - c: create
-         *   - d: delete
-         *   - C: control
-         */
-        export interface MainTokenAccessActionArgs {
         }
 
         /**

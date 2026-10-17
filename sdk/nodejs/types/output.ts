@@ -383,11 +383,8 @@ export namespace apps {
         }
 
         export interface FlyContainerDependency {
-            condition?: outputs.apps.v1.FlyContainerDependencyCondition;
+            condition?: enums.apps.v1.FlyContainerDependencyCondition;
             name?: string;
-        }
-
-        export interface FlyContainerDependencyCondition {
         }
 
         export interface FlyContainerHealthcheck {
@@ -408,7 +405,7 @@ export namespace apps {
             /**
              * Kind of healthcheck (readiness, liveness)
              */
-            kind?: outputs.apps.v1.FlyContainerHealthcheckKind;
+            kind?: enums.apps.v1.FlyContainerHealthcheckKind;
             /**
              * The name of the check. Must be unique within the container.
              */
@@ -425,19 +422,7 @@ export namespace apps {
             /**
              * Unhealthy policy that determines what action to take if a container is deemed unhealthy
              */
-            unhealthy?: outputs.apps.v1.FlyContainerHealthcheckUnhealthy;
-        }
-
-        /**
-         * Kind of healthcheck (readiness, liveness)
-         */
-        export interface FlyContainerHealthcheckKind {
-        }
-
-        /**
-         * Unhealthy policy that determines what action to take if a container is deemed unhealthy
-         */
-        export interface FlyContainerHealthcheckUnhealthy {
+            unhealthy?: enums.apps.v1.FlyContainerHealthcheckUnhealthy;
         }
 
         export interface FlyDNSConfig {
@@ -529,7 +514,7 @@ export namespace apps {
             /**
              * Whether to use http or https
              */
-            scheme?: outputs.apps.v1.FlyHTTPHealthcheckScheme;
+            scheme?: enums.apps.v1.FlyHTTPHealthcheckScheme;
             /**
              * If the protocol is https, the hostname to use for TLS certificate validation
              */
@@ -538,12 +523,6 @@ export namespace apps {
              * If the protocol is https, whether or not to verify the TLS certificate
              */
             tlsSkipVerify?: boolean;
-        }
-
-        /**
-         * Whether to use http or https
-         */
-        export interface FlyHTTPHealthcheckScheme {
         }
 
         export interface FlyHTTPOptions {

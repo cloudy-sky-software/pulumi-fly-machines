@@ -20,8 +20,6 @@ __all__ = [
     'GetCurrentTokenQueryParamsDict',
     'MainTokenAccessArgs',
     'MainTokenAccessArgsDict',
-    'MainTokenAccessActionArgs',
-    'MainTokenAccessActionArgsDict',
     'TokensAuthenticateCreateQueryParamsArgs',
     'TokensAuthenticateCreateQueryParamsArgsDict',
     'TokensAuthenticateQueryParamsArgs',
@@ -75,7 +73,7 @@ class GetCurrentTokenQueryParams:
 
 
 class MainTokenAccessArgsDict(TypedDict):
-    action: NotRequired[pulumi.Input[Optional['MainTokenAccessActionArgsDict']]]
+    action: NotRequired[pulumi.Input[Optional['MainTokenAccessAction']]]
     """
     Action is the action being taken on the specified resource. This is the
     combination of individual action characters (e.g "rw")
@@ -150,7 +148,7 @@ class MainTokenAccessArgsDict(TypedDict):
 @pulumi.input_type
 class MainTokenAccessArgs:
     def __init__(__self__, *,
-                 action: pulumi.Input[Optional['MainTokenAccessActionArgs']] = None,
+                 action: pulumi.Input[Optional['MainTokenAccessAction']] = None,
                  app_feature: pulumi.Input[Optional[_builtins.str]] = None,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  command: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
@@ -163,7 +161,7 @@ class MainTokenAccessArgs:
                  storage_object: pulumi.Input[Optional[_builtins.str]] = None,
                  volume_id: pulumi.Input[Optional[_builtins.str]] = None):
         """
-        :param pulumi.Input['MainTokenAccessActionArgs'] action: Action is the action being taken on the specified resource. This is the
+        :param pulumi.Input['MainTokenAccessAction'] action: Action is the action being taken on the specified resource. This is the
                combination of individual action characters (e.g "rw")
                  - r: read
                  - w: write
@@ -226,7 +224,7 @@ class MainTokenAccessArgs:
 
     @_builtins.property
     @pulumi.getter
-    def action(self) -> pulumi.Input[Optional['MainTokenAccessActionArgs']]:
+    def action(self) -> pulumi.Input[Optional['MainTokenAccessAction']]:
         """
         Action is the action being taken on the specified resource. This is the
         combination of individual action characters (e.g "rw")
@@ -239,7 +237,7 @@ class MainTokenAccessArgs:
         return pulumi.get(self, "action")
 
     @action.setter
-    def action(self, value: pulumi.Input[Optional['MainTokenAccessActionArgs']]):
+    def action(self, value: pulumi.Input[Optional['MainTokenAccessAction']]):
         pulumi.set(self, "action", value)
 
     @_builtins.property
@@ -390,33 +388,6 @@ class MainTokenAccessArgs:
     @volume_id.setter
     def volume_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "volume_id", value)
-
-
-class MainTokenAccessActionArgsDict(TypedDict):
-    """
-    Action is the action being taken on the specified resource. This is the
-    combination of individual action characters (e.g "rw")
-      - r: read
-      - w: write
-      - c: create
-      - d: delete
-      - C: control
-    """
-    pass
-
-@pulumi.input_type
-class MainTokenAccessActionArgs:
-    def __init__(__self__):
-        """
-        Action is the action being taken on the specified resource. This is the
-        combination of individual action characters (e.g "rw")
-          - r: read
-          - w: write
-          - c: create
-          - d: delete
-          - C: control
-        """
-        pass
 
 
 class TokensAuthenticateCreateQueryParamsArgsDict(TypedDict):

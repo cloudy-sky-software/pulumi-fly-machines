@@ -14,13 +14,13 @@ import (
 type AppIPAssignmentType string
 
 const (
-	AppIPAssignmentTypeV4         = AppIPAssignmentType("v4")
-	AppIPAssignmentTypeV6         = AppIPAssignmentType("v6")
-	AppIPAssignmentTypeSharedV4   = AppIPAssignmentType("shared_v4")
-	AppIPAssignmentTypePrivateV6  = AppIPAssignmentType("private_v6")
-	AppIPAssignmentTypeEgressV4   = AppIPAssignmentType("egress_v4")
-	AppIPAssignmentTypeEgressV6   = AppIPAssignmentType("egress_v6")
-	AppIPAssignmentTypeEgressPair = AppIPAssignmentType("egress_pair")
+	AppIPAssignmentType_IPAssignmentType_v4          = AppIPAssignmentType("v4")
+	AppIPAssignmentType_IPAssignmentType_v6          = AppIPAssignmentType("v6")
+	AppIPAssignmentType_IPAssignmentType_shared_v4   = AppIPAssignmentType("shared_v4")
+	AppIPAssignmentType_IPAssignmentType_private_v6  = AppIPAssignmentType("private_v6")
+	AppIPAssignmentType_IPAssignmentType_egress_v4   = AppIPAssignmentType("egress_v4")
+	AppIPAssignmentType_IPAssignmentType_egress_v6   = AppIPAssignmentType("egress_v6")
+	AppIPAssignmentType_IPAssignmentType_egress_pair = AppIPAssignmentType("egress_pair")
 )
 
 func (AppIPAssignmentType) ElementType() reflect.Type {
@@ -145,13 +145,13 @@ func (o AppIPAssignmentTypePtrOutput) ToStringPtrOutputWithContext(ctx context.C
 // AppIPAssignmentTypeInput is an input type that accepts values of the AppIPAssignmentType enum
 // A concrete instance of `AppIPAssignmentTypeInput` can be one of the following:
 //
-//	AppIPAssignmentTypeV4
-//	AppIPAssignmentTypeV6
-//	AppIPAssignmentTypeSharedV4
-//	AppIPAssignmentTypePrivateV6
-//	AppIPAssignmentTypeEgressV4
-//	AppIPAssignmentTypeEgressV6
-//	AppIPAssignmentTypeEgressPair
+//	AppIPAssignmentType_IPAssignmentType_v4
+//	AppIPAssignmentType_IPAssignmentType_v6
+//	AppIPAssignmentType_IPAssignmentType_shared_v4
+//	AppIPAssignmentType_IPAssignmentType_private_v6
+//	AppIPAssignmentType_IPAssignmentType_egress_v4
+//	AppIPAssignmentType_IPAssignmentType_egress_v6
+//	AppIPAssignmentType_IPAssignmentType_egress_pair
 type AppIPAssignmentTypeInput interface {
 	pulumi.Input
 
@@ -533,6 +533,503 @@ func (in *checksKindPtr) ToChecksKindPtrOutputWithContext(ctx context.Context) C
 	return pulumi.ToOutputWithContext(ctx, in).(ChecksKindPtrOutput)
 }
 
+type FlyContainerDependencyCondition string
+
+const (
+	FlyContainerDependencyConditionExitedSuccessfully = FlyContainerDependencyCondition("exited_successfully")
+	FlyContainerDependencyConditionHealthy            = FlyContainerDependencyCondition("healthy")
+	FlyContainerDependencyConditionStarted            = FlyContainerDependencyCondition("started")
+)
+
+func (FlyContainerDependencyCondition) ElementType() reflect.Type {
+	return reflect.TypeOf((*FlyContainerDependencyCondition)(nil)).Elem()
+}
+
+func (e FlyContainerDependencyCondition) ToFlyContainerDependencyConditionOutput() FlyContainerDependencyConditionOutput {
+	return pulumi.ToOutput(e).(FlyContainerDependencyConditionOutput)
+}
+
+func (e FlyContainerDependencyCondition) ToFlyContainerDependencyConditionOutputWithContext(ctx context.Context) FlyContainerDependencyConditionOutput {
+	return pulumi.ToOutputWithContext(ctx, e).(FlyContainerDependencyConditionOutput)
+}
+
+func (e FlyContainerDependencyCondition) ToFlyContainerDependencyConditionPtrOutput() FlyContainerDependencyConditionPtrOutput {
+	return e.ToFlyContainerDependencyConditionPtrOutputWithContext(context.Background())
+}
+
+func (e FlyContainerDependencyCondition) ToFlyContainerDependencyConditionPtrOutputWithContext(ctx context.Context) FlyContainerDependencyConditionPtrOutput {
+	return FlyContainerDependencyCondition(e).ToFlyContainerDependencyConditionOutputWithContext(ctx).ToFlyContainerDependencyConditionPtrOutputWithContext(ctx)
+}
+
+func (e FlyContainerDependencyCondition) ToStringOutput() pulumi.StringOutput {
+	return pulumi.ToOutput(pulumi.String(e)).(pulumi.StringOutput)
+}
+
+func (e FlyContainerDependencyCondition) ToStringOutputWithContext(ctx context.Context) pulumi.StringOutput {
+	return pulumi.ToOutputWithContext(ctx, pulumi.String(e)).(pulumi.StringOutput)
+}
+
+func (e FlyContainerDependencyCondition) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return pulumi.String(e).ToStringPtrOutputWithContext(context.Background())
+}
+
+func (e FlyContainerDependencyCondition) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return pulumi.String(e).ToStringOutputWithContext(ctx).ToStringPtrOutputWithContext(ctx)
+}
+
+type FlyContainerDependencyConditionOutput struct{ *pulumi.OutputState }
+
+func (FlyContainerDependencyConditionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FlyContainerDependencyCondition)(nil)).Elem()
+}
+
+func (o FlyContainerDependencyConditionOutput) ToFlyContainerDependencyConditionOutput() FlyContainerDependencyConditionOutput {
+	return o
+}
+
+func (o FlyContainerDependencyConditionOutput) ToFlyContainerDependencyConditionOutputWithContext(ctx context.Context) FlyContainerDependencyConditionOutput {
+	return o
+}
+
+func (o FlyContainerDependencyConditionOutput) ToFlyContainerDependencyConditionPtrOutput() FlyContainerDependencyConditionPtrOutput {
+	return o.ToFlyContainerDependencyConditionPtrOutputWithContext(context.Background())
+}
+
+func (o FlyContainerDependencyConditionOutput) ToFlyContainerDependencyConditionPtrOutputWithContext(ctx context.Context) FlyContainerDependencyConditionPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FlyContainerDependencyCondition) *FlyContainerDependencyCondition {
+		return &v
+	}).(FlyContainerDependencyConditionPtrOutput)
+}
+
+func (o FlyContainerDependencyConditionOutput) ToStringOutput() pulumi.StringOutput {
+	return o.ToStringOutputWithContext(context.Background())
+}
+
+func (o FlyContainerDependencyConditionOutput) ToStringOutputWithContext(ctx context.Context) pulumi.StringOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e FlyContainerDependencyCondition) string {
+		return string(e)
+	}).(pulumi.StringOutput)
+}
+
+func (o FlyContainerDependencyConditionOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o FlyContainerDependencyConditionOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e FlyContainerDependencyCondition) *string {
+		v := string(e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+type FlyContainerDependencyConditionPtrOutput struct{ *pulumi.OutputState }
+
+func (FlyContainerDependencyConditionPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**FlyContainerDependencyCondition)(nil)).Elem()
+}
+
+func (o FlyContainerDependencyConditionPtrOutput) ToFlyContainerDependencyConditionPtrOutput() FlyContainerDependencyConditionPtrOutput {
+	return o
+}
+
+func (o FlyContainerDependencyConditionPtrOutput) ToFlyContainerDependencyConditionPtrOutputWithContext(ctx context.Context) FlyContainerDependencyConditionPtrOutput {
+	return o
+}
+
+func (o FlyContainerDependencyConditionPtrOutput) Elem() FlyContainerDependencyConditionOutput {
+	return o.ApplyT(func(v *FlyContainerDependencyCondition) FlyContainerDependencyCondition {
+		if v != nil {
+			return *v
+		}
+		var ret FlyContainerDependencyCondition
+		return ret
+	}).(FlyContainerDependencyConditionOutput)
+}
+
+func (o FlyContainerDependencyConditionPtrOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o FlyContainerDependencyConditionPtrOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e *FlyContainerDependencyCondition) *string {
+		if e == nil {
+			return nil
+		}
+		v := string(*e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+// FlyContainerDependencyConditionInput is an input type that accepts values of the FlyContainerDependencyCondition enum
+// A concrete instance of `FlyContainerDependencyConditionInput` can be one of the following:
+//
+//	FlyContainerDependencyConditionExitedSuccessfully
+//	FlyContainerDependencyConditionHealthy
+//	FlyContainerDependencyConditionStarted
+type FlyContainerDependencyConditionInput interface {
+	pulumi.Input
+
+	ToFlyContainerDependencyConditionOutput() FlyContainerDependencyConditionOutput
+	ToFlyContainerDependencyConditionOutputWithContext(context.Context) FlyContainerDependencyConditionOutput
+}
+
+var flyContainerDependencyConditionPtrType = reflect.TypeOf((**FlyContainerDependencyCondition)(nil)).Elem()
+
+type FlyContainerDependencyConditionPtrInput interface {
+	pulumi.Input
+
+	ToFlyContainerDependencyConditionPtrOutput() FlyContainerDependencyConditionPtrOutput
+	ToFlyContainerDependencyConditionPtrOutputWithContext(context.Context) FlyContainerDependencyConditionPtrOutput
+}
+
+type flyContainerDependencyConditionPtr string
+
+func FlyContainerDependencyConditionPtr(v string) FlyContainerDependencyConditionPtrInput {
+	return (*flyContainerDependencyConditionPtr)(&v)
+}
+
+func (*flyContainerDependencyConditionPtr) ElementType() reflect.Type {
+	return flyContainerDependencyConditionPtrType
+}
+
+func (in *flyContainerDependencyConditionPtr) ToFlyContainerDependencyConditionPtrOutput() FlyContainerDependencyConditionPtrOutput {
+	return pulumi.ToOutput(in).(FlyContainerDependencyConditionPtrOutput)
+}
+
+func (in *flyContainerDependencyConditionPtr) ToFlyContainerDependencyConditionPtrOutputWithContext(ctx context.Context) FlyContainerDependencyConditionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, in).(FlyContainerDependencyConditionPtrOutput)
+}
+
+// Kind of healthcheck (readiness, liveness)
+type FlyContainerHealthcheckKind string
+
+const (
+	FlyContainerHealthcheckKindReadiness = FlyContainerHealthcheckKind("readiness")
+	FlyContainerHealthcheckKindLiveness  = FlyContainerHealthcheckKind("liveness")
+)
+
+func (FlyContainerHealthcheckKind) ElementType() reflect.Type {
+	return reflect.TypeOf((*FlyContainerHealthcheckKind)(nil)).Elem()
+}
+
+func (e FlyContainerHealthcheckKind) ToFlyContainerHealthcheckKindOutput() FlyContainerHealthcheckKindOutput {
+	return pulumi.ToOutput(e).(FlyContainerHealthcheckKindOutput)
+}
+
+func (e FlyContainerHealthcheckKind) ToFlyContainerHealthcheckKindOutputWithContext(ctx context.Context) FlyContainerHealthcheckKindOutput {
+	return pulumi.ToOutputWithContext(ctx, e).(FlyContainerHealthcheckKindOutput)
+}
+
+func (e FlyContainerHealthcheckKind) ToFlyContainerHealthcheckKindPtrOutput() FlyContainerHealthcheckKindPtrOutput {
+	return e.ToFlyContainerHealthcheckKindPtrOutputWithContext(context.Background())
+}
+
+func (e FlyContainerHealthcheckKind) ToFlyContainerHealthcheckKindPtrOutputWithContext(ctx context.Context) FlyContainerHealthcheckKindPtrOutput {
+	return FlyContainerHealthcheckKind(e).ToFlyContainerHealthcheckKindOutputWithContext(ctx).ToFlyContainerHealthcheckKindPtrOutputWithContext(ctx)
+}
+
+func (e FlyContainerHealthcheckKind) ToStringOutput() pulumi.StringOutput {
+	return pulumi.ToOutput(pulumi.String(e)).(pulumi.StringOutput)
+}
+
+func (e FlyContainerHealthcheckKind) ToStringOutputWithContext(ctx context.Context) pulumi.StringOutput {
+	return pulumi.ToOutputWithContext(ctx, pulumi.String(e)).(pulumi.StringOutput)
+}
+
+func (e FlyContainerHealthcheckKind) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return pulumi.String(e).ToStringPtrOutputWithContext(context.Background())
+}
+
+func (e FlyContainerHealthcheckKind) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return pulumi.String(e).ToStringOutputWithContext(ctx).ToStringPtrOutputWithContext(ctx)
+}
+
+type FlyContainerHealthcheckKindOutput struct{ *pulumi.OutputState }
+
+func (FlyContainerHealthcheckKindOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FlyContainerHealthcheckKind)(nil)).Elem()
+}
+
+func (o FlyContainerHealthcheckKindOutput) ToFlyContainerHealthcheckKindOutput() FlyContainerHealthcheckKindOutput {
+	return o
+}
+
+func (o FlyContainerHealthcheckKindOutput) ToFlyContainerHealthcheckKindOutputWithContext(ctx context.Context) FlyContainerHealthcheckKindOutput {
+	return o
+}
+
+func (o FlyContainerHealthcheckKindOutput) ToFlyContainerHealthcheckKindPtrOutput() FlyContainerHealthcheckKindPtrOutput {
+	return o.ToFlyContainerHealthcheckKindPtrOutputWithContext(context.Background())
+}
+
+func (o FlyContainerHealthcheckKindOutput) ToFlyContainerHealthcheckKindPtrOutputWithContext(ctx context.Context) FlyContainerHealthcheckKindPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FlyContainerHealthcheckKind) *FlyContainerHealthcheckKind {
+		return &v
+	}).(FlyContainerHealthcheckKindPtrOutput)
+}
+
+func (o FlyContainerHealthcheckKindOutput) ToStringOutput() pulumi.StringOutput {
+	return o.ToStringOutputWithContext(context.Background())
+}
+
+func (o FlyContainerHealthcheckKindOutput) ToStringOutputWithContext(ctx context.Context) pulumi.StringOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e FlyContainerHealthcheckKind) string {
+		return string(e)
+	}).(pulumi.StringOutput)
+}
+
+func (o FlyContainerHealthcheckKindOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o FlyContainerHealthcheckKindOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e FlyContainerHealthcheckKind) *string {
+		v := string(e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+type FlyContainerHealthcheckKindPtrOutput struct{ *pulumi.OutputState }
+
+func (FlyContainerHealthcheckKindPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**FlyContainerHealthcheckKind)(nil)).Elem()
+}
+
+func (o FlyContainerHealthcheckKindPtrOutput) ToFlyContainerHealthcheckKindPtrOutput() FlyContainerHealthcheckKindPtrOutput {
+	return o
+}
+
+func (o FlyContainerHealthcheckKindPtrOutput) ToFlyContainerHealthcheckKindPtrOutputWithContext(ctx context.Context) FlyContainerHealthcheckKindPtrOutput {
+	return o
+}
+
+func (o FlyContainerHealthcheckKindPtrOutput) Elem() FlyContainerHealthcheckKindOutput {
+	return o.ApplyT(func(v *FlyContainerHealthcheckKind) FlyContainerHealthcheckKind {
+		if v != nil {
+			return *v
+		}
+		var ret FlyContainerHealthcheckKind
+		return ret
+	}).(FlyContainerHealthcheckKindOutput)
+}
+
+func (o FlyContainerHealthcheckKindPtrOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o FlyContainerHealthcheckKindPtrOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e *FlyContainerHealthcheckKind) *string {
+		if e == nil {
+			return nil
+		}
+		v := string(*e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+// FlyContainerHealthcheckKindInput is an input type that accepts values of the FlyContainerHealthcheckKind enum
+// A concrete instance of `FlyContainerHealthcheckKindInput` can be one of the following:
+//
+//	FlyContainerHealthcheckKindReadiness
+//	FlyContainerHealthcheckKindLiveness
+type FlyContainerHealthcheckKindInput interface {
+	pulumi.Input
+
+	ToFlyContainerHealthcheckKindOutput() FlyContainerHealthcheckKindOutput
+	ToFlyContainerHealthcheckKindOutputWithContext(context.Context) FlyContainerHealthcheckKindOutput
+}
+
+var flyContainerHealthcheckKindPtrType = reflect.TypeOf((**FlyContainerHealthcheckKind)(nil)).Elem()
+
+type FlyContainerHealthcheckKindPtrInput interface {
+	pulumi.Input
+
+	ToFlyContainerHealthcheckKindPtrOutput() FlyContainerHealthcheckKindPtrOutput
+	ToFlyContainerHealthcheckKindPtrOutputWithContext(context.Context) FlyContainerHealthcheckKindPtrOutput
+}
+
+type flyContainerHealthcheckKindPtr string
+
+func FlyContainerHealthcheckKindPtr(v string) FlyContainerHealthcheckKindPtrInput {
+	return (*flyContainerHealthcheckKindPtr)(&v)
+}
+
+func (*flyContainerHealthcheckKindPtr) ElementType() reflect.Type {
+	return flyContainerHealthcheckKindPtrType
+}
+
+func (in *flyContainerHealthcheckKindPtr) ToFlyContainerHealthcheckKindPtrOutput() FlyContainerHealthcheckKindPtrOutput {
+	return pulumi.ToOutput(in).(FlyContainerHealthcheckKindPtrOutput)
+}
+
+func (in *flyContainerHealthcheckKindPtr) ToFlyContainerHealthcheckKindPtrOutputWithContext(ctx context.Context) FlyContainerHealthcheckKindPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, in).(FlyContainerHealthcheckKindPtrOutput)
+}
+
+// Unhealthy policy that determines what action to take if a container is deemed unhealthy
+type FlyContainerHealthcheckUnhealthy string
+
+const (
+	FlyContainerHealthcheckUnhealthyUnhealthyPolicyStop = FlyContainerHealthcheckUnhealthy("stop")
+)
+
+func (FlyContainerHealthcheckUnhealthy) ElementType() reflect.Type {
+	return reflect.TypeOf((*FlyContainerHealthcheckUnhealthy)(nil)).Elem()
+}
+
+func (e FlyContainerHealthcheckUnhealthy) ToFlyContainerHealthcheckUnhealthyOutput() FlyContainerHealthcheckUnhealthyOutput {
+	return pulumi.ToOutput(e).(FlyContainerHealthcheckUnhealthyOutput)
+}
+
+func (e FlyContainerHealthcheckUnhealthy) ToFlyContainerHealthcheckUnhealthyOutputWithContext(ctx context.Context) FlyContainerHealthcheckUnhealthyOutput {
+	return pulumi.ToOutputWithContext(ctx, e).(FlyContainerHealthcheckUnhealthyOutput)
+}
+
+func (e FlyContainerHealthcheckUnhealthy) ToFlyContainerHealthcheckUnhealthyPtrOutput() FlyContainerHealthcheckUnhealthyPtrOutput {
+	return e.ToFlyContainerHealthcheckUnhealthyPtrOutputWithContext(context.Background())
+}
+
+func (e FlyContainerHealthcheckUnhealthy) ToFlyContainerHealthcheckUnhealthyPtrOutputWithContext(ctx context.Context) FlyContainerHealthcheckUnhealthyPtrOutput {
+	return FlyContainerHealthcheckUnhealthy(e).ToFlyContainerHealthcheckUnhealthyOutputWithContext(ctx).ToFlyContainerHealthcheckUnhealthyPtrOutputWithContext(ctx)
+}
+
+func (e FlyContainerHealthcheckUnhealthy) ToStringOutput() pulumi.StringOutput {
+	return pulumi.ToOutput(pulumi.String(e)).(pulumi.StringOutput)
+}
+
+func (e FlyContainerHealthcheckUnhealthy) ToStringOutputWithContext(ctx context.Context) pulumi.StringOutput {
+	return pulumi.ToOutputWithContext(ctx, pulumi.String(e)).(pulumi.StringOutput)
+}
+
+func (e FlyContainerHealthcheckUnhealthy) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return pulumi.String(e).ToStringPtrOutputWithContext(context.Background())
+}
+
+func (e FlyContainerHealthcheckUnhealthy) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return pulumi.String(e).ToStringOutputWithContext(ctx).ToStringPtrOutputWithContext(ctx)
+}
+
+type FlyContainerHealthcheckUnhealthyOutput struct{ *pulumi.OutputState }
+
+func (FlyContainerHealthcheckUnhealthyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FlyContainerHealthcheckUnhealthy)(nil)).Elem()
+}
+
+func (o FlyContainerHealthcheckUnhealthyOutput) ToFlyContainerHealthcheckUnhealthyOutput() FlyContainerHealthcheckUnhealthyOutput {
+	return o
+}
+
+func (o FlyContainerHealthcheckUnhealthyOutput) ToFlyContainerHealthcheckUnhealthyOutputWithContext(ctx context.Context) FlyContainerHealthcheckUnhealthyOutput {
+	return o
+}
+
+func (o FlyContainerHealthcheckUnhealthyOutput) ToFlyContainerHealthcheckUnhealthyPtrOutput() FlyContainerHealthcheckUnhealthyPtrOutput {
+	return o.ToFlyContainerHealthcheckUnhealthyPtrOutputWithContext(context.Background())
+}
+
+func (o FlyContainerHealthcheckUnhealthyOutput) ToFlyContainerHealthcheckUnhealthyPtrOutputWithContext(ctx context.Context) FlyContainerHealthcheckUnhealthyPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FlyContainerHealthcheckUnhealthy) *FlyContainerHealthcheckUnhealthy {
+		return &v
+	}).(FlyContainerHealthcheckUnhealthyPtrOutput)
+}
+
+func (o FlyContainerHealthcheckUnhealthyOutput) ToStringOutput() pulumi.StringOutput {
+	return o.ToStringOutputWithContext(context.Background())
+}
+
+func (o FlyContainerHealthcheckUnhealthyOutput) ToStringOutputWithContext(ctx context.Context) pulumi.StringOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e FlyContainerHealthcheckUnhealthy) string {
+		return string(e)
+	}).(pulumi.StringOutput)
+}
+
+func (o FlyContainerHealthcheckUnhealthyOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o FlyContainerHealthcheckUnhealthyOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e FlyContainerHealthcheckUnhealthy) *string {
+		v := string(e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+type FlyContainerHealthcheckUnhealthyPtrOutput struct{ *pulumi.OutputState }
+
+func (FlyContainerHealthcheckUnhealthyPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**FlyContainerHealthcheckUnhealthy)(nil)).Elem()
+}
+
+func (o FlyContainerHealthcheckUnhealthyPtrOutput) ToFlyContainerHealthcheckUnhealthyPtrOutput() FlyContainerHealthcheckUnhealthyPtrOutput {
+	return o
+}
+
+func (o FlyContainerHealthcheckUnhealthyPtrOutput) ToFlyContainerHealthcheckUnhealthyPtrOutputWithContext(ctx context.Context) FlyContainerHealthcheckUnhealthyPtrOutput {
+	return o
+}
+
+func (o FlyContainerHealthcheckUnhealthyPtrOutput) Elem() FlyContainerHealthcheckUnhealthyOutput {
+	return o.ApplyT(func(v *FlyContainerHealthcheckUnhealthy) FlyContainerHealthcheckUnhealthy {
+		if v != nil {
+			return *v
+		}
+		var ret FlyContainerHealthcheckUnhealthy
+		return ret
+	}).(FlyContainerHealthcheckUnhealthyOutput)
+}
+
+func (o FlyContainerHealthcheckUnhealthyPtrOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o FlyContainerHealthcheckUnhealthyPtrOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e *FlyContainerHealthcheckUnhealthy) *string {
+		if e == nil {
+			return nil
+		}
+		v := string(*e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+// FlyContainerHealthcheckUnhealthyInput is an input type that accepts values of the FlyContainerHealthcheckUnhealthy enum
+// A concrete instance of `FlyContainerHealthcheckUnhealthyInput` can be one of the following:
+//
+//	FlyContainerHealthcheckUnhealthyUnhealthyPolicyStop
+type FlyContainerHealthcheckUnhealthyInput interface {
+	pulumi.Input
+
+	ToFlyContainerHealthcheckUnhealthyOutput() FlyContainerHealthcheckUnhealthyOutput
+	ToFlyContainerHealthcheckUnhealthyOutputWithContext(context.Context) FlyContainerHealthcheckUnhealthyOutput
+}
+
+var flyContainerHealthcheckUnhealthyPtrType = reflect.TypeOf((**FlyContainerHealthcheckUnhealthy)(nil)).Elem()
+
+type FlyContainerHealthcheckUnhealthyPtrInput interface {
+	pulumi.Input
+
+	ToFlyContainerHealthcheckUnhealthyPtrOutput() FlyContainerHealthcheckUnhealthyPtrOutput
+	ToFlyContainerHealthcheckUnhealthyPtrOutputWithContext(context.Context) FlyContainerHealthcheckUnhealthyPtrOutput
+}
+
+type flyContainerHealthcheckUnhealthyPtr string
+
+func FlyContainerHealthcheckUnhealthyPtr(v string) FlyContainerHealthcheckUnhealthyPtrInput {
+	return (*flyContainerHealthcheckUnhealthyPtr)(&v)
+}
+
+func (*flyContainerHealthcheckUnhealthyPtr) ElementType() reflect.Type {
+	return flyContainerHealthcheckUnhealthyPtrType
+}
+
+func (in *flyContainerHealthcheckUnhealthyPtr) ToFlyContainerHealthcheckUnhealthyPtrOutput() FlyContainerHealthcheckUnhealthyPtrOutput {
+	return pulumi.ToOutput(in).(FlyContainerHealthcheckUnhealthyPtrOutput)
+}
+
+func (in *flyContainerHealthcheckUnhealthyPtr) ToFlyContainerHealthcheckUnhealthyPtrOutputWithContext(ctx context.Context) FlyContainerHealthcheckUnhealthyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, in).(FlyContainerHealthcheckUnhealthyPtrOutput)
+}
+
 // FieldRef selects a field of the Machine: supports id, version, app_name, private_ip, region, image.
 type FlyEnvFromFieldRef string
 
@@ -705,6 +1202,172 @@ func (in *flyEnvFromFieldRefPtr) ToFlyEnvFromFieldRefPtrOutput() FlyEnvFromField
 
 func (in *flyEnvFromFieldRefPtr) ToFlyEnvFromFieldRefPtrOutputWithContext(ctx context.Context) FlyEnvFromFieldRefPtrOutput {
 	return pulumi.ToOutputWithContext(ctx, in).(FlyEnvFromFieldRefPtrOutput)
+}
+
+// Whether to use http or https
+type FlyHTTPHealthcheckScheme string
+
+const (
+	FlyHTTPHealthcheckSchemeHTTP  = FlyHTTPHealthcheckScheme("http")
+	FlyHTTPHealthcheckSchemeHTTPS = FlyHTTPHealthcheckScheme("https")
+)
+
+func (FlyHTTPHealthcheckScheme) ElementType() reflect.Type {
+	return reflect.TypeOf((*FlyHTTPHealthcheckScheme)(nil)).Elem()
+}
+
+func (e FlyHTTPHealthcheckScheme) ToFlyHTTPHealthcheckSchemeOutput() FlyHTTPHealthcheckSchemeOutput {
+	return pulumi.ToOutput(e).(FlyHTTPHealthcheckSchemeOutput)
+}
+
+func (e FlyHTTPHealthcheckScheme) ToFlyHTTPHealthcheckSchemeOutputWithContext(ctx context.Context) FlyHTTPHealthcheckSchemeOutput {
+	return pulumi.ToOutputWithContext(ctx, e).(FlyHTTPHealthcheckSchemeOutput)
+}
+
+func (e FlyHTTPHealthcheckScheme) ToFlyHTTPHealthcheckSchemePtrOutput() FlyHTTPHealthcheckSchemePtrOutput {
+	return e.ToFlyHTTPHealthcheckSchemePtrOutputWithContext(context.Background())
+}
+
+func (e FlyHTTPHealthcheckScheme) ToFlyHTTPHealthcheckSchemePtrOutputWithContext(ctx context.Context) FlyHTTPHealthcheckSchemePtrOutput {
+	return FlyHTTPHealthcheckScheme(e).ToFlyHTTPHealthcheckSchemeOutputWithContext(ctx).ToFlyHTTPHealthcheckSchemePtrOutputWithContext(ctx)
+}
+
+func (e FlyHTTPHealthcheckScheme) ToStringOutput() pulumi.StringOutput {
+	return pulumi.ToOutput(pulumi.String(e)).(pulumi.StringOutput)
+}
+
+func (e FlyHTTPHealthcheckScheme) ToStringOutputWithContext(ctx context.Context) pulumi.StringOutput {
+	return pulumi.ToOutputWithContext(ctx, pulumi.String(e)).(pulumi.StringOutput)
+}
+
+func (e FlyHTTPHealthcheckScheme) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return pulumi.String(e).ToStringPtrOutputWithContext(context.Background())
+}
+
+func (e FlyHTTPHealthcheckScheme) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return pulumi.String(e).ToStringOutputWithContext(ctx).ToStringPtrOutputWithContext(ctx)
+}
+
+type FlyHTTPHealthcheckSchemeOutput struct{ *pulumi.OutputState }
+
+func (FlyHTTPHealthcheckSchemeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FlyHTTPHealthcheckScheme)(nil)).Elem()
+}
+
+func (o FlyHTTPHealthcheckSchemeOutput) ToFlyHTTPHealthcheckSchemeOutput() FlyHTTPHealthcheckSchemeOutput {
+	return o
+}
+
+func (o FlyHTTPHealthcheckSchemeOutput) ToFlyHTTPHealthcheckSchemeOutputWithContext(ctx context.Context) FlyHTTPHealthcheckSchemeOutput {
+	return o
+}
+
+func (o FlyHTTPHealthcheckSchemeOutput) ToFlyHTTPHealthcheckSchemePtrOutput() FlyHTTPHealthcheckSchemePtrOutput {
+	return o.ToFlyHTTPHealthcheckSchemePtrOutputWithContext(context.Background())
+}
+
+func (o FlyHTTPHealthcheckSchemeOutput) ToFlyHTTPHealthcheckSchemePtrOutputWithContext(ctx context.Context) FlyHTTPHealthcheckSchemePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FlyHTTPHealthcheckScheme) *FlyHTTPHealthcheckScheme {
+		return &v
+	}).(FlyHTTPHealthcheckSchemePtrOutput)
+}
+
+func (o FlyHTTPHealthcheckSchemeOutput) ToStringOutput() pulumi.StringOutput {
+	return o.ToStringOutputWithContext(context.Background())
+}
+
+func (o FlyHTTPHealthcheckSchemeOutput) ToStringOutputWithContext(ctx context.Context) pulumi.StringOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e FlyHTTPHealthcheckScheme) string {
+		return string(e)
+	}).(pulumi.StringOutput)
+}
+
+func (o FlyHTTPHealthcheckSchemeOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o FlyHTTPHealthcheckSchemeOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e FlyHTTPHealthcheckScheme) *string {
+		v := string(e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+type FlyHTTPHealthcheckSchemePtrOutput struct{ *pulumi.OutputState }
+
+func (FlyHTTPHealthcheckSchemePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**FlyHTTPHealthcheckScheme)(nil)).Elem()
+}
+
+func (o FlyHTTPHealthcheckSchemePtrOutput) ToFlyHTTPHealthcheckSchemePtrOutput() FlyHTTPHealthcheckSchemePtrOutput {
+	return o
+}
+
+func (o FlyHTTPHealthcheckSchemePtrOutput) ToFlyHTTPHealthcheckSchemePtrOutputWithContext(ctx context.Context) FlyHTTPHealthcheckSchemePtrOutput {
+	return o
+}
+
+func (o FlyHTTPHealthcheckSchemePtrOutput) Elem() FlyHTTPHealthcheckSchemeOutput {
+	return o.ApplyT(func(v *FlyHTTPHealthcheckScheme) FlyHTTPHealthcheckScheme {
+		if v != nil {
+			return *v
+		}
+		var ret FlyHTTPHealthcheckScheme
+		return ret
+	}).(FlyHTTPHealthcheckSchemeOutput)
+}
+
+func (o FlyHTTPHealthcheckSchemePtrOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o FlyHTTPHealthcheckSchemePtrOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e *FlyHTTPHealthcheckScheme) *string {
+		if e == nil {
+			return nil
+		}
+		v := string(*e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+// FlyHTTPHealthcheckSchemeInput is an input type that accepts values of the FlyHTTPHealthcheckScheme enum
+// A concrete instance of `FlyHTTPHealthcheckSchemeInput` can be one of the following:
+//
+//	FlyHTTPHealthcheckSchemeHTTP
+//	FlyHTTPHealthcheckSchemeHTTPS
+type FlyHTTPHealthcheckSchemeInput interface {
+	pulumi.Input
+
+	ToFlyHTTPHealthcheckSchemeOutput() FlyHTTPHealthcheckSchemeOutput
+	ToFlyHTTPHealthcheckSchemeOutputWithContext(context.Context) FlyHTTPHealthcheckSchemeOutput
+}
+
+var flyHTTPHealthcheckSchemePtrType = reflect.TypeOf((**FlyHTTPHealthcheckScheme)(nil)).Elem()
+
+type FlyHTTPHealthcheckSchemePtrInput interface {
+	pulumi.Input
+
+	ToFlyHTTPHealthcheckSchemePtrOutput() FlyHTTPHealthcheckSchemePtrOutput
+	ToFlyHTTPHealthcheckSchemePtrOutputWithContext(context.Context) FlyHTTPHealthcheckSchemePtrOutput
+}
+
+type flyHTTPHealthcheckSchemePtr string
+
+func FlyHTTPHealthcheckSchemePtr(v string) FlyHTTPHealthcheckSchemePtrInput {
+	return (*flyHTTPHealthcheckSchemePtr)(&v)
+}
+
+func (*flyHTTPHealthcheckSchemePtr) ElementType() reflect.Type {
+	return flyHTTPHealthcheckSchemePtrType
+}
+
+func (in *flyHTTPHealthcheckSchemePtr) ToFlyHTTPHealthcheckSchemePtrOutput() FlyHTTPHealthcheckSchemePtrOutput {
+	return pulumi.ToOutput(in).(FlyHTTPHealthcheckSchemePtrOutput)
+}
+
+func (in *flyHTTPHealthcheckSchemePtr) ToFlyHTTPHealthcheckSchemePtrOutputWithContext(ctx context.Context) FlyHTTPHealthcheckSchemePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, in).(FlyHTTPHealthcheckSchemePtrOutput)
 }
 
 // Deprecated: use MachineConfig.Rootfs instead
@@ -2984,8 +3647,16 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*AppIPAssignmentTypePtrInput)(nil)).Elem(), AppIPAssignmentType("v4"))
 	pulumi.RegisterInputType(reflect.TypeOf((*ChecksKindInput)(nil)).Elem(), ChecksKind("informational"))
 	pulumi.RegisterInputType(reflect.TypeOf((*ChecksKindPtrInput)(nil)).Elem(), ChecksKind("informational"))
+	pulumi.RegisterInputType(reflect.TypeOf((*FlyContainerDependencyConditionInput)(nil)).Elem(), FlyContainerDependencyCondition("exited_successfully"))
+	pulumi.RegisterInputType(reflect.TypeOf((*FlyContainerDependencyConditionPtrInput)(nil)).Elem(), FlyContainerDependencyCondition("exited_successfully"))
+	pulumi.RegisterInputType(reflect.TypeOf((*FlyContainerHealthcheckKindInput)(nil)).Elem(), FlyContainerHealthcheckKind("readiness"))
+	pulumi.RegisterInputType(reflect.TypeOf((*FlyContainerHealthcheckKindPtrInput)(nil)).Elem(), FlyContainerHealthcheckKind("readiness"))
+	pulumi.RegisterInputType(reflect.TypeOf((*FlyContainerHealthcheckUnhealthyInput)(nil)).Elem(), FlyContainerHealthcheckUnhealthy("stop"))
+	pulumi.RegisterInputType(reflect.TypeOf((*FlyContainerHealthcheckUnhealthyPtrInput)(nil)).Elem(), FlyContainerHealthcheckUnhealthy("stop"))
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyEnvFromFieldRefInput)(nil)).Elem(), FlyEnvFromFieldRef("id"))
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyEnvFromFieldRefPtrInput)(nil)).Elem(), FlyEnvFromFieldRef("id"))
+	pulumi.RegisterInputType(reflect.TypeOf((*FlyHTTPHealthcheckSchemeInput)(nil)).Elem(), FlyHTTPHealthcheckScheme("http"))
+	pulumi.RegisterInputType(reflect.TypeOf((*FlyHTTPHealthcheckSchemePtrInput)(nil)).Elem(), FlyHTTPHealthcheckScheme("http"))
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineGuestPersistRootfsInput)(nil)).Elem(), FlyMachineGuestPersistRootfs("never"))
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineGuestPersistRootfsPtrInput)(nil)).Elem(), FlyMachineGuestPersistRootfs("never"))
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineRestartPolicyInput)(nil)).Elem(), FlyMachineRestartPolicy("no"))
@@ -3014,8 +3685,16 @@ func init() {
 	pulumi.RegisterOutputType(CertificateEntryStatusPtrOutput{})
 	pulumi.RegisterOutputType(ChecksKindOutput{})
 	pulumi.RegisterOutputType(ChecksKindPtrOutput{})
+	pulumi.RegisterOutputType(FlyContainerDependencyConditionOutput{})
+	pulumi.RegisterOutputType(FlyContainerDependencyConditionPtrOutput{})
+	pulumi.RegisterOutputType(FlyContainerHealthcheckKindOutput{})
+	pulumi.RegisterOutputType(FlyContainerHealthcheckKindPtrOutput{})
+	pulumi.RegisterOutputType(FlyContainerHealthcheckUnhealthyOutput{})
+	pulumi.RegisterOutputType(FlyContainerHealthcheckUnhealthyPtrOutput{})
 	pulumi.RegisterOutputType(FlyEnvFromFieldRefOutput{})
 	pulumi.RegisterOutputType(FlyEnvFromFieldRefPtrOutput{})
+	pulumi.RegisterOutputType(FlyHTTPHealthcheckSchemeOutput{})
+	pulumi.RegisterOutputType(FlyHTTPHealthcheckSchemePtrOutput{})
 	pulumi.RegisterOutputType(FlyMachineGuestPersistRootfsOutput{})
 	pulumi.RegisterOutputType(FlyMachineGuestPersistRootfsPtrOutput{})
 	pulumi.RegisterOutputType(FlyMachineRestartPolicyOutput{})

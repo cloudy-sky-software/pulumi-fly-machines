@@ -984,145 +984,6 @@ func (o MainTokenAccessPtrOutput) VolumeId() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Action is the action being taken on the specified resource. This is the
-// combination of individual action characters (e.g "rw")
-//   - r: read
-//   - w: write
-//   - c: create
-//   - d: delete
-//   - C: control
-type MainTokenAccessAction struct {
-}
-
-// MainTokenAccessActionInput is an input type that accepts MainTokenAccessActionArgs and MainTokenAccessActionOutput values.
-// You can construct a concrete instance of `MainTokenAccessActionInput` via:
-//
-//	MainTokenAccessActionArgs{...}
-type MainTokenAccessActionInput interface {
-	pulumi.Input
-
-	ToMainTokenAccessActionOutput() MainTokenAccessActionOutput
-	ToMainTokenAccessActionOutputWithContext(context.Context) MainTokenAccessActionOutput
-}
-
-// Action is the action being taken on the specified resource. This is the
-// combination of individual action characters (e.g "rw")
-//   - r: read
-//   - w: write
-//   - c: create
-//   - d: delete
-//   - C: control
-type MainTokenAccessActionArgs struct {
-}
-
-func (MainTokenAccessActionArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*MainTokenAccessAction)(nil)).Elem()
-}
-
-func (i MainTokenAccessActionArgs) ToMainTokenAccessActionOutput() MainTokenAccessActionOutput {
-	return i.ToMainTokenAccessActionOutputWithContext(context.Background())
-}
-
-func (i MainTokenAccessActionArgs) ToMainTokenAccessActionOutputWithContext(ctx context.Context) MainTokenAccessActionOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MainTokenAccessActionOutput)
-}
-
-func (i MainTokenAccessActionArgs) ToMainTokenAccessActionPtrOutput() MainTokenAccessActionPtrOutput {
-	return i.ToMainTokenAccessActionPtrOutputWithContext(context.Background())
-}
-
-func (i MainTokenAccessActionArgs) ToMainTokenAccessActionPtrOutputWithContext(ctx context.Context) MainTokenAccessActionPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MainTokenAccessActionOutput).ToMainTokenAccessActionPtrOutputWithContext(ctx)
-}
-
-// MainTokenAccessActionPtrInput is an input type that accepts MainTokenAccessActionArgs, MainTokenAccessActionPtr and MainTokenAccessActionPtrOutput values.
-// You can construct a concrete instance of `MainTokenAccessActionPtrInput` via:
-//
-//	        MainTokenAccessActionArgs{...}
-//
-//	or:
-//
-//	        nil
-type MainTokenAccessActionPtrInput interface {
-	pulumi.Input
-
-	ToMainTokenAccessActionPtrOutput() MainTokenAccessActionPtrOutput
-	ToMainTokenAccessActionPtrOutputWithContext(context.Context) MainTokenAccessActionPtrOutput
-}
-
-type mainTokenAccessActionPtrType MainTokenAccessActionArgs
-
-func MainTokenAccessActionPtr(v *MainTokenAccessActionArgs) MainTokenAccessActionPtrInput {
-	return (*mainTokenAccessActionPtrType)(v)
-}
-
-func (*mainTokenAccessActionPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**MainTokenAccessAction)(nil)).Elem()
-}
-
-func (i *mainTokenAccessActionPtrType) ToMainTokenAccessActionPtrOutput() MainTokenAccessActionPtrOutput {
-	return i.ToMainTokenAccessActionPtrOutputWithContext(context.Background())
-}
-
-func (i *mainTokenAccessActionPtrType) ToMainTokenAccessActionPtrOutputWithContext(ctx context.Context) MainTokenAccessActionPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MainTokenAccessActionPtrOutput)
-}
-
-// Action is the action being taken on the specified resource. This is the
-// combination of individual action characters (e.g "rw")
-//   - r: read
-//   - w: write
-//   - c: create
-//   - d: delete
-//   - C: control
-type MainTokenAccessActionOutput struct{ *pulumi.OutputState }
-
-func (MainTokenAccessActionOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*MainTokenAccessAction)(nil)).Elem()
-}
-
-func (o MainTokenAccessActionOutput) ToMainTokenAccessActionOutput() MainTokenAccessActionOutput {
-	return o
-}
-
-func (o MainTokenAccessActionOutput) ToMainTokenAccessActionOutputWithContext(ctx context.Context) MainTokenAccessActionOutput {
-	return o
-}
-
-func (o MainTokenAccessActionOutput) ToMainTokenAccessActionPtrOutput() MainTokenAccessActionPtrOutput {
-	return o.ToMainTokenAccessActionPtrOutputWithContext(context.Background())
-}
-
-func (o MainTokenAccessActionOutput) ToMainTokenAccessActionPtrOutputWithContext(ctx context.Context) MainTokenAccessActionPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v MainTokenAccessAction) *MainTokenAccessAction {
-		return &v
-	}).(MainTokenAccessActionPtrOutput)
-}
-
-type MainTokenAccessActionPtrOutput struct{ *pulumi.OutputState }
-
-func (MainTokenAccessActionPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**MainTokenAccessAction)(nil)).Elem()
-}
-
-func (o MainTokenAccessActionPtrOutput) ToMainTokenAccessActionPtrOutput() MainTokenAccessActionPtrOutput {
-	return o
-}
-
-func (o MainTokenAccessActionPtrOutput) ToMainTokenAccessActionPtrOutputWithContext(ctx context.Context) MainTokenAccessActionPtrOutput {
-	return o
-}
-
-func (o MainTokenAccessActionPtrOutput) Elem() MainTokenAccessActionOutput {
-	return o.ApplyT(func(v *MainTokenAccessAction) MainTokenAccessAction {
-		if v != nil {
-			return *v
-		}
-		var ret MainTokenAccessAction
-		return ret
-	}).(MainTokenAccessActionOutput)
-}
-
 type MainTokenInfo struct {
 	Apps         []string `pulumi:"apps"`
 	OrgSlug      *string  `pulumi:"orgSlug"`
@@ -2423,8 +2284,6 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetCurrentTokenQueryParamsPtrInput)(nil)).Elem(), GetCurrentTokenQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MainTokenAccessInput)(nil)).Elem(), MainTokenAccessArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MainTokenAccessPtrInput)(nil)).Elem(), MainTokenAccessArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*MainTokenAccessActionInput)(nil)).Elem(), MainTokenAccessActionArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*MainTokenAccessActionPtrInput)(nil)).Elem(), MainTokenAccessActionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TokensAuthenticateCreateQueryParamsInput)(nil)).Elem(), TokensAuthenticateCreateQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TokensAuthenticateCreateQueryParamsPtrInput)(nil)).Elem(), TokensAuthenticateCreateQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TokensAuthenticateQueryParamsInput)(nil)).Elem(), TokensAuthenticateQueryParamsArgs{})
@@ -2451,8 +2310,6 @@ func init() {
 	pulumi.RegisterOutputType(MacaroonNoncePtrOutput{})
 	pulumi.RegisterOutputType(MainTokenAccessOutput{})
 	pulumi.RegisterOutputType(MainTokenAccessPtrOutput{})
-	pulumi.RegisterOutputType(MainTokenAccessActionOutput{})
-	pulumi.RegisterOutputType(MainTokenAccessActionPtrOutput{})
 	pulumi.RegisterOutputType(MainTokenInfoOutput{})
 	pulumi.RegisterOutputType(MainTokenInfoArrayOutput{})
 	pulumi.RegisterOutputType(RootVerifiedTokenOutput{})

@@ -49,10 +49,7 @@ __all__ = [
     'FlyContainerConfigRestart',
     'FlyContainerConfigStop',
     'FlyContainerDependency',
-    'FlyContainerDependencyCondition',
     'FlyContainerHealthcheck',
-    'FlyContainerHealthcheckKind',
-    'FlyContainerHealthcheckUnhealthy',
     'FlyDNSConfig',
     'FlyDnsForwardRule',
     'FlyDnsOption',
@@ -60,7 +57,6 @@ __all__ = [
     'FlyExecHealthcheck',
     'FlyFile',
     'FlyHTTPHealthcheck',
-    'FlyHTTPHealthcheckScheme',
     'FlyHTTPOptions',
     'FlyHTTPResponseOptions',
     'FlyMachineCacheDrive',
@@ -1783,7 +1779,7 @@ class FlyContainerConfigStop(dict):
 @pulumi.output_type
 class FlyContainerDependency(dict):
     def __init__(__self__, *,
-                 condition: Optional['outputs.FlyContainerDependencyCondition'] = None,
+                 condition: Optional['FlyContainerDependencyCondition'] = None,
                  name: Optional[_builtins.str] = None):
         if condition is not None:
             pulumi.set(__self__, "condition", condition)
@@ -1792,19 +1788,13 @@ class FlyContainerDependency(dict):
 
     @_builtins.property
     @pulumi.getter
-    def condition(self) -> Optional['outputs.FlyContainerDependencyCondition']:
+    def condition(self) -> Optional['FlyContainerDependencyCondition']:
         return pulumi.get(self, "condition")
 
     @_builtins.property
     @pulumi.getter
     def name(self) -> Optional[_builtins.str]:
         return pulumi.get(self, "name")
-
-
-@pulumi.output_type
-class FlyContainerDependencyCondition(dict):
-    def __init__(__self__):
-        pass
 
 
 @pulumi.output_type
@@ -1838,12 +1828,12 @@ class FlyContainerHealthcheck(dict):
                  grace_period: Optional[_builtins.int] = None,
                  http: Optional['outputs.FlyHTTPHealthcheck'] = None,
                  interval: Optional[_builtins.int] = None,
-                 kind: Optional['outputs.FlyContainerHealthcheckKind'] = None,
+                 kind: Optional['FlyContainerHealthcheckKind'] = None,
                  name: Optional[_builtins.str] = None,
                  success_threshold: Optional[_builtins.int] = None,
                  tcp: Optional['outputs.FlyTCPHealthcheck'] = None,
                  timeout: Optional[_builtins.int] = None,
-                 unhealthy: Optional['outputs.FlyContainerHealthcheckUnhealthy'] = None):
+                 unhealthy: Optional['FlyContainerHealthcheckUnhealthy'] = None):
         """
         :param _builtins.int failure_threshold: The number of times the check must fail before considering the container unhealthy.
         :param _builtins.int grace_period: The time in seconds to wait after a container starts before checking its health.
@@ -1913,7 +1903,7 @@ class FlyContainerHealthcheck(dict):
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional['outputs.FlyContainerHealthcheckKind']:
+    def kind(self) -> Optional['FlyContainerHealthcheckKind']:
         """
         Kind of healthcheck (readiness, liveness)
         """
@@ -1950,35 +1940,11 @@ class FlyContainerHealthcheck(dict):
 
     @_builtins.property
     @pulumi.getter
-    def unhealthy(self) -> Optional['outputs.FlyContainerHealthcheckUnhealthy']:
+    def unhealthy(self) -> Optional['FlyContainerHealthcheckUnhealthy']:
         """
         Unhealthy policy that determines what action to take if a container is deemed unhealthy
         """
         return pulumi.get(self, "unhealthy")
-
-
-@pulumi.output_type
-class FlyContainerHealthcheckKind(dict):
-    """
-    Kind of healthcheck (readiness, liveness)
-    """
-    def __init__(__self__):
-        """
-        Kind of healthcheck (readiness, liveness)
-        """
-        pass
-
-
-@pulumi.output_type
-class FlyContainerHealthcheckUnhealthy(dict):
-    """
-    Unhealthy policy that determines what action to take if a container is deemed unhealthy
-    """
-    def __init__(__self__):
-        """
-        Unhealthy policy that determines what action to take if a container is deemed unhealthy
-        """
-        pass
 
 
 @pulumi.output_type
@@ -2304,7 +2270,7 @@ class FlyHTTPHealthcheck(dict):
                  method: Optional[_builtins.str] = None,
                  path: Optional[_builtins.str] = None,
                  port: Optional[_builtins.int] = None,
-                 scheme: Optional['outputs.FlyHTTPHealthcheckScheme'] = None,
+                 scheme: Optional['FlyHTTPHealthcheckScheme'] = None,
                  tls_server_name: Optional[_builtins.str] = None,
                  tls_skip_verify: Optional[_builtins.bool] = None):
         """
@@ -2365,7 +2331,7 @@ class FlyHTTPHealthcheck(dict):
 
     @_builtins.property
     @pulumi.getter
-    def scheme(self) -> Optional['outputs.FlyHTTPHealthcheckScheme']:
+    def scheme(self) -> Optional['FlyHTTPHealthcheckScheme']:
         """
         Whether to use http or https
         """
@@ -2386,18 +2352,6 @@ class FlyHTTPHealthcheck(dict):
         If the protocol is https, whether or not to verify the TLS certificate
         """
         return pulumi.get(self, "tls_skip_verify")
-
-
-@pulumi.output_type
-class FlyHTTPHealthcheckScheme(dict):
-    """
-    Whether to use http or https
-    """
-    def __init__(__self__):
-        """
-        Whether to use http or https
-        """
-        pass
 
 
 @pulumi.output_type
