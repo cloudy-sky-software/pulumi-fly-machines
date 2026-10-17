@@ -41,7 +41,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         /// Kind of healthcheck (readiness, liveness)
         /// </summary>
         [Input("kind")]
-        public Input<Inputs.FlyContainerHealthcheckKindArgs>? Kind { get; set; }
+        public Input<CloudySkySoftware.Pulumi.FlyMachines.AppsV1.FlyContainerHealthcheckKind>? Kind { get; set; }
 
         /// <summary>
         /// The name of the check. Must be unique within the container.
@@ -68,7 +68,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         /// Unhealthy policy that determines what action to take if a container is deemed unhealthy
         /// </summary>
         [Input("unhealthy")]
-        public Input<Inputs.FlyContainerHealthcheckUnhealthyArgs>? Unhealthy { get; set; }
+        public Input<CloudySkySoftware.Pulumi.FlyMachines.AppsV1.FlyContainerHealthcheckUnhealthy>? Unhealthy { get; set; }
 
         public FlyContainerHealthcheckArgs()
         {

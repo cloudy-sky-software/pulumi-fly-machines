@@ -23,7 +23,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.TokensV1.Inputs
         ///   - C: control
         /// </summary>
         [Input("action")]
-        public Input<Inputs.MainTokenAccessActionArgs>? Action { get; set; }
+        public Input<CloudySkySoftware.Pulumi.FlyMachines.TokensV1.MainTokenAccessAction>? Action { get; set; }
 
         /// <summary>
         /// AppFeature is a named set of functionality associated with the app. If

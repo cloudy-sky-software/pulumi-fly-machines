@@ -31,7 +31,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         /// <summary>
         /// Kind of healthcheck (readiness, liveness)
         /// </summary>
-        public readonly Outputs.FlyContainerHealthcheckKind? Kind;
+        public readonly CloudySkySoftware.Pulumi.FlyMachines.AppsV1.FlyContainerHealthcheckKind? Kind;
         /// <summary>
         /// The name of the check. Must be unique within the container.
         /// </summary>
@@ -48,7 +48,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         /// <summary>
         /// Unhealthy policy that determines what action to take if a container is deemed unhealthy
         /// </summary>
-        public readonly Outputs.FlyContainerHealthcheckUnhealthy? Unhealthy;
+        public readonly CloudySkySoftware.Pulumi.FlyMachines.AppsV1.FlyContainerHealthcheckUnhealthy? Unhealthy;
 
         [OutputConstructor]
         private FlyContainerHealthcheck(
@@ -62,7 +62,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
 
             int? interval,
 
-            Outputs.FlyContainerHealthcheckKind? kind,
+            CloudySkySoftware.Pulumi.FlyMachines.AppsV1.FlyContainerHealthcheckKind? kind,
 
             string? name,
 
@@ -72,7 +72,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
 
             int? timeout,
 
-            Outputs.FlyContainerHealthcheckUnhealthy? unhealthy)
+            CloudySkySoftware.Pulumi.FlyMachines.AppsV1.FlyContainerHealthcheckUnhealthy? unhealthy)
         {
             Exec = exec;
             FailureThreshold = failureThreshold;

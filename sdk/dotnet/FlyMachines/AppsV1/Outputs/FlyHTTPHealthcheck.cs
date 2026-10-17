@@ -33,7 +33,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         /// <summary>
         /// Whether to use http or https
         /// </summary>
-        public readonly Outputs.FlyHTTPHealthcheckScheme? Scheme;
+        public readonly CloudySkySoftware.Pulumi.FlyMachines.AppsV1.FlyHTTPHealthcheckScheme? Scheme;
         /// <summary>
         /// If the protocol is https, the hostname to use for TLS certificate validation
         /// </summary>
@@ -53,7 +53,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
 
             int? port,
 
-            Outputs.FlyHTTPHealthcheckScheme? scheme,
+            CloudySkySoftware.Pulumi.FlyMachines.AppsV1.FlyHTTPHealthcheckScheme? scheme,
 
             string? tlsServerName,
 

@@ -14,12 +14,12 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     [OutputType]
     public sealed class FlyContainerDependency
     {
-        public readonly Outputs.FlyContainerDependencyCondition? Condition;
+        public readonly CloudySkySoftware.Pulumi.FlyMachines.AppsV1.FlyContainerDependencyCondition? Condition;
         public readonly string? Name;
 
         [OutputConstructor]
         private FlyContainerDependency(
-            Outputs.FlyContainerDependencyCondition? condition,
+            CloudySkySoftware.Pulumi.FlyMachines.AppsV1.FlyContainerDependencyCondition? condition,
 
             string? name)
         {

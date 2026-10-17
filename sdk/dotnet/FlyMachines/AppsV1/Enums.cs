@@ -20,13 +20,13 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
             _value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
-        public static AppIPAssignmentType V4 { get; } = new AppIPAssignmentType("v4");
-        public static AppIPAssignmentType V6 { get; } = new AppIPAssignmentType("v6");
-        public static AppIPAssignmentType SharedV4 { get; } = new AppIPAssignmentType("shared_v4");
-        public static AppIPAssignmentType PrivateV6 { get; } = new AppIPAssignmentType("private_v6");
-        public static AppIPAssignmentType EgressV4 { get; } = new AppIPAssignmentType("egress_v4");
-        public static AppIPAssignmentType EgressV6 { get; } = new AppIPAssignmentType("egress_v6");
-        public static AppIPAssignmentType EgressPair { get; } = new AppIPAssignmentType("egress_pair");
+        public static AppIPAssignmentType IPAssignmentType_v4 { get; } = new AppIPAssignmentType("v4");
+        public static AppIPAssignmentType IPAssignmentType_v6 { get; } = new AppIPAssignmentType("v6");
+        public static AppIPAssignmentType IPAssignmentType_shared_v4 { get; } = new AppIPAssignmentType("shared_v4");
+        public static AppIPAssignmentType IPAssignmentType_private_v6 { get; } = new AppIPAssignmentType("private_v6");
+        public static AppIPAssignmentType IPAssignmentType_egress_v4 { get; } = new AppIPAssignmentType("egress_v4");
+        public static AppIPAssignmentType IPAssignmentType_egress_v6 { get; } = new AppIPAssignmentType("egress_v6");
+        public static AppIPAssignmentType IPAssignmentType_egress_pair { get; } = new AppIPAssignmentType("egress_pair");
 
         public static bool operator ==(AppIPAssignmentType left, AppIPAssignmentType right) => left.Equals(right);
         public static bool operator !=(AppIPAssignmentType left, AppIPAssignmentType right) => !left.Equals(right);
@@ -131,6 +131,96 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         public override string ToString() => _value;
     }
 
+    [EnumType]
+    public readonly struct FlyContainerDependencyCondition : IEquatable<FlyContainerDependencyCondition>
+    {
+        private readonly string _value;
+
+        private FlyContainerDependencyCondition(string value)
+        {
+            _value = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        public static FlyContainerDependencyCondition ExitedSuccessfully { get; } = new FlyContainerDependencyCondition("exited_successfully");
+        public static FlyContainerDependencyCondition Healthy { get; } = new FlyContainerDependencyCondition("healthy");
+        public static FlyContainerDependencyCondition Started { get; } = new FlyContainerDependencyCondition("started");
+
+        public static bool operator ==(FlyContainerDependencyCondition left, FlyContainerDependencyCondition right) => left.Equals(right);
+        public static bool operator !=(FlyContainerDependencyCondition left, FlyContainerDependencyCondition right) => !left.Equals(right);
+
+        public static explicit operator string(FlyContainerDependencyCondition value) => value._value;
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object? obj) => obj is FlyContainerDependencyCondition other && Equals(other);
+        public bool Equals(FlyContainerDependencyCondition other) => string.Equals(_value, other._value, StringComparison.Ordinal);
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode() => _value?.GetHashCode() ?? 0;
+
+        public override string ToString() => _value;
+    }
+
+    /// <summary>
+    /// Kind of healthcheck (readiness, liveness)
+    /// </summary>
+    [EnumType]
+    public readonly struct FlyContainerHealthcheckKind : IEquatable<FlyContainerHealthcheckKind>
+    {
+        private readonly string _value;
+
+        private FlyContainerHealthcheckKind(string value)
+        {
+            _value = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        public static FlyContainerHealthcheckKind Readiness { get; } = new FlyContainerHealthcheckKind("readiness");
+        public static FlyContainerHealthcheckKind Liveness { get; } = new FlyContainerHealthcheckKind("liveness");
+
+        public static bool operator ==(FlyContainerHealthcheckKind left, FlyContainerHealthcheckKind right) => left.Equals(right);
+        public static bool operator !=(FlyContainerHealthcheckKind left, FlyContainerHealthcheckKind right) => !left.Equals(right);
+
+        public static explicit operator string(FlyContainerHealthcheckKind value) => value._value;
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object? obj) => obj is FlyContainerHealthcheckKind other && Equals(other);
+        public bool Equals(FlyContainerHealthcheckKind other) => string.Equals(_value, other._value, StringComparison.Ordinal);
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode() => _value?.GetHashCode() ?? 0;
+
+        public override string ToString() => _value;
+    }
+
+    /// <summary>
+    /// Unhealthy policy that determines what action to take if a container is deemed unhealthy
+    /// </summary>
+    [EnumType]
+    public readonly struct FlyContainerHealthcheckUnhealthy : IEquatable<FlyContainerHealthcheckUnhealthy>
+    {
+        private readonly string _value;
+
+        private FlyContainerHealthcheckUnhealthy(string value)
+        {
+            _value = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        public static FlyContainerHealthcheckUnhealthy UnhealthyPolicyStop { get; } = new FlyContainerHealthcheckUnhealthy("stop");
+
+        public static bool operator ==(FlyContainerHealthcheckUnhealthy left, FlyContainerHealthcheckUnhealthy right) => left.Equals(right);
+        public static bool operator !=(FlyContainerHealthcheckUnhealthy left, FlyContainerHealthcheckUnhealthy right) => !left.Equals(right);
+
+        public static explicit operator string(FlyContainerHealthcheckUnhealthy value) => value._value;
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object? obj) => obj is FlyContainerHealthcheckUnhealthy other && Equals(other);
+        public bool Equals(FlyContainerHealthcheckUnhealthy other) => string.Equals(_value, other._value, StringComparison.Ordinal);
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode() => _value?.GetHashCode() ?? 0;
+
+        public override string ToString() => _value;
+    }
+
     /// <summary>
     /// FieldRef selects a field of the Machine: supports id, version, app_name, private_ip, region, image.
     /// </summary>
@@ -159,6 +249,37 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object? obj) => obj is FlyEnvFromFieldRef other && Equals(other);
         public bool Equals(FlyEnvFromFieldRef other) => string.Equals(_value, other._value, StringComparison.Ordinal);
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode() => _value?.GetHashCode() ?? 0;
+
+        public override string ToString() => _value;
+    }
+
+    /// <summary>
+    /// Whether to use http or https
+    /// </summary>
+    [EnumType]
+    public readonly struct FlyHTTPHealthcheckScheme : IEquatable<FlyHTTPHealthcheckScheme>
+    {
+        private readonly string _value;
+
+        private FlyHTTPHealthcheckScheme(string value)
+        {
+            _value = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        public static FlyHTTPHealthcheckScheme HTTP { get; } = new FlyHTTPHealthcheckScheme("http");
+        public static FlyHTTPHealthcheckScheme HTTPS { get; } = new FlyHTTPHealthcheckScheme("https");
+
+        public static bool operator ==(FlyHTTPHealthcheckScheme left, FlyHTTPHealthcheckScheme right) => left.Equals(right);
+        public static bool operator !=(FlyHTTPHealthcheckScheme left, FlyHTTPHealthcheckScheme right) => !left.Equals(right);
+
+        public static explicit operator string(FlyHTTPHealthcheckScheme value) => value._value;
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object? obj) => obj is FlyHTTPHealthcheckScheme other && Equals(other);
+        public bool Equals(FlyHTTPHealthcheckScheme other) => string.Equals(_value, other._value, StringComparison.Ordinal);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override int GetHashCode() => _value?.GetHashCode() ?? 0;

@@ -11,7 +11,11 @@ __all__ = [
     'CertificateEntrySource',
     'CertificateEntryStatus',
     'ChecksKind',
+    'FlyContainerDependencyCondition',
+    'FlyContainerHealthcheckKind',
+    'FlyContainerHealthcheckUnhealthy',
     'FlyEnvFromFieldRef',
+    'FlyHTTPHealthcheckScheme',
     'FlyMachineGuestPersistRootfs',
     'FlyMachineRestartPolicy',
     'FlyMachineRootfsPersist',
@@ -36,13 +40,13 @@ class AppIPAssignmentType(_builtins.str, Enum):
     """
     Type of IP address to allocate. "egress-pair" allocates both v4 and v6 egress IP addresses (recommended when using egress IPs).
     """
-    V4 = "v4"
-    V6 = "v6"
-    SHARED_V4 = "shared_v4"
-    PRIVATE_V6 = "private_v6"
-    EGRESS_V4 = "egress_v4"
-    EGRESS_V6 = "egress_v6"
-    EGRESS_PAIR = "egress_pair"
+    IPASSIGNMENT_TYPE_V4 = "v4"
+    IPASSIGNMENT_TYPE_V6 = "v6"
+    IPASSIGNMENT_TYPE_SHARED_V4 = "shared_v4"
+    IPASSIGNMENT_TYPE_PRIVATE_V6 = "private_v6"
+    IPASSIGNMENT_TYPE_EGRESS_V4 = "egress_v4"
+    IPASSIGNMENT_TYPE_EGRESS_V6 = "egress_v6"
+    IPASSIGNMENT_TYPE_EGRESS_PAIR = "egress_pair"
 
 
 @pulumi.type_token("fly-machines:apps/v1:CertificateEntrySource")
@@ -67,6 +71,30 @@ class ChecksKind(_builtins.str, Enum):
     READINESS = "readiness"
 
 
+@pulumi.type_token("fly-machines:apps/v1:FlyContainerDependencyCondition")
+class FlyContainerDependencyCondition(_builtins.str, Enum):
+    EXITED_SUCCESSFULLY = "exited_successfully"
+    HEALTHY = "healthy"
+    STARTED = "started"
+
+
+@pulumi.type_token("fly-machines:apps/v1:FlyContainerHealthcheckKind")
+class FlyContainerHealthcheckKind(_builtins.str, Enum):
+    """
+    Kind of healthcheck (readiness, liveness)
+    """
+    READINESS = "readiness"
+    LIVENESS = "liveness"
+
+
+@pulumi.type_token("fly-machines:apps/v1:FlyContainerHealthcheckUnhealthy")
+class FlyContainerHealthcheckUnhealthy(_builtins.str, Enum):
+    """
+    Unhealthy policy that determines what action to take if a container is deemed unhealthy
+    """
+    UNHEALTHY_POLICY_STOP = "stop"
+
+
 @pulumi.type_token("fly-machines:apps/v1:FlyEnvFromFieldRef")
 class FlyEnvFromFieldRef(_builtins.str, Enum):
     """
@@ -78,6 +106,15 @@ class FlyEnvFromFieldRef(_builtins.str, Enum):
     PRIVATE_IP = "private_ip"
     REGION = "region"
     IMAGE = "image"
+
+
+@pulumi.type_token("fly-machines:apps/v1:FlyHTTPHealthcheckScheme")
+class FlyHTTPHealthcheckScheme(_builtins.str, Enum):
+    """
+    Whether to use http or https
+    """
+    HTTP = "http"
+    HTTPS = "https"
 
 
 @pulumi.type_token("fly-machines:apps/v1:FlyMachineGuestPersistRootfs")

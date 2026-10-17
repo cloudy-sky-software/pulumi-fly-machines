@@ -47,7 +47,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         /// Whether to use http or https
         /// </summary>
         [Input("scheme")]
-        public Input<Inputs.FlyHTTPHealthcheckSchemeArgs>? Scheme { get; set; }
+        public Input<CloudySkySoftware.Pulumi.FlyMachines.AppsV1.FlyHTTPHealthcheckScheme>? Scheme { get; set; }
 
         /// <summary>
         /// If the protocol is https, the hostname to use for TLS certificate validation

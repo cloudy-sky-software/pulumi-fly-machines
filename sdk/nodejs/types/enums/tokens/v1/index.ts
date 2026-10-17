@@ -3,13 +3,34 @@
 
 
 export const FlyioAccessAction = {
-    FlyioAccessAction_d_float64_1_: 1,
-    FlyioAccessAction_d_float64_2_: 2,
-    FlyioAccessAction_d_float64_4_: 4,
-    FlyioAccessAction_d_float64_8_: 8,
-    FlyioAccessAction_d_float64_16_: 16,
-    FlyioAccessAction_d_float64_31_: 31,
-    FlyioAccessAction_d_float64_0_: 0,
+    ActionRead: 1,
+    ActionWrite: 2,
+    ActionCreate: 4,
+    ActionDelete: 8,
+    ActionControl: 16,
+    ActionAll: 31,
+    ActionNone: 0,
 } as const;
 
 export type FlyioAccessAction = (typeof FlyioAccessAction)[keyof typeof FlyioAccessAction];
+
+export const MainTokenAccessAction = {
+    ActionRead: 1,
+    ActionWrite: 2,
+    ActionCreate: 4,
+    ActionDelete: 8,
+    ActionControl: 16,
+    ActionAll: 31,
+    ActionNone: 0,
+} as const;
+
+/**
+ * Action is the action being taken on the specified resource. This is the
+ * combination of individual action characters (e.g "rw")
+ *   - r: read
+ *   - w: write
+ *   - c: create
+ *   - d: delete
+ *   - C: control
+ */
+export type MainTokenAccessAction = (typeof MainTokenAccessAction)[keyof typeof MainTokenAccessAction];

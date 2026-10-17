@@ -60,14 +60,8 @@ __all__ = [
     'FlyContainerConfigStopArgsDict',
     'FlyContainerDependencyArgs',
     'FlyContainerDependencyArgsDict',
-    'FlyContainerDependencyConditionArgs',
-    'FlyContainerDependencyConditionArgsDict',
     'FlyContainerHealthcheckArgs',
     'FlyContainerHealthcheckArgsDict',
-    'FlyContainerHealthcheckKindArgs',
-    'FlyContainerHealthcheckKindArgsDict',
-    'FlyContainerHealthcheckUnhealthyArgs',
-    'FlyContainerHealthcheckUnhealthyArgsDict',
     'FlyDNSConfigArgs',
     'FlyDNSConfigArgsDict',
     'FlyDnsForwardRuleArgs',
@@ -82,8 +76,6 @@ __all__ = [
     'FlyFileArgsDict',
     'FlyHTTPHealthcheckArgs',
     'FlyHTTPHealthcheckArgsDict',
-    'FlyHTTPHealthcheckSchemeArgs',
-    'FlyHTTPHealthcheckSchemeArgsDict',
     'FlyHTTPOptionsArgs',
     'FlyHTTPOptionsArgsDict',
     'FlyHTTPResponseOptionsArgs',
@@ -1786,13 +1778,13 @@ class FlyContainerConfigStopArgs:
 
 
 class FlyContainerDependencyArgsDict(TypedDict):
-    condition: NotRequired[pulumi.Input[Optional['FlyContainerDependencyConditionArgsDict']]]
+    condition: NotRequired[pulumi.Input[Optional['FlyContainerDependencyCondition']]]
     name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
 
 @pulumi.input_type
 class FlyContainerDependencyArgs:
     def __init__(__self__, *,
-                 condition: pulumi.Input[Optional['FlyContainerDependencyConditionArgs']] = None,
+                 condition: pulumi.Input[Optional['FlyContainerDependencyCondition']] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None):
         if condition is not None:
             pulumi.set(__self__, "condition", condition)
@@ -1801,11 +1793,11 @@ class FlyContainerDependencyArgs:
 
     @_builtins.property
     @pulumi.getter
-    def condition(self) -> pulumi.Input[Optional['FlyContainerDependencyConditionArgs']]:
+    def condition(self) -> pulumi.Input[Optional['FlyContainerDependencyCondition']]:
         return pulumi.get(self, "condition")
 
     @condition.setter
-    def condition(self, value: pulumi.Input[Optional['FlyContainerDependencyConditionArgs']]):
+    def condition(self, value: pulumi.Input[Optional['FlyContainerDependencyCondition']]):
         pulumi.set(self, "condition", value)
 
     @_builtins.property
@@ -1816,15 +1808,6 @@ class FlyContainerDependencyArgs:
     @name.setter
     def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
-
-
-class FlyContainerDependencyConditionArgsDict(TypedDict):
-    pass
-
-@pulumi.input_type
-class FlyContainerDependencyConditionArgs:
-    def __init__(__self__):
-        pass
 
 
 class FlyContainerHealthcheckArgsDict(TypedDict):
@@ -1842,7 +1825,7 @@ class FlyContainerHealthcheckArgsDict(TypedDict):
     """
     The time in seconds between executing the defined check.
     """
-    kind: NotRequired[pulumi.Input[Optional['FlyContainerHealthcheckKindArgsDict']]]
+    kind: NotRequired[pulumi.Input[Optional['FlyContainerHealthcheckKind']]]
     """
     Kind of healthcheck (readiness, liveness)
     """
@@ -1859,7 +1842,7 @@ class FlyContainerHealthcheckArgsDict(TypedDict):
     """
     The time in seconds to wait for the check to complete.
     """
-    unhealthy: NotRequired[pulumi.Input[Optional['FlyContainerHealthcheckUnhealthyArgsDict']]]
+    unhealthy: NotRequired[pulumi.Input[Optional['FlyContainerHealthcheckUnhealthy']]]
     """
     Unhealthy policy that determines what action to take if a container is deemed unhealthy
     """
@@ -1872,21 +1855,21 @@ class FlyContainerHealthcheckArgs:
                  grace_period: pulumi.Input[Optional[_builtins.int]] = None,
                  http: pulumi.Input[Optional['FlyHTTPHealthcheckArgs']] = None,
                  interval: pulumi.Input[Optional[_builtins.int]] = None,
-                 kind: pulumi.Input[Optional['FlyContainerHealthcheckKindArgs']] = None,
+                 kind: pulumi.Input[Optional['FlyContainerHealthcheckKind']] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
                  success_threshold: pulumi.Input[Optional[_builtins.int]] = None,
                  tcp: pulumi.Input[Optional['FlyTCPHealthcheckArgs']] = None,
                  timeout: pulumi.Input[Optional[_builtins.int]] = None,
-                 unhealthy: pulumi.Input[Optional['FlyContainerHealthcheckUnhealthyArgs']] = None):
+                 unhealthy: pulumi.Input[Optional['FlyContainerHealthcheckUnhealthy']] = None):
         """
         :param pulumi.Input[_builtins.int] failure_threshold: The number of times the check must fail before considering the container unhealthy.
         :param pulumi.Input[_builtins.int] grace_period: The time in seconds to wait after a container starts before checking its health.
         :param pulumi.Input[_builtins.int] interval: The time in seconds between executing the defined check.
-        :param pulumi.Input['FlyContainerHealthcheckKindArgs'] kind: Kind of healthcheck (readiness, liveness)
+        :param pulumi.Input['FlyContainerHealthcheckKind'] kind: Kind of healthcheck (readiness, liveness)
         :param pulumi.Input[_builtins.str] name: The name of the check. Must be unique within the container.
         :param pulumi.Input[_builtins.int] success_threshold: The number of times the check must succeeed before considering the container healthy.
         :param pulumi.Input[_builtins.int] timeout: The time in seconds to wait for the check to complete.
-        :param pulumi.Input['FlyContainerHealthcheckUnhealthyArgs'] unhealthy: Unhealthy policy that determines what action to take if a container is deemed unhealthy
+        :param pulumi.Input['FlyContainerHealthcheckUnhealthy'] unhealthy: Unhealthy policy that determines what action to take if a container is deemed unhealthy
         """
         if exec_ is not None:
             pulumi.set(__self__, "exec_", exec_)
@@ -1967,14 +1950,14 @@ class FlyContainerHealthcheckArgs:
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> pulumi.Input[Optional['FlyContainerHealthcheckKindArgs']]:
+    def kind(self) -> pulumi.Input[Optional['FlyContainerHealthcheckKind']]:
         """
         Kind of healthcheck (readiness, liveness)
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: pulumi.Input[Optional['FlyContainerHealthcheckKindArgs']]):
+    def kind(self, value: pulumi.Input[Optional['FlyContainerHealthcheckKind']]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
@@ -2024,45 +2007,15 @@ class FlyContainerHealthcheckArgs:
 
     @_builtins.property
     @pulumi.getter
-    def unhealthy(self) -> pulumi.Input[Optional['FlyContainerHealthcheckUnhealthyArgs']]:
+    def unhealthy(self) -> pulumi.Input[Optional['FlyContainerHealthcheckUnhealthy']]:
         """
         Unhealthy policy that determines what action to take if a container is deemed unhealthy
         """
         return pulumi.get(self, "unhealthy")
 
     @unhealthy.setter
-    def unhealthy(self, value: pulumi.Input[Optional['FlyContainerHealthcheckUnhealthyArgs']]):
+    def unhealthy(self, value: pulumi.Input[Optional['FlyContainerHealthcheckUnhealthy']]):
         pulumi.set(self, "unhealthy", value)
-
-
-class FlyContainerHealthcheckKindArgsDict(TypedDict):
-    """
-    Kind of healthcheck (readiness, liveness)
-    """
-    pass
-
-@pulumi.input_type
-class FlyContainerHealthcheckKindArgs:
-    def __init__(__self__):
-        """
-        Kind of healthcheck (readiness, liveness)
-        """
-        pass
-
-
-class FlyContainerHealthcheckUnhealthyArgsDict(TypedDict):
-    """
-    Unhealthy policy that determines what action to take if a container is deemed unhealthy
-    """
-    pass
-
-@pulumi.input_type
-class FlyContainerHealthcheckUnhealthyArgs:
-    def __init__(__self__):
-        """
-        Unhealthy policy that determines what action to take if a container is deemed unhealthy
-        """
-        pass
 
 
 class FlyDNSConfigArgsDict(TypedDict):
@@ -2449,7 +2402,7 @@ class FlyHTTPHealthcheckArgsDict(TypedDict):
     """
     The port to connect to, often the same as internal_port
     """
-    scheme: NotRequired[pulumi.Input[Optional['FlyHTTPHealthcheckSchemeArgsDict']]]
+    scheme: NotRequired[pulumi.Input[Optional['FlyHTTPHealthcheckScheme']]]
     """
     Whether to use http or https
     """
@@ -2469,7 +2422,7 @@ class FlyHTTPHealthcheckArgs:
                  method: pulumi.Input[Optional[_builtins.str]] = None,
                  path: pulumi.Input[Optional[_builtins.str]] = None,
                  port: pulumi.Input[Optional[_builtins.int]] = None,
-                 scheme: pulumi.Input[Optional['FlyHTTPHealthcheckSchemeArgs']] = None,
+                 scheme: pulumi.Input[Optional['FlyHTTPHealthcheckScheme']] = None,
                  tls_server_name: pulumi.Input[Optional[_builtins.str]] = None,
                  tls_skip_verify: pulumi.Input[Optional[_builtins.bool]] = None):
         """
@@ -2477,7 +2430,7 @@ class FlyHTTPHealthcheckArgs:
         :param pulumi.Input[_builtins.str] method: The HTTP method to use to when making the request
         :param pulumi.Input[_builtins.str] path: The path to send the request to
         :param pulumi.Input[_builtins.int] port: The port to connect to, often the same as internal_port
-        :param pulumi.Input['FlyHTTPHealthcheckSchemeArgs'] scheme: Whether to use http or https
+        :param pulumi.Input['FlyHTTPHealthcheckScheme'] scheme: Whether to use http or https
         :param pulumi.Input[_builtins.str] tls_server_name: If the protocol is https, the hostname to use for TLS certificate validation
         :param pulumi.Input[_builtins.bool] tls_skip_verify: If the protocol is https, whether or not to verify the TLS certificate
         """
@@ -2546,14 +2499,14 @@ class FlyHTTPHealthcheckArgs:
 
     @_builtins.property
     @pulumi.getter
-    def scheme(self) -> pulumi.Input[Optional['FlyHTTPHealthcheckSchemeArgs']]:
+    def scheme(self) -> pulumi.Input[Optional['FlyHTTPHealthcheckScheme']]:
         """
         Whether to use http or https
         """
         return pulumi.get(self, "scheme")
 
     @scheme.setter
-    def scheme(self, value: pulumi.Input[Optional['FlyHTTPHealthcheckSchemeArgs']]):
+    def scheme(self, value: pulumi.Input[Optional['FlyHTTPHealthcheckScheme']]):
         pulumi.set(self, "scheme", value)
 
     @_builtins.property
@@ -2579,21 +2532,6 @@ class FlyHTTPHealthcheckArgs:
     @tls_skip_verify.setter
     def tls_skip_verify(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "tls_skip_verify", value)
-
-
-class FlyHTTPHealthcheckSchemeArgsDict(TypedDict):
-    """
-    Whether to use http or https
-    """
-    pass
-
-@pulumi.input_type
-class FlyHTTPHealthcheckSchemeArgs:
-    def __init__(__self__):
-        """
-        Whether to use http or https
-        """
-        pass
 
 
 class FlyHTTPOptionsArgsDict(TypedDict):

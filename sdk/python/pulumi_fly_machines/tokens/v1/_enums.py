@@ -8,15 +8,36 @@ from enum import Enum
 
 __all__ = [
     'FlyioAccessAction',
+    'MainTokenAccessAction',
 ]
 
 
 @pulumi.type_token("fly-machines:tokens/v1:FlyioAccessAction")
 class FlyioAccessAction(_builtins.int, Enum):
-    FLYIO_ACCESS_ACTION_D_FLOAT64_1_ = 1
-    FLYIO_ACCESS_ACTION_D_FLOAT64_2_ = 2
-    FLYIO_ACCESS_ACTION_D_FLOAT64_4_ = 4
-    FLYIO_ACCESS_ACTION_D_FLOAT64_8_ = 8
-    FLYIO_ACCESS_ACTION_D_FLOAT64_16_ = 16
-    FLYIO_ACCESS_ACTION_D_FLOAT64_31_ = 31
-    FLYIO_ACCESS_ACTION_D_FLOAT64_0_ = 0
+    ACTION_READ = 1
+    ACTION_WRITE = 2
+    ACTION_CREATE = 4
+    ACTION_DELETE = 8
+    ACTION_CONTROL = 16
+    ACTION_ALL = 31
+    ACTION_NONE = 0
+
+
+@pulumi.type_token("fly-machines:tokens/v1:MainTokenAccessAction")
+class MainTokenAccessAction(_builtins.int, Enum):
+    """
+    Action is the action being taken on the specified resource. This is the
+    combination of individual action characters (e.g "rw")
+      - r: read
+      - w: write
+      - c: create
+      - d: delete
+      - C: control
+    """
+    ACTION_READ = 1
+    ACTION_WRITE = 2
+    ACTION_CREATE = 4
+    ACTION_DELETE = 8
+    ACTION_CONTROL = 16
+    ACTION_ALL = 31
+    ACTION_NONE = 0
