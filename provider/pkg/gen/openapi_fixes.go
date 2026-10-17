@@ -158,10 +158,12 @@ func fixEnums(openAPIDoc *openapi3.T) {
 				continue
 			}
 
+			sourceEnumSchema := propSchema.Value.AllOf[0].Value
 			replaceSchema := openapi3.NewSchema()
 			replaceSchema.Description = propSchema.Value.Description
-			replaceSchema.Enum = propSchema.Value.AllOf[0].Value.Enum
-			replaceSchema.Type = propSchema.Value.AllOf[0].Value.Type
+			replaceSchema.Enum = sourceEnumSchema.Enum
+			replaceSchema.Type = sourceEnumSchema.Type
+			replaceSchema.Extensions = sourceEnumSchema.Extensions
 			s.Value.Properties[prop] = openapi3.NewSchemaRef(propSchema.Value.AllOf[0].Ref, replaceSchema)
 		}
 	}

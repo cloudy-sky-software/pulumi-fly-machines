@@ -300,31 +300,31 @@
             "type": "string",
             "enum": [
                 {
-                    "name": "V4",
+                    "name": "IPAssignmentType_v4",
                     "value": "v4"
                 },
                 {
-                    "name": "V6",
+                    "name": "IPAssignmentType_v6",
                     "value": "v6"
                 },
                 {
-                    "name": "SharedV4",
+                    "name": "IPAssignmentType_shared_v4",
                     "value": "shared_v4"
                 },
                 {
-                    "name": "PrivateV6",
+                    "name": "IPAssignmentType_private_v6",
                     "value": "private_v6"
                 },
                 {
-                    "name": "EgressV4",
+                    "name": "IPAssignmentType_egress_v4",
                     "value": "egress_v4"
                 },
                 {
-                    "name": "EgressV6",
+                    "name": "IPAssignmentType_egress_v6",
                     "value": "egress_v6"
                 },
                 {
-                    "name": "EgressPair",
+                    "name": "IPAssignmentType_egress_pair",
                     "value": "egress_pair"
                 }
             ]
@@ -999,7 +999,7 @@
             "type": "string",
             "enum": [
                 {
-                    "name": "Stop",
+                    "name": "UnhealthyPolicyStop",
                     "value": "stop"
                 }
             ]
@@ -1187,11 +1187,11 @@
             "type": "string",
             "enum": [
                 {
-                    "name": "Http",
+                    "name": "HTTP",
                     "value": "http"
                 },
                 {
-                    "name": "Https",
+                    "name": "HTTPS",
                     "value": "https"
                 }
             ]
@@ -6012,31 +6012,31 @@
             "type": "integer",
             "enum": [
                 {
-                    "name": "%!d(float64=1)",
+                    "name": "ActionRead",
                     "value": 1
                 },
                 {
-                    "name": "%!d(float64=2)",
+                    "name": "ActionWrite",
                     "value": 2
                 },
                 {
-                    "name": "%!d(float64=4)",
+                    "name": "ActionCreate",
                     "value": 4
                 },
                 {
-                    "name": "%!d(float64=8)",
+                    "name": "ActionDelete",
                     "value": 8
                 },
                 {
-                    "name": "%!d(float64=16)",
+                    "name": "ActionControl",
                     "value": 16
                 },
                 {
-                    "name": "%!d(float64=31)",
+                    "name": "ActionAll",
                     "value": 31
                 },
                 {
-                    "name": "%!d(float64=0)",
+                    "name": "ActionNone",
                     "value": 0
                 }
             ]
@@ -6146,31 +6146,31 @@
             "type": "integer",
             "enum": [
                 {
-                    "name": "%!d(float64=1)",
+                    "name": "ActionRead",
                     "value": 1
                 },
                 {
-                    "name": "%!d(float64=2)",
+                    "name": "ActionWrite",
                     "value": 2
                 },
                 {
-                    "name": "%!d(float64=4)",
+                    "name": "ActionCreate",
                     "value": 4
                 },
                 {
-                    "name": "%!d(float64=8)",
+                    "name": "ActionDelete",
                     "value": 8
                 },
                 {
-                    "name": "%!d(float64=16)",
+                    "name": "ActionControl",
                     "value": 16
                 },
                 {
-                    "name": "%!d(float64=31)",
+                    "name": "ActionAll",
                     "value": 31
                 },
                 {
-                    "name": "%!d(float64=0)",
+                    "name": "ActionNone",
                     "value": 0
                 }
             ]
