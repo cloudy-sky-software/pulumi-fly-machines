@@ -147,13 +147,22 @@ func removeDeprecatedVersionProperty(openAPIDoc *openapi3.T) {
 	}
 }
 
+// fixEnums looks for types with enum properties that are
+// unnecessarily wrapped in an allOf definition. This
+// method strips flattens the allOf of such properties
+// and makes them simple ref's to their enum type.
 func fixEnums(openAPIDoc *openapi3.T) {
-	containerHealthcheck := openAPIDoc.Components.Schemas["fly.ContainerHealthcheck"]
-	kind := containerHealthcheck.Value.Properties["kind"]
-	s := openapi3.NewSchema()
-	s.Description = kind.Value.Description
-	s.Enum = kind.Value.AllOf[0].Value.Enum
-	s.Type = kind.Value.AllOf[0].Value.Type
-	ref := kind.Value.AllOf[0].Ref
-	containerHealthcheck.Value.Properties["kind"] = openapi3.NewSchemaRef(ref, s)
+	for _, s := range openAPIDoc.Components.Schemas {
+		for prop, propSchema := range s.Value.Properties {
+			if !propSchema.Value.Type.Is(openapi3.TypeObject) || len(propSchema.Value.AllOf) != 1 || len(propSchema.Value.AllOf[0].Value.Enum) == 0 {
+				continue
+			}
+
+			replaceSchema := openapi3.NewSchema()
+			replaceSchema.Description = propSchema.Value.Description
+			replaceSchema.Enum = propSchema.Value.AllOf[0].Value.Enum
+			replaceSchema.Type = propSchema.Value.AllOf[0].Value.Type
+			s.Value.Properties[prop] = openapi3.NewSchemaRef(propSchema.Value.AllOf[0].Ref, replaceSchema)
+		}
+	}
 }

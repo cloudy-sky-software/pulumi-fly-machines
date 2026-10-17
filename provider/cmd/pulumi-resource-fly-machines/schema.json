@@ -918,7 +918,21 @@
             "type": "object"
         },
         "fly-machines:apps/v1:FlyContainerDependencyCondition": {
-            "type": "object"
+            "type": "string",
+            "enum": [
+                {
+                    "name": "ExitedSuccessfully",
+                    "value": "exited_successfully"
+                },
+                {
+                    "name": "Healthy",
+                    "value": "healthy"
+                },
+                {
+                    "name": "Started",
+                    "value": "started"
+                }
+            ]
         },
         "fly-machines:apps/v1:FlyContainerHealthcheck": {
             "properties": {
@@ -982,7 +996,13 @@
         },
         "fly-machines:apps/v1:FlyContainerHealthcheckUnhealthy": {
             "description": "Unhealthy policy that determines what action to take if a container is deemed unhealthy",
-            "type": "object"
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Stop",
+                    "value": "stop"
+                }
+            ]
         },
         "fly-machines:apps/v1:FlyDNSConfig": {
             "properties": {
@@ -1164,7 +1184,17 @@
         },
         "fly-machines:apps/v1:FlyHTTPHealthcheckScheme": {
             "description": "Whether to use http or https",
-            "type": "object"
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Http",
+                    "value": "http"
+                },
+                {
+                    "name": "Https",
+                    "value": "https"
+                }
+            ]
         },
         "fly-machines:apps/v1:FlyHTTPOptions": {
             "properties": {
@@ -6113,7 +6143,37 @@
         },
         "fly-machines:tokens/v1:MainTokenAccessAction": {
             "description": "Action is the action being taken on the specified resource. This is the\ncombination of individual action characters (e.g \"rw\")\n  - r: read\n  - w: write\n  - c: create\n  - d: delete\n  - C: control",
-            "type": "object"
+            "type": "integer",
+            "enum": [
+                {
+                    "name": "%!d(float64=1)",
+                    "value": 1
+                },
+                {
+                    "name": "%!d(float64=2)",
+                    "value": 2
+                },
+                {
+                    "name": "%!d(float64=4)",
+                    "value": 4
+                },
+                {
+                    "name": "%!d(float64=8)",
+                    "value": 8
+                },
+                {
+                    "name": "%!d(float64=16)",
+                    "value": 16
+                },
+                {
+                    "name": "%!d(float64=31)",
+                    "value": 31
+                },
+                {
+                    "name": "%!d(float64=0)",
+                    "value": 0
+                }
+            ]
         },
         "fly-machines:tokens/v1:MainTokenInfo": {
             "properties": {

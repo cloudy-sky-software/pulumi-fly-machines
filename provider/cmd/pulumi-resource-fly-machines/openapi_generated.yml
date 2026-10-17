@@ -1799,9 +1799,7 @@ components:
         fly.ContainerDependency:
             properties:
                 condition:
-                    allOf:
-                        - $ref: '#/components/schemas/fly.ContainerDependencyCondition'
-                    type: object
+                    $ref: '#/components/schemas/fly.ContainerDependencyCondition'
                 name:
                     type: string
             type: object
@@ -1844,10 +1842,7 @@ components:
                     description: The time in seconds to wait for the check to complete.
                     type: integer
                 unhealthy:
-                    allOf:
-                        - $ref: '#/components/schemas/fly.UnhealthyPolicy'
-                    description: Unhealthy policy that determines what action to take if a container is deemed unhealthy
-                    type: object
+                    $ref: '#/components/schemas/fly.UnhealthyPolicy'
             type: object
         fly.ContainerHealthcheckKind:
             enum:
@@ -1955,10 +1950,7 @@ components:
                     description: The port to connect to, often the same as internal_port
                     type: integer
                 scheme:
-                    allOf:
-                        - $ref: '#/components/schemas/fly.ContainerHealthcheckScheme'
-                    description: Whether to use http or https
-                    type: object
+                    $ref: '#/components/schemas/fly.ContainerHealthcheckScheme'
                 tls_server_name:
                     description: If the protocol is https, the hostname to use for TLS certificate validation
                     type: string
@@ -2681,17 +2673,7 @@ components:
         main.TokenAccess:
             properties:
                 action:
-                    allOf:
-                        - $ref: '#/components/schemas/resset.Action'
-                    description: |-
-                        Action is the action being taken on the specified resource. This is the
-                        combination of individual action characters (e.g "rw")
-                          - r: read
-                          - w: write
-                          - c: create
-                          - d: delete
-                          - C: control
-                    type: object
+                    $ref: '#/components/schemas/resset.Action'
                 app_feature:
                     description: |-
                         AppFeature is a named set of functionality associated with the app. If
