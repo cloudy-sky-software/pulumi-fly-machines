@@ -22,8 +22,11 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         [Input("autoDestroy")]
         public Input<bool>? AutoDestroy { get; set; }
 
+        /// <summary>
+        /// A cache drive attached to the Machine
+        /// </summary>
         [Input("cacheDrive")]
-        public Input<Inputs.FlyMachineCacheDriveArgs>? CacheDrive { get; set; }
+        public Input<Inputs.FlyMachineConfigCacheDriveArgs>? CacheDrive { get; set; }
 
         [Input("checks")]
         private InputMap<Inputs.FlyMachineConfigChecksPropertiesArgs>? _checks;
@@ -41,8 +44,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         private InputList<Inputs.FlyContainerConfigArgs>? _containers;
 
         /// <summary>
-        /// Containers are a list of containers that will run in the machine. Currently restricted to
-        /// only specific organizations.
+        /// Containers are a list of containers that will run in the machine, each from its own image.
         /// </summary>
         public InputList<Inputs.FlyContainerConfigArgs> Containers
         {
@@ -56,8 +58,11 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         [Input("disableMachineAutostart")]
         public Input<bool>? DisableMachineAutostart { get; set; }
 
+        /// <summary>
+        /// DNS settings for the Machine
+        /// </summary>
         [Input("dns")]
-        public Input<Inputs.FlyDNSConfigArgs>? Dns { get; set; }
+        public Input<Inputs.FlyMachineConfigDnsArgs>? Dns { get; set; }
 
         [Input("env")]
         private InputMap<string>? _env;
@@ -73,14 +78,21 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
 
         [Input("files")]
         private InputList<Inputs.FlyFileArgs>? _files;
+
+        /// <summary>
+        /// Files to write into the Machine, from either a raw value or an app secret
+        /// </summary>
         public InputList<Inputs.FlyFileArgs> Files
         {
             get => _files ?? (_files = new InputList<Inputs.FlyFileArgs>());
             set => _files = value;
         }
 
+        /// <summary>
+        /// The resources (CPUs, memory, etc.) allocated to the Machine
+        /// </summary>
         [Input("guest")]
-        public Input<Inputs.FlyMachineGuestArgs>? Guest { get; set; }
+        public Input<Inputs.FlyMachineConfigGuestArgs>? Guest { get; set; }
 
         /// <summary>
         /// The docker image to run
@@ -88,22 +100,37 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         [Input("image")]
         public Input<string>? Image { get; set; }
 
+        /// <summary>
+        /// Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
+        /// </summary>
         [Input("init")]
-        public Input<Inputs.FlyMachineInitArgs>? Init { get; set; }
+        public Input<Inputs.FlyMachineConfigInitArgs>? Init { get; set; }
 
         [Input("metadata")]
         private InputMap<string>? _metadata;
+
+        /// <summary>
+        /// Key/value pairs of Machine metadata. Fly.io uses metadata internally for routing, process groups, and clusters
+        /// </summary>
         public InputMap<string> Metadata
         {
             get => _metadata ?? (_metadata = new InputMap<string>());
             set => _metadata = value;
         }
 
+        /// <summary>
+        /// An optional metrics endpoint for Prometheus on Fly.io to scrape
+        /// </summary>
         [Input("metrics")]
-        public Input<Inputs.FlyMachineMetricsArgs>? Metrics { get; set; }
+        public Input<Inputs.FlyMachineConfigMetricsArgs>? Metrics { get; set; }
 
         [Input("mounts")]
         private InputList<Inputs.FlyMachineMountArgs>? _mounts;
+
+        /// <summary>
+        /// Persistent volumes to mount in the Machine. A Machine can mount at most one volume, which must be on
+        /// the same host. The mounted volume cannot be changed by updating the Machine
+        /// </summary>
         public InputList<Inputs.FlyMachineMountArgs> Mounts
         {
             get => _mounts ?? (_mounts = new InputList<Inputs.FlyMachineMountArgs>());
@@ -112,6 +139,12 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
 
         [Input("processes")]
         private InputList<Inputs.FlyMachineProcessArgs>? _processes;
+
+        /// <summary>
+        /// Multiple processes to run within this one Machine, all from the Machine's image. Unrelated to the
+        /// process groups in fly.toml, which run on separate Machines. To run processes from different
+        /// images, use containers instead
+        /// </summary>
         public InputList<Inputs.FlyMachineProcessArgs> Processes
         {
             get => _processes ?? (_processes = new InputList<Inputs.FlyMachineProcessArgs>());
@@ -119,19 +152,30 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         }
 
         /// <summary>
-        /// The Machine restart policy defines whether and how flyd restarts a Machine after its main process exits. See https://fly.io/docs/machines/guides-examples/machine-restart-policy/.
+        /// Whether and how the Machine is restarted after its main process exits
         /// </summary>
         [Input("restart")]
-        public Input<Inputs.FlyMachineRestartArgs>? Restart { get; set; }
+        public Input<Inputs.FlyMachineConfigRestartArgs>? Restart { get; set; }
 
+        /// <summary>
+        /// The size of the Machine's root filesystem and whether it persists
+        /// </summary>
         [Input("rootfs")]
-        public Input<Inputs.FlyMachineRootfsArgs>? Rootfs { get; set; }
+        public Input<Inputs.FlyMachineConfigRootfsArgs>? Rootfs { get; set; }
 
+        /// <summary>
+        /// Run the Machine at an interval: one of hourly, daily, weekly or monthly. The interval starts when
+        /// the Machine is created
+        /// </summary>
         [Input("schedule")]
         public Input<string>? Schedule { get; set; }
 
         [Input("services")]
         private InputList<Inputs.FlyMachineServiceArgs>? _services;
+
+        /// <summary>
+        /// Network services that Fly Proxy routes traffic to
+        /// </summary>
         public InputList<Inputs.FlyMachineServiceArgs> Services
         {
             get => _services ?? (_services = new InputList<Inputs.FlyMachineServiceArgs>());
@@ -144,8 +188,11 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         [Input("size")]
         public Input<string>? Size { get; set; }
 
+        /// <summary>
+        /// Spot pricing settings for the Machine
+        /// </summary>
         [Input("spot")]
-        public Input<Inputs.FlyMachineSpotArgs>? Spot { get; set; }
+        public Input<Inputs.FlyMachineConfigSpotArgs>? Spot { get; set; }
 
         [Input("standbys")]
         private InputList<string>? _standbys;
@@ -162,14 +209,24 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
 
         [Input("statics")]
         private InputList<Inputs.FlyStaticArgs>? _statics;
+
+        /// <summary>
+        /// Static files to serve under a URL prefix. Fly Proxy routes matching requests to a file server
+        /// inside the Machine, bypassing your application's own process; the Machine must be running. The
+        /// files are read either from a path inside the Machine or from a Tigris bucket that belongs to the
+        /// app; no bucket is created for you
+        /// </summary>
         public InputList<Inputs.FlyStaticArgs> Statics
         {
             get => _statics ?? (_statics = new InputList<Inputs.FlyStaticArgs>());
             set => _statics = value;
         }
 
+        /// <summary>
+        /// How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
+        /// </summary>
         [Input("stopConfig")]
-        public Input<Inputs.FlyStopConfigArgs>? StopConfig { get; set; }
+        public Input<Inputs.FlyMachineConfigStopConfigArgs>? StopConfig { get; set; }
 
         public ConfigArgs()
         {

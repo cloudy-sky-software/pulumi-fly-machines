@@ -14,6 +14,24 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
     public partial class MachinesStart : global::Pulumi.CustomResource
     {
         /// <summary>
+        /// Whether the Machine was moved to another host to be started
+        /// </summary>
+        [Output("migrated")]
+        public Output<bool?> Migrated { get; private set; } = null!;
+
+        /// <summary>
+        /// The host the Machine was moved to, if it was migrated
+        /// </summary>
+        [Output("newHost")]
+        public Output<string?> NewHost { get; private set; } = null!;
+
+        /// <summary>
+        /// The state the Machine was in before it was started
+        /// </summary>
+        [Output("previousState")]
+        public Output<string?> PreviousState { get; private set; } = null!;
+
+        /// <summary>
         /// Query params to send with the API requests for this resource.
         /// </summary>
         [Output("queryParams")]

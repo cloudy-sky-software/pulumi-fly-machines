@@ -18,7 +18,9 @@ type SecretsUpdate struct {
 	QueryParams SecretsUpdateQueryParamsPtrOutput `pulumi:"queryParams"`
 	Secrets     AppSecretArrayOutput              `pulumi:"secrets"`
 	Values      pulumi.StringMapOutput            `pulumi:"values"`
-	Version     pulumi.IntPtrOutput               `pulumi:"version"`
+	// The app's secrets version after this change. Pass it as `min_secrets_version` when creating or
+	// updating Machines so that they are guaranteed to see the change.
+	Version pulumi.IntPtrOutput `pulumi:"version"`
 }
 
 // NewSecretsUpdate registers a new resource with the given unique name, arguments, and options.
@@ -127,6 +129,8 @@ func (o SecretsUpdateOutput) Values() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *SecretsUpdate) pulumi.StringMapOutput { return v.Values }).(pulumi.StringMapOutput)
 }
 
+// The app's secrets version after this change. Pass it as `min_secrets_version` when creating or
+// updating Machines so that they are guaranteed to see the change.
 func (o SecretsUpdateOutput) Version() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *SecretsUpdate) pulumi.IntPtrOutput { return v.Version }).(pulumi.IntPtrOutput)
 }

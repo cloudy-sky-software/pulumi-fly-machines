@@ -14,6 +14,7 @@ import (
 type MachinesCordon struct {
 	pulumi.CustomResourceState
 
+	Ok pulumi.BoolPtrOutput `pulumi:"ok"`
 	// Query params to send with the API requests for this resource.
 	QueryParams MachinesCordonQueryParamsPtrOutput `pulumi:"queryParams"`
 }
@@ -111,6 +112,10 @@ func (o MachinesCordonOutput) ToMachinesCordonOutput() MachinesCordonOutput {
 
 func (o MachinesCordonOutput) ToMachinesCordonOutputWithContext(ctx context.Context) MachinesCordonOutput {
 	return o
+}
+
+func (o MachinesCordonOutput) Ok() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *MachinesCordon) pulumi.BoolPtrOutput { return v.Ok }).(pulumi.BoolPtrOutput)
 }
 
 // Query params to send with the API requests for this resource.

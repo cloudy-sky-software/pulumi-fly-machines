@@ -133,6 +133,9 @@ class MachinesStart(pulumi.CustomResource):
             __props__.__dict__["app_name"] = app_name
             __props__.__dict__["machine_id"] = machine_id
             __props__.__dict__["query_params"] = query_params
+            __props__.__dict__["migrated"] = None
+            __props__.__dict__["new_host"] = None
+            __props__.__dict__["previous_state"] = None
         super(MachinesStart, __self__).__init__(
             'fly-machines:apps/v1:MachinesStart',
             resource_name,
@@ -155,8 +158,35 @@ class MachinesStart(pulumi.CustomResource):
 
         __props__ = MachinesStartArgs.__new__(MachinesStartArgs)
 
+        __props__.__dict__["migrated"] = None
+        __props__.__dict__["new_host"] = None
+        __props__.__dict__["previous_state"] = None
         __props__.__dict__["query_params"] = None
         return MachinesStart(resource_name, opts=opts, __props__=__props__)
+
+    @_builtins.property
+    @pulumi.getter
+    def migrated(self) -> pulumi.Output[Optional[_builtins.bool]]:
+        """
+        Whether the Machine was moved to another host to be started
+        """
+        return pulumi.get(self, "migrated")
+
+    @_builtins.property
+    @pulumi.getter(name="newHost")
+    def new_host(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        The host the Machine was moved to, if it was migrated
+        """
+        return pulumi.get(self, "new_host")
+
+    @_builtins.property
+    @pulumi.getter(name="previousState")
+    def previous_state(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        The state the Machine was in before it was started
+        """
+        return pulumi.get(self, "previous_state")
 
     @_builtins.property
     @pulumi.getter(name="queryParams")

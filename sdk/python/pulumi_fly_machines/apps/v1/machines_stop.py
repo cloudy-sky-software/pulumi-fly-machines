@@ -164,6 +164,7 @@ class MachinesStop(pulumi.CustomResource):
             __props__.__dict__["query_params"] = query_params
             __props__.__dict__["signal"] = signal
             __props__.__dict__["timeout"] = timeout
+            __props__.__dict__["ok"] = None
         super(MachinesStop, __self__).__init__(
             'fly-machines:apps/v1:MachinesStop',
             resource_name,
@@ -186,10 +187,16 @@ class MachinesStop(pulumi.CustomResource):
 
         __props__ = MachinesStopArgs.__new__(MachinesStopArgs)
 
+        __props__.__dict__["ok"] = None
         __props__.__dict__["query_params"] = None
         __props__.__dict__["signal"] = None
         __props__.__dict__["timeout"] = None
         return MachinesStop(resource_name, opts=opts, __props__=__props__)
+
+    @_builtins.property
+    @pulumi.getter
+    def ok(self) -> pulumi.Output[Optional[_builtins.bool]]:
+        return pulumi.get(self, "ok")
 
     @_builtins.property
     @pulumi.getter(name="queryParams")

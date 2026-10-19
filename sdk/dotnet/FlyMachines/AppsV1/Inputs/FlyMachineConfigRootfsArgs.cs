@@ -11,7 +11,10 @@ using Pulumi;
 namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
 {
 
-    public sealed class FlyMachineRootfsArgs : global::Pulumi.ResourceArgs
+    /// <summary>
+    /// The size of the Machine's root filesystem and whether it persists
+    /// </summary>
+    public sealed class FlyMachineConfigRootfsArgs : global::Pulumi.ResourceArgs
     {
         [Input("persist")]
         public Input<CloudySkySoftware.Pulumi.FlyMachines.AppsV1.FlyMachineRootfsPersist>? Persist { get; set; }
@@ -19,9 +22,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         [Input("sizeGb")]
         public Input<int>? SizeGb { get; set; }
 
-        public FlyMachineRootfsArgs()
+        public FlyMachineConfigRootfsArgs()
         {
         }
-        public static new FlyMachineRootfsArgs Empty => new FlyMachineRootfsArgs();
+        public static new FlyMachineConfigRootfsArgs Empty => new FlyMachineConfigRootfsArgs();
     }
 }

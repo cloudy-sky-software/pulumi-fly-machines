@@ -13,6 +13,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
     [FlyMachinesResourceType("fly-machines:apps/v1:MachinesSignal")]
     public partial class MachinesSignal : global::Pulumi.CustomResource
     {
+        [Output("ok")]
+        public Output<bool?> Ok { get; private set; } = null!;
+
         /// <summary>
         /// Query params to send with the API requests for this resource.
         /// </summary>

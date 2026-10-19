@@ -51,6 +51,12 @@ export class Machine extends pulumi.CustomResource {
     declare public /*out*/ readonly instanceId: pulumi.Output<string | undefined>;
     declare public /*out*/ readonly lease: pulumi.Output<outputs.apps.v1.StrippedLease | undefined>;
     declare public readonly leaseTtl: pulumi.Output<number | undefined>;
+    /**
+     * The minimum version of the app's secrets the Machine must run with. Set it to the `version`
+     * returned by the endpoints that set or delete app secrets, so that the Machine is guaranteed
+     * to see those changes. This field belongs at the top level of the request body, not in
+     * `config`. If omitted, the app's current secrets version is looked up for you.
+     */
     declare public readonly minSecretsVersion: pulumi.Output<number | undefined>;
     declare public readonly name: pulumi.Output<string | undefined>;
     /**
@@ -158,6 +164,12 @@ export interface MachineArgs {
      */
     config?: pulumi.Input<inputs.apps.v1.ConfigArgs | undefined>;
     leaseTtl?: pulumi.Input<number | undefined>;
+    /**
+     * The minimum version of the app's secrets the Machine must run with. Set it to the `version`
+     * returned by the endpoints that set or delete app secrets, so that the Machine is guaranteed
+     * to see those changes. This field belongs at the top level of the request body, not in
+     * `config`. If omitted, the app's current secrets version is looked up for you.
+     */
     minSecretsVersion?: pulumi.Input<number | undefined>;
     /**
      * Unique name for this Machine. If omitted, one is generated for you

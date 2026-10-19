@@ -619,7 +619,8 @@
                     "description": "Optional boolean telling the Machine to destroy itself once it’s complete (default false)"
                 },
                 "cacheDrive": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineCacheDrive"
+                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigCacheDrive",
+                    "description": "A cache drive attached to the Machine"
                 },
                 "checks": {
                     "type": "object",
@@ -633,14 +634,15 @@
                     "items": {
                         "$ref": "#/types/fly-machines:apps/v1:FlyContainerConfig"
                     },
-                    "description": "Containers are a list of containers that will run in the machine. Currently restricted to\nonly specific organizations."
+                    "description": "Containers are a list of containers that will run in the machine, each from its own image."
                 },
                 "disableMachineAutostart": {
                     "type": "boolean",
                     "description": "Deprecated: use Service.Autostart instead"
                 },
                 "dns": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyDNSConfig"
+                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigDns",
+                    "description": "DNS settings for the Machine"
                 },
                 "env": {
                     "type": "object",
@@ -653,61 +655,72 @@
                     "type": "array",
                     "items": {
                         "$ref": "#/types/fly-machines:apps/v1:FlyFile"
-                    }
+                    },
+                    "description": "Files to write into the Machine, from either a raw value or an app secret"
                 },
                 "guest": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineGuest"
+                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigGuest",
+                    "description": "The resources (CPUs, memory, etc.) allocated to the Machine"
                 },
                 "image": {
                     "type": "string",
                     "description": "The docker image to run"
                 },
                 "init": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineInit"
+                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigInit",
+                    "description": "Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run"
                 },
                 "metadata": {
                     "type": "object",
                     "additionalProperties": {
                         "type": "string"
-                    }
+                    },
+                    "description": "Key/value pairs of Machine metadata. Fly.io uses metadata internally for routing, process groups, and clusters"
                 },
                 "metrics": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineMetrics"
+                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigMetrics",
+                    "description": "An optional metrics endpoint for Prometheus on Fly.io to scrape"
                 },
                 "mounts": {
                     "type": "array",
                     "items": {
                         "$ref": "#/types/fly-machines:apps/v1:FlyMachineMount"
-                    }
+                    },
+                    "description": "Persistent volumes to mount in the Machine. A Machine can mount at most one volume, which must be on\nthe same host. The mounted volume cannot be changed by updating the Machine"
                 },
                 "processes": {
                     "type": "array",
                     "items": {
                         "$ref": "#/types/fly-machines:apps/v1:FlyMachineProcess"
-                    }
+                    },
+                    "description": "Multiple processes to run within this one Machine, all from the Machine's image. Unrelated to the\nprocess groups in fly.toml, which run on separate Machines. To run processes from different\nimages, use containers instead"
                 },
                 "restart": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineRestart",
-                    "description": "The Machine restart policy defines whether and how flyd restarts a Machine after its main process exits. See https://fly.io/docs/machines/guides-examples/machine-restart-policy/."
+                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigRestart",
+                    "description": "Whether and how the Machine is restarted after its main process exits"
                 },
                 "rootfs": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineRootfs"
+                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigRootfs",
+                    "description": "The size of the Machine's root filesystem and whether it persists"
                 },
                 "schedule": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Run the Machine at an interval: one of hourly, daily, weekly or monthly. The interval starts when\nthe Machine is created"
                 },
                 "services": {
                     "type": "array",
                     "items": {
                         "$ref": "#/types/fly-machines:apps/v1:FlyMachineService"
-                    }
+                    },
+                    "description": "Network services that Fly Proxy routes traffic to"
                 },
                 "size": {
                     "type": "string",
                     "description": "Deprecated: use Guest instead"
                 },
                 "spot": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineSpot"
+                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigSpot",
+                    "description": "Spot pricing settings for the Machine"
                 },
                 "standbys": {
                     "type": "array",
@@ -720,10 +733,12 @@
                     "type": "array",
                     "items": {
                         "$ref": "#/types/fly-machines:apps/v1:FlyStatic"
-                    }
+                    },
+                    "description": "Static files to serve under a URL prefix. Fly Proxy routes matching requests to a file server\ninside the Machine, bypassing your application's own process; the Machine must be running. The\nfiles are read either from a path inside the Machine or from a Tigris bucket that belongs to the\napp; no bucket is created for you"
                 },
                 "stopConfig": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyStopConfig"
+                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigStopConfig",
+                    "description": "How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown"
                 }
             },
             "type": "object"
@@ -1004,44 +1019,6 @@
                 }
             ]
         },
-        "fly-machines:apps/v1:FlyDNSConfig": {
-            "properties": {
-                "dnsForwardRules": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/fly-machines:apps/v1:FlyDnsForwardRule"
-                    }
-                },
-                "hostname": {
-                    "type": "string"
-                },
-                "hostnameFqdn": {
-                    "type": "string"
-                },
-                "nameservers": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "options": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/fly-machines:apps/v1:FlyDnsOption"
-                    }
-                },
-                "searches": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "skipRegistration": {
-                    "type": "boolean"
-                }
-            },
-            "type": "object"
-        },
         "fly-machines:apps/v1:FlyDnsForwardRule": {
             "properties": {
                 "addr": {
@@ -1236,14 +1213,6 @@
             },
             "type": "object"
         },
-        "fly-machines:apps/v1:FlyMachineCacheDrive": {
-            "properties": {
-                "sizeMb": {
-                    "type": "integer"
-                }
-            },
-            "type": "object"
-        },
         "fly-machines:apps/v1:FlyMachineConfig": {
             "properties": {
                 "autoDestroy": {
@@ -1251,7 +1220,8 @@
                     "description": "Optional boolean telling the Machine to destroy itself once it’s complete (default false)"
                 },
                 "cacheDrive": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineCacheDrive"
+                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigCacheDrive",
+                    "description": "A cache drive attached to the Machine"
                 },
                 "checks": {
                     "type": "object",
@@ -1265,14 +1235,15 @@
                     "items": {
                         "$ref": "#/types/fly-machines:apps/v1:FlyContainerConfig"
                     },
-                    "description": "Containers are a list of containers that will run in the machine. Currently restricted to\nonly specific organizations."
+                    "description": "Containers are a list of containers that will run in the machine, each from its own image."
                 },
                 "disableMachineAutostart": {
                     "type": "boolean",
                     "description": "Deprecated: use Service.Autostart instead"
                 },
                 "dns": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyDNSConfig"
+                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigDns",
+                    "description": "DNS settings for the Machine"
                 },
                 "env": {
                     "type": "object",
@@ -1285,61 +1256,72 @@
                     "type": "array",
                     "items": {
                         "$ref": "#/types/fly-machines:apps/v1:FlyFile"
-                    }
+                    },
+                    "description": "Files to write into the Machine, from either a raw value or an app secret"
                 },
                 "guest": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineGuest"
+                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigGuest",
+                    "description": "The resources (CPUs, memory, etc.) allocated to the Machine"
                 },
                 "image": {
                     "type": "string",
                     "description": "The docker image to run"
                 },
                 "init": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineInit"
+                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigInit",
+                    "description": "Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run"
                 },
                 "metadata": {
                     "type": "object",
                     "additionalProperties": {
                         "type": "string"
-                    }
+                    },
+                    "description": "Key/value pairs of Machine metadata. Fly.io uses metadata internally for routing, process groups, and clusters"
                 },
                 "metrics": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineMetrics"
+                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigMetrics",
+                    "description": "An optional metrics endpoint for Prometheus on Fly.io to scrape"
                 },
                 "mounts": {
                     "type": "array",
                     "items": {
                         "$ref": "#/types/fly-machines:apps/v1:FlyMachineMount"
-                    }
+                    },
+                    "description": "Persistent volumes to mount in the Machine. A Machine can mount at most one volume, which must be on\nthe same host. The mounted volume cannot be changed by updating the Machine"
                 },
                 "processes": {
                     "type": "array",
                     "items": {
                         "$ref": "#/types/fly-machines:apps/v1:FlyMachineProcess"
-                    }
+                    },
+                    "description": "Multiple processes to run within this one Machine, all from the Machine's image. Unrelated to the\nprocess groups in fly.toml, which run on separate Machines. To run processes from different\nimages, use containers instead"
                 },
                 "restart": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineRestart",
-                    "description": "The Machine restart policy defines whether and how flyd restarts a Machine after its main process exits. See https://fly.io/docs/machines/guides-examples/machine-restart-policy/."
+                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigRestart",
+                    "description": "Whether and how the Machine is restarted after its main process exits"
                 },
                 "rootfs": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineRootfs"
+                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigRootfs",
+                    "description": "The size of the Machine's root filesystem and whether it persists"
                 },
                 "schedule": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Run the Machine at an interval: one of hourly, daily, weekly or monthly. The interval starts when\nthe Machine is created"
                 },
                 "services": {
                     "type": "array",
                     "items": {
                         "$ref": "#/types/fly-machines:apps/v1:FlyMachineService"
-                    }
+                    },
+                    "description": "Network services that Fly Proxy routes traffic to"
                 },
                 "size": {
                     "type": "string",
                     "description": "Deprecated: use Guest instead"
                 },
                 "spot": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineSpot"
+                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigSpot",
+                    "description": "Spot pricing settings for the Machine"
                 },
                 "standbys": {
                     "type": "array",
@@ -1352,10 +1334,21 @@
                     "type": "array",
                     "items": {
                         "$ref": "#/types/fly-machines:apps/v1:FlyStatic"
-                    }
+                    },
+                    "description": "Static files to serve under a URL prefix. Fly Proxy routes matching requests to a file server\ninside the Machine, bypassing your application's own process; the Machine must be running. The\nfiles are read either from a path inside the Machine or from a Tigris bucket that belongs to the\napp; no bucket is created for you"
                 },
                 "stopConfig": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyStopConfig"
+                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigStopConfig",
+                    "description": "How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:FlyMachineConfigCacheDrive": {
+            "description": "A cache drive attached to the Machine",
+            "properties": {
+                "sizeMb": {
+                    "type": "integer"
                 }
             },
             "type": "object"
@@ -1412,6 +1405,187 @@
                 "type": {
                     "type": "string",
                     "description": "tcp or http"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:FlyMachineConfigDns": {
+            "description": "DNS settings for the Machine",
+            "properties": {
+                "dnsForwardRules": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps/v1:FlyDnsForwardRule"
+                    }
+                },
+                "hostname": {
+                    "type": "string"
+                },
+                "hostnameFqdn": {
+                    "type": "string"
+                },
+                "nameservers": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "options": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps/v1:FlyDnsOption"
+                    }
+                },
+                "searches": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "skipRegistration": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:FlyMachineConfigGuest": {
+            "description": "The resources (CPUs, memory, etc.) allocated to the Machine",
+            "properties": {
+                "cpuKind": {
+                    "type": "string"
+                },
+                "cpus": {
+                    "type": "integer"
+                },
+                "gpuKind": {
+                    "type": "string"
+                },
+                "gpus": {
+                    "type": "integer"
+                },
+                "hostDedicationId": {
+                    "type": "string"
+                },
+                "kernelArgs": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "maxMemoryMb": {
+                    "type": "integer"
+                },
+                "memoryMb": {
+                    "type": "integer"
+                },
+                "persistRootfs": {
+                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineGuestPersistRootfs",
+                    "description": "Deprecated: use MachineConfig.Rootfs instead"
+                },
+                "requiredHostFeatures": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:FlyMachineConfigInit": {
+            "description": "Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run",
+            "properties": {
+                "cmd": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "entrypoint": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "exec": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "kernelArgs": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "swapSizeMb": {
+                    "type": "integer"
+                },
+                "tty": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:FlyMachineConfigMetrics": {
+            "description": "An optional metrics endpoint for Prometheus on Fly.io to scrape",
+            "properties": {
+                "https": {
+                    "type": "boolean"
+                },
+                "path": {
+                    "type": "string"
+                },
+                "port": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:FlyMachineConfigRestart": {
+            "description": "Whether and how the Machine is restarted after its main process exits",
+            "properties": {
+                "maxRetries": {
+                    "type": "integer",
+                    "description": "When policy is on-failure, the maximum number of times to attempt to restart the Machine before letting it stop."
+                },
+                "policy": {
+                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineRestartPolicy",
+                    "description": "* no - Never try to restart a Machine automatically when its main process exits, whether that’s on purpose or on a crash.\n* always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.\n* on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:FlyMachineConfigRootfs": {
+            "description": "The size of the Machine's root filesystem and whether it persists",
+            "properties": {
+                "persist": {
+                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineRootfsPersist"
+                },
+                "sizeGb": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:FlyMachineConfigSpot": {
+            "description": "Spot pricing settings for the Machine",
+            "properties": {
+                "maxPriceFraction": {
+                    "type": "number",
+                    "description": "MaxPriceFraction is the maximum fraction of the full Machine price you will pay for this Machine. Range: (0, 1.0]"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:FlyMachineConfigStopConfig": {
+            "description": "How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown",
+            "properties": {
+                "signal": {
+                    "$ref": "#/types/fly-machines:apps/v1:FlyStopConfigSignal"
+                },
+                "timeout": {
+                    "type": "string"
                 }
             },
             "type": "object"
@@ -1489,55 +1663,6 @@
                         "type": "string"
                     },
                     "description": "The header value"
-                }
-            },
-            "type": "object"
-        },
-        "fly-machines:apps/v1:FlyMachineInit": {
-            "properties": {
-                "cmd": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "entrypoint": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "exec": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "kernelArgs": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "swapSizeMb": {
-                    "type": "integer"
-                },
-                "tty": {
-                    "type": "boolean"
-                }
-            },
-            "type": "object"
-        },
-        "fly-machines:apps/v1:FlyMachineMetrics": {
-            "properties": {
-                "https": {
-                    "type": "boolean"
-                },
-                "path": {
-                    "type": "string"
-                },
-                "port": {
-                    "type": "integer"
                 }
             },
             "type": "object"
@@ -1661,20 +1786,6 @@
             },
             "type": "object"
         },
-        "fly-machines:apps/v1:FlyMachineRestart": {
-            "description": "The Machine restart policy defines whether and how flyd restarts a Machine after its main process exits. See https://fly.io/docs/machines/guides-examples/machine-restart-policy/.",
-            "properties": {
-                "maxRetries": {
-                    "type": "integer",
-                    "description": "When policy is on-failure, the maximum number of times to attempt to restart the Machine before letting it stop."
-                },
-                "policy": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineRestartPolicy",
-                    "description": "* no - Never try to restart a Machine automatically when its main process exits, whether that’s on purpose or on a crash.\n* always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.\n* on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules."
-                }
-            },
-            "type": "object"
-        },
         "fly-machines:apps/v1:FlyMachineRestartPolicy": {
             "description": "* no - Never try to restart a Machine automatically when its main process exits, whether that’s on purpose or on a crash.\n* always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.\n* on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules.",
             "type": "string",
@@ -1692,17 +1803,6 @@
                     "value": "on-failure"
                 }
             ]
-        },
-        "fly-machines:apps/v1:FlyMachineRootfs": {
-            "properties": {
-                "persist": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineRootfsPersist"
-                },
-                "sizeGb": {
-                    "type": "integer"
-                }
-            },
-            "type": "object"
         },
         "fly-machines:apps/v1:FlyMachineRootfsPersist": {
             "type": "string",
@@ -1861,15 +1961,6 @@
             },
             "type": "object"
         },
-        "fly-machines:apps/v1:FlyMachineSpot": {
-            "properties": {
-                "maxPriceFraction": {
-                    "type": "number",
-                    "description": "MaxPriceFraction is the maximum fraction of the full Machine price you will pay for this Machine. Range: (0, 1.0]"
-                }
-            },
-            "type": "object"
-        },
         "fly-machines:apps/v1:FlyProxyProtoOptions": {
             "properties": {
                 "flySrc": {
@@ -1920,16 +2011,20 @@
         "fly-machines:apps/v1:FlyStatic": {
             "properties": {
                 "guestPath": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "The path inside the Machine, or inside tigris_bucket when set, where the files to serve are located"
                 },
                 "indexDocument": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "The document served for requests to the URL prefix or any of its subfolders. Only works with tigris_bucket"
                 },
                 "tigrisBucket": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "An existing Tigris bucket belonging to the app to read the files from, instead of the Machine's\nfilesystem. The files are still served through the Machine"
                 },
                 "urlPrefix": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "The URL prefix under which the files are served"
                 }
             },
             "type": "object",
@@ -1937,17 +2032,6 @@
                 "guestPath",
                 "urlPrefix"
             ]
-        },
-        "fly-machines:apps/v1:FlyStopConfig": {
-            "properties": {
-                "signal": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyStopConfigSignal"
-                },
-                "timeout": {
-                    "type": "string"
-                }
-            },
-            "type": "object"
         },
         "fly-machines:apps/v1:FlyStopConfigSignal": {
             "type": "string",
@@ -2771,7 +2855,7 @@
                 },
                 "force": {
                     "type": "boolean",
-                    "description": "Force kill the machine if it's running"
+                    "description": "Kill the Machine first if it's not stopped, suspended, failed, pending or archived"
                 }
             },
             "type": "object"
@@ -6727,7 +6811,8 @@
                     "type": "integer"
                 },
                 "minSecretsVersion": {
-                    "type": "integer"
+                    "type": "integer",
+                    "description": "The minimum version of the app's secrets the Machine must run with. Set it to the `version`\nreturned by the endpoints that set or delete app secrets, so that the Machine is guaranteed\nto see those changes. This field belongs at the top level of the request body, not in\n`config`. If omitted, the app's current secrets version is looked up for you."
                 },
                 "name": {
                     "type": "string"
@@ -6781,7 +6866,8 @@
                     "type": "integer"
                 },
                 "minSecretsVersion": {
-                    "type": "integer"
+                    "type": "integer",
+                    "description": "The minimum version of the app's secrets the Machine must run with. Set it to the `version`\nreturned by the endpoints that set or delete app secrets, so that the Machine is guaranteed\nto see those changes. This field belongs at the top level of the request body, not in\n`config`. If omitted, the app's current secrets version is looked up for you."
                 },
                 "name": {
                     "type": "string",
@@ -6808,6 +6894,9 @@
         },
         "fly-machines:apps/v1:MachinesCordon": {
             "properties": {
+                "ok": {
+                    "type": "boolean"
+                },
                 "queryParams": {
                     "$ref": "#/types/fly-machines:apps/v1:MachinesCordonQueryParams",
                     "description": "Query params to send with the API requests for this resource."
@@ -7116,6 +7205,9 @@
         },
         "fly-machines:apps/v1:MachinesRestart": {
             "properties": {
+                "ok": {
+                    "type": "boolean"
+                },
                 "queryParams": {
                     "$ref": "#/types/fly-machines:apps/v1:MachinesRestartQueryParams",
                     "description": "Query params to send with the API requests for this resource."
@@ -7139,6 +7231,9 @@
         },
         "fly-machines:apps/v1:MachinesSignal": {
             "properties": {
+                "ok": {
+                    "type": "boolean"
+                },
                 "queryParams": {
                     "$ref": "#/types/fly-machines:apps/v1:MachinesSignalQueryParams",
                     "description": "Query params to send with the API requests for this resource."
@@ -7168,6 +7263,18 @@
         },
         "fly-machines:apps/v1:MachinesStart": {
             "properties": {
+                "migrated": {
+                    "type": "boolean",
+                    "description": "Whether the Machine was moved to another host to be started"
+                },
+                "newHost": {
+                    "type": "string",
+                    "description": "The host the Machine was moved to, if it was migrated"
+                },
+                "previousState": {
+                    "type": "string",
+                    "description": "The state the Machine was in before it was started"
+                },
                 "queryParams": {
                     "$ref": "#/types/fly-machines:apps/v1:MachinesStartQueryParams",
                     "description": "Query params to send with the API requests for this resource."
@@ -7191,6 +7298,9 @@
         },
         "fly-machines:apps/v1:MachinesStop": {
             "properties": {
+                "ok": {
+                    "type": "boolean"
+                },
                 "queryParams": {
                     "$ref": "#/types/fly-machines:apps/v1:MachinesStopQueryParams",
                     "description": "Query params to send with the API requests for this resource."
@@ -7226,6 +7336,9 @@
         },
         "fly-machines:apps/v1:MachinesSuspend": {
             "properties": {
+                "ok": {
+                    "type": "boolean"
+                },
                 "queryParams": {
                     "$ref": "#/types/fly-machines:apps/v1:MachinesSuspendQueryParams",
                     "description": "Query params to send with the API requests for this resource."
@@ -7249,6 +7362,9 @@
         },
         "fly-machines:apps/v1:MachinesUncordon": {
             "properties": {
+                "ok": {
+                    "type": "boolean"
+                },
                 "queryParams": {
                     "$ref": "#/types/fly-machines:apps/v1:MachinesUncordonQueryParams",
                     "description": "Query params to send with the API requests for this resource."
@@ -7292,7 +7408,8 @@
                     "type": "string"
                 },
                 "version": {
-                    "type": "integer"
+                    "type": "integer",
+                    "description": "The app's secrets version after this change. Pass it as `min_secrets_version` when creating or\nupdating Machines so that they are guaranteed to see the change."
                 }
             },
             "type": "object",
@@ -7645,7 +7762,8 @@
                     }
                 },
                 "version": {
-                    "type": "integer"
+                    "type": "integer",
+                    "description": "The app's secrets version after this change. Pass it as `min_secrets_version` when creating or\nupdating Machines so that they are guaranteed to see the change."
                 }
             },
             "type": "object",

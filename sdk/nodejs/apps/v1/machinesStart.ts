@@ -35,6 +35,18 @@ export class MachinesStart extends pulumi.CustomResource {
     }
 
     /**
+     * Whether the Machine was moved to another host to be started
+     */
+    declare public /*out*/ readonly migrated: pulumi.Output<boolean | undefined>;
+    /**
+     * The host the Machine was moved to, if it was migrated
+     */
+    declare public /*out*/ readonly newHost: pulumi.Output<string | undefined>;
+    /**
+     * The state the Machine was in before it was started
+     */
+    declare public /*out*/ readonly previousState: pulumi.Output<string | undefined>;
+    /**
      * Query params to send with the API requests for this resource.
      */
     declare public readonly queryParams: pulumi.Output<outputs.apps.v1.MachinesStartQueryParams | undefined>;
@@ -53,7 +65,13 @@ export class MachinesStart extends pulumi.CustomResource {
             resourceInputs["appName"] = args?.appName;
             resourceInputs["machineId"] = args?.machineId;
             resourceInputs["queryParams"] = args?.queryParams;
+            resourceInputs["migrated"] = undefined /*out*/;
+            resourceInputs["newHost"] = undefined /*out*/;
+            resourceInputs["previousState"] = undefined /*out*/;
         } else {
+            resourceInputs["migrated"] = undefined /*out*/;
+            resourceInputs["newHost"] = undefined /*out*/;
+            resourceInputs["previousState"] = undefined /*out*/;
             resourceInputs["queryParams"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);

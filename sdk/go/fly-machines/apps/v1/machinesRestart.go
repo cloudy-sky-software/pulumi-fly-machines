@@ -14,6 +14,7 @@ import (
 type MachinesRestart struct {
 	pulumi.CustomResourceState
 
+	Ok pulumi.BoolPtrOutput `pulumi:"ok"`
 	// Query params to send with the API requests for this resource.
 	QueryParams MachinesRestartQueryParamsPtrOutput `pulumi:"queryParams"`
 }
@@ -111,6 +112,10 @@ func (o MachinesRestartOutput) ToMachinesRestartOutput() MachinesRestartOutput {
 
 func (o MachinesRestartOutput) ToMachinesRestartOutputWithContext(ctx context.Context) MachinesRestartOutput {
 	return o
+}
+
+func (o MachinesRestartOutput) Ok() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *MachinesRestart) pulumi.BoolPtrOutput { return v.Ok }).(pulumi.BoolPtrOutput)
 }
 
 // Query params to send with the API requests for this resource.

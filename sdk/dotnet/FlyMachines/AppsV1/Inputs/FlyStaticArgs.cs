@@ -13,15 +13,28 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
 
     public sealed class FlyStaticArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// The path inside the Machine, or inside tigris_bucket when set, where the files to serve are located
+        /// </summary>
         [Input("guestPath", required: true)]
         public Input<string> GuestPath { get; set; } = null!;
 
+        /// <summary>
+        /// The document served for requests to the URL prefix or any of its subfolders. Only works with tigris_bucket
+        /// </summary>
         [Input("indexDocument")]
         public Input<string>? IndexDocument { get; set; }
 
+        /// <summary>
+        /// An existing Tigris bucket belonging to the app to read the files from, instead of the Machine's
+        /// filesystem. The files are still served through the Machine
+        /// </summary>
         [Input("tigrisBucket")]
         public Input<string>? TigrisBucket { get; set; }
 
+        /// <summary>
+        /// The URL prefix under which the files are served
+        /// </summary>
         [Input("urlPrefix", required: true)]
         public Input<string> UrlPrefix { get; set; } = null!;
 

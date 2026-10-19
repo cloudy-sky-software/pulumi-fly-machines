@@ -11,20 +11,18 @@ using Pulumi;
 namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
 {
 
+    /// <summary>
+    /// A cache drive attached to the Machine
+    /// </summary>
     [OutputType]
-    public sealed class FlyMachineRootfs
+    public sealed class FlyMachineConfigCacheDrive
     {
-        public readonly CloudySkySoftware.Pulumi.FlyMachines.AppsV1.FlyMachineRootfsPersist? Persist;
-        public readonly int? SizeGb;
+        public readonly int? SizeMb;
 
         [OutputConstructor]
-        private FlyMachineRootfs(
-            CloudySkySoftware.Pulumi.FlyMachines.AppsV1.FlyMachineRootfsPersist? persist,
-
-            int? sizeGb)
+        private FlyMachineConfigCacheDrive(int? sizeMb)
         {
-            Persist = persist;
-            SizeGb = sizeGb;
+            SizeMb = sizeMb;
         }
     }
 }

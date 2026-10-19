@@ -34,6 +34,7 @@ export class MachinesSignal extends pulumi.CustomResource {
         return obj['__pulumiType'] === MachinesSignal.__pulumiType;
     }
 
+    declare public /*out*/ readonly ok: pulumi.Output<boolean | undefined>;
     /**
      * Query params to send with the API requests for this resource.
      */
@@ -55,7 +56,9 @@ export class MachinesSignal extends pulumi.CustomResource {
             resourceInputs["machineId"] = args?.machineId;
             resourceInputs["queryParams"] = args?.queryParams;
             resourceInputs["signal"] = args?.signal;
+            resourceInputs["ok"] = undefined /*out*/;
         } else {
+            resourceInputs["ok"] = undefined /*out*/;
             resourceInputs["queryParams"] = undefined /*out*/;
             resourceInputs["signal"] = undefined /*out*/;
         }

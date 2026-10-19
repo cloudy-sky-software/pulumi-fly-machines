@@ -22,7 +22,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         /// </summary>
         public readonly ImmutableDictionary<string, string>? AdditionalParams;
         /// <summary>
-        /// Force kill the machine if it's running
+        /// Kill the Machine first if it's not stopped, suspended, failed, pending or archived
         /// </summary>
         public readonly bool? Force;
 

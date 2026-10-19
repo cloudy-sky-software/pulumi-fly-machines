@@ -11,7 +11,10 @@ using Pulumi;
 namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
 {
 
-    public sealed class FlyDNSConfigArgs : global::Pulumi.ResourceArgs
+    /// <summary>
+    /// DNS settings for the Machine
+    /// </summary>
+    public sealed class FlyMachineConfigDnsArgs : global::Pulumi.ResourceArgs
     {
         [Input("dnsForwardRules")]
         private InputList<Inputs.FlyDnsForwardRuleArgs>? _dnsForwardRules;
@@ -54,9 +57,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         [Input("skipRegistration")]
         public Input<bool>? SkipRegistration { get; set; }
 
-        public FlyDNSConfigArgs()
+        public FlyMachineConfigDnsArgs()
         {
         }
-        public static new FlyDNSConfigArgs Empty => new FlyDNSConfigArgs();
+        public static new FlyMachineConfigDnsArgs Empty => new FlyMachineConfigDnsArgs();
     }
 }

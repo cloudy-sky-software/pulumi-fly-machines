@@ -11,7 +11,10 @@ using Pulumi;
 namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
 {
 
-    public sealed class FlyMachineInitArgs : global::Pulumi.ResourceArgs
+    /// <summary>
+    /// Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
+    /// </summary>
+    public sealed class FlyMachineConfigInitArgs : global::Pulumi.ResourceArgs
     {
         [Input("cmd")]
         private InputList<string>? _cmd;
@@ -51,9 +54,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         [Input("tty")]
         public Input<bool>? Tty { get; set; }
 
-        public FlyMachineInitArgs()
+        public FlyMachineConfigInitArgs()
         {
         }
-        public static new FlyMachineInitArgs Empty => new FlyMachineInitArgs();
+        public static new FlyMachineConfigInitArgs Empty => new FlyMachineConfigInitArgs();
     }
 }

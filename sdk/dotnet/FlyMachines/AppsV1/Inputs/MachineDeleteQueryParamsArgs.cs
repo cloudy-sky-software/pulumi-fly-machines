@@ -29,7 +29,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         }
 
         /// <summary>
-        /// Force kill the machine if it's running
+        /// Kill the Machine first if it's not stopped, suspended, failed, pending or archived
         /// </summary>
         [Input("force")]
         public Input<bool>? Force { get; set; }

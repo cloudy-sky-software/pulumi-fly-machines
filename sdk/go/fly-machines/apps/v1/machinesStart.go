@@ -14,6 +14,12 @@ import (
 type MachinesStart struct {
 	pulumi.CustomResourceState
 
+	// Whether the Machine was moved to another host to be started
+	Migrated pulumi.BoolPtrOutput `pulumi:"migrated"`
+	// The host the Machine was moved to, if it was migrated
+	NewHost pulumi.StringPtrOutput `pulumi:"newHost"`
+	// The state the Machine was in before it was started
+	PreviousState pulumi.StringPtrOutput `pulumi:"previousState"`
 	// Query params to send with the API requests for this resource.
 	QueryParams MachinesStartQueryParamsPtrOutput `pulumi:"queryParams"`
 }
@@ -111,6 +117,21 @@ func (o MachinesStartOutput) ToMachinesStartOutput() MachinesStartOutput {
 
 func (o MachinesStartOutput) ToMachinesStartOutputWithContext(ctx context.Context) MachinesStartOutput {
 	return o
+}
+
+// Whether the Machine was moved to another host to be started
+func (o MachinesStartOutput) Migrated() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *MachinesStart) pulumi.BoolPtrOutput { return v.Migrated }).(pulumi.BoolPtrOutput)
+}
+
+// The host the Machine was moved to, if it was migrated
+func (o MachinesStartOutput) NewHost() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *MachinesStart) pulumi.StringPtrOutput { return v.NewHost }).(pulumi.StringPtrOutput)
+}
+
+// The state the Machine was in before it was started
+func (o MachinesStartOutput) PreviousState() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *MachinesStart) pulumi.StringPtrOutput { return v.PreviousState }).(pulumi.StringPtrOutput)
 }
 
 // Query params to send with the API requests for this resource.

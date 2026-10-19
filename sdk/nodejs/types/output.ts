@@ -425,16 +425,6 @@ export namespace apps {
             unhealthy?: enums.apps.v1.FlyContainerHealthcheckUnhealthy;
         }
 
-        export interface FlyDNSConfig {
-            dnsForwardRules?: outputs.apps.v1.FlyDnsForwardRule[];
-            hostname?: string;
-            hostnameFqdn?: string;
-            nameservers?: string[];
-            options?: outputs.apps.v1.FlyDnsOption[];
-            searches?: string[];
-            skipRegistration?: boolean;
-        }
-
         export interface FlyDnsForwardRule {
             addr?: string;
             basename?: string;
@@ -539,64 +529,118 @@ export namespace apps {
             pristine?: boolean;
         }
 
-        export interface FlyMachineCacheDrive {
-            sizeMb?: number;
-        }
-
         export interface FlyMachineConfig {
             /**
              * Optional boolean telling the Machine to destroy itself once it’s complete (default false)
              */
             autoDestroy?: boolean;
-            cacheDrive?: outputs.apps.v1.FlyMachineCacheDrive;
+            /**
+             * A cache drive attached to the Machine
+             */
+            cacheDrive?: outputs.apps.v1.FlyMachineConfigCacheDrive;
             /**
              * An optional object that defines one or more named top-level checks. The key for each check is the check name.
              */
             checks?: {[key: string]: outputs.apps.v1.FlyMachineConfigChecksProperties};
             /**
-             * Containers are a list of containers that will run in the machine. Currently restricted to
-             * only specific organizations.
+             * Containers are a list of containers that will run in the machine, each from its own image.
              */
             containers?: outputs.apps.v1.FlyContainerConfig[];
             /**
              * Deprecated: use Service.Autostart instead
              */
             disableMachineAutostart?: boolean;
-            dns?: outputs.apps.v1.FlyDNSConfig;
+            /**
+             * DNS settings for the Machine
+             */
+            dns?: outputs.apps.v1.FlyMachineConfigDns;
             /**
              * An object filled with key/value pairs to be set as environment variables
              */
             env?: {[key: string]: string};
+            /**
+             * Files to write into the Machine, from either a raw value or an app secret
+             */
             files?: outputs.apps.v1.FlyFile[];
-            guest?: outputs.apps.v1.FlyMachineGuest;
+            /**
+             * The resources (CPUs, memory, etc.) allocated to the Machine
+             */
+            guest?: outputs.apps.v1.FlyMachineConfigGuest;
             /**
              * The docker image to run
              */
             image?: string;
-            init?: outputs.apps.v1.FlyMachineInit;
+            /**
+             * Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
+             */
+            init?: outputs.apps.v1.FlyMachineConfigInit;
+            /**
+             * Key/value pairs of Machine metadata. Fly.io uses metadata internally for routing, process groups, and clusters
+             */
             metadata?: {[key: string]: string};
-            metrics?: outputs.apps.v1.FlyMachineMetrics;
+            /**
+             * An optional metrics endpoint for Prometheus on Fly.io to scrape
+             */
+            metrics?: outputs.apps.v1.FlyMachineConfigMetrics;
+            /**
+             * Persistent volumes to mount in the Machine. A Machine can mount at most one volume, which must be on
+             * the same host. The mounted volume cannot be changed by updating the Machine
+             */
             mounts?: outputs.apps.v1.FlyMachineMount[];
+            /**
+             * Multiple processes to run within this one Machine, all from the Machine's image. Unrelated to the
+             * process groups in fly.toml, which run on separate Machines. To run processes from different
+             * images, use containers instead
+             */
             processes?: outputs.apps.v1.FlyMachineProcess[];
             /**
-             * The Machine restart policy defines whether and how flyd restarts a Machine after its main process exits. See https://fly.io/docs/machines/guides-examples/machine-restart-policy/.
+             * Whether and how the Machine is restarted after its main process exits
              */
-            restart?: outputs.apps.v1.FlyMachineRestart;
-            rootfs?: outputs.apps.v1.FlyMachineRootfs;
+            restart?: outputs.apps.v1.FlyMachineConfigRestart;
+            /**
+             * The size of the Machine's root filesystem and whether it persists
+             */
+            rootfs?: outputs.apps.v1.FlyMachineConfigRootfs;
+            /**
+             * Run the Machine at an interval: one of hourly, daily, weekly or monthly. The interval starts when
+             * the Machine is created
+             */
             schedule?: string;
+            /**
+             * Network services that Fly Proxy routes traffic to
+             */
             services?: outputs.apps.v1.FlyMachineService[];
             /**
              * Deprecated: use Guest instead
              */
             size?: string;
-            spot?: outputs.apps.v1.FlyMachineSpot;
+            /**
+             * Spot pricing settings for the Machine
+             */
+            spot?: outputs.apps.v1.FlyMachineConfigSpot;
             /**
              * Standbys enable a machine to be a standby for another. In the event of a hardware failure,
              * the standby machine will be started.
              */
             standbys?: string[];
+            /**
+             * Static files to serve under a URL prefix. Fly Proxy routes matching requests to a file server
+             * inside the Machine, bypassing your application's own process; the Machine must be running. The
+             * files are read either from a path inside the Machine or from a Tigris bucket that belongs to the
+             * app; no bucket is created for you
+             */
             statics?: outputs.apps.v1.FlyStatic[];
-            stopConfig?: outputs.apps.v1.FlyStopConfig;
+            /**
+             * How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
+             */
+            stopConfig?: outputs.apps.v1.FlyMachineConfigStopConfig;
+        }
+
+        /**
+         * A cache drive attached to the Machine
+         */
+        export interface FlyMachineConfigCacheDrive {
+            sizeMb?: number;
         }
 
         /**
@@ -650,6 +694,101 @@ export namespace apps {
             type?: string;
         }
 
+        /**
+         * DNS settings for the Machine
+         */
+        export interface FlyMachineConfigDns {
+            dnsForwardRules?: outputs.apps.v1.FlyDnsForwardRule[];
+            hostname?: string;
+            hostnameFqdn?: string;
+            nameservers?: string[];
+            options?: outputs.apps.v1.FlyDnsOption[];
+            searches?: string[];
+            skipRegistration?: boolean;
+        }
+
+        /**
+         * The resources (CPUs, memory, etc.) allocated to the Machine
+         */
+        export interface FlyMachineConfigGuest {
+            cpuKind?: string;
+            cpus?: number;
+            gpuKind?: string;
+            gpus?: number;
+            hostDedicationId?: string;
+            kernelArgs?: string[];
+            maxMemoryMb?: number;
+            memoryMb?: number;
+            /**
+             * Deprecated: use MachineConfig.Rootfs instead
+             */
+            persistRootfs?: enums.apps.v1.FlyMachineGuestPersistRootfs;
+            requiredHostFeatures?: string[];
+        }
+
+        /**
+         * Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
+         */
+        export interface FlyMachineConfigInit {
+            cmd?: string[];
+            entrypoint?: string[];
+            exec?: string[];
+            kernelArgs?: string[];
+            swapSizeMb?: number;
+            tty?: boolean;
+        }
+
+        /**
+         * An optional metrics endpoint for Prometheus on Fly.io to scrape
+         */
+        export interface FlyMachineConfigMetrics {
+            https?: boolean;
+            path?: string;
+            port?: number;
+        }
+
+        /**
+         * Whether and how the Machine is restarted after its main process exits
+         */
+        export interface FlyMachineConfigRestart {
+            /**
+             * When policy is on-failure, the maximum number of times to attempt to restart the Machine before letting it stop.
+             */
+            maxRetries?: number;
+            /**
+             * * no - Never try to restart a Machine automatically when its main process exits, whether that’s on purpose or on a crash.
+             * * always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.
+             * * on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules.
+             */
+            policy?: enums.apps.v1.FlyMachineRestartPolicy;
+        }
+
+        /**
+         * The size of the Machine's root filesystem and whether it persists
+         */
+        export interface FlyMachineConfigRootfs {
+            persist?: enums.apps.v1.FlyMachineRootfsPersist;
+            sizeGb?: number;
+        }
+
+        /**
+         * Spot pricing settings for the Machine
+         */
+        export interface FlyMachineConfigSpot {
+            /**
+             * MaxPriceFraction is the maximum fraction of the full Machine price you will pay for this Machine. Range: (0, 1.0]
+             */
+            maxPriceFraction?: number;
+        }
+
+        /**
+         * How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
+         */
+        export interface FlyMachineConfigStopConfig {
+            signal?: enums.apps.v1.FlyStopConfigSignal;
+            timeout?: string;
+        }
+
         export interface FlyMachineGuest {
             cpuKind?: string;
             cpus?: number;
@@ -678,21 +817,6 @@ export namespace apps {
              * The header value
              */
             values?: string[];
-        }
-
-        export interface FlyMachineInit {
-            cmd?: string[];
-            entrypoint?: string[];
-            exec?: string[];
-            kernelArgs?: string[];
-            swapSizeMb?: number;
-            tty?: boolean;
-        }
-
-        export interface FlyMachineMetrics {
-            https?: boolean;
-            path?: string;
-            port?: number;
         }
 
         export interface FlyMachineMount {
@@ -747,27 +871,6 @@ export namespace apps {
              */
             secrets?: outputs.apps.v1.FlyMachineSecret[];
             user?: string;
-        }
-
-        /**
-         * The Machine restart policy defines whether and how flyd restarts a Machine after its main process exits. See https://fly.io/docs/machines/guides-examples/machine-restart-policy/.
-         */
-        export interface FlyMachineRestart {
-            /**
-             * When policy is on-failure, the maximum number of times to attempt to restart the Machine before letting it stop.
-             */
-            maxRetries?: number;
-            /**
-             * * no - Never try to restart a Machine automatically when its main process exits, whether that’s on purpose or on a crash.
-             * * always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.
-             * * on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules.
-             */
-            policy?: enums.apps.v1.FlyMachineRestartPolicy;
-        }
-
-        export interface FlyMachineRootfs {
-            persist?: enums.apps.v1.FlyMachineRootfsPersist;
-            sizeGb?: number;
         }
 
         /**
@@ -858,13 +961,6 @@ export namespace apps {
             type?: string;
         }
 
-        export interface FlyMachineSpot {
-            /**
-             * MaxPriceFraction is the maximum fraction of the full Machine price you will pay for this Machine. Range: (0, 1.0]
-             */
-            maxPriceFraction?: number;
-        }
-
         export interface FlyProxyProtoOptions {
             flySrc?: boolean;
             version?: string;
@@ -885,15 +981,23 @@ export namespace apps {
         }
 
         export interface FlyStatic {
+            /**
+             * The path inside the Machine, or inside tigris_bucket when set, where the files to serve are located
+             */
             guestPath: string;
+            /**
+             * The document served for requests to the URL prefix or any of its subfolders. Only works with tigris_bucket
+             */
             indexDocument?: string;
+            /**
+             * An existing Tigris bucket belonging to the app to read the files from, instead of the Machine's
+             * filesystem. The files are still served through the Machine
+             */
             tigrisBucket?: string;
+            /**
+             * The URL prefix under which the files are served
+             */
             urlPrefix: string;
-        }
-
-        export interface FlyStopConfig {
-            signal?: enums.apps.v1.FlyStopConfigSignal;
-            timeout?: string;
         }
 
         export interface FlyTCPHealthcheck {
@@ -1017,7 +1121,7 @@ export namespace apps {
              */
             additionalParams?: {[key: string]: string};
             /**
-             * Force kill the machine if it's running
+             * Kill the Machine first if it's not stopped, suspended, failed, pending or archived
              */
             force?: boolean;
         }

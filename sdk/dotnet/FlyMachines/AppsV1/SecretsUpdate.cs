@@ -25,6 +25,10 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Output("values")]
         public Output<ImmutableDictionary<string, string>?> Values { get; private set; } = null!;
 
+        /// <summary>
+        /// The app's secrets version after this change. Pass it as `min_secrets_version` when creating or
+        /// updating Machines so that they are guaranteed to see the change.
+        /// </summary>
         [Output("version")]
         public Output<int?> Version { get; private set; } = null!;
 

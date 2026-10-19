@@ -72,6 +72,9 @@ components:
                         $ref: '#/components/schemas/AppSecret'
                     type: array
                 version:
+                    description: |-
+                        The app's secrets version after this change. Pass it as `min_secrets_version` when creating or
+                        updating Machines so that they are guaranteed to see the change.
                     type: integer
             type: object
         AssignIPResponse:
@@ -293,6 +296,11 @@ components:
                 lease_ttl:
                     type: integer
                 min_secrets_version:
+                    description: |-
+                        The minimum version of the app's secrets the Machine must run with. Set it to the `version`
+                        returned by the endpoints that set or delete app secrets, so that the Machine is guaranteed
+                        to see those changes. This field belongs at the top level of the request body, not in
+                        `config`. If omitted, the app's current secrets version is looked up for you.
                     type: integer
                 name:
                     description: Unique name for this Machine. If omitted, one is generated for you
@@ -418,6 +426,9 @@ components:
         DeleteAppSecretResponse:
             properties:
                 version:
+                    description: |-
+                        The app's secrets version after this change. Pass it as `min_secrets_version` when creating or
+                        updating Machines so that they are guaranteed to see the change.
                     type: integer
             type: object
         DeleteSecretkeyResponse:
@@ -704,6 +715,11 @@ components:
                     $ref: '#/components/schemas/fly.MachineConfig'
                 version:
                     type: string
+            type: object
+        OkResponse:
+            properties:
+                ok:
+                    type: boolean
             type: object
         OrgMachine:
             properties:
@@ -1294,6 +1310,9 @@ components:
                 value:
                     type: string
                 version:
+                    description: |-
+                        The app's secrets version after this change. Pass it as `min_secrets_version` when creating or
+                        updating Machines so that they are guaranteed to see the change.
                     type: integer
             type: object
         SetSecretkeyRequest:
@@ -1356,6 +1375,18 @@ components:
                         - SIGUSR2
                     type: string
             type: object
+        StartMachineResponse:
+            properties:
+                migrated:
+                    description: Whether the Machine was moved to another host to be started
+                    type: boolean
+                new_host:
+                    description: The host the Machine was moved to, if it was migrated
+                    type: string
+                previous_state:
+                    description: The state the Machine was in before it was started
+                    type: string
+            type: object
         StopRequest:
             properties:
                 signal:
@@ -1399,6 +1430,11 @@ components:
                 lease_ttl:
                     type: integer
                 min_secrets_version:
+                    description: |-
+                        The minimum version of the app's secrets the Machine must run with. Set it to the `version`
+                        returned by the endpoints that set or delete app secrets, so that the Machine is guaranteed
+                        to see those changes. This field belongs at the top level of the request body, not in
+                        `config`. If omitted, the app's current secrets version is looked up for you.
                     type: integer
                 name:
                     description: Unique name for this Machine. If omitted, one is generated for you
@@ -2041,16 +2077,17 @@ components:
                     description: Optional boolean telling the Machine to destroy itself once it’s complete (default false)
                     type: boolean
                 cache_drive:
-                    $ref: '#/components/schemas/fly.MachineCacheDrive'
+                    allOf:
+                        - $ref: '#/components/schemas/fly.MachineCacheDrive'
+                    description: A cache drive attached to the Machine
+                    type: object
                 checks:
                     additionalProperties:
                         $ref: '#/components/schemas/fly.MachineCheck'
                     description: An optional object that defines one or more named top-level checks. The key for each check is the check name.
                     type: object
                 containers:
-                    description: |-
-                        Containers are a list of containers that will run in the machine. Currently restricted to
-                        only specific organizations.
+                    description: Containers are a list of containers that will run in the machine, each from its own image.
                     items:
                         $ref: '#/components/schemas/fly.ContainerConfig'
                     type: array
@@ -2058,44 +2095,75 @@ components:
                     description: 'Deprecated: use Service.Autostart instead'
                     type: boolean
                 dns:
-                    $ref: '#/components/schemas/fly.DNSConfig'
+                    allOf:
+                        - $ref: '#/components/schemas/fly.DNSConfig'
+                    description: DNS settings for the Machine
+                    type: object
                 env:
                     additionalProperties:
                         type: string
                     description: An object filled with key/value pairs to be set as environment variables
                     type: object
                 files:
+                    description: Files to write into the Machine, from either a raw value or an app secret
                     items:
                         $ref: '#/components/schemas/fly.File'
                     type: array
                 guest:
-                    $ref: '#/components/schemas/fly.MachineGuest'
+                    allOf:
+                        - $ref: '#/components/schemas/fly.MachineGuest'
+                    description: The resources (CPUs, memory, etc.) allocated to the Machine
+                    type: object
                 image:
                     description: The docker image to run
                     type: string
                 init:
-                    $ref: '#/components/schemas/fly.MachineInit'
+                    allOf:
+                        - $ref: '#/components/schemas/fly.MachineInit'
+                    description: Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
+                    type: object
                 metadata:
                     additionalProperties:
                         type: string
+                    description: Key/value pairs of Machine metadata. Fly.io uses metadata internally for routing, process groups, and clusters
                     type: object
                 metrics:
-                    $ref: '#/components/schemas/fly.MachineMetrics'
+                    allOf:
+                        - $ref: '#/components/schemas/fly.MachineMetrics'
+                    description: An optional metrics endpoint for Prometheus on Fly.io to scrape
+                    type: object
                 mounts:
+                    description: |-
+                        Persistent volumes to mount in the Machine. A Machine can mount at most one volume, which must be on
+                        the same host. The mounted volume cannot be changed by updating the Machine
                     items:
                         $ref: '#/components/schemas/fly.MachineMount'
                     type: array
                 processes:
+                    description: |-
+                        Multiple processes to run within this one Machine, all from the Machine's image. Unrelated to the
+                        process groups in fly.toml, which run on separate Machines. To run processes from different
+                        images, use containers instead
                     items:
                         $ref: '#/components/schemas/fly.MachineProcess'
                     type: array
                 restart:
-                    $ref: '#/components/schemas/fly.MachineRestart'
+                    allOf:
+                        - $ref: '#/components/schemas/fly.MachineRestart'
+                    description: Whether and how the Machine is restarted after its main process exits
+                    type: object
                 rootfs:
-                    $ref: '#/components/schemas/fly.MachineRootfs'
+                    allOf:
+                        - $ref: '#/components/schemas/fly.MachineRootfs'
+                    description: The size of the Machine's root filesystem and whether it persists
+                    type: object
                 schedule:
+                    description: |-
+                        Run the Machine at an interval: one of hourly, daily, weekly or monthly. The interval starts when
+                        the Machine is created
                     type: string
                 services:
+                    description: Network services that Fly Proxy routes traffic to
                     items:
                         $ref: '#/components/schemas/fly.MachineService'
                     type: array
@@ -2103,7 +2171,10 @@ components:
                     description: 'Deprecated: use Guest instead'
                     type: string
                 spot:
-                    $ref: '#/components/schemas/fly.MachineSpot'
+                    allOf:
+                        - $ref: '#/components/schemas/fly.MachineSpot'
+                    description: Spot pricing settings for the Machine
+                    type: object
                 standbys:
                     description: |-
                         Standbys enable a machine to be a standby for another. In the event of a hardware failure,
@@ -2112,11 +2183,19 @@ components:
                         type: string
                     type: array
                 statics:
+                    description: |-
+                        Static files to serve under a URL prefix. Fly Proxy routes matching requests to a file server
+                        inside the Machine, bypassing your application's own process; the Machine must be running. The
+                        files are read either from a path inside the Machine or from a Tigris bucket that belongs to the
+                        app; no bucket is created for you
                     items:
                         $ref: '#/components/schemas/fly.Static'
                     type: array
                 stop_config:
-                    $ref: '#/components/schemas/fly.StopConfig'
+                    allOf:
+                        - $ref: '#/components/schemas/fly.StopConfig'
+                    description: 'How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown'
+                    type: object
             type: object
         fly.MachineGuest:
             properties:
@@ -2443,12 +2522,18 @@ components:
         fly.Static:
             properties:
                 guest_path:
+                    description: The path inside the Machine, or inside tigris_bucket when set, where the files to serve are located
                     type: string
                 index_document:
+                    description: The document served for requests to the URL prefix or any of its subfolders. Only works with tigris_bucket
                     type: string
                 tigris_bucket:
+                    description: |-
+                        An existing Tigris bucket belonging to the app to read the files from, instead of the Machine's
+                        filesystem. The files are still served through the Machine
                     type: string
                 url_prefix:
+                    description: The URL prefix under which the files are served
                     type: string
             required:
                 - guest_path
@@ -3503,7 +3588,11 @@ paths:
     /v1/apps/{app_name}/machines/{machine_id}:
         delete:
             description: |
-                Delete a specific Machine within an app by Machine ID, with an optional force parameter to force kill the Machine if it's running.
+                Delete a specific Machine within an app by Machine ID.
+
+                Only a Machine in the `stopped`, `suspended`, `failed`, `pending` or `archived` state can be deleted. Deleting a Machine in any other state, such as `started`, fails with `412 Precondition Failed` unless you set `force=true`, which kills the Machine first. Deleting a Machine that is already `destroying` or `destroyed` succeeds without doing anything.
+
+                If someone else holds a lease on the Machine, the request fails with `409 Conflict`. Pass the lease nonce in the `fly-machine-lease-nonce` header to delete a Machine you hold the lease on.
             operationId: Machines_delete
             parameters:
                 - description: Fly App Name
@@ -3518,14 +3607,30 @@ paths:
                   required: true
                   schema:
                     type: string
-                - description: Force kill the machine if it's running
+                - description: Kill the Machine first if it's not stopped, suspended, failed, pending or archived
                   in: query
                   name: force
                   schema:
                     type: boolean
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/OkResponse'
                     description: OK
+                "409":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ErrorResponse'
+                    description: Another client holds a lease on the Machine
+                "412":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ErrorResponse'
+                    description: The Machine isn't stopped, suspended, failed, pending or archived, and force isn't set
             summary: Destroy Machine
             tags:
                 - Machines
@@ -3633,6 +3738,10 @@ paths:
                     type: string
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/OkResponse'
                     description: OK
             summary: Cordon Machine
             tags:
@@ -4226,6 +4335,10 @@ paths:
                     type: string
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/OkResponse'
                     description: OK
                 "400":
                     content:
@@ -4263,6 +4376,10 @@ paths:
                 required: true
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/OkResponse'
                     description: OK
                 "400":
                     content:
@@ -4294,6 +4411,10 @@ paths:
                     type: string
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/StartMachineResponse'
                     description: OK
             summary: Start Machine
             tags:
@@ -4324,6 +4445,10 @@ paths:
                 description: Optional request body
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/OkResponse'
                     description: OK
                 "400":
                     content:
@@ -4355,6 +4480,10 @@ paths:
                     type: string
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/OkResponse'
                     description: OK
             summary: Suspend Machine
             tags:
@@ -4379,6 +4508,10 @@ paths:
                     type: string
             responses:
                 "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/OkResponse'
                     description: OK
             summary: Uncordon Machine
             tags:
@@ -4853,6 +4986,7 @@ paths:
             tags:
                 - Secrets
         post:
+            description: 'Running Machines don''t pick up the change on their own: create or update Machines with `min_secrets_version` set to the returned `version` for them to see it.'
             operationId: Secrets_update
             parameters:
                 - description: Fly App Name
@@ -4887,6 +5021,7 @@ paths:
             x-codegen-request-body-name: request
     /v1/apps/{app_name}/secrets/{secret_name}:
         delete:
+            description: 'Running Machines don''t pick up the change on their own: create or update Machines with `min_secrets_version` set to the returned `version` for them to see it.'
             operationId: Secret_delete
             parameters:
                 - description: Fly App Name
@@ -4947,6 +5082,7 @@ paths:
             tags:
                 - Secrets
         post:
+            description: 'Running Machines don''t pick up the change on their own: create or update Machines with `min_secrets_version` set to the returned `version` for them to see it.'
             operationId: Secret_create
             parameters:
                 - description: Fly App Name

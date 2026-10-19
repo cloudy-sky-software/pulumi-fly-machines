@@ -11,8 +11,11 @@ using Pulumi;
 namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
 {
 
+    /// <summary>
+    /// Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
+    /// </summary>
     [OutputType]
-    public sealed class FlyMachineInit
+    public sealed class FlyMachineConfigInit
     {
         public readonly ImmutableArray<string> Cmd;
         public readonly ImmutableArray<string> Entrypoint;
@@ -22,7 +25,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         public readonly bool? Tty;
 
         [OutputConstructor]
-        private FlyMachineInit(
+        private FlyMachineConfigInit(
             ImmutableArray<string> cmd,
 
             ImmutableArray<string> entrypoint,

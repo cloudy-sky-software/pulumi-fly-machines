@@ -18,61 +18,112 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         /// Optional boolean telling the Machine to destroy itself once it’s complete (default false)
         /// </summary>
         public readonly bool? AutoDestroy;
-        public readonly Outputs.FlyMachineCacheDrive? CacheDrive;
+        /// <summary>
+        /// A cache drive attached to the Machine
+        /// </summary>
+        public readonly Outputs.FlyMachineConfigCacheDrive? CacheDrive;
         /// <summary>
         /// An optional object that defines one or more named top-level checks. The key for each check is the check name.
         /// </summary>
         public readonly ImmutableDictionary<string, Outputs.FlyMachineConfigChecksProperties>? Checks;
         /// <summary>
-        /// Containers are a list of containers that will run in the machine. Currently restricted to
-        /// only specific organizations.
+        /// Containers are a list of containers that will run in the machine, each from its own image.
         /// </summary>
         public readonly ImmutableArray<Outputs.FlyContainerConfig> Containers;
         /// <summary>
         /// Deprecated: use Service.Autostart instead
         /// </summary>
         public readonly bool? DisableMachineAutostart;
-        public readonly Outputs.FlyDNSConfig? Dns;
+        /// <summary>
+        /// DNS settings for the Machine
+        /// </summary>
+        public readonly Outputs.FlyMachineConfigDns? Dns;
         /// <summary>
         /// An object filled with key/value pairs to be set as environment variables
         /// </summary>
         public readonly ImmutableDictionary<string, string>? Env;
+        /// <summary>
+        /// Files to write into the Machine, from either a raw value or an app secret
+        /// </summary>
         public readonly ImmutableArray<Outputs.FlyFile> Files;
-        public readonly Outputs.FlyMachineGuest? Guest;
+        /// <summary>
+        /// The resources (CPUs, memory, etc.) allocated to the Machine
+        /// </summary>
+        public readonly Outputs.FlyMachineConfigGuest? Guest;
         /// <summary>
         /// The docker image to run
         /// </summary>
         public readonly string? Image;
-        public readonly Outputs.FlyMachineInit? Init;
+        /// <summary>
+        /// Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
+        /// </summary>
+        public readonly Outputs.FlyMachineConfigInit? Init;
+        /// <summary>
+        /// Key/value pairs of Machine metadata. Fly.io uses metadata internally for routing, process groups, and clusters
+        /// </summary>
         public readonly ImmutableDictionary<string, string>? Metadata;
-        public readonly Outputs.FlyMachineMetrics? Metrics;
+        /// <summary>
+        /// An optional metrics endpoint for Prometheus on Fly.io to scrape
+        /// </summary>
+        public readonly Outputs.FlyMachineConfigMetrics? Metrics;
+        /// <summary>
+        /// Persistent volumes to mount in the Machine. A Machine can mount at most one volume, which must be on
+        /// the same host. The mounted volume cannot be changed by updating the Machine
+        /// </summary>
         public readonly ImmutableArray<Outputs.FlyMachineMount> Mounts;
+        /// <summary>
+        /// Multiple processes to run within this one Machine, all from the Machine's image. Unrelated to the
+        /// process groups in fly.toml, which run on separate Machines. To run processes from different
+        /// images, use containers instead
+        /// </summary>
         public readonly ImmutableArray<Outputs.FlyMachineProcess> Processes;
         /// <summary>
-        /// The Machine restart policy defines whether and how flyd restarts a Machine after its main process exits. See https://fly.io/docs/machines/guides-examples/machine-restart-policy/.
+        /// Whether and how the Machine is restarted after its main process exits
         /// </summary>
-        public readonly Outputs.FlyMachineRestart? Restart;
-        public readonly Outputs.FlyMachineRootfs? Rootfs;
+        public readonly Outputs.FlyMachineConfigRestart? Restart;
+        /// <summary>
+        /// The size of the Machine's root filesystem and whether it persists
+        /// </summary>
+        public readonly Outputs.FlyMachineConfigRootfs? Rootfs;
+        /// <summary>
+        /// Run the Machine at an interval: one of hourly, daily, weekly or monthly. The interval starts when
+        /// the Machine is created
+        /// </summary>
         public readonly string? Schedule;
+        /// <summary>
+        /// Network services that Fly Proxy routes traffic to
+        /// </summary>
         public readonly ImmutableArray<Outputs.FlyMachineService> Services;
         /// <summary>
         /// Deprecated: use Guest instead
         /// </summary>
         public readonly string? Size;
-        public readonly Outputs.FlyMachineSpot? Spot;
+        /// <summary>
+        /// Spot pricing settings for the Machine
+        /// </summary>
+        public readonly Outputs.FlyMachineConfigSpot? Spot;
         /// <summary>
         /// Standbys enable a machine to be a standby for another. In the event of a hardware failure,
         /// the standby machine will be started.
         /// </summary>
         public readonly ImmutableArray<string> Standbys;
+        /// <summary>
+        /// Static files to serve under a URL prefix. Fly Proxy routes matching requests to a file server
+        /// inside the Machine, bypassing your application's own process; the Machine must be running. The
+        /// files are read either from a path inside the Machine or from a Tigris bucket that belongs to the
+        /// app; no bucket is created for you
+        /// </summary>
         public readonly ImmutableArray<Outputs.FlyStatic> Statics;
-        public readonly Outputs.FlyStopConfig? StopConfig;
+        /// <summary>
+        /// How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
+        /// </summary>
+        public readonly Outputs.FlyMachineConfigStopConfig? StopConfig;
 
         [OutputConstructor]
         private FlyMachineConfig(
             bool? autoDestroy,
 
-            Outputs.FlyMachineCacheDrive? cacheDrive,
+            Outputs.FlyMachineConfigCacheDrive? cacheDrive,
 
             ImmutableDictionary<string, Outputs.FlyMachineConfigChecksProperties>? checks,
 
@@ -80,29 +131,29 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
 
             bool? disableMachineAutostart,
 
-            Outputs.FlyDNSConfig? dns,
+            Outputs.FlyMachineConfigDns? dns,
 
             ImmutableDictionary<string, string>? env,
 
             ImmutableArray<Outputs.FlyFile> files,
 
-            Outputs.FlyMachineGuest? guest,
+            Outputs.FlyMachineConfigGuest? guest,
 
             string? image,
 
-            Outputs.FlyMachineInit? init,
+            Outputs.FlyMachineConfigInit? init,
 
             ImmutableDictionary<string, string>? metadata,
 
-            Outputs.FlyMachineMetrics? metrics,
+            Outputs.FlyMachineConfigMetrics? metrics,
 
             ImmutableArray<Outputs.FlyMachineMount> mounts,
 
             ImmutableArray<Outputs.FlyMachineProcess> processes,
 
-            Outputs.FlyMachineRestart? restart,
+            Outputs.FlyMachineConfigRestart? restart,
 
-            Outputs.FlyMachineRootfs? rootfs,
+            Outputs.FlyMachineConfigRootfs? rootfs,
 
             string? schedule,
 
@@ -110,13 +161,13 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
 
             string? size,
 
-            Outputs.FlyMachineSpot? spot,
+            Outputs.FlyMachineConfigSpot? spot,
 
             ImmutableArray<string> standbys,
 
             ImmutableArray<Outputs.FlyStatic> statics,
 
-            Outputs.FlyStopConfig? stopConfig)
+            Outputs.FlyMachineConfigStopConfig? stopConfig)
         {
             AutoDestroy = autoDestroy;
             CacheDrive = cacheDrive;

@@ -37,6 +37,10 @@ class MachineArgs:
 
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input['ConfigArgs'] config: An object defining the Machine configuration
+        :param pulumi.Input[_builtins.int] min_secrets_version: The minimum version of the app's secrets the Machine must run with. Set it to the `version`
+               returned by the endpoints that set or delete app secrets, so that the Machine is guaranteed
+               to see those changes. This field belongs at the top level of the request body, not in
+               `config`. If omitted, the app's current secrets version is looked up for you.
         :param pulumi.Input[_builtins.str] name: Unique name for this Machine. If omitted, one is generated for you
         :param pulumi.Input['MachineQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input[_builtins.str] region: The target region. Omitting this param launches in the same region as your WireGuard peer connection (somewhere near you).
@@ -98,6 +102,12 @@ class MachineArgs:
     @_builtins.property
     @pulumi.getter(name="minSecretsVersion")
     def min_secrets_version(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        The minimum version of the app's secrets the Machine must run with. Set it to the `version`
+        returned by the endpoints that set or delete app secrets, so that the Machine is guaranteed
+        to see those changes. This field belongs at the top level of the request body, not in
+        `config`. If omitted, the app's current secrets version is looked up for you.
+        """
         return pulumi.get(self, "min_secrets_version")
 
     @min_secrets_version.setter
@@ -192,6 +202,10 @@ class Machine(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input[Union['ConfigArgs', 'ConfigArgsDict']] config: An object defining the Machine configuration
+        :param pulumi.Input[_builtins.int] min_secrets_version: The minimum version of the app's secrets the Machine must run with. Set it to the `version`
+               returned by the endpoints that set or delete app secrets, so that the Machine is guaranteed
+               to see those changes. This field belongs at the top level of the request body, not in
+               `config`. If omitted, the app's current secrets version is looked up for you.
         :param pulumi.Input[_builtins.str] name: Unique name for this Machine. If omitted, one is generated for you
         :param pulumi.Input[Union['MachineQueryParamsArgs', 'MachineQueryParamsArgsDict', 'outputs.MachineQueryParams']] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input[_builtins.str] region: The target region. Omitting this param launches in the same region as your WireGuard peer connection (somewhere near you).
@@ -380,6 +394,12 @@ class Machine(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter(name="minSecretsVersion")
     def min_secrets_version(self) -> pulumi.Output[Optional[_builtins.int]]:
+        """
+        The minimum version of the app's secrets the Machine must run with. Set it to the `version`
+        returned by the endpoints that set or delete app secrets, so that the Machine is guaranteed
+        to see those changes. This field belongs at the top level of the request body, not in
+        `config`. If omitted, the app's current secrets version is looked up for you.
+        """
         return pulumi.get(self, "min_secrets_version")
 
     @_builtins.property

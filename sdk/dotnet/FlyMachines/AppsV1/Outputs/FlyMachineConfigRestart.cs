@@ -8,31 +8,34 @@ using System.Threading.Tasks;
 using Pulumi.Serialization;
 using Pulumi;
 
-namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
+namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
 {
 
     /// <summary>
-    /// The Machine restart policy defines whether and how flyd restarts a Machine after its main process exits. See https://fly.io/docs/machines/guides-examples/machine-restart-policy/.
+    /// Whether and how the Machine is restarted after its main process exits
     /// </summary>
-    public sealed class FlyMachineRestartArgs : global::Pulumi.ResourceArgs
+    [OutputType]
+    public sealed class FlyMachineConfigRestart
     {
         /// <summary>
         /// When policy is on-failure, the maximum number of times to attempt to restart the Machine before letting it stop.
         /// </summary>
-        [Input("maxRetries")]
-        public Input<int>? MaxRetries { get; set; }
-
+        public readonly int? MaxRetries;
         /// <summary>
         /// * no - Never try to restart a Machine automatically when its main process exits, whether that’s on purpose or on a crash.
         /// * always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.
         /// * on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules.
         /// </summary>
-        [Input("policy")]
-        public Input<CloudySkySoftware.Pulumi.FlyMachines.AppsV1.FlyMachineRestartPolicy>? Policy { get; set; }
+        public readonly CloudySkySoftware.Pulumi.FlyMachines.AppsV1.FlyMachineRestartPolicy? Policy;
 
-        public FlyMachineRestartArgs()
+        [OutputConstructor]
+        private FlyMachineConfigRestart(
+            int? maxRetries,
+
+            CloudySkySoftware.Pulumi.FlyMachines.AppsV1.FlyMachineRestartPolicy? policy)
         {
+            MaxRetries = maxRetries;
+            Policy = policy;
         }
-        public static new FlyMachineRestartArgs Empty => new FlyMachineRestartArgs();
     }
 }

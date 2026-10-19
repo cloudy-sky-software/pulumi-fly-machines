@@ -11,7 +11,10 @@ using Pulumi;
 namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
 {
 
-    public sealed class FlyStopConfigArgs : global::Pulumi.ResourceArgs
+    /// <summary>
+    /// How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
+    /// </summary>
+    public sealed class FlyMachineConfigStopConfigArgs : global::Pulumi.ResourceArgs
     {
         [Input("signal")]
         public Input<CloudySkySoftware.Pulumi.FlyMachines.AppsV1.FlyStopConfigSignal>? Signal { get; set; }
@@ -19,9 +22,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         [Input("timeout")]
         public Input<string>? Timeout { get; set; }
 
-        public FlyStopConfigArgs()
+        public FlyMachineConfigStopConfigArgs()
         {
         }
-        public static new FlyStopConfigArgs Empty => new FlyStopConfigArgs();
+        public static new FlyMachineConfigStopConfigArgs Empty => new FlyMachineConfigStopConfigArgs();
     }
 }

@@ -26,9 +26,13 @@ type Machine struct {
 	// InstanceID is the same value as `version`.
 	//
 	// Deprecated: use `version`.
-	InstanceId        pulumi.StringPtrOutput `pulumi:"instanceId"`
-	Lease             StrippedLeasePtrOutput `pulumi:"lease"`
-	LeaseTtl          pulumi.IntPtrOutput    `pulumi:"leaseTtl"`
+	InstanceId pulumi.StringPtrOutput `pulumi:"instanceId"`
+	Lease      StrippedLeasePtrOutput `pulumi:"lease"`
+	LeaseTtl   pulumi.IntPtrOutput    `pulumi:"leaseTtl"`
+	// The minimum version of the app's secrets the Machine must run with. Set it to the `version`
+	// returned by the endpoints that set or delete app secrets, so that the Machine is guaranteed
+	// to see those changes. This field belongs at the top level of the request body, not in
+	// `config`. If omitted, the app's current secrets version is looked up for you.
 	MinSecretsVersion pulumi.IntPtrOutput    `pulumi:"minSecretsVersion"`
 	Name              pulumi.StringPtrOutput `pulumi:"name"`
 	// Nonce is only every returned on machine creation if a lease_duration was provided.
@@ -92,9 +96,13 @@ type machineArgs struct {
 	// Fly App Name
 	AppName *string `pulumi:"appName"`
 	// An object defining the Machine configuration
-	Config            *Config `pulumi:"config"`
-	LeaseTtl          *int    `pulumi:"leaseTtl"`
-	MinSecretsVersion *int    `pulumi:"minSecretsVersion"`
+	Config   *Config `pulumi:"config"`
+	LeaseTtl *int    `pulumi:"leaseTtl"`
+	// The minimum version of the app's secrets the Machine must run with. Set it to the `version`
+	// returned by the endpoints that set or delete app secrets, so that the Machine is guaranteed
+	// to see those changes. This field belongs at the top level of the request body, not in
+	// `config`. If omitted, the app's current secrets version is looked up for you.
+	MinSecretsVersion *int `pulumi:"minSecretsVersion"`
 	// Unique name for this Machine. If omitted, one is generated for you
 	Name *string `pulumi:"name"`
 	// Query params to send with the API requests for this resource.
@@ -111,8 +119,12 @@ type MachineArgs struct {
 	// Fly App Name
 	AppName pulumi.StringPtrInput
 	// An object defining the Machine configuration
-	Config            ConfigPtrInput
-	LeaseTtl          pulumi.IntPtrInput
+	Config   ConfigPtrInput
+	LeaseTtl pulumi.IntPtrInput
+	// The minimum version of the app's secrets the Machine must run with. Set it to the `version`
+	// returned by the endpoints that set or delete app secrets, so that the Machine is guaranteed
+	// to see those changes. This field belongs at the top level of the request body, not in
+	// `config`. If omitted, the app's current secrets version is looked up for you.
 	MinSecretsVersion pulumi.IntPtrInput
 	// Unique name for this Machine. If omitted, one is generated for you
 	Name pulumi.StringPtrInput
@@ -213,6 +225,10 @@ func (o MachineOutput) LeaseTtl() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Machine) pulumi.IntPtrOutput { return v.LeaseTtl }).(pulumi.IntPtrOutput)
 }
 
+// The minimum version of the app's secrets the Machine must run with. Set it to the `version`
+// returned by the endpoints that set or delete app secrets, so that the Machine is guaranteed
+// to see those changes. This field belongs at the top level of the request body, not in
+// `config`. If omitted, the app's current secrets version is looked up for you.
 func (o MachineOutput) MinSecretsVersion() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Machine) pulumi.IntPtrOutput { return v.MinSecretsVersion }).(pulumi.IntPtrOutput)
 }
