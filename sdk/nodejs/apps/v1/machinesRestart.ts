@@ -34,6 +34,7 @@ export class MachinesRestart extends pulumi.CustomResource {
         return obj['__pulumiType'] === MachinesRestart.__pulumiType;
     }
 
+    declare public /*out*/ readonly ok: pulumi.Output<boolean | undefined>;
     /**
      * Query params to send with the API requests for this resource.
      */
@@ -53,7 +54,9 @@ export class MachinesRestart extends pulumi.CustomResource {
             resourceInputs["appName"] = args?.appName;
             resourceInputs["machineId"] = args?.machineId;
             resourceInputs["queryParams"] = args?.queryParams;
+            resourceInputs["ok"] = undefined /*out*/;
         } else {
+            resourceInputs["ok"] = undefined /*out*/;
             resourceInputs["queryParams"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);

@@ -11,15 +11,18 @@ using Pulumi;
 namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
 {
 
+    /// <summary>
+    /// An optional metrics endpoint for Prometheus on Fly.io to scrape
+    /// </summary>
     [OutputType]
-    public sealed class FlyMachineMetrics
+    public sealed class FlyMachineConfigMetrics
     {
         public readonly bool? Https;
         public readonly string? Path;
         public readonly int? Port;
 
         [OutputConstructor]
-        private FlyMachineMetrics(
+        private FlyMachineConfigMetrics(
             bool? https,
 
             string? path,

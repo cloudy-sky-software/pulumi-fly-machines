@@ -40,6 +40,10 @@ export class SecretsUpdate extends pulumi.CustomResource {
     declare public readonly queryParams: pulumi.Output<outputs.apps.v1.SecretsUpdateQueryParams | undefined>;
     declare public /*out*/ readonly secrets: pulumi.Output<outputs.apps.v1.AppSecret[] | undefined>;
     declare public readonly values: pulumi.Output<{[key: string]: string} | undefined>;
+    /**
+     * The app's secrets version after this change. Pass it as `min_secrets_version` when creating or
+     * updating Machines so that they are guaranteed to see the change.
+     */
     declare public /*out*/ readonly version: pulumi.Output<number | undefined>;
 
     /**

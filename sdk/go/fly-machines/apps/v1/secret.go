@@ -21,7 +21,9 @@ type Secret struct {
 	QueryParams SecretQueryParamsPtrOutput `pulumi:"queryParams"`
 	UpdatedAt   pulumi.StringPtrOutput     `pulumi:"updatedAt"`
 	Value       pulumi.StringPtrOutput     `pulumi:"value"`
-	Version     pulumi.IntPtrOutput        `pulumi:"version"`
+	// The app's secrets version after this change. Pass it as `min_secrets_version` when creating or
+	// updating Machines so that they are guaranteed to see the change.
+	Version pulumi.IntPtrOutput `pulumi:"version"`
 }
 
 // NewSecret registers a new resource with the given unique name, arguments, and options.
@@ -146,6 +148,8 @@ func (o SecretOutput) Value() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Secret) pulumi.StringPtrOutput { return v.Value }).(pulumi.StringPtrOutput)
 }
 
+// The app's secrets version after this change. Pass it as `min_secrets_version` when creating or
+// updating Machines so that they are guaranteed to see the change.
 func (o SecretOutput) Version() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Secret) pulumi.IntPtrOutput { return v.Version }).(pulumi.IntPtrOutput)
 }

@@ -8,20 +8,24 @@ using System.Threading.Tasks;
 using Pulumi.Serialization;
 using Pulumi;
 
-namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
+namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
 {
 
-    public sealed class FlyMachineSpotArgs : global::Pulumi.ResourceArgs
+    /// <summary>
+    /// Spot pricing settings for the Machine
+    /// </summary>
+    [OutputType]
+    public sealed class FlyMachineConfigSpot
     {
         /// <summary>
         /// MaxPriceFraction is the maximum fraction of the full Machine price you will pay for this Machine. Range: (0, 1.0]
         /// </summary>
-        [Input("maxPriceFraction")]
-        public Input<double>? MaxPriceFraction { get; set; }
+        public readonly double? MaxPriceFraction;
 
-        public FlyMachineSpotArgs()
+        [OutputConstructor]
+        private FlyMachineConfigSpot(double? maxPriceFraction)
         {
+            MaxPriceFraction = maxPriceFraction;
         }
-        public static new FlyMachineSpotArgs Empty => new FlyMachineSpotArgs();
     }
 }

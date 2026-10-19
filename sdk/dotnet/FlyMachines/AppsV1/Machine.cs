@@ -54,6 +54,12 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Output("leaseTtl")]
         public Output<int?> LeaseTtl { get; private set; } = null!;
 
+        /// <summary>
+        /// The minimum version of the app's secrets the Machine must run with. Set it to the `version`
+        /// returned by the endpoints that set or delete app secrets, so that the Machine is guaranteed
+        /// to see those changes. This field belongs at the top level of the request body, not in
+        /// `config`. If omitted, the app's current secrets version is looked up for you.
+        /// </summary>
         [Output("minSecretsVersion")]
         public Output<int?> MinSecretsVersion { get; private set; } = null!;
 
@@ -165,6 +171,12 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Input("leaseTtl")]
         public Input<int>? LeaseTtl { get; set; }
 
+        /// <summary>
+        /// The minimum version of the app's secrets the Machine must run with. Set it to the `version`
+        /// returned by the endpoints that set or delete app secrets, so that the Machine is guaranteed
+        /// to see those changes. This field belongs at the top level of the request body, not in
+        /// `config`. If omitted, the app's current secrets version is looked up for you.
+        /// </summary>
         [Input("minSecretsVersion")]
         public Input<int>? MinSecretsVersion { get; set; }
 

@@ -208,55 +208,106 @@ export namespace apps {
              * Optional boolean telling the Machine to destroy itself once it’s complete (default false)
              */
             autoDestroy?: pulumi.Input<boolean | undefined>;
-            cacheDrive?: pulumi.Input<inputs.apps.v1.FlyMachineCacheDriveArgs | undefined>;
+            /**
+             * A cache drive attached to the Machine
+             */
+            cacheDrive?: pulumi.Input<inputs.apps.v1.FlyMachineConfigCacheDriveArgs | undefined>;
             /**
              * An optional object that defines one or more named top-level checks. The key for each check is the check name.
              */
             checks?: pulumi.Input<{[key: string]: pulumi.Input<inputs.apps.v1.FlyMachineConfigChecksPropertiesArgs>} | undefined>;
             /**
-             * Containers are a list of containers that will run in the machine. Currently restricted to
-             * only specific organizations.
+             * Containers are a list of containers that will run in the machine, each from its own image.
              */
             containers?: pulumi.Input<pulumi.Input<inputs.apps.v1.FlyContainerConfigArgs>[] | undefined>;
             /**
              * Deprecated: use Service.Autostart instead
              */
             disableMachineAutostart?: pulumi.Input<boolean | undefined>;
-            dns?: pulumi.Input<inputs.apps.v1.FlyDNSConfigArgs | undefined>;
+            /**
+             * DNS settings for the Machine
+             */
+            dns?: pulumi.Input<inputs.apps.v1.FlyMachineConfigDnsArgs | undefined>;
             /**
              * An object filled with key/value pairs to be set as environment variables
              */
             env?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+            /**
+             * Files to write into the Machine, from either a raw value or an app secret
+             */
             files?: pulumi.Input<pulumi.Input<inputs.apps.v1.FlyFileArgs>[] | undefined>;
-            guest?: pulumi.Input<inputs.apps.v1.FlyMachineGuestArgs | undefined>;
+            /**
+             * The resources (CPUs, memory, etc.) allocated to the Machine
+             */
+            guest?: pulumi.Input<inputs.apps.v1.FlyMachineConfigGuestArgs | undefined>;
             /**
              * The docker image to run
              */
             image?: pulumi.Input<string | undefined>;
-            init?: pulumi.Input<inputs.apps.v1.FlyMachineInitArgs | undefined>;
+            /**
+             * Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
+             */
+            init?: pulumi.Input<inputs.apps.v1.FlyMachineConfigInitArgs | undefined>;
+            /**
+             * Key/value pairs of Machine metadata. Fly.io uses metadata internally for routing, process groups, and clusters
+             */
             metadata?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
-            metrics?: pulumi.Input<inputs.apps.v1.FlyMachineMetricsArgs | undefined>;
+            /**
+             * An optional metrics endpoint for Prometheus on Fly.io to scrape
+             */
+            metrics?: pulumi.Input<inputs.apps.v1.FlyMachineConfigMetricsArgs | undefined>;
+            /**
+             * Persistent volumes to mount in the Machine. A Machine can mount at most one volume, which must be on
+             * the same host. The mounted volume cannot be changed by updating the Machine
+             */
             mounts?: pulumi.Input<pulumi.Input<inputs.apps.v1.FlyMachineMountArgs>[] | undefined>;
+            /**
+             * Multiple processes to run within this one Machine, all from the Machine's image. Unrelated to the
+             * process groups in fly.toml, which run on separate Machines. To run processes from different
+             * images, use containers instead
+             */
             processes?: pulumi.Input<pulumi.Input<inputs.apps.v1.FlyMachineProcessArgs>[] | undefined>;
             /**
-             * The Machine restart policy defines whether and how flyd restarts a Machine after its main process exits. See https://fly.io/docs/machines/guides-examples/machine-restart-policy/.
+             * Whether and how the Machine is restarted after its main process exits
              */
-            restart?: pulumi.Input<inputs.apps.v1.FlyMachineRestartArgs | undefined>;
-            rootfs?: pulumi.Input<inputs.apps.v1.FlyMachineRootfsArgs | undefined>;
+            restart?: pulumi.Input<inputs.apps.v1.FlyMachineConfigRestartArgs | undefined>;
+            /**
+             * The size of the Machine's root filesystem and whether it persists
+             */
+            rootfs?: pulumi.Input<inputs.apps.v1.FlyMachineConfigRootfsArgs | undefined>;
+            /**
+             * Run the Machine at an interval: one of hourly, daily, weekly or monthly. The interval starts when
+             * the Machine is created
+             */
             schedule?: pulumi.Input<string | undefined>;
+            /**
+             * Network services that Fly Proxy routes traffic to
+             */
             services?: pulumi.Input<pulumi.Input<inputs.apps.v1.FlyMachineServiceArgs>[] | undefined>;
             /**
              * Deprecated: use Guest instead
              */
             size?: pulumi.Input<string | undefined>;
-            spot?: pulumi.Input<inputs.apps.v1.FlyMachineSpotArgs | undefined>;
+            /**
+             * Spot pricing settings for the Machine
+             */
+            spot?: pulumi.Input<inputs.apps.v1.FlyMachineConfigSpotArgs | undefined>;
             /**
              * Standbys enable a machine to be a standby for another. In the event of a hardware failure,
              * the standby machine will be started.
              */
             standbys?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+            /**
+             * Static files to serve under a URL prefix. Fly Proxy routes matching requests to a file server
+             * inside the Machine, bypassing your application's own process; the Machine must be running. The
+             * files are read either from a path inside the Machine or from a Tigris bucket that belongs to the
+             * app; no bucket is created for you
+             */
             statics?: pulumi.Input<pulumi.Input<inputs.apps.v1.FlyStaticArgs>[] | undefined>;
-            stopConfig?: pulumi.Input<inputs.apps.v1.FlyStopConfigArgs | undefined>;
+            /**
+             * How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
+             */
+            stopConfig?: pulumi.Input<inputs.apps.v1.FlyMachineConfigStopConfigArgs | undefined>;
         }
 
         export interface FlyContainerConfigArgs {
@@ -389,16 +440,6 @@ export namespace apps {
             unhealthy?: pulumi.Input<enums.apps.v1.FlyContainerHealthcheckUnhealthy | undefined>;
         }
 
-        export interface FlyDNSConfigArgs {
-            dnsForwardRules?: pulumi.Input<pulumi.Input<inputs.apps.v1.FlyDnsForwardRuleArgs>[] | undefined>;
-            hostname?: pulumi.Input<string | undefined>;
-            hostnameFqdn?: pulumi.Input<string | undefined>;
-            nameservers?: pulumi.Input<pulumi.Input<string>[] | undefined>;
-            options?: pulumi.Input<pulumi.Input<inputs.apps.v1.FlyDnsOptionArgs>[] | undefined>;
-            searches?: pulumi.Input<pulumi.Input<string>[] | undefined>;
-            skipRegistration?: pulumi.Input<boolean | undefined>;
-        }
-
         export interface FlyDnsForwardRuleArgs {
             addr?: pulumi.Input<string | undefined>;
             basename?: pulumi.Input<string | undefined>;
@@ -503,7 +544,10 @@ export namespace apps {
             pristine?: pulumi.Input<boolean | undefined>;
         }
 
-        export interface FlyMachineCacheDriveArgs {
+        /**
+         * A cache drive attached to the Machine
+         */
+        export interface FlyMachineConfigCacheDriveArgs {
             sizeMb?: pulumi.Input<number | undefined>;
         }
 
@@ -558,6 +602,101 @@ export namespace apps {
             type?: pulumi.Input<string | undefined>;
         }
 
+        /**
+         * DNS settings for the Machine
+         */
+        export interface FlyMachineConfigDnsArgs {
+            dnsForwardRules?: pulumi.Input<pulumi.Input<inputs.apps.v1.FlyDnsForwardRuleArgs>[] | undefined>;
+            hostname?: pulumi.Input<string | undefined>;
+            hostnameFqdn?: pulumi.Input<string | undefined>;
+            nameservers?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+            options?: pulumi.Input<pulumi.Input<inputs.apps.v1.FlyDnsOptionArgs>[] | undefined>;
+            searches?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+            skipRegistration?: pulumi.Input<boolean | undefined>;
+        }
+
+        /**
+         * The resources (CPUs, memory, etc.) allocated to the Machine
+         */
+        export interface FlyMachineConfigGuestArgs {
+            cpuKind?: pulumi.Input<string | undefined>;
+            cpus?: pulumi.Input<number | undefined>;
+            gpuKind?: pulumi.Input<string | undefined>;
+            gpus?: pulumi.Input<number | undefined>;
+            hostDedicationId?: pulumi.Input<string | undefined>;
+            kernelArgs?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+            maxMemoryMb?: pulumi.Input<number | undefined>;
+            memoryMb?: pulumi.Input<number | undefined>;
+            /**
+             * Deprecated: use MachineConfig.Rootfs instead
+             */
+            persistRootfs?: pulumi.Input<enums.apps.v1.FlyMachineGuestPersistRootfs | undefined>;
+            requiredHostFeatures?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+        }
+
+        /**
+         * Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
+         */
+        export interface FlyMachineConfigInitArgs {
+            cmd?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+            entrypoint?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+            exec?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+            kernelArgs?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+            swapSizeMb?: pulumi.Input<number | undefined>;
+            tty?: pulumi.Input<boolean | undefined>;
+        }
+
+        /**
+         * An optional metrics endpoint for Prometheus on Fly.io to scrape
+         */
+        export interface FlyMachineConfigMetricsArgs {
+            https?: pulumi.Input<boolean | undefined>;
+            path?: pulumi.Input<string | undefined>;
+            port?: pulumi.Input<number | undefined>;
+        }
+
+        /**
+         * Whether and how the Machine is restarted after its main process exits
+         */
+        export interface FlyMachineConfigRestartArgs {
+            /**
+             * When policy is on-failure, the maximum number of times to attempt to restart the Machine before letting it stop.
+             */
+            maxRetries?: pulumi.Input<number | undefined>;
+            /**
+             * * no - Never try to restart a Machine automatically when its main process exits, whether that’s on purpose or on a crash.
+             * * always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.
+             * * on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules.
+             */
+            policy?: pulumi.Input<enums.apps.v1.FlyMachineRestartPolicy | undefined>;
+        }
+
+        /**
+         * The size of the Machine's root filesystem and whether it persists
+         */
+        export interface FlyMachineConfigRootfsArgs {
+            persist?: pulumi.Input<enums.apps.v1.FlyMachineRootfsPersist | undefined>;
+            sizeGb?: pulumi.Input<number | undefined>;
+        }
+
+        /**
+         * Spot pricing settings for the Machine
+         */
+        export interface FlyMachineConfigSpotArgs {
+            /**
+             * MaxPriceFraction is the maximum fraction of the full Machine price you will pay for this Machine. Range: (0, 1.0]
+             */
+            maxPriceFraction?: pulumi.Input<number | undefined>;
+        }
+
+        /**
+         * How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
+         */
+        export interface FlyMachineConfigStopConfigArgs {
+            signal?: pulumi.Input<enums.apps.v1.FlyStopConfigSignal | undefined>;
+            timeout?: pulumi.Input<string | undefined>;
+        }
+
         export interface FlyMachineGuestArgs {
             cpuKind?: pulumi.Input<string | undefined>;
             cpus?: pulumi.Input<number | undefined>;
@@ -586,21 +725,6 @@ export namespace apps {
              * The header value
              */
             values?: pulumi.Input<pulumi.Input<string>[] | undefined>;
-        }
-
-        export interface FlyMachineInitArgs {
-            cmd?: pulumi.Input<pulumi.Input<string>[] | undefined>;
-            entrypoint?: pulumi.Input<pulumi.Input<string>[] | undefined>;
-            exec?: pulumi.Input<pulumi.Input<string>[] | undefined>;
-            kernelArgs?: pulumi.Input<pulumi.Input<string>[] | undefined>;
-            swapSizeMb?: pulumi.Input<number | undefined>;
-            tty?: pulumi.Input<boolean | undefined>;
-        }
-
-        export interface FlyMachineMetricsArgs {
-            https?: pulumi.Input<boolean | undefined>;
-            path?: pulumi.Input<string | undefined>;
-            port?: pulumi.Input<number | undefined>;
         }
 
         export interface FlyMachineMountArgs {
@@ -655,27 +779,6 @@ export namespace apps {
              */
             secrets?: pulumi.Input<pulumi.Input<inputs.apps.v1.FlyMachineSecretArgs>[] | undefined>;
             user?: pulumi.Input<string | undefined>;
-        }
-
-        /**
-         * The Machine restart policy defines whether and how flyd restarts a Machine after its main process exits. See https://fly.io/docs/machines/guides-examples/machine-restart-policy/.
-         */
-        export interface FlyMachineRestartArgs {
-            /**
-             * When policy is on-failure, the maximum number of times to attempt to restart the Machine before letting it stop.
-             */
-            maxRetries?: pulumi.Input<number | undefined>;
-            /**
-             * * no - Never try to restart a Machine automatically when its main process exits, whether that’s on purpose or on a crash.
-             * * always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.
-             * * on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules.
-             */
-            policy?: pulumi.Input<enums.apps.v1.FlyMachineRestartPolicy | undefined>;
-        }
-
-        export interface FlyMachineRootfsArgs {
-            persist?: pulumi.Input<enums.apps.v1.FlyMachineRootfsPersist | undefined>;
-            sizeGb?: pulumi.Input<number | undefined>;
         }
 
         /**
@@ -766,13 +869,6 @@ export namespace apps {
             type?: pulumi.Input<string | undefined>;
         }
 
-        export interface FlyMachineSpotArgs {
-            /**
-             * MaxPriceFraction is the maximum fraction of the full Machine price you will pay for this Machine. Range: (0, 1.0]
-             */
-            maxPriceFraction?: pulumi.Input<number | undefined>;
-        }
-
         export interface FlyProxyProtoOptionsArgs {
             flySrc?: pulumi.Input<boolean | undefined>;
             version?: pulumi.Input<string | undefined>;
@@ -793,15 +889,23 @@ export namespace apps {
         }
 
         export interface FlyStaticArgs {
+            /**
+             * The path inside the Machine, or inside tigris_bucket when set, where the files to serve are located
+             */
             guestPath: pulumi.Input<string>;
+            /**
+             * The document served for requests to the URL prefix or any of its subfolders. Only works with tigris_bucket
+             */
             indexDocument?: pulumi.Input<string | undefined>;
+            /**
+             * An existing Tigris bucket belonging to the app to read the files from, instead of the Machine's
+             * filesystem. The files are still served through the Machine
+             */
             tigrisBucket?: pulumi.Input<string | undefined>;
+            /**
+             * The URL prefix under which the files are served
+             */
             urlPrefix: pulumi.Input<string>;
-        }
-
-        export interface FlyStopConfigArgs {
-            signal?: pulumi.Input<enums.apps.v1.FlyStopConfigSignal | undefined>;
-            timeout?: pulumi.Input<string | undefined>;
         }
 
         export interface FlyTCPHealthcheckArgs {
@@ -1556,7 +1660,7 @@ export namespace apps {
              */
             additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
             /**
-             * Force kill the machine if it's running
+             * Kill the Machine first if it's not stopped, suspended, failed, pending or archived
              */
             force?: pulumi.Input<boolean | undefined>;
         }

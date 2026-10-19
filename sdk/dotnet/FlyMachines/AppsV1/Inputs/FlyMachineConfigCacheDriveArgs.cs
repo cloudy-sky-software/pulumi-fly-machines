@@ -11,14 +11,17 @@ using Pulumi;
 namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
 {
 
-    public sealed class FlyMachineCacheDriveArgs : global::Pulumi.ResourceArgs
+    /// <summary>
+    /// A cache drive attached to the Machine
+    /// </summary>
+    public sealed class FlyMachineConfigCacheDriveArgs : global::Pulumi.ResourceArgs
     {
         [Input("sizeMb")]
         public Input<int>? SizeMb { get; set; }
 
-        public FlyMachineCacheDriveArgs()
+        public FlyMachineConfigCacheDriveArgs()
         {
         }
-        public static new FlyMachineCacheDriveArgs Empty => new FlyMachineCacheDriveArgs();
+        public static new FlyMachineConfigCacheDriveArgs Empty => new FlyMachineConfigCacheDriveArgs();
     }
 }

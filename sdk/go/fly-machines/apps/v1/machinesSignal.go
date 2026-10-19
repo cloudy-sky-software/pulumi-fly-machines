@@ -14,6 +14,7 @@ import (
 type MachinesSignal struct {
 	pulumi.CustomResourceState
 
+	Ok pulumi.BoolPtrOutput `pulumi:"ok"`
 	// Query params to send with the API requests for this resource.
 	QueryParams MachinesSignalQueryParamsPtrOutput `pulumi:"queryParams"`
 	Signal      MachinesSignalSignalPtrOutput      `pulumi:"signal"`
@@ -114,6 +115,10 @@ func (o MachinesSignalOutput) ToMachinesSignalOutput() MachinesSignalOutput {
 
 func (o MachinesSignalOutput) ToMachinesSignalOutputWithContext(ctx context.Context) MachinesSignalOutput {
 	return o
+}
+
+func (o MachinesSignalOutput) Ok() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *MachinesSignal) pulumi.BoolPtrOutput { return v.Ok }).(pulumi.BoolPtrOutput)
 }
 
 // Query params to send with the API requests for this resource.

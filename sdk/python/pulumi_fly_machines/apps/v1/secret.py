@@ -220,5 +220,9 @@ class Secret(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter
     def version(self) -> pulumi.Output[Optional[_builtins.int]]:
+        """
+        The app's secrets version after this change. Pass it as `min_secrets_version` when creating or
+        updating Machines so that they are guaranteed to see the change.
+        """
         return pulumi.get(self, "version")
 

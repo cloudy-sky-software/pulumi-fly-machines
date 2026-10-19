@@ -11,7 +11,10 @@ using Pulumi;
 namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
 {
 
-    public sealed class FlyMachineMetricsArgs : global::Pulumi.ResourceArgs
+    /// <summary>
+    /// An optional metrics endpoint for Prometheus on Fly.io to scrape
+    /// </summary>
+    public sealed class FlyMachineConfigMetricsArgs : global::Pulumi.ResourceArgs
     {
         [Input("https")]
         public Input<bool>? Https { get; set; }
@@ -22,9 +25,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         [Input("port")]
         public Input<int>? Port { get; set; }
 
-        public FlyMachineMetricsArgs()
+        public FlyMachineConfigMetricsArgs()
         {
         }
-        public static new FlyMachineMetricsArgs Empty => new FlyMachineMetricsArgs();
+        public static new FlyMachineConfigMetricsArgs Empty => new FlyMachineConfigMetricsArgs();
     }
 }

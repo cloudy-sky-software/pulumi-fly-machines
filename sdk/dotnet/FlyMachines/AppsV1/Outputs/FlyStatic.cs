@@ -14,9 +14,22 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     [OutputType]
     public sealed class FlyStatic
     {
+        /// <summary>
+        /// The path inside the Machine, or inside tigris_bucket when set, where the files to serve are located
+        /// </summary>
         public readonly string GuestPath;
+        /// <summary>
+        /// The document served for requests to the URL prefix or any of its subfolders. Only works with tigris_bucket
+        /// </summary>
         public readonly string? IndexDocument;
+        /// <summary>
+        /// An existing Tigris bucket belonging to the app to read the files from, instead of the Machine's
+        /// filesystem. The files are still served through the Machine
+        /// </summary>
         public readonly string? TigrisBucket;
+        /// <summary>
+        /// The URL prefix under which the files are served
+        /// </summary>
         public readonly string UrlPrefix;
 
         [OutputConstructor]

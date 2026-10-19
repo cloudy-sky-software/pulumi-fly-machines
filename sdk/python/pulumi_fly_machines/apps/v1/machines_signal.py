@@ -149,6 +149,7 @@ class MachinesSignal(pulumi.CustomResource):
             __props__.__dict__["machine_id"] = machine_id
             __props__.__dict__["query_params"] = query_params
             __props__.__dict__["signal"] = signal
+            __props__.__dict__["ok"] = None
         super(MachinesSignal, __self__).__init__(
             'fly-machines:apps/v1:MachinesSignal',
             resource_name,
@@ -171,9 +172,15 @@ class MachinesSignal(pulumi.CustomResource):
 
         __props__ = MachinesSignalArgs.__new__(MachinesSignalArgs)
 
+        __props__.__dict__["ok"] = None
         __props__.__dict__["query_params"] = None
         __props__.__dict__["signal"] = None
         return MachinesSignal(resource_name, opts=opts, __props__=__props__)
+
+    @_builtins.property
+    @pulumi.getter
+    def ok(self) -> pulumi.Output[Optional[_builtins.bool]]:
+        return pulumi.get(self, "ok")
 
     @_builtins.property
     @pulumi.getter(name="queryParams")

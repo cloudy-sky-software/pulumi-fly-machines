@@ -11,8 +11,11 @@ using Pulumi;
 namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
 {
 
+    /// <summary>
+    /// DNS settings for the Machine
+    /// </summary>
     [OutputType]
-    public sealed class FlyDNSConfig
+    public sealed class FlyMachineConfigDns
     {
         public readonly ImmutableArray<Outputs.FlyDnsForwardRule> DnsForwardRules;
         public readonly string? Hostname;
@@ -23,7 +26,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         public readonly bool? SkipRegistration;
 
         [OutputConstructor]
-        private FlyDNSConfig(
+        private FlyMachineConfigDns(
             ImmutableArray<Outputs.FlyDnsForwardRule> dnsForwardRules,
 
             string? hostname,
