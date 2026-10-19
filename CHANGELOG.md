@@ -1,3 +1,9 @@
+## 0.0.14
+
+Updated API spec to the latest which includes
+detailed descriptions for many properties that
+carry over as doc comments for all languages.
+
 ## 0.0.13
 
 Fix for some enums not generating correctly.
