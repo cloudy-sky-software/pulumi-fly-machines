@@ -1,3 +1,9 @@
+## 0.0.15
+
+The `SecretsUpdate` resource has been renamed to
+`Secrets` which is the correct name. It represents
+a collection of secrets that you can set for a Fly App.
+
 ## 0.0.14
 
 Updated API spec to the latest which includes
