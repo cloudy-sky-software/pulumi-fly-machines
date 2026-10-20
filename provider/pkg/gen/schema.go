@@ -94,8 +94,9 @@ func PulumiSchema(openapiDoc openapi3.T) (pschema.PackageSpec, openapigen.Provid
 	}
 
 	openAPICtx := &openapigen.OpenAPIContext{
-		Doc: openapiDoc,
-		Pkg: &pkg,
+		Doc:                    openapiDoc,
+		Pkg:                    &pkg,
+		AllowedPluralResources: []string{"Secrets"},
 		AllowedResourcesWithoutReadEndpoint: []string{
 			// AppIPAssignment assigns an IP to an app.
 			"fly-machines:apps/v1:AppIPAssignment",

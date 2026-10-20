@@ -4987,7 +4987,7 @@ paths:
                 - Secrets
         post:
             description: 'Running Machines don''t pick up the change on their own: create or update Machines with `min_secrets_version` set to the returned `version` for them to see it.'
-            operationId: Secrets_update
+            operationId: Secrets_create
             parameters:
                 - description: Fly App Name
                   in: path
