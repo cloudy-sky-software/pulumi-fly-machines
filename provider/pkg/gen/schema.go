@@ -94,8 +94,9 @@ func PulumiSchema(openapiDoc openapi3.T) (pschema.PackageSpec, openapigen.Provid
 	}
 
 	openAPICtx := &openapigen.OpenAPIContext{
-		Doc: openapiDoc,
-		Pkg: &pkg,
+		Doc:                    openapiDoc,
+		Pkg:                    &pkg,
+		AllowedPluralResources: []string{"Secrets"},
 		AllowedResourcesWithoutReadEndpoint: []string{
 			// AppIPAssignment assigns an IP to an app.
 			"fly-machines:apps/v1:AppIPAssignment",
@@ -162,6 +163,11 @@ func PulumiSchema(openapiDoc openapi3.T) (pschema.PackageSpec, openapigen.Provid
 	// /custom and /acme certificate endpoint resources.
 	providerMetadata.ResourceCRUDMap["fly-machines:apps/v1:AppCertificatesCustom"].R = new(`/v1/apps/{app_name}/certificates/{hostname}`)
 	providerMetadata.ResourceCRUDMap["fly-machines:apps/v1:AppCertificatesAcme"].R = new(`/v1/apps/{app_name}/certificates/{hostname}`)
+
+	// Add a read endpoint for secrets since there is no ID
+	// to read them.
+	providerMetadata.ResourceCRUDMap["fly-machines:apps/v1:Secrets"].R = new(`/v1/apps/{app_name}/secrets`)
+	providerMetadata.ResourceCRUDMap["fly-machines:apps/v1:Secrets"].U = new(`/v1/apps/{app_name}/secrets`)
 
 	metadata := openapigen.ProviderMetadata{
 		AllowedResourcesWithoutReadEndpoint: providerMetadata.AllowedResourcesWithoutReadEndpoint,

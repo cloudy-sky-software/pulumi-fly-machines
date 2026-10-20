@@ -15,7 +15,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     /// Query params for the API request.
     /// </summary>
     [OutputType]
-    public sealed class SecretsUpdateCreateQueryParams
+    public sealed class SecretsCreateQueryParams
     {
         /// <summary>
         /// Additional query params to send with the request that are not defined in the API spec.
@@ -23,7 +23,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         public readonly ImmutableDictionary<string, string>? AdditionalParams;
 
         [OutputConstructor]
-        private SecretsUpdateCreateQueryParams(ImmutableDictionary<string, string>? additionalParams)
+        private SecretsCreateQueryParams(ImmutableDictionary<string, string>? additionalParams)
         {
             AdditionalParams = additionalParams;
         }

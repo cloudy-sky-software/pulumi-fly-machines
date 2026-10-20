@@ -2294,7 +2294,7 @@ export namespace apps {
         /**
          * Query params for the API request.
          */
-        export interface SecretsUpdateCreateQueryParamsArgs {
+        export interface SecretsCreateQueryParamsArgs {
             /**
              * Additional query params to send with the request that are not defined in the API spec.
              */
@@ -2304,11 +2304,11 @@ export namespace apps {
         /**
          * Query params for each of the operations of the resource.
          */
-        export interface SecretsUpdateQueryParamsArgs {
+        export interface SecretsQueryParamsArgs {
             /**
              * Query params for the create operation.
              */
-            create?: pulumi.Input<inputs.apps.v1.SecretsUpdateCreateQueryParamsArgs | undefined>;
+            create?: pulumi.Input<inputs.apps.v1.SecretsCreateQueryParamsArgs | undefined>;
         }
 
         /**

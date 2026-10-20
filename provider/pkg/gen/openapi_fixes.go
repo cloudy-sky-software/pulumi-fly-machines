@@ -17,6 +17,7 @@ func FixOpenAPIDoc(openAPIDoc *openapi3.T) error {
 	fixPostgresExtensionsEndpoints(openAPIDoc)
 	removeDeprecatedVersionProperty(openAPIDoc)
 	fixEnums(openAPIDoc)
+	fixSecretsEndpoint(openAPIDoc)
 
 	return nil
 }
@@ -167,4 +168,15 @@ func fixEnums(openAPIDoc *openapi3.T) {
 			s.Value.Properties[prop] = openapi3.NewSchemaRef(propSchema.Value.AllOf[0].Ref, replaceSchema)
 		}
 	}
+}
+
+// fixSecretsEndpoint updates the operation ID for
+// the POST method so that the resource name
+// does not have the word `Update`.
+func fixSecretsEndpoint(openAPIDoc *openapi3.T) {
+	pathItem := openAPIDoc.Paths.Find("/v1/apps/{app_name}/secrets")
+	contract.Assertf(pathItem != nil, "Expected to find request path /v1/apps/{app_name}/secrets")
+
+	contract.Assertf(pathItem.Post != nil, "Expected to find a non-nil POST method in /v1/apps/{app_name}/secrets")
+	pathItem.Post.OperationID = "Secrets_create"
 }

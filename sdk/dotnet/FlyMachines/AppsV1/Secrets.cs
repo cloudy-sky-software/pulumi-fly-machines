@@ -10,17 +10,17 @@ using Pulumi;
 
 namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
 {
-    [FlyMachinesResourceType("fly-machines:apps/v1:SecretsUpdate")]
-    public partial class SecretsUpdate : global::Pulumi.CustomResource
+    [FlyMachinesResourceType("fly-machines:apps/v1:Secrets")]
+    public partial class Secrets : global::Pulumi.CustomResource
     {
         /// <summary>
         /// Query params to send with the API requests for this resource.
         /// </summary>
         [Output("queryParams")]
-        public Output<Outputs.SecretsUpdateQueryParams?> QueryParams { get; private set; } = null!;
+        public Output<Outputs.SecretsQueryParams?> QueryParams { get; private set; } = null!;
 
         [Output("secrets")]
-        public Output<ImmutableArray<Outputs.AppSecret>> Secrets { get; private set; } = null!;
+        public Output<ImmutableArray<Outputs.AppSecret>> SecretsValue { get; private set; } = null!;
 
         [Output("values")]
         public Output<ImmutableDictionary<string, string>?> Values { get; private set; } = null!;
@@ -34,19 +34,19 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
 
 
         /// <summary>
-        /// Create a SecretsUpdate resource with the given unique name, arguments, and options.
+        /// Create a Secrets resource with the given unique name, arguments, and options.
         /// </summary>
         ///
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public SecretsUpdate(string name, SecretsUpdateArgs? args = null, CustomResourceOptions? options = null)
-            : base("fly-machines:apps/v1:SecretsUpdate", name, args ?? new SecretsUpdateArgs(), MakeResourceOptions(options, ""))
+        public Secrets(string name, SecretsArgs? args = null, CustomResourceOptions? options = null)
+            : base("fly-machines:apps/v1:Secrets", name, args ?? new SecretsArgs(), MakeResourceOptions(options, ""))
         {
         }
 
-        private SecretsUpdate(string name, Input<string> id, CustomResourceOptions? options = null)
-            : base("fly-machines:apps/v1:SecretsUpdate", name, null, MakeResourceOptions(options, id))
+        private Secrets(string name, Input<string> id, CustomResourceOptions? options = null)
+            : base("fly-machines:apps/v1:Secrets", name, null, MakeResourceOptions(options, id))
         {
         }
 
@@ -63,20 +63,20 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
             return merged;
         }
         /// <summary>
-        /// Get an existing SecretsUpdate resource's state with the given name, ID, and optional extra
+        /// Get an existing Secrets resource's state with the given name, ID, and optional extra
         /// properties used to qualify the lookup.
         /// </summary>
         ///
         /// <param name="name">The unique name of the resulting resource.</param>
         /// <param name="id">The unique provider ID of the resource to lookup.</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public static SecretsUpdate Get(string name, Input<string> id, CustomResourceOptions? options = null)
+        public static Secrets Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new SecretsUpdate(name, id, options);
+            return new Secrets(name, id, options);
         }
     }
 
-    public sealed class SecretsUpdateArgs : global::Pulumi.ResourceArgs
+    public sealed class SecretsArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Fly App Name
@@ -88,7 +88,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         /// Query params to send with the API requests for this resource.
         /// </summary>
         [Input("queryParams")]
-        public Input<Inputs.SecretsUpdateQueryParamsArgs>? QueryParams { get; set; }
+        public Input<Inputs.SecretsQueryParamsArgs>? QueryParams { get; set; }
 
         [Input("values")]
         private InputMap<string>? _values;
@@ -98,9 +98,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
             set => _values = value;
         }
 
-        public SecretsUpdateArgs()
+        public SecretsArgs()
         {
         }
-        public static new SecretsUpdateArgs Empty => new SecretsUpdateArgs();
+        public static new SecretsArgs Empty => new SecretsArgs();
     }
 }

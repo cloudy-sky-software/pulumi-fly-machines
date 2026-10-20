@@ -280,10 +280,10 @@ __all__ = [
     'SecretkeyVerifyCreateQueryParamsArgsDict',
     'SecretkeyVerifyQueryParamsArgs',
     'SecretkeyVerifyQueryParamsArgsDict',
-    'SecretsUpdateCreateQueryParamsArgs',
-    'SecretsUpdateCreateQueryParamsArgsDict',
-    'SecretsUpdateQueryParamsArgs',
-    'SecretsUpdateQueryParamsArgsDict',
+    'SecretsCreateQueryParamsArgs',
+    'SecretsCreateQueryParamsArgsDict',
+    'SecretsQueryParamsArgs',
+    'SecretsQueryParamsArgsDict',
     'VolumeCreateQueryParamsArgs',
     'VolumeCreateQueryParamsArgsDict',
     'VolumeDeleteQueryParamsArgs',
@@ -8725,7 +8725,7 @@ class SecretkeyVerifyQueryParamsArgs:
         pulumi.set(self, "create", value)
 
 
-class SecretsUpdateCreateQueryParamsArgsDict(TypedDict):
+class SecretsCreateQueryParamsArgsDict(TypedDict):
     """
     Query params for the API request.
     """
@@ -8735,7 +8735,7 @@ class SecretsUpdateCreateQueryParamsArgsDict(TypedDict):
     """
 
 @pulumi.input_type
-class SecretsUpdateCreateQueryParamsArgs:
+class SecretsCreateQueryParamsArgs:
     def __init__(__self__, *,
                  additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
         """
@@ -8759,37 +8759,37 @@ class SecretsUpdateCreateQueryParamsArgs:
         pulumi.set(self, "additional_params", value)
 
 
-class SecretsUpdateQueryParamsArgsDict(TypedDict):
+class SecretsQueryParamsArgsDict(TypedDict):
     """
     Query params for each of the operations of the resource.
     """
-    create: NotRequired[pulumi.Input[Optional['SecretsUpdateCreateQueryParamsArgsDict']]]
+    create: NotRequired[pulumi.Input[Optional['SecretsCreateQueryParamsArgsDict']]]
     """
     Query params for the create operation.
     """
 
 @pulumi.input_type
-class SecretsUpdateQueryParamsArgs:
+class SecretsQueryParamsArgs:
     def __init__(__self__, *,
-                 create: pulumi.Input[Optional['SecretsUpdateCreateQueryParamsArgs']] = None):
+                 create: pulumi.Input[Optional['SecretsCreateQueryParamsArgs']] = None):
         """
         Query params for each of the operations of the resource.
 
-        :param pulumi.Input['SecretsUpdateCreateQueryParamsArgs'] create: Query params for the create operation.
+        :param pulumi.Input['SecretsCreateQueryParamsArgs'] create: Query params for the create operation.
         """
         if create is not None:
             pulumi.set(__self__, "create", create)
 
     @_builtins.property
     @pulumi.getter
-    def create(self) -> pulumi.Input[Optional['SecretsUpdateCreateQueryParamsArgs']]:
+    def create(self) -> pulumi.Input[Optional['SecretsCreateQueryParamsArgs']]:
         """
         Query params for the create operation.
         """
         return pulumi.get(self, "create")
 
     @create.setter
-    def create(self, value: pulumi.Input[Optional['SecretsUpdateCreateQueryParamsArgs']]):
+    def create(self, value: pulumi.Input[Optional['SecretsCreateQueryParamsArgs']]):
         pulumi.set(self, "create", value)
 
 

@@ -65,7 +65,7 @@ _utilities.register(
    "fly-machines:apps/v1:SecretkeyGenerate": "SecretkeyGenerate",
    "fly-machines:apps/v1:SecretkeySign": "SecretkeySign",
    "fly-machines:apps/v1:SecretkeyVerify": "SecretkeyVerify",
-   "fly-machines:apps/v1:SecretsUpdate": "SecretsUpdate",
+   "fly-machines:apps/v1:Secrets": "Secrets",
    "fly-machines:apps/v1:Volume": "Volume",
    "fly-machines:apps/v1:VolumeSnapshot": "VolumeSnapshot",
    "fly-machines:apps/v1:VolumesExtend": "VolumesExtend"

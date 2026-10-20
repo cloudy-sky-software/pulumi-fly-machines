@@ -16,19 +16,19 @@ from ... import _utilities
 from . import outputs
 from ._inputs import *
 
-__all__ = ['SecretsUpdateArgs', 'SecretsUpdate']
+__all__ = ['SecretsArgs', 'Secrets']
 
 @pulumi.input_type
-class SecretsUpdateArgs:
+class SecretsArgs:
     def __init__(__self__, *,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
-                 query_params: pulumi.Input[Optional['SecretsUpdateQueryParamsArgs']] = None,
+                 query_params: pulumi.Input[Optional['SecretsQueryParamsArgs']] = None,
                  values: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
         """
-        The set of arguments for constructing a SecretsUpdate resource.
+        The set of arguments for constructing a Secrets resource.
 
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
-        :param pulumi.Input['SecretsUpdateQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
+        :param pulumi.Input['SecretsQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         """
         if app_name is not None:
             pulumi.set(__self__, "app_name", app_name)
@@ -51,14 +51,14 @@ class SecretsUpdateArgs:
 
     @_builtins.property
     @pulumi.getter(name="queryParams")
-    def query_params(self) -> pulumi.Input[Optional['SecretsUpdateQueryParamsArgs']]:
+    def query_params(self) -> pulumi.Input[Optional['SecretsQueryParamsArgs']]:
         """
         Query params to send with the API requests for this resource.
         """
         return pulumi.get(self, "query_params")
 
     @query_params.setter
-    def query_params(self, value: pulumi.Input[Optional['SecretsUpdateQueryParamsArgs']]):
+    def query_params(self, value: pulumi.Input[Optional['SecretsQueryParamsArgs']]):
         pulumi.set(self, "query_params", value)
 
     @_builtins.property
@@ -71,40 +71,40 @@ class SecretsUpdateArgs:
         pulumi.set(self, "values", value)
 
 
-@pulumi.type_token("fly-machines:apps/v1:SecretsUpdate")
-class SecretsUpdate(pulumi.CustomResource):
+@pulumi.type_token("fly-machines:apps/v1:Secrets")
+class Secrets(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
-                 query_params: pulumi.Input[Optional[Union['SecretsUpdateQueryParamsArgs', 'SecretsUpdateQueryParamsArgsDict', 'outputs.SecretsUpdateQueryParams']]] = None,
+                 query_params: pulumi.Input[Optional[Union['SecretsQueryParamsArgs', 'SecretsQueryParamsArgsDict', 'outputs.SecretsQueryParams']]] = None,
                  values: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
                  __props__=None):
         """
-        Create a SecretsUpdate resource with the given unique name, props, and options.
+        Create a Secrets resource with the given unique name, props, and options.
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
-        :param pulumi.Input[Union['SecretsUpdateQueryParamsArgs', 'SecretsUpdateQueryParamsArgsDict', 'outputs.SecretsUpdateQueryParams']] query_params: Query params to send with the API requests for this resource.
+        :param pulumi.Input[Union['SecretsQueryParamsArgs', 'SecretsQueryParamsArgsDict', 'outputs.SecretsQueryParams']] query_params: Query params to send with the API requests for this resource.
         """
         ...
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: Optional[SecretsUpdateArgs] = None,
+                 args: Optional[SecretsArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a SecretsUpdate resource with the given unique name, props, and options.
+        Create a Secrets resource with the given unique name, props, and options.
 
         :param str resource_name: The name of the resource.
-        :param SecretsUpdateArgs args: The arguments to use to populate this resource's properties.
+        :param SecretsArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
         ...
     def __init__(__self__, resource_name: str, *args, **kwargs):
-        resource_args, opts = _utilities.get_resource_args_opts(SecretsUpdateArgs, pulumi.ResourceOptions, *args, **kwargs)
+        resource_args, opts = _utilities.get_resource_args_opts(SecretsArgs, pulumi.ResourceOptions, *args, **kwargs)
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
@@ -114,7 +114,7 @@ class SecretsUpdate(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
-                 query_params: pulumi.Input[Optional[Union['SecretsUpdateQueryParamsArgs', 'SecretsUpdateQueryParamsArgsDict', 'outputs.SecretsUpdateQueryParams']]] = None,
+                 query_params: pulumi.Input[Optional[Union['SecretsQueryParamsArgs', 'SecretsQueryParamsArgsDict', 'outputs.SecretsQueryParams']]] = None,
                  values: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -123,15 +123,15 @@ class SecretsUpdate(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = SecretsUpdateArgs.__new__(SecretsUpdateArgs)
+            __props__ = SecretsArgs.__new__(SecretsArgs)
 
             __props__.__dict__["app_name"] = app_name
             __props__.__dict__["query_params"] = query_params
             __props__.__dict__["values"] = values
             __props__.__dict__["secrets"] = None
             __props__.__dict__["version"] = None
-        super(SecretsUpdate, __self__).__init__(
-            'fly-machines:apps/v1:SecretsUpdate',
+        super(Secrets, __self__).__init__(
+            'fly-machines:apps/v1:Secrets',
             resource_name,
             __props__,
             opts)
@@ -139,9 +139,9 @@ class SecretsUpdate(pulumi.CustomResource):
     @staticmethod
     def get(resource_name: str,
             id: pulumi.Input[str],
-            opts: Optional[pulumi.ResourceOptions] = None) -> 'SecretsUpdate':
+            opts: Optional[pulumi.ResourceOptions] = None) -> 'Secrets':
         """
-        Get an existing SecretsUpdate resource's state with the given name, id, and optional extra
+        Get an existing Secrets resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
 
         :param str resource_name: The unique name of the resulting resource.
@@ -150,17 +150,17 @@ class SecretsUpdate(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = SecretsUpdateArgs.__new__(SecretsUpdateArgs)
+        __props__ = SecretsArgs.__new__(SecretsArgs)
 
         __props__.__dict__["query_params"] = None
         __props__.__dict__["secrets"] = None
         __props__.__dict__["values"] = None
         __props__.__dict__["version"] = None
-        return SecretsUpdate(resource_name, opts=opts, __props__=__props__)
+        return Secrets(resource_name, opts=opts, __props__=__props__)
 
     @_builtins.property
     @pulumi.getter(name="queryParams")
-    def query_params(self) -> pulumi.Output[Optional['outputs.SecretsUpdateQueryParams']]:
+    def query_params(self) -> pulumi.Output[Optional['outputs.SecretsQueryParams']]:
         """
         Query params to send with the API requests for this resource.
         """

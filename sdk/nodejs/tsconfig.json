@@ -70,7 +70,7 @@
         "apps/v1/secretkeyGenerate.ts",
         "apps/v1/secretkeySign.ts",
         "apps/v1/secretkeyVerify.ts",
-        "apps/v1/secretsUpdate.ts",
+        "apps/v1/secrets.ts",
         "apps/v1/volume.ts",
         "apps/v1/volumeSnapshot.ts",
         "apps/v1/volumesExtend.ts",

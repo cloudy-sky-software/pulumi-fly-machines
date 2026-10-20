@@ -14,7 +14,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
     /// <summary>
     /// Query params for the API request.
     /// </summary>
-    public sealed class SecretsUpdateCreateQueryParamsArgs : global::Pulumi.ResourceArgs
+    public sealed class SecretsCreateQueryParamsArgs : global::Pulumi.ResourceArgs
     {
         [Input("additionalParams")]
         private InputMap<string>? _additionalParams;
@@ -28,9 +28,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
             set => _additionalParams = value;
         }
 
-        public SecretsUpdateCreateQueryParamsArgs()
+        public SecretsCreateQueryParamsArgs()
         {
         }
-        public static new SecretsUpdateCreateQueryParamsArgs Empty => new SecretsUpdateCreateQueryParamsArgs();
+        public static new SecretsCreateQueryParamsArgs Empty => new SecretsCreateQueryParamsArgs();
     }
 }

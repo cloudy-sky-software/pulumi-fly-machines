@@ -23260,138 +23260,138 @@ func (o SecretkeyVerifyQueryParamsPtrOutput) Create() SecretkeyVerifyCreateQuery
 }
 
 // Query params for the API request.
-type SecretsUpdateCreateQueryParams struct {
+type SecretsCreateQueryParams struct {
 	// Additional query params to send with the request that are not defined in the API spec.
 	AdditionalParams map[string]string `pulumi:"additionalParams"`
 }
 
-// SecretsUpdateCreateQueryParamsInput is an input type that accepts SecretsUpdateCreateQueryParamsArgs and SecretsUpdateCreateQueryParamsOutput values.
-// You can construct a concrete instance of `SecretsUpdateCreateQueryParamsInput` via:
+// SecretsCreateQueryParamsInput is an input type that accepts SecretsCreateQueryParamsArgs and SecretsCreateQueryParamsOutput values.
+// You can construct a concrete instance of `SecretsCreateQueryParamsInput` via:
 //
-//	SecretsUpdateCreateQueryParamsArgs{...}
-type SecretsUpdateCreateQueryParamsInput interface {
+//	SecretsCreateQueryParamsArgs{...}
+type SecretsCreateQueryParamsInput interface {
 	pulumi.Input
 
-	ToSecretsUpdateCreateQueryParamsOutput() SecretsUpdateCreateQueryParamsOutput
-	ToSecretsUpdateCreateQueryParamsOutputWithContext(context.Context) SecretsUpdateCreateQueryParamsOutput
+	ToSecretsCreateQueryParamsOutput() SecretsCreateQueryParamsOutput
+	ToSecretsCreateQueryParamsOutputWithContext(context.Context) SecretsCreateQueryParamsOutput
 }
 
 // Query params for the API request.
-type SecretsUpdateCreateQueryParamsArgs struct {
+type SecretsCreateQueryParamsArgs struct {
 	// Additional query params to send with the request that are not defined in the API spec.
 	AdditionalParams pulumi.StringMapInput `pulumi:"additionalParams"`
 }
 
-func (SecretsUpdateCreateQueryParamsArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*SecretsUpdateCreateQueryParams)(nil)).Elem()
+func (SecretsCreateQueryParamsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SecretsCreateQueryParams)(nil)).Elem()
 }
 
-func (i SecretsUpdateCreateQueryParamsArgs) ToSecretsUpdateCreateQueryParamsOutput() SecretsUpdateCreateQueryParamsOutput {
-	return i.ToSecretsUpdateCreateQueryParamsOutputWithContext(context.Background())
+func (i SecretsCreateQueryParamsArgs) ToSecretsCreateQueryParamsOutput() SecretsCreateQueryParamsOutput {
+	return i.ToSecretsCreateQueryParamsOutputWithContext(context.Background())
 }
 
-func (i SecretsUpdateCreateQueryParamsArgs) ToSecretsUpdateCreateQueryParamsOutputWithContext(ctx context.Context) SecretsUpdateCreateQueryParamsOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SecretsUpdateCreateQueryParamsOutput)
+func (i SecretsCreateQueryParamsArgs) ToSecretsCreateQueryParamsOutputWithContext(ctx context.Context) SecretsCreateQueryParamsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SecretsCreateQueryParamsOutput)
 }
 
-func (i SecretsUpdateCreateQueryParamsArgs) ToSecretsUpdateCreateQueryParamsPtrOutput() SecretsUpdateCreateQueryParamsPtrOutput {
-	return i.ToSecretsUpdateCreateQueryParamsPtrOutputWithContext(context.Background())
+func (i SecretsCreateQueryParamsArgs) ToSecretsCreateQueryParamsPtrOutput() SecretsCreateQueryParamsPtrOutput {
+	return i.ToSecretsCreateQueryParamsPtrOutputWithContext(context.Background())
 }
 
-func (i SecretsUpdateCreateQueryParamsArgs) ToSecretsUpdateCreateQueryParamsPtrOutputWithContext(ctx context.Context) SecretsUpdateCreateQueryParamsPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SecretsUpdateCreateQueryParamsOutput).ToSecretsUpdateCreateQueryParamsPtrOutputWithContext(ctx)
+func (i SecretsCreateQueryParamsArgs) ToSecretsCreateQueryParamsPtrOutputWithContext(ctx context.Context) SecretsCreateQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SecretsCreateQueryParamsOutput).ToSecretsCreateQueryParamsPtrOutputWithContext(ctx)
 }
 
-// SecretsUpdateCreateQueryParamsPtrInput is an input type that accepts SecretsUpdateCreateQueryParamsArgs, SecretsUpdateCreateQueryParamsPtr and SecretsUpdateCreateQueryParamsPtrOutput values.
-// You can construct a concrete instance of `SecretsUpdateCreateQueryParamsPtrInput` via:
+// SecretsCreateQueryParamsPtrInput is an input type that accepts SecretsCreateQueryParamsArgs, SecretsCreateQueryParamsPtr and SecretsCreateQueryParamsPtrOutput values.
+// You can construct a concrete instance of `SecretsCreateQueryParamsPtrInput` via:
 //
-//	        SecretsUpdateCreateQueryParamsArgs{...}
+//	        SecretsCreateQueryParamsArgs{...}
 //
 //	or:
 //
 //	        nil
-type SecretsUpdateCreateQueryParamsPtrInput interface {
+type SecretsCreateQueryParamsPtrInput interface {
 	pulumi.Input
 
-	ToSecretsUpdateCreateQueryParamsPtrOutput() SecretsUpdateCreateQueryParamsPtrOutput
-	ToSecretsUpdateCreateQueryParamsPtrOutputWithContext(context.Context) SecretsUpdateCreateQueryParamsPtrOutput
+	ToSecretsCreateQueryParamsPtrOutput() SecretsCreateQueryParamsPtrOutput
+	ToSecretsCreateQueryParamsPtrOutputWithContext(context.Context) SecretsCreateQueryParamsPtrOutput
 }
 
-type secretsUpdateCreateQueryParamsPtrType SecretsUpdateCreateQueryParamsArgs
+type secretsCreateQueryParamsPtrType SecretsCreateQueryParamsArgs
 
-func SecretsUpdateCreateQueryParamsPtr(v *SecretsUpdateCreateQueryParamsArgs) SecretsUpdateCreateQueryParamsPtrInput {
-	return (*secretsUpdateCreateQueryParamsPtrType)(v)
+func SecretsCreateQueryParamsPtr(v *SecretsCreateQueryParamsArgs) SecretsCreateQueryParamsPtrInput {
+	return (*secretsCreateQueryParamsPtrType)(v)
 }
 
-func (*secretsUpdateCreateQueryParamsPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**SecretsUpdateCreateQueryParams)(nil)).Elem()
+func (*secretsCreateQueryParamsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**SecretsCreateQueryParams)(nil)).Elem()
 }
 
-func (i *secretsUpdateCreateQueryParamsPtrType) ToSecretsUpdateCreateQueryParamsPtrOutput() SecretsUpdateCreateQueryParamsPtrOutput {
-	return i.ToSecretsUpdateCreateQueryParamsPtrOutputWithContext(context.Background())
+func (i *secretsCreateQueryParamsPtrType) ToSecretsCreateQueryParamsPtrOutput() SecretsCreateQueryParamsPtrOutput {
+	return i.ToSecretsCreateQueryParamsPtrOutputWithContext(context.Background())
 }
 
-func (i *secretsUpdateCreateQueryParamsPtrType) ToSecretsUpdateCreateQueryParamsPtrOutputWithContext(ctx context.Context) SecretsUpdateCreateQueryParamsPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SecretsUpdateCreateQueryParamsPtrOutput)
+func (i *secretsCreateQueryParamsPtrType) ToSecretsCreateQueryParamsPtrOutputWithContext(ctx context.Context) SecretsCreateQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SecretsCreateQueryParamsPtrOutput)
 }
 
 // Query params for the API request.
-type SecretsUpdateCreateQueryParamsOutput struct{ *pulumi.OutputState }
+type SecretsCreateQueryParamsOutput struct{ *pulumi.OutputState }
 
-func (SecretsUpdateCreateQueryParamsOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*SecretsUpdateCreateQueryParams)(nil)).Elem()
+func (SecretsCreateQueryParamsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SecretsCreateQueryParams)(nil)).Elem()
 }
 
-func (o SecretsUpdateCreateQueryParamsOutput) ToSecretsUpdateCreateQueryParamsOutput() SecretsUpdateCreateQueryParamsOutput {
+func (o SecretsCreateQueryParamsOutput) ToSecretsCreateQueryParamsOutput() SecretsCreateQueryParamsOutput {
 	return o
 }
 
-func (o SecretsUpdateCreateQueryParamsOutput) ToSecretsUpdateCreateQueryParamsOutputWithContext(ctx context.Context) SecretsUpdateCreateQueryParamsOutput {
+func (o SecretsCreateQueryParamsOutput) ToSecretsCreateQueryParamsOutputWithContext(ctx context.Context) SecretsCreateQueryParamsOutput {
 	return o
 }
 
-func (o SecretsUpdateCreateQueryParamsOutput) ToSecretsUpdateCreateQueryParamsPtrOutput() SecretsUpdateCreateQueryParamsPtrOutput {
-	return o.ToSecretsUpdateCreateQueryParamsPtrOutputWithContext(context.Background())
+func (o SecretsCreateQueryParamsOutput) ToSecretsCreateQueryParamsPtrOutput() SecretsCreateQueryParamsPtrOutput {
+	return o.ToSecretsCreateQueryParamsPtrOutputWithContext(context.Background())
 }
 
-func (o SecretsUpdateCreateQueryParamsOutput) ToSecretsUpdateCreateQueryParamsPtrOutputWithContext(ctx context.Context) SecretsUpdateCreateQueryParamsPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v SecretsUpdateCreateQueryParams) *SecretsUpdateCreateQueryParams {
+func (o SecretsCreateQueryParamsOutput) ToSecretsCreateQueryParamsPtrOutputWithContext(ctx context.Context) SecretsCreateQueryParamsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SecretsCreateQueryParams) *SecretsCreateQueryParams {
 		return &v
-	}).(SecretsUpdateCreateQueryParamsPtrOutput)
+	}).(SecretsCreateQueryParamsPtrOutput)
 }
 
 // Additional query params to send with the request that are not defined in the API spec.
-func (o SecretsUpdateCreateQueryParamsOutput) AdditionalParams() pulumi.StringMapOutput {
-	return o.ApplyT(func(v SecretsUpdateCreateQueryParams) map[string]string { return v.AdditionalParams }).(pulumi.StringMapOutput)
+func (o SecretsCreateQueryParamsOutput) AdditionalParams() pulumi.StringMapOutput {
+	return o.ApplyT(func(v SecretsCreateQueryParams) map[string]string { return v.AdditionalParams }).(pulumi.StringMapOutput)
 }
 
-type SecretsUpdateCreateQueryParamsPtrOutput struct{ *pulumi.OutputState }
+type SecretsCreateQueryParamsPtrOutput struct{ *pulumi.OutputState }
 
-func (SecretsUpdateCreateQueryParamsPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**SecretsUpdateCreateQueryParams)(nil)).Elem()
+func (SecretsCreateQueryParamsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**SecretsCreateQueryParams)(nil)).Elem()
 }
 
-func (o SecretsUpdateCreateQueryParamsPtrOutput) ToSecretsUpdateCreateQueryParamsPtrOutput() SecretsUpdateCreateQueryParamsPtrOutput {
+func (o SecretsCreateQueryParamsPtrOutput) ToSecretsCreateQueryParamsPtrOutput() SecretsCreateQueryParamsPtrOutput {
 	return o
 }
 
-func (o SecretsUpdateCreateQueryParamsPtrOutput) ToSecretsUpdateCreateQueryParamsPtrOutputWithContext(ctx context.Context) SecretsUpdateCreateQueryParamsPtrOutput {
+func (o SecretsCreateQueryParamsPtrOutput) ToSecretsCreateQueryParamsPtrOutputWithContext(ctx context.Context) SecretsCreateQueryParamsPtrOutput {
 	return o
 }
 
-func (o SecretsUpdateCreateQueryParamsPtrOutput) Elem() SecretsUpdateCreateQueryParamsOutput {
-	return o.ApplyT(func(v *SecretsUpdateCreateQueryParams) SecretsUpdateCreateQueryParams {
+func (o SecretsCreateQueryParamsPtrOutput) Elem() SecretsCreateQueryParamsOutput {
+	return o.ApplyT(func(v *SecretsCreateQueryParams) SecretsCreateQueryParams {
 		if v != nil {
 			return *v
 		}
-		var ret SecretsUpdateCreateQueryParams
+		var ret SecretsCreateQueryParams
 		return ret
-	}).(SecretsUpdateCreateQueryParamsOutput)
+	}).(SecretsCreateQueryParamsOutput)
 }
 
 // Additional query params to send with the request that are not defined in the API spec.
-func (o SecretsUpdateCreateQueryParamsPtrOutput) AdditionalParams() pulumi.StringMapOutput {
-	return o.ApplyT(func(v *SecretsUpdateCreateQueryParams) map[string]string {
+func (o SecretsCreateQueryParamsPtrOutput) AdditionalParams() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *SecretsCreateQueryParams) map[string]string {
 		if v == nil {
 			return nil
 		}
@@ -23400,143 +23400,143 @@ func (o SecretsUpdateCreateQueryParamsPtrOutput) AdditionalParams() pulumi.Strin
 }
 
 // Query params for each of the operations of the resource.
-type SecretsUpdateQueryParams struct {
+type SecretsQueryParams struct {
 	// Query params for the create operation.
-	Create *SecretsUpdateCreateQueryParams `pulumi:"create"`
+	Create *SecretsCreateQueryParams `pulumi:"create"`
 }
 
-// SecretsUpdateQueryParamsInput is an input type that accepts SecretsUpdateQueryParamsArgs and SecretsUpdateQueryParamsOutput values.
-// You can construct a concrete instance of `SecretsUpdateQueryParamsInput` via:
+// SecretsQueryParamsInput is an input type that accepts SecretsQueryParamsArgs and SecretsQueryParamsOutput values.
+// You can construct a concrete instance of `SecretsQueryParamsInput` via:
 //
-//	SecretsUpdateQueryParamsArgs{...}
-type SecretsUpdateQueryParamsInput interface {
+//	SecretsQueryParamsArgs{...}
+type SecretsQueryParamsInput interface {
 	pulumi.Input
 
-	ToSecretsUpdateQueryParamsOutput() SecretsUpdateQueryParamsOutput
-	ToSecretsUpdateQueryParamsOutputWithContext(context.Context) SecretsUpdateQueryParamsOutput
+	ToSecretsQueryParamsOutput() SecretsQueryParamsOutput
+	ToSecretsQueryParamsOutputWithContext(context.Context) SecretsQueryParamsOutput
 }
 
 // Query params for each of the operations of the resource.
-type SecretsUpdateQueryParamsArgs struct {
+type SecretsQueryParamsArgs struct {
 	// Query params for the create operation.
-	Create SecretsUpdateCreateQueryParamsPtrInput `pulumi:"create"`
+	Create SecretsCreateQueryParamsPtrInput `pulumi:"create"`
 }
 
-func (SecretsUpdateQueryParamsArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*SecretsUpdateQueryParams)(nil)).Elem()
+func (SecretsQueryParamsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SecretsQueryParams)(nil)).Elem()
 }
 
-func (i SecretsUpdateQueryParamsArgs) ToSecretsUpdateQueryParamsOutput() SecretsUpdateQueryParamsOutput {
-	return i.ToSecretsUpdateQueryParamsOutputWithContext(context.Background())
+func (i SecretsQueryParamsArgs) ToSecretsQueryParamsOutput() SecretsQueryParamsOutput {
+	return i.ToSecretsQueryParamsOutputWithContext(context.Background())
 }
 
-func (i SecretsUpdateQueryParamsArgs) ToSecretsUpdateQueryParamsOutputWithContext(ctx context.Context) SecretsUpdateQueryParamsOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SecretsUpdateQueryParamsOutput)
+func (i SecretsQueryParamsArgs) ToSecretsQueryParamsOutputWithContext(ctx context.Context) SecretsQueryParamsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SecretsQueryParamsOutput)
 }
 
-func (i SecretsUpdateQueryParamsArgs) ToSecretsUpdateQueryParamsPtrOutput() SecretsUpdateQueryParamsPtrOutput {
-	return i.ToSecretsUpdateQueryParamsPtrOutputWithContext(context.Background())
+func (i SecretsQueryParamsArgs) ToSecretsQueryParamsPtrOutput() SecretsQueryParamsPtrOutput {
+	return i.ToSecretsQueryParamsPtrOutputWithContext(context.Background())
 }
 
-func (i SecretsUpdateQueryParamsArgs) ToSecretsUpdateQueryParamsPtrOutputWithContext(ctx context.Context) SecretsUpdateQueryParamsPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SecretsUpdateQueryParamsOutput).ToSecretsUpdateQueryParamsPtrOutputWithContext(ctx)
+func (i SecretsQueryParamsArgs) ToSecretsQueryParamsPtrOutputWithContext(ctx context.Context) SecretsQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SecretsQueryParamsOutput).ToSecretsQueryParamsPtrOutputWithContext(ctx)
 }
 
-// SecretsUpdateQueryParamsPtrInput is an input type that accepts SecretsUpdateQueryParamsArgs, SecretsUpdateQueryParamsPtr and SecretsUpdateQueryParamsPtrOutput values.
-// You can construct a concrete instance of `SecretsUpdateQueryParamsPtrInput` via:
+// SecretsQueryParamsPtrInput is an input type that accepts SecretsQueryParamsArgs, SecretsQueryParamsPtr and SecretsQueryParamsPtrOutput values.
+// You can construct a concrete instance of `SecretsQueryParamsPtrInput` via:
 //
-//	        SecretsUpdateQueryParamsArgs{...}
+//	        SecretsQueryParamsArgs{...}
 //
 //	or:
 //
 //	        nil
-type SecretsUpdateQueryParamsPtrInput interface {
+type SecretsQueryParamsPtrInput interface {
 	pulumi.Input
 
-	ToSecretsUpdateQueryParamsPtrOutput() SecretsUpdateQueryParamsPtrOutput
-	ToSecretsUpdateQueryParamsPtrOutputWithContext(context.Context) SecretsUpdateQueryParamsPtrOutput
+	ToSecretsQueryParamsPtrOutput() SecretsQueryParamsPtrOutput
+	ToSecretsQueryParamsPtrOutputWithContext(context.Context) SecretsQueryParamsPtrOutput
 }
 
-type secretsUpdateQueryParamsPtrType SecretsUpdateQueryParamsArgs
+type secretsQueryParamsPtrType SecretsQueryParamsArgs
 
-func SecretsUpdateQueryParamsPtr(v *SecretsUpdateQueryParamsArgs) SecretsUpdateQueryParamsPtrInput {
-	return (*secretsUpdateQueryParamsPtrType)(v)
+func SecretsQueryParamsPtr(v *SecretsQueryParamsArgs) SecretsQueryParamsPtrInput {
+	return (*secretsQueryParamsPtrType)(v)
 }
 
-func (*secretsUpdateQueryParamsPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**SecretsUpdateQueryParams)(nil)).Elem()
+func (*secretsQueryParamsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**SecretsQueryParams)(nil)).Elem()
 }
 
-func (i *secretsUpdateQueryParamsPtrType) ToSecretsUpdateQueryParamsPtrOutput() SecretsUpdateQueryParamsPtrOutput {
-	return i.ToSecretsUpdateQueryParamsPtrOutputWithContext(context.Background())
+func (i *secretsQueryParamsPtrType) ToSecretsQueryParamsPtrOutput() SecretsQueryParamsPtrOutput {
+	return i.ToSecretsQueryParamsPtrOutputWithContext(context.Background())
 }
 
-func (i *secretsUpdateQueryParamsPtrType) ToSecretsUpdateQueryParamsPtrOutputWithContext(ctx context.Context) SecretsUpdateQueryParamsPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SecretsUpdateQueryParamsPtrOutput)
+func (i *secretsQueryParamsPtrType) ToSecretsQueryParamsPtrOutputWithContext(ctx context.Context) SecretsQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SecretsQueryParamsPtrOutput)
 }
 
 // Query params for each of the operations of the resource.
-type SecretsUpdateQueryParamsOutput struct{ *pulumi.OutputState }
+type SecretsQueryParamsOutput struct{ *pulumi.OutputState }
 
-func (SecretsUpdateQueryParamsOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*SecretsUpdateQueryParams)(nil)).Elem()
+func (SecretsQueryParamsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SecretsQueryParams)(nil)).Elem()
 }
 
-func (o SecretsUpdateQueryParamsOutput) ToSecretsUpdateQueryParamsOutput() SecretsUpdateQueryParamsOutput {
+func (o SecretsQueryParamsOutput) ToSecretsQueryParamsOutput() SecretsQueryParamsOutput {
 	return o
 }
 
-func (o SecretsUpdateQueryParamsOutput) ToSecretsUpdateQueryParamsOutputWithContext(ctx context.Context) SecretsUpdateQueryParamsOutput {
+func (o SecretsQueryParamsOutput) ToSecretsQueryParamsOutputWithContext(ctx context.Context) SecretsQueryParamsOutput {
 	return o
 }
 
-func (o SecretsUpdateQueryParamsOutput) ToSecretsUpdateQueryParamsPtrOutput() SecretsUpdateQueryParamsPtrOutput {
-	return o.ToSecretsUpdateQueryParamsPtrOutputWithContext(context.Background())
+func (o SecretsQueryParamsOutput) ToSecretsQueryParamsPtrOutput() SecretsQueryParamsPtrOutput {
+	return o.ToSecretsQueryParamsPtrOutputWithContext(context.Background())
 }
 
-func (o SecretsUpdateQueryParamsOutput) ToSecretsUpdateQueryParamsPtrOutputWithContext(ctx context.Context) SecretsUpdateQueryParamsPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v SecretsUpdateQueryParams) *SecretsUpdateQueryParams {
+func (o SecretsQueryParamsOutput) ToSecretsQueryParamsPtrOutputWithContext(ctx context.Context) SecretsQueryParamsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SecretsQueryParams) *SecretsQueryParams {
 		return &v
-	}).(SecretsUpdateQueryParamsPtrOutput)
+	}).(SecretsQueryParamsPtrOutput)
 }
 
 // Query params for the create operation.
-func (o SecretsUpdateQueryParamsOutput) Create() SecretsUpdateCreateQueryParamsPtrOutput {
-	return o.ApplyT(func(v SecretsUpdateQueryParams) *SecretsUpdateCreateQueryParams { return v.Create }).(SecretsUpdateCreateQueryParamsPtrOutput)
+func (o SecretsQueryParamsOutput) Create() SecretsCreateQueryParamsPtrOutput {
+	return o.ApplyT(func(v SecretsQueryParams) *SecretsCreateQueryParams { return v.Create }).(SecretsCreateQueryParamsPtrOutput)
 }
 
-type SecretsUpdateQueryParamsPtrOutput struct{ *pulumi.OutputState }
+type SecretsQueryParamsPtrOutput struct{ *pulumi.OutputState }
 
-func (SecretsUpdateQueryParamsPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**SecretsUpdateQueryParams)(nil)).Elem()
+func (SecretsQueryParamsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**SecretsQueryParams)(nil)).Elem()
 }
 
-func (o SecretsUpdateQueryParamsPtrOutput) ToSecretsUpdateQueryParamsPtrOutput() SecretsUpdateQueryParamsPtrOutput {
+func (o SecretsQueryParamsPtrOutput) ToSecretsQueryParamsPtrOutput() SecretsQueryParamsPtrOutput {
 	return o
 }
 
-func (o SecretsUpdateQueryParamsPtrOutput) ToSecretsUpdateQueryParamsPtrOutputWithContext(ctx context.Context) SecretsUpdateQueryParamsPtrOutput {
+func (o SecretsQueryParamsPtrOutput) ToSecretsQueryParamsPtrOutputWithContext(ctx context.Context) SecretsQueryParamsPtrOutput {
 	return o
 }
 
-func (o SecretsUpdateQueryParamsPtrOutput) Elem() SecretsUpdateQueryParamsOutput {
-	return o.ApplyT(func(v *SecretsUpdateQueryParams) SecretsUpdateQueryParams {
+func (o SecretsQueryParamsPtrOutput) Elem() SecretsQueryParamsOutput {
+	return o.ApplyT(func(v *SecretsQueryParams) SecretsQueryParams {
 		if v != nil {
 			return *v
 		}
-		var ret SecretsUpdateQueryParams
+		var ret SecretsQueryParams
 		return ret
-	}).(SecretsUpdateQueryParamsOutput)
+	}).(SecretsQueryParamsOutput)
 }
 
 // Query params for the create operation.
-func (o SecretsUpdateQueryParamsPtrOutput) Create() SecretsUpdateCreateQueryParamsPtrOutput {
-	return o.ApplyT(func(v *SecretsUpdateQueryParams) *SecretsUpdateCreateQueryParams {
+func (o SecretsQueryParamsPtrOutput) Create() SecretsCreateQueryParamsPtrOutput {
+	return o.ApplyT(func(v *SecretsQueryParams) *SecretsCreateQueryParams {
 		if v == nil {
 			return nil
 		}
 		return v.Create
-	}).(SecretsUpdateCreateQueryParamsPtrOutput)
+	}).(SecretsCreateQueryParamsPtrOutput)
 }
 
 type StrippedLease struct {
@@ -25824,10 +25824,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*SecretkeyVerifyCreateQueryParamsPtrInput)(nil)).Elem(), SecretkeyVerifyCreateQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SecretkeyVerifyQueryParamsInput)(nil)).Elem(), SecretkeyVerifyQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SecretkeyVerifyQueryParamsPtrInput)(nil)).Elem(), SecretkeyVerifyQueryParamsArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*SecretsUpdateCreateQueryParamsInput)(nil)).Elem(), SecretsUpdateCreateQueryParamsArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*SecretsUpdateCreateQueryParamsPtrInput)(nil)).Elem(), SecretsUpdateCreateQueryParamsArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*SecretsUpdateQueryParamsInput)(nil)).Elem(), SecretsUpdateQueryParamsArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*SecretsUpdateQueryParamsPtrInput)(nil)).Elem(), SecretsUpdateQueryParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SecretsCreateQueryParamsInput)(nil)).Elem(), SecretsCreateQueryParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SecretsCreateQueryParamsPtrInput)(nil)).Elem(), SecretsCreateQueryParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SecretsQueryParamsInput)(nil)).Elem(), SecretsQueryParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SecretsQueryParamsPtrInput)(nil)).Elem(), SecretsQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*VolumeCreateQueryParamsInput)(nil)).Elem(), VolumeCreateQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*VolumeCreateQueryParamsPtrInput)(nil)).Elem(), VolumeCreateQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*VolumeDeleteQueryParamsInput)(nil)).Elem(), VolumeDeleteQueryParamsArgs{})
@@ -26159,10 +26159,10 @@ func init() {
 	pulumi.RegisterOutputType(SecretkeyVerifyCreateQueryParamsPtrOutput{})
 	pulumi.RegisterOutputType(SecretkeyVerifyQueryParamsOutput{})
 	pulumi.RegisterOutputType(SecretkeyVerifyQueryParamsPtrOutput{})
-	pulumi.RegisterOutputType(SecretsUpdateCreateQueryParamsOutput{})
-	pulumi.RegisterOutputType(SecretsUpdateCreateQueryParamsPtrOutput{})
-	pulumi.RegisterOutputType(SecretsUpdateQueryParamsOutput{})
-	pulumi.RegisterOutputType(SecretsUpdateQueryParamsPtrOutput{})
+	pulumi.RegisterOutputType(SecretsCreateQueryParamsOutput{})
+	pulumi.RegisterOutputType(SecretsCreateQueryParamsPtrOutput{})
+	pulumi.RegisterOutputType(SecretsQueryParamsOutput{})
+	pulumi.RegisterOutputType(SecretsQueryParamsPtrOutput{})
 	pulumi.RegisterOutputType(StrippedLeaseOutput{})
 	pulumi.RegisterOutputType(StrippedLeasePtrOutput{})
 	pulumi.RegisterOutputType(VolumeTypeOutput{})

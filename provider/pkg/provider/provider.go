@@ -35,6 +35,7 @@ const (
 	machinesMetadataTypeToken = "fly-machines:apps/v1:MachinesMetadata"
 	secretKeyTypeToken        = "fly-machines:apps/v1:Secretkey"
 	secretTypeToken           = "fly-machines:apps/v1:Secret"
+	secretsTypeToken          = "fly-machines:apps/v1:Secrets"
 )
 
 var (
@@ -91,11 +92,14 @@ func (p *flyMachinesProvider) OnConfigure(_ context.Context, req *pulumirpc.Conf
 // OnPreCreate is called by the provider framework before the create
 // HTTP request is sent.
 func (p *flyMachinesProvider) OnPreCreate(_ context.Context, req *pulumirpc.CreateRequest, httpReq *http.Request) error {
-	if req.GetType() != machinesMetadataTypeToken {
+	switch {
+	case req.GetType() == machinesMetadataTypeToken:
+		handleCreateMachinesMetadataRequest(httpReq)
 		return nil
+	case req.GetType() == secretsTypeToken:
+		handleCreateSecretsRequest(httpReq)
 	}
 
-	handleCreateMachinesMetadataRequest(httpReq)
 	return nil
 }
 
@@ -112,6 +116,8 @@ func (p *flyMachinesProvider) OnPostCreate(_ context.Context, req *pulumirpc.Cre
 	case secretKeyTypeToken:
 		fallthrough
 	case secretTypeToken:
+		fallthrough
+	case secretsTypeToken:
 		return assignRandomID(outputsMap), nil
 	default:
 		return outputsMap, nil

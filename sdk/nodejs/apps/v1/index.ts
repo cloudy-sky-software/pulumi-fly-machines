@@ -250,10 +250,10 @@ export type SecretkeyVerify = import("./secretkeyVerify").SecretkeyVerify;
 export const SecretkeyVerify: typeof import("./secretkeyVerify").SecretkeyVerify = null as any;
 utilities.lazyLoad(exports, ["SecretkeyVerify"], () => require("./secretkeyVerify"));
 
-export { SecretsUpdateArgs } from "./secretsUpdate";
-export type SecretsUpdate = import("./secretsUpdate").SecretsUpdate;
-export const SecretsUpdate: typeof import("./secretsUpdate").SecretsUpdate = null as any;
-utilities.lazyLoad(exports, ["SecretsUpdate"], () => require("./secretsUpdate"));
+export { SecretsArgs } from "./secrets";
+export type Secrets = import("./secrets").Secrets;
+export const Secrets: typeof import("./secrets").Secrets = null as any;
+utilities.lazyLoad(exports, ["Secrets"], () => require("./secrets"));
 
 export { VolumeArgs } from "./volume";
 export type Volume = import("./volume").Volume;
@@ -332,8 +332,8 @@ const _module = {
                 return new SecretkeySign(name, <any>undefined, { urn })
             case "fly-machines:apps/v1:SecretkeyVerify":
                 return new SecretkeyVerify(name, <any>undefined, { urn })
-            case "fly-machines:apps/v1:SecretsUpdate":
-                return new SecretsUpdate(name, <any>undefined, { urn })
+            case "fly-machines:apps/v1:Secrets":
+                return new Secrets(name, <any>undefined, { urn })
             case "fly-machines:apps/v1:Volume":
                 return new Volume(name, <any>undefined, { urn })
             case "fly-machines:apps/v1:VolumeSnapshot":

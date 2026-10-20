@@ -3831,7 +3831,7 @@
             },
             "type": "object"
         },
-        "fly-machines:apps/v1:SecretsUpdateCreateQueryParams": {
+        "fly-machines:apps/v1:SecretsCreateQueryParams": {
             "description": "Query params for the API request.",
             "properties": {
                 "additionalParams": {
@@ -3844,11 +3844,11 @@
             },
             "type": "object"
         },
-        "fly-machines:apps/v1:SecretsUpdateQueryParams": {
+        "fly-machines:apps/v1:SecretsQueryParams": {
             "description": "Query params for each of the operations of the resource.",
             "properties": {
                 "create": {
-                    "$ref": "#/types/fly-machines:apps/v1:SecretsUpdateCreateQueryParams",
+                    "$ref": "#/types/fly-machines:apps/v1:SecretsCreateQueryParams",
                     "description": "Query params for the create operation."
                 }
             },
@@ -7743,16 +7743,21 @@
                 }
             }
         },
-        "fly-machines:apps/v1:SecretsUpdate": {
+        "fly-machines:apps/v1:Secrets": {
             "properties": {
                 "queryParams": {
-                    "$ref": "#/types/fly-machines:apps/v1:SecretsUpdateQueryParams",
+                    "$ref": "#/types/fly-machines:apps/v1:SecretsQueryParams",
                     "description": "Query params to send with the API requests for this resource."
                 },
                 "secrets": {
                     "type": "array",
                     "items": {
                         "$ref": "#/types/fly-machines:apps/v1:AppSecret"
+                    },
+                    "language": {
+                        "csharp": {
+                            "name": "SecretsValue"
+                        }
                     }
                 },
                 "values": {
@@ -7773,7 +7778,7 @@
                     "description": "Fly App Name"
                 },
                 "queryParams": {
-                    "$ref": "#/types/fly-machines:apps/v1:SecretsUpdateQueryParams",
+                    "$ref": "#/types/fly-machines:apps/v1:SecretsQueryParams",
                     "description": "Query params to send with the API requests for this resource."
                 },
                 "values": {

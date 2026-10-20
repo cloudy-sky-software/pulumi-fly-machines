@@ -150,8 +150,8 @@ __all__ = [
     'SecretkeySignQueryParams',
     'SecretkeyVerifyCreateQueryParams',
     'SecretkeyVerifyQueryParams',
-    'SecretsUpdateCreateQueryParams',
-    'SecretsUpdateQueryParams',
+    'SecretsCreateQueryParams',
+    'SecretsQueryParams',
     'StrippedLease',
     'Volume',
     'VolumeCreateQueryParams',
@@ -7433,7 +7433,7 @@ class SecretkeyVerifyQueryParams(dict):
 
 
 @pulumi.output_type
-class SecretsUpdateCreateQueryParams(dict):
+class SecretsCreateQueryParams(dict):
     """
     Query params for the API request.
     """
@@ -7444,14 +7444,14 @@ class SecretsUpdateCreateQueryParams(dict):
             suggest = "additional_params"
 
         if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in SecretsUpdateCreateQueryParams. Access the value via the '{suggest}' property getter instead.")
+            pulumi.log.warn(f"Key '{key}' not found in SecretsCreateQueryParams. Access the value via the '{suggest}' property getter instead.")
 
     def __getitem__(self, key: str) -> Any:
-        SecretsUpdateCreateQueryParams.__key_warning(key)
+        SecretsCreateQueryParams.__key_warning(key)
         return super().__getitem__(key)
 
     def get(self, key: str, default = None) -> Any:
-        SecretsUpdateCreateQueryParams.__key_warning(key)
+        SecretsCreateQueryParams.__key_warning(key)
         return super().get(key, default)
 
     def __init__(__self__, *,
@@ -7474,23 +7474,23 @@ class SecretsUpdateCreateQueryParams(dict):
 
 
 @pulumi.output_type
-class SecretsUpdateQueryParams(dict):
+class SecretsQueryParams(dict):
     """
     Query params for each of the operations of the resource.
     """
     def __init__(__self__, *,
-                 create: Optional['outputs.SecretsUpdateCreateQueryParams'] = None):
+                 create: Optional['outputs.SecretsCreateQueryParams'] = None):
         """
         Query params for each of the operations of the resource.
 
-        :param 'SecretsUpdateCreateQueryParams' create: Query params for the create operation.
+        :param 'SecretsCreateQueryParams' create: Query params for the create operation.
         """
         if create is not None:
             pulumi.set(__self__, "create", create)
 
     @_builtins.property
     @pulumi.getter
-    def create(self) -> Optional['outputs.SecretsUpdateCreateQueryParams']:
+    def create(self) -> Optional['outputs.SecretsCreateQueryParams']:
         """
         Query params for the create operation.
         """
