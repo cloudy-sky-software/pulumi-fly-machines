@@ -163,6 +163,11 @@ func PulumiSchema(openapiDoc openapi3.T) (pschema.PackageSpec, openapigen.Provid
 	providerMetadata.ResourceCRUDMap["fly-machines:apps/v1:AppCertificatesCustom"].R = new(`/v1/apps/{app_name}/certificates/{hostname}`)
 	providerMetadata.ResourceCRUDMap["fly-machines:apps/v1:AppCertificatesAcme"].R = new(`/v1/apps/{app_name}/certificates/{hostname}`)
 
+	// Add a read endpoint for secrets since there is no ID
+	// to read them.
+	providerMetadata.ResourceCRUDMap["fly-machines:apps/v1:Secrets"].R = new(`/v1/apps/{app_name}/secrets`)
+	providerMetadata.ResourceCRUDMap["fly-machines:apps/v1:Secrets"].U = new(`/v1/apps/{app_name}/secrets`)
+
 	metadata := openapigen.ProviderMetadata{
 		AllowedResourcesWithoutReadEndpoint: providerMetadata.AllowedResourcesWithoutReadEndpoint,
 		ResourceCRUDMap:                     providerMetadata.ResourceCRUDMap,
