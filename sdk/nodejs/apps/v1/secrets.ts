@@ -7,37 +7,37 @@ import * as outputs from "../../types/output";
 import * as enums from "../../types/enums";
 import * as utilities from "../../utilities";
 
-export class SecretsUpdate extends pulumi.CustomResource {
+export class Secrets extends pulumi.CustomResource {
     /**
-     * Get an existing SecretsUpdate resource's state with the given name, ID, and optional extra
+     * Get an existing Secrets resource's state with the given name, ID, and optional extra
      * properties used to qualify the lookup.
      *
      * @param name The _unique_ name of the resulting resource.
      * @param id The _unique_ provider ID of the resource to lookup.
      * @param opts Optional settings to control the behavior of the CustomResource.
      */
-    public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): SecretsUpdate {
-        return new SecretsUpdate(name, undefined as any, { ...opts, id: id });
+    public static get(name: string, id: pulumi.Input<pulumi.ID>, opts?: pulumi.CustomResourceOptions): Secrets {
+        return new Secrets(name, undefined as any, { ...opts, id: id });
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'fly-machines:apps/v1:SecretsUpdate';
+    public static readonly __pulumiType = 'fly-machines:apps/v1:Secrets';
 
     /**
-     * Returns true if the given object is an instance of SecretsUpdate.  This is designed to work even
+     * Returns true if the given object is an instance of Secrets.  This is designed to work even
      * when multiple copies of the Pulumi SDK have been loaded into the same process.
      */
-    public static isInstance(obj: any): obj is SecretsUpdate {
+    public static isInstance(obj: any): obj is Secrets {
         if (obj === undefined || obj === null) {
             return false;
         }
-        return obj['__pulumiType'] === SecretsUpdate.__pulumiType;
+        return obj['__pulumiType'] === Secrets.__pulumiType;
     }
 
     /**
      * Query params to send with the API requests for this resource.
      */
-    declare public readonly queryParams: pulumi.Output<outputs.apps.v1.SecretsUpdateQueryParams | undefined>;
+    declare public readonly queryParams: pulumi.Output<outputs.apps.v1.SecretsQueryParams | undefined>;
     declare public /*out*/ readonly secrets: pulumi.Output<outputs.apps.v1.AppSecret[] | undefined>;
     declare public readonly values: pulumi.Output<{[key: string]: string} | undefined>;
     /**
@@ -47,13 +47,13 @@ export class SecretsUpdate extends pulumi.CustomResource {
     declare public /*out*/ readonly version: pulumi.Output<number | undefined>;
 
     /**
-     * Create a SecretsUpdate resource with the given unique name, arguments, and options.
+     * Create a Secrets resource with the given unique name, arguments, and options.
      *
      * @param name The _unique_ name of the resource.
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: SecretsUpdateArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: SecretsArgs, opts?: pulumi.CustomResourceOptions) {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
@@ -69,14 +69,14 @@ export class SecretsUpdate extends pulumi.CustomResource {
             resourceInputs["version"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        super(SecretsUpdate.__pulumiType, name, resourceInputs, opts);
+        super(Secrets.__pulumiType, name, resourceInputs, opts);
     }
 }
 
 /**
- * The set of arguments for constructing a SecretsUpdate resource.
+ * The set of arguments for constructing a Secrets resource.
  */
-export interface SecretsUpdateArgs {
+export interface SecretsArgs {
     /**
      * Fly App Name
      */
@@ -84,6 +84,6 @@ export interface SecretsUpdateArgs {
     /**
      * Query params to send with the API requests for this resource.
      */
-    queryParams?: pulumi.Input<inputs.apps.v1.SecretsUpdateQueryParamsArgs | undefined>;
+    queryParams?: pulumi.Input<inputs.apps.v1.SecretsQueryParamsArgs | undefined>;
     values?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
 }

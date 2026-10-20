@@ -56,7 +56,7 @@ from .secretkey_encrypt import *
 from .secretkey_generate import *
 from .secretkey_sign import *
 from .secretkey_verify import *
-from .secrets_update import *
+from .secrets import *
 from .volume import *
 from .volume_snapshot import *
 from .volumes_extend import *

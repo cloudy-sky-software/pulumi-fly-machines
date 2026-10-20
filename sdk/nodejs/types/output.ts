@@ -1794,7 +1794,7 @@ export namespace apps {
         /**
          * Query params for the API request.
          */
-        export interface SecretsUpdateCreateQueryParams {
+        export interface SecretsCreateQueryParams {
             /**
              * Additional query params to send with the request that are not defined in the API spec.
              */
@@ -1804,11 +1804,11 @@ export namespace apps {
         /**
          * Query params for each of the operations of the resource.
          */
-        export interface SecretsUpdateQueryParams {
+        export interface SecretsQueryParams {
             /**
              * Query params for the create operation.
              */
-            create?: outputs.apps.v1.SecretsUpdateCreateQueryParams;
+            create?: outputs.apps.v1.SecretsCreateQueryParams;
         }
 
         export interface StrippedLease {

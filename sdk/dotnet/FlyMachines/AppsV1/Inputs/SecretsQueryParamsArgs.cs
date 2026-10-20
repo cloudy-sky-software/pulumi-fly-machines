@@ -14,17 +14,17 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
     /// <summary>
     /// Query params for each of the operations of the resource.
     /// </summary>
-    public sealed class SecretsUpdateQueryParamsArgs : global::Pulumi.ResourceArgs
+    public sealed class SecretsQueryParamsArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Query params for the create operation.
         /// </summary>
         [Input("create")]
-        public Input<Inputs.SecretsUpdateCreateQueryParamsArgs>? Create { get; set; }
+        public Input<Inputs.SecretsCreateQueryParamsArgs>? Create { get; set; }
 
-        public SecretsUpdateQueryParamsArgs()
+        public SecretsQueryParamsArgs()
         {
         }
-        public static new SecretsUpdateQueryParamsArgs Empty => new SecretsUpdateQueryParamsArgs();
+        public static new SecretsQueryParamsArgs Empty => new SecretsQueryParamsArgs();
     }
 }

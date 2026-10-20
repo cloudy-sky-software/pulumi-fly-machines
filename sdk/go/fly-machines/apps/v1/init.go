@@ -75,8 +75,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &SecretkeySign{}
 	case "fly-machines:apps/v1:SecretkeyVerify":
 		r = &SecretkeyVerify{}
-	case "fly-machines:apps/v1:SecretsUpdate":
-		r = &SecretsUpdate{}
+	case "fly-machines:apps/v1:Secrets":
+		r = &Secrets{}
 	case "fly-machines:apps/v1:Volume":
 		r = &Volume{}
 	case "fly-machines:apps/v1:VolumeSnapshot":
