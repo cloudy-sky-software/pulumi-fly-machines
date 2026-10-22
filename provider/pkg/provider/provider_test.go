@@ -109,10 +109,10 @@ func makeTestProvider(ctx context.Context, t *testing.T, serverURL string) pulum
 	return p
 }
 
-func testMachineInputs(t *testing.T) map[string]interface{} {
+func testMachineInputs(t *testing.T) map[string]any {
 	t.Helper()
 
-	var inputs map[string]interface{}
+	var inputs map[string]any
 	if err := json.Unmarshal([]byte(testCreateJSONPayload), &inputs); err != nil {
 		t.Fatalf("Failed to unmarshal test payload: %v", err)
 	}
@@ -122,10 +122,10 @@ func testMachineInputs(t *testing.T) map[string]interface{} {
 
 // testMachineState returns the marshaled state of a Machine
 // resource as it would be stored by the engine after create.
-func testMachineState(t *testing.T, inputs map[string]interface{}, version string) *structpb.Struct {
+func testMachineState(t *testing.T, inputs map[string]any, version string) *structpb.Struct {
 	t.Helper()
 
-	outputs := make(map[string]interface{})
+	outputs := make(map[string]any)
 	for k, v := range inputs {
 		outputs[k] = v
 	}
@@ -140,7 +140,7 @@ func testMachineState(t *testing.T, inputs map[string]interface{}, version strin
 	return s
 }
 
-func marshalInputs(t *testing.T, inputs map[string]interface{}) *structpb.Struct {
+func marshalInputs(t *testing.T, inputs map[string]any) *structpb.Struct {
 	t.Helper()
 
 	s, err := plugin.MarshalProperties(resource.NewPropertyMapFromMap(inputs), state.DefaultMarshalOpts)
@@ -149,13 +149,13 @@ func marshalInputs(t *testing.T, inputs map[string]interface{}) *structpb.Struct
 	return s
 }
 
-func readJSONBody(t *testing.T, body io.Reader) map[string]interface{} {
+func readJSONBody(t *testing.T, body io.Reader) map[string]any {
 	t.Helper()
 
 	b, err := io.ReadAll(body)
 	require.NoError(t, err)
 
-	var m map[string]interface{}
+	var m map[string]any
 	require.NoError(t, json.Unmarshal(b, &m))
 
 	return m
@@ -168,7 +168,7 @@ func TestDiff(t *testing.T) {
 
 	olds := testMachineInputs(t)
 	news := testMachineInputs(t)
-	news["config"].(map[string]interface{})["image"] = "registry-1.docker.io/library/nginx:1.27"
+	news["config"].(map[string]any)["image"] = "registry-1.docker.io/library/nginx:1.27"
 
 	resp, err := p.Diff(ctx, &pulumirpc.DiffRequest{
 		Id:        testMachineID,
@@ -197,10 +197,10 @@ func TestCreate(t *testing.T) {
 		assert.Equal(t, "iad", body["region"])
 		assert.NotContains(t, body, "app_name", "path params should not be sent in the body")
 
-		config, ok := body["config"].(map[string]interface{})
+		config, ok := body["config"].(map[string]any)
 		require.True(t, ok)
 		assert.Equal(t, "registry-1.docker.io/library/nginx:latest", config["image"])
-		guest, ok := config["guest"].(map[string]interface{})
+		guest, ok := config["guest"].(map[string]any)
 		require.True(t, ok)
 		assert.Equal(t, "shared", guest["cpu_kind"])
 		assert.EqualValues(t, 256, guest["memory_mb"])
@@ -292,7 +292,7 @@ func TestOnPreUpdate(t *testing.T) {
 				require.NoError(t, err, name)
 				assert.Equal(t, int64(len(b)), httpReq.ContentLength, name)
 
-				var body map[string]interface{}
+				var body map[string]any
 				require.NoError(t, json.Unmarshal(b, &body), name)
 				assert.Equal(t, "iad", body["region"], name)
 				assert.Contains(t, body, "config", name)
@@ -316,7 +316,7 @@ func TestUpdateMachine(t *testing.T) {
 
 		body := readJSONBody(t, r.Body)
 		assert.Equal(t, testVersion, body["current_version"])
-		config, ok := body["config"].(map[string]interface{})
+		config, ok := body["config"].(map[string]any)
 		require.True(t, ok)
 		assert.Equal(t, "registry-1.docker.io/library/nginx:1.27", config["image"])
 
@@ -329,7 +329,7 @@ func TestUpdateMachine(t *testing.T) {
 
 	olds := testMachineInputs(t)
 	news := testMachineInputs(t)
-	news["config"].(map[string]interface{})["image"] = "registry-1.docker.io/library/nginx:1.27"
+	news["config"].(map[string]any)["image"] = "registry-1.docker.io/library/nginx:1.27"
 
 	_, err := p.Update(ctx, &pulumirpc.UpdateRequest{
 		Id:        testMachineID,
@@ -344,8 +344,8 @@ func TestUpdateMachine(t *testing.T) {
 
 const testMachinesMetadataURN = "urn:pulumi:dev::fly-test::" + machinesMetadataTypeToken + "::metadata"
 
-func testMachinesMetadataInputs(metadata map[string]interface{}) map[string]interface{} {
-	return map[string]interface{}{
+func testMachinesMetadataInputs(metadata map[string]any) map[string]any {
+	return map[string]any{
 		"appName":   testAppName,
 		"machineId": testMachineID,
 		"metadata":  metadata,
@@ -360,7 +360,7 @@ func TestCreateMachinesMetadata(t *testing.T) {
 		assert.Equal(t, "/v1/apps/"+testAppName+"/machines/"+testMachineID+"/metadata", r.URL.Path)
 
 		body := readJSONBody(t, r.Body)
-		assert.Equal(t, map[string]interface{}{testKey1: testValue1}, body["metadata"])
+		assert.Equal(t, map[string]any{testKey1: testValue1}, body["metadata"])
 		assert.NotContains(t, body, "app_name", "path params should not be sent in the body")
 		assert.NotContains(t, body, "machine_id", "path params should not be sent in the body")
 
@@ -373,7 +373,7 @@ func TestCreateMachinesMetadata(t *testing.T) {
 	resp, err := p.Create(ctx, &pulumirpc.CreateRequest{
 		Urn:        testMachinesMetadataURN,
 		Type:       machinesMetadataTypeToken,
-		Properties: marshalInputs(t, testMachinesMetadataInputs(map[string]interface{}{testKey1: testValue1})),
+		Properties: marshalInputs(t, testMachinesMetadataInputs(map[string]any{testKey1: testValue1})),
 	})
 	require.NoError(t, err)
 	assert.Equal(t, testMachineID, resp.GetId())
@@ -387,7 +387,7 @@ func TestUpdateMachinesMetadata(t *testing.T) {
 		assert.Equal(t, "/v1/apps/"+testAppName+"/machines/"+testMachineID+"/metadata", r.URL.Path)
 
 		body := readJSONBody(t, r.Body)
-		assert.Equal(t, map[string]interface{}{testKey1: "value2"}, body["metadata"])
+		assert.Equal(t, map[string]any{testKey1: "value2"}, body["metadata"])
 		assert.NotContains(t, body, "app_name", "path params should not be sent in the body")
 		assert.NotContains(t, body, "machine_id", "path params should not be sent in the body")
 
@@ -397,10 +397,10 @@ func TestUpdateMachinesMetadata(t *testing.T) {
 
 	p := makeTestProvider(ctx, t, server.URL)
 
-	olds := testMachinesMetadataInputs(map[string]interface{}{testKey1: testValue1})
-	news := testMachinesMetadataInputs(map[string]interface{}{testKey1: "value2"})
+	olds := testMachinesMetadataInputs(map[string]any{testKey1: testValue1})
+	news := testMachinesMetadataInputs(map[string]any{testKey1: "value2"})
 
-	oldOutputs := make(map[string]interface{})
+	oldOutputs := make(map[string]any)
 	for k, v := range olds {
 		oldOutputs[k] = v
 	}
@@ -419,7 +419,9 @@ func TestUpdateMachinesMetadata(t *testing.T) {
 	require.NoError(t, err)
 }
 
-func TestHandleAppIPAssignmentPostCreate(t *testing.T) {
-	outputs := assignRandomID(map[string]interface{}{"ip": nil})
-	assert.NotEmpty(t, outputs["id"])
+func TestHandleOnPostCreate(t *testing.T) {
+	t.Run("AssignRandomIdForResourceWithoutServerId", func(t *testing.T) {
+		outputs := assignRandomID("fly-machines:apps/v1:Secrets", map[string]any{"someValue": "test"})
+		assert.NotEmpty(t, outputs["id"])
+	})
 }
