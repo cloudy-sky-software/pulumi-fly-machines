@@ -30,11 +30,8 @@ type flyMachinesProvider struct {
 }
 
 const (
-	appIPAssignmentTypeToken  = "fly-machines:apps/v1:AppIPAssignment"
 	machineTypeToken          = "fly-machines:apps/v1:Machine"
 	machinesMetadataTypeToken = "fly-machines:apps/v1:MachinesMetadata"
-	secretKeyTypeToken        = "fly-machines:apps/v1:Secretkey"
-	secretTypeToken           = "fly-machines:apps/v1:Secret"
 	secretsTypeToken          = "fly-machines:apps/v1:Secrets"
 )
 
@@ -105,22 +102,14 @@ func (p *flyMachinesProvider) OnPreCreate(_ context.Context, req *pulumirpc.Crea
 
 // OnPostCreate is called by the provider framework after the create
 // HTTP request succeeds, allowing the outputs to be modified.
-func (p *flyMachinesProvider) OnPostCreate(_ context.Context, req *pulumirpc.CreateRequest, outputs interface{}) (map[string]interface{}, error) {
-	outputsMap := outputs.(map[string]interface{})
+func (p *flyMachinesProvider) OnPostCreate(_ context.Context, req *pulumirpc.CreateRequest, outputs any) (map[string]any, error) {
+	outputsMap := outputs.(map[string]any)
 
-	switch fwRest.GetResourceTypeToken(req.GetUrn()) {
-	case appIPAssignmentTypeToken:
-		return assignRandomID(outputsMap), nil
+	switch t := fwRest.GetResourceTypeToken(req.GetUrn()); t {
 	case machinesMetadataTypeToken:
 		return handleMachinesMetadataPostCreate(req, outputsMap)
-	case secretKeyTypeToken:
-		fallthrough
-	case secretTypeToken:
-		fallthrough
-	case secretsTypeToken:
-		return assignRandomID(outputsMap), nil
 	default:
-		return outputsMap, nil
+		return assignRandomID(t, outputsMap), nil
 	}
 }
 

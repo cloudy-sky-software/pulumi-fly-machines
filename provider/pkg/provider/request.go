@@ -9,10 +9,13 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/cloudy-sky-software/pulumi-provider-framework/state"
 	"github.com/google/uuid"
 	"github.com/pkg/errors"
+
+	"github.com/cloudy-sky-software/pulumi-provider-framework/state"
+
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/plugin"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 )
 
@@ -94,10 +97,17 @@ func handleCreateSecretsRequest(httpReq *http.Request) {
 	httpReq.Method = http.MethodPost
 }
 
-// assignRandomID sets a pseudo id in the outputs map.
+// assignRandomID sets a random id in the outputs map,
+// if one isn't set by the server.
 // Some resources don't have an id.
-func assignRandomID(outputs map[string]interface{}) map[string]interface{} {
-	outputs["id"] = uuid.NewString()
+func assignRandomID(resourceTypeToken string, outputs map[string]any) map[string]any {
+	if _, ok := outputs["id"]; ok {
+		return outputs
+	}
+
+	id := uuid.NewString()
+	logging.V(3).Infof("Server did not assign an id for resource %s. Setting random id: %s", resourceTypeToken, id)
+	outputs["id"] = id
 	return outputs
 }
 
