@@ -1,3 +1,8 @@
+## 0.0.16
+
+Fixes creation failure for resources that don't
+have a server-assigned id in the outputs map.
+
 ## 0.0.15
 
 The `SecretsUpdate` resource has been renamed to
