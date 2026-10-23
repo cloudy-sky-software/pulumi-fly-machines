@@ -95,6 +95,7 @@ func (p *flyMachinesProvider) OnPreCreate(_ context.Context, req *pulumirpc.Crea
 		return nil
 	case req.GetType() == secretsTypeToken:
 		handleCreateSecretsRequest(httpReq)
+		return nil
 	}
 
 	return nil
@@ -116,9 +117,15 @@ func (p *flyMachinesProvider) OnPostCreate(_ context.Context, req *pulumirpc.Cre
 // OnPreUpdate is called by the provider framework before the update
 // HTTP request is sent.
 func (p *flyMachinesProvider) OnPreUpdate(_ context.Context, updateReq *pulumirpc.UpdateRequest, httpReq *http.Request) error {
-	if updateReq.GetType() != machineTypeToken {
-		return nil
+	switch updateReq.GetType() {
+	case machineTypeToken:
+		return handleUpdateMachineRequest(httpReq, updateReq)
+	case secretsTypeToken:
+		// Secrets resource doesn't have a dedicated update endpoint,
+		// so we faked a PATCH endpoint to conform to the CRUD lifecycle.
+		// The POST endpoint does an upsert on the server-side.
+		httpReq.Method = http.MethodPost
 	}
 
-	return handleUpdateMachineRequest(httpReq, updateReq)
+	return nil
 }
