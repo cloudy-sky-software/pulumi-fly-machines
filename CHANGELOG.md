@@ -1,3 +1,12 @@
+## 0.0.18
+
+- Fixes read failure for resources that don't have
+  a "get by id" endpoint.
+- The "fix" that was supposed to be included in
+  `v0.0.17` for the `Secrets` resource was ineffective
+  due to a bug in the API spec patching. This is now
+  for real fixed in this version.
+
 ## 0.0.17
 
 Fixes failure during `Secrets` resource update.
