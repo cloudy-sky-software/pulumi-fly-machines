@@ -22,6 +22,12 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         [Input("create")]
         public Input<Inputs.SecretsCreateQueryParamsArgs>? Create { get; set; }
 
+        /// <summary>
+        /// Query params for the update operation.
+        /// </summary>
+        [Input("update")]
+        public Input<Inputs.SecretsUpdateQueryParamsArgs>? Update { get; set; }
+
         public SecretsQueryParamsArgs()
         {
         }
