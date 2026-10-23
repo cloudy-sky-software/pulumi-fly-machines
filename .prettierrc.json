@@ -1,7 +1,7 @@
 {
   "overrides": [
     {
-      "files": [".github/workflows/*.yml"],
+      "files": [".github/workflows/*.yml", "**/Pulumi*.yaml"],
       "options": {
         "tabWidth": 2
       }
