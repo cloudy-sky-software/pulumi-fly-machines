@@ -1,3 +1,7 @@
+## 0.0.17
+
+Fixes failure during `Secrets` resource update.
+
 ## 0.0.16
 
 Fixes creation failure for resources that don't
