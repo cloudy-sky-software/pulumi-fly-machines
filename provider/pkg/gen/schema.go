@@ -101,6 +101,7 @@ func PulumiSchema(openapiDoc openapi3.T) (pschema.PackageSpec, openapigen.Provid
 			// AppIPAssignment assigns an IP to an app.
 			"fly-machines:apps/v1:AppIPAssignment",
 			"fly-machines:apps/v1:AppCertificatesCheck",
+			"fly-machines:apps/v1:MachinesReclaimMemory",
 			"fly-machines:apps/v1:MachinesRestart",
 			"fly-machines:apps/v1:MachinesSignal",
 			"fly-machines:apps/v1:MachinesStart",
@@ -110,6 +111,14 @@ func PulumiSchema(openapiDoc openapi3.T) (pschema.PackageSpec, openapigen.Provid
 			// PostgresAttachment attaches a Postgres cluster
 			// to an app.
 			"fly-machines:postgres/v1:PostgresAttachment",
+			"fly-machines:postgres/v1:PostgresBackup",
+			"fly-machines:postgres/v1:PostgresDatabase",
+			"fly-machines:postgres/v1:PostgresExtension",
+			"fly-machines:postgres/v1:PostgresFork",
+			"fly-machines:postgres/v1:PostgresRestore",
+			"fly-machines:postgres/v1:PostgresUser",
+			"fly-machines:postgres/v1:PostgresUsersRotatePassword",
+			"fly-machines:apps/v1:VolumeSnapshot",
 		},
 		Exclusions: []exclusions.Exclusion{
 			// DELETE /v1/apps/{app_name}/certificates/{hostname} simply
