@@ -4985,6 +4985,37 @@ paths:
             summary: List app secrets belonging to an app
             tags:
                 - Secrets
+        patch:
+            description: 'Running Machines don''t pick up the change on their own: create or update Machines with `min_secrets_version` set to the returned `version` for them to see it.'
+            operationId: Secrets_update
+            parameters:
+                - description: Fly App Name
+                  in: path
+                  name: app_name
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/AppSecretsUpdateRequest'
+                description: Update app secret request, with values to set, or nil to unset
+                required: true
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AppSecretsUpdateResp'
+                    description: OK
+                "400":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ErrorResponse'
+                    description: Bad Request
+            summary: Update app secrets belonging to an app
         post:
             description: 'Running Machines don''t pick up the change on their own: create or update Machines with `min_secrets_version` set to the returned `version` for them to see it.'
             operationId: Secrets_create

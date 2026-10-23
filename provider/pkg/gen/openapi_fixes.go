@@ -180,6 +180,8 @@ func fixSecretsEndpoint(openAPIDoc *openapi3.T) {
 	contract.Assertf(pathItem.Post != nil, "Expected to find a non-nil POST method in /v1/apps/{app_name}/secrets")
 	pathItem.Post.OperationID = "Secrets_create"
 
+	// Generate a PATCH operation from POST
+	// and assign it to this path item.
 	patchOp := openapi3.NewOperation()
 	patchOp.Description = pathItem.Post.Description
 	patchOp.OperationID = "Secrets_update"
@@ -187,4 +189,6 @@ func fixSecretsEndpoint(openAPIDoc *openapi3.T) {
 	patchOp.RequestBody = pathItem.Post.RequestBody
 	patchOp.Responses = pathItem.Post.Responses
 	patchOp.Summary = pathItem.Post.Summary
+
+	pathItem.Patch = patchOp
 }

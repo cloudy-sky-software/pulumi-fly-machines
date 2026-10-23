@@ -284,6 +284,8 @@ __all__ = [
     'SecretsCreateQueryParamsArgsDict',
     'SecretsQueryParamsArgs',
     'SecretsQueryParamsArgsDict',
+    'SecretsUpdateQueryParamsArgs',
+    'SecretsUpdateQueryParamsArgsDict',
     'VolumeCreateQueryParamsArgs',
     'VolumeCreateQueryParamsArgsDict',
     'VolumeDeleteQueryParamsArgs',
@@ -8767,18 +8769,26 @@ class SecretsQueryParamsArgsDict(TypedDict):
     """
     Query params for the create operation.
     """
+    update: NotRequired[pulumi.Input[Optional['SecretsUpdateQueryParamsArgsDict']]]
+    """
+    Query params for the update operation.
+    """
 
 @pulumi.input_type
 class SecretsQueryParamsArgs:
     def __init__(__self__, *,
-                 create: pulumi.Input[Optional['SecretsCreateQueryParamsArgs']] = None):
+                 create: pulumi.Input[Optional['SecretsCreateQueryParamsArgs']] = None,
+                 update: pulumi.Input[Optional['SecretsUpdateQueryParamsArgs']] = None):
         """
         Query params for each of the operations of the resource.
 
         :param pulumi.Input['SecretsCreateQueryParamsArgs'] create: Query params for the create operation.
+        :param pulumi.Input['SecretsUpdateQueryParamsArgs'] update: Query params for the update operation.
         """
         if create is not None:
             pulumi.set(__self__, "create", create)
+        if update is not None:
+            pulumi.set(__self__, "update", update)
 
     @_builtins.property
     @pulumi.getter
@@ -8791,6 +8801,52 @@ class SecretsQueryParamsArgs:
     @create.setter
     def create(self, value: pulumi.Input[Optional['SecretsCreateQueryParamsArgs']]):
         pulumi.set(self, "create", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def update(self) -> pulumi.Input[Optional['SecretsUpdateQueryParamsArgs']]:
+        """
+        Query params for the update operation.
+        """
+        return pulumi.get(self, "update")
+
+    @update.setter
+    def update(self, value: pulumi.Input[Optional['SecretsUpdateQueryParamsArgs']]):
+        pulumi.set(self, "update", value)
+
+
+class SecretsUpdateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class SecretsUpdateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
 
 
 class VolumeCreateQueryParamsArgsDict(TypedDict):

@@ -21,11 +21,19 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         /// Query params for the create operation.
         /// </summary>
         public readonly Outputs.SecretsCreateQueryParams? Create;
+        /// <summary>
+        /// Query params for the update operation.
+        /// </summary>
+        public readonly Outputs.SecretsUpdateQueryParams? Update;
 
         [OutputConstructor]
-        private SecretsQueryParams(Outputs.SecretsCreateQueryParams? create)
+        private SecretsQueryParams(
+            Outputs.SecretsCreateQueryParams? create,
+
+            Outputs.SecretsUpdateQueryParams? update)
         {
             Create = create;
+            Update = update;
         }
     }
 }
