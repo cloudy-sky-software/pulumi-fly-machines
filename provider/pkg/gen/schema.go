@@ -100,6 +100,7 @@ func PulumiSchema(openapiDoc openapi3.T) (pschema.PackageSpec, openapigen.Provid
 		AllowedResourcesWithoutReadEndpoint: []string{
 			// AppIPAssignment assigns an IP to an app.
 			"fly-machines:apps/v1:AppIPAssignment",
+			"fly-machines:apps/v1:AppCertificatesCheck",
 			"fly-machines:apps/v1:MachinesRestart",
 			"fly-machines:apps/v1:MachinesSignal",
 			"fly-machines:apps/v1:MachinesStart",

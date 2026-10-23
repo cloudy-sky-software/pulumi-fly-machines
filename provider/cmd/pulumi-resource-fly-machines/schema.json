@@ -3850,6 +3850,23 @@
                 "create": {
                     "$ref": "#/types/fly-machines:apps/v1:SecretsCreateQueryParams",
                     "description": "Query params for the create operation."
+                },
+                "update": {
+                    "$ref": "#/types/fly-machines:apps/v1:SecretsUpdateQueryParams",
+                    "description": "Query params for the update operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:SecretsUpdateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
                 }
             },
             "type": "object"
