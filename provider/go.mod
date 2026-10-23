@@ -3,14 +3,14 @@ module github.com/cloudy-sky-software/pulumi-fly-machines/provider
 go 1.27
 
 require (
-	github.com/cloudy-sky-software/pulschema v0.0.0-20261022160401-e6808fff879f
-	github.com/cloudy-sky-software/pulumi-provider-framework v0.0.0-20261022210326-c3d1f9124501
+	github.com/cloudy-sky-software/pulschema v0.0.0-20261023145616-ce3ba437e1f7
+	github.com/cloudy-sky-software/pulumi-provider-framework v0.0.0-20261023210900-1bec7206769b
 	github.com/getkin/kin-openapi v0.152.0
 	github.com/google/uuid v1.6.0
 	github.com/pkg/errors v0.9.1
 	github.com/pulumi/pulumi-dotnet/pulumi-language-dotnet/v3 v3.115.0
-	github.com/pulumi/pulumi/pkg/v3 v3.271.0
-	github.com/pulumi/pulumi/sdk/v3 v3.271.0
+	github.com/pulumi/pulumi/pkg/v3 v3.272.0
+	github.com/pulumi/pulumi/sdk/v3 v3.272.0
 	github.com/stretchr/testify v1.12.1
 	google.golang.org/protobuf v1.36.12
 	gopkg.in/yaml.v3 v3.0.1
