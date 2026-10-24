@@ -14,7 +14,8 @@ import (
 type App struct {
 	pulumi.CustomResourceState
 
-	CreatedAt        pulumi.IntPtrOutput  `pulumi:"createdAt"`
+	CreatedAt pulumi.IntPtrOutput `pulumi:"createdAt"`
+	// Request a wildcard TLS certificate for *.svc.<app-name>.fly.dev. Defaults to false. Certificate provisioning is asynchronous; this does not create services or configure their routing.
 	EnableSubdomains pulumi.BoolPtrOutput `pulumi:"enableSubdomains"`
 	// When set, makes a retry of this exact request safe: a
 	// second create with the same key and the same name (or no name) returns
@@ -23,9 +24,12 @@ type App struct {
 	// but a *different* name is rejected outright; it won't silently
 	// hand back the first app.
 	IdempotencyKey pulumi.StringPtrOutput `pulumi:"idempotencyKey"`
-	Name           pulumi.StringPtrOutput `pulumi:"name"`
-	Network        pulumi.StringPtrOutput `pulumi:"network"`
-	OrgSlug        pulumi.StringPtrOutput `pulumi:"orgSlug"`
+	// Globally unique name for the app. Required.
+	Name pulumi.StringPtrOutput `pulumi:"name"`
+	// Name of the organization's private network to attach the app to. Creates the network if it does not exist. Omit, use an empty string, or use "default" to select the organization's default network.
+	Network pulumi.StringPtrOutput `pulumi:"network"`
+	// Slug of the organization that will own the app, or "personal" for your personal organization. Required.
+	OrgSlug pulumi.StringPtrOutput `pulumi:"orgSlug"`
 	// Query params to send with the API requests for this resource.
 	QueryParams AppQueryParamsPtrOutput `pulumi:"queryParams"`
 }
@@ -70,6 +74,7 @@ func (AppState) ElementType() reflect.Type {
 }
 
 type appArgs struct {
+	// Request a wildcard TLS certificate for *.svc.<app-name>.fly.dev. Defaults to false. Certificate provisioning is asynchronous; this does not create services or configure their routing.
 	EnableSubdomains *bool `pulumi:"enableSubdomains"`
 	// When set, makes a retry of this exact request safe: a
 	// second create with the same key and the same name (or no name) returns
@@ -78,15 +83,19 @@ type appArgs struct {
 	// but a *different* name is rejected outright; it won't silently
 	// hand back the first app.
 	IdempotencyKey *string `pulumi:"idempotencyKey"`
-	Name           *string `pulumi:"name"`
-	Network        *string `pulumi:"network"`
-	OrgSlug        *string `pulumi:"orgSlug"`
+	// Globally unique name for the app. Required.
+	Name *string `pulumi:"name"`
+	// Name of the organization's private network to attach the app to. Creates the network if it does not exist. Omit, use an empty string, or use "default" to select the organization's default network.
+	Network *string `pulumi:"network"`
+	// Slug of the organization that will own the app, or "personal" for your personal organization. Required.
+	OrgSlug *string `pulumi:"orgSlug"`
 	// Query params to send with the API requests for this resource.
 	QueryParams *AppQueryParams `pulumi:"queryParams"`
 }
 
 // The set of arguments for constructing a App resource.
 type AppArgs struct {
+	// Request a wildcard TLS certificate for *.svc.<app-name>.fly.dev. Defaults to false. Certificate provisioning is asynchronous; this does not create services or configure their routing.
 	EnableSubdomains pulumi.BoolPtrInput
 	// When set, makes a retry of this exact request safe: a
 	// second create with the same key and the same name (or no name) returns
@@ -95,9 +104,12 @@ type AppArgs struct {
 	// but a *different* name is rejected outright; it won't silently
 	// hand back the first app.
 	IdempotencyKey pulumi.StringPtrInput
-	Name           pulumi.StringPtrInput
-	Network        pulumi.StringPtrInput
-	OrgSlug        pulumi.StringPtrInput
+	// Globally unique name for the app. Required.
+	Name pulumi.StringPtrInput
+	// Name of the organization's private network to attach the app to. Creates the network if it does not exist. Omit, use an empty string, or use "default" to select the organization's default network.
+	Network pulumi.StringPtrInput
+	// Slug of the organization that will own the app, or "personal" for your personal organization. Required.
+	OrgSlug pulumi.StringPtrInput
 	// Query params to send with the API requests for this resource.
 	QueryParams AppQueryParamsPtrInput
 }
@@ -143,6 +155,7 @@ func (o AppOutput) CreatedAt() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *App) pulumi.IntPtrOutput { return v.CreatedAt }).(pulumi.IntPtrOutput)
 }
 
+// Request a wildcard TLS certificate for *.svc.<app-name>.fly.dev. Defaults to false. Certificate provisioning is asynchronous; this does not create services or configure their routing.
 func (o AppOutput) EnableSubdomains() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *App) pulumi.BoolPtrOutput { return v.EnableSubdomains }).(pulumi.BoolPtrOutput)
 }
@@ -157,14 +170,17 @@ func (o AppOutput) IdempotencyKey() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *App) pulumi.StringPtrOutput { return v.IdempotencyKey }).(pulumi.StringPtrOutput)
 }
 
+// Globally unique name for the app. Required.
 func (o AppOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *App) pulumi.StringPtrOutput { return v.Name }).(pulumi.StringPtrOutput)
 }
 
+// Name of the organization's private network to attach the app to. Creates the network if it does not exist. Omit, use an empty string, or use "default" to select the organization's default network.
 func (o AppOutput) Network() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *App) pulumi.StringPtrOutput { return v.Network }).(pulumi.StringPtrOutput)
 }
 
+// Slug of the organization that will own the app, or "personal" for your personal organization. Required.
 func (o AppOutput) OrgSlug() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *App) pulumi.StringPtrOutput { return v.OrgSlug }).(pulumi.StringPtrOutput)
 }

@@ -30,12 +30,16 @@ class AppArgs:
         """
         The set of arguments for constructing a App resource.
 
+        :param pulumi.Input[_builtins.bool] enable_subdomains: Request a wildcard TLS certificate for *.svc.<app-name>.fly.dev. Defaults to false. Certificate provisioning is asynchronous; this does not create services or configure their routing.
         :param pulumi.Input[_builtins.str] idempotency_key: When set, makes a retry of this exact request safe: a
                second create with the same key and the same name (or no name) returns
                the app the first request created, instead of erroring on a false name
                conflict or creating a duplicate. A second create with the same key
                but a *different* name is rejected outright; it won't silently
                hand back the first app.
+        :param pulumi.Input[_builtins.str] name: Globally unique name for the app. Required.
+        :param pulumi.Input[_builtins.str] network: Name of the organization's private network to attach the app to. Creates the network if it does not exist. Omit, use an empty string, or use "default" to select the organization's default network.
+        :param pulumi.Input[_builtins.str] org_slug: Slug of the organization that will own the app, or "personal" for your personal organization. Required.
         :param pulumi.Input['AppQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         """
         if enable_subdomains is not None:
@@ -54,6 +58,9 @@ class AppArgs:
     @_builtins.property
     @pulumi.getter(name="enableSubdomains")
     def enable_subdomains(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Request a wildcard TLS certificate for *.svc.<app-name>.fly.dev. Defaults to false. Certificate provisioning is asynchronous; this does not create services or configure their routing.
+        """
         return pulumi.get(self, "enable_subdomains")
 
     @enable_subdomains.setter
@@ -80,6 +87,9 @@ class AppArgs:
     @_builtins.property
     @pulumi.getter
     def name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Globally unique name for the app. Required.
+        """
         return pulumi.get(self, "name")
 
     @name.setter
@@ -89,6 +99,9 @@ class AppArgs:
     @_builtins.property
     @pulumi.getter
     def network(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Name of the organization's private network to attach the app to. Creates the network if it does not exist. Omit, use an empty string, or use "default" to select the organization's default network.
+        """
         return pulumi.get(self, "network")
 
     @network.setter
@@ -98,6 +111,9 @@ class AppArgs:
     @_builtins.property
     @pulumi.getter(name="orgSlug")
     def org_slug(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Slug of the organization that will own the app, or "personal" for your personal organization. Required.
+        """
         return pulumi.get(self, "org_slug")
 
     @org_slug.setter
@@ -135,12 +151,16 @@ class App(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[_builtins.bool] enable_subdomains: Request a wildcard TLS certificate for *.svc.<app-name>.fly.dev. Defaults to false. Certificate provisioning is asynchronous; this does not create services or configure their routing.
         :param pulumi.Input[_builtins.str] idempotency_key: When set, makes a retry of this exact request safe: a
                second create with the same key and the same name (or no name) returns
                the app the first request created, instead of erroring on a false name
                conflict or creating a duplicate. A second create with the same key
                but a *different* name is rejected outright; it won't silently
                hand back the first app.
+        :param pulumi.Input[_builtins.str] name: Globally unique name for the app. Required.
+        :param pulumi.Input[_builtins.str] network: Name of the organization's private network to attach the app to. Creates the network if it does not exist. Omit, use an empty string, or use "default" to select the organization's default network.
+        :param pulumi.Input[_builtins.str] org_slug: Slug of the organization that will own the app, or "personal" for your personal organization. Required.
         :param pulumi.Input[Union['AppQueryParamsArgs', 'AppQueryParamsArgsDict', 'outputs.AppQueryParams']] query_params: Query params to send with the API requests for this resource.
         """
         ...
@@ -228,6 +248,9 @@ class App(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter(name="enableSubdomains")
     def enable_subdomains(self) -> pulumi.Output[Optional[_builtins.bool]]:
+        """
+        Request a wildcard TLS certificate for *.svc.<app-name>.fly.dev. Defaults to false. Certificate provisioning is asynchronous; this does not create services or configure their routing.
+        """
         return pulumi.get(self, "enable_subdomains")
 
     @_builtins.property
@@ -246,16 +269,25 @@ class App(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter
     def name(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Globally unique name for the app. Required.
+        """
         return pulumi.get(self, "name")
 
     @_builtins.property
     @pulumi.getter
     def network(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Name of the organization's private network to attach the app to. Creates the network if it does not exist. Omit, use an empty string, or use "default" to select the organization's default network.
+        """
         return pulumi.get(self, "network")
 
     @_builtins.property
     @pulumi.getter(name="orgSlug")
     def org_slug(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Slug of the organization that will own the app, or "personal" for your personal organization. Required.
+        """
         return pulumi.get(self, "org_slug")
 
     @_builtins.property

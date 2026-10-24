@@ -16,6 +16,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Output("createdAt")]
         public Output<int?> CreatedAt { get; private set; } = null!;
 
+        /// <summary>
+        /// Request a wildcard TLS certificate for *.svc.&lt;app-name&gt;.fly.dev. Defaults to false. Certificate provisioning is asynchronous; this does not create services or configure their routing.
+        /// </summary>
         [Output("enableSubdomains")]
         public Output<bool?> EnableSubdomains { get; private set; } = null!;
 
@@ -30,12 +33,21 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Output("idempotencyKey")]
         public Output<string?> IdempotencyKey { get; private set; } = null!;
 
+        /// <summary>
+        /// Globally unique name for the app. Required.
+        /// </summary>
         [Output("name")]
         public Output<string?> Name { get; private set; } = null!;
 
+        /// <summary>
+        /// Name of the organization's private network to attach the app to. Creates the network if it does not exist. Omit, use an empty string, or use "default" to select the organization's default network.
+        /// </summary>
         [Output("network")]
         public Output<string?> Network { get; private set; } = null!;
 
+        /// <summary>
+        /// Slug of the organization that will own the app, or "personal" for your personal organization. Required.
+        /// </summary>
         [Output("orgSlug")]
         public Output<string?> OrgSlug { get; private set; } = null!;
 
@@ -91,6 +103,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
 
     public sealed class AppArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Request a wildcard TLS certificate for *.svc.&lt;app-name&gt;.fly.dev. Defaults to false. Certificate provisioning is asynchronous; this does not create services or configure their routing.
+        /// </summary>
         [Input("enableSubdomains")]
         public Input<bool>? EnableSubdomains { get; set; }
 
@@ -105,12 +120,21 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Input("idempotencyKey")]
         public Input<string>? IdempotencyKey { get; set; }
 
+        /// <summary>
+        /// Globally unique name for the app. Required.
+        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
+        /// <summary>
+        /// Name of the organization's private network to attach the app to. Creates the network if it does not exist. Omit, use an empty string, or use "default" to select the organization's default network.
+        /// </summary>
         [Input("network")]
         public Input<string>? Network { get; set; }
 
+        /// <summary>
+        /// Slug of the organization that will own the app, or "personal" for your personal organization. Required.
+        /// </summary>
         [Input("orgSlug")]
         public Input<string>? OrgSlug { get; set; }
 
