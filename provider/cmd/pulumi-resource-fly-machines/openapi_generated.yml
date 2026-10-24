@@ -254,6 +254,7 @@ components:
         CreateAppRequest:
             properties:
                 enable_subdomains:
+                    description: Request a wildcard TLS certificate for *.svc.<app-name>.fly.dev. Defaults to false. Certificate provisioning is asynchronous; this does not create services or configure their routing.
                     type: boolean
                 idempotency_key:
                     description: |-
@@ -265,10 +266,13 @@ components:
                         hand back the first app.
                     type: string
                 name:
+                    description: Globally unique name for the app. Required.
                     type: string
                 network:
+                    description: Name of the organization's private network to attach the app to. Creates the network if it does not exist. Omit, use an empty string, or use "default" to select the organization's default network.
                     type: string
                 org_slug:
+                    description: Slug of the organization that will own the app, or "personal" for your personal organization. Required.
                     type: string
             type: object
         CreateAppResponse:

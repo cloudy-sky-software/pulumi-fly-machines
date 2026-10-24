@@ -35,6 +35,9 @@ export class App extends pulumi.CustomResource {
     }
 
     declare public /*out*/ readonly createdAt: pulumi.Output<number | undefined>;
+    /**
+     * Request a wildcard TLS certificate for *.svc.<app-name>.fly.dev. Defaults to false. Certificate provisioning is asynchronous; this does not create services or configure their routing.
+     */
     declare public readonly enableSubdomains: pulumi.Output<boolean | undefined>;
     /**
      * When set, makes a retry of this exact request safe: a
@@ -45,8 +48,17 @@ export class App extends pulumi.CustomResource {
      * hand back the first app.
      */
     declare public readonly idempotencyKey: pulumi.Output<string | undefined>;
+    /**
+     * Globally unique name for the app. Required.
+     */
     declare public readonly name: pulumi.Output<string | undefined>;
+    /**
+     * Name of the organization's private network to attach the app to. Creates the network if it does not exist. Omit, use an empty string, or use "default" to select the organization's default network.
+     */
     declare public readonly network: pulumi.Output<string | undefined>;
+    /**
+     * Slug of the organization that will own the app, or "personal" for your personal organization. Required.
+     */
     declare public readonly orgSlug: pulumi.Output<string | undefined>;
     /**
      * Query params to send with the API requests for this resource.
@@ -89,6 +101,9 @@ export class App extends pulumi.CustomResource {
  * The set of arguments for constructing a App resource.
  */
 export interface AppArgs {
+    /**
+     * Request a wildcard TLS certificate for *.svc.<app-name>.fly.dev. Defaults to false. Certificate provisioning is asynchronous; this does not create services or configure their routing.
+     */
     enableSubdomains?: pulumi.Input<boolean | undefined>;
     /**
      * When set, makes a retry of this exact request safe: a
@@ -99,8 +114,17 @@ export interface AppArgs {
      * hand back the first app.
      */
     idempotencyKey?: pulumi.Input<string | undefined>;
+    /**
+     * Globally unique name for the app. Required.
+     */
     name?: pulumi.Input<string | undefined>;
+    /**
+     * Name of the organization's private network to attach the app to. Creates the network if it does not exist. Omit, use an empty string, or use "default" to select the organization's default network.
+     */
     network?: pulumi.Input<string | undefined>;
+    /**
+     * Slug of the organization that will own the app, or "personal" for your personal organization. Required.
+     */
     orgSlug?: pulumi.Input<string | undefined>;
     /**
      * Query params to send with the API requests for this resource.
