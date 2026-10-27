@@ -2,16 +2,11 @@ import * as pulumi from "@pulumi/pulumi";
 import * as fly from "@cloudyskysoftware/pulumi-fly-machines";
 
 import { appName, orgSlug } from "./config.js";
-import { dbCluster } from "./db.js";
+import { db, dbCluster, uuidExtension } from "./db.js";
 
 const app = new fly.apps.v1.App("myapp", {
   name: appName,
   orgSlug,
-});
-
-const ip = new fly.apps.v1.AppIPAssignment("app-ip", {
-  appName: app.name,
-  type: "shared_v4",
 });
 
 const machine = new fly.apps.v1.Machine(
@@ -24,29 +19,20 @@ const machine = new fly.apps.v1.Machine(
         cpus: 1,
         memoryMb: 256,
       },
-      init: {},
+      init: {
+        cmd: ["-d", db.name, "-c", "SELECT uuid_generate_v4()"],
+      },
       restart: {
-        maxRetries: 10,
+        maxRetries: 1,
         policy: "on-failure",
       },
       metadata: {
         fly_platform_version: "v2",
         fly_process_group: "app",
       },
-      image: "flyio/hellofly:latest",
-      services: [
-        {
-          ports: [
-            { port: 443, handlers: ["tls", "http"] },
-            { port: 80, handlers: ["http"] },
-          ],
-          protocol: "tcp",
-          internalPort: 8080,
-          autostop: "suspend",
-          autostart: true,
-          minMachinesRunning: 1,
-        },
-      ],
+      image: "alpine/psql:latest",
+      // Run every 5 minutes.
+      schedule: "*/5 * * * *",
     },
     queryParams: {
       delete: {
@@ -57,9 +43,7 @@ const machine = new fly.apps.v1.Machine(
       },
     },
   },
-  {
-    dependsOn: ip,
-  },
+  { dependsOn: [db, uuidExtension] },
 );
 
 // Attaching a cluster to an app automatically

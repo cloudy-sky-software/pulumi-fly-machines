@@ -11,7 +11,7 @@ export const dbCluster = new fly.postgres.v1.Postgres("db-cluster", {
   poolMode: "session",
 });
 
-const db = new fly.postgres.v1.PostgresDatabase(
+export const db = new fly.postgres.v1.PostgresDatabase(
   "db",
   {
     name: "custom-db",
@@ -22,7 +22,7 @@ const db = new fly.postgres.v1.PostgresDatabase(
 
 // Enable a supported Postgres extension.
 // https://docs.fly.io/postgres/extensions#supported-extensions
-new fly.postgres.v1.PostgresExtension(
+export const uuidExtension = new fly.postgres.v1.PostgresExtension(
   "pg-cron",
   {
     createSchema: true,
