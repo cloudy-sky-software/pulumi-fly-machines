@@ -20,6 +20,16 @@ export class PostgresExtension extends pulumi.CustomResource {
         return new PostgresExtension(name, undefined as any, { ...opts, id: id });
     }
 
+    /**
+     * Check whether an existing PostgresExtension resource with the given ID exists.
+     *
+     * @param id The _unique_ provider ID of the resource to check.
+     * @param opts Optional settings to control the behavior of the CustomResource.
+     */
+    public static exists(id: pulumi.Input<string>, opts?: pulumi.CustomResourceOptions): pulumi.Output<boolean> {
+        return pulumi.runtime.existsResource("fly-machines:postgres/v1:PostgresExtension", id, {}, { ...opts }, undefined);
+    }
+
     /** @internal */
     public static readonly __pulumiType = 'fly-machines:postgres/v1:PostgresExtension';
 
