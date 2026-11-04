@@ -120,26 +120,6 @@ func testMachineInputs(t *testing.T) map[string]any {
 	return inputs
 }
 
-// testMachineState returns the marshaled state of a Machine
-// resource as it would be stored by the engine after create.
-func testMachineState(t *testing.T, inputs map[string]any, version string) *structpb.Struct {
-	t.Helper()
-
-	outputs := make(map[string]any)
-	for k, v := range inputs {
-		outputs[k] = v
-	}
-	outputs["id"] = testMachineID
-	if version != "" {
-		outputs["version"] = version
-	}
-
-	s, err := plugin.MarshalProperties(state.GetResourceState(outputs, resource.NewPropertyMapFromMap(inputs)), state.DefaultMarshalOpts)
-	require.NoError(t, err)
-
-	return s
-}
-
 func marshalInputs(t *testing.T, inputs map[string]any) *structpb.Struct {
 	t.Helper()
 
@@ -166,16 +146,19 @@ func TestDiff(t *testing.T) {
 
 	p := makeTestProvider(ctx, t, "http://localhost:8080")
 
-	olds := testMachineInputs(t)
+	oldInputs := testMachineInputs(t)
 	news := testMachineInputs(t)
 	news["config"].(map[string]any)["image"] = "registry-1.docker.io/library/nginx:1.27"
 
 	resp, err := p.Diff(ctx, &pulumirpc.DiffRequest{
-		Id:        testMachineID,
-		Urn:       testMachineURN,
-		Type:      testMachineTyp,
-		Olds:      testMachineState(t, olds, testVersion),
-		OldInputs: marshalInputs(t, olds),
+		Id:   testMachineID,
+		Urn:  testMachineURN,
+		Type: testMachineTyp,
+		Olds: marshalInputs(t, map[string]any{
+			"id":      testMachineID,
+			"appName": resource.MakeOutput(resource.NewPropertyValue(testAppName)),
+		}),
+		OldInputs: marshalInputs(t, oldInputs),
 		News:      marshalInputs(t, news),
 	})
 	require.NoError(t, err)
@@ -267,7 +250,10 @@ func TestOnPreUpdate(t *testing.T) {
 				Id:   testMachineID,
 				Urn:  testMachineURN,
 				Type: tt.resourceType,
-				Olds: testMachineState(t, testMachineInputs(t), tt.version),
+				Olds: marshalInputs(t, map[string]any{
+					"id":      testMachineID,
+					"version": tt.version,
+				}),
 			}
 
 			p := &flyMachinesProvider{}
@@ -332,10 +318,13 @@ func TestUpdateMachine(t *testing.T) {
 	news["config"].(map[string]any)["image"] = "registry-1.docker.io/library/nginx:1.27"
 
 	_, err := p.Update(ctx, &pulumirpc.UpdateRequest{
-		Id:        testMachineID,
-		Urn:       testMachineURN,
-		Type:      testMachineTyp,
-		Olds:      testMachineState(t, olds, testVersion),
+		Id:   testMachineID,
+		Urn:  testMachineURN,
+		Type: testMachineTyp,
+		Olds: marshalInputs(t, map[string]any{
+			"id":      testMachineID,
+			"version": testVersion,
+		}),
 		OldInputs: marshalInputs(t, olds),
 		News:      marshalInputs(t, news),
 	})
