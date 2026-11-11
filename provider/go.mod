@@ -8,7 +8,7 @@ require (
 	github.com/getkin/kin-openapi v0.152.0
 	github.com/google/uuid v1.6.0
 	github.com/pkg/errors v0.9.1
-	github.com/pulumi/pulumi-dotnet/pulumi-language-dotnet/v3 v3.116.2
+	github.com/pulumi/pulumi-dotnet/pulumi-language-dotnet/v3 v3.118.0
 	github.com/pulumi/pulumi/pkg/v3 v3.273.0
 	github.com/pulumi/pulumi/sdk/v3 v3.273.0
 	github.com/stretchr/testify v1.12.1
@@ -66,7 +66,7 @@ require (
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/kevinburke/ssh_config v1.6.0 // indirect
-	github.com/klauspost/compress v1.18.7 // indirect
+	github.com/klauspost/compress v1.20.2 // indirect
 	github.com/lucasb-eyer/go-colorful v1.4.1 // indirect
 	github.com/mattn/go-isatty v0.0.24 // indirect
 	github.com/mattn/go-localereader v0.0.1 // indirect
@@ -89,7 +89,7 @@ require (
 	github.com/pkg/term v1.1.0 // indirect
 	github.com/pulumi/appdash v0.0.0-20231130102222-75f619a67231 // indirect
 	github.com/pulumi/inflector v0.2.1 // indirect
-	github.com/pulumi/pulumi-cloud-sdk/go v1.20261027.1310 // indirect
+	github.com/pulumi/pulumi-cloud-sdk/go v1.20261103.0 // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
 	github.com/rogpeppe/go-internal v1.14.1 // indirect
 	github.com/sabhiram/go-gitignore v0.0.0-20210923224102-525f6e181f06 // indirect
