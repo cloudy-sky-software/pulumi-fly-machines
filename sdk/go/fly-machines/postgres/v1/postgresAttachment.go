@@ -64,6 +64,12 @@ func (PostgresAttachmentState) ElementType() reflect.Type {
 	return reflect.TypeOf((*postgresAttachmentState)(nil)).Elem()
 }
 
+// PostgresAttachmentExists checks whether an existing PostgresAttachment resource with the given ID exists.
+func PostgresAttachmentExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *PostgresAttachmentState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:postgres/v1:PostgresAttachment", id, state, "", opts...)
+}
+
 type postgresAttachmentArgs struct {
 	// Name of the Fly app to attach.
 	AppName string `pulumi:"appName"`

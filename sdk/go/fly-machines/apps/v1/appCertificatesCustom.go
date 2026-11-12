@@ -69,6 +69,12 @@ func (AppCertificatesCustomState) ElementType() reflect.Type {
 	return reflect.TypeOf((*appCertificatesCustomState)(nil)).Elem()
 }
 
+// AppCertificatesCustomExists checks whether an existing AppCertificatesCustom resource with the given ID exists.
+func AppCertificatesCustomExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *AppCertificatesCustomState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:apps/v1:AppCertificatesCustom", id, state, "", opts...)
+}
+
 type appCertificatesCustomArgs struct {
 	// Fly App Name
 	AppName    *string `pulumi:"appName"`

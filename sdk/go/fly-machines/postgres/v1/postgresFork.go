@@ -62,6 +62,12 @@ func (PostgresForkState) ElementType() reflect.Type {
 	return reflect.TypeOf((*postgresForkState)(nil)).Elem()
 }
 
+// PostgresForkExists checks whether an existing PostgresFork resource with the given ID exists.
+func PostgresForkExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *PostgresForkState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:postgres/v1:PostgresFork", id, state, "", opts...)
+}
+
 type postgresForkArgs struct {
 	// Name for the forked cluster. Defaults to the source name with a -fork suffix.
 	Name *string `pulumi:"name"`

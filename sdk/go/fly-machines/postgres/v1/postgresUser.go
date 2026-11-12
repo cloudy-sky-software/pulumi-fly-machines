@@ -70,6 +70,12 @@ func (PostgresUserState) ElementType() reflect.Type {
 	return reflect.TypeOf((*postgresUserState)(nil)).Elem()
 }
 
+// PostgresUserExists checks whether an existing PostgresUser resource with the given ID exists.
+func PostgresUserExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *PostgresUserState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:postgres/v1:PostgresUser", id, state, "", opts...)
+}
+
 type postgresUserArgs struct {
 	// Managed Postgres Cluster ID
 	PostgresClusterId *string `pulumi:"postgresClusterId"`

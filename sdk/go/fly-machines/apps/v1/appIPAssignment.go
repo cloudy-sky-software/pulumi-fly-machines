@@ -70,6 +70,12 @@ func (AppIPAssignmentState) ElementType() reflect.Type {
 	return reflect.TypeOf((*appIPAssignmentState)(nil)).Elem()
 }
 
+// AppIPAssignmentExists checks whether an existing AppIPAssignment resource with the given ID exists.
+func AppIPAssignmentExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *AppIPAssignmentState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:apps/v1:AppIPAssignment", id, state, "", opts...)
+}
+
 type appIPAssignmentArgs struct {
 	// Fly App Name
 	AppName *string `pulumi:"appName"`

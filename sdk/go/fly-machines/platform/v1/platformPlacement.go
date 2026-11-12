@@ -75,6 +75,12 @@ func (PlatformPlacementState) ElementType() reflect.Type {
 	return reflect.TypeOf((*platformPlacementState)(nil)).Elem()
 }
 
+// PlatformPlacementExists checks whether an existing PlatformPlacement resource with the given ID exists.
+func PlatformPlacementExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *PlatformPlacementState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:platform/v1:PlatformPlacement", id, state, "", opts...)
+}
+
 type platformPlacementArgs struct {
 	// Resource requirements for the Machine to simulate. Defaults to a performance-1x machine
 	Compute *Compute `pulumi:"compute"`

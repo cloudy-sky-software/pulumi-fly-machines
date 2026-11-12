@@ -64,6 +64,12 @@ func (SecretkeyState) ElementType() reflect.Type {
 	return reflect.TypeOf((*secretkeyState)(nil)).Elem()
 }
 
+// SecretkeyExists checks whether an existing Secretkey resource with the given ID exists.
+func SecretkeyExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *SecretkeyState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:apps/v1:Secretkey", id, state, "", opts...)
+}
+
 type secretkeyArgs struct {
 	// Fly App Name
 	AppName *string `pulumi:"appName"`

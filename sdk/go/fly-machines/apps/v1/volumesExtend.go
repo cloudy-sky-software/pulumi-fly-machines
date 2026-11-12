@@ -60,6 +60,12 @@ func (VolumesExtendState) ElementType() reflect.Type {
 	return reflect.TypeOf((*volumesExtendState)(nil)).Elem()
 }
 
+// VolumesExtendExists checks whether an existing VolumesExtend resource with the given ID exists.
+func VolumesExtendExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *VolumesExtendState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:apps/v1:VolumesExtend", id, state, "", opts...)
+}
+
 type volumesExtendArgs struct {
 	// Fly App Name
 	AppName *string `pulumi:"appName"`

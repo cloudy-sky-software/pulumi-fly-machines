@@ -73,6 +73,12 @@ func (AppState) ElementType() reflect.Type {
 	return reflect.TypeOf((*appState)(nil)).Elem()
 }
 
+// AppExists checks whether an existing App resource with the given ID exists.
+func AppExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *AppState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:apps/v1:App", id, state, "", opts...)
+}
+
 type appArgs struct {
 	// Request a wildcard TLS certificate for *.svc.<app-name>.fly.dev. Defaults to false. Certificate provisioning is asynchronous; this does not create services or configure their routing.
 	EnableSubdomains *bool `pulumi:"enableSubdomains"`

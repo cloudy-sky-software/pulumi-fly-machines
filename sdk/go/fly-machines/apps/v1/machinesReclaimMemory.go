@@ -59,6 +59,12 @@ func (MachinesReclaimMemoryState) ElementType() reflect.Type {
 	return reflect.TypeOf((*machinesReclaimMemoryState)(nil)).Elem()
 }
 
+// MachinesReclaimMemoryExists checks whether an existing MachinesReclaimMemory resource with the given ID exists.
+func MachinesReclaimMemoryExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *MachinesReclaimMemoryState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:apps/v1:MachinesReclaimMemory", id, state, "", opts...)
+}
+
 type machinesReclaimMemoryArgs struct {
 	AmountMb *int `pulumi:"amountMb"`
 	// Fly App Name
