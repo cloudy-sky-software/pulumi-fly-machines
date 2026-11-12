@@ -160,6 +160,12 @@ class MachinesCordon(pulumi.CustomResource):
         __props__.__dict__["query_params"] = None
         return MachinesCordon(resource_name, opts=opts, __props__=__props__)
 
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        return pulumi.runtime.exists_resource(None, 'fly-machines:apps/v1:MachinesCordon', id, __props__, opts or pulumi.ResourceOptions())
+
     @_builtins.property
     @pulumi.getter
     def ok(self) -> pulumi.Output[Optional[_builtins.bool]]:

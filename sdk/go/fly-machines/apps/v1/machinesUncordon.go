@@ -58,6 +58,12 @@ func (MachinesUncordonState) ElementType() reflect.Type {
 	return reflect.TypeOf((*machinesUncordonState)(nil)).Elem()
 }
 
+// MachinesUncordonExists checks whether an existing MachinesUncordon resource with the given ID exists.
+func MachinesUncordonExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *MachinesUncordonState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:apps/v1:MachinesUncordon", id, state, "", opts...)
+}
+
 type machinesUncordonArgs struct {
 	// Fly App Name
 	AppName *string `pulumi:"appName"`

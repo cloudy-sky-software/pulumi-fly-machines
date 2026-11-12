@@ -69,6 +69,12 @@ func (MachinesLeaseState) ElementType() reflect.Type {
 	return reflect.TypeOf((*machinesLeaseState)(nil)).Elem()
 }
 
+// MachinesLeaseExists checks whether an existing MachinesLease resource with the given ID exists.
+func MachinesLeaseExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *MachinesLeaseState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:apps/v1:MachinesLease", id, state, "", opts...)
+}
+
 type machinesLeaseArgs struct {
 	// Fly App Name
 	AppName     *string `pulumi:"appName"`

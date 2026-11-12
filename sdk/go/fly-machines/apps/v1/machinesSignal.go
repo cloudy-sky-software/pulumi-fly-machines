@@ -59,6 +59,12 @@ func (MachinesSignalState) ElementType() reflect.Type {
 	return reflect.TypeOf((*machinesSignalState)(nil)).Elem()
 }
 
+// MachinesSignalExists checks whether an existing MachinesSignal resource with the given ID exists.
+func MachinesSignalExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *MachinesSignalState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:apps/v1:MachinesSignal", id, state, "", opts...)
+}
+
 type machinesSignalArgs struct {
 	// Fly App Name
 	AppName *string `pulumi:"appName"`

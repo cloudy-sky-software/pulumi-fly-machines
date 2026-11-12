@@ -57,6 +57,12 @@ func (TokensRequestKmState) ElementType() reflect.Type {
 	return reflect.TypeOf((*tokensRequestKmState)(nil)).Elem()
 }
 
+// TokensRequestKmExists checks whether an existing TokensRequestKm resource with the given ID exists.
+func TokensRequestKmExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *TokensRequestKmState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:tokens/v1:TokensRequestKm", id, state, "", opts...)
+}
+
 type tokensRequestKmArgs struct {
 	// Query params to send with the API requests for this resource.
 	QueryParams *TokensRequestKmQueryParams `pulumi:"queryParams"`

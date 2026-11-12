@@ -62,6 +62,12 @@ func (SecretsState) ElementType() reflect.Type {
 	return reflect.TypeOf((*secretsState)(nil)).Elem()
 }
 
+// SecretsExists checks whether an existing Secrets resource with the given ID exists.
+func SecretsExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *SecretsState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:apps/v1:Secrets", id, state, "", opts...)
+}
+
 type secretsArgs struct {
 	// Fly App Name
 	AppName *string `pulumi:"appName"`

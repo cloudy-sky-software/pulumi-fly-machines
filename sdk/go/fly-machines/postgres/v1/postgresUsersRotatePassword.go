@@ -60,6 +60,12 @@ func (PostgresUsersRotatePasswordState) ElementType() reflect.Type {
 	return reflect.TypeOf((*postgresUsersRotatePasswordState)(nil)).Elem()
 }
 
+// PostgresUsersRotatePasswordExists checks whether an existing PostgresUsersRotatePassword resource with the given ID exists.
+func PostgresUsersRotatePasswordExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *PostgresUsersRotatePasswordState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:postgres/v1:PostgresUsersRotatePassword", id, state, "", opts...)
+}
+
 type postgresUsersRotatePasswordArgs struct {
 	// Terminate the user's existing sessions after rotating.
 	KillSessions *bool `pulumi:"killSessions"`

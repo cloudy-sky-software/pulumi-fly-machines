@@ -60,6 +60,12 @@ func (MachinesMetadataState) ElementType() reflect.Type {
 	return reflect.TypeOf((*machinesMetadataState)(nil)).Elem()
 }
 
+// MachinesMetadataExists checks whether an existing MachinesMetadata resource with the given ID exists.
+func MachinesMetadataExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *MachinesMetadataState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:apps/v1:MachinesMetadata", id, state, "", opts...)
+}
+
 type machinesMetadataArgs struct {
 	// Fly App Name
 	AppName *string `pulumi:"appName"`

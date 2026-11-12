@@ -68,6 +68,12 @@ func (AppCertificatesCheckState) ElementType() reflect.Type {
 	return reflect.TypeOf((*appCertificatesCheckState)(nil)).Elem()
 }
 
+// AppCertificatesCheckExists checks whether an existing AppCertificatesCheck resource with the given ID exists.
+func AppCertificatesCheckExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *AppCertificatesCheckState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:apps/v1:AppCertificatesCheck", id, state, "", opts...)
+}
+
 type appCertificatesCheckArgs struct {
 	// Fly App Name
 	AppName *string `pulumi:"appName"`

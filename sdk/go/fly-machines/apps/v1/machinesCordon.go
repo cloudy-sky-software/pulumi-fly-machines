@@ -58,6 +58,12 @@ func (MachinesCordonState) ElementType() reflect.Type {
 	return reflect.TypeOf((*machinesCordonState)(nil)).Elem()
 }
 
+// MachinesCordonExists checks whether an existing MachinesCordon resource with the given ID exists.
+func MachinesCordonExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *MachinesCordonState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:apps/v1:MachinesCordon", id, state, "", opts...)
+}
+
 type machinesCordonArgs struct {
 	// Fly App Name
 	AppName *string `pulumi:"appName"`

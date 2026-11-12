@@ -58,6 +58,12 @@ func (MachinesSuspendState) ElementType() reflect.Type {
 	return reflect.TypeOf((*machinesSuspendState)(nil)).Elem()
 }
 
+// MachinesSuspendExists checks whether an existing MachinesSuspend resource with the given ID exists.
+func MachinesSuspendExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *MachinesSuspendState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:apps/v1:MachinesSuspend", id, state, "", opts...)
+}
+
 type machinesSuspendArgs struct {
 	// Fly App Name
 	AppName *string `pulumi:"appName"`

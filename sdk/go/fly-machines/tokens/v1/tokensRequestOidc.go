@@ -60,6 +60,12 @@ func (TokensRequestOidcState) ElementType() reflect.Type {
 	return reflect.TypeOf((*tokensRequestOidcState)(nil)).Elem()
 }
 
+// TokensRequestOidcExists checks whether an existing TokensRequestOidc resource with the given ID exists.
+func TokensRequestOidcExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *TokensRequestOidcState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:tokens/v1:TokensRequestOidc", id, state, "", opts...)
+}
+
 type tokensRequestOidcArgs struct {
 	Aud              *string `pulumi:"aud"`
 	AwsPrincipalTags *bool   `pulumi:"awsPrincipalTags"`

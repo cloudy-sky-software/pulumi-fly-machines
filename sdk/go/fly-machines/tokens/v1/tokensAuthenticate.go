@@ -58,6 +58,12 @@ func (TokensAuthenticateState) ElementType() reflect.Type {
 	return reflect.TypeOf((*tokensAuthenticateState)(nil)).Elem()
 }
 
+// TokensAuthenticateExists checks whether an existing TokensAuthenticate resource with the given ID exists.
+func TokensAuthenticateExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *TokensAuthenticateState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:tokens/v1:TokensAuthenticate", id, state, "", opts...)
+}
+
 type tokensAuthenticateArgs struct {
 	Header *string `pulumi:"header"`
 	// Query params to send with the API requests for this resource.

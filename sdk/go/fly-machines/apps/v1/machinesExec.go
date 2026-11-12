@@ -70,6 +70,12 @@ func (MachinesExecState) ElementType() reflect.Type {
 	return reflect.TypeOf((*machinesExecState)(nil)).Elem()
 }
 
+// MachinesExecExists checks whether an existing MachinesExec resource with the given ID exists.
+func MachinesExecExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *MachinesExecState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:apps/v1:MachinesExec", id, state, "", opts...)
+}
+
 type machinesExecArgs struct {
 	// Fly App Name
 	AppName *string `pulumi:"appName"`

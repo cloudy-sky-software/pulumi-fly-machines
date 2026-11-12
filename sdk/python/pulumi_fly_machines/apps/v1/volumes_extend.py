@@ -179,6 +179,12 @@ class VolumesExtend(pulumi.CustomResource):
         __props__.__dict__["volume"] = None
         return VolumesExtend(resource_name, opts=opts, __props__=__props__)
 
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        return pulumi.runtime.exists_resource(None, 'fly-machines:apps/v1:VolumesExtend', id, __props__, opts or pulumi.ResourceOptions())
+
     @_builtins.property
     @pulumi.getter(name="needsRestart")
     def needs_restart(self) -> pulumi.Output[Optional[_builtins.bool]]:

@@ -57,6 +57,12 @@ func (VolumeSnapshotState) ElementType() reflect.Type {
 	return reflect.TypeOf((*volumeSnapshotState)(nil)).Elem()
 }
 
+// VolumeSnapshotExists checks whether an existing VolumeSnapshot resource with the given ID exists.
+func VolumeSnapshotExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *VolumeSnapshotState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:apps/v1:VolumeSnapshot", id, state, "", opts...)
+}
+
 type volumeSnapshotArgs struct {
 	// Fly App Name
 	AppName *string `pulumi:"appName"`

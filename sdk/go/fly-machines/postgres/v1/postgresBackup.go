@@ -63,6 +63,12 @@ func (PostgresBackupState) ElementType() reflect.Type {
 	return reflect.TypeOf((*postgresBackupState)(nil)).Elem()
 }
 
+// PostgresBackupExists checks whether an existing PostgresBackup resource with the given ID exists.
+func PostgresBackupExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *PostgresBackupState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:postgres/v1:PostgresBackup", id, state, "", opts...)
+}
+
 type postgresBackupArgs struct {
 	// Managed Postgres Cluster ID
 	PostgresClusterId *string `pulumi:"postgresClusterId"`

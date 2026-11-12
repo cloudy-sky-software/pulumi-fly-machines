@@ -58,6 +58,12 @@ func (MachinesRestartState) ElementType() reflect.Type {
 	return reflect.TypeOf((*machinesRestartState)(nil)).Elem()
 }
 
+// MachinesRestartExists checks whether an existing MachinesRestart resource with the given ID exists.
+func MachinesRestartExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *MachinesRestartState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:apps/v1:MachinesRestart", id, state, "", opts...)
+}
+
 type machinesRestartArgs struct {
 	// Fly App Name
 	AppName *string `pulumi:"appName"`
