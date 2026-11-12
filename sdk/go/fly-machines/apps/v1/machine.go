@@ -92,6 +92,12 @@ func (MachineState) ElementType() reflect.Type {
 	return reflect.TypeOf((*machineState)(nil)).Elem()
 }
 
+// MachineExists checks whether an existing Machine resource with the given ID exists.
+func MachineExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *MachineState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:apps/v1:Machine", id, state, "", opts...)
+}
+
 type machineArgs struct {
 	// Fly App Name
 	AppName *string `pulumi:"appName"`

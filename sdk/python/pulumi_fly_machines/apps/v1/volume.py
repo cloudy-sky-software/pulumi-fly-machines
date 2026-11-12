@@ -392,6 +392,12 @@ class Volume(pulumi.CustomResource):
         __props__.__dict__["zone"] = None
         return Volume(resource_name, opts=opts, __props__=__props__)
 
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        return pulumi.runtime.exists_resource(None, 'fly-machines:apps/v1:Volume', id, __props__, opts or pulumi.ResourceOptions())
+
     @_builtins.property
     @pulumi.getter(name="attachedAllocId")
     def attached_alloc_id(self) -> pulumi.Output[Optional[_builtins.str]]:

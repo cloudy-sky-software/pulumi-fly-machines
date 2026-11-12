@@ -61,6 +61,12 @@ func (PostgresDatabaseState) ElementType() reflect.Type {
 	return reflect.TypeOf((*postgresDatabaseState)(nil)).Elem()
 }
 
+// PostgresDatabaseExists checks whether an existing PostgresDatabase resource with the given ID exists.
+func PostgresDatabaseExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *PostgresDatabaseState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:postgres/v1:PostgresDatabase", id, state, "", opts...)
+}
+
 type postgresDatabaseArgs struct {
 	// Name of the database to create. Must start and end with an alphanumeric
 	// character and may contain hyphens and underscores, up to 63 characters.

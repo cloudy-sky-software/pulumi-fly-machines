@@ -64,6 +64,12 @@ func (SecretkeyGenerateState) ElementType() reflect.Type {
 	return reflect.TypeOf((*secretkeyGenerateState)(nil)).Elem()
 }
 
+// SecretkeyGenerateExists checks whether an existing SecretkeyGenerate resource with the given ID exists.
+func SecretkeyGenerateExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *SecretkeyGenerateState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:apps/v1:SecretkeyGenerate", id, state, "", opts...)
+}
+
 type secretkeyGenerateArgs struct {
 	// Fly App Name
 	AppName *string `pulumi:"appName"`

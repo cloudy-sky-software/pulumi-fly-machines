@@ -64,6 +64,12 @@ func (PostgresRestoreState) ElementType() reflect.Type {
 	return reflect.TypeOf((*postgresRestoreState)(nil)).Elem()
 }
 
+// PostgresRestoreExists checks whether an existing PostgresRestore resource with the given ID exists.
+func PostgresRestoreExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *PostgresRestoreState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:postgres/v1:PostgresRestore", id, state, "", opts...)
+}
+
 type postgresRestoreArgs struct {
 	// Backup label to restore from, as returned by the backups list. Mutually exclusive with pitr_time.
 	BackupId *string `pulumi:"backupId"`

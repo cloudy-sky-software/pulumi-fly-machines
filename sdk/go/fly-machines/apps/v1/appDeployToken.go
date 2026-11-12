@@ -59,6 +59,12 @@ func (AppDeployTokenState) ElementType() reflect.Type {
 	return reflect.TypeOf((*appDeployTokenState)(nil)).Elem()
 }
 
+// AppDeployTokenExists checks whether an existing AppDeployToken resource with the given ID exists.
+func AppDeployTokenExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *AppDeployTokenState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:apps/v1:AppDeployToken", id, state, "", opts...)
+}
+
 type appDeployTokenArgs struct {
 	// Fly App Name
 	AppName *string `pulumi:"appName"`

@@ -59,6 +59,12 @@ func (SecretkeyVerifyState) ElementType() reflect.Type {
 	return reflect.TypeOf((*secretkeyVerifyState)(nil)).Elem()
 }
 
+// SecretkeyVerifyExists checks whether an existing SecretkeyVerify resource with the given ID exists.
+func SecretkeyVerifyExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *SecretkeyVerifyState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:apps/v1:SecretkeyVerify", id, state, "", opts...)
+}
+
 type secretkeyVerifyArgs struct {
 	// Fly App Name
 	AppName   *string `pulumi:"appName"`

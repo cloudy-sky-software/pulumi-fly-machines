@@ -87,6 +87,12 @@ func (VolumeState) ElementType() reflect.Type {
 	return reflect.TypeOf((*volumeState)(nil)).Elem()
 }
 
+// VolumeExists checks whether an existing Volume resource with the given ID exists.
+func VolumeExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *VolumeState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:apps/v1:Volume", id, state, "", opts...)
+}
+
 type volumeArgs struct {
 	// Fly App Name
 	AppName *string `pulumi:"appName"`

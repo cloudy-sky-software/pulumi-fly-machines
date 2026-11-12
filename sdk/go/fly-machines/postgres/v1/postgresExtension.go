@@ -63,6 +63,12 @@ func (PostgresExtensionState) ElementType() reflect.Type {
 	return reflect.TypeOf((*postgresExtensionState)(nil)).Elem()
 }
 
+// PostgresExtensionExists checks whether an existing PostgresExtension resource with the given ID exists.
+func PostgresExtensionExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *PostgresExtensionState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:postgres/v1:PostgresExtension", id, state, "", opts...)
+}
+
 type postgresExtensionArgs struct {
 	// Create the schema first if it does not exist.
 	CreateSchema *bool `pulumi:"createSchema"`

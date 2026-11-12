@@ -59,6 +59,12 @@ func (MachinesMemoryLimitState) ElementType() reflect.Type {
 	return reflect.TypeOf((*machinesMemoryLimitState)(nil)).Elem()
 }
 
+// MachinesMemoryLimitExists checks whether an existing MachinesMemoryLimit resource with the given ID exists.
+func MachinesMemoryLimitExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *MachinesMemoryLimitState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:apps/v1:MachinesMemoryLimit", id, state, "", opts...)
+}
+
 type machinesMemoryLimitArgs struct {
 	// Fly App Name
 	AppName *string `pulumi:"appName"`

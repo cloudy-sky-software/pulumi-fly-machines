@@ -60,6 +60,12 @@ func (TokensAuthorizeState) ElementType() reflect.Type {
 	return reflect.TypeOf((*tokensAuthorizeState)(nil)).Elem()
 }
 
+// TokensAuthorizeExists checks whether an existing TokensAuthorize resource with the given ID exists.
+func TokensAuthorizeExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *TokensAuthorizeState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("fly-machines:tokens/v1:TokensAuthorize", id, state, "", opts...)
+}
+
 type tokensAuthorizeArgs struct {
 	Access *MainTokenAccess `pulumi:"access"`
 	Header *string          `pulumi:"header"`
