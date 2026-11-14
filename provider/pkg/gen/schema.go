@@ -113,6 +113,7 @@ func PulumiSchema(openapiDoc openapi3.T) (pschema.PackageSpec, openapigen.Provid
 			"fly-machines:postgres/v1:PostgresAttachment",
 			"fly-machines:postgres/v1:PostgresBackup",
 			"fly-machines:postgres/v1:PostgresDatabase",
+			"fly-machines:postgres/v1:PostgresDatabasesQuery",
 			"fly-machines:postgres/v1:PostgresExtension",
 			"fly-machines:postgres/v1:PostgresFork",
 			"fly-machines:postgres/v1:PostgresRestore",
