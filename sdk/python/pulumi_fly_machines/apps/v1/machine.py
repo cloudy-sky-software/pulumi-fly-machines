@@ -223,7 +223,7 @@ class Machine(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
-                 config: pulumi.Input[Optional[Union['ConfigArgs', 'ConfigArgsDict']]] = None,
+                 config: pulumi.Input[Optional[Union['ConfigArgs', 'ConfigArgsDict', 'outputs.Config']]] = None,
                  lease_ttl: pulumi.Input[Optional[_builtins.int]] = None,
                  min_secrets_version: pulumi.Input[Optional[_builtins.int]] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
@@ -239,7 +239,7 @@ class Machine(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
-        :param pulumi.Input[Union['ConfigArgs', 'ConfigArgsDict']] config: An object defining the Machine configuration
+        :param pulumi.Input[Union['ConfigArgs', 'ConfigArgsDict', 'outputs.Config']] config: An object defining the Machine configuration
         :param pulumi.Input[_builtins.int] lease_ttl: Acquire a lease on the new Machine that lasts this many seconds. The response's `nonce`
                field holds the lease nonce.
         :param pulumi.Input[_builtins.int] min_secrets_version: The minimum version of the app's secrets the Machine must run with. Set it to the `version`
@@ -288,7 +288,7 @@ class Machine(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
-                 config: pulumi.Input[Optional[Union['ConfigArgs', 'ConfigArgsDict']]] = None,
+                 config: pulumi.Input[Optional[Union['ConfigArgs', 'ConfigArgsDict', 'outputs.Config']]] = None,
                  lease_ttl: pulumi.Input[Optional[_builtins.int]] = None,
                  min_secrets_version: pulumi.Input[Optional[_builtins.int]] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
@@ -396,7 +396,7 @@ class Machine(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter
-    def config(self) -> pulumi.Output[Optional['outputs.MachineConfig']]:
+    def config(self) -> pulumi.Output[Optional['outputs.Config']]:
         """
         The Machine's configuration, as provided when it was created or last updated, with
         `metadata` and `mounts` reflecting their current values. Null when the host is not
@@ -452,7 +452,7 @@ class Machine(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="imageRef")
-    def image_ref(self) -> pulumi.Output[Optional['outputs.ImageRef']]:
+    def image_ref(self) -> pulumi.Output[Optional['outputs.MachineImageRef']]:
         """
         The image the Machine runs, as resolved when it was last created or updated.
         """
@@ -481,7 +481,7 @@ class Machine(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter
-    def lease(self) -> pulumi.Output[Optional['outputs.Lease']]:
+    def lease(self) -> pulumi.Output[Optional['outputs.MachineLease']]:
         """
         The lease currently held on the Machine. Only returned when `include_leases=true`
         was requested and a lease is held.

@@ -64,7 +64,7 @@ export class AppCertificatesCheck extends pulumi.CustomResource {
     /**
      * DNS records to create to point the hostname at the app and validate it.
      */
-    declare public /*out*/ readonly dnsRequirements: pulumi.Output<outputs.apps.v1.AppCertificatesCheckDnsRequirements | undefined>;
+    declare public /*out*/ readonly dnsRequirements: pulumi.Output<outputs.apps.v1.DnsRequirements | undefined>;
     /**
      * The hostname the certificate is for. May start with `*.` for a wildcard certificate.
      */
@@ -85,7 +85,7 @@ export class AppCertificatesCheck extends pulumi.CustomResource {
     /**
      * Which validation methods are currently possible.
      */
-    declare public /*out*/ readonly validation: pulumi.Output<outputs.apps.v1.AppCertificatesCheckValidation | undefined>;
+    declare public /*out*/ readonly validation: pulumi.Output<outputs.apps.v1.Validation | undefined>;
     /**
      * Problems found by the most recent validation.
      */

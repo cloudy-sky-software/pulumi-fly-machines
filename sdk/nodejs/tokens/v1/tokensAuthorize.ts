@@ -47,7 +47,7 @@ export class TokensAuthorize extends pulumi.CustomResource {
     /**
      * The requested access, with names resolved to IDs.
      */
-    declare public readonly access: pulumi.Output<outputs.tokens.v1.TokensAuthorizeAccess | undefined>;
+    declare public readonly access: pulumi.Output<outputs.tokens.v1.Access | undefined>;
     /**
      * Value of the Authorization header to verify, e.g. `FlyV1 fm2_...`.
      */

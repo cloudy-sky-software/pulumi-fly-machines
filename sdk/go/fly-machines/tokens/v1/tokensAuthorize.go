@@ -15,7 +15,7 @@ type TokensAuthorize struct {
 	pulumi.CustomResourceState
 
 	// The requested access, with names resolved to IDs.
-	Access TokensAuthorizeAccessPtrOutput `pulumi:"access"`
+	Access AccessPtrOutput `pulumi:"access"`
 	// Value of the Authorization header to verify, e.g. `FlyV1 fm2_...`.
 	Header pulumi.StringPtrOutput `pulumi:"header"`
 	// Query params to send with the API requests for this resource.
@@ -126,8 +126,8 @@ func (o TokensAuthorizeOutput) ToTokensAuthorizeOutputWithContext(ctx context.Co
 }
 
 // The requested access, with names resolved to IDs.
-func (o TokensAuthorizeOutput) Access() TokensAuthorizeAccessPtrOutput {
-	return o.ApplyT(func(v *TokensAuthorize) TokensAuthorizeAccessPtrOutput { return v.Access }).(TokensAuthorizeAccessPtrOutput)
+func (o TokensAuthorizeOutput) Access() AccessPtrOutput {
+	return o.ApplyT(func(v *TokensAuthorize) AccessPtrOutput { return v.Access }).(AccessPtrOutput)
 }
 
 // Value of the Authorization header to verify, e.g. `FlyV1 fm2_...`.

@@ -15,7 +15,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.PostgresV1.Outputs
     /// Connection endpoints. Populated once the cluster is ready.
     /// </summary>
     [OutputType]
-    public sealed class PostgresClusterEndpoints
+    public sealed class PostgresPostgresClusterEndpoints
     {
         /// <summary>
         /// Endpoints for connecting to the primary node.
@@ -23,7 +23,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.PostgresV1.Outputs
         public readonly Outputs.PostgresClusterEndpointsPrimary? Primary;
 
         [OutputConstructor]
-        private PostgresClusterEndpoints(Outputs.PostgresClusterEndpointsPrimary? primary)
+        private PostgresPostgresClusterEndpoints(Outputs.PostgresClusterEndpointsPrimary? primary)
         {
             Primary = primary;
         }

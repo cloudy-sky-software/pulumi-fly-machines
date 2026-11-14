@@ -27,7 +27,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         /// `incomplete_config`.
         /// </summary>
         [Output("config")]
-        public Output<Outputs.MachineConfig?> Config { get; private set; } = null!;
+        public Output<Outputs.Config?> Config { get; private set; } = null!;
 
         /// <summary>
         /// Whether the Machine is cordoned, meaning Fly Proxy does not route requests to it. See
@@ -68,7 +68,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         /// The image the Machine runs, as resolved when it was last created or updated.
         /// </summary>
         [Output("imageRef")]
-        public Output<Outputs.ImageRef?> ImageRef { get; private set; } = null!;
+        public Output<Outputs.MachineImageRef?> ImageRef { get; private set; } = null!;
 
         /// <summary>
         /// Last known configuration, returned in place of `config` when the host could not be
@@ -92,7 +92,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         /// was requested and a lease is held.
         /// </summary>
         [Output("lease")]
-        public Output<Outputs.Lease?> Lease { get; private set; } = null!;
+        public Output<Outputs.MachineLease?> Lease { get; private set; } = null!;
 
         /// <summary>
         /// Acquire a lease on the new Machine that lasts this many seconds. The response's `nonce`

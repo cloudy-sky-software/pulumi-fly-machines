@@ -19,18 +19,10 @@ from ._enums import *
 __all__ = [
     'App',
     'AppCertificatesAcmeCreateQueryParams',
-    'AppCertificatesAcmeDNSRequirementsAcmeChallenge',
-    'AppCertificatesAcmeDNSRequirementsOwnership',
     'AppCertificatesAcmeDeleteQueryParams',
-    'AppCertificatesAcmeDnsRequirements',
     'AppCertificatesAcmeQueryParams',
-    'AppCertificatesAcmeValidation',
     'AppCertificatesCheckCreateQueryParams',
-    'AppCertificatesCheckDNSRequirementsAcmeChallenge',
-    'AppCertificatesCheckDNSRequirementsOwnership',
-    'AppCertificatesCheckDnsRequirements',
     'AppCertificatesCheckQueryParams',
-    'AppCertificatesCheckValidation',
     'AppCertificatesCustomCreateQueryParams',
     'AppCertificatesCustomDeleteQueryParams',
     'AppCertificatesCustomQueryParams',
@@ -52,6 +44,7 @@ __all__ = [
     'CertificateValidationError',
     'CheckStatus',
     'Compute',
+    'Config',
     'DNSRecords',
     'DNSRequirementsAcmeChallenge',
     'DNSRequirementsOwnership',
@@ -90,16 +83,13 @@ __all__ = [
     'FlyMachineSecret',
     'FlyMachineService',
     'FlyMachineServiceCheck',
-    'FlyMachineServiceConcurrency',
     'FlyReplayCache',
     'FlyStatic',
     'IPAssignment',
     'IPAssignmentNetwork',
-    'ImageRef',
     'IncompleteConfig',
     'IpPair',
     'IssuedCertificate',
-    'Lease',
     'LeaseResponseData',
     'ListenSocket',
     'Machine',
@@ -107,15 +97,6 @@ __all__ = [
     'MachineCreateQueryParams',
     'MachineDeleteQueryParams',
     'MachineEvent',
-    'MachineFlyMachineConfigCacheDrive',
-    'MachineFlyMachineConfigDns',
-    'MachineFlyMachineConfigGuest',
-    'MachineFlyMachineConfigInit',
-    'MachineFlyMachineConfigMetrics',
-    'MachineFlyMachineConfigRestart',
-    'MachineFlyMachineConfigRootfs',
-    'MachineFlyMachineConfigSpot',
-    'MachineFlyMachineConfigStopConfig',
     'MachineImageRef',
     'MachineIncompleteConfig',
     'MachineLease',
@@ -128,6 +109,7 @@ __all__ = [
     'MachinesCordonQueryParams',
     'MachinesExecCreateQueryParams',
     'MachinesExecQueryParams',
+    'MachinesFlyMachineServiceConcurrency',
     'MachinesLeaseCreateQueryParams',
     'MachinesLeaseQueryParams',
     'MachinesLeaseReadQueryParams',
@@ -360,109 +342,6 @@ class AppCertificatesAcmeCreateQueryParams(dict):
 
 
 @pulumi.output_type
-class AppCertificatesAcmeDNSRequirementsAcmeChallenge(dict):
-    """
-    Record for DNS-01 validation.
-    """
-    def __init__(__self__, *,
-                 name: Optional[_builtins.str] = None,
-                 target: Optional[_builtins.str] = None):
-        """
-        Record for DNS-01 validation.
-
-        :param _builtins.str name: Name of the CNAME record to create, such as `_acme-challenge.example.com`.
-        :param _builtins.str target: Value the CNAME record must point to.
-        """
-        if name is not None:
-            pulumi.set(__self__, "name", name)
-        if target is not None:
-            pulumi.set(__self__, "target", target)
-
-    @_builtins.property
-    @pulumi.getter
-    def name(self) -> Optional[_builtins.str]:
-        """
-        Name of the CNAME record to create, such as `_acme-challenge.example.com`.
-        """
-        return pulumi.get(self, "name")
-
-    @_builtins.property
-    @pulumi.getter
-    def target(self) -> Optional[_builtins.str]:
-        """
-        Value the CNAME record must point to.
-        """
-        return pulumi.get(self, "target")
-
-
-@pulumi.output_type
-class AppCertificatesAcmeDNSRequirementsOwnership(dict):
-    """
-    Record for proving ownership of the hostname.
-    """
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "appValue":
-            suggest = "app_value"
-        elif key == "orgValue":
-            suggest = "org_value"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in AppCertificatesAcmeDNSRequirementsOwnership. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        AppCertificatesAcmeDNSRequirementsOwnership.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        AppCertificatesAcmeDNSRequirementsOwnership.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 app_value: Optional[_builtins.str] = None,
-                 name: Optional[_builtins.str] = None,
-                 org_value: Optional[_builtins.str] = None):
-        """
-        Record for proving ownership of the hostname.
-
-        :param _builtins.str app_value: TXT record value that proves ownership for this app.
-        :param _builtins.str name: Name of the TXT record to create, such as `_fly-ownership.example.com`.
-        :param _builtins.str org_value: TXT record value that proves ownership for every app in the organization.
-        """
-        if app_value is not None:
-            pulumi.set(__self__, "app_value", app_value)
-        if name is not None:
-            pulumi.set(__self__, "name", name)
-        if org_value is not None:
-            pulumi.set(__self__, "org_value", org_value)
-
-    @_builtins.property
-    @pulumi.getter(name="appValue")
-    def app_value(self) -> Optional[_builtins.str]:
-        """
-        TXT record value that proves ownership for this app.
-        """
-        return pulumi.get(self, "app_value")
-
-    @_builtins.property
-    @pulumi.getter
-    def name(self) -> Optional[_builtins.str]:
-        """
-        Name of the TXT record to create, such as `_fly-ownership.example.com`.
-        """
-        return pulumi.get(self, "name")
-
-    @_builtins.property
-    @pulumi.getter(name="orgValue")
-    def org_value(self) -> Optional[_builtins.str]:
-        """
-        TXT record value that proves ownership for every app in the organization.
-        """
-        return pulumi.get(self, "org_value")
-
-
-@pulumi.output_type
 class AppCertificatesAcmeDeleteQueryParams(dict):
     """
     Query params for the API request.
@@ -504,99 +383,6 @@ class AppCertificatesAcmeDeleteQueryParams(dict):
 
 
 @pulumi.output_type
-class AppCertificatesAcmeDnsRequirements(dict):
-    """
-    DNS records to create to point the hostname at the app and validate it.
-    """
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "acmeChallenge":
-            suggest = "acme_challenge"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in AppCertificatesAcmeDnsRequirements. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        AppCertificatesAcmeDnsRequirements.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        AppCertificatesAcmeDnsRequirements.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 a: Optional[Sequence[_builtins.str]] = None,
-                 aaaa: Optional[Sequence[_builtins.str]] = None,
-                 acme_challenge: Optional['outputs.AppCertificatesAcmeDNSRequirementsAcmeChallenge'] = None,
-                 cname: Optional[_builtins.str] = None,
-                 ownership: Optional['outputs.AppCertificatesAcmeDNSRequirementsOwnership'] = None):
-        """
-        DNS records to create to point the hostname at the app and validate it.
-
-        :param Sequence[_builtins.str] a: IPv4 addresses the hostname's A records can point to: the app's global IPv4 addresses
-               and its shared IPv4 address.
-        :param Sequence[_builtins.str] aaaa: IPv6 addresses the hostname's AAAA records can point to: the app's global IPv6
-               addresses.
-        :param 'AppCertificatesAcmeDNSRequirementsAcmeChallenge' acme_challenge: Record for DNS-01 validation.
-        :param _builtins.str cname: Target the hostname can CNAME to instead of using A and AAAA records.
-        :param 'AppCertificatesAcmeDNSRequirementsOwnership' ownership: Record for proving ownership of the hostname.
-        """
-        if a is not None:
-            pulumi.set(__self__, "a", a)
-        if aaaa is not None:
-            pulumi.set(__self__, "aaaa", aaaa)
-        if acme_challenge is not None:
-            pulumi.set(__self__, "acme_challenge", acme_challenge)
-        if cname is not None:
-            pulumi.set(__self__, "cname", cname)
-        if ownership is not None:
-            pulumi.set(__self__, "ownership", ownership)
-
-    @_builtins.property
-    @pulumi.getter
-    def a(self) -> Optional[Sequence[_builtins.str]]:
-        """
-        IPv4 addresses the hostname's A records can point to: the app's global IPv4 addresses
-        and its shared IPv4 address.
-        """
-        return pulumi.get(self, "a")
-
-    @_builtins.property
-    @pulumi.getter
-    def aaaa(self) -> Optional[Sequence[_builtins.str]]:
-        """
-        IPv6 addresses the hostname's AAAA records can point to: the app's global IPv6
-        addresses.
-        """
-        return pulumi.get(self, "aaaa")
-
-    @_builtins.property
-    @pulumi.getter(name="acmeChallenge")
-    def acme_challenge(self) -> Optional['outputs.AppCertificatesAcmeDNSRequirementsAcmeChallenge']:
-        """
-        Record for DNS-01 validation.
-        """
-        return pulumi.get(self, "acme_challenge")
-
-    @_builtins.property
-    @pulumi.getter
-    def cname(self) -> Optional[_builtins.str]:
-        """
-        Target the hostname can CNAME to instead of using A and AAAA records.
-        """
-        return pulumi.get(self, "cname")
-
-    @_builtins.property
-    @pulumi.getter
-    def ownership(self) -> Optional['outputs.AppCertificatesAcmeDNSRequirementsOwnership']:
-        """
-        Record for proving ownership of the hostname.
-        """
-        return pulumi.get(self, "ownership")
-
-
-@pulumi.output_type
 class AppCertificatesAcmeQueryParams(dict):
     """
     Query params for each of the operations of the resource.
@@ -630,89 +416,6 @@ class AppCertificatesAcmeQueryParams(dict):
         Query params for the delete operation.
         """
         return pulumi.get(self, "delete")
-
-
-@pulumi.output_type
-class AppCertificatesAcmeValidation(dict):
-    """
-    Which validation methods are currently possible.
-    """
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "alpnConfigured":
-            suggest = "alpn_configured"
-        elif key == "dnsConfigured":
-            suggest = "dns_configured"
-        elif key == "httpConfigured":
-            suggest = "http_configured"
-        elif key == "ownershipTxtConfigured":
-            suggest = "ownership_txt_configured"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in AppCertificatesAcmeValidation. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        AppCertificatesAcmeValidation.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        AppCertificatesAcmeValidation.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 alpn_configured: Optional[_builtins.bool] = None,
-                 dns_configured: Optional[_builtins.bool] = None,
-                 http_configured: Optional[_builtins.bool] = None,
-                 ownership_txt_configured: Optional[_builtins.bool] = None):
-        """
-        Which validation methods are currently possible.
-
-        :param _builtins.bool alpn_configured: Whether the hostname points at the app, allowing TLS-ALPN-01 validation.
-        :param _builtins.bool dns_configured: Whether the `_acme-challenge` CNAME record is set up, allowing DNS-01 validation.
-        :param _builtins.bool http_configured: Whether the hostname points at the app, allowing HTTP-01 validation.
-        :param _builtins.bool ownership_txt_configured: Whether the `_fly-ownership` TXT record is set up.
-        """
-        if alpn_configured is not None:
-            pulumi.set(__self__, "alpn_configured", alpn_configured)
-        if dns_configured is not None:
-            pulumi.set(__self__, "dns_configured", dns_configured)
-        if http_configured is not None:
-            pulumi.set(__self__, "http_configured", http_configured)
-        if ownership_txt_configured is not None:
-            pulumi.set(__self__, "ownership_txt_configured", ownership_txt_configured)
-
-    @_builtins.property
-    @pulumi.getter(name="alpnConfigured")
-    def alpn_configured(self) -> Optional[_builtins.bool]:
-        """
-        Whether the hostname points at the app, allowing TLS-ALPN-01 validation.
-        """
-        return pulumi.get(self, "alpn_configured")
-
-    @_builtins.property
-    @pulumi.getter(name="dnsConfigured")
-    def dns_configured(self) -> Optional[_builtins.bool]:
-        """
-        Whether the `_acme-challenge` CNAME record is set up, allowing DNS-01 validation.
-        """
-        return pulumi.get(self, "dns_configured")
-
-    @_builtins.property
-    @pulumi.getter(name="httpConfigured")
-    def http_configured(self) -> Optional[_builtins.bool]:
-        """
-        Whether the hostname points at the app, allowing HTTP-01 validation.
-        """
-        return pulumi.get(self, "http_configured")
-
-    @_builtins.property
-    @pulumi.getter(name="ownershipTxtConfigured")
-    def ownership_txt_configured(self) -> Optional[_builtins.bool]:
-        """
-        Whether the `_fly-ownership` TXT record is set up.
-        """
-        return pulumi.get(self, "ownership_txt_configured")
 
 
 @pulumi.output_type
@@ -757,202 +460,6 @@ class AppCertificatesCheckCreateQueryParams(dict):
 
 
 @pulumi.output_type
-class AppCertificatesCheckDNSRequirementsAcmeChallenge(dict):
-    """
-    Record for DNS-01 validation.
-    """
-    def __init__(__self__, *,
-                 name: Optional[_builtins.str] = None,
-                 target: Optional[_builtins.str] = None):
-        """
-        Record for DNS-01 validation.
-
-        :param _builtins.str name: Name of the CNAME record to create, such as `_acme-challenge.example.com`.
-        :param _builtins.str target: Value the CNAME record must point to.
-        """
-        if name is not None:
-            pulumi.set(__self__, "name", name)
-        if target is not None:
-            pulumi.set(__self__, "target", target)
-
-    @_builtins.property
-    @pulumi.getter
-    def name(self) -> Optional[_builtins.str]:
-        """
-        Name of the CNAME record to create, such as `_acme-challenge.example.com`.
-        """
-        return pulumi.get(self, "name")
-
-    @_builtins.property
-    @pulumi.getter
-    def target(self) -> Optional[_builtins.str]:
-        """
-        Value the CNAME record must point to.
-        """
-        return pulumi.get(self, "target")
-
-
-@pulumi.output_type
-class AppCertificatesCheckDNSRequirementsOwnership(dict):
-    """
-    Record for proving ownership of the hostname.
-    """
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "appValue":
-            suggest = "app_value"
-        elif key == "orgValue":
-            suggest = "org_value"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in AppCertificatesCheckDNSRequirementsOwnership. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        AppCertificatesCheckDNSRequirementsOwnership.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        AppCertificatesCheckDNSRequirementsOwnership.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 app_value: Optional[_builtins.str] = None,
-                 name: Optional[_builtins.str] = None,
-                 org_value: Optional[_builtins.str] = None):
-        """
-        Record for proving ownership of the hostname.
-
-        :param _builtins.str app_value: TXT record value that proves ownership for this app.
-        :param _builtins.str name: Name of the TXT record to create, such as `_fly-ownership.example.com`.
-        :param _builtins.str org_value: TXT record value that proves ownership for every app in the organization.
-        """
-        if app_value is not None:
-            pulumi.set(__self__, "app_value", app_value)
-        if name is not None:
-            pulumi.set(__self__, "name", name)
-        if org_value is not None:
-            pulumi.set(__self__, "org_value", org_value)
-
-    @_builtins.property
-    @pulumi.getter(name="appValue")
-    def app_value(self) -> Optional[_builtins.str]:
-        """
-        TXT record value that proves ownership for this app.
-        """
-        return pulumi.get(self, "app_value")
-
-    @_builtins.property
-    @pulumi.getter
-    def name(self) -> Optional[_builtins.str]:
-        """
-        Name of the TXT record to create, such as `_fly-ownership.example.com`.
-        """
-        return pulumi.get(self, "name")
-
-    @_builtins.property
-    @pulumi.getter(name="orgValue")
-    def org_value(self) -> Optional[_builtins.str]:
-        """
-        TXT record value that proves ownership for every app in the organization.
-        """
-        return pulumi.get(self, "org_value")
-
-
-@pulumi.output_type
-class AppCertificatesCheckDnsRequirements(dict):
-    """
-    DNS records to create to point the hostname at the app and validate it.
-    """
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "acmeChallenge":
-            suggest = "acme_challenge"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in AppCertificatesCheckDnsRequirements. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        AppCertificatesCheckDnsRequirements.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        AppCertificatesCheckDnsRequirements.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 a: Optional[Sequence[_builtins.str]] = None,
-                 aaaa: Optional[Sequence[_builtins.str]] = None,
-                 acme_challenge: Optional['outputs.AppCertificatesCheckDNSRequirementsAcmeChallenge'] = None,
-                 cname: Optional[_builtins.str] = None,
-                 ownership: Optional['outputs.AppCertificatesCheckDNSRequirementsOwnership'] = None):
-        """
-        DNS records to create to point the hostname at the app and validate it.
-
-        :param Sequence[_builtins.str] a: IPv4 addresses the hostname's A records can point to: the app's global IPv4 addresses
-               and its shared IPv4 address.
-        :param Sequence[_builtins.str] aaaa: IPv6 addresses the hostname's AAAA records can point to: the app's global IPv6
-               addresses.
-        :param 'AppCertificatesCheckDNSRequirementsAcmeChallenge' acme_challenge: Record for DNS-01 validation.
-        :param _builtins.str cname: Target the hostname can CNAME to instead of using A and AAAA records.
-        :param 'AppCertificatesCheckDNSRequirementsOwnership' ownership: Record for proving ownership of the hostname.
-        """
-        if a is not None:
-            pulumi.set(__self__, "a", a)
-        if aaaa is not None:
-            pulumi.set(__self__, "aaaa", aaaa)
-        if acme_challenge is not None:
-            pulumi.set(__self__, "acme_challenge", acme_challenge)
-        if cname is not None:
-            pulumi.set(__self__, "cname", cname)
-        if ownership is not None:
-            pulumi.set(__self__, "ownership", ownership)
-
-    @_builtins.property
-    @pulumi.getter
-    def a(self) -> Optional[Sequence[_builtins.str]]:
-        """
-        IPv4 addresses the hostname's A records can point to: the app's global IPv4 addresses
-        and its shared IPv4 address.
-        """
-        return pulumi.get(self, "a")
-
-    @_builtins.property
-    @pulumi.getter
-    def aaaa(self) -> Optional[Sequence[_builtins.str]]:
-        """
-        IPv6 addresses the hostname's AAAA records can point to: the app's global IPv6
-        addresses.
-        """
-        return pulumi.get(self, "aaaa")
-
-    @_builtins.property
-    @pulumi.getter(name="acmeChallenge")
-    def acme_challenge(self) -> Optional['outputs.AppCertificatesCheckDNSRequirementsAcmeChallenge']:
-        """
-        Record for DNS-01 validation.
-        """
-        return pulumi.get(self, "acme_challenge")
-
-    @_builtins.property
-    @pulumi.getter
-    def cname(self) -> Optional[_builtins.str]:
-        """
-        Target the hostname can CNAME to instead of using A and AAAA records.
-        """
-        return pulumi.get(self, "cname")
-
-    @_builtins.property
-    @pulumi.getter
-    def ownership(self) -> Optional['outputs.AppCertificatesCheckDNSRequirementsOwnership']:
-        """
-        Record for proving ownership of the hostname.
-        """
-        return pulumi.get(self, "ownership")
-
-
-@pulumi.output_type
 class AppCertificatesCheckQueryParams(dict):
     """
     Query params for each of the operations of the resource.
@@ -974,89 +481,6 @@ class AppCertificatesCheckQueryParams(dict):
         Query params for the create operation.
         """
         return pulumi.get(self, "create")
-
-
-@pulumi.output_type
-class AppCertificatesCheckValidation(dict):
-    """
-    Which validation methods are currently possible.
-    """
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "alpnConfigured":
-            suggest = "alpn_configured"
-        elif key == "dnsConfigured":
-            suggest = "dns_configured"
-        elif key == "httpConfigured":
-            suggest = "http_configured"
-        elif key == "ownershipTxtConfigured":
-            suggest = "ownership_txt_configured"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in AppCertificatesCheckValidation. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        AppCertificatesCheckValidation.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        AppCertificatesCheckValidation.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 alpn_configured: Optional[_builtins.bool] = None,
-                 dns_configured: Optional[_builtins.bool] = None,
-                 http_configured: Optional[_builtins.bool] = None,
-                 ownership_txt_configured: Optional[_builtins.bool] = None):
-        """
-        Which validation methods are currently possible.
-
-        :param _builtins.bool alpn_configured: Whether the hostname points at the app, allowing TLS-ALPN-01 validation.
-        :param _builtins.bool dns_configured: Whether the `_acme-challenge` CNAME record is set up, allowing DNS-01 validation.
-        :param _builtins.bool http_configured: Whether the hostname points at the app, allowing HTTP-01 validation.
-        :param _builtins.bool ownership_txt_configured: Whether the `_fly-ownership` TXT record is set up.
-        """
-        if alpn_configured is not None:
-            pulumi.set(__self__, "alpn_configured", alpn_configured)
-        if dns_configured is not None:
-            pulumi.set(__self__, "dns_configured", dns_configured)
-        if http_configured is not None:
-            pulumi.set(__self__, "http_configured", http_configured)
-        if ownership_txt_configured is not None:
-            pulumi.set(__self__, "ownership_txt_configured", ownership_txt_configured)
-
-    @_builtins.property
-    @pulumi.getter(name="alpnConfigured")
-    def alpn_configured(self) -> Optional[_builtins.bool]:
-        """
-        Whether the hostname points at the app, allowing TLS-ALPN-01 validation.
-        """
-        return pulumi.get(self, "alpn_configured")
-
-    @_builtins.property
-    @pulumi.getter(name="dnsConfigured")
-    def dns_configured(self) -> Optional[_builtins.bool]:
-        """
-        Whether the `_acme-challenge` CNAME record is set up, allowing DNS-01 validation.
-        """
-        return pulumi.get(self, "dns_configured")
-
-    @_builtins.property
-    @pulumi.getter(name="httpConfigured")
-    def http_configured(self) -> Optional[_builtins.bool]:
-        """
-        Whether the hostname points at the app, allowing HTTP-01 validation.
-        """
-        return pulumi.get(self, "http_configured")
-
-    @_builtins.property
-    @pulumi.getter(name="ownershipTxtConfigured")
-    def ownership_txt_configured(self) -> Optional[_builtins.bool]:
-        """
-        Whether the `_fly-ownership` TXT record is set up.
-        """
-        return pulumi.get(self, "ownership_txt_configured")
 
 
 @pulumi.output_type
@@ -2383,6 +1807,353 @@ class Compute(dict):
 
 
 @pulumi.output_type
+class Config(dict):
+    """
+    The Machine's configuration, as provided when it was created or last updated, with
+    `metadata` and `mounts` reflecting their current values. Null when the host is not
+    reachable (`host_status` is not `ok`) or `summary=true` was requested; see
+    `incomplete_config`.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "autoDestroy":
+            suggest = "auto_destroy"
+        elif key == "cacheDrive":
+            suggest = "cache_drive"
+        elif key == "disableMachineAutostart":
+            suggest = "disable_machine_autostart"
+        elif key == "stopConfig":
+            suggest = "stop_config"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Config. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Config.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Config.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 auto_destroy: Optional[_builtins.bool] = None,
+                 cache_drive: Optional['outputs.FlyMachineConfigCacheDrive'] = None,
+                 checks: Optional[Mapping[str, 'outputs.FlyMachineConfigChecksProperties']] = None,
+                 containers: Optional[Sequence['outputs.FlyContainerConfig']] = None,
+                 disable_machine_autostart: Optional[_builtins.bool] = None,
+                 dns: Optional['outputs.FlyMachineConfigDns'] = None,
+                 env: Optional[Mapping[str, _builtins.str]] = None,
+                 files: Optional[Sequence['outputs.FlyFile']] = None,
+                 guest: Optional['outputs.FlyMachineConfigGuest'] = None,
+                 image: Optional[_builtins.str] = None,
+                 init: Optional['outputs.FlyMachineConfigInit'] = None,
+                 metadata: Optional[Mapping[str, _builtins.str]] = None,
+                 metrics: Optional['outputs.FlyMachineConfigMetrics'] = None,
+                 mounts: Optional[Sequence['outputs.FlyMachineMount']] = None,
+                 processes: Optional[Sequence['outputs.FlyMachineProcess']] = None,
+                 restart: Optional['outputs.FlyMachineConfigRestart'] = None,
+                 rootfs: Optional['outputs.FlyMachineConfigRootfs'] = None,
+                 schedule: Optional[_builtins.str] = None,
+                 services: Optional[Sequence['outputs.FlyMachineService']] = None,
+                 size: Optional[_builtins.str] = None,
+                 spot: Optional['outputs.FlyMachineConfigSpot'] = None,
+                 standbys: Optional[Sequence[_builtins.str]] = None,
+                 statics: Optional[Sequence['outputs.FlyStatic']] = None,
+                 stop_config: Optional['outputs.FlyMachineConfigStopConfig'] = None):
+        """
+        The Machine's configuration, as provided when it was created or last updated, with
+        `metadata` and `mounts` reflecting their current values. Null when the host is not
+        reachable (`host_status` is not `ok`) or `summary=true` was requested; see
+        `incomplete_config`.
+
+        :param _builtins.bool auto_destroy: Optional boolean telling the Machine to destroy itself once it’s complete (default false)
+        :param 'FlyMachineConfigCacheDrive' cache_drive: Beta: a cache drive attached to the Machine. This field may be removed in the future
+        :param Mapping[str, 'FlyMachineConfigChecksProperties'] checks: An optional object that defines one or more named top-level checks. The key for each check is the check name.
+        :param Sequence['FlyContainerConfig'] containers: Containers are a list of containers that will run in the machine, each from its own image.
+        :param _builtins.bool disable_machine_autostart: Deprecated: use Service.Autostart instead
+        :param 'FlyMachineConfigDns' dns: DNS settings for the Machine
+        :param Mapping[str, _builtins.str] env: An object filled with key/value pairs to be set as environment variables
+        :param Sequence['FlyFile'] files: Files to write into the Machine, from either a raw value or an app secret
+        :param 'FlyMachineConfigGuest' guest: The resources (CPUs, memory, etc.) allocated to the Machine
+        :param _builtins.str image: The docker image to run
+        :param 'FlyMachineConfigInit' init: Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
+        :param Mapping[str, _builtins.str] metadata: Key/value pairs of Machine metadata. Fly.io uses metadata internally for routing, process groups, and clusters
+        :param 'FlyMachineConfigMetrics' metrics: An optional metrics endpoint for Prometheus on Fly.io to scrape
+        :param Sequence['FlyMachineMount'] mounts: Persistent volumes to mount in the Machine. A Machine can mount at most one volume, which must be on
+               the same host. The mounted volume cannot be changed by updating the Machine
+        :param Sequence['FlyMachineProcess'] processes: Multiple processes to run within this one Machine, all from the Machine's image. Unrelated to the
+               process groups in fly.toml, which run on separate Machines. To run processes from different
+               images, use containers instead
+        :param 'FlyMachineConfigRestart' restart: Whether and how the Machine is restarted after its main process exits
+        :param 'FlyMachineConfigRootfs' rootfs: Beta: the size of the Machine's root filesystem and whether it persists. This field may be
+               removed in the future
+        :param _builtins.str schedule: Run the Machine at an interval: one of hourly, daily, weekly or monthly. The interval starts when
+               the Machine is created
+        :param Sequence['FlyMachineService'] services: Network services that Fly Proxy routes traffic to
+        :param _builtins.str size: Deprecated: use Guest instead
+        :param 'FlyMachineConfigSpot' spot: Spot pricing settings for the Machine
+        :param Sequence[_builtins.str] standbys: Standbys enable a machine to be a standby for another. In the event of a hardware failure,
+               the standby machine will be started.
+        :param Sequence['FlyStatic'] statics: Static files to serve under a URL prefix. Fly Proxy routes matching requests to a file server
+               inside the Machine, bypassing your application's own process; the Machine must be running. The
+               files are read either from a path inside the Machine or from a Tigris bucket that belongs to the
+               app; no bucket is created for you
+        :param 'FlyMachineConfigStopConfig' stop_config: How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
+        """
+        if auto_destroy is not None:
+            pulumi.set(__self__, "auto_destroy", auto_destroy)
+        if cache_drive is not None:
+            pulumi.set(__self__, "cache_drive", cache_drive)
+        if checks is not None:
+            pulumi.set(__self__, "checks", checks)
+        if containers is not None:
+            pulumi.set(__self__, "containers", containers)
+        if disable_machine_autostart is not None:
+            pulumi.set(__self__, "disable_machine_autostart", disable_machine_autostart)
+        if dns is not None:
+            pulumi.set(__self__, "dns", dns)
+        if env is not None:
+            pulumi.set(__self__, "env", env)
+        if files is not None:
+            pulumi.set(__self__, "files", files)
+        if guest is not None:
+            pulumi.set(__self__, "guest", guest)
+        if image is not None:
+            pulumi.set(__self__, "image", image)
+        if init is not None:
+            pulumi.set(__self__, "init", init)
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if metrics is not None:
+            pulumi.set(__self__, "metrics", metrics)
+        if mounts is not None:
+            pulumi.set(__self__, "mounts", mounts)
+        if processes is not None:
+            pulumi.set(__self__, "processes", processes)
+        if restart is not None:
+            pulumi.set(__self__, "restart", restart)
+        if rootfs is not None:
+            pulumi.set(__self__, "rootfs", rootfs)
+        if schedule is not None:
+            pulumi.set(__self__, "schedule", schedule)
+        if services is not None:
+            pulumi.set(__self__, "services", services)
+        if size is not None:
+            pulumi.set(__self__, "size", size)
+        if spot is not None:
+            pulumi.set(__self__, "spot", spot)
+        if standbys is not None:
+            pulumi.set(__self__, "standbys", standbys)
+        if statics is not None:
+            pulumi.set(__self__, "statics", statics)
+        if stop_config is not None:
+            pulumi.set(__self__, "stop_config", stop_config)
+
+    @_builtins.property
+    @pulumi.getter(name="autoDestroy")
+    def auto_destroy(self) -> Optional[_builtins.bool]:
+        """
+        Optional boolean telling the Machine to destroy itself once it’s complete (default false)
+        """
+        return pulumi.get(self, "auto_destroy")
+
+    @_builtins.property
+    @pulumi.getter(name="cacheDrive")
+    def cache_drive(self) -> Optional['outputs.FlyMachineConfigCacheDrive']:
+        """
+        Beta: a cache drive attached to the Machine. This field may be removed in the future
+        """
+        return pulumi.get(self, "cache_drive")
+
+    @_builtins.property
+    @pulumi.getter
+    def checks(self) -> Optional[Mapping[str, 'outputs.FlyMachineConfigChecksProperties']]:
+        """
+        An optional object that defines one or more named top-level checks. The key for each check is the check name.
+        """
+        return pulumi.get(self, "checks")
+
+    @_builtins.property
+    @pulumi.getter
+    def containers(self) -> Optional[Sequence['outputs.FlyContainerConfig']]:
+        """
+        Containers are a list of containers that will run in the machine, each from its own image.
+        """
+        return pulumi.get(self, "containers")
+
+    @_builtins.property
+    @pulumi.getter(name="disableMachineAutostart")
+    def disable_machine_autostart(self) -> Optional[_builtins.bool]:
+        """
+        Deprecated: use Service.Autostart instead
+        """
+        return pulumi.get(self, "disable_machine_autostart")
+
+    @_builtins.property
+    @pulumi.getter
+    def dns(self) -> Optional['outputs.FlyMachineConfigDns']:
+        """
+        DNS settings for the Machine
+        """
+        return pulumi.get(self, "dns")
+
+    @_builtins.property
+    @pulumi.getter
+    def env(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        An object filled with key/value pairs to be set as environment variables
+        """
+        return pulumi.get(self, "env")
+
+    @_builtins.property
+    @pulumi.getter
+    def files(self) -> Optional[Sequence['outputs.FlyFile']]:
+        """
+        Files to write into the Machine, from either a raw value or an app secret
+        """
+        return pulumi.get(self, "files")
+
+    @_builtins.property
+    @pulumi.getter
+    def guest(self) -> Optional['outputs.FlyMachineConfigGuest']:
+        """
+        The resources (CPUs, memory, etc.) allocated to the Machine
+        """
+        return pulumi.get(self, "guest")
+
+    @_builtins.property
+    @pulumi.getter
+    def image(self) -> Optional[_builtins.str]:
+        """
+        The docker image to run
+        """
+        return pulumi.get(self, "image")
+
+    @_builtins.property
+    @pulumi.getter
+    def init(self) -> Optional['outputs.FlyMachineConfigInit']:
+        """
+        Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
+        """
+        return pulumi.get(self, "init")
+
+    @_builtins.property
+    @pulumi.getter
+    def metadata(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Key/value pairs of Machine metadata. Fly.io uses metadata internally for routing, process groups, and clusters
+        """
+        return pulumi.get(self, "metadata")
+
+    @_builtins.property
+    @pulumi.getter
+    def metrics(self) -> Optional['outputs.FlyMachineConfigMetrics']:
+        """
+        An optional metrics endpoint for Prometheus on Fly.io to scrape
+        """
+        return pulumi.get(self, "metrics")
+
+    @_builtins.property
+    @pulumi.getter
+    def mounts(self) -> Optional[Sequence['outputs.FlyMachineMount']]:
+        """
+        Persistent volumes to mount in the Machine. A Machine can mount at most one volume, which must be on
+        the same host. The mounted volume cannot be changed by updating the Machine
+        """
+        return pulumi.get(self, "mounts")
+
+    @_builtins.property
+    @pulumi.getter
+    def processes(self) -> Optional[Sequence['outputs.FlyMachineProcess']]:
+        """
+        Multiple processes to run within this one Machine, all from the Machine's image. Unrelated to the
+        process groups in fly.toml, which run on separate Machines. To run processes from different
+        images, use containers instead
+        """
+        return pulumi.get(self, "processes")
+
+    @_builtins.property
+    @pulumi.getter
+    def restart(self) -> Optional['outputs.FlyMachineConfigRestart']:
+        """
+        Whether and how the Machine is restarted after its main process exits
+        """
+        return pulumi.get(self, "restart")
+
+    @_builtins.property
+    @pulumi.getter
+    def rootfs(self) -> Optional['outputs.FlyMachineConfigRootfs']:
+        """
+        Beta: the size of the Machine's root filesystem and whether it persists. This field may be
+        removed in the future
+        """
+        return pulumi.get(self, "rootfs")
+
+    @_builtins.property
+    @pulumi.getter
+    def schedule(self) -> Optional[_builtins.str]:
+        """
+        Run the Machine at an interval: one of hourly, daily, weekly or monthly. The interval starts when
+        the Machine is created
+        """
+        return pulumi.get(self, "schedule")
+
+    @_builtins.property
+    @pulumi.getter
+    def services(self) -> Optional[Sequence['outputs.FlyMachineService']]:
+        """
+        Network services that Fly Proxy routes traffic to
+        """
+        return pulumi.get(self, "services")
+
+    @_builtins.property
+    @pulumi.getter
+    def size(self) -> Optional[_builtins.str]:
+        """
+        Deprecated: use Guest instead
+        """
+        return pulumi.get(self, "size")
+
+    @_builtins.property
+    @pulumi.getter
+    def spot(self) -> Optional['outputs.FlyMachineConfigSpot']:
+        """
+        Spot pricing settings for the Machine
+        """
+        return pulumi.get(self, "spot")
+
+    @_builtins.property
+    @pulumi.getter
+    def standbys(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        Standbys enable a machine to be a standby for another. In the event of a hardware failure,
+        the standby machine will be started.
+        """
+        return pulumi.get(self, "standbys")
+
+    @_builtins.property
+    @pulumi.getter
+    def statics(self) -> Optional[Sequence['outputs.FlyStatic']]:
+        """
+        Static files to serve under a URL prefix. Fly Proxy routes matching requests to a file server
+        inside the Machine, bypassing your application's own process; the Machine must be running. The
+        files are read either from a path inside the Machine or from a Tigris bucket that belongs to the
+        app; no bucket is created for you
+        """
+        return pulumi.get(self, "statics")
+
+    @_builtins.property
+    @pulumi.getter(name="stopConfig")
+    def stop_config(self) -> Optional['outputs.FlyMachineConfigStopConfig']:
+        """
+        How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
+        """
+        return pulumi.get(self, "stop_config")
+
+
+@pulumi.output_type
 class DNSRecords(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -2622,26 +2393,35 @@ class Data(dict):
     def __init__(__self__, *,
                  description: Optional[_builtins.str] = None,
                  expires_at: Optional[_builtins.int] = None,
-                 owner: Optional[_builtins.str] = None):
+                 nonce: Optional[_builtins.str] = None,
+                 owner: Optional[_builtins.str] = None,
+                 version: Optional[_builtins.str] = None):
         """
         The lease.
 
-        :param _builtins.str description: Description given when the lease was acquired.
+        :param _builtins.str description: Description or reason for the lease.
         :param _builtins.int expires_at: When the lease expires, in Unix seconds.
+        :param _builtins.str nonce: Unique ID generated for the lease. Pass it in the `fly-machine-lease-nonce` header to
+               act on the leased Machine, refresh the lease, or release it.
         :param _builtins.str owner: Email address of the user who acquired the lease.
+        :param _builtins.str version: ID of the Machine's version at the time of the request.
         """
         if description is not None:
             pulumi.set(__self__, "description", description)
         if expires_at is not None:
             pulumi.set(__self__, "expires_at", expires_at)
+        if nonce is not None:
+            pulumi.set(__self__, "nonce", nonce)
         if owner is not None:
             pulumi.set(__self__, "owner", owner)
+        if version is not None:
+            pulumi.set(__self__, "version", version)
 
     @_builtins.property
     @pulumi.getter
     def description(self) -> Optional[_builtins.str]:
         """
-        Description given when the lease was acquired.
+        Description or reason for the lease.
         """
         return pulumi.get(self, "description")
 
@@ -2655,11 +2435,28 @@ class Data(dict):
 
     @_builtins.property
     @pulumi.getter
+    def nonce(self) -> Optional[_builtins.str]:
+        """
+        Unique ID generated for the lease. Pass it in the `fly-machine-lease-nonce` header to
+        act on the leased Machine, refresh the lease, or release it.
+        """
+        return pulumi.get(self, "nonce")
+
+    @_builtins.property
+    @pulumi.getter
     def owner(self) -> Optional[_builtins.str]:
         """
         Email address of the user who acquired the lease.
         """
         return pulumi.get(self, "owner")
+
+    @_builtins.property
+    @pulumi.getter
+    def version(self) -> Optional[_builtins.str]:
+        """
+        ID of the Machine's version at the time of the request.
+        """
+        return pulumi.get(self, "version")
 
 
 @pulumi.output_type
@@ -3671,6 +3468,23 @@ class FlyMachineConfigCacheDrive(dict):
     """
     Beta: a cache drive attached to the Machine. This field may be removed in the future
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "sizeMb":
+            suggest = "size_mb"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in FlyMachineConfigCacheDrive. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        FlyMachineConfigCacheDrive.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        FlyMachineConfigCacheDrive.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  path: Optional[_builtins.str] = None,
                  size_mb: Optional[_builtins.int] = None):
@@ -3892,6 +3706,27 @@ class FlyMachineConfigDns(dict):
     """
     DNS settings for the Machine
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "dnsForwardRules":
+            suggest = "dns_forward_rules"
+        elif key == "hostnameFqdn":
+            suggest = "hostname_fqdn"
+        elif key == "skipRegistration":
+            suggest = "skip_registration"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in FlyMachineConfigDns. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        FlyMachineConfigDns.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        FlyMachineConfigDns.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  dns_forward_rules: Optional[Sequence['outputs.FlyDnsForwardRule']] = None,
                  hostname: Optional[_builtins.str] = None,
@@ -3990,6 +3825,37 @@ class FlyMachineConfigGuest(dict):
     """
     The resources (CPUs, memory, etc.) allocated to the Machine
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "cpuKind":
+            suggest = "cpu_kind"
+        elif key == "gpuKind":
+            suggest = "gpu_kind"
+        elif key == "hostDedicationId":
+            suggest = "host_dedication_id"
+        elif key == "kernelArgs":
+            suggest = "kernel_args"
+        elif key == "maxMemoryMb":
+            suggest = "max_memory_mb"
+        elif key == "memoryMb":
+            suggest = "memory_mb"
+        elif key == "persistRootfs":
+            suggest = "persist_rootfs"
+        elif key == "requiredHostFeatures":
+            suggest = "required_host_features"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in FlyMachineConfigGuest. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        FlyMachineConfigGuest.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        FlyMachineConfigGuest.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  cpu_kind: Optional[_builtins.str] = None,
                  cpus: Optional[_builtins.int] = None,
@@ -4140,6 +4006,27 @@ class FlyMachineConfigInit(dict):
     """
     Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "exec":
+            suggest = "exec_"
+        elif key == "kernelArgs":
+            suggest = "kernel_args"
+        elif key == "swapSizeMb":
+            suggest = "swap_size_mb"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in FlyMachineConfigInit. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        FlyMachineConfigInit.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        FlyMachineConfigInit.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  cmd: Optional[Sequence[_builtins.str]] = None,
                  entrypoint: Optional[Sequence[_builtins.str]] = None,
@@ -4274,6 +4161,23 @@ class FlyMachineConfigRestart(dict):
     """
     Whether and how the Machine is restarted after its main process exits
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "maxRetries":
+            suggest = "max_retries"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in FlyMachineConfigRestart. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        FlyMachineConfigRestart.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        FlyMachineConfigRestart.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  max_retries: Optional[_builtins.int] = None,
                  policy: Optional['FlyMachineRestartPolicy'] = None):
@@ -4315,6 +4219,23 @@ class FlyMachineConfigRootfs(dict):
     Beta: the size of the Machine's root filesystem and whether it persists. This field may be
     removed in the future
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "sizeGb":
+            suggest = "size_gb"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in FlyMachineConfigRootfs. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        FlyMachineConfigRootfs.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        FlyMachineConfigRootfs.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  persist: Optional['FlyMachineRootfsPersist'] = None,
                  size_gb: Optional[_builtins.int] = None):
@@ -4356,6 +4277,23 @@ class FlyMachineConfigSpot(dict):
     """
     Spot pricing settings for the Machine
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "maxPriceFraction":
+            suggest = "max_price_fraction"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in FlyMachineConfigSpot. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        FlyMachineConfigSpot.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        FlyMachineConfigSpot.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  max_price_fraction: Optional[_builtins.float] = None):
         """
@@ -5192,7 +5130,7 @@ class FlyMachineService(dict):
                  autostart: Optional[_builtins.bool] = None,
                  autostop: Optional['FlyMachineServiceAutostop'] = None,
                  checks: Optional[Sequence['outputs.FlyMachineServiceCheck']] = None,
-                 concurrency: Optional['outputs.FlyMachineServiceConcurrency'] = None,
+                 concurrency: Optional['outputs.MachinesFlyMachineServiceConcurrency'] = None,
                  force_instance_description: Optional[_builtins.str] = None,
                  force_instance_key: Optional[_builtins.str] = None,
                  internal_port: Optional[_builtins.int] = None,
@@ -5206,7 +5144,7 @@ class FlyMachineService(dict):
                * "stop" or true - Automatically stop the Machine.
                * "suspend" - Automatically suspend the Machine, falling back to a full stop if this is not possible.
         :param Sequence['FlyMachineServiceCheck'] checks: An optional list of service checks
-        :param 'FlyMachineServiceConcurrency' concurrency: Load limits Fly Proxy uses to balance traffic across Machines
+        :param 'MachinesFlyMachineServiceConcurrency' concurrency: Load limits Fly Proxy uses to balance traffic across Machines
         :param _builtins.str force_instance_description: Currently has no effect
         :param _builtins.str force_instance_key: Currently has no effect
         :param _builtins.int internal_port: Port in the Machine that Fly Proxy forwards traffic to. Defaults to 8080
@@ -5265,7 +5203,7 @@ class FlyMachineService(dict):
 
     @_builtins.property
     @pulumi.getter
-    def concurrency(self) -> Optional['outputs.FlyMachineServiceConcurrency']:
+    def concurrency(self) -> Optional['outputs.MachinesFlyMachineServiceConcurrency']:
         """
         Load limits Fly Proxy uses to balance traffic across Machines
         """
@@ -5477,77 +5415,6 @@ class FlyMachineServiceCheck(dict):
     def type(self) -> Optional[_builtins.str]:
         """
         tcp or http
-        """
-        return pulumi.get(self, "type")
-
-
-@pulumi.output_type
-class FlyMachineServiceConcurrency(dict):
-    """
-    Load limits Fly Proxy uses to balance traffic across Machines
-    """
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "hardLimit":
-            suggest = "hard_limit"
-        elif key == "softLimit":
-            suggest = "soft_limit"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in FlyMachineServiceConcurrency. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        FlyMachineServiceConcurrency.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        FlyMachineServiceConcurrency.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 hard_limit: Optional[_builtins.int] = None,
-                 soft_limit: Optional[_builtins.int] = None,
-                 type: Optional[_builtins.str] = None):
-        """
-        Load limits Fly Proxy uses to balance traffic across Machines
-
-        :param _builtins.int hard_limit: Fly Proxy sends no more than this many connections or requests to a Machine at once. 0 means
-               no hard limit
-        :param _builtins.int soft_limit: Above this many connections or requests, Fly Proxy prefers other Machines. Defaults to 20,
-               and is lowered to hard_limit if higher
-        :param _builtins.str type: What to count: `connections` (default) or `requests`
-        """
-        if hard_limit is not None:
-            pulumi.set(__self__, "hard_limit", hard_limit)
-        if soft_limit is not None:
-            pulumi.set(__self__, "soft_limit", soft_limit)
-        if type is not None:
-            pulumi.set(__self__, "type", type)
-
-    @_builtins.property
-    @pulumi.getter(name="hardLimit")
-    def hard_limit(self) -> Optional[_builtins.int]:
-        """
-        Fly Proxy sends no more than this many connections or requests to a Machine at once. 0 means
-        no hard limit
-        """
-        return pulumi.get(self, "hard_limit")
-
-    @_builtins.property
-    @pulumi.getter(name="softLimit")
-    def soft_limit(self) -> Optional[_builtins.int]:
-        """
-        Above this many connections or requests, Fly Proxy prefers other Machines. Defaults to 20,
-        and is lowered to hard_limit if higher
-        """
-        return pulumi.get(self, "soft_limit")
-
-    @_builtins.property
-    @pulumi.getter
-    def type(self) -> Optional[_builtins.str]:
-        """
-        What to count: `connections` (default) or `requests`
         """
         return pulumi.get(self, "type")
 
@@ -5871,78 +5738,6 @@ class IPAssignmentNetwork(dict):
 
 
 @pulumi.output_type
-class ImageRef(dict):
-    """
-    The image the Machine runs, as resolved when it was last created or updated.
-    """
-    def __init__(__self__, *,
-                 digest: Optional[_builtins.str] = None,
-                 labels: Optional[Mapping[str, _builtins.str]] = None,
-                 registry: Optional[_builtins.str] = None,
-                 repository: Optional[_builtins.str] = None,
-                 tag: Optional[_builtins.str] = None):
-        """
-        The image the Machine runs, as resolved when it was last created or updated.
-
-        :param _builtins.str digest: Content digest of the image (`sha256:...`).
-        :param Mapping[str, _builtins.str] labels: The image's OCI labels.
-        :param _builtins.str registry: Registry host of the image, such as `registry.fly.io`.
-        :param _builtins.str repository: Repository of the image within the registry, such as `library/nginx`.
-        :param _builtins.str tag: Tag the image was referenced by, if any.
-        """
-        if digest is not None:
-            pulumi.set(__self__, "digest", digest)
-        if labels is not None:
-            pulumi.set(__self__, "labels", labels)
-        if registry is not None:
-            pulumi.set(__self__, "registry", registry)
-        if repository is not None:
-            pulumi.set(__self__, "repository", repository)
-        if tag is not None:
-            pulumi.set(__self__, "tag", tag)
-
-    @_builtins.property
-    @pulumi.getter
-    def digest(self) -> Optional[_builtins.str]:
-        """
-        Content digest of the image (`sha256:...`).
-        """
-        return pulumi.get(self, "digest")
-
-    @_builtins.property
-    @pulumi.getter
-    def labels(self) -> Optional[Mapping[str, _builtins.str]]:
-        """
-        The image's OCI labels.
-        """
-        return pulumi.get(self, "labels")
-
-    @_builtins.property
-    @pulumi.getter
-    def registry(self) -> Optional[_builtins.str]:
-        """
-        Registry host of the image, such as `registry.fly.io`.
-        """
-        return pulumi.get(self, "registry")
-
-    @_builtins.property
-    @pulumi.getter
-    def repository(self) -> Optional[_builtins.str]:
-        """
-        Repository of the image within the registry, such as `library/nginx`.
-        """
-        return pulumi.get(self, "repository")
-
-    @_builtins.property
-    @pulumi.getter
-    def tag(self) -> Optional[_builtins.str]:
-        """
-        Tag the image was referenced by, if any.
-        """
-        return pulumi.get(self, "tag")
-
-
-@pulumi.output_type
 class IncompleteConfig(dict):
     """
     Last known configuration, returned in place of `config` when the host could not be
@@ -5975,29 +5770,29 @@ class IncompleteConfig(dict):
 
     def __init__(__self__, *,
                  auto_destroy: Optional[_builtins.bool] = None,
-                 cache_drive: Optional['outputs.MachineFlyMachineConfigCacheDrive'] = None,
+                 cache_drive: Optional['outputs.FlyMachineConfigCacheDrive'] = None,
                  checks: Optional[Mapping[str, 'outputs.FlyMachineConfigChecksProperties']] = None,
                  containers: Optional[Sequence['outputs.FlyContainerConfig']] = None,
                  disable_machine_autostart: Optional[_builtins.bool] = None,
-                 dns: Optional['outputs.MachineFlyMachineConfigDns'] = None,
+                 dns: Optional['outputs.FlyMachineConfigDns'] = None,
                  env: Optional[Mapping[str, _builtins.str]] = None,
                  files: Optional[Sequence['outputs.FlyFile']] = None,
-                 guest: Optional['outputs.MachineFlyMachineConfigGuest'] = None,
+                 guest: Optional['outputs.FlyMachineConfigGuest'] = None,
                  image: Optional[_builtins.str] = None,
-                 init: Optional['outputs.MachineFlyMachineConfigInit'] = None,
+                 init: Optional['outputs.FlyMachineConfigInit'] = None,
                  metadata: Optional[Mapping[str, _builtins.str]] = None,
-                 metrics: Optional['outputs.MachineFlyMachineConfigMetrics'] = None,
+                 metrics: Optional['outputs.FlyMachineConfigMetrics'] = None,
                  mounts: Optional[Sequence['outputs.FlyMachineMount']] = None,
                  processes: Optional[Sequence['outputs.FlyMachineProcess']] = None,
-                 restart: Optional['outputs.MachineFlyMachineConfigRestart'] = None,
-                 rootfs: Optional['outputs.MachineFlyMachineConfigRootfs'] = None,
+                 restart: Optional['outputs.FlyMachineConfigRestart'] = None,
+                 rootfs: Optional['outputs.FlyMachineConfigRootfs'] = None,
                  schedule: Optional[_builtins.str] = None,
                  services: Optional[Sequence['outputs.FlyMachineService']] = None,
                  size: Optional[_builtins.str] = None,
-                 spot: Optional['outputs.MachineFlyMachineConfigSpot'] = None,
+                 spot: Optional['outputs.FlyMachineConfigSpot'] = None,
                  standbys: Optional[Sequence[_builtins.str]] = None,
                  statics: Optional[Sequence['outputs.FlyStatic']] = None,
-                 stop_config: Optional['outputs.MachineFlyMachineConfigStopConfig'] = None):
+                 stop_config: Optional['outputs.FlyMachineConfigStopConfig'] = None):
         """
         Last known configuration, returned in place of `config` when the host could not be
         reached (`host_status` is not `ok`) or when listing Machines with `summary=true`. It
@@ -6005,38 +5800,38 @@ class IncompleteConfig(dict):
         fields.
 
         :param _builtins.bool auto_destroy: Optional boolean telling the Machine to destroy itself once it’s complete (default false)
-        :param 'MachineFlyMachineConfigCacheDrive' cache_drive: Beta: a cache drive attached to the Machine. This field may be removed in the future
+        :param 'FlyMachineConfigCacheDrive' cache_drive: Beta: a cache drive attached to the Machine. This field may be removed in the future
         :param Mapping[str, 'FlyMachineConfigChecksProperties'] checks: An optional object that defines one or more named top-level checks. The key for each check is the check name.
         :param Sequence['FlyContainerConfig'] containers: Containers are a list of containers that will run in the machine, each from its own image.
         :param _builtins.bool disable_machine_autostart: Deprecated: use Service.Autostart instead
-        :param 'MachineFlyMachineConfigDns' dns: DNS settings for the Machine
+        :param 'FlyMachineConfigDns' dns: DNS settings for the Machine
         :param Mapping[str, _builtins.str] env: An object filled with key/value pairs to be set as environment variables
         :param Sequence['FlyFile'] files: Files to write into the Machine, from either a raw value or an app secret
-        :param 'MachineFlyMachineConfigGuest' guest: The resources (CPUs, memory, etc.) allocated to the Machine
+        :param 'FlyMachineConfigGuest' guest: The resources (CPUs, memory, etc.) allocated to the Machine
         :param _builtins.str image: The docker image to run
-        :param 'MachineFlyMachineConfigInit' init: Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
+        :param 'FlyMachineConfigInit' init: Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
         :param Mapping[str, _builtins.str] metadata: Key/value pairs of Machine metadata. Fly.io uses metadata internally for routing, process groups, and clusters
-        :param 'MachineFlyMachineConfigMetrics' metrics: An optional metrics endpoint for Prometheus on Fly.io to scrape
+        :param 'FlyMachineConfigMetrics' metrics: An optional metrics endpoint for Prometheus on Fly.io to scrape
         :param Sequence['FlyMachineMount'] mounts: Persistent volumes to mount in the Machine. A Machine can mount at most one volume, which must be on
                the same host. The mounted volume cannot be changed by updating the Machine
         :param Sequence['FlyMachineProcess'] processes: Multiple processes to run within this one Machine, all from the Machine's image. Unrelated to the
                process groups in fly.toml, which run on separate Machines. To run processes from different
                images, use containers instead
-        :param 'MachineFlyMachineConfigRestart' restart: Whether and how the Machine is restarted after its main process exits
-        :param 'MachineFlyMachineConfigRootfs' rootfs: Beta: the size of the Machine's root filesystem and whether it persists. This field may be
+        :param 'FlyMachineConfigRestart' restart: Whether and how the Machine is restarted after its main process exits
+        :param 'FlyMachineConfigRootfs' rootfs: Beta: the size of the Machine's root filesystem and whether it persists. This field may be
                removed in the future
         :param _builtins.str schedule: Run the Machine at an interval: one of hourly, daily, weekly or monthly. The interval starts when
                the Machine is created
         :param Sequence['FlyMachineService'] services: Network services that Fly Proxy routes traffic to
         :param _builtins.str size: Deprecated: use Guest instead
-        :param 'MachineFlyMachineConfigSpot' spot: Spot pricing settings for the Machine
+        :param 'FlyMachineConfigSpot' spot: Spot pricing settings for the Machine
         :param Sequence[_builtins.str] standbys: Standbys enable a machine to be a standby for another. In the event of a hardware failure,
                the standby machine will be started.
         :param Sequence['FlyStatic'] statics: Static files to serve under a URL prefix. Fly Proxy routes matching requests to a file server
                inside the Machine, bypassing your application's own process; the Machine must be running. The
                files are read either from a path inside the Machine or from a Tigris bucket that belongs to the
                app; no bucket is created for you
-        :param 'MachineFlyMachineConfigStopConfig' stop_config: How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
+        :param 'FlyMachineConfigStopConfig' stop_config: How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
         """
         if auto_destroy is not None:
             pulumi.set(__self__, "auto_destroy", auto_destroy)
@@ -6097,7 +5892,7 @@ class IncompleteConfig(dict):
 
     @_builtins.property
     @pulumi.getter(name="cacheDrive")
-    def cache_drive(self) -> Optional['outputs.MachineFlyMachineConfigCacheDrive']:
+    def cache_drive(self) -> Optional['outputs.FlyMachineConfigCacheDrive']:
         """
         Beta: a cache drive attached to the Machine. This field may be removed in the future
         """
@@ -6129,7 +5924,7 @@ class IncompleteConfig(dict):
 
     @_builtins.property
     @pulumi.getter
-    def dns(self) -> Optional['outputs.MachineFlyMachineConfigDns']:
+    def dns(self) -> Optional['outputs.FlyMachineConfigDns']:
         """
         DNS settings for the Machine
         """
@@ -6153,7 +5948,7 @@ class IncompleteConfig(dict):
 
     @_builtins.property
     @pulumi.getter
-    def guest(self) -> Optional['outputs.MachineFlyMachineConfigGuest']:
+    def guest(self) -> Optional['outputs.FlyMachineConfigGuest']:
         """
         The resources (CPUs, memory, etc.) allocated to the Machine
         """
@@ -6169,7 +5964,7 @@ class IncompleteConfig(dict):
 
     @_builtins.property
     @pulumi.getter
-    def init(self) -> Optional['outputs.MachineFlyMachineConfigInit']:
+    def init(self) -> Optional['outputs.FlyMachineConfigInit']:
         """
         Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
         """
@@ -6185,7 +5980,7 @@ class IncompleteConfig(dict):
 
     @_builtins.property
     @pulumi.getter
-    def metrics(self) -> Optional['outputs.MachineFlyMachineConfigMetrics']:
+    def metrics(self) -> Optional['outputs.FlyMachineConfigMetrics']:
         """
         An optional metrics endpoint for Prometheus on Fly.io to scrape
         """
@@ -6212,7 +6007,7 @@ class IncompleteConfig(dict):
 
     @_builtins.property
     @pulumi.getter
-    def restart(self) -> Optional['outputs.MachineFlyMachineConfigRestart']:
+    def restart(self) -> Optional['outputs.FlyMachineConfigRestart']:
         """
         Whether and how the Machine is restarted after its main process exits
         """
@@ -6220,7 +6015,7 @@ class IncompleteConfig(dict):
 
     @_builtins.property
     @pulumi.getter
-    def rootfs(self) -> Optional['outputs.MachineFlyMachineConfigRootfs']:
+    def rootfs(self) -> Optional['outputs.FlyMachineConfigRootfs']:
         """
         Beta: the size of the Machine's root filesystem and whether it persists. This field may be
         removed in the future
@@ -6254,7 +6049,7 @@ class IncompleteConfig(dict):
 
     @_builtins.property
     @pulumi.getter
-    def spot(self) -> Optional['outputs.MachineFlyMachineConfigSpot']:
+    def spot(self) -> Optional['outputs.FlyMachineConfigSpot']:
         """
         Spot pricing settings for the Machine
         """
@@ -6282,7 +6077,7 @@ class IncompleteConfig(dict):
 
     @_builtins.property
     @pulumi.getter(name="stopConfig")
-    def stop_config(self) -> Optional['outputs.MachineFlyMachineConfigStopConfig']:
+    def stop_config(self) -> Optional['outputs.FlyMachineConfigStopConfig']:
         """
         How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
         """
@@ -6390,73 +6185,6 @@ class IssuedCertificate(dict):
 
 
 @pulumi.output_type
-class Lease(dict):
-    """
-    The lease currently held on the Machine. Only returned when `include_leases=true`
-    was requested and a lease is held.
-    """
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "expiresAt":
-            suggest = "expires_at"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in Lease. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        Lease.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        Lease.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 description: Optional[_builtins.str] = None,
-                 expires_at: Optional[_builtins.int] = None,
-                 owner: Optional[_builtins.str] = None):
-        """
-        The lease currently held on the Machine. Only returned when `include_leases=true`
-        was requested and a lease is held.
-
-        :param _builtins.str description: Description given when the lease was acquired.
-        :param _builtins.int expires_at: When the lease expires, in Unix seconds.
-        :param _builtins.str owner: Email address of the user who acquired the lease.
-        """
-        if description is not None:
-            pulumi.set(__self__, "description", description)
-        if expires_at is not None:
-            pulumi.set(__self__, "expires_at", expires_at)
-        if owner is not None:
-            pulumi.set(__self__, "owner", owner)
-
-    @_builtins.property
-    @pulumi.getter
-    def description(self) -> Optional[_builtins.str]:
-        """
-        Description given when the lease was acquired.
-        """
-        return pulumi.get(self, "description")
-
-    @_builtins.property
-    @pulumi.getter(name="expiresAt")
-    def expires_at(self) -> Optional[_builtins.int]:
-        """
-        When the lease expires, in Unix seconds.
-        """
-        return pulumi.get(self, "expires_at")
-
-    @_builtins.property
-    @pulumi.getter
-    def owner(self) -> Optional[_builtins.str]:
-        """
-        Email address of the user who acquired the lease.
-        """
-        return pulumi.get(self, "owner")
-
-
-@pulumi.output_type
 class LeaseResponseData(dict):
     """
     The lease.
@@ -6464,26 +6192,35 @@ class LeaseResponseData(dict):
     def __init__(__self__, *,
                  description: Optional[_builtins.str] = None,
                  expires_at: Optional[_builtins.int] = None,
-                 owner: Optional[_builtins.str] = None):
+                 nonce: Optional[_builtins.str] = None,
+                 owner: Optional[_builtins.str] = None,
+                 version: Optional[_builtins.str] = None):
         """
         The lease.
 
-        :param _builtins.str description: Description given when the lease was acquired.
+        :param _builtins.str description: Description or reason for the lease.
         :param _builtins.int expires_at: When the lease expires, in Unix seconds.
+        :param _builtins.str nonce: Unique ID generated for the lease. Pass it in the `fly-machine-lease-nonce` header to
+               act on the leased Machine, refresh the lease, or release it.
         :param _builtins.str owner: Email address of the user who acquired the lease.
+        :param _builtins.str version: ID of the Machine's version at the time of the request.
         """
         if description is not None:
             pulumi.set(__self__, "description", description)
         if expires_at is not None:
             pulumi.set(__self__, "expires_at", expires_at)
+        if nonce is not None:
+            pulumi.set(__self__, "nonce", nonce)
         if owner is not None:
             pulumi.set(__self__, "owner", owner)
+        if version is not None:
+            pulumi.set(__self__, "version", version)
 
     @_builtins.property
     @pulumi.getter
     def description(self) -> Optional[_builtins.str]:
         """
-        Description given when the lease was acquired.
+        Description or reason for the lease.
         """
         return pulumi.get(self, "description")
 
@@ -6497,11 +6234,28 @@ class LeaseResponseData(dict):
 
     @_builtins.property
     @pulumi.getter
+    def nonce(self) -> Optional[_builtins.str]:
+        """
+        Unique ID generated for the lease. Pass it in the `fly-machine-lease-nonce` header to
+        act on the leased Machine, refresh the lease, or release it.
+        """
+        return pulumi.get(self, "nonce")
+
+    @_builtins.property
+    @pulumi.getter
     def owner(self) -> Optional[_builtins.str]:
         """
         Email address of the user who acquired the lease.
         """
         return pulumi.get(self, "owner")
+
+    @_builtins.property
+    @pulumi.getter
+    def version(self) -> Optional[_builtins.str]:
+        """
+        ID of the Machine's version at the time of the request.
+        """
+        return pulumi.get(self, "version")
 
 
 @pulumi.output_type
@@ -6828,54 +6582,31 @@ class MachineConfig(dict):
     reachable (`host_status` is not `ok`) or `summary=true` was requested; see
     `incomplete_config`.
     """
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "autoDestroy":
-            suggest = "auto_destroy"
-        elif key == "cacheDrive":
-            suggest = "cache_drive"
-        elif key == "disableMachineAutostart":
-            suggest = "disable_machine_autostart"
-        elif key == "stopConfig":
-            suggest = "stop_config"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in MachineConfig. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        MachineConfig.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        MachineConfig.__key_warning(key)
-        return super().get(key, default)
-
     def __init__(__self__, *,
                  auto_destroy: Optional[_builtins.bool] = None,
-                 cache_drive: Optional['outputs.MachineFlyMachineConfigCacheDrive'] = None,
+                 cache_drive: Optional['outputs.FlyMachineConfigCacheDrive'] = None,
                  checks: Optional[Mapping[str, 'outputs.FlyMachineConfigChecksProperties']] = None,
                  containers: Optional[Sequence['outputs.FlyContainerConfig']] = None,
                  disable_machine_autostart: Optional[_builtins.bool] = None,
-                 dns: Optional['outputs.MachineFlyMachineConfigDns'] = None,
+                 dns: Optional['outputs.FlyMachineConfigDns'] = None,
                  env: Optional[Mapping[str, _builtins.str]] = None,
                  files: Optional[Sequence['outputs.FlyFile']] = None,
-                 guest: Optional['outputs.MachineFlyMachineConfigGuest'] = None,
+                 guest: Optional['outputs.FlyMachineConfigGuest'] = None,
                  image: Optional[_builtins.str] = None,
-                 init: Optional['outputs.MachineFlyMachineConfigInit'] = None,
+                 init: Optional['outputs.FlyMachineConfigInit'] = None,
                  metadata: Optional[Mapping[str, _builtins.str]] = None,
-                 metrics: Optional['outputs.MachineFlyMachineConfigMetrics'] = None,
+                 metrics: Optional['outputs.FlyMachineConfigMetrics'] = None,
                  mounts: Optional[Sequence['outputs.FlyMachineMount']] = None,
                  processes: Optional[Sequence['outputs.FlyMachineProcess']] = None,
-                 restart: Optional['outputs.MachineFlyMachineConfigRestart'] = None,
-                 rootfs: Optional['outputs.MachineFlyMachineConfigRootfs'] = None,
+                 restart: Optional['outputs.FlyMachineConfigRestart'] = None,
+                 rootfs: Optional['outputs.FlyMachineConfigRootfs'] = None,
                  schedule: Optional[_builtins.str] = None,
                  services: Optional[Sequence['outputs.FlyMachineService']] = None,
                  size: Optional[_builtins.str] = None,
-                 spot: Optional['outputs.MachineFlyMachineConfigSpot'] = None,
+                 spot: Optional['outputs.FlyMachineConfigSpot'] = None,
                  standbys: Optional[Sequence[_builtins.str]] = None,
                  statics: Optional[Sequence['outputs.FlyStatic']] = None,
-                 stop_config: Optional['outputs.MachineFlyMachineConfigStopConfig'] = None):
+                 stop_config: Optional['outputs.FlyMachineConfigStopConfig'] = None):
         """
         The Machine's configuration, as provided when it was created or last updated, with
         `metadata` and `mounts` reflecting their current values. Null when the host is not
@@ -6883,38 +6614,38 @@ class MachineConfig(dict):
         `incomplete_config`.
 
         :param _builtins.bool auto_destroy: Optional boolean telling the Machine to destroy itself once it’s complete (default false)
-        :param 'MachineFlyMachineConfigCacheDrive' cache_drive: Beta: a cache drive attached to the Machine. This field may be removed in the future
+        :param 'FlyMachineConfigCacheDrive' cache_drive: Beta: a cache drive attached to the Machine. This field may be removed in the future
         :param Mapping[str, 'FlyMachineConfigChecksProperties'] checks: An optional object that defines one or more named top-level checks. The key for each check is the check name.
         :param Sequence['FlyContainerConfig'] containers: Containers are a list of containers that will run in the machine, each from its own image.
         :param _builtins.bool disable_machine_autostart: Deprecated: use Service.Autostart instead
-        :param 'MachineFlyMachineConfigDns' dns: DNS settings for the Machine
+        :param 'FlyMachineConfigDns' dns: DNS settings for the Machine
         :param Mapping[str, _builtins.str] env: An object filled with key/value pairs to be set as environment variables
         :param Sequence['FlyFile'] files: Files to write into the Machine, from either a raw value or an app secret
-        :param 'MachineFlyMachineConfigGuest' guest: The resources (CPUs, memory, etc.) allocated to the Machine
+        :param 'FlyMachineConfigGuest' guest: The resources (CPUs, memory, etc.) allocated to the Machine
         :param _builtins.str image: The docker image to run
-        :param 'MachineFlyMachineConfigInit' init: Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
+        :param 'FlyMachineConfigInit' init: Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
         :param Mapping[str, _builtins.str] metadata: Key/value pairs of Machine metadata. Fly.io uses metadata internally for routing, process groups, and clusters
-        :param 'MachineFlyMachineConfigMetrics' metrics: An optional metrics endpoint for Prometheus on Fly.io to scrape
+        :param 'FlyMachineConfigMetrics' metrics: An optional metrics endpoint for Prometheus on Fly.io to scrape
         :param Sequence['FlyMachineMount'] mounts: Persistent volumes to mount in the Machine. A Machine can mount at most one volume, which must be on
                the same host. The mounted volume cannot be changed by updating the Machine
         :param Sequence['FlyMachineProcess'] processes: Multiple processes to run within this one Machine, all from the Machine's image. Unrelated to the
                process groups in fly.toml, which run on separate Machines. To run processes from different
                images, use containers instead
-        :param 'MachineFlyMachineConfigRestart' restart: Whether and how the Machine is restarted after its main process exits
-        :param 'MachineFlyMachineConfigRootfs' rootfs: Beta: the size of the Machine's root filesystem and whether it persists. This field may be
+        :param 'FlyMachineConfigRestart' restart: Whether and how the Machine is restarted after its main process exits
+        :param 'FlyMachineConfigRootfs' rootfs: Beta: the size of the Machine's root filesystem and whether it persists. This field may be
                removed in the future
         :param _builtins.str schedule: Run the Machine at an interval: one of hourly, daily, weekly or monthly. The interval starts when
                the Machine is created
         :param Sequence['FlyMachineService'] services: Network services that Fly Proxy routes traffic to
         :param _builtins.str size: Deprecated: use Guest instead
-        :param 'MachineFlyMachineConfigSpot' spot: Spot pricing settings for the Machine
+        :param 'FlyMachineConfigSpot' spot: Spot pricing settings for the Machine
         :param Sequence[_builtins.str] standbys: Standbys enable a machine to be a standby for another. In the event of a hardware failure,
                the standby machine will be started.
         :param Sequence['FlyStatic'] statics: Static files to serve under a URL prefix. Fly Proxy routes matching requests to a file server
                inside the Machine, bypassing your application's own process; the Machine must be running. The
                files are read either from a path inside the Machine or from a Tigris bucket that belongs to the
                app; no bucket is created for you
-        :param 'MachineFlyMachineConfigStopConfig' stop_config: How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
+        :param 'FlyMachineConfigStopConfig' stop_config: How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
         """
         if auto_destroy is not None:
             pulumi.set(__self__, "auto_destroy", auto_destroy)
@@ -6975,7 +6706,7 @@ class MachineConfig(dict):
 
     @_builtins.property
     @pulumi.getter(name="cacheDrive")
-    def cache_drive(self) -> Optional['outputs.MachineFlyMachineConfigCacheDrive']:
+    def cache_drive(self) -> Optional['outputs.FlyMachineConfigCacheDrive']:
         """
         Beta: a cache drive attached to the Machine. This field may be removed in the future
         """
@@ -7007,7 +6738,7 @@ class MachineConfig(dict):
 
     @_builtins.property
     @pulumi.getter
-    def dns(self) -> Optional['outputs.MachineFlyMachineConfigDns']:
+    def dns(self) -> Optional['outputs.FlyMachineConfigDns']:
         """
         DNS settings for the Machine
         """
@@ -7031,7 +6762,7 @@ class MachineConfig(dict):
 
     @_builtins.property
     @pulumi.getter
-    def guest(self) -> Optional['outputs.MachineFlyMachineConfigGuest']:
+    def guest(self) -> Optional['outputs.FlyMachineConfigGuest']:
         """
         The resources (CPUs, memory, etc.) allocated to the Machine
         """
@@ -7047,7 +6778,7 @@ class MachineConfig(dict):
 
     @_builtins.property
     @pulumi.getter
-    def init(self) -> Optional['outputs.MachineFlyMachineConfigInit']:
+    def init(self) -> Optional['outputs.FlyMachineConfigInit']:
         """
         Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
         """
@@ -7063,7 +6794,7 @@ class MachineConfig(dict):
 
     @_builtins.property
     @pulumi.getter
-    def metrics(self) -> Optional['outputs.MachineFlyMachineConfigMetrics']:
+    def metrics(self) -> Optional['outputs.FlyMachineConfigMetrics']:
         """
         An optional metrics endpoint for Prometheus on Fly.io to scrape
         """
@@ -7090,7 +6821,7 @@ class MachineConfig(dict):
 
     @_builtins.property
     @pulumi.getter
-    def restart(self) -> Optional['outputs.MachineFlyMachineConfigRestart']:
+    def restart(self) -> Optional['outputs.FlyMachineConfigRestart']:
         """
         Whether and how the Machine is restarted after its main process exits
         """
@@ -7098,7 +6829,7 @@ class MachineConfig(dict):
 
     @_builtins.property
     @pulumi.getter
-    def rootfs(self) -> Optional['outputs.MachineFlyMachineConfigRootfs']:
+    def rootfs(self) -> Optional['outputs.FlyMachineConfigRootfs']:
         """
         Beta: the size of the Machine's root filesystem and whether it persists. This field may be
         removed in the future
@@ -7132,7 +6863,7 @@ class MachineConfig(dict):
 
     @_builtins.property
     @pulumi.getter
-    def spot(self) -> Optional['outputs.MachineFlyMachineConfigSpot']:
+    def spot(self) -> Optional['outputs.FlyMachineConfigSpot']:
         """
         Spot pricing settings for the Machine
         """
@@ -7160,7 +6891,7 @@ class MachineConfig(dict):
 
     @_builtins.property
     @pulumi.getter(name="stopConfig")
-    def stop_config(self) -> Optional['outputs.MachineFlyMachineConfigStopConfig']:
+    def stop_config(self) -> Optional['outputs.FlyMachineConfigStopConfig']:
         """
         How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
         """
@@ -7352,717 +7083,6 @@ class MachineEvent(dict):
         `destroy`.
         """
         return pulumi.get(self, "type")
-
-
-@pulumi.output_type
-class MachineFlyMachineConfigCacheDrive(dict):
-    """
-    Beta: a cache drive attached to the Machine. This field may be removed in the future
-    """
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "sizeMb":
-            suggest = "size_mb"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in MachineFlyMachineConfigCacheDrive. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        MachineFlyMachineConfigCacheDrive.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        MachineFlyMachineConfigCacheDrive.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 path: Optional[_builtins.str] = None,
-                 size_mb: Optional[_builtins.int] = None):
-        """
-        Beta: a cache drive attached to the Machine. This field may be removed in the future
-
-        :param _builtins.str path: Optional absolute guest mount path. When set, the device is formatted as ext4.
-               Without a path, the device retains legacy raw block behavior. Contents survive
-               same-host restarts and path changes, but are discarded on size or mode changes,
-               relocation, recovery on another host, and cloning.
-        :param _builtins.int size_mb: Fixed size of the Machine-owned cache drive in MiB. At most 51200.
-               With a path, at least 16 MiB is required; without a path, 0 disables the device.
-        """
-        if path is not None:
-            pulumi.set(__self__, "path", path)
-        if size_mb is not None:
-            pulumi.set(__self__, "size_mb", size_mb)
-
-    @_builtins.property
-    @pulumi.getter
-    def path(self) -> Optional[_builtins.str]:
-        """
-        Optional absolute guest mount path. When set, the device is formatted as ext4.
-        Without a path, the device retains legacy raw block behavior. Contents survive
-        same-host restarts and path changes, but are discarded on size or mode changes,
-        relocation, recovery on another host, and cloning.
-        """
-        return pulumi.get(self, "path")
-
-    @_builtins.property
-    @pulumi.getter(name="sizeMb")
-    def size_mb(self) -> Optional[_builtins.int]:
-        """
-        Fixed size of the Machine-owned cache drive in MiB. At most 51200.
-        With a path, at least 16 MiB is required; without a path, 0 disables the device.
-        """
-        return pulumi.get(self, "size_mb")
-
-
-@pulumi.output_type
-class MachineFlyMachineConfigDns(dict):
-    """
-    DNS settings for the Machine
-    """
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "dnsForwardRules":
-            suggest = "dns_forward_rules"
-        elif key == "hostnameFqdn":
-            suggest = "hostname_fqdn"
-        elif key == "skipRegistration":
-            suggest = "skip_registration"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in MachineFlyMachineConfigDns. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        MachineFlyMachineConfigDns.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        MachineFlyMachineConfigDns.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 dns_forward_rules: Optional[Sequence['outputs.FlyDnsForwardRule']] = None,
-                 hostname: Optional[_builtins.str] = None,
-                 hostname_fqdn: Optional[_builtins.str] = None,
-                 nameservers: Optional[Sequence[_builtins.str]] = None,
-                 options: Optional[Sequence['outputs.FlyDnsOption']] = None,
-                 searches: Optional[Sequence[_builtins.str]] = None,
-                 skip_registration: Optional[_builtins.bool] = None):
-        """
-        DNS settings for the Machine
-
-        :param Sequence['FlyDnsForwardRule'] dns_forward_rules: Forward DNS queries for some domains to other DNS servers
-        :param _builtins.str hostname: Hostname of the Machine. Defaults to the Machine ID. Also added to /etc/hosts with the
-               Machine's 6PN address
-        :param _builtins.str hostname_fqdn: Fully qualified domain name added to /etc/hosts for `hostname`
-        :param Sequence[_builtins.str] nameservers: Nameservers to use instead of the default, Fly.io's private DNS server `fdaa::3`
-        :param Sequence['FlyDnsOption'] options: Options for /etc/resolv.conf
-        :param Sequence[_builtins.str] searches: Search domains for /etc/resolv.conf
-        :param _builtins.bool skip_registration: Currently has no effect
-        """
-        if dns_forward_rules is not None:
-            pulumi.set(__self__, "dns_forward_rules", dns_forward_rules)
-        if hostname is not None:
-            pulumi.set(__self__, "hostname", hostname)
-        if hostname_fqdn is not None:
-            pulumi.set(__self__, "hostname_fqdn", hostname_fqdn)
-        if nameservers is not None:
-            pulumi.set(__self__, "nameservers", nameservers)
-        if options is not None:
-            pulumi.set(__self__, "options", options)
-        if searches is not None:
-            pulumi.set(__self__, "searches", searches)
-        if skip_registration is not None:
-            pulumi.set(__self__, "skip_registration", skip_registration)
-
-    @_builtins.property
-    @pulumi.getter(name="dnsForwardRules")
-    def dns_forward_rules(self) -> Optional[Sequence['outputs.FlyDnsForwardRule']]:
-        """
-        Forward DNS queries for some domains to other DNS servers
-        """
-        return pulumi.get(self, "dns_forward_rules")
-
-    @_builtins.property
-    @pulumi.getter
-    def hostname(self) -> Optional[_builtins.str]:
-        """
-        Hostname of the Machine. Defaults to the Machine ID. Also added to /etc/hosts with the
-        Machine's 6PN address
-        """
-        return pulumi.get(self, "hostname")
-
-    @_builtins.property
-    @pulumi.getter(name="hostnameFqdn")
-    def hostname_fqdn(self) -> Optional[_builtins.str]:
-        """
-        Fully qualified domain name added to /etc/hosts for `hostname`
-        """
-        return pulumi.get(self, "hostname_fqdn")
-
-    @_builtins.property
-    @pulumi.getter
-    def nameservers(self) -> Optional[Sequence[_builtins.str]]:
-        """
-        Nameservers to use instead of the default, Fly.io's private DNS server `fdaa::3`
-        """
-        return pulumi.get(self, "nameservers")
-
-    @_builtins.property
-    @pulumi.getter
-    def options(self) -> Optional[Sequence['outputs.FlyDnsOption']]:
-        """
-        Options for /etc/resolv.conf
-        """
-        return pulumi.get(self, "options")
-
-    @_builtins.property
-    @pulumi.getter
-    def searches(self) -> Optional[Sequence[_builtins.str]]:
-        """
-        Search domains for /etc/resolv.conf
-        """
-        return pulumi.get(self, "searches")
-
-    @_builtins.property
-    @pulumi.getter(name="skipRegistration")
-    def skip_registration(self) -> Optional[_builtins.bool]:
-        """
-        Currently has no effect
-        """
-        return pulumi.get(self, "skip_registration")
-
-
-@pulumi.output_type
-class MachineFlyMachineConfigGuest(dict):
-    """
-    The resources (CPUs, memory, etc.) allocated to the Machine
-    """
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "cpuKind":
-            suggest = "cpu_kind"
-        elif key == "gpuKind":
-            suggest = "gpu_kind"
-        elif key == "hostDedicationId":
-            suggest = "host_dedication_id"
-        elif key == "kernelArgs":
-            suggest = "kernel_args"
-        elif key == "maxMemoryMb":
-            suggest = "max_memory_mb"
-        elif key == "memoryMb":
-            suggest = "memory_mb"
-        elif key == "persistRootfs":
-            suggest = "persist_rootfs"
-        elif key == "requiredHostFeatures":
-            suggest = "required_host_features"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in MachineFlyMachineConfigGuest. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        MachineFlyMachineConfigGuest.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        MachineFlyMachineConfigGuest.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 cpu_kind: Optional[_builtins.str] = None,
-                 cpus: Optional[_builtins.int] = None,
-                 gpu_kind: Optional[_builtins.str] = None,
-                 gpus: Optional[_builtins.int] = None,
-                 host_dedication_id: Optional[_builtins.str] = None,
-                 kernel_args: Optional[Sequence[_builtins.str]] = None,
-                 max_memory_mb: Optional[_builtins.int] = None,
-                 memory_mb: Optional[_builtins.int] = None,
-                 persist_rootfs: Optional['FlyMachineGuestPersistRootfs'] = None,
-                 required_host_features: Optional[Sequence[_builtins.str]] = None):
-        """
-        The resources (CPUs, memory, etc.) allocated to the Machine
-
-        :param _builtins.str cpu_kind: Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
-               Defaults to shared when `guest` is omitted
-        :param _builtins.int cpus: Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
-               performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
-               omitted
-        :param _builtins.str gpu_kind: No longer supported. Requests that set it are rejected
-        :param _builtins.int gpus: No longer supported. Requests that set it are rejected
-        :param _builtins.str host_dedication_id: Place the Machine on hosts dedicated to the organization under this ID. Only available to
-               organizations with dedicated hosts
-        :param Sequence[_builtins.str] kernel_args: Extra arguments appended to the guest kernel command line
-        :param _builtins.int max_memory_mb: Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
-               the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
-               starts with a limit of memory_mb
-        :param _builtins.int memory_mb: Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
-               between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
-               `guest` is omitted
-        :param 'FlyMachineGuestPersistRootfs' persist_rootfs: Deprecated: use MachineConfig.Rootfs instead
-        :param Sequence[_builtins.str] required_host_features: Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
-               of lowercase letters, digits and dashes. Each feature must be enabled for the organization
-        """
-        if cpu_kind is not None:
-            pulumi.set(__self__, "cpu_kind", cpu_kind)
-        if cpus is not None:
-            pulumi.set(__self__, "cpus", cpus)
-        if gpu_kind is not None:
-            pulumi.set(__self__, "gpu_kind", gpu_kind)
-        if gpus is not None:
-            pulumi.set(__self__, "gpus", gpus)
-        if host_dedication_id is not None:
-            pulumi.set(__self__, "host_dedication_id", host_dedication_id)
-        if kernel_args is not None:
-            pulumi.set(__self__, "kernel_args", kernel_args)
-        if max_memory_mb is not None:
-            pulumi.set(__self__, "max_memory_mb", max_memory_mb)
-        if memory_mb is not None:
-            pulumi.set(__self__, "memory_mb", memory_mb)
-        if persist_rootfs is not None:
-            pulumi.set(__self__, "persist_rootfs", persist_rootfs)
-        if required_host_features is not None:
-            pulumi.set(__self__, "required_host_features", required_host_features)
-
-    @_builtins.property
-    @pulumi.getter(name="cpuKind")
-    def cpu_kind(self) -> Optional[_builtins.str]:
-        """
-        Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
-        Defaults to shared when `guest` is omitted
-        """
-        return pulumi.get(self, "cpu_kind")
-
-    @_builtins.property
-    @pulumi.getter
-    def cpus(self) -> Optional[_builtins.int]:
-        """
-        Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
-        performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
-        omitted
-        """
-        return pulumi.get(self, "cpus")
-
-    @_builtins.property
-    @pulumi.getter(name="gpuKind")
-    def gpu_kind(self) -> Optional[_builtins.str]:
-        """
-        No longer supported. Requests that set it are rejected
-        """
-        return pulumi.get(self, "gpu_kind")
-
-    @_builtins.property
-    @pulumi.getter
-    def gpus(self) -> Optional[_builtins.int]:
-        """
-        No longer supported. Requests that set it are rejected
-        """
-        return pulumi.get(self, "gpus")
-
-    @_builtins.property
-    @pulumi.getter(name="hostDedicationId")
-    def host_dedication_id(self) -> Optional[_builtins.str]:
-        """
-        Place the Machine on hosts dedicated to the organization under this ID. Only available to
-        organizations with dedicated hosts
-        """
-        return pulumi.get(self, "host_dedication_id")
-
-    @_builtins.property
-    @pulumi.getter(name="kernelArgs")
-    def kernel_args(self) -> Optional[Sequence[_builtins.str]]:
-        """
-        Extra arguments appended to the guest kernel command line
-        """
-        return pulumi.get(self, "kernel_args")
-
-    @_builtins.property
-    @pulumi.getter(name="maxMemoryMb")
-    def max_memory_mb(self) -> Optional[_builtins.int]:
-        """
-        Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
-        the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
-        starts with a limit of memory_mb
-        """
-        return pulumi.get(self, "max_memory_mb")
-
-    @_builtins.property
-    @pulumi.getter(name="memoryMb")
-    def memory_mb(self) -> Optional[_builtins.int]:
-        """
-        Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
-        between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
-        `guest` is omitted
-        """
-        return pulumi.get(self, "memory_mb")
-
-    @_builtins.property
-    @pulumi.getter(name="persistRootfs")
-    def persist_rootfs(self) -> Optional['FlyMachineGuestPersistRootfs']:
-        """
-        Deprecated: use MachineConfig.Rootfs instead
-        """
-        return pulumi.get(self, "persist_rootfs")
-
-    @_builtins.property
-    @pulumi.getter(name="requiredHostFeatures")
-    def required_host_features(self) -> Optional[Sequence[_builtins.str]]:
-        """
-        Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
-        of lowercase letters, digits and dashes. Each feature must be enabled for the organization
-        """
-        return pulumi.get(self, "required_host_features")
-
-
-@pulumi.output_type
-class MachineFlyMachineConfigInit(dict):
-    """
-    Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
-    """
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "exec":
-            suggest = "exec_"
-        elif key == "kernelArgs":
-            suggest = "kernel_args"
-        elif key == "swapSizeMb":
-            suggest = "swap_size_mb"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in MachineFlyMachineConfigInit. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        MachineFlyMachineConfigInit.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        MachineFlyMachineConfigInit.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 cmd: Optional[Sequence[_builtins.str]] = None,
-                 entrypoint: Optional[Sequence[_builtins.str]] = None,
-                 exec_: Optional[Sequence[_builtins.str]] = None,
-                 kernel_args: Optional[Sequence[_builtins.str]] = None,
-                 swap_size_mb: Optional[_builtins.int] = None,
-                 tty: Optional[_builtins.bool] = None):
-        """
-        Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
-
-        :param Sequence[_builtins.str] cmd: Replaces the image's CMD. It's appended to the entrypoint
-        :param Sequence[_builtins.str] entrypoint: Replaces the image's ENTRYPOINT
-        :param Sequence[_builtins.str] exec_: Command to run instead of the image's ENTRYPOINT and CMD. Takes precedence over entrypoint
-               and cmd
-        :param Sequence[_builtins.str] kernel_args: Currently has no effect. Use `guest.kernel_args` instead
-        :param _builtins.int swap_size_mb: Size in MiB of a swap device to give the Machine. Machines with swap cannot be suspended
-        :param _builtins.bool tty: Currently has no effect
-        """
-        if cmd is not None:
-            pulumi.set(__self__, "cmd", cmd)
-        if entrypoint is not None:
-            pulumi.set(__self__, "entrypoint", entrypoint)
-        if exec_ is not None:
-            pulumi.set(__self__, "exec_", exec_)
-        if kernel_args is not None:
-            pulumi.set(__self__, "kernel_args", kernel_args)
-        if swap_size_mb is not None:
-            pulumi.set(__self__, "swap_size_mb", swap_size_mb)
-        if tty is not None:
-            pulumi.set(__self__, "tty", tty)
-
-    @_builtins.property
-    @pulumi.getter
-    def cmd(self) -> Optional[Sequence[_builtins.str]]:
-        """
-        Replaces the image's CMD. It's appended to the entrypoint
-        """
-        return pulumi.get(self, "cmd")
-
-    @_builtins.property
-    @pulumi.getter
-    def entrypoint(self) -> Optional[Sequence[_builtins.str]]:
-        """
-        Replaces the image's ENTRYPOINT
-        """
-        return pulumi.get(self, "entrypoint")
-
-    @_builtins.property
-    @pulumi.getter(name="exec")
-    def exec_(self) -> Optional[Sequence[_builtins.str]]:
-        """
-        Command to run instead of the image's ENTRYPOINT and CMD. Takes precedence over entrypoint
-        and cmd
-        """
-        return pulumi.get(self, "exec_")
-
-    @_builtins.property
-    @pulumi.getter(name="kernelArgs")
-    def kernel_args(self) -> Optional[Sequence[_builtins.str]]:
-        """
-        Currently has no effect. Use `guest.kernel_args` instead
-        """
-        return pulumi.get(self, "kernel_args")
-
-    @_builtins.property
-    @pulumi.getter(name="swapSizeMb")
-    def swap_size_mb(self) -> Optional[_builtins.int]:
-        """
-        Size in MiB of a swap device to give the Machine. Machines with swap cannot be suspended
-        """
-        return pulumi.get(self, "swap_size_mb")
-
-    @_builtins.property
-    @pulumi.getter
-    def tty(self) -> Optional[_builtins.bool]:
-        """
-        Currently has no effect
-        """
-        return pulumi.get(self, "tty")
-
-
-@pulumi.output_type
-class MachineFlyMachineConfigMetrics(dict):
-    """
-    An optional metrics endpoint for Prometheus on Fly.io to scrape
-    """
-    def __init__(__self__, *,
-                 https: Optional[_builtins.bool] = None,
-                 path: Optional[_builtins.str] = None,
-                 port: Optional[_builtins.int] = None):
-        """
-        An optional metrics endpoint for Prometheus on Fly.io to scrape
-
-        :param _builtins.bool https: Scrape over HTTPS instead of HTTP
-        :param _builtins.str path: HTTP path to scrape. Defaults to `/`
-        :param _builtins.int port: Port in the Machine to scrape metrics from
-        """
-        if https is not None:
-            pulumi.set(__self__, "https", https)
-        if path is not None:
-            pulumi.set(__self__, "path", path)
-        if port is not None:
-            pulumi.set(__self__, "port", port)
-
-    @_builtins.property
-    @pulumi.getter
-    def https(self) -> Optional[_builtins.bool]:
-        """
-        Scrape over HTTPS instead of HTTP
-        """
-        return pulumi.get(self, "https")
-
-    @_builtins.property
-    @pulumi.getter
-    def path(self) -> Optional[_builtins.str]:
-        """
-        HTTP path to scrape. Defaults to `/`
-        """
-        return pulumi.get(self, "path")
-
-    @_builtins.property
-    @pulumi.getter
-    def port(self) -> Optional[_builtins.int]:
-        """
-        Port in the Machine to scrape metrics from
-        """
-        return pulumi.get(self, "port")
-
-
-@pulumi.output_type
-class MachineFlyMachineConfigRestart(dict):
-    """
-    Whether and how the Machine is restarted after its main process exits
-    """
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "maxRetries":
-            suggest = "max_retries"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in MachineFlyMachineConfigRestart. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        MachineFlyMachineConfigRestart.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        MachineFlyMachineConfigRestart.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 max_retries: Optional[_builtins.int] = None,
-                 policy: Optional['FlyMachineRestartPolicy'] = None):
-        """
-        Whether and how the Machine is restarted after its main process exits
-
-        :param _builtins.int max_retries: When policy is on-failure, the maximum number of times to attempt to restart the Machine before letting it stop.
-        :param 'FlyMachineRestartPolicy' policy: * no - Never try to restart a Machine automatically when its main process exits, whether that’s on purpose or on a crash.
-               * always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.
-               * on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules.
-        """
-        if max_retries is not None:
-            pulumi.set(__self__, "max_retries", max_retries)
-        if policy is not None:
-            pulumi.set(__self__, "policy", policy)
-
-    @_builtins.property
-    @pulumi.getter(name="maxRetries")
-    def max_retries(self) -> Optional[_builtins.int]:
-        """
-        When policy is on-failure, the maximum number of times to attempt to restart the Machine before letting it stop.
-        """
-        return pulumi.get(self, "max_retries")
-
-    @_builtins.property
-    @pulumi.getter
-    def policy(self) -> Optional['FlyMachineRestartPolicy']:
-        """
-        * no - Never try to restart a Machine automatically when its main process exits, whether that’s on purpose or on a crash.
-        * always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.
-        * on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules.
-        """
-        return pulumi.get(self, "policy")
-
-
-@pulumi.output_type
-class MachineFlyMachineConfigRootfs(dict):
-    """
-    Beta: the size of the Machine's root filesystem and whether it persists. This field may be
-    removed in the future
-    """
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "sizeGb":
-            suggest = "size_gb"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in MachineFlyMachineConfigRootfs. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        MachineFlyMachineConfigRootfs.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        MachineFlyMachineConfigRootfs.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 persist: Optional['FlyMachineRootfsPersist'] = None,
-                 size_gb: Optional[_builtins.int] = None):
-        """
-        Beta: the size of the Machine's root filesystem and whether it persists. This field may be
-        removed in the future
-
-        :param 'FlyMachineRootfsPersist' persist: Whether changes to the root filesystem are kept. `never` (default): reset on every start.
-               `restart`: kept across stops and restarts, reset when the Machine is updated. `always`: also
-               kept across updates
-        :param _builtins.int size_gb: Size of the root filesystem in GB. At most 50; 0 uses the default
-        """
-        if persist is not None:
-            pulumi.set(__self__, "persist", persist)
-        if size_gb is not None:
-            pulumi.set(__self__, "size_gb", size_gb)
-
-    @_builtins.property
-    @pulumi.getter
-    def persist(self) -> Optional['FlyMachineRootfsPersist']:
-        """
-        Whether changes to the root filesystem are kept. `never` (default): reset on every start.
-        `restart`: kept across stops and restarts, reset when the Machine is updated. `always`: also
-        kept across updates
-        """
-        return pulumi.get(self, "persist")
-
-    @_builtins.property
-    @pulumi.getter(name="sizeGb")
-    def size_gb(self) -> Optional[_builtins.int]:
-        """
-        Size of the root filesystem in GB. At most 50; 0 uses the default
-        """
-        return pulumi.get(self, "size_gb")
-
-
-@pulumi.output_type
-class MachineFlyMachineConfigSpot(dict):
-    """
-    Spot pricing settings for the Machine
-    """
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "maxPriceFraction":
-            suggest = "max_price_fraction"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in MachineFlyMachineConfigSpot. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        MachineFlyMachineConfigSpot.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        MachineFlyMachineConfigSpot.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 max_price_fraction: Optional[_builtins.float] = None):
-        """
-        Spot pricing settings for the Machine
-
-        :param _builtins.float max_price_fraction: MaxPriceFraction is the maximum fraction of the full Machine price you will pay for this Machine. Range: (0, 1.0]
-        """
-        if max_price_fraction is not None:
-            pulumi.set(__self__, "max_price_fraction", max_price_fraction)
-
-    @_builtins.property
-    @pulumi.getter(name="maxPriceFraction")
-    def max_price_fraction(self) -> Optional[_builtins.float]:
-        """
-        MaxPriceFraction is the maximum fraction of the full Machine price you will pay for this Machine. Range: (0, 1.0]
-        """
-        return pulumi.get(self, "max_price_fraction")
-
-
-@pulumi.output_type
-class MachineFlyMachineConfigStopConfig(dict):
-    """
-    How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
-    """
-    def __init__(__self__, *,
-                 signal: Optional['FlyStopConfigSignal'] = None,
-                 timeout: Optional[_builtins.str] = None):
-        """
-        How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
-
-        :param 'FlyStopConfigSignal' signal: Signal to send to the Machine's processes. Defaults to SIGINT
-        :param _builtins.str timeout: How long to wait for the Machine to exit after sending the signal, before killing it. At most
-               5 minutes (1 minute for spot Machines). Defaults to 5s (60s for spot Machines)
-        """
-        if signal is not None:
-            pulumi.set(__self__, "signal", signal)
-        if timeout is not None:
-            pulumi.set(__self__, "timeout", timeout)
-
-    @_builtins.property
-    @pulumi.getter
-    def signal(self) -> Optional['FlyStopConfigSignal']:
-        """
-        Signal to send to the Machine's processes. Defaults to SIGINT
-        """
-        return pulumi.get(self, "signal")
-
-    @_builtins.property
-    @pulumi.getter
-    def timeout(self) -> Optional[_builtins.str]:
-        """
-        How long to wait for the Machine to exit after sending the signal, before killing it. At most
-        5 minutes (1 minute for spot Machines). Defaults to 5s (60s for spot Machines)
-        """
-        return pulumi.get(self, "timeout")
 
 
 @pulumi.output_type
@@ -8467,6 +7487,23 @@ class MachineLease(dict):
     The lease currently held on the Machine. Only returned when `include_leases=true`
     was requested and a lease is held.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "expiresAt":
+            suggest = "expires_at"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in MachineLease. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        MachineLease.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        MachineLease.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  description: Optional[_builtins.str] = None,
                  expires_at: Optional[_builtins.int] = None,
@@ -9156,6 +8193,77 @@ class MachinesExecQueryParams(dict):
         Query params for the create operation.
         """
         return pulumi.get(self, "create")
+
+
+@pulumi.output_type
+class MachinesFlyMachineServiceConcurrency(dict):
+    """
+    Load limits Fly Proxy uses to balance traffic across Machines
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "hardLimit":
+            suggest = "hard_limit"
+        elif key == "softLimit":
+            suggest = "soft_limit"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in MachinesFlyMachineServiceConcurrency. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        MachinesFlyMachineServiceConcurrency.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        MachinesFlyMachineServiceConcurrency.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 hard_limit: Optional[_builtins.int] = None,
+                 soft_limit: Optional[_builtins.int] = None,
+                 type: Optional[_builtins.str] = None):
+        """
+        Load limits Fly Proxy uses to balance traffic across Machines
+
+        :param _builtins.int hard_limit: Fly Proxy sends no more than this many connections or requests to a Machine at once. 0 means
+               no hard limit
+        :param _builtins.int soft_limit: Above this many connections or requests, Fly Proxy prefers other Machines. Defaults to 20,
+               and is lowered to hard_limit if higher
+        :param _builtins.str type: What to count: `connections` (default) or `requests`
+        """
+        if hard_limit is not None:
+            pulumi.set(__self__, "hard_limit", hard_limit)
+        if soft_limit is not None:
+            pulumi.set(__self__, "soft_limit", soft_limit)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @_builtins.property
+    @pulumi.getter(name="hardLimit")
+    def hard_limit(self) -> Optional[_builtins.int]:
+        """
+        Fly Proxy sends no more than this many connections or requests to a Machine at once. 0 means
+        no hard limit
+        """
+        return pulumi.get(self, "hard_limit")
+
+    @_builtins.property
+    @pulumi.getter(name="softLimit")
+    def soft_limit(self) -> Optional[_builtins.int]:
+        """
+        Above this many connections or requests, Fly Proxy prefers other Machines. Defaults to 20,
+        and is lowered to hard_limit if higher
+        """
+        return pulumi.get(self, "soft_limit")
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> Optional[_builtins.str]:
+        """
+        What to count: `connections` (default) or `requests`
+        """
+        return pulumi.get(self, "type")
 
 
 @pulumi.output_type

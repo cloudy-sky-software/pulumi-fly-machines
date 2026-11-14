@@ -44,7 +44,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         /// Load limits Fly Proxy uses to balance traffic across Machines
         /// </summary>
         [Input("concurrency")]
-        public Input<Inputs.FlyMachineServiceConcurrencyArgs>? Concurrency { get; set; }
+        public Input<Inputs.MachinesFlyMachineServiceConcurrencyArgs>? Concurrency { get; set; }
 
         /// <summary>
         /// Currently has no effect

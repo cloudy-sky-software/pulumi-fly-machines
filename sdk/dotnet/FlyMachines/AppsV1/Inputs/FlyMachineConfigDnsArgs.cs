@@ -14,7 +14,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
     /// <summary>
     /// DNS settings for the Machine
     /// </summary>
-    public sealed class MachineFlyMachineConfigDnsArgs : global::Pulumi.ResourceArgs
+    public sealed class FlyMachineConfigDnsArgs : global::Pulumi.ResourceArgs
     {
         [Input("dnsForwardRules")]
         private InputList<Inputs.FlyDnsForwardRuleArgs>? _dnsForwardRules;
@@ -83,9 +83,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         [Input("skipRegistration")]
         public Input<bool>? SkipRegistration { get; set; }
 
-        public MachineFlyMachineConfigDnsArgs()
+        public FlyMachineConfigDnsArgs()
         {
         }
-        public static new MachineFlyMachineConfigDnsArgs Empty => new MachineFlyMachineConfigDnsArgs();
+        public static new FlyMachineConfigDnsArgs Empty => new FlyMachineConfigDnsArgs();
     }
 }

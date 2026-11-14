@@ -82,7 +82,7 @@ class TokensAuthorize(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 access: pulumi.Input[Optional[Union['AccessArgs', 'AccessArgsDict']]] = None,
+                 access: pulumi.Input[Optional[Union['AccessArgs', 'AccessArgsDict', 'outputs.Access']]] = None,
                  header: pulumi.Input[Optional[_builtins.str]] = None,
                  query_params: pulumi.Input[Optional[Union['TokensAuthorizeQueryParamsArgs', 'TokensAuthorizeQueryParamsArgsDict', 'outputs.TokensAuthorizeQueryParams']]] = None,
                  __props__=None):
@@ -91,7 +91,7 @@ class TokensAuthorize(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[Union['AccessArgs', 'AccessArgsDict']] access: Access to check the token against.
+        :param pulumi.Input[Union['AccessArgs', 'AccessArgsDict', 'outputs.Access']] access: Access to check the token against.
         :param pulumi.Input[_builtins.str] header: Value of the Authorization header to verify, e.g. `FlyV1 fm2_...`.
         :param pulumi.Input[Union['TokensAuthorizeQueryParamsArgs', 'TokensAuthorizeQueryParamsArgsDict', 'outputs.TokensAuthorizeQueryParams']] query_params: Query params to send with the API requests for this resource.
         """
@@ -119,7 +119,7 @@ class TokensAuthorize(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 access: pulumi.Input[Optional[Union['AccessArgs', 'AccessArgsDict']]] = None,
+                 access: pulumi.Input[Optional[Union['AccessArgs', 'AccessArgsDict', 'outputs.Access']]] = None,
                  header: pulumi.Input[Optional[_builtins.str]] = None,
                  query_params: pulumi.Input[Optional[Union['TokensAuthorizeQueryParamsArgs', 'TokensAuthorizeQueryParamsArgsDict', 'outputs.TokensAuthorizeQueryParams']]] = None,
                  __props__=None):
@@ -171,7 +171,7 @@ class TokensAuthorize(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter
-    def access(self) -> pulumi.Output[Optional['outputs.TokensAuthorizeAccess']]:
+    def access(self) -> pulumi.Output[Optional['outputs.Access']]:
         """
         The requested access, with names resolved to IDs.
         """

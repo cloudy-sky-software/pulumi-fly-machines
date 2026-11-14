@@ -17,12 +17,12 @@ from . import outputs
 from ._enums import *
 
 __all__ = [
+    'Access',
     'MacaroonCaveatSet',
     'MacaroonNonce',
     'MainTokenInfo',
     'TokensAuthenticateCreateQueryParams',
     'TokensAuthenticateQueryParams',
-    'TokensAuthorizeAccess',
     'TokensAuthorizeCreateQueryParams',
     'TokensAuthorizeQueryParams',
     'TokensRequestKmCreateQueryParams',
@@ -31,6 +31,164 @@ __all__ = [
     'TokensRequestOidcQueryParams',
     'VerifiedToken',
 ]
+
+@pulumi.output_type
+class Access(dict):
+    """
+    The requested access, with names resolved to IDs.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "appFeature":
+            suggest = "app_feature"
+        elif key == "machineFeature":
+            suggest = "machine_feature"
+        elif key == "sourceApp":
+            suggest = "source_app"
+        elif key == "sourceMachine":
+            suggest = "source_machine"
+        elif key == "sourceOrganization":
+            suggest = "source_organization"
+        elif key == "storageObject":
+            suggest = "storage_object"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Access. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Access.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Access.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 action: Optional['FlyioAccessAction'] = None,
+                 app_feature: Optional[_builtins.str] = None,
+                 appid: Optional[_builtins.int] = None,
+                 cluster: Optional[_builtins.str] = None,
+                 command: Optional[Sequence[_builtins.str]] = None,
+                 feature: Optional[_builtins.str] = None,
+                 machine: Optional[_builtins.str] = None,
+                 machine_feature: Optional[_builtins.str] = None,
+                 mutation: Optional[_builtins.str] = None,
+                 orgid: Optional[_builtins.int] = None,
+                 source_app: Optional[_builtins.str] = None,
+                 source_machine: Optional[_builtins.str] = None,
+                 source_organization: Optional[_builtins.str] = None,
+                 storage_object: Optional[_builtins.str] = None,
+                 volume: Optional[_builtins.str] = None):
+        """
+        The requested access, with names resolved to IDs.
+        """
+        if action is not None:
+            pulumi.set(__self__, "action", action)
+        if app_feature is not None:
+            pulumi.set(__self__, "app_feature", app_feature)
+        if appid is not None:
+            pulumi.set(__self__, "appid", appid)
+        if cluster is not None:
+            pulumi.set(__self__, "cluster", cluster)
+        if command is not None:
+            pulumi.set(__self__, "command", command)
+        if feature is not None:
+            pulumi.set(__self__, "feature", feature)
+        if machine is not None:
+            pulumi.set(__self__, "machine", machine)
+        if machine_feature is not None:
+            pulumi.set(__self__, "machine_feature", machine_feature)
+        if mutation is not None:
+            pulumi.set(__self__, "mutation", mutation)
+        if orgid is not None:
+            pulumi.set(__self__, "orgid", orgid)
+        if source_app is not None:
+            pulumi.set(__self__, "source_app", source_app)
+        if source_machine is not None:
+            pulumi.set(__self__, "source_machine", source_machine)
+        if source_organization is not None:
+            pulumi.set(__self__, "source_organization", source_organization)
+        if storage_object is not None:
+            pulumi.set(__self__, "storage_object", storage_object)
+        if volume is not None:
+            pulumi.set(__self__, "volume", volume)
+
+    @_builtins.property
+    @pulumi.getter
+    def action(self) -> Optional['FlyioAccessAction']:
+        return pulumi.get(self, "action")
+
+    @_builtins.property
+    @pulumi.getter(name="appFeature")
+    def app_feature(self) -> Optional[_builtins.str]:
+        return pulumi.get(self, "app_feature")
+
+    @_builtins.property
+    @pulumi.getter
+    def appid(self) -> Optional[_builtins.int]:
+        return pulumi.get(self, "appid")
+
+    @_builtins.property
+    @pulumi.getter
+    def cluster(self) -> Optional[_builtins.str]:
+        return pulumi.get(self, "cluster")
+
+    @_builtins.property
+    @pulumi.getter
+    def command(self) -> Optional[Sequence[_builtins.str]]:
+        return pulumi.get(self, "command")
+
+    @_builtins.property
+    @pulumi.getter
+    def feature(self) -> Optional[_builtins.str]:
+        return pulumi.get(self, "feature")
+
+    @_builtins.property
+    @pulumi.getter
+    def machine(self) -> Optional[_builtins.str]:
+        return pulumi.get(self, "machine")
+
+    @_builtins.property
+    @pulumi.getter(name="machineFeature")
+    def machine_feature(self) -> Optional[_builtins.str]:
+        return pulumi.get(self, "machine_feature")
+
+    @_builtins.property
+    @pulumi.getter
+    def mutation(self) -> Optional[_builtins.str]:
+        return pulumi.get(self, "mutation")
+
+    @_builtins.property
+    @pulumi.getter
+    def orgid(self) -> Optional[_builtins.int]:
+        return pulumi.get(self, "orgid")
+
+    @_builtins.property
+    @pulumi.getter(name="sourceApp")
+    def source_app(self) -> Optional[_builtins.str]:
+        return pulumi.get(self, "source_app")
+
+    @_builtins.property
+    @pulumi.getter(name="sourceMachine")
+    def source_machine(self) -> Optional[_builtins.str]:
+        return pulumi.get(self, "source_machine")
+
+    @_builtins.property
+    @pulumi.getter(name="sourceOrganization")
+    def source_organization(self) -> Optional[_builtins.str]:
+        return pulumi.get(self, "source_organization")
+
+    @_builtins.property
+    @pulumi.getter(name="storageObject")
+    def storage_object(self) -> Optional[_builtins.str]:
+        return pulumi.get(self, "storage_object")
+
+    @_builtins.property
+    @pulumi.getter
+    def volume(self) -> Optional[_builtins.str]:
+        return pulumi.get(self, "volume")
+
 
 @pulumi.output_type
 class MacaroonCaveatSet(dict):
@@ -234,164 +392,6 @@ class TokensAuthenticateQueryParams(dict):
         Query params for the create operation.
         """
         return pulumi.get(self, "create")
-
-
-@pulumi.output_type
-class TokensAuthorizeAccess(dict):
-    """
-    The requested access, with names resolved to IDs.
-    """
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "appFeature":
-            suggest = "app_feature"
-        elif key == "machineFeature":
-            suggest = "machine_feature"
-        elif key == "sourceApp":
-            suggest = "source_app"
-        elif key == "sourceMachine":
-            suggest = "source_machine"
-        elif key == "sourceOrganization":
-            suggest = "source_organization"
-        elif key == "storageObject":
-            suggest = "storage_object"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in TokensAuthorizeAccess. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        TokensAuthorizeAccess.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        TokensAuthorizeAccess.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 action: Optional['FlyioAccessAction'] = None,
-                 app_feature: Optional[_builtins.str] = None,
-                 appid: Optional[_builtins.int] = None,
-                 cluster: Optional[_builtins.str] = None,
-                 command: Optional[Sequence[_builtins.str]] = None,
-                 feature: Optional[_builtins.str] = None,
-                 machine: Optional[_builtins.str] = None,
-                 machine_feature: Optional[_builtins.str] = None,
-                 mutation: Optional[_builtins.str] = None,
-                 orgid: Optional[_builtins.int] = None,
-                 source_app: Optional[_builtins.str] = None,
-                 source_machine: Optional[_builtins.str] = None,
-                 source_organization: Optional[_builtins.str] = None,
-                 storage_object: Optional[_builtins.str] = None,
-                 volume: Optional[_builtins.str] = None):
-        """
-        The requested access, with names resolved to IDs.
-        """
-        if action is not None:
-            pulumi.set(__self__, "action", action)
-        if app_feature is not None:
-            pulumi.set(__self__, "app_feature", app_feature)
-        if appid is not None:
-            pulumi.set(__self__, "appid", appid)
-        if cluster is not None:
-            pulumi.set(__self__, "cluster", cluster)
-        if command is not None:
-            pulumi.set(__self__, "command", command)
-        if feature is not None:
-            pulumi.set(__self__, "feature", feature)
-        if machine is not None:
-            pulumi.set(__self__, "machine", machine)
-        if machine_feature is not None:
-            pulumi.set(__self__, "machine_feature", machine_feature)
-        if mutation is not None:
-            pulumi.set(__self__, "mutation", mutation)
-        if orgid is not None:
-            pulumi.set(__self__, "orgid", orgid)
-        if source_app is not None:
-            pulumi.set(__self__, "source_app", source_app)
-        if source_machine is not None:
-            pulumi.set(__self__, "source_machine", source_machine)
-        if source_organization is not None:
-            pulumi.set(__self__, "source_organization", source_organization)
-        if storage_object is not None:
-            pulumi.set(__self__, "storage_object", storage_object)
-        if volume is not None:
-            pulumi.set(__self__, "volume", volume)
-
-    @_builtins.property
-    @pulumi.getter
-    def action(self) -> Optional['FlyioAccessAction']:
-        return pulumi.get(self, "action")
-
-    @_builtins.property
-    @pulumi.getter(name="appFeature")
-    def app_feature(self) -> Optional[_builtins.str]:
-        return pulumi.get(self, "app_feature")
-
-    @_builtins.property
-    @pulumi.getter
-    def appid(self) -> Optional[_builtins.int]:
-        return pulumi.get(self, "appid")
-
-    @_builtins.property
-    @pulumi.getter
-    def cluster(self) -> Optional[_builtins.str]:
-        return pulumi.get(self, "cluster")
-
-    @_builtins.property
-    @pulumi.getter
-    def command(self) -> Optional[Sequence[_builtins.str]]:
-        return pulumi.get(self, "command")
-
-    @_builtins.property
-    @pulumi.getter
-    def feature(self) -> Optional[_builtins.str]:
-        return pulumi.get(self, "feature")
-
-    @_builtins.property
-    @pulumi.getter
-    def machine(self) -> Optional[_builtins.str]:
-        return pulumi.get(self, "machine")
-
-    @_builtins.property
-    @pulumi.getter(name="machineFeature")
-    def machine_feature(self) -> Optional[_builtins.str]:
-        return pulumi.get(self, "machine_feature")
-
-    @_builtins.property
-    @pulumi.getter
-    def mutation(self) -> Optional[_builtins.str]:
-        return pulumi.get(self, "mutation")
-
-    @_builtins.property
-    @pulumi.getter
-    def orgid(self) -> Optional[_builtins.int]:
-        return pulumi.get(self, "orgid")
-
-    @_builtins.property
-    @pulumi.getter(name="sourceApp")
-    def source_app(self) -> Optional[_builtins.str]:
-        return pulumi.get(self, "source_app")
-
-    @_builtins.property
-    @pulumi.getter(name="sourceMachine")
-    def source_machine(self) -> Optional[_builtins.str]:
-        return pulumi.get(self, "source_machine")
-
-    @_builtins.property
-    @pulumi.getter(name="sourceOrganization")
-    def source_organization(self) -> Optional[_builtins.str]:
-        return pulumi.get(self, "source_organization")
-
-    @_builtins.property
-    @pulumi.getter(name="storageObject")
-    def storage_object(self) -> Optional[_builtins.str]:
-        return pulumi.get(self, "storage_object")
-
-    @_builtins.property
-    @pulumi.getter
-    def volume(self) -> Optional[_builtins.str]:
-        return pulumi.get(self, "volume")
 
 
 @pulumi.output_type

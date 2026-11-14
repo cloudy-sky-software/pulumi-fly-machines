@@ -27,7 +27,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         /// <summary>
         /// Beta: a cache drive attached to the Machine. This field may be removed in the future
         /// </summary>
-        public readonly Outputs.MachineFlyMachineConfigCacheDrive? CacheDrive;
+        public readonly Outputs.FlyMachineConfigCacheDrive? CacheDrive;
         /// <summary>
         /// An optional object that defines one or more named top-level checks. The key for each check is the check name.
         /// </summary>
@@ -43,7 +43,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         /// <summary>
         /// DNS settings for the Machine
         /// </summary>
-        public readonly Outputs.MachineFlyMachineConfigDns? Dns;
+        public readonly Outputs.FlyMachineConfigDns? Dns;
         /// <summary>
         /// An object filled with key/value pairs to be set as environment variables
         /// </summary>
@@ -55,7 +55,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         /// <summary>
         /// The resources (CPUs, memory, etc.) allocated to the Machine
         /// </summary>
-        public readonly Outputs.MachineFlyMachineConfigGuest? Guest;
+        public readonly Outputs.FlyMachineConfigGuest? Guest;
         /// <summary>
         /// The docker image to run
         /// </summary>
@@ -63,7 +63,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         /// <summary>
         /// Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
         /// </summary>
-        public readonly Outputs.MachineFlyMachineConfigInit? Init;
+        public readonly Outputs.FlyMachineConfigInit? Init;
         /// <summary>
         /// Key/value pairs of Machine metadata. Fly.io uses metadata internally for routing, process groups, and clusters
         /// </summary>
@@ -71,7 +71,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         /// <summary>
         /// An optional metrics endpoint for Prometheus on Fly.io to scrape
         /// </summary>
-        public readonly Outputs.MachineFlyMachineConfigMetrics? Metrics;
+        public readonly Outputs.FlyMachineConfigMetrics? Metrics;
         /// <summary>
         /// Persistent volumes to mount in the Machine. A Machine can mount at most one volume, which must be on
         /// the same host. The mounted volume cannot be changed by updating the Machine
@@ -86,12 +86,12 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         /// <summary>
         /// Whether and how the Machine is restarted after its main process exits
         /// </summary>
-        public readonly Outputs.MachineFlyMachineConfigRestart? Restart;
+        public readonly Outputs.FlyMachineConfigRestart? Restart;
         /// <summary>
         /// Beta: the size of the Machine's root filesystem and whether it persists. This field may be
         /// removed in the future
         /// </summary>
-        public readonly Outputs.MachineFlyMachineConfigRootfs? Rootfs;
+        public readonly Outputs.FlyMachineConfigRootfs? Rootfs;
         /// <summary>
         /// Run the Machine at an interval: one of hourly, daily, weekly or monthly. The interval starts when
         /// the Machine is created
@@ -108,7 +108,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         /// <summary>
         /// Spot pricing settings for the Machine
         /// </summary>
-        public readonly Outputs.MachineFlyMachineConfigSpot? Spot;
+        public readonly Outputs.FlyMachineConfigSpot? Spot;
         /// <summary>
         /// Standbys enable a machine to be a standby for another. In the event of a hardware failure,
         /// the standby machine will be started.
@@ -124,13 +124,13 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         /// <summary>
         /// How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
         /// </summary>
-        public readonly Outputs.MachineFlyMachineConfigStopConfig? StopConfig;
+        public readonly Outputs.FlyMachineConfigStopConfig? StopConfig;
 
         [OutputConstructor]
         private MachineConfig(
             bool? autoDestroy,
 
-            Outputs.MachineFlyMachineConfigCacheDrive? cacheDrive,
+            Outputs.FlyMachineConfigCacheDrive? cacheDrive,
 
             ImmutableDictionary<string, Outputs.FlyMachineConfigChecksProperties>? checks,
 
@@ -138,29 +138,29 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
 
             bool? disableMachineAutostart,
 
-            Outputs.MachineFlyMachineConfigDns? dns,
+            Outputs.FlyMachineConfigDns? dns,
 
             ImmutableDictionary<string, string>? env,
 
             ImmutableArray<Outputs.FlyFile> files,
 
-            Outputs.MachineFlyMachineConfigGuest? guest,
+            Outputs.FlyMachineConfigGuest? guest,
 
             string? image,
 
-            Outputs.MachineFlyMachineConfigInit? init,
+            Outputs.FlyMachineConfigInit? init,
 
             ImmutableDictionary<string, string>? metadata,
 
-            Outputs.MachineFlyMachineConfigMetrics? metrics,
+            Outputs.FlyMachineConfigMetrics? metrics,
 
             ImmutableArray<Outputs.FlyMachineMount> mounts,
 
             ImmutableArray<Outputs.FlyMachineProcess> processes,
 
-            Outputs.MachineFlyMachineConfigRestart? restart,
+            Outputs.FlyMachineConfigRestart? restart,
 
-            Outputs.MachineFlyMachineConfigRootfs? rootfs,
+            Outputs.FlyMachineConfigRootfs? rootfs,
 
             string? schedule,
 
@@ -168,13 +168,13 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
 
             string? size,
 
-            Outputs.MachineFlyMachineConfigSpot? spot,
+            Outputs.FlyMachineConfigSpot? spot,
 
             ImmutableArray<string> standbys,
 
             ImmutableArray<Outputs.FlyStatic> statics,
 
-            Outputs.MachineFlyMachineConfigStopConfig? stopConfig)
+            Outputs.FlyMachineConfigStopConfig? stopConfig)
         {
             AutoDestroy = autoDestroy;
             CacheDrive = cacheDrive;

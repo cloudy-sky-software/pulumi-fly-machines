@@ -40,185 +40,88 @@ __all__ = [
 
 class AccessArgsDict(TypedDict):
     """
-    Access to check the token against.
+    The requested access, with names resolved to IDs.
     """
-    action: NotRequired[pulumi.Input[Optional['MainTokenAccessAction']]]
-    """
-    Action is the action being taken on the specified resource. This is the
-    combination of individual action characters (e.g "rw")
-      - r: read
-      - w: write
-      - c: create
-      - d: delete
-      - C: control
-    """
+    action: NotRequired[pulumi.Input[Optional['FlyioAccessAction']]]
     app_feature: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    AppFeature is a named set of functionality associated with the app. If
-    this is specified, the AppName field must be set.
-      - images: images in the fly.io registry
-    """
-    app_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    AppName is the name of the app being accessed.
-    """
+    appid: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    cluster: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     command: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
-    """
-    Command is the command being executed on a machine. If this is specified,
-    the Machine must be set.
-    """
+    feature: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    machine: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     machine_feature: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    MachineFeature is a named set of functionality associated with the
-    machine. If this is specified, the Machine field must be set.
-      - metadata: machine metadata service
-      - oidc: OIDC tokens
-      - kmstoken: Petsem tokens for KMS access
-    """
-    machine_id: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    MachineID is the ID of the machine being accessed (e.g. 7811701f564258).
-    """
     mutation: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    Mutation is the GraphQL mutation being performed.
-    """
-    org_feature: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    OrgFeature is a named set of functionality associated with the
-    organization. If this is specified, the OrgSlug field must be set.
-      - wg: WireGuard peers
-      - builder: remote builders
-      - addon: addons
-      - membership: organization membership
-      - billing: billing
-      - litefs-cloud: LiteFS Cloud
-      - authentication: authentication settings
-    """
-    org_slug: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    OrgSlug is the slug of the organization being accessed.
-    """
+    orgid: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    source_app: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     source_machine: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    SourceMachine is the machine ID of the actor attempting access.
-    """
+    source_organization: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     storage_object: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    StorageObject is the storage object being accessed. If this is specified,
-    the OrgSlug must be set.
-    """
-    volume_id: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    VolumeID is the encoded ID of the volume being accessed (e.g.
-    vol_r1p6pln1k9m9j7zr).
-    """
+    volume: NotRequired[pulumi.Input[Optional[_builtins.str]]]
 
 @pulumi.input_type
 class AccessArgs:
     def __init__(__self__, *,
-                 action: pulumi.Input[Optional['MainTokenAccessAction']] = None,
+                 action: pulumi.Input[Optional['FlyioAccessAction']] = None,
                  app_feature: pulumi.Input[Optional[_builtins.str]] = None,
-                 app_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 appid: pulumi.Input[Optional[_builtins.int]] = None,
+                 cluster: pulumi.Input[Optional[_builtins.str]] = None,
                  command: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 feature: pulumi.Input[Optional[_builtins.str]] = None,
+                 machine: pulumi.Input[Optional[_builtins.str]] = None,
                  machine_feature: pulumi.Input[Optional[_builtins.str]] = None,
-                 machine_id: pulumi.Input[Optional[_builtins.str]] = None,
                  mutation: pulumi.Input[Optional[_builtins.str]] = None,
-                 org_feature: pulumi.Input[Optional[_builtins.str]] = None,
-                 org_slug: pulumi.Input[Optional[_builtins.str]] = None,
+                 orgid: pulumi.Input[Optional[_builtins.int]] = None,
+                 source_app: pulumi.Input[Optional[_builtins.str]] = None,
                  source_machine: pulumi.Input[Optional[_builtins.str]] = None,
+                 source_organization: pulumi.Input[Optional[_builtins.str]] = None,
                  storage_object: pulumi.Input[Optional[_builtins.str]] = None,
-                 volume_id: pulumi.Input[Optional[_builtins.str]] = None):
+                 volume: pulumi.Input[Optional[_builtins.str]] = None):
         """
-        Access to check the token against.
-
-        :param pulumi.Input['MainTokenAccessAction'] action: Action is the action being taken on the specified resource. This is the
-               combination of individual action characters (e.g "rw")
-                 - r: read
-                 - w: write
-                 - c: create
-                 - d: delete
-                 - C: control
-        :param pulumi.Input[_builtins.str] app_feature: AppFeature is a named set of functionality associated with the app. If
-               this is specified, the AppName field must be set.
-                 - images: images in the fly.io registry
-        :param pulumi.Input[_builtins.str] app_name: AppName is the name of the app being accessed.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] command: Command is the command being executed on a machine. If this is specified,
-               the Machine must be set.
-        :param pulumi.Input[_builtins.str] machine_feature: MachineFeature is a named set of functionality associated with the
-               machine. If this is specified, the Machine field must be set.
-                 - metadata: machine metadata service
-                 - oidc: OIDC tokens
-                 - kmstoken: Petsem tokens for KMS access
-        :param pulumi.Input[_builtins.str] machine_id: MachineID is the ID of the machine being accessed (e.g. 7811701f564258).
-        :param pulumi.Input[_builtins.str] mutation: Mutation is the GraphQL mutation being performed.
-        :param pulumi.Input[_builtins.str] org_feature: OrgFeature is a named set of functionality associated with the
-               organization. If this is specified, the OrgSlug field must be set.
-                 - wg: WireGuard peers
-                 - builder: remote builders
-                 - addon: addons
-                 - membership: organization membership
-                 - billing: billing
-                 - litefs-cloud: LiteFS Cloud
-                 - authentication: authentication settings
-        :param pulumi.Input[_builtins.str] org_slug: OrgSlug is the slug of the organization being accessed.
-        :param pulumi.Input[_builtins.str] source_machine: SourceMachine is the machine ID of the actor attempting access.
-        :param pulumi.Input[_builtins.str] storage_object: StorageObject is the storage object being accessed. If this is specified,
-               the OrgSlug must be set.
-        :param pulumi.Input[_builtins.str] volume_id: VolumeID is the encoded ID of the volume being accessed (e.g.
-               vol_r1p6pln1k9m9j7zr).
+        The requested access, with names resolved to IDs.
         """
         if action is not None:
             pulumi.set(__self__, "action", action)
         if app_feature is not None:
             pulumi.set(__self__, "app_feature", app_feature)
-        if app_name is not None:
-            pulumi.set(__self__, "app_name", app_name)
+        if appid is not None:
+            pulumi.set(__self__, "appid", appid)
+        if cluster is not None:
+            pulumi.set(__self__, "cluster", cluster)
         if command is not None:
             pulumi.set(__self__, "command", command)
+        if feature is not None:
+            pulumi.set(__self__, "feature", feature)
+        if machine is not None:
+            pulumi.set(__self__, "machine", machine)
         if machine_feature is not None:
             pulumi.set(__self__, "machine_feature", machine_feature)
-        if machine_id is not None:
-            pulumi.set(__self__, "machine_id", machine_id)
         if mutation is not None:
             pulumi.set(__self__, "mutation", mutation)
-        if org_feature is not None:
-            pulumi.set(__self__, "org_feature", org_feature)
-        if org_slug is not None:
-            pulumi.set(__self__, "org_slug", org_slug)
+        if orgid is not None:
+            pulumi.set(__self__, "orgid", orgid)
+        if source_app is not None:
+            pulumi.set(__self__, "source_app", source_app)
         if source_machine is not None:
             pulumi.set(__self__, "source_machine", source_machine)
+        if source_organization is not None:
+            pulumi.set(__self__, "source_organization", source_organization)
         if storage_object is not None:
             pulumi.set(__self__, "storage_object", storage_object)
-        if volume_id is not None:
-            pulumi.set(__self__, "volume_id", volume_id)
+        if volume is not None:
+            pulumi.set(__self__, "volume", volume)
 
     @_builtins.property
     @pulumi.getter
-    def action(self) -> pulumi.Input[Optional['MainTokenAccessAction']]:
-        """
-        Action is the action being taken on the specified resource. This is the
-        combination of individual action characters (e.g "rw")
-          - r: read
-          - w: write
-          - c: create
-          - d: delete
-          - C: control
-        """
+    def action(self) -> pulumi.Input[Optional['FlyioAccessAction']]:
         return pulumi.get(self, "action")
 
     @action.setter
-    def action(self, value: pulumi.Input[Optional['MainTokenAccessAction']]):
+    def action(self, value: pulumi.Input[Optional['FlyioAccessAction']]):
         pulumi.set(self, "action", value)
 
     @_builtins.property
     @pulumi.getter(name="appFeature")
     def app_feature(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        AppFeature is a named set of functionality associated with the app. If
-        this is specified, the AppName field must be set.
-          - images: images in the fly.io registry
-        """
         return pulumi.get(self, "app_feature")
 
     @app_feature.setter
@@ -226,24 +129,26 @@ class AccessArgs:
         pulumi.set(self, "app_feature", value)
 
     @_builtins.property
-    @pulumi.getter(name="appName")
-    def app_name(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        AppName is the name of the app being accessed.
-        """
-        return pulumi.get(self, "app_name")
+    @pulumi.getter
+    def appid(self) -> pulumi.Input[Optional[_builtins.int]]:
+        return pulumi.get(self, "appid")
 
-    @app_name.setter
-    def app_name(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "app_name", value)
+    @appid.setter
+    def appid(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "appid", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def cluster(self) -> pulumi.Input[Optional[_builtins.str]]:
+        return pulumi.get(self, "cluster")
+
+    @cluster.setter
+    def cluster(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "cluster", value)
 
     @_builtins.property
     @pulumi.getter
     def command(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
-        """
-        Command is the command being executed on a machine. If this is specified,
-        the Machine must be set.
-        """
         return pulumi.get(self, "command")
 
     @command.setter
@@ -251,15 +156,26 @@ class AccessArgs:
         pulumi.set(self, "command", value)
 
     @_builtins.property
+    @pulumi.getter
+    def feature(self) -> pulumi.Input[Optional[_builtins.str]]:
+        return pulumi.get(self, "feature")
+
+    @feature.setter
+    def feature(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "feature", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def machine(self) -> pulumi.Input[Optional[_builtins.str]]:
+        return pulumi.get(self, "machine")
+
+    @machine.setter
+    def machine(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "machine", value)
+
+    @_builtins.property
     @pulumi.getter(name="machineFeature")
     def machine_feature(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        MachineFeature is a named set of functionality associated with the
-        machine. If this is specified, the Machine field must be set.
-          - metadata: machine metadata service
-          - oidc: OIDC tokens
-          - kmstoken: Petsem tokens for KMS access
-        """
         return pulumi.get(self, "machine_feature")
 
     @machine_feature.setter
@@ -267,23 +183,8 @@ class AccessArgs:
         pulumi.set(self, "machine_feature", value)
 
     @_builtins.property
-    @pulumi.getter(name="machineId")
-    def machine_id(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        MachineID is the ID of the machine being accessed (e.g. 7811701f564258).
-        """
-        return pulumi.get(self, "machine_id")
-
-    @machine_id.setter
-    def machine_id(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "machine_id", value)
-
-    @_builtins.property
     @pulumi.getter
     def mutation(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        Mutation is the GraphQL mutation being performed.
-        """
         return pulumi.get(self, "mutation")
 
     @mutation.setter
@@ -291,43 +192,26 @@ class AccessArgs:
         pulumi.set(self, "mutation", value)
 
     @_builtins.property
-    @pulumi.getter(name="orgFeature")
-    def org_feature(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        OrgFeature is a named set of functionality associated with the
-        organization. If this is specified, the OrgSlug field must be set.
-          - wg: WireGuard peers
-          - builder: remote builders
-          - addon: addons
-          - membership: organization membership
-          - billing: billing
-          - litefs-cloud: LiteFS Cloud
-          - authentication: authentication settings
-        """
-        return pulumi.get(self, "org_feature")
+    @pulumi.getter
+    def orgid(self) -> pulumi.Input[Optional[_builtins.int]]:
+        return pulumi.get(self, "orgid")
 
-    @org_feature.setter
-    def org_feature(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "org_feature", value)
+    @orgid.setter
+    def orgid(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "orgid", value)
 
     @_builtins.property
-    @pulumi.getter(name="orgSlug")
-    def org_slug(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        OrgSlug is the slug of the organization being accessed.
-        """
-        return pulumi.get(self, "org_slug")
+    @pulumi.getter(name="sourceApp")
+    def source_app(self) -> pulumi.Input[Optional[_builtins.str]]:
+        return pulumi.get(self, "source_app")
 
-    @org_slug.setter
-    def org_slug(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "org_slug", value)
+    @source_app.setter
+    def source_app(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "source_app", value)
 
     @_builtins.property
     @pulumi.getter(name="sourceMachine")
     def source_machine(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        SourceMachine is the machine ID of the actor attempting access.
-        """
         return pulumi.get(self, "source_machine")
 
     @source_machine.setter
@@ -335,12 +219,17 @@ class AccessArgs:
         pulumi.set(self, "source_machine", value)
 
     @_builtins.property
+    @pulumi.getter(name="sourceOrganization")
+    def source_organization(self) -> pulumi.Input[Optional[_builtins.str]]:
+        return pulumi.get(self, "source_organization")
+
+    @source_organization.setter
+    def source_organization(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "source_organization", value)
+
+    @_builtins.property
     @pulumi.getter(name="storageObject")
     def storage_object(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        StorageObject is the storage object being accessed. If this is specified,
-        the OrgSlug must be set.
-        """
         return pulumi.get(self, "storage_object")
 
     @storage_object.setter
@@ -348,17 +237,13 @@ class AccessArgs:
         pulumi.set(self, "storage_object", value)
 
     @_builtins.property
-    @pulumi.getter(name="volumeId")
-    def volume_id(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        VolumeID is the encoded ID of the volume being accessed (e.g.
-        vol_r1p6pln1k9m9j7zr).
-        """
-        return pulumi.get(self, "volume_id")
+    @pulumi.getter
+    def volume(self) -> pulumi.Input[Optional[_builtins.str]]:
+        return pulumi.get(self, "volume")
 
-    @volume_id.setter
-    def volume_id(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "volume_id", value)
+    @volume.setter
+    def volume(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "volume", value)
 
 
 class GetCurrentTokenQueryParamsDict(TypedDict):

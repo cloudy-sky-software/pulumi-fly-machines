@@ -221,7 +221,7 @@ class AppCertificatesAcme(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="dnsRequirements")
-    def dns_requirements(self) -> pulumi.Output[Optional['outputs.AppCertificatesAcmeDnsRequirements']]:
+    def dns_requirements(self) -> pulumi.Output[Optional['outputs.DnsRequirements']]:
         """
         DNS records to create to point the hostname at the app and validate it.
         """
@@ -262,7 +262,7 @@ class AppCertificatesAcme(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter
-    def validation(self) -> pulumi.Output[Optional['outputs.AppCertificatesAcmeValidation']]:
+    def validation(self) -> pulumi.Output[Optional['outputs.Validation']]:
         """
         Which validation methods are currently possible.
         """

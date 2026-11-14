@@ -32,7 +32,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         /// <summary>
         /// Load limits Fly Proxy uses to balance traffic across Machines
         /// </summary>
-        public readonly Outputs.FlyMachineServiceConcurrency? Concurrency;
+        public readonly Outputs.MachinesFlyMachineServiceConcurrency? Concurrency;
         /// <summary>
         /// Currently has no effect
         /// </summary>
@@ -67,7 +67,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
 
             ImmutableArray<Outputs.FlyMachineServiceCheck> checks,
 
-            Outputs.FlyMachineServiceConcurrency? concurrency,
+            Outputs.MachinesFlyMachineServiceConcurrency? concurrency,
 
             string? forceInstanceDescription,
 

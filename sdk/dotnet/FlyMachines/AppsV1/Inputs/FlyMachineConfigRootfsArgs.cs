@@ -8,35 +8,32 @@ using System.Threading.Tasks;
 using Pulumi.Serialization;
 using Pulumi;
 
-namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
+namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
 {
 
     /// <summary>
     /// Beta: the size of the Machine's root filesystem and whether it persists. This field may be
     /// removed in the future
     /// </summary>
-    [OutputType]
-    public sealed class MachineFlyMachineConfigRootfs
+    public sealed class FlyMachineConfigRootfsArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Whether changes to the root filesystem are kept. `never` (default): reset on every start.
         /// `restart`: kept across stops and restarts, reset when the Machine is updated. `always`: also
         /// kept across updates
         /// </summary>
-        public readonly CloudySkySoftware.Pulumi.FlyMachines.AppsV1.FlyMachineRootfsPersist? Persist;
+        [Input("persist")]
+        public Input<CloudySkySoftware.Pulumi.FlyMachines.AppsV1.FlyMachineRootfsPersist>? Persist { get; set; }
+
         /// <summary>
         /// Size of the root filesystem in GB. At most 50; 0 uses the default
         /// </summary>
-        public readonly int? SizeGb;
+        [Input("sizeGb")]
+        public Input<int>? SizeGb { get; set; }
 
-        [OutputConstructor]
-        private MachineFlyMachineConfigRootfs(
-            CloudySkySoftware.Pulumi.FlyMachines.AppsV1.FlyMachineRootfsPersist? persist,
-
-            int? sizeGb)
+        public FlyMachineConfigRootfsArgs()
         {
-            Persist = persist;
-            SizeGb = sizeGb;
         }
+        public static new FlyMachineConfigRootfsArgs Empty => new FlyMachineConfigRootfsArgs();
     }
 }

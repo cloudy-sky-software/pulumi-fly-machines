@@ -8,14 +8,13 @@ using System.Threading.Tasks;
 using Pulumi.Serialization;
 using Pulumi;
 
-namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
+namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
 {
 
     /// <summary>
     /// Beta: a cache drive attached to the Machine. This field may be removed in the future
     /// </summary>
-    [OutputType]
-    public sealed class MachineFlyMachineConfigCacheDrive
+    public sealed class FlyMachineConfigCacheDriveArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Optional absolute guest mount path. When set, the device is formatted as ext4.
@@ -23,21 +22,19 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         /// same-host restarts and path changes, but are discarded on size or mode changes,
         /// relocation, recovery on another host, and cloning.
         /// </summary>
-        public readonly string? Path;
+        [Input("path")]
+        public Input<string>? Path { get; set; }
+
         /// <summary>
         /// Fixed size of the Machine-owned cache drive in MiB. At most 51200.
         /// With a path, at least 16 MiB is required; without a path, 0 disables the device.
         /// </summary>
-        public readonly int? SizeMb;
+        [Input("sizeMb")]
+        public Input<int>? SizeMb { get; set; }
 
-        [OutputConstructor]
-        private MachineFlyMachineConfigCacheDrive(
-            string? path,
-
-            int? sizeMb)
+        public FlyMachineConfigCacheDriveArgs()
         {
-            Path = path;
-            SizeMb = sizeMb;
         }
+        public static new FlyMachineConfigCacheDriveArgs Empty => new FlyMachineConfigCacheDriveArgs();
     }
 }

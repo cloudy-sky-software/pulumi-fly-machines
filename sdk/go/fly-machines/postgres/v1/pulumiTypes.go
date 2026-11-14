@@ -2408,7 +2408,7 @@ type PostgresCluster struct {
 	// Disk size in gigabytes, for one replica.
 	DiskSizeGb *int `pulumi:"diskSizeGb"`
 	// Connection endpoints. Populated once the cluster is ready.
-	Endpoints *PostgresClusterEndpoints `pulumi:"endpoints"`
+	Endpoints *PostgresPostgresClusterEndpoints `pulumi:"endpoints"`
 	// Cluster ID.
 	Id *string `pulumi:"id"`
 	// Memory per node in megabytes.
@@ -2476,8 +2476,8 @@ func (o PostgresClusterOutput) DiskSizeGb() pulumi.IntPtrOutput {
 }
 
 // Connection endpoints. Populated once the cluster is ready.
-func (o PostgresClusterOutput) Endpoints() PostgresClusterEndpointsPtrOutput {
-	return o.ApplyT(func(v PostgresCluster) *PostgresClusterEndpoints { return v.Endpoints }).(PostgresClusterEndpointsPtrOutput)
+func (o PostgresClusterOutput) Endpoints() PostgresPostgresClusterEndpointsPtrOutput {
+	return o.ApplyT(func(v PostgresCluster) *PostgresPostgresClusterEndpoints { return v.Endpoints }).(PostgresPostgresClusterEndpointsPtrOutput)
 }
 
 // Cluster ID.
@@ -2616,13 +2616,13 @@ func (o PostgresClusterPtrOutput) DiskSizeGb() pulumi.IntPtrOutput {
 }
 
 // Connection endpoints. Populated once the cluster is ready.
-func (o PostgresClusterPtrOutput) Endpoints() PostgresClusterEndpointsPtrOutput {
-	return o.ApplyT(func(v *PostgresCluster) *PostgresClusterEndpoints {
+func (o PostgresClusterPtrOutput) Endpoints() PostgresPostgresClusterEndpointsPtrOutput {
+	return o.ApplyT(func(v *PostgresCluster) *PostgresPostgresClusterEndpoints {
 		if v == nil {
 			return nil
 		}
 		return v.Endpoints
-	}).(PostgresClusterEndpointsPtrOutput)
+	}).(PostgresPostgresClusterEndpointsPtrOutput)
 }
 
 // Cluster ID.
@@ -2744,66 +2744,6 @@ func (o PostgresClusterPtrOutput) StorageUsedBytes() pulumi.IntPtrOutput {
 		}
 		return v.StorageUsedBytes
 	}).(pulumi.IntPtrOutput)
-}
-
-// Connection endpoints. Populated once the cluster is ready.
-type PostgresClusterEndpoints struct {
-	// Endpoints for connecting to the primary node.
-	Primary *PostgresClusterEndpointsPrimary `pulumi:"primary"`
-}
-
-// Connection endpoints. Populated once the cluster is ready.
-type PostgresClusterEndpointsOutput struct{ *pulumi.OutputState }
-
-func (PostgresClusterEndpointsOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*PostgresClusterEndpoints)(nil)).Elem()
-}
-
-func (o PostgresClusterEndpointsOutput) ToPostgresClusterEndpointsOutput() PostgresClusterEndpointsOutput {
-	return o
-}
-
-func (o PostgresClusterEndpointsOutput) ToPostgresClusterEndpointsOutputWithContext(ctx context.Context) PostgresClusterEndpointsOutput {
-	return o
-}
-
-// Endpoints for connecting to the primary node.
-func (o PostgresClusterEndpointsOutput) Primary() PostgresClusterEndpointsPrimaryPtrOutput {
-	return o.ApplyT(func(v PostgresClusterEndpoints) *PostgresClusterEndpointsPrimary { return v.Primary }).(PostgresClusterEndpointsPrimaryPtrOutput)
-}
-
-type PostgresClusterEndpointsPtrOutput struct{ *pulumi.OutputState }
-
-func (PostgresClusterEndpointsPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**PostgresClusterEndpoints)(nil)).Elem()
-}
-
-func (o PostgresClusterEndpointsPtrOutput) ToPostgresClusterEndpointsPtrOutput() PostgresClusterEndpointsPtrOutput {
-	return o
-}
-
-func (o PostgresClusterEndpointsPtrOutput) ToPostgresClusterEndpointsPtrOutputWithContext(ctx context.Context) PostgresClusterEndpointsPtrOutput {
-	return o
-}
-
-func (o PostgresClusterEndpointsPtrOutput) Elem() PostgresClusterEndpointsOutput {
-	return o.ApplyT(func(v *PostgresClusterEndpoints) PostgresClusterEndpoints {
-		if v != nil {
-			return *v
-		}
-		var ret PostgresClusterEndpoints
-		return ret
-	}).(PostgresClusterEndpointsOutput)
-}
-
-// Endpoints for connecting to the primary node.
-func (o PostgresClusterEndpointsPtrOutput) Primary() PostgresClusterEndpointsPrimaryPtrOutput {
-	return o.ApplyT(func(v *PostgresClusterEndpoints) *PostgresClusterEndpointsPrimary {
-		if v == nil {
-			return nil
-		}
-		return v.Primary
-	}).(PostgresClusterEndpointsPrimaryPtrOutput)
 }
 
 // Endpoints for connecting to the primary node.
@@ -5166,6 +5106,66 @@ func (o PostgresPlanArrayOutput) Index(i pulumi.IntInput) PostgresPlanOutput {
 	}).(PostgresPlanOutput)
 }
 
+// Connection endpoints. Populated once the cluster is ready.
+type PostgresPostgresClusterEndpoints struct {
+	// Endpoints for connecting to the primary node.
+	Primary *PostgresClusterEndpointsPrimary `pulumi:"primary"`
+}
+
+// Connection endpoints. Populated once the cluster is ready.
+type PostgresPostgresClusterEndpointsOutput struct{ *pulumi.OutputState }
+
+func (PostgresPostgresClusterEndpointsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PostgresPostgresClusterEndpoints)(nil)).Elem()
+}
+
+func (o PostgresPostgresClusterEndpointsOutput) ToPostgresPostgresClusterEndpointsOutput() PostgresPostgresClusterEndpointsOutput {
+	return o
+}
+
+func (o PostgresPostgresClusterEndpointsOutput) ToPostgresPostgresClusterEndpointsOutputWithContext(ctx context.Context) PostgresPostgresClusterEndpointsOutput {
+	return o
+}
+
+// Endpoints for connecting to the primary node.
+func (o PostgresPostgresClusterEndpointsOutput) Primary() PostgresClusterEndpointsPrimaryPtrOutput {
+	return o.ApplyT(func(v PostgresPostgresClusterEndpoints) *PostgresClusterEndpointsPrimary { return v.Primary }).(PostgresClusterEndpointsPrimaryPtrOutput)
+}
+
+type PostgresPostgresClusterEndpointsPtrOutput struct{ *pulumi.OutputState }
+
+func (PostgresPostgresClusterEndpointsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PostgresPostgresClusterEndpoints)(nil)).Elem()
+}
+
+func (o PostgresPostgresClusterEndpointsPtrOutput) ToPostgresPostgresClusterEndpointsPtrOutput() PostgresPostgresClusterEndpointsPtrOutput {
+	return o
+}
+
+func (o PostgresPostgresClusterEndpointsPtrOutput) ToPostgresPostgresClusterEndpointsPtrOutputWithContext(ctx context.Context) PostgresPostgresClusterEndpointsPtrOutput {
+	return o
+}
+
+func (o PostgresPostgresClusterEndpointsPtrOutput) Elem() PostgresPostgresClusterEndpointsOutput {
+	return o.ApplyT(func(v *PostgresPostgresClusterEndpoints) PostgresPostgresClusterEndpoints {
+		if v != nil {
+			return *v
+		}
+		var ret PostgresPostgresClusterEndpoints
+		return ret
+	}).(PostgresPostgresClusterEndpointsOutput)
+}
+
+// Endpoints for connecting to the primary node.
+func (o PostgresPostgresClusterEndpointsPtrOutput) Primary() PostgresClusterEndpointsPrimaryPtrOutput {
+	return o.ApplyT(func(v *PostgresPostgresClusterEndpoints) *PostgresClusterEndpointsPrimary {
+		if v == nil {
+			return nil
+		}
+		return v.Primary
+	}).(PostgresClusterEndpointsPrimaryPtrOutput)
+}
+
 type PostgresQueryColumn struct {
 	// Column name as returned by Postgres.
 	Name *string `pulumi:"name"`
@@ -6912,8 +6912,6 @@ func init() {
 	pulumi.RegisterOutputType(PostgresBackupQueryParamsPtrOutput{})
 	pulumi.RegisterOutputType(PostgresClusterOutput{})
 	pulumi.RegisterOutputType(PostgresClusterPtrOutput{})
-	pulumi.RegisterOutputType(PostgresClusterEndpointsOutput{})
-	pulumi.RegisterOutputType(PostgresClusterEndpointsPtrOutput{})
 	pulumi.RegisterOutputType(PostgresClusterEndpointsPrimaryOutput{})
 	pulumi.RegisterOutputType(PostgresClusterEndpointsPrimaryPtrOutput{})
 	pulumi.RegisterOutputType(PostgresClusterSummaryOutput{})
@@ -6955,6 +6953,8 @@ func init() {
 	pulumi.RegisterOutputType(PostgresNodeEndpointsPoolerPtrOutput{})
 	pulumi.RegisterOutputType(PostgresPlanOutput{})
 	pulumi.RegisterOutputType(PostgresPlanArrayOutput{})
+	pulumi.RegisterOutputType(PostgresPostgresClusterEndpointsOutput{})
+	pulumi.RegisterOutputType(PostgresPostgresClusterEndpointsPtrOutput{})
 	pulumi.RegisterOutputType(PostgresQueryColumnOutput{})
 	pulumi.RegisterOutputType(PostgresQueryColumnArrayOutput{})
 	pulumi.RegisterOutputType(PostgresQueryParamsOutput{})

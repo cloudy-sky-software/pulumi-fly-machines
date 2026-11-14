@@ -258,7 +258,10 @@ export namespace apps {
         }
 
         /**
-         * An object defining the Machine configuration
+         * The Machine's configuration, as provided when it was created or last updated, with
+         * `metadata` and `mounts` reflecting their current values. Null when the host is not
+         * reachable (`host_status` is not `ok`) or `summary=true` was requested; see
+         * `incomplete_config`.
          */
         export interface ConfigArgs {
             /**
@@ -268,7 +271,7 @@ export namespace apps {
             /**
              * Beta: a cache drive attached to the Machine. This field may be removed in the future
              */
-            cacheDrive?: pulumi.Input<inputs.apps.v1.MachineFlyMachineConfigCacheDriveArgs | undefined>;
+            cacheDrive?: pulumi.Input<inputs.apps.v1.FlyMachineConfigCacheDriveArgs | undefined>;
             /**
              * An optional object that defines one or more named top-level checks. The key for each check is the check name.
              */
@@ -284,7 +287,7 @@ export namespace apps {
             /**
              * DNS settings for the Machine
              */
-            dns?: pulumi.Input<inputs.apps.v1.MachineFlyMachineConfigDnsArgs | undefined>;
+            dns?: pulumi.Input<inputs.apps.v1.FlyMachineConfigDnsArgs | undefined>;
             /**
              * An object filled with key/value pairs to be set as environment variables
              */
@@ -296,7 +299,7 @@ export namespace apps {
             /**
              * The resources (CPUs, memory, etc.) allocated to the Machine
              */
-            guest?: pulumi.Input<inputs.apps.v1.MachineFlyMachineConfigGuestArgs | undefined>;
+            guest?: pulumi.Input<inputs.apps.v1.FlyMachineConfigGuestArgs | undefined>;
             /**
              * The docker image to run
              */
@@ -304,7 +307,7 @@ export namespace apps {
             /**
              * Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
              */
-            init?: pulumi.Input<inputs.apps.v1.MachineFlyMachineConfigInitArgs | undefined>;
+            init?: pulumi.Input<inputs.apps.v1.FlyMachineConfigInitArgs | undefined>;
             /**
              * Key/value pairs of Machine metadata. Fly.io uses metadata internally for routing, process groups, and clusters
              */
@@ -312,7 +315,7 @@ export namespace apps {
             /**
              * An optional metrics endpoint for Prometheus on Fly.io to scrape
              */
-            metrics?: pulumi.Input<inputs.apps.v1.MachineFlyMachineConfigMetricsArgs | undefined>;
+            metrics?: pulumi.Input<inputs.apps.v1.FlyMachineConfigMetricsArgs | undefined>;
             /**
              * Persistent volumes to mount in the Machine. A Machine can mount at most one volume, which must be on
              * the same host. The mounted volume cannot be changed by updating the Machine
@@ -327,12 +330,12 @@ export namespace apps {
             /**
              * Whether and how the Machine is restarted after its main process exits
              */
-            restart?: pulumi.Input<inputs.apps.v1.MachineFlyMachineConfigRestartArgs | undefined>;
+            restart?: pulumi.Input<inputs.apps.v1.FlyMachineConfigRestartArgs | undefined>;
             /**
              * Beta: the size of the Machine's root filesystem and whether it persists. This field may be
              * removed in the future
              */
-            rootfs?: pulumi.Input<inputs.apps.v1.MachineFlyMachineConfigRootfsArgs | undefined>;
+            rootfs?: pulumi.Input<inputs.apps.v1.FlyMachineConfigRootfsArgs | undefined>;
             /**
              * Run the Machine at an interval: one of hourly, daily, weekly or monthly. The interval starts when
              * the Machine is created
@@ -349,7 +352,7 @@ export namespace apps {
             /**
              * Spot pricing settings for the Machine
              */
-            spot?: pulumi.Input<inputs.apps.v1.MachineFlyMachineConfigSpotArgs | undefined>;
+            spot?: pulumi.Input<inputs.apps.v1.FlyMachineConfigSpotArgs | undefined>;
             /**
              * Standbys enable a machine to be a standby for another. In the event of a hardware failure,
              * the standby machine will be started.
@@ -365,7 +368,7 @@ export namespace apps {
             /**
              * How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
              */
-            stopConfig?: pulumi.Input<inputs.apps.v1.MachineFlyMachineConfigStopConfigArgs | undefined>;
+            stopConfig?: pulumi.Input<inputs.apps.v1.FlyMachineConfigStopConfigArgs | undefined>;
         }
 
         export interface FlyContainerConfigArgs {
@@ -655,6 +658,24 @@ export namespace apps {
         }
 
         /**
+         * Beta: a cache drive attached to the Machine. This field may be removed in the future
+         */
+        export interface FlyMachineConfigCacheDriveArgs {
+            /**
+             * Optional absolute guest mount path. When set, the device is formatted as ext4.
+             * Without a path, the device retains legacy raw block behavior. Contents survive
+             * same-host restarts and path changes, but are discarded on size or mode changes,
+             * relocation, recovery on another host, and cloning.
+             */
+            path?: pulumi.Input<string | undefined>;
+            /**
+             * Fixed size of the Machine-owned cache drive in MiB. At most 51200.
+             * With a path, at least 16 MiB is required; without a path, 0 disables the device.
+             */
+            sizeMb?: pulumi.Input<number | undefined>;
+        }
+
+        /**
          * An optional object that defines one or more named top-level checks. The key for each check is the check name.
          */
         export interface FlyMachineConfigChecksPropertiesArgs {
@@ -706,6 +727,203 @@ export namespace apps {
              * tcp or http
              */
             type?: pulumi.Input<string | undefined>;
+        }
+
+        /**
+         * DNS settings for the Machine
+         */
+        export interface FlyMachineConfigDnsArgs {
+            /**
+             * Forward DNS queries for some domains to other DNS servers
+             */
+            dnsForwardRules?: pulumi.Input<pulumi.Input<inputs.apps.v1.FlyDnsForwardRuleArgs>[] | undefined>;
+            /**
+             * Hostname of the Machine. Defaults to the Machine ID. Also added to /etc/hosts with the
+             * Machine's 6PN address
+             */
+            hostname?: pulumi.Input<string | undefined>;
+            /**
+             * Fully qualified domain name added to /etc/hosts for `hostname`
+             */
+            hostnameFqdn?: pulumi.Input<string | undefined>;
+            /**
+             * Nameservers to use instead of the default, Fly.io's private DNS server `fdaa::3`
+             */
+            nameservers?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+            /**
+             * Options for /etc/resolv.conf
+             */
+            options?: pulumi.Input<pulumi.Input<inputs.apps.v1.FlyDnsOptionArgs>[] | undefined>;
+            /**
+             * Search domains for /etc/resolv.conf
+             */
+            searches?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+            /**
+             * Currently has no effect
+             */
+            skipRegistration?: pulumi.Input<boolean | undefined>;
+        }
+
+        /**
+         * The resources (CPUs, memory, etc.) allocated to the Machine
+         */
+        export interface FlyMachineConfigGuestArgs {
+            /**
+             * Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
+             * Defaults to shared when `guest` is omitted
+             */
+            cpuKind?: pulumi.Input<string | undefined>;
+            /**
+             * Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
+             * performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
+             * omitted
+             */
+            cpus?: pulumi.Input<number | undefined>;
+            /**
+             * No longer supported. Requests that set it are rejected
+             */
+            gpuKind?: pulumi.Input<string | undefined>;
+            /**
+             * No longer supported. Requests that set it are rejected
+             */
+            gpus?: pulumi.Input<number | undefined>;
+            /**
+             * Place the Machine on hosts dedicated to the organization under this ID. Only available to
+             * organizations with dedicated hosts
+             */
+            hostDedicationId?: pulumi.Input<string | undefined>;
+            /**
+             * Extra arguments appended to the guest kernel command line
+             */
+            kernelArgs?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+            /**
+             * Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
+             * the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
+             * starts with a limit of memory_mb
+             */
+            maxMemoryMb?: pulumi.Input<number | undefined>;
+            /**
+             * Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
+             * between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
+             * `guest` is omitted
+             */
+            memoryMb?: pulumi.Input<number | undefined>;
+            /**
+             * Deprecated: use MachineConfig.Rootfs instead
+             */
+            persistRootfs?: pulumi.Input<enums.apps.v1.FlyMachineGuestPersistRootfs | undefined>;
+            /**
+             * Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
+             * of lowercase letters, digits and dashes. Each feature must be enabled for the organization
+             */
+            requiredHostFeatures?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+        }
+
+        /**
+         * Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
+         */
+        export interface FlyMachineConfigInitArgs {
+            /**
+             * Replaces the image's CMD. It's appended to the entrypoint
+             */
+            cmd?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+            /**
+             * Replaces the image's ENTRYPOINT
+             */
+            entrypoint?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+            /**
+             * Command to run instead of the image's ENTRYPOINT and CMD. Takes precedence over entrypoint
+             * and cmd
+             */
+            exec?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+            /**
+             * Currently has no effect. Use `guest.kernel_args` instead
+             */
+            kernelArgs?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+            /**
+             * Size in MiB of a swap device to give the Machine. Machines with swap cannot be suspended
+             */
+            swapSizeMb?: pulumi.Input<number | undefined>;
+            /**
+             * Currently has no effect
+             */
+            tty?: pulumi.Input<boolean | undefined>;
+        }
+
+        /**
+         * An optional metrics endpoint for Prometheus on Fly.io to scrape
+         */
+        export interface FlyMachineConfigMetricsArgs {
+            /**
+             * Scrape over HTTPS instead of HTTP
+             */
+            https?: pulumi.Input<boolean | undefined>;
+            /**
+             * HTTP path to scrape. Defaults to `/`
+             */
+            path?: pulumi.Input<string | undefined>;
+            /**
+             * Port in the Machine to scrape metrics from
+             */
+            port?: pulumi.Input<number | undefined>;
+        }
+
+        /**
+         * Whether and how the Machine is restarted after its main process exits
+         */
+        export interface FlyMachineConfigRestartArgs {
+            /**
+             * When policy is on-failure, the maximum number of times to attempt to restart the Machine before letting it stop.
+             */
+            maxRetries?: pulumi.Input<number | undefined>;
+            /**
+             * * no - Never try to restart a Machine automatically when its main process exits, whether that’s on purpose or on a crash.
+             * * always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.
+             * * on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules.
+             */
+            policy?: pulumi.Input<enums.apps.v1.FlyMachineRestartPolicy | undefined>;
+        }
+
+        /**
+         * Beta: the size of the Machine's root filesystem and whether it persists. This field may be
+         * removed in the future
+         */
+        export interface FlyMachineConfigRootfsArgs {
+            /**
+             * Whether changes to the root filesystem are kept. `never` (default): reset on every start.
+             * `restart`: kept across stops and restarts, reset when the Machine is updated. `always`: also
+             * kept across updates
+             */
+            persist?: pulumi.Input<enums.apps.v1.FlyMachineRootfsPersist | undefined>;
+            /**
+             * Size of the root filesystem in GB. At most 50; 0 uses the default
+             */
+            sizeGb?: pulumi.Input<number | undefined>;
+        }
+
+        /**
+         * Spot pricing settings for the Machine
+         */
+        export interface FlyMachineConfigSpotArgs {
+            /**
+             * MaxPriceFraction is the maximum fraction of the full Machine price you will pay for this Machine. Range: (0, 1.0]
+             */
+            maxPriceFraction?: pulumi.Input<number | undefined>;
+        }
+
+        /**
+         * How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
+         */
+        export interface FlyMachineConfigStopConfigArgs {
+            /**
+             * Signal to send to the Machine's processes. Defaults to SIGINT
+             */
+            signal?: pulumi.Input<enums.apps.v1.FlyStopConfigSignal | undefined>;
+            /**
+             * How long to wait for the Machine to exit after sending the signal, before killing it. At most
+             * 5 minutes (1 minute for spot Machines). Defaults to 5s (60s for spot Machines)
+             */
+            timeout?: pulumi.Input<string | undefined>;
         }
 
         /**
@@ -944,7 +1162,7 @@ export namespace apps {
             /**
              * Load limits Fly Proxy uses to balance traffic across Machines
              */
-            concurrency?: pulumi.Input<inputs.apps.v1.FlyMachineServiceConcurrencyArgs | undefined>;
+            concurrency?: pulumi.Input<inputs.apps.v1.MachinesFlyMachineServiceConcurrencyArgs | undefined>;
             /**
              * Currently has no effect
              */
@@ -1015,26 +1233,6 @@ export namespace apps {
             tlsSkipVerify?: pulumi.Input<boolean | undefined>;
             /**
              * tcp or http
-             */
-            type?: pulumi.Input<string | undefined>;
-        }
-
-        /**
-         * Load limits Fly Proxy uses to balance traffic across Machines
-         */
-        export interface FlyMachineServiceConcurrencyArgs {
-            /**
-             * Fly Proxy sends no more than this many connections or requests to a Machine at once. 0 means
-             * no hard limit
-             */
-            hardLimit?: pulumi.Input<number | undefined>;
-            /**
-             * Above this many connections or requests, Fly Proxy prefers other Machines. Defaults to 20,
-             * and is lowered to hard_limit if higher
-             */
-            softLimit?: pulumi.Input<number | undefined>;
-            /**
-             * What to count: `connections` (default) or `requests`
              */
             type?: pulumi.Input<string | undefined>;
         }
@@ -1828,221 +2026,6 @@ export namespace apps {
         }
 
         /**
-         * Beta: a cache drive attached to the Machine. This field may be removed in the future
-         */
-        export interface MachineFlyMachineConfigCacheDriveArgs {
-            /**
-             * Optional absolute guest mount path. When set, the device is formatted as ext4.
-             * Without a path, the device retains legacy raw block behavior. Contents survive
-             * same-host restarts and path changes, but are discarded on size or mode changes,
-             * relocation, recovery on another host, and cloning.
-             */
-            path?: pulumi.Input<string | undefined>;
-            /**
-             * Fixed size of the Machine-owned cache drive in MiB. At most 51200.
-             * With a path, at least 16 MiB is required; without a path, 0 disables the device.
-             */
-            sizeMb?: pulumi.Input<number | undefined>;
-        }
-
-        /**
-         * DNS settings for the Machine
-         */
-        export interface MachineFlyMachineConfigDnsArgs {
-            /**
-             * Forward DNS queries for some domains to other DNS servers
-             */
-            dnsForwardRules?: pulumi.Input<pulumi.Input<inputs.apps.v1.FlyDnsForwardRuleArgs>[] | undefined>;
-            /**
-             * Hostname of the Machine. Defaults to the Machine ID. Also added to /etc/hosts with the
-             * Machine's 6PN address
-             */
-            hostname?: pulumi.Input<string | undefined>;
-            /**
-             * Fully qualified domain name added to /etc/hosts for `hostname`
-             */
-            hostnameFqdn?: pulumi.Input<string | undefined>;
-            /**
-             * Nameservers to use instead of the default, Fly.io's private DNS server `fdaa::3`
-             */
-            nameservers?: pulumi.Input<pulumi.Input<string>[] | undefined>;
-            /**
-             * Options for /etc/resolv.conf
-             */
-            options?: pulumi.Input<pulumi.Input<inputs.apps.v1.FlyDnsOptionArgs>[] | undefined>;
-            /**
-             * Search domains for /etc/resolv.conf
-             */
-            searches?: pulumi.Input<pulumi.Input<string>[] | undefined>;
-            /**
-             * Currently has no effect
-             */
-            skipRegistration?: pulumi.Input<boolean | undefined>;
-        }
-
-        /**
-         * The resources (CPUs, memory, etc.) allocated to the Machine
-         */
-        export interface MachineFlyMachineConfigGuestArgs {
-            /**
-             * Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
-             * Defaults to shared when `guest` is omitted
-             */
-            cpuKind?: pulumi.Input<string | undefined>;
-            /**
-             * Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
-             * performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
-             * omitted
-             */
-            cpus?: pulumi.Input<number | undefined>;
-            /**
-             * No longer supported. Requests that set it are rejected
-             */
-            gpuKind?: pulumi.Input<string | undefined>;
-            /**
-             * No longer supported. Requests that set it are rejected
-             */
-            gpus?: pulumi.Input<number | undefined>;
-            /**
-             * Place the Machine on hosts dedicated to the organization under this ID. Only available to
-             * organizations with dedicated hosts
-             */
-            hostDedicationId?: pulumi.Input<string | undefined>;
-            /**
-             * Extra arguments appended to the guest kernel command line
-             */
-            kernelArgs?: pulumi.Input<pulumi.Input<string>[] | undefined>;
-            /**
-             * Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
-             * the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
-             * starts with a limit of memory_mb
-             */
-            maxMemoryMb?: pulumi.Input<number | undefined>;
-            /**
-             * Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
-             * between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
-             * `guest` is omitted
-             */
-            memoryMb?: pulumi.Input<number | undefined>;
-            /**
-             * Deprecated: use MachineConfig.Rootfs instead
-             */
-            persistRootfs?: pulumi.Input<enums.apps.v1.FlyMachineGuestPersistRootfs | undefined>;
-            /**
-             * Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
-             * of lowercase letters, digits and dashes. Each feature must be enabled for the organization
-             */
-            requiredHostFeatures?: pulumi.Input<pulumi.Input<string>[] | undefined>;
-        }
-
-        /**
-         * Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
-         */
-        export interface MachineFlyMachineConfigInitArgs {
-            /**
-             * Replaces the image's CMD. It's appended to the entrypoint
-             */
-            cmd?: pulumi.Input<pulumi.Input<string>[] | undefined>;
-            /**
-             * Replaces the image's ENTRYPOINT
-             */
-            entrypoint?: pulumi.Input<pulumi.Input<string>[] | undefined>;
-            /**
-             * Command to run instead of the image's ENTRYPOINT and CMD. Takes precedence over entrypoint
-             * and cmd
-             */
-            exec?: pulumi.Input<pulumi.Input<string>[] | undefined>;
-            /**
-             * Currently has no effect. Use `guest.kernel_args` instead
-             */
-            kernelArgs?: pulumi.Input<pulumi.Input<string>[] | undefined>;
-            /**
-             * Size in MiB of a swap device to give the Machine. Machines with swap cannot be suspended
-             */
-            swapSizeMb?: pulumi.Input<number | undefined>;
-            /**
-             * Currently has no effect
-             */
-            tty?: pulumi.Input<boolean | undefined>;
-        }
-
-        /**
-         * An optional metrics endpoint for Prometheus on Fly.io to scrape
-         */
-        export interface MachineFlyMachineConfigMetricsArgs {
-            /**
-             * Scrape over HTTPS instead of HTTP
-             */
-            https?: pulumi.Input<boolean | undefined>;
-            /**
-             * HTTP path to scrape. Defaults to `/`
-             */
-            path?: pulumi.Input<string | undefined>;
-            /**
-             * Port in the Machine to scrape metrics from
-             */
-            port?: pulumi.Input<number | undefined>;
-        }
-
-        /**
-         * Whether and how the Machine is restarted after its main process exits
-         */
-        export interface MachineFlyMachineConfigRestartArgs {
-            /**
-             * When policy is on-failure, the maximum number of times to attempt to restart the Machine before letting it stop.
-             */
-            maxRetries?: pulumi.Input<number | undefined>;
-            /**
-             * * no - Never try to restart a Machine automatically when its main process exits, whether that’s on purpose or on a crash.
-             * * always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.
-             * * on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules.
-             */
-            policy?: pulumi.Input<enums.apps.v1.FlyMachineRestartPolicy | undefined>;
-        }
-
-        /**
-         * Beta: the size of the Machine's root filesystem and whether it persists. This field may be
-         * removed in the future
-         */
-        export interface MachineFlyMachineConfigRootfsArgs {
-            /**
-             * Whether changes to the root filesystem are kept. `never` (default): reset on every start.
-             * `restart`: kept across stops and restarts, reset when the Machine is updated. `always`: also
-             * kept across updates
-             */
-            persist?: pulumi.Input<enums.apps.v1.FlyMachineRootfsPersist | undefined>;
-            /**
-             * Size of the root filesystem in GB. At most 50; 0 uses the default
-             */
-            sizeGb?: pulumi.Input<number | undefined>;
-        }
-
-        /**
-         * Spot pricing settings for the Machine
-         */
-        export interface MachineFlyMachineConfigSpotArgs {
-            /**
-             * MaxPriceFraction is the maximum fraction of the full Machine price you will pay for this Machine. Range: (0, 1.0]
-             */
-            maxPriceFraction?: pulumi.Input<number | undefined>;
-        }
-
-        /**
-         * How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
-         */
-        export interface MachineFlyMachineConfigStopConfigArgs {
-            /**
-             * Signal to send to the Machine's processes. Defaults to SIGINT
-             */
-            signal?: pulumi.Input<enums.apps.v1.FlyStopConfigSignal | undefined>;
-            /**
-             * How long to wait for the Machine to exit after sending the signal, before killing it. At most
-             * 5 minutes (1 minute for spot Machines). Defaults to 5s (60s for spot Machines)
-             */
-            timeout?: pulumi.Input<string | undefined>;
-        }
-
-        /**
          * Query params for the API request.
          */
         export interface MachinePutQueryParamsArgs {
@@ -2130,6 +2113,26 @@ export namespace apps {
              * Query params for the create operation.
              */
             create?: pulumi.Input<inputs.apps.v1.MachinesExecCreateQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Load limits Fly Proxy uses to balance traffic across Machines
+         */
+        export interface MachinesFlyMachineServiceConcurrencyArgs {
+            /**
+             * Fly Proxy sends no more than this many connections or requests to a Machine at once. 0 means
+             * no hard limit
+             */
+            hardLimit?: pulumi.Input<number | undefined>;
+            /**
+             * Above this many connections or requests, Fly Proxy prefers other Machines. Defaults to 20,
+             * and is lowered to hard_limit if higher
+             */
+            softLimit?: pulumi.Input<number | undefined>;
+            /**
+             * What to count: `connections` (default) or `requests`
+             */
+            type?: pulumi.Input<string | undefined>;
         }
 
         /**
@@ -3641,80 +3644,24 @@ export namespace postgres {
 export namespace tokens {
     export namespace v1 {
         /**
-         * Access to check the token against.
+         * The requested access, with names resolved to IDs.
          */
         export interface AccessArgs {
-            /**
-             * Action is the action being taken on the specified resource. This is the
-             * combination of individual action characters (e.g "rw")
-             *   - r: read
-             *   - w: write
-             *   - c: create
-             *   - d: delete
-             *   - C: control
-             */
-            action?: pulumi.Input<enums.tokens.v1.MainTokenAccessAction | undefined>;
-            /**
-             * AppFeature is a named set of functionality associated with the app. If
-             * this is specified, the AppName field must be set.
-             *   - images: images in the fly.io registry
-             */
+            action?: pulumi.Input<enums.tokens.v1.FlyioAccessAction | undefined>;
             appFeature?: pulumi.Input<string | undefined>;
-            /**
-             * AppName is the name of the app being accessed.
-             */
-            appName?: pulumi.Input<string | undefined>;
-            /**
-             * Command is the command being executed on a machine. If this is specified,
-             * the Machine must be set.
-             */
+            appid?: pulumi.Input<number | undefined>;
+            cluster?: pulumi.Input<string | undefined>;
             command?: pulumi.Input<pulumi.Input<string>[] | undefined>;
-            /**
-             * MachineFeature is a named set of functionality associated with the
-             * machine. If this is specified, the Machine field must be set.
-             *   - metadata: machine metadata service
-             *   - oidc: OIDC tokens
-             *   - kmstoken: Petsem tokens for KMS access
-             */
+            feature?: pulumi.Input<string | undefined>;
+            machine?: pulumi.Input<string | undefined>;
             machineFeature?: pulumi.Input<string | undefined>;
-            /**
-             * MachineID is the ID of the machine being accessed (e.g. 7811701f564258).
-             */
-            machineId?: pulumi.Input<string | undefined>;
-            /**
-             * Mutation is the GraphQL mutation being performed.
-             */
             mutation?: pulumi.Input<string | undefined>;
-            /**
-             * OrgFeature is a named set of functionality associated with the
-             * organization. If this is specified, the OrgSlug field must be set.
-             *   - wg: WireGuard peers
-             *   - builder: remote builders
-             *   - addon: addons
-             *   - membership: organization membership
-             *   - billing: billing
-             *   - litefs-cloud: LiteFS Cloud
-             *   - authentication: authentication settings
-             */
-            orgFeature?: pulumi.Input<string | undefined>;
-            /**
-             * OrgSlug is the slug of the organization being accessed.
-             */
-            orgSlug?: pulumi.Input<string | undefined>;
-            /**
-             * SourceMachine is the machine ID of the actor attempting access.
-             */
+            orgid?: pulumi.Input<number | undefined>;
+            sourceApp?: pulumi.Input<string | undefined>;
             sourceMachine?: pulumi.Input<string | undefined>;
-            /**
-             * StorageObject is the storage object being accessed. If this is specified,
-             * the OrgSlug must be set.
-             */
+            sourceOrganization?: pulumi.Input<string | undefined>;
             storageObject?: pulumi.Input<string | undefined>;
-            /**
-             * VolumeID is the encoded ID of the volume being accessed (e.g.
-             * vol_r1p6pln1k9m9j7zr).
-             */
-            volumeId?: pulumi.Input<string | undefined>;
+            volume?: pulumi.Input<string | undefined>;
         }
 
         /**

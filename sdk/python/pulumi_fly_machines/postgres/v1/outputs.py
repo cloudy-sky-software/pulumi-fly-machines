@@ -28,7 +28,6 @@ __all__ = [
     'PostgresBackupCreateQueryParams',
     'PostgresBackupQueryParams',
     'PostgresCluster',
-    'PostgresClusterEndpoints',
     'PostgresClusterEndpointsPrimary',
     'PostgresClusterSummary',
     'PostgresCreateQueryParams',
@@ -49,6 +48,7 @@ __all__ = [
     'PostgresNodeEndpointsDirect',
     'PostgresNodeEndpointsPooler',
     'PostgresPlan',
+    'PostgresPostgresClusterEndpoints',
     'PostgresQueryColumn',
     'PostgresQueryParams',
     'PostgresReadQueryParams',
@@ -620,7 +620,7 @@ class PostgresCluster(dict):
                  cpus: Optional[_builtins.int] = None,
                  created_at: Optional[_builtins.str] = None,
                  disk_size_gb: Optional[_builtins.int] = None,
-                 endpoints: Optional['outputs.PostgresClusterEndpoints'] = None,
+                 endpoints: Optional['outputs.PostgresPostgresClusterEndpoints'] = None,
                  id: Optional[_builtins.str] = None,
                  memory_mb: Optional[_builtins.int] = None,
                  name: Optional[_builtins.str] = None,
@@ -639,7 +639,7 @@ class PostgresCluster(dict):
         :param _builtins.int cpus: vCPUs per node.
         :param _builtins.str created_at: RFC 3339 creation timestamp.
         :param _builtins.int disk_size_gb: Disk size in gigabytes, for one replica.
-        :param 'PostgresClusterEndpoints' endpoints: Connection endpoints. Populated once the cluster is ready.
+        :param 'PostgresPostgresClusterEndpoints' endpoints: Connection endpoints. Populated once the cluster is ready.
         :param _builtins.str id: Cluster ID.
         :param _builtins.int memory_mb: Memory per node in megabytes.
         :param _builtins.str name: Cluster name.
@@ -733,7 +733,7 @@ class PostgresCluster(dict):
 
     @_builtins.property
     @pulumi.getter
-    def endpoints(self) -> Optional['outputs.PostgresClusterEndpoints']:
+    def endpoints(self) -> Optional['outputs.PostgresPostgresClusterEndpoints']:
         """
         Connection endpoints. Populated once the cluster is ready.
         """
@@ -833,30 +833,6 @@ class PostgresCluster(dict):
         until first measured.
         """
         return pulumi.get(self, "storage_used_bytes")
-
-
-@pulumi.output_type
-class PostgresClusterEndpoints(dict):
-    """
-    Connection endpoints. Populated once the cluster is ready.
-    """
-    def __init__(__self__, *,
-                 primary: Optional['outputs.PostgresClusterEndpointsPrimary'] = None):
-        """
-        Connection endpoints. Populated once the cluster is ready.
-
-        :param 'PostgresClusterEndpointsPrimary' primary: Endpoints for connecting to the primary node.
-        """
-        if primary is not None:
-            pulumi.set(__self__, "primary", primary)
-
-    @_builtins.property
-    @pulumi.getter
-    def primary(self) -> Optional['outputs.PostgresClusterEndpointsPrimary']:
-        """
-        Endpoints for connecting to the primary node.
-        """
-        return pulumi.get(self, "primary")
 
 
 @pulumi.output_type
@@ -1717,6 +1693,30 @@ class PostgresPlan(dict):
         Plan slug. Pass it as `plan` when creating or forking a cluster.
         """
         return pulumi.get(self, "plan")
+
+
+@pulumi.output_type
+class PostgresPostgresClusterEndpoints(dict):
+    """
+    Connection endpoints. Populated once the cluster is ready.
+    """
+    def __init__(__self__, *,
+                 primary: Optional['outputs.PostgresClusterEndpointsPrimary'] = None):
+        """
+        Connection endpoints. Populated once the cluster is ready.
+
+        :param 'PostgresClusterEndpointsPrimary' primary: Endpoints for connecting to the primary node.
+        """
+        if primary is not None:
+            pulumi.set(__self__, "primary", primary)
+
+    @_builtins.property
+    @pulumi.getter
+    def primary(self) -> Optional['outputs.PostgresClusterEndpointsPrimary']:
+        """
+        Endpoints for connecting to the primary node.
+        """
+        return pulumi.get(self, "primary")
 
 
 @pulumi.output_type

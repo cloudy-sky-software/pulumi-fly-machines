@@ -13,55 +13,23 @@ import (
 
 var _ = internal.GetEnvOrDefault
 
-// Access to check the token against.
+// The requested access, with names resolved to IDs.
 type Access struct {
-	// Action is the action being taken on the specified resource. This is the
-	// combination of individual action characters (e.g "rw")
-	//   - r: read
-	//   - w: write
-	//   - c: create
-	//   - d: delete
-	//   - C: control
-	Action *MainTokenAccessAction `pulumi:"action"`
-	// AppFeature is a named set of functionality associated with the app. If
-	// this is specified, the AppName field must be set.
-	//   - images: images in the fly.io registry
-	AppFeature *string `pulumi:"appFeature"`
-	// AppName is the name of the app being accessed.
-	AppName *string `pulumi:"appName"`
-	// Command is the command being executed on a machine. If this is specified,
-	// the Machine must be set.
-	Command []string `pulumi:"command"`
-	// MachineFeature is a named set of functionality associated with the
-	// machine. If this is specified, the Machine field must be set.
-	//   - metadata: machine metadata service
-	//   - oidc: OIDC tokens
-	//   - kmstoken: Petsem tokens for KMS access
-	MachineFeature *string `pulumi:"machineFeature"`
-	// MachineID is the ID of the machine being accessed (e.g. 7811701f564258).
-	MachineId *string `pulumi:"machineId"`
-	// Mutation is the GraphQL mutation being performed.
-	Mutation *string `pulumi:"mutation"`
-	// OrgFeature is a named set of functionality associated with the
-	// organization. If this is specified, the OrgSlug field must be set.
-	//   - wg: WireGuard peers
-	//   - builder: remote builders
-	//   - addon: addons
-	//   - membership: organization membership
-	//   - billing: billing
-	//   - litefs-cloud: LiteFS Cloud
-	//   - authentication: authentication settings
-	OrgFeature *string `pulumi:"orgFeature"`
-	// OrgSlug is the slug of the organization being accessed.
-	OrgSlug *string `pulumi:"orgSlug"`
-	// SourceMachine is the machine ID of the actor attempting access.
-	SourceMachine *string `pulumi:"sourceMachine"`
-	// StorageObject is the storage object being accessed. If this is specified,
-	// the OrgSlug must be set.
-	StorageObject *string `pulumi:"storageObject"`
-	// VolumeID is the encoded ID of the volume being accessed (e.g.
-	// vol_r1p6pln1k9m9j7zr).
-	VolumeId *string `pulumi:"volumeId"`
+	Action             *FlyioAccessAction `pulumi:"action"`
+	AppFeature         *string            `pulumi:"appFeature"`
+	Appid              *int               `pulumi:"appid"`
+	Cluster            *string            `pulumi:"cluster"`
+	Command            []string           `pulumi:"command"`
+	Feature            *string            `pulumi:"feature"`
+	Machine            *string            `pulumi:"machine"`
+	MachineFeature     *string            `pulumi:"machineFeature"`
+	Mutation           *string            `pulumi:"mutation"`
+	Orgid              *int               `pulumi:"orgid"`
+	SourceApp          *string            `pulumi:"sourceApp"`
+	SourceMachine      *string            `pulumi:"sourceMachine"`
+	SourceOrganization *string            `pulumi:"sourceOrganization"`
+	StorageObject      *string            `pulumi:"storageObject"`
+	Volume             *string            `pulumi:"volume"`
 }
 
 // AccessInput is an input type that accepts AccessArgs and AccessOutput values.
@@ -75,55 +43,23 @@ type AccessInput interface {
 	ToAccessOutputWithContext(context.Context) AccessOutput
 }
 
-// Access to check the token against.
+// The requested access, with names resolved to IDs.
 type AccessArgs struct {
-	// Action is the action being taken on the specified resource. This is the
-	// combination of individual action characters (e.g "rw")
-	//   - r: read
-	//   - w: write
-	//   - c: create
-	//   - d: delete
-	//   - C: control
-	Action MainTokenAccessActionPtrInput `pulumi:"action"`
-	// AppFeature is a named set of functionality associated with the app. If
-	// this is specified, the AppName field must be set.
-	//   - images: images in the fly.io registry
-	AppFeature pulumi.StringPtrInput `pulumi:"appFeature"`
-	// AppName is the name of the app being accessed.
-	AppName pulumi.StringPtrInput `pulumi:"appName"`
-	// Command is the command being executed on a machine. If this is specified,
-	// the Machine must be set.
-	Command pulumi.StringArrayInput `pulumi:"command"`
-	// MachineFeature is a named set of functionality associated with the
-	// machine. If this is specified, the Machine field must be set.
-	//   - metadata: machine metadata service
-	//   - oidc: OIDC tokens
-	//   - kmstoken: Petsem tokens for KMS access
-	MachineFeature pulumi.StringPtrInput `pulumi:"machineFeature"`
-	// MachineID is the ID of the machine being accessed (e.g. 7811701f564258).
-	MachineId pulumi.StringPtrInput `pulumi:"machineId"`
-	// Mutation is the GraphQL mutation being performed.
-	Mutation pulumi.StringPtrInput `pulumi:"mutation"`
-	// OrgFeature is a named set of functionality associated with the
-	// organization. If this is specified, the OrgSlug field must be set.
-	//   - wg: WireGuard peers
-	//   - builder: remote builders
-	//   - addon: addons
-	//   - membership: organization membership
-	//   - billing: billing
-	//   - litefs-cloud: LiteFS Cloud
-	//   - authentication: authentication settings
-	OrgFeature pulumi.StringPtrInput `pulumi:"orgFeature"`
-	// OrgSlug is the slug of the organization being accessed.
-	OrgSlug pulumi.StringPtrInput `pulumi:"orgSlug"`
-	// SourceMachine is the machine ID of the actor attempting access.
-	SourceMachine pulumi.StringPtrInput `pulumi:"sourceMachine"`
-	// StorageObject is the storage object being accessed. If this is specified,
-	// the OrgSlug must be set.
-	StorageObject pulumi.StringPtrInput `pulumi:"storageObject"`
-	// VolumeID is the encoded ID of the volume being accessed (e.g.
-	// vol_r1p6pln1k9m9j7zr).
-	VolumeId pulumi.StringPtrInput `pulumi:"volumeId"`
+	Action             FlyioAccessActionPtrInput `pulumi:"action"`
+	AppFeature         pulumi.StringPtrInput     `pulumi:"appFeature"`
+	Appid              pulumi.IntPtrInput        `pulumi:"appid"`
+	Cluster            pulumi.StringPtrInput     `pulumi:"cluster"`
+	Command            pulumi.StringArrayInput   `pulumi:"command"`
+	Feature            pulumi.StringPtrInput     `pulumi:"feature"`
+	Machine            pulumi.StringPtrInput     `pulumi:"machine"`
+	MachineFeature     pulumi.StringPtrInput     `pulumi:"machineFeature"`
+	Mutation           pulumi.StringPtrInput     `pulumi:"mutation"`
+	Orgid              pulumi.IntPtrInput        `pulumi:"orgid"`
+	SourceApp          pulumi.StringPtrInput     `pulumi:"sourceApp"`
+	SourceMachine      pulumi.StringPtrInput     `pulumi:"sourceMachine"`
+	SourceOrganization pulumi.StringPtrInput     `pulumi:"sourceOrganization"`
+	StorageObject      pulumi.StringPtrInput     `pulumi:"storageObject"`
+	Volume             pulumi.StringPtrInput     `pulumi:"volume"`
 }
 
 func (AccessArgs) ElementType() reflect.Type {
@@ -179,7 +115,7 @@ func (i *accessPtrType) ToAccessPtrOutputWithContext(ctx context.Context) Access
 	return pulumi.ToOutputWithContext(ctx, i).(AccessPtrOutput)
 }
 
-// Access to check the token against.
+// The requested access, with names resolved to IDs.
 type AccessOutput struct{ *pulumi.OutputState }
 
 func (AccessOutput) ElementType() reflect.Type {
@@ -204,87 +140,64 @@ func (o AccessOutput) ToAccessPtrOutputWithContext(ctx context.Context) AccessPt
 	}).(AccessPtrOutput)
 }
 
-// Action is the action being taken on the specified resource. This is the
-// combination of individual action characters (e.g "rw")
-//   - r: read
-//   - w: write
-//   - c: create
-//   - d: delete
-//   - C: control
-func (o AccessOutput) Action() MainTokenAccessActionPtrOutput {
-	return o.ApplyT(func(v Access) *MainTokenAccessAction { return v.Action }).(MainTokenAccessActionPtrOutput)
+func (o AccessOutput) Action() FlyioAccessActionPtrOutput {
+	return o.ApplyT(func(v Access) *FlyioAccessAction { return v.Action }).(FlyioAccessActionPtrOutput)
 }
 
-// AppFeature is a named set of functionality associated with the app. If
-// this is specified, the AppName field must be set.
-//   - images: images in the fly.io registry
 func (o AccessOutput) AppFeature() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Access) *string { return v.AppFeature }).(pulumi.StringPtrOutput)
 }
 
-// AppName is the name of the app being accessed.
-func (o AccessOutput) AppName() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v Access) *string { return v.AppName }).(pulumi.StringPtrOutput)
+func (o AccessOutput) Appid() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v Access) *int { return v.Appid }).(pulumi.IntPtrOutput)
 }
 
-// Command is the command being executed on a machine. If this is specified,
-// the Machine must be set.
+func (o AccessOutput) Cluster() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Access) *string { return v.Cluster }).(pulumi.StringPtrOutput)
+}
+
 func (o AccessOutput) Command() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v Access) []string { return v.Command }).(pulumi.StringArrayOutput)
 }
 
-// MachineFeature is a named set of functionality associated with the
-// machine. If this is specified, the Machine field must be set.
-//   - metadata: machine metadata service
-//   - oidc: OIDC tokens
-//   - kmstoken: Petsem tokens for KMS access
+func (o AccessOutput) Feature() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Access) *string { return v.Feature }).(pulumi.StringPtrOutput)
+}
+
+func (o AccessOutput) Machine() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Access) *string { return v.Machine }).(pulumi.StringPtrOutput)
+}
+
 func (o AccessOutput) MachineFeature() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Access) *string { return v.MachineFeature }).(pulumi.StringPtrOutput)
 }
 
-// MachineID is the ID of the machine being accessed (e.g. 7811701f564258).
-func (o AccessOutput) MachineId() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v Access) *string { return v.MachineId }).(pulumi.StringPtrOutput)
-}
-
-// Mutation is the GraphQL mutation being performed.
 func (o AccessOutput) Mutation() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Access) *string { return v.Mutation }).(pulumi.StringPtrOutput)
 }
 
-// OrgFeature is a named set of functionality associated with the
-// organization. If this is specified, the OrgSlug field must be set.
-//   - wg: WireGuard peers
-//   - builder: remote builders
-//   - addon: addons
-//   - membership: organization membership
-//   - billing: billing
-//   - litefs-cloud: LiteFS Cloud
-//   - authentication: authentication settings
-func (o AccessOutput) OrgFeature() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v Access) *string { return v.OrgFeature }).(pulumi.StringPtrOutput)
+func (o AccessOutput) Orgid() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v Access) *int { return v.Orgid }).(pulumi.IntPtrOutput)
 }
 
-// OrgSlug is the slug of the organization being accessed.
-func (o AccessOutput) OrgSlug() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v Access) *string { return v.OrgSlug }).(pulumi.StringPtrOutput)
+func (o AccessOutput) SourceApp() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Access) *string { return v.SourceApp }).(pulumi.StringPtrOutput)
 }
 
-// SourceMachine is the machine ID of the actor attempting access.
 func (o AccessOutput) SourceMachine() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Access) *string { return v.SourceMachine }).(pulumi.StringPtrOutput)
 }
 
-// StorageObject is the storage object being accessed. If this is specified,
-// the OrgSlug must be set.
+func (o AccessOutput) SourceOrganization() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Access) *string { return v.SourceOrganization }).(pulumi.StringPtrOutput)
+}
+
 func (o AccessOutput) StorageObject() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Access) *string { return v.StorageObject }).(pulumi.StringPtrOutput)
 }
 
-// VolumeID is the encoded ID of the volume being accessed (e.g.
-// vol_r1p6pln1k9m9j7zr).
-func (o AccessOutput) VolumeId() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v Access) *string { return v.VolumeId }).(pulumi.StringPtrOutput)
+func (o AccessOutput) Volume() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Access) *string { return v.Volume }).(pulumi.StringPtrOutput)
 }
 
 type AccessPtrOutput struct{ *pulumi.OutputState }
@@ -311,25 +224,15 @@ func (o AccessPtrOutput) Elem() AccessOutput {
 	}).(AccessOutput)
 }
 
-// Action is the action being taken on the specified resource. This is the
-// combination of individual action characters (e.g "rw")
-//   - r: read
-//   - w: write
-//   - c: create
-//   - d: delete
-//   - C: control
-func (o AccessPtrOutput) Action() MainTokenAccessActionPtrOutput {
-	return o.ApplyT(func(v *Access) *MainTokenAccessAction {
+func (o AccessPtrOutput) Action() FlyioAccessActionPtrOutput {
+	return o.ApplyT(func(v *Access) *FlyioAccessAction {
 		if v == nil {
 			return nil
 		}
 		return v.Action
-	}).(MainTokenAccessActionPtrOutput)
+	}).(FlyioAccessActionPtrOutput)
 }
 
-// AppFeature is a named set of functionality associated with the app. If
-// this is specified, the AppName field must be set.
-//   - images: images in the fly.io registry
 func (o AccessPtrOutput) AppFeature() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Access) *string {
 		if v == nil {
@@ -339,18 +242,24 @@ func (o AccessPtrOutput) AppFeature() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// AppName is the name of the app being accessed.
-func (o AccessPtrOutput) AppName() pulumi.StringPtrOutput {
+func (o AccessPtrOutput) Appid() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *Access) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Appid
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o AccessPtrOutput) Cluster() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Access) *string {
 		if v == nil {
 			return nil
 		}
-		return v.AppName
+		return v.Cluster
 	}).(pulumi.StringPtrOutput)
 }
 
-// Command is the command being executed on a machine. If this is specified,
-// the Machine must be set.
 func (o AccessPtrOutput) Command() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Access) []string {
 		if v == nil {
@@ -360,11 +269,24 @@ func (o AccessPtrOutput) Command() pulumi.StringArrayOutput {
 	}).(pulumi.StringArrayOutput)
 }
 
-// MachineFeature is a named set of functionality associated with the
-// machine. If this is specified, the Machine field must be set.
-//   - metadata: machine metadata service
-//   - oidc: OIDC tokens
-//   - kmstoken: Petsem tokens for KMS access
+func (o AccessPtrOutput) Feature() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Access) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Feature
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o AccessPtrOutput) Machine() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Access) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Machine
+	}).(pulumi.StringPtrOutput)
+}
+
 func (o AccessPtrOutput) MachineFeature() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Access) *string {
 		if v == nil {
@@ -374,17 +296,6 @@ func (o AccessPtrOutput) MachineFeature() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// MachineID is the ID of the machine being accessed (e.g. 7811701f564258).
-func (o AccessPtrOutput) MachineId() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Access) *string {
-		if v == nil {
-			return nil
-		}
-		return v.MachineId
-	}).(pulumi.StringPtrOutput)
-}
-
-// Mutation is the GraphQL mutation being performed.
 func (o AccessPtrOutput) Mutation() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Access) *string {
 		if v == nil {
@@ -394,35 +305,24 @@ func (o AccessPtrOutput) Mutation() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// OrgFeature is a named set of functionality associated with the
-// organization. If this is specified, the OrgSlug field must be set.
-//   - wg: WireGuard peers
-//   - builder: remote builders
-//   - addon: addons
-//   - membership: organization membership
-//   - billing: billing
-//   - litefs-cloud: LiteFS Cloud
-//   - authentication: authentication settings
-func (o AccessPtrOutput) OrgFeature() pulumi.StringPtrOutput {
+func (o AccessPtrOutput) Orgid() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *Access) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Orgid
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o AccessPtrOutput) SourceApp() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Access) *string {
 		if v == nil {
 			return nil
 		}
-		return v.OrgFeature
+		return v.SourceApp
 	}).(pulumi.StringPtrOutput)
 }
 
-// OrgSlug is the slug of the organization being accessed.
-func (o AccessPtrOutput) OrgSlug() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Access) *string {
-		if v == nil {
-			return nil
-		}
-		return v.OrgSlug
-	}).(pulumi.StringPtrOutput)
-}
-
-// SourceMachine is the machine ID of the actor attempting access.
 func (o AccessPtrOutput) SourceMachine() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Access) *string {
 		if v == nil {
@@ -432,8 +332,15 @@ func (o AccessPtrOutput) SourceMachine() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// StorageObject is the storage object being accessed. If this is specified,
-// the OrgSlug must be set.
+func (o AccessPtrOutput) SourceOrganization() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Access) *string {
+		if v == nil {
+			return nil
+		}
+		return v.SourceOrganization
+	}).(pulumi.StringPtrOutput)
+}
+
 func (o AccessPtrOutput) StorageObject() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Access) *string {
 		if v == nil {
@@ -443,14 +350,12 @@ func (o AccessPtrOutput) StorageObject() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// VolumeID is the encoded ID of the volume being accessed (e.g.
-// vol_r1p6pln1k9m9j7zr).
-func (o AccessPtrOutput) VolumeId() pulumi.StringPtrOutput {
+func (o AccessPtrOutput) Volume() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Access) *string {
 		if v == nil {
 			return nil
 		}
-		return v.VolumeId
+		return v.Volume
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -1109,259 +1014,6 @@ func (o TokensAuthenticateQueryParamsPtrOutput) Create() TokensAuthenticateCreat
 		}
 		return v.Create
 	}).(TokensAuthenticateCreateQueryParamsPtrOutput)
-}
-
-// The requested access, with names resolved to IDs.
-type TokensAuthorizeAccess struct {
-	Action             *FlyioAccessAction `pulumi:"action"`
-	AppFeature         *string            `pulumi:"appFeature"`
-	Appid              *int               `pulumi:"appid"`
-	Cluster            *string            `pulumi:"cluster"`
-	Command            []string           `pulumi:"command"`
-	Feature            *string            `pulumi:"feature"`
-	Machine            *string            `pulumi:"machine"`
-	MachineFeature     *string            `pulumi:"machineFeature"`
-	Mutation           *string            `pulumi:"mutation"`
-	Orgid              *int               `pulumi:"orgid"`
-	SourceApp          *string            `pulumi:"sourceApp"`
-	SourceMachine      *string            `pulumi:"sourceMachine"`
-	SourceOrganization *string            `pulumi:"sourceOrganization"`
-	StorageObject      *string            `pulumi:"storageObject"`
-	Volume             *string            `pulumi:"volume"`
-}
-
-// The requested access, with names resolved to IDs.
-type TokensAuthorizeAccessOutput struct{ *pulumi.OutputState }
-
-func (TokensAuthorizeAccessOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*TokensAuthorizeAccess)(nil)).Elem()
-}
-
-func (o TokensAuthorizeAccessOutput) ToTokensAuthorizeAccessOutput() TokensAuthorizeAccessOutput {
-	return o
-}
-
-func (o TokensAuthorizeAccessOutput) ToTokensAuthorizeAccessOutputWithContext(ctx context.Context) TokensAuthorizeAccessOutput {
-	return o
-}
-
-func (o TokensAuthorizeAccessOutput) Action() FlyioAccessActionPtrOutput {
-	return o.ApplyT(func(v TokensAuthorizeAccess) *FlyioAccessAction { return v.Action }).(FlyioAccessActionPtrOutput)
-}
-
-func (o TokensAuthorizeAccessOutput) AppFeature() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v TokensAuthorizeAccess) *string { return v.AppFeature }).(pulumi.StringPtrOutput)
-}
-
-func (o TokensAuthorizeAccessOutput) Appid() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v TokensAuthorizeAccess) *int { return v.Appid }).(pulumi.IntPtrOutput)
-}
-
-func (o TokensAuthorizeAccessOutput) Cluster() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v TokensAuthorizeAccess) *string { return v.Cluster }).(pulumi.StringPtrOutput)
-}
-
-func (o TokensAuthorizeAccessOutput) Command() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v TokensAuthorizeAccess) []string { return v.Command }).(pulumi.StringArrayOutput)
-}
-
-func (o TokensAuthorizeAccessOutput) Feature() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v TokensAuthorizeAccess) *string { return v.Feature }).(pulumi.StringPtrOutput)
-}
-
-func (o TokensAuthorizeAccessOutput) Machine() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v TokensAuthorizeAccess) *string { return v.Machine }).(pulumi.StringPtrOutput)
-}
-
-func (o TokensAuthorizeAccessOutput) MachineFeature() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v TokensAuthorizeAccess) *string { return v.MachineFeature }).(pulumi.StringPtrOutput)
-}
-
-func (o TokensAuthorizeAccessOutput) Mutation() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v TokensAuthorizeAccess) *string { return v.Mutation }).(pulumi.StringPtrOutput)
-}
-
-func (o TokensAuthorizeAccessOutput) Orgid() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v TokensAuthorizeAccess) *int { return v.Orgid }).(pulumi.IntPtrOutput)
-}
-
-func (o TokensAuthorizeAccessOutput) SourceApp() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v TokensAuthorizeAccess) *string { return v.SourceApp }).(pulumi.StringPtrOutput)
-}
-
-func (o TokensAuthorizeAccessOutput) SourceMachine() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v TokensAuthorizeAccess) *string { return v.SourceMachine }).(pulumi.StringPtrOutput)
-}
-
-func (o TokensAuthorizeAccessOutput) SourceOrganization() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v TokensAuthorizeAccess) *string { return v.SourceOrganization }).(pulumi.StringPtrOutput)
-}
-
-func (o TokensAuthorizeAccessOutput) StorageObject() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v TokensAuthorizeAccess) *string { return v.StorageObject }).(pulumi.StringPtrOutput)
-}
-
-func (o TokensAuthorizeAccessOutput) Volume() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v TokensAuthorizeAccess) *string { return v.Volume }).(pulumi.StringPtrOutput)
-}
-
-type TokensAuthorizeAccessPtrOutput struct{ *pulumi.OutputState }
-
-func (TokensAuthorizeAccessPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**TokensAuthorizeAccess)(nil)).Elem()
-}
-
-func (o TokensAuthorizeAccessPtrOutput) ToTokensAuthorizeAccessPtrOutput() TokensAuthorizeAccessPtrOutput {
-	return o
-}
-
-func (o TokensAuthorizeAccessPtrOutput) ToTokensAuthorizeAccessPtrOutputWithContext(ctx context.Context) TokensAuthorizeAccessPtrOutput {
-	return o
-}
-
-func (o TokensAuthorizeAccessPtrOutput) Elem() TokensAuthorizeAccessOutput {
-	return o.ApplyT(func(v *TokensAuthorizeAccess) TokensAuthorizeAccess {
-		if v != nil {
-			return *v
-		}
-		var ret TokensAuthorizeAccess
-		return ret
-	}).(TokensAuthorizeAccessOutput)
-}
-
-func (o TokensAuthorizeAccessPtrOutput) Action() FlyioAccessActionPtrOutput {
-	return o.ApplyT(func(v *TokensAuthorizeAccess) *FlyioAccessAction {
-		if v == nil {
-			return nil
-		}
-		return v.Action
-	}).(FlyioAccessActionPtrOutput)
-}
-
-func (o TokensAuthorizeAccessPtrOutput) AppFeature() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *TokensAuthorizeAccess) *string {
-		if v == nil {
-			return nil
-		}
-		return v.AppFeature
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o TokensAuthorizeAccessPtrOutput) Appid() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *TokensAuthorizeAccess) *int {
-		if v == nil {
-			return nil
-		}
-		return v.Appid
-	}).(pulumi.IntPtrOutput)
-}
-
-func (o TokensAuthorizeAccessPtrOutput) Cluster() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *TokensAuthorizeAccess) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Cluster
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o TokensAuthorizeAccessPtrOutput) Command() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v *TokensAuthorizeAccess) []string {
-		if v == nil {
-			return nil
-		}
-		return v.Command
-	}).(pulumi.StringArrayOutput)
-}
-
-func (o TokensAuthorizeAccessPtrOutput) Feature() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *TokensAuthorizeAccess) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Feature
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o TokensAuthorizeAccessPtrOutput) Machine() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *TokensAuthorizeAccess) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Machine
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o TokensAuthorizeAccessPtrOutput) MachineFeature() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *TokensAuthorizeAccess) *string {
-		if v == nil {
-			return nil
-		}
-		return v.MachineFeature
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o TokensAuthorizeAccessPtrOutput) Mutation() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *TokensAuthorizeAccess) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Mutation
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o TokensAuthorizeAccessPtrOutput) Orgid() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *TokensAuthorizeAccess) *int {
-		if v == nil {
-			return nil
-		}
-		return v.Orgid
-	}).(pulumi.IntPtrOutput)
-}
-
-func (o TokensAuthorizeAccessPtrOutput) SourceApp() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *TokensAuthorizeAccess) *string {
-		if v == nil {
-			return nil
-		}
-		return v.SourceApp
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o TokensAuthorizeAccessPtrOutput) SourceMachine() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *TokensAuthorizeAccess) *string {
-		if v == nil {
-			return nil
-		}
-		return v.SourceMachine
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o TokensAuthorizeAccessPtrOutput) SourceOrganization() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *TokensAuthorizeAccess) *string {
-		if v == nil {
-			return nil
-		}
-		return v.SourceOrganization
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o TokensAuthorizeAccessPtrOutput) StorageObject() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *TokensAuthorizeAccess) *string {
-		if v == nil {
-			return nil
-		}
-		return v.StorageObject
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o TokensAuthorizeAccessPtrOutput) Volume() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *TokensAuthorizeAccess) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Volume
-	}).(pulumi.StringPtrOutput)
 }
 
 // Query params for the API request.
@@ -2338,8 +1990,6 @@ func init() {
 	pulumi.RegisterOutputType(TokensAuthenticateCreateQueryParamsPtrOutput{})
 	pulumi.RegisterOutputType(TokensAuthenticateQueryParamsOutput{})
 	pulumi.RegisterOutputType(TokensAuthenticateQueryParamsPtrOutput{})
-	pulumi.RegisterOutputType(TokensAuthorizeAccessOutput{})
-	pulumi.RegisterOutputType(TokensAuthorizeAccessPtrOutput{})
 	pulumi.RegisterOutputType(TokensAuthorizeCreateQueryParamsOutput{})
 	pulumi.RegisterOutputType(TokensAuthorizeCreateQueryParamsPtrOutput{})
 	pulumi.RegisterOutputType(TokensAuthorizeQueryParamsOutput{})

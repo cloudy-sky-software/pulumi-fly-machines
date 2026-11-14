@@ -8,39 +8,35 @@ using System.Threading.Tasks;
 using Pulumi.Serialization;
 using Pulumi;
 
-namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
+namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
 {
 
     /// <summary>
     /// An optional metrics endpoint for Prometheus on Fly.io to scrape
     /// </summary>
-    [OutputType]
-    public sealed class MachineFlyMachineConfigMetrics
+    public sealed class FlyMachineConfigMetricsArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Scrape over HTTPS instead of HTTP
         /// </summary>
-        public readonly bool? Https;
+        [Input("https")]
+        public Input<bool>? Https { get; set; }
+
         /// <summary>
         /// HTTP path to scrape. Defaults to `/`
         /// </summary>
-        public readonly string? Path;
+        [Input("path")]
+        public Input<string>? Path { get; set; }
+
         /// <summary>
         /// Port in the Machine to scrape metrics from
         /// </summary>
-        public readonly int? Port;
+        [Input("port")]
+        public Input<int>? Port { get; set; }
 
-        [OutputConstructor]
-        private MachineFlyMachineConfigMetrics(
-            bool? https,
-
-            string? path,
-
-            int? port)
+        public FlyMachineConfigMetricsArgs()
         {
-            Https = https;
-            Path = path;
-            Port = port;
         }
+        public static new FlyMachineConfigMetricsArgs Empty => new FlyMachineConfigMetricsArgs();
     }
 }

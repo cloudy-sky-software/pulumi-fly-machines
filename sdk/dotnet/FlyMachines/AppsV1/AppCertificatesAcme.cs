@@ -41,7 +41,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         /// DNS records to create to point the hostname at the app and validate it.
         /// </summary>
         [Output("dnsRequirements")]
-        public Output<Outputs.AppCertificatesAcmeDnsRequirements?> DnsRequirements { get; private set; } = null!;
+        public Output<Outputs.DnsRequirements?> DnsRequirements { get; private set; } = null!;
 
         /// <summary>
         /// The hostname the certificate is for. May start with `*.` for a wildcard certificate.
@@ -72,7 +72,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         /// Which validation methods are currently possible.
         /// </summary>
         [Output("validation")]
-        public Output<Outputs.AppCertificatesAcmeValidation?> Validation { get; private set; } = null!;
+        public Output<Outputs.Validation?> Validation { get; private set; } = null!;
 
         /// <summary>
         /// Problems found by the most recent validation.

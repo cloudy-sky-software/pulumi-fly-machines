@@ -15,7 +15,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.TokensV1.Outputs
     /// The requested access, with names resolved to IDs.
     /// </summary>
     [OutputType]
-    public sealed class TokensAuthorizeAccess
+    public sealed class Access
     {
         public readonly CloudySkySoftware.Pulumi.FlyMachines.TokensV1.FlyioAccessAction? Action;
         public readonly string? AppFeature;
@@ -34,7 +34,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.TokensV1.Outputs
         public readonly string? Volume;
 
         [OutputConstructor]
-        private TokensAuthorizeAccess(
+        private Access(
             CloudySkySoftware.Pulumi.FlyMachines.TokensV1.FlyioAccessAction? action,
 
             string? appFeature,

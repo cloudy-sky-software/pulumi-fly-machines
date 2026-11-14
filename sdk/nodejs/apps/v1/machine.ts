@@ -55,7 +55,7 @@ export class Machine extends pulumi.CustomResource {
      * reachable (`host_status` is not `ok`) or `summary=true` was requested; see
      * `incomplete_config`.
      */
-    declare public readonly config: pulumi.Output<outputs.apps.v1.MachineConfig | undefined>;
+    declare public readonly config: pulumi.Output<outputs.apps.v1.Config | undefined>;
     /**
      * Whether the Machine is cordoned, meaning Fly Proxy does not route requests to it. See
      * the Cordon Machine endpoint.
@@ -84,7 +84,7 @@ export class Machine extends pulumi.CustomResource {
     /**
      * The image the Machine runs, as resolved when it was last created or updated.
      */
-    declare public /*out*/ readonly imageRef: pulumi.Output<outputs.apps.v1.ImageRef | undefined>;
+    declare public /*out*/ readonly imageRef: pulumi.Output<outputs.apps.v1.MachineImageRef | undefined>;
     /**
      * Last known configuration, returned in place of `config` when the host could not be
      * reached (`host_status` is not `ok`) or when listing Machines with `summary=true`. It
@@ -102,7 +102,7 @@ export class Machine extends pulumi.CustomResource {
      * The lease currently held on the Machine. Only returned when `include_leases=true`
      * was requested and a lease is held.
      */
-    declare public /*out*/ readonly lease: pulumi.Output<outputs.apps.v1.Lease | undefined>;
+    declare public /*out*/ readonly lease: pulumi.Output<outputs.apps.v1.MachineLease | undefined>;
     /**
      * Acquire a lease on the new Machine that lasts this many seconds. The response's `nonce`
      * field holds the lease nonce.

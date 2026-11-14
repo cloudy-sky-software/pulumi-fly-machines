@@ -8,37 +8,41 @@ using System.Threading.Tasks;
 using Pulumi.Serialization;
 using Pulumi;
 
-namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
+namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
 {
 
     /// <summary>
     /// Load limits Fly Proxy uses to balance traffic across Machines
     /// </summary>
-    public sealed class FlyMachineServiceConcurrencyArgs : global::Pulumi.ResourceArgs
+    [OutputType]
+    public sealed class MachinesFlyMachineServiceConcurrency
     {
         /// <summary>
         /// Fly Proxy sends no more than this many connections or requests to a Machine at once. 0 means
         /// no hard limit
         /// </summary>
-        [Input("hardLimit")]
-        public Input<int>? HardLimit { get; set; }
-
+        public readonly int? HardLimit;
         /// <summary>
         /// Above this many connections or requests, Fly Proxy prefers other Machines. Defaults to 20,
         /// and is lowered to hard_limit if higher
         /// </summary>
-        [Input("softLimit")]
-        public Input<int>? SoftLimit { get; set; }
-
+        public readonly int? SoftLimit;
         /// <summary>
         /// What to count: `connections` (default) or `requests`
         /// </summary>
-        [Input("type")]
-        public Input<string>? Type { get; set; }
+        public readonly string? Type;
 
-        public FlyMachineServiceConcurrencyArgs()
+        [OutputConstructor]
+        private MachinesFlyMachineServiceConcurrency(
+            int? hardLimit,
+
+            int? softLimit,
+
+            string? type)
         {
+            HardLimit = hardLimit;
+            SoftLimit = softLimit;
+            Type = type;
         }
-        public static new FlyMachineServiceConcurrencyArgs Empty => new FlyMachineServiceConcurrencyArgs();
     }
 }

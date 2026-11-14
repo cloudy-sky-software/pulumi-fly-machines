@@ -64,38 +64,6 @@ export namespace apps {
         }
 
         /**
-         * Record for DNS-01 validation.
-         */
-        export interface AppCertificatesAcmeDNSRequirementsAcmeChallenge {
-            /**
-             * Name of the CNAME record to create, such as `_acme-challenge.example.com`.
-             */
-            name?: string;
-            /**
-             * Value the CNAME record must point to.
-             */
-            target?: string;
-        }
-
-        /**
-         * Record for proving ownership of the hostname.
-         */
-        export interface AppCertificatesAcmeDNSRequirementsOwnership {
-            /**
-             * TXT record value that proves ownership for this app.
-             */
-            appValue?: string;
-            /**
-             * Name of the TXT record to create, such as `_fly-ownership.example.com`.
-             */
-            name?: string;
-            /**
-             * TXT record value that proves ownership for every app in the organization.
-             */
-            orgValue?: string;
-        }
-
-        /**
          * Query params for the API request.
          */
         export interface AppCertificatesAcmeDeleteQueryParams {
@@ -103,34 +71,6 @@ export namespace apps {
              * Additional query params to send with the request that are not defined in the API spec.
              */
             additionalParams?: {[key: string]: string};
-        }
-
-        /**
-         * DNS records to create to point the hostname at the app and validate it.
-         */
-        export interface AppCertificatesAcmeDnsRequirements {
-            /**
-             * IPv4 addresses the hostname's A records can point to: the app's global IPv4 addresses
-             * and its shared IPv4 address.
-             */
-            a?: string[];
-            /**
-             * IPv6 addresses the hostname's AAAA records can point to: the app's global IPv6
-             * addresses.
-             */
-            aaaa?: string[];
-            /**
-             * Record for DNS-01 validation.
-             */
-            acmeChallenge?: outputs.apps.v1.AppCertificatesAcmeDNSRequirementsAcmeChallenge;
-            /**
-             * Target the hostname can CNAME to instead of using A and AAAA records.
-             */
-            cname?: string;
-            /**
-             * Record for proving ownership of the hostname.
-             */
-            ownership?: outputs.apps.v1.AppCertificatesAcmeDNSRequirementsOwnership;
         }
 
         /**
@@ -148,28 +88,6 @@ export namespace apps {
         }
 
         /**
-         * Which validation methods are currently possible.
-         */
-        export interface AppCertificatesAcmeValidation {
-            /**
-             * Whether the hostname points at the app, allowing TLS-ALPN-01 validation.
-             */
-            alpnConfigured?: boolean;
-            /**
-             * Whether the `_acme-challenge` CNAME record is set up, allowing DNS-01 validation.
-             */
-            dnsConfigured?: boolean;
-            /**
-             * Whether the hostname points at the app, allowing HTTP-01 validation.
-             */
-            httpConfigured?: boolean;
-            /**
-             * Whether the `_fly-ownership` TXT record is set up.
-             */
-            ownershipTxtConfigured?: boolean;
-        }
-
-        /**
          * Query params for the API request.
          */
         export interface AppCertificatesCheckCreateQueryParams {
@@ -180,66 +98,6 @@ export namespace apps {
         }
 
         /**
-         * Record for DNS-01 validation.
-         */
-        export interface AppCertificatesCheckDNSRequirementsAcmeChallenge {
-            /**
-             * Name of the CNAME record to create, such as `_acme-challenge.example.com`.
-             */
-            name?: string;
-            /**
-             * Value the CNAME record must point to.
-             */
-            target?: string;
-        }
-
-        /**
-         * Record for proving ownership of the hostname.
-         */
-        export interface AppCertificatesCheckDNSRequirementsOwnership {
-            /**
-             * TXT record value that proves ownership for this app.
-             */
-            appValue?: string;
-            /**
-             * Name of the TXT record to create, such as `_fly-ownership.example.com`.
-             */
-            name?: string;
-            /**
-             * TXT record value that proves ownership for every app in the organization.
-             */
-            orgValue?: string;
-        }
-
-        /**
-         * DNS records to create to point the hostname at the app and validate it.
-         */
-        export interface AppCertificatesCheckDnsRequirements {
-            /**
-             * IPv4 addresses the hostname's A records can point to: the app's global IPv4 addresses
-             * and its shared IPv4 address.
-             */
-            a?: string[];
-            /**
-             * IPv6 addresses the hostname's AAAA records can point to: the app's global IPv6
-             * addresses.
-             */
-            aaaa?: string[];
-            /**
-             * Record for DNS-01 validation.
-             */
-            acmeChallenge?: outputs.apps.v1.AppCertificatesCheckDNSRequirementsAcmeChallenge;
-            /**
-             * Target the hostname can CNAME to instead of using A and AAAA records.
-             */
-            cname?: string;
-            /**
-             * Record for proving ownership of the hostname.
-             */
-            ownership?: outputs.apps.v1.AppCertificatesCheckDNSRequirementsOwnership;
-        }
-
-        /**
          * Query params for each of the operations of the resource.
          */
         export interface AppCertificatesCheckQueryParams {
@@ -247,28 +105,6 @@ export namespace apps {
              * Query params for the create operation.
              */
             create?: outputs.apps.v1.AppCertificatesCheckCreateQueryParams;
-        }
-
-        /**
-         * Which validation methods are currently possible.
-         */
-        export interface AppCertificatesCheckValidation {
-            /**
-             * Whether the hostname points at the app, allowing TLS-ALPN-01 validation.
-             */
-            alpnConfigured?: boolean;
-            /**
-             * Whether the `_acme-challenge` CNAME record is set up, allowing DNS-01 validation.
-             */
-            dnsConfigured?: boolean;
-            /**
-             * Whether the hostname points at the app, allowing HTTP-01 validation.
-             */
-            httpConfigured?: boolean;
-            /**
-             * Whether the `_fly-ownership` TXT record is set up.
-             */
-            ownershipTxtConfigured?: boolean;
         }
 
         /**
@@ -679,6 +515,120 @@ export namespace apps {
             requiredHostFeatures?: string[];
         }
 
+        /**
+         * The Machine's configuration, as provided when it was created or last updated, with
+         * `metadata` and `mounts` reflecting their current values. Null when the host is not
+         * reachable (`host_status` is not `ok`) or `summary=true` was requested; see
+         * `incomplete_config`.
+         */
+        export interface Config {
+            /**
+             * Optional boolean telling the Machine to destroy itself once it’s complete (default false)
+             */
+            autoDestroy?: boolean;
+            /**
+             * Beta: a cache drive attached to the Machine. This field may be removed in the future
+             */
+            cacheDrive?: outputs.apps.v1.FlyMachineConfigCacheDrive;
+            /**
+             * An optional object that defines one or more named top-level checks. The key for each check is the check name.
+             */
+            checks?: {[key: string]: outputs.apps.v1.FlyMachineConfigChecksProperties};
+            /**
+             * Containers are a list of containers that will run in the machine, each from its own image.
+             */
+            containers?: outputs.apps.v1.FlyContainerConfig[];
+            /**
+             * Deprecated: use Service.Autostart instead
+             */
+            disableMachineAutostart?: boolean;
+            /**
+             * DNS settings for the Machine
+             */
+            dns?: outputs.apps.v1.FlyMachineConfigDns;
+            /**
+             * An object filled with key/value pairs to be set as environment variables
+             */
+            env?: {[key: string]: string};
+            /**
+             * Files to write into the Machine, from either a raw value or an app secret
+             */
+            files?: outputs.apps.v1.FlyFile[];
+            /**
+             * The resources (CPUs, memory, etc.) allocated to the Machine
+             */
+            guest?: outputs.apps.v1.FlyMachineConfigGuest;
+            /**
+             * The docker image to run
+             */
+            image?: string;
+            /**
+             * Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
+             */
+            init?: outputs.apps.v1.FlyMachineConfigInit;
+            /**
+             * Key/value pairs of Machine metadata. Fly.io uses metadata internally for routing, process groups, and clusters
+             */
+            metadata?: {[key: string]: string};
+            /**
+             * An optional metrics endpoint for Prometheus on Fly.io to scrape
+             */
+            metrics?: outputs.apps.v1.FlyMachineConfigMetrics;
+            /**
+             * Persistent volumes to mount in the Machine. A Machine can mount at most one volume, which must be on
+             * the same host. The mounted volume cannot be changed by updating the Machine
+             */
+            mounts?: outputs.apps.v1.FlyMachineMount[];
+            /**
+             * Multiple processes to run within this one Machine, all from the Machine's image. Unrelated to the
+             * process groups in fly.toml, which run on separate Machines. To run processes from different
+             * images, use containers instead
+             */
+            processes?: outputs.apps.v1.FlyMachineProcess[];
+            /**
+             * Whether and how the Machine is restarted after its main process exits
+             */
+            restart?: outputs.apps.v1.FlyMachineConfigRestart;
+            /**
+             * Beta: the size of the Machine's root filesystem and whether it persists. This field may be
+             * removed in the future
+             */
+            rootfs?: outputs.apps.v1.FlyMachineConfigRootfs;
+            /**
+             * Run the Machine at an interval: one of hourly, daily, weekly or monthly. The interval starts when
+             * the Machine is created
+             */
+            schedule?: string;
+            /**
+             * Network services that Fly Proxy routes traffic to
+             */
+            services?: outputs.apps.v1.FlyMachineService[];
+            /**
+             * Deprecated: use Guest instead
+             */
+            size?: string;
+            /**
+             * Spot pricing settings for the Machine
+             */
+            spot?: outputs.apps.v1.FlyMachineConfigSpot;
+            /**
+             * Standbys enable a machine to be a standby for another. In the event of a hardware failure,
+             * the standby machine will be started.
+             */
+            standbys?: string[];
+            /**
+             * Static files to serve under a URL prefix. Fly Proxy routes matching requests to a file server
+             * inside the Machine, bypassing your application's own process; the Machine must be running. The
+             * files are read either from a path inside the Machine or from a Tigris bucket that belongs to the
+             * app; no bucket is created for you
+             */
+            statics?: outputs.apps.v1.FlyStatic[];
+            /**
+             * How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
+             */
+            stopConfig?: outputs.apps.v1.FlyMachineConfigStopConfig;
+        }
+
         export interface DNSRecords {
             /**
              * A records found for the hostname.
@@ -747,7 +697,7 @@ export namespace apps {
          */
         export interface Data {
             /**
-             * Description given when the lease was acquired.
+             * Description or reason for the lease.
              */
             description?: string;
             /**
@@ -755,9 +705,18 @@ export namespace apps {
              */
             expiresAt?: number;
             /**
+             * Unique ID generated for the lease. Pass it in the `fly-machine-lease-nonce` header to
+             * act on the leased Machine, refresh the lease, or release it.
+             */
+            nonce?: string;
+            /**
              * Email address of the user who acquired the lease.
              */
             owner?: string;
+            /**
+             * ID of the Machine's version at the time of the request.
+             */
+            version?: string;
         }
 
         /**
@@ -1579,7 +1538,7 @@ export namespace apps {
             /**
              * Load limits Fly Proxy uses to balance traffic across Machines
              */
-            concurrency?: outputs.apps.v1.FlyMachineServiceConcurrency;
+            concurrency?: outputs.apps.v1.MachinesFlyMachineServiceConcurrency;
             /**
              * Currently has no effect
              */
@@ -1650,26 +1609,6 @@ export namespace apps {
             tlsSkipVerify?: boolean;
             /**
              * tcp or http
-             */
-            type?: string;
-        }
-
-        /**
-         * Load limits Fly Proxy uses to balance traffic across Machines
-         */
-        export interface FlyMachineServiceConcurrency {
-            /**
-             * Fly Proxy sends no more than this many connections or requests to a Machine at once. 0 means
-             * no hard limit
-             */
-            hardLimit?: number;
-            /**
-             * Above this many connections or requests, Fly Proxy prefers other Machines. Defaults to 20,
-             * and is lowered to hard_limit if higher
-             */
-            softLimit?: number;
-            /**
-             * What to count: `connections` (default) or `requests`
              */
             type?: string;
         }
@@ -1767,32 +1706,6 @@ export namespace apps {
         }
 
         /**
-         * The image the Machine runs, as resolved when it was last created or updated.
-         */
-        export interface ImageRef {
-            /**
-             * Content digest of the image (`sha256:...`).
-             */
-            digest?: string;
-            /**
-             * The image's OCI labels.
-             */
-            labels?: {[key: string]: string};
-            /**
-             * Registry host of the image, such as `registry.fly.io`.
-             */
-            registry?: string;
-            /**
-             * Repository of the image within the registry, such as `library/nginx`.
-             */
-            repository?: string;
-            /**
-             * Tag the image was referenced by, if any.
-             */
-            tag?: string;
-        }
-
-        /**
          * Last known configuration, returned in place of `config` when the host could not be
          * reached (`host_status` is not `ok`) or when listing Machines with `summary=true`. It
          * comes from Fly.io's replicated state rather than the host, so it may be stale or lack
@@ -1806,7 +1719,7 @@ export namespace apps {
             /**
              * Beta: a cache drive attached to the Machine. This field may be removed in the future
              */
-            cacheDrive?: outputs.apps.v1.MachineFlyMachineConfigCacheDrive;
+            cacheDrive?: outputs.apps.v1.FlyMachineConfigCacheDrive;
             /**
              * An optional object that defines one or more named top-level checks. The key for each check is the check name.
              */
@@ -1822,7 +1735,7 @@ export namespace apps {
             /**
              * DNS settings for the Machine
              */
-            dns?: outputs.apps.v1.MachineFlyMachineConfigDns;
+            dns?: outputs.apps.v1.FlyMachineConfigDns;
             /**
              * An object filled with key/value pairs to be set as environment variables
              */
@@ -1834,7 +1747,7 @@ export namespace apps {
             /**
              * The resources (CPUs, memory, etc.) allocated to the Machine
              */
-            guest?: outputs.apps.v1.MachineFlyMachineConfigGuest;
+            guest?: outputs.apps.v1.FlyMachineConfigGuest;
             /**
              * The docker image to run
              */
@@ -1842,7 +1755,7 @@ export namespace apps {
             /**
              * Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
              */
-            init?: outputs.apps.v1.MachineFlyMachineConfigInit;
+            init?: outputs.apps.v1.FlyMachineConfigInit;
             /**
              * Key/value pairs of Machine metadata. Fly.io uses metadata internally for routing, process groups, and clusters
              */
@@ -1850,7 +1763,7 @@ export namespace apps {
             /**
              * An optional metrics endpoint for Prometheus on Fly.io to scrape
              */
-            metrics?: outputs.apps.v1.MachineFlyMachineConfigMetrics;
+            metrics?: outputs.apps.v1.FlyMachineConfigMetrics;
             /**
              * Persistent volumes to mount in the Machine. A Machine can mount at most one volume, which must be on
              * the same host. The mounted volume cannot be changed by updating the Machine
@@ -1865,12 +1778,12 @@ export namespace apps {
             /**
              * Whether and how the Machine is restarted after its main process exits
              */
-            restart?: outputs.apps.v1.MachineFlyMachineConfigRestart;
+            restart?: outputs.apps.v1.FlyMachineConfigRestart;
             /**
              * Beta: the size of the Machine's root filesystem and whether it persists. This field may be
              * removed in the future
              */
-            rootfs?: outputs.apps.v1.MachineFlyMachineConfigRootfs;
+            rootfs?: outputs.apps.v1.FlyMachineConfigRootfs;
             /**
              * Run the Machine at an interval: one of hourly, daily, weekly or monthly. The interval starts when
              * the Machine is created
@@ -1887,7 +1800,7 @@ export namespace apps {
             /**
              * Spot pricing settings for the Machine
              */
-            spot?: outputs.apps.v1.MachineFlyMachineConfigSpot;
+            spot?: outputs.apps.v1.FlyMachineConfigSpot;
             /**
              * Standbys enable a machine to be a standby for another. In the event of a hardware failure,
              * the standby machine will be started.
@@ -1903,7 +1816,7 @@ export namespace apps {
             /**
              * How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
              */
-            stopConfig?: outputs.apps.v1.MachineFlyMachineConfigStopConfig;
+            stopConfig?: outputs.apps.v1.FlyMachineConfigStopConfig;
         }
 
         /**
@@ -1937,30 +1850,11 @@ export namespace apps {
         }
 
         /**
-         * The lease currently held on the Machine. Only returned when `include_leases=true`
-         * was requested and a lease is held.
-         */
-        export interface Lease {
-            /**
-             * Description given when the lease was acquired.
-             */
-            description?: string;
-            /**
-             * When the lease expires, in Unix seconds.
-             */
-            expiresAt?: number;
-            /**
-             * Email address of the user who acquired the lease.
-             */
-            owner?: string;
-        }
-
-        /**
          * The lease.
          */
         export interface LeaseResponseData {
             /**
-             * Description given when the lease was acquired.
+             * Description or reason for the lease.
              */
             description?: string;
             /**
@@ -1968,9 +1862,18 @@ export namespace apps {
              */
             expiresAt?: number;
             /**
+             * Unique ID generated for the lease. Pass it in the `fly-machine-lease-nonce` header to
+             * act on the leased Machine, refresh the lease, or release it.
+             */
+            nonce?: string;
+            /**
              * Email address of the user who acquired the lease.
              */
             owner?: string;
+            /**
+             * ID of the Machine's version at the time of the request.
+             */
+            version?: string;
         }
 
         export interface ListenSocket {
@@ -2102,7 +2005,7 @@ export namespace apps {
             /**
              * Beta: a cache drive attached to the Machine. This field may be removed in the future
              */
-            cacheDrive?: outputs.apps.v1.MachineFlyMachineConfigCacheDrive;
+            cacheDrive?: outputs.apps.v1.FlyMachineConfigCacheDrive;
             /**
              * An optional object that defines one or more named top-level checks. The key for each check is the check name.
              */
@@ -2118,7 +2021,7 @@ export namespace apps {
             /**
              * DNS settings for the Machine
              */
-            dns?: outputs.apps.v1.MachineFlyMachineConfigDns;
+            dns?: outputs.apps.v1.FlyMachineConfigDns;
             /**
              * An object filled with key/value pairs to be set as environment variables
              */
@@ -2130,7 +2033,7 @@ export namespace apps {
             /**
              * The resources (CPUs, memory, etc.) allocated to the Machine
              */
-            guest?: outputs.apps.v1.MachineFlyMachineConfigGuest;
+            guest?: outputs.apps.v1.FlyMachineConfigGuest;
             /**
              * The docker image to run
              */
@@ -2138,7 +2041,7 @@ export namespace apps {
             /**
              * Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
              */
-            init?: outputs.apps.v1.MachineFlyMachineConfigInit;
+            init?: outputs.apps.v1.FlyMachineConfigInit;
             /**
              * Key/value pairs of Machine metadata. Fly.io uses metadata internally for routing, process groups, and clusters
              */
@@ -2146,7 +2049,7 @@ export namespace apps {
             /**
              * An optional metrics endpoint for Prometheus on Fly.io to scrape
              */
-            metrics?: outputs.apps.v1.MachineFlyMachineConfigMetrics;
+            metrics?: outputs.apps.v1.FlyMachineConfigMetrics;
             /**
              * Persistent volumes to mount in the Machine. A Machine can mount at most one volume, which must be on
              * the same host. The mounted volume cannot be changed by updating the Machine
@@ -2161,12 +2064,12 @@ export namespace apps {
             /**
              * Whether and how the Machine is restarted after its main process exits
              */
-            restart?: outputs.apps.v1.MachineFlyMachineConfigRestart;
+            restart?: outputs.apps.v1.FlyMachineConfigRestart;
             /**
              * Beta: the size of the Machine's root filesystem and whether it persists. This field may be
              * removed in the future
              */
-            rootfs?: outputs.apps.v1.MachineFlyMachineConfigRootfs;
+            rootfs?: outputs.apps.v1.FlyMachineConfigRootfs;
             /**
              * Run the Machine at an interval: one of hourly, daily, weekly or monthly. The interval starts when
              * the Machine is created
@@ -2183,7 +2086,7 @@ export namespace apps {
             /**
              * Spot pricing settings for the Machine
              */
-            spot?: outputs.apps.v1.MachineFlyMachineConfigSpot;
+            spot?: outputs.apps.v1.FlyMachineConfigSpot;
             /**
              * Standbys enable a machine to be a standby for another. In the event of a hardware failure,
              * the standby machine will be started.
@@ -2199,7 +2102,7 @@ export namespace apps {
             /**
              * How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
              */
-            stopConfig?: outputs.apps.v1.MachineFlyMachineConfigStopConfig;
+            stopConfig?: outputs.apps.v1.FlyMachineConfigStopConfig;
         }
 
         /**
@@ -2258,221 +2161,6 @@ export namespace apps {
              * `destroy`.
              */
             type?: string;
-        }
-
-        /**
-         * Beta: a cache drive attached to the Machine. This field may be removed in the future
-         */
-        export interface MachineFlyMachineConfigCacheDrive {
-            /**
-             * Optional absolute guest mount path. When set, the device is formatted as ext4.
-             * Without a path, the device retains legacy raw block behavior. Contents survive
-             * same-host restarts and path changes, but are discarded on size or mode changes,
-             * relocation, recovery on another host, and cloning.
-             */
-            path?: string;
-            /**
-             * Fixed size of the Machine-owned cache drive in MiB. At most 51200.
-             * With a path, at least 16 MiB is required; without a path, 0 disables the device.
-             */
-            sizeMb?: number;
-        }
-
-        /**
-         * DNS settings for the Machine
-         */
-        export interface MachineFlyMachineConfigDns {
-            /**
-             * Forward DNS queries for some domains to other DNS servers
-             */
-            dnsForwardRules?: outputs.apps.v1.FlyDnsForwardRule[];
-            /**
-             * Hostname of the Machine. Defaults to the Machine ID. Also added to /etc/hosts with the
-             * Machine's 6PN address
-             */
-            hostname?: string;
-            /**
-             * Fully qualified domain name added to /etc/hosts for `hostname`
-             */
-            hostnameFqdn?: string;
-            /**
-             * Nameservers to use instead of the default, Fly.io's private DNS server `fdaa::3`
-             */
-            nameservers?: string[];
-            /**
-             * Options for /etc/resolv.conf
-             */
-            options?: outputs.apps.v1.FlyDnsOption[];
-            /**
-             * Search domains for /etc/resolv.conf
-             */
-            searches?: string[];
-            /**
-             * Currently has no effect
-             */
-            skipRegistration?: boolean;
-        }
-
-        /**
-         * The resources (CPUs, memory, etc.) allocated to the Machine
-         */
-        export interface MachineFlyMachineConfigGuest {
-            /**
-             * Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
-             * Defaults to shared when `guest` is omitted
-             */
-            cpuKind?: string;
-            /**
-             * Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
-             * performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
-             * omitted
-             */
-            cpus?: number;
-            /**
-             * No longer supported. Requests that set it are rejected
-             */
-            gpuKind?: string;
-            /**
-             * No longer supported. Requests that set it are rejected
-             */
-            gpus?: number;
-            /**
-             * Place the Machine on hosts dedicated to the organization under this ID. Only available to
-             * organizations with dedicated hosts
-             */
-            hostDedicationId?: string;
-            /**
-             * Extra arguments appended to the guest kernel command line
-             */
-            kernelArgs?: string[];
-            /**
-             * Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
-             * the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
-             * starts with a limit of memory_mb
-             */
-            maxMemoryMb?: number;
-            /**
-             * Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
-             * between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
-             * `guest` is omitted
-             */
-            memoryMb?: number;
-            /**
-             * Deprecated: use MachineConfig.Rootfs instead
-             */
-            persistRootfs?: enums.apps.v1.FlyMachineGuestPersistRootfs;
-            /**
-             * Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
-             * of lowercase letters, digits and dashes. Each feature must be enabled for the organization
-             */
-            requiredHostFeatures?: string[];
-        }
-
-        /**
-         * Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
-         */
-        export interface MachineFlyMachineConfigInit {
-            /**
-             * Replaces the image's CMD. It's appended to the entrypoint
-             */
-            cmd?: string[];
-            /**
-             * Replaces the image's ENTRYPOINT
-             */
-            entrypoint?: string[];
-            /**
-             * Command to run instead of the image's ENTRYPOINT and CMD. Takes precedence over entrypoint
-             * and cmd
-             */
-            exec?: string[];
-            /**
-             * Currently has no effect. Use `guest.kernel_args` instead
-             */
-            kernelArgs?: string[];
-            /**
-             * Size in MiB of a swap device to give the Machine. Machines with swap cannot be suspended
-             */
-            swapSizeMb?: number;
-            /**
-             * Currently has no effect
-             */
-            tty?: boolean;
-        }
-
-        /**
-         * An optional metrics endpoint for Prometheus on Fly.io to scrape
-         */
-        export interface MachineFlyMachineConfigMetrics {
-            /**
-             * Scrape over HTTPS instead of HTTP
-             */
-            https?: boolean;
-            /**
-             * HTTP path to scrape. Defaults to `/`
-             */
-            path?: string;
-            /**
-             * Port in the Machine to scrape metrics from
-             */
-            port?: number;
-        }
-
-        /**
-         * Whether and how the Machine is restarted after its main process exits
-         */
-        export interface MachineFlyMachineConfigRestart {
-            /**
-             * When policy is on-failure, the maximum number of times to attempt to restart the Machine before letting it stop.
-             */
-            maxRetries?: number;
-            /**
-             * * no - Never try to restart a Machine automatically when its main process exits, whether that’s on purpose or on a crash.
-             * * always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.
-             * * on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules.
-             */
-            policy?: enums.apps.v1.FlyMachineRestartPolicy;
-        }
-
-        /**
-         * Beta: the size of the Machine's root filesystem and whether it persists. This field may be
-         * removed in the future
-         */
-        export interface MachineFlyMachineConfigRootfs {
-            /**
-             * Whether changes to the root filesystem are kept. `never` (default): reset on every start.
-             * `restart`: kept across stops and restarts, reset when the Machine is updated. `always`: also
-             * kept across updates
-             */
-            persist?: enums.apps.v1.FlyMachineRootfsPersist;
-            /**
-             * Size of the root filesystem in GB. At most 50; 0 uses the default
-             */
-            sizeGb?: number;
-        }
-
-        /**
-         * Spot pricing settings for the Machine
-         */
-        export interface MachineFlyMachineConfigSpot {
-            /**
-             * MaxPriceFraction is the maximum fraction of the full Machine price you will pay for this Machine. Range: (0, 1.0]
-             */
-            maxPriceFraction?: number;
-        }
-
-        /**
-         * How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
-         */
-        export interface MachineFlyMachineConfigStopConfig {
-            /**
-             * Signal to send to the Machine's processes. Defaults to SIGINT
-             */
-            signal?: enums.apps.v1.FlyStopConfigSignal;
-            /**
-             * How long to wait for the Machine to exit after sending the signal, before killing it. At most
-             * 5 minutes (1 minute for spot Machines). Defaults to 5s (60s for spot Machines)
-             */
-            timeout?: string;
         }
 
         /**
@@ -2844,6 +2532,26 @@ export namespace apps {
              * Query params for the create operation.
              */
             create?: outputs.apps.v1.MachinesExecCreateQueryParams;
+        }
+
+        /**
+         * Load limits Fly Proxy uses to balance traffic across Machines
+         */
+        export interface MachinesFlyMachineServiceConcurrency {
+            /**
+             * Fly Proxy sends no more than this many connections or requests to a Machine at once. 0 means
+             * no hard limit
+             */
+            hardLimit?: number;
+            /**
+             * Above this many connections or requests, Fly Proxy prefers other Machines. Defaults to 20,
+             * and is lowered to hard_limit if higher
+             */
+            softLimit?: number;
+            /**
+             * What to count: `connections` (default) or `requests`
+             */
+            type?: string;
         }
 
         /**
@@ -4447,7 +4155,7 @@ export namespace postgres {
             /**
              * Connection endpoints. Populated once the cluster is ready.
              */
-            endpoints?: outputs.postgres.v1.PostgresClusterEndpoints;
+            endpoints?: outputs.postgres.v1.PostgresPostgresClusterEndpoints;
             /**
              * Cluster ID.
              */
@@ -4495,16 +4203,6 @@ export namespace postgres {
              * until first measured.
              */
             storageUsedBytes?: number;
-        }
-
-        /**
-         * Connection endpoints. Populated once the cluster is ready.
-         */
-        export interface PostgresClusterEndpoints {
-            /**
-             * Endpoints for connecting to the primary node.
-             */
-            primary?: outputs.postgres.v1.PostgresClusterEndpointsPrimary;
         }
 
         /**
@@ -4783,6 +4481,16 @@ export namespace postgres {
             plan?: enums.postgres.v1.PostgresPlanPlan;
         }
 
+        /**
+         * Connection endpoints. Populated once the cluster is ready.
+         */
+        export interface PostgresPostgresClusterEndpoints {
+            /**
+             * Endpoints for connecting to the primary node.
+             */
+            primary?: outputs.postgres.v1.PostgresClusterEndpointsPrimary;
+        }
+
         export interface PostgresQueryColumn {
             /**
              * Column name as returned by Postgres.
@@ -4958,6 +4666,27 @@ export namespace postgres {
 
 export namespace tokens {
     export namespace v1 {
+        /**
+         * The requested access, with names resolved to IDs.
+         */
+        export interface Access {
+            action?: enums.tokens.v1.FlyioAccessAction;
+            appFeature?: string;
+            appid?: number;
+            cluster?: string;
+            command?: string[];
+            feature?: string;
+            machine?: string;
+            machineFeature?: string;
+            mutation?: string;
+            orgid?: number;
+            sourceApp?: string;
+            sourceMachine?: string;
+            sourceOrganization?: string;
+            storageObject?: string;
+            volume?: string;
+        }
+
         export interface MacaroonCaveatSet {
             caveats?: any[];
         }
@@ -5020,27 +4749,6 @@ export namespace tokens {
              * Query params for the create operation.
              */
             create?: outputs.tokens.v1.TokensAuthenticateCreateQueryParams;
-        }
-
-        /**
-         * The requested access, with names resolved to IDs.
-         */
-        export interface TokensAuthorizeAccess {
-            action?: enums.tokens.v1.FlyioAccessAction;
-            appFeature?: string;
-            appid?: number;
-            cluster?: string;
-            command?: string[];
-            feature?: string;
-            machine?: string;
-            machineFeature?: string;
-            mutation?: string;
-            orgid?: number;
-            sourceApp?: string;
-            sourceMachine?: string;
-            sourceOrganization?: string;
-            storageObject?: string;
-            volume?: string;
         }
 
         /**

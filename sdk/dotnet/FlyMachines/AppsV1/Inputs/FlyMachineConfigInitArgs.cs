@@ -14,7 +14,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
     /// <summary>
     /// Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
     /// </summary>
-    public sealed class MachineFlyMachineConfigInitArgs : global::Pulumi.ResourceArgs
+    public sealed class FlyMachineConfigInitArgs : global::Pulumi.ResourceArgs
     {
         [Input("cmd")]
         private InputList<string>? _cmd;
@@ -77,9 +77,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         [Input("tty")]
         public Input<bool>? Tty { get; set; }
 
-        public MachineFlyMachineConfigInitArgs()
+        public FlyMachineConfigInitArgs()
         {
         }
-        public static new MachineFlyMachineConfigInitArgs Empty => new MachineFlyMachineConfigInitArgs();
+        public static new FlyMachineConfigInitArgs Empty => new FlyMachineConfigInitArgs();
     }
 }

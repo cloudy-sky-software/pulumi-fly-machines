@@ -18,7 +18,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     public sealed class LeaseResponseData
     {
         /// <summary>
-        /// Description given when the lease was acquired.
+        /// Description or reason for the lease.
         /// </summary>
         public readonly string? Description;
         /// <summary>
@@ -26,9 +26,18 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         /// </summary>
         public readonly int? ExpiresAt;
         /// <summary>
+        /// Unique ID generated for the lease. Pass it in the `fly-machine-lease-nonce` header to
+        /// act on the leased Machine, refresh the lease, or release it.
+        /// </summary>
+        public readonly string? Nonce;
+        /// <summary>
         /// Email address of the user who acquired the lease.
         /// </summary>
         public readonly string? Owner;
+        /// <summary>
+        /// ID of the Machine's version at the time of the request.
+        /// </summary>
+        public readonly string? Version;
 
         [OutputConstructor]
         private LeaseResponseData(
@@ -36,11 +45,17 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
 
             int? expiresAt,
 
-            string? owner)
+            string? nonce,
+
+            string? owner,
+
+            string? version)
         {
             Description = description;
             ExpiresAt = expiresAt;
+            Nonce = nonce;
             Owner = owner;
+            Version = version;
         }
     }
 }

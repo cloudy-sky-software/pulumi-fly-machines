@@ -21,7 +21,7 @@ type Machine struct {
 	// `metadata` and `mounts` reflecting their current values. Null when the host is not
 	// reachable (`host_status` is not `ok`) or `summary=true` was requested; see
 	// `incomplete_config`.
-	Config MachineConfigPtrOutput `pulumi:"config"`
+	Config ConfigPtrOutput `pulumi:"config"`
 	// Whether the Machine is cordoned, meaning Fly Proxy does not route requests to it. See
 	// the Cordon Machine endpoint.
 	Cordoned pulumi.BoolPtrOutput `pulumi:"cordoned"`
@@ -38,7 +38,7 @@ type Machine struct {
 	// host's status was not reported.
 	HostStatus HostStatusPtrOutput `pulumi:"hostStatus"`
 	// The image the Machine runs, as resolved when it was last created or updated.
-	ImageRef ImageRefPtrOutput `pulumi:"imageRef"`
+	ImageRef MachineImageRefPtrOutput `pulumi:"imageRef"`
 	// Last known configuration, returned in place of `config` when the host could not be
 	// reached (`host_status` is not `ok`) or when listing Machines with `summary=true`. It
 	// comes from Fly.io's replicated state rather than the host, so it may be stale or lack
@@ -50,7 +50,7 @@ type Machine struct {
 	InstanceId pulumi.StringPtrOutput `pulumi:"instanceId"`
 	// The lease currently held on the Machine. Only returned when `include_leases=true`
 	// was requested and a lease is held.
-	Lease LeasePtrOutput `pulumi:"lease"`
+	Lease MachineLeasePtrOutput `pulumi:"lease"`
 	// Acquire a lease on the new Machine that lasts this many seconds. The response's `nonce`
 	// field holds the lease nonce.
 	LeaseTtl pulumi.IntPtrOutput `pulumi:"leaseTtl"`
@@ -264,8 +264,8 @@ func (o MachineOutput) Checks() CheckStatusArrayOutput {
 // `metadata` and `mounts` reflecting their current values. Null when the host is not
 // reachable (`host_status` is not `ok`) or `summary=true` was requested; see
 // `incomplete_config`.
-func (o MachineOutput) Config() MachineConfigPtrOutput {
-	return o.ApplyT(func(v *Machine) MachineConfigPtrOutput { return v.Config }).(MachineConfigPtrOutput)
+func (o MachineOutput) Config() ConfigPtrOutput {
+	return o.ApplyT(func(v *Machine) ConfigPtrOutput { return v.Config }).(ConfigPtrOutput)
 }
 
 // Whether the Machine is cordoned, meaning Fly Proxy does not route requests to it. See
@@ -299,8 +299,8 @@ func (o MachineOutput) HostStatus() HostStatusPtrOutput {
 }
 
 // The image the Machine runs, as resolved when it was last created or updated.
-func (o MachineOutput) ImageRef() ImageRefPtrOutput {
-	return o.ApplyT(func(v *Machine) ImageRefPtrOutput { return v.ImageRef }).(ImageRefPtrOutput)
+func (o MachineOutput) ImageRef() MachineImageRefPtrOutput {
+	return o.ApplyT(func(v *Machine) MachineImageRefPtrOutput { return v.ImageRef }).(MachineImageRefPtrOutput)
 }
 
 // Last known configuration, returned in place of `config` when the host could not be
@@ -320,8 +320,8 @@ func (o MachineOutput) InstanceId() pulumi.StringPtrOutput {
 
 // The lease currently held on the Machine. Only returned when `include_leases=true`
 // was requested and a lease is held.
-func (o MachineOutput) Lease() LeasePtrOutput {
-	return o.ApplyT(func(v *Machine) LeasePtrOutput { return v.Lease }).(LeasePtrOutput)
+func (o MachineOutput) Lease() MachineLeasePtrOutput {
+	return o.ApplyT(func(v *Machine) MachineLeasePtrOutput { return v.Lease }).(MachineLeasePtrOutput)
 }
 
 // Acquire a lease on the new Machine that lasts this many seconds. The response's `nonce`

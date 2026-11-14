@@ -17,7 +17,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.TokensV1
         /// The requested access, with names resolved to IDs.
         /// </summary>
         [Output("access")]
-        public Output<Outputs.TokensAuthorizeAccess?> Access { get; private set; } = null!;
+        public Output<Outputs.Access?> Access { get; private set; } = null!;
 
         /// <summary>
         /// Value of the Authorization header to verify, e.g. `FlyV1 fm2_...`.

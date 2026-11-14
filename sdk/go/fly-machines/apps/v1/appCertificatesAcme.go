@@ -23,7 +23,7 @@ type AppCertificatesAcme struct {
 	// DNS provider detected for the hostname, if known.
 	DnsProvider pulumi.StringPtrOutput `pulumi:"dnsProvider"`
 	// DNS records to create to point the hostname at the app and validate it.
-	DnsRequirements AppCertificatesAcmeDnsRequirementsPtrOutput `pulumi:"dnsRequirements"`
+	DnsRequirements DnsRequirementsPtrOutput `pulumi:"dnsRequirements"`
 	// The hostname the certificate is for. May start with `*.` for a wildcard certificate.
 	Hostname pulumi.StringPtrOutput `pulumi:"hostname"`
 	// Query params to send with the API requests for this resource.
@@ -34,7 +34,7 @@ type AppCertificatesAcme struct {
 	// hint about what is misconfigured.
 	Status pulumi.StringPtrOutput `pulumi:"status"`
 	// Which validation methods are currently possible.
-	Validation AppCertificatesAcmeValidationPtrOutput `pulumi:"validation"`
+	Validation ValidationPtrOutput `pulumi:"validation"`
 	// Problems found by the most recent validation.
 	ValidationErrors CertificateValidationErrorArrayOutput `pulumi:"validationErrors"`
 }
@@ -163,8 +163,8 @@ func (o AppCertificatesAcmeOutput) DnsProvider() pulumi.StringPtrOutput {
 }
 
 // DNS records to create to point the hostname at the app and validate it.
-func (o AppCertificatesAcmeOutput) DnsRequirements() AppCertificatesAcmeDnsRequirementsPtrOutput {
-	return o.ApplyT(func(v *AppCertificatesAcme) AppCertificatesAcmeDnsRequirementsPtrOutput { return v.DnsRequirements }).(AppCertificatesAcmeDnsRequirementsPtrOutput)
+func (o AppCertificatesAcmeOutput) DnsRequirements() DnsRequirementsPtrOutput {
+	return o.ApplyT(func(v *AppCertificatesAcme) DnsRequirementsPtrOutput { return v.DnsRequirements }).(DnsRequirementsPtrOutput)
 }
 
 // The hostname the certificate is for. May start with `*.` for a wildcard certificate.
@@ -189,8 +189,8 @@ func (o AppCertificatesAcmeOutput) Status() pulumi.StringPtrOutput {
 }
 
 // Which validation methods are currently possible.
-func (o AppCertificatesAcmeOutput) Validation() AppCertificatesAcmeValidationPtrOutput {
-	return o.ApplyT(func(v *AppCertificatesAcme) AppCertificatesAcmeValidationPtrOutput { return v.Validation }).(AppCertificatesAcmeValidationPtrOutput)
+func (o AppCertificatesAcmeOutput) Validation() ValidationPtrOutput {
+	return o.ApplyT(func(v *AppCertificatesAcme) ValidationPtrOutput { return v.Validation }).(ValidationPtrOutput)
 }
 
 // Problems found by the most recent validation.

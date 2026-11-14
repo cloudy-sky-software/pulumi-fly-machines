@@ -261,177 +261,6 @@ func (o AppCertificatesAcmeCreateQueryParamsPtrOutput) AdditionalParams() pulumi
 	}).(pulumi.StringMapOutput)
 }
 
-// Record for DNS-01 validation.
-type AppCertificatesAcmeDNSRequirementsAcmeChallenge struct {
-	// Name of the CNAME record to create, such as `_acme-challenge.example.com`.
-	Name *string `pulumi:"name"`
-	// Value the CNAME record must point to.
-	Target *string `pulumi:"target"`
-}
-
-// Record for DNS-01 validation.
-type AppCertificatesAcmeDNSRequirementsAcmeChallengeOutput struct{ *pulumi.OutputState }
-
-func (AppCertificatesAcmeDNSRequirementsAcmeChallengeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*AppCertificatesAcmeDNSRequirementsAcmeChallenge)(nil)).Elem()
-}
-
-func (o AppCertificatesAcmeDNSRequirementsAcmeChallengeOutput) ToAppCertificatesAcmeDNSRequirementsAcmeChallengeOutput() AppCertificatesAcmeDNSRequirementsAcmeChallengeOutput {
-	return o
-}
-
-func (o AppCertificatesAcmeDNSRequirementsAcmeChallengeOutput) ToAppCertificatesAcmeDNSRequirementsAcmeChallengeOutputWithContext(ctx context.Context) AppCertificatesAcmeDNSRequirementsAcmeChallengeOutput {
-	return o
-}
-
-// Name of the CNAME record to create, such as `_acme-challenge.example.com`.
-func (o AppCertificatesAcmeDNSRequirementsAcmeChallengeOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v AppCertificatesAcmeDNSRequirementsAcmeChallenge) *string { return v.Name }).(pulumi.StringPtrOutput)
-}
-
-// Value the CNAME record must point to.
-func (o AppCertificatesAcmeDNSRequirementsAcmeChallengeOutput) Target() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v AppCertificatesAcmeDNSRequirementsAcmeChallenge) *string { return v.Target }).(pulumi.StringPtrOutput)
-}
-
-type AppCertificatesAcmeDNSRequirementsAcmeChallengePtrOutput struct{ *pulumi.OutputState }
-
-func (AppCertificatesAcmeDNSRequirementsAcmeChallengePtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**AppCertificatesAcmeDNSRequirementsAcmeChallenge)(nil)).Elem()
-}
-
-func (o AppCertificatesAcmeDNSRequirementsAcmeChallengePtrOutput) ToAppCertificatesAcmeDNSRequirementsAcmeChallengePtrOutput() AppCertificatesAcmeDNSRequirementsAcmeChallengePtrOutput {
-	return o
-}
-
-func (o AppCertificatesAcmeDNSRequirementsAcmeChallengePtrOutput) ToAppCertificatesAcmeDNSRequirementsAcmeChallengePtrOutputWithContext(ctx context.Context) AppCertificatesAcmeDNSRequirementsAcmeChallengePtrOutput {
-	return o
-}
-
-func (o AppCertificatesAcmeDNSRequirementsAcmeChallengePtrOutput) Elem() AppCertificatesAcmeDNSRequirementsAcmeChallengeOutput {
-	return o.ApplyT(func(v *AppCertificatesAcmeDNSRequirementsAcmeChallenge) AppCertificatesAcmeDNSRequirementsAcmeChallenge {
-		if v != nil {
-			return *v
-		}
-		var ret AppCertificatesAcmeDNSRequirementsAcmeChallenge
-		return ret
-	}).(AppCertificatesAcmeDNSRequirementsAcmeChallengeOutput)
-}
-
-// Name of the CNAME record to create, such as `_acme-challenge.example.com`.
-func (o AppCertificatesAcmeDNSRequirementsAcmeChallengePtrOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *AppCertificatesAcmeDNSRequirementsAcmeChallenge) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Name
-	}).(pulumi.StringPtrOutput)
-}
-
-// Value the CNAME record must point to.
-func (o AppCertificatesAcmeDNSRequirementsAcmeChallengePtrOutput) Target() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *AppCertificatesAcmeDNSRequirementsAcmeChallenge) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Target
-	}).(pulumi.StringPtrOutput)
-}
-
-// Record for proving ownership of the hostname.
-type AppCertificatesAcmeDNSRequirementsOwnership struct {
-	// TXT record value that proves ownership for this app.
-	AppValue *string `pulumi:"appValue"`
-	// Name of the TXT record to create, such as `_fly-ownership.example.com`.
-	Name *string `pulumi:"name"`
-	// TXT record value that proves ownership for every app in the organization.
-	OrgValue *string `pulumi:"orgValue"`
-}
-
-// Record for proving ownership of the hostname.
-type AppCertificatesAcmeDNSRequirementsOwnershipOutput struct{ *pulumi.OutputState }
-
-func (AppCertificatesAcmeDNSRequirementsOwnershipOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*AppCertificatesAcmeDNSRequirementsOwnership)(nil)).Elem()
-}
-
-func (o AppCertificatesAcmeDNSRequirementsOwnershipOutput) ToAppCertificatesAcmeDNSRequirementsOwnershipOutput() AppCertificatesAcmeDNSRequirementsOwnershipOutput {
-	return o
-}
-
-func (o AppCertificatesAcmeDNSRequirementsOwnershipOutput) ToAppCertificatesAcmeDNSRequirementsOwnershipOutputWithContext(ctx context.Context) AppCertificatesAcmeDNSRequirementsOwnershipOutput {
-	return o
-}
-
-// TXT record value that proves ownership for this app.
-func (o AppCertificatesAcmeDNSRequirementsOwnershipOutput) AppValue() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v AppCertificatesAcmeDNSRequirementsOwnership) *string { return v.AppValue }).(pulumi.StringPtrOutput)
-}
-
-// Name of the TXT record to create, such as `_fly-ownership.example.com`.
-func (o AppCertificatesAcmeDNSRequirementsOwnershipOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v AppCertificatesAcmeDNSRequirementsOwnership) *string { return v.Name }).(pulumi.StringPtrOutput)
-}
-
-// TXT record value that proves ownership for every app in the organization.
-func (o AppCertificatesAcmeDNSRequirementsOwnershipOutput) OrgValue() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v AppCertificatesAcmeDNSRequirementsOwnership) *string { return v.OrgValue }).(pulumi.StringPtrOutput)
-}
-
-type AppCertificatesAcmeDNSRequirementsOwnershipPtrOutput struct{ *pulumi.OutputState }
-
-func (AppCertificatesAcmeDNSRequirementsOwnershipPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**AppCertificatesAcmeDNSRequirementsOwnership)(nil)).Elem()
-}
-
-func (o AppCertificatesAcmeDNSRequirementsOwnershipPtrOutput) ToAppCertificatesAcmeDNSRequirementsOwnershipPtrOutput() AppCertificatesAcmeDNSRequirementsOwnershipPtrOutput {
-	return o
-}
-
-func (o AppCertificatesAcmeDNSRequirementsOwnershipPtrOutput) ToAppCertificatesAcmeDNSRequirementsOwnershipPtrOutputWithContext(ctx context.Context) AppCertificatesAcmeDNSRequirementsOwnershipPtrOutput {
-	return o
-}
-
-func (o AppCertificatesAcmeDNSRequirementsOwnershipPtrOutput) Elem() AppCertificatesAcmeDNSRequirementsOwnershipOutput {
-	return o.ApplyT(func(v *AppCertificatesAcmeDNSRequirementsOwnership) AppCertificatesAcmeDNSRequirementsOwnership {
-		if v != nil {
-			return *v
-		}
-		var ret AppCertificatesAcmeDNSRequirementsOwnership
-		return ret
-	}).(AppCertificatesAcmeDNSRequirementsOwnershipOutput)
-}
-
-// TXT record value that proves ownership for this app.
-func (o AppCertificatesAcmeDNSRequirementsOwnershipPtrOutput) AppValue() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *AppCertificatesAcmeDNSRequirementsOwnership) *string {
-		if v == nil {
-			return nil
-		}
-		return v.AppValue
-	}).(pulumi.StringPtrOutput)
-}
-
-// Name of the TXT record to create, such as `_fly-ownership.example.com`.
-func (o AppCertificatesAcmeDNSRequirementsOwnershipPtrOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *AppCertificatesAcmeDNSRequirementsOwnership) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Name
-	}).(pulumi.StringPtrOutput)
-}
-
-// TXT record value that proves ownership for every app in the organization.
-func (o AppCertificatesAcmeDNSRequirementsOwnershipPtrOutput) OrgValue() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *AppCertificatesAcmeDNSRequirementsOwnership) *string {
-		if v == nil {
-			return nil
-		}
-		return v.OrgValue
-	}).(pulumi.StringPtrOutput)
-}
-
 // Query params for the API request.
 type AppCertificatesAcmeDeleteQueryParams struct {
 	// Additional query params to send with the request that are not defined in the API spec.
@@ -570,144 +399,6 @@ func (o AppCertificatesAcmeDeleteQueryParamsPtrOutput) AdditionalParams() pulumi
 		}
 		return v.AdditionalParams
 	}).(pulumi.StringMapOutput)
-}
-
-// DNS records to create to point the hostname at the app and validate it.
-type AppCertificatesAcmeDnsRequirements struct {
-	// IPv4 addresses the hostname's A records can point to: the app's global IPv4 addresses
-	// and its shared IPv4 address.
-	A []string `pulumi:"a"`
-	// IPv6 addresses the hostname's AAAA records can point to: the app's global IPv6
-	// addresses.
-	Aaaa []string `pulumi:"aaaa"`
-	// Record for DNS-01 validation.
-	AcmeChallenge *AppCertificatesAcmeDNSRequirementsAcmeChallenge `pulumi:"acmeChallenge"`
-	// Target the hostname can CNAME to instead of using A and AAAA records.
-	Cname *string `pulumi:"cname"`
-	// Record for proving ownership of the hostname.
-	Ownership *AppCertificatesAcmeDNSRequirementsOwnership `pulumi:"ownership"`
-}
-
-// DNS records to create to point the hostname at the app and validate it.
-type AppCertificatesAcmeDnsRequirementsOutput struct{ *pulumi.OutputState }
-
-func (AppCertificatesAcmeDnsRequirementsOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*AppCertificatesAcmeDnsRequirements)(nil)).Elem()
-}
-
-func (o AppCertificatesAcmeDnsRequirementsOutput) ToAppCertificatesAcmeDnsRequirementsOutput() AppCertificatesAcmeDnsRequirementsOutput {
-	return o
-}
-
-func (o AppCertificatesAcmeDnsRequirementsOutput) ToAppCertificatesAcmeDnsRequirementsOutputWithContext(ctx context.Context) AppCertificatesAcmeDnsRequirementsOutput {
-	return o
-}
-
-// IPv4 addresses the hostname's A records can point to: the app's global IPv4 addresses
-// and its shared IPv4 address.
-func (o AppCertificatesAcmeDnsRequirementsOutput) A() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v AppCertificatesAcmeDnsRequirements) []string { return v.A }).(pulumi.StringArrayOutput)
-}
-
-// IPv6 addresses the hostname's AAAA records can point to: the app's global IPv6
-// addresses.
-func (o AppCertificatesAcmeDnsRequirementsOutput) Aaaa() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v AppCertificatesAcmeDnsRequirements) []string { return v.Aaaa }).(pulumi.StringArrayOutput)
-}
-
-// Record for DNS-01 validation.
-func (o AppCertificatesAcmeDnsRequirementsOutput) AcmeChallenge() AppCertificatesAcmeDNSRequirementsAcmeChallengePtrOutput {
-	return o.ApplyT(func(v AppCertificatesAcmeDnsRequirements) *AppCertificatesAcmeDNSRequirementsAcmeChallenge {
-		return v.AcmeChallenge
-	}).(AppCertificatesAcmeDNSRequirementsAcmeChallengePtrOutput)
-}
-
-// Target the hostname can CNAME to instead of using A and AAAA records.
-func (o AppCertificatesAcmeDnsRequirementsOutput) Cname() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v AppCertificatesAcmeDnsRequirements) *string { return v.Cname }).(pulumi.StringPtrOutput)
-}
-
-// Record for proving ownership of the hostname.
-func (o AppCertificatesAcmeDnsRequirementsOutput) Ownership() AppCertificatesAcmeDNSRequirementsOwnershipPtrOutput {
-	return o.ApplyT(func(v AppCertificatesAcmeDnsRequirements) *AppCertificatesAcmeDNSRequirementsOwnership {
-		return v.Ownership
-	}).(AppCertificatesAcmeDNSRequirementsOwnershipPtrOutput)
-}
-
-type AppCertificatesAcmeDnsRequirementsPtrOutput struct{ *pulumi.OutputState }
-
-func (AppCertificatesAcmeDnsRequirementsPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**AppCertificatesAcmeDnsRequirements)(nil)).Elem()
-}
-
-func (o AppCertificatesAcmeDnsRequirementsPtrOutput) ToAppCertificatesAcmeDnsRequirementsPtrOutput() AppCertificatesAcmeDnsRequirementsPtrOutput {
-	return o
-}
-
-func (o AppCertificatesAcmeDnsRequirementsPtrOutput) ToAppCertificatesAcmeDnsRequirementsPtrOutputWithContext(ctx context.Context) AppCertificatesAcmeDnsRequirementsPtrOutput {
-	return o
-}
-
-func (o AppCertificatesAcmeDnsRequirementsPtrOutput) Elem() AppCertificatesAcmeDnsRequirementsOutput {
-	return o.ApplyT(func(v *AppCertificatesAcmeDnsRequirements) AppCertificatesAcmeDnsRequirements {
-		if v != nil {
-			return *v
-		}
-		var ret AppCertificatesAcmeDnsRequirements
-		return ret
-	}).(AppCertificatesAcmeDnsRequirementsOutput)
-}
-
-// IPv4 addresses the hostname's A records can point to: the app's global IPv4 addresses
-// and its shared IPv4 address.
-func (o AppCertificatesAcmeDnsRequirementsPtrOutput) A() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v *AppCertificatesAcmeDnsRequirements) []string {
-		if v == nil {
-			return nil
-		}
-		return v.A
-	}).(pulumi.StringArrayOutput)
-}
-
-// IPv6 addresses the hostname's AAAA records can point to: the app's global IPv6
-// addresses.
-func (o AppCertificatesAcmeDnsRequirementsPtrOutput) Aaaa() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v *AppCertificatesAcmeDnsRequirements) []string {
-		if v == nil {
-			return nil
-		}
-		return v.Aaaa
-	}).(pulumi.StringArrayOutput)
-}
-
-// Record for DNS-01 validation.
-func (o AppCertificatesAcmeDnsRequirementsPtrOutput) AcmeChallenge() AppCertificatesAcmeDNSRequirementsAcmeChallengePtrOutput {
-	return o.ApplyT(func(v *AppCertificatesAcmeDnsRequirements) *AppCertificatesAcmeDNSRequirementsAcmeChallenge {
-		if v == nil {
-			return nil
-		}
-		return v.AcmeChallenge
-	}).(AppCertificatesAcmeDNSRequirementsAcmeChallengePtrOutput)
-}
-
-// Target the hostname can CNAME to instead of using A and AAAA records.
-func (o AppCertificatesAcmeDnsRequirementsPtrOutput) Cname() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *AppCertificatesAcmeDnsRequirements) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Cname
-	}).(pulumi.StringPtrOutput)
-}
-
-// Record for proving ownership of the hostname.
-func (o AppCertificatesAcmeDnsRequirementsPtrOutput) Ownership() AppCertificatesAcmeDNSRequirementsOwnershipPtrOutput {
-	return o.ApplyT(func(v *AppCertificatesAcmeDnsRequirements) *AppCertificatesAcmeDNSRequirementsOwnership {
-		if v == nil {
-			return nil
-		}
-		return v.Ownership
-	}).(AppCertificatesAcmeDNSRequirementsOwnershipPtrOutput)
 }
 
 // Query params for each of the operations of the resource.
@@ -869,117 +560,6 @@ func (o AppCertificatesAcmeQueryParamsPtrOutput) Delete() AppCertificatesAcmeDel
 	}).(AppCertificatesAcmeDeleteQueryParamsPtrOutput)
 }
 
-// Which validation methods are currently possible.
-type AppCertificatesAcmeValidation struct {
-	// Whether the hostname points at the app, allowing TLS-ALPN-01 validation.
-	AlpnConfigured *bool `pulumi:"alpnConfigured"`
-	// Whether the `_acme-challenge` CNAME record is set up, allowing DNS-01 validation.
-	DnsConfigured *bool `pulumi:"dnsConfigured"`
-	// Whether the hostname points at the app, allowing HTTP-01 validation.
-	HttpConfigured *bool `pulumi:"httpConfigured"`
-	// Whether the `_fly-ownership` TXT record is set up.
-	OwnershipTxtConfigured *bool `pulumi:"ownershipTxtConfigured"`
-}
-
-// Which validation methods are currently possible.
-type AppCertificatesAcmeValidationOutput struct{ *pulumi.OutputState }
-
-func (AppCertificatesAcmeValidationOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*AppCertificatesAcmeValidation)(nil)).Elem()
-}
-
-func (o AppCertificatesAcmeValidationOutput) ToAppCertificatesAcmeValidationOutput() AppCertificatesAcmeValidationOutput {
-	return o
-}
-
-func (o AppCertificatesAcmeValidationOutput) ToAppCertificatesAcmeValidationOutputWithContext(ctx context.Context) AppCertificatesAcmeValidationOutput {
-	return o
-}
-
-// Whether the hostname points at the app, allowing TLS-ALPN-01 validation.
-func (o AppCertificatesAcmeValidationOutput) AlpnConfigured() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v AppCertificatesAcmeValidation) *bool { return v.AlpnConfigured }).(pulumi.BoolPtrOutput)
-}
-
-// Whether the `_acme-challenge` CNAME record is set up, allowing DNS-01 validation.
-func (o AppCertificatesAcmeValidationOutput) DnsConfigured() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v AppCertificatesAcmeValidation) *bool { return v.DnsConfigured }).(pulumi.BoolPtrOutput)
-}
-
-// Whether the hostname points at the app, allowing HTTP-01 validation.
-func (o AppCertificatesAcmeValidationOutput) HttpConfigured() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v AppCertificatesAcmeValidation) *bool { return v.HttpConfigured }).(pulumi.BoolPtrOutput)
-}
-
-// Whether the `_fly-ownership` TXT record is set up.
-func (o AppCertificatesAcmeValidationOutput) OwnershipTxtConfigured() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v AppCertificatesAcmeValidation) *bool { return v.OwnershipTxtConfigured }).(pulumi.BoolPtrOutput)
-}
-
-type AppCertificatesAcmeValidationPtrOutput struct{ *pulumi.OutputState }
-
-func (AppCertificatesAcmeValidationPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**AppCertificatesAcmeValidation)(nil)).Elem()
-}
-
-func (o AppCertificatesAcmeValidationPtrOutput) ToAppCertificatesAcmeValidationPtrOutput() AppCertificatesAcmeValidationPtrOutput {
-	return o
-}
-
-func (o AppCertificatesAcmeValidationPtrOutput) ToAppCertificatesAcmeValidationPtrOutputWithContext(ctx context.Context) AppCertificatesAcmeValidationPtrOutput {
-	return o
-}
-
-func (o AppCertificatesAcmeValidationPtrOutput) Elem() AppCertificatesAcmeValidationOutput {
-	return o.ApplyT(func(v *AppCertificatesAcmeValidation) AppCertificatesAcmeValidation {
-		if v != nil {
-			return *v
-		}
-		var ret AppCertificatesAcmeValidation
-		return ret
-	}).(AppCertificatesAcmeValidationOutput)
-}
-
-// Whether the hostname points at the app, allowing TLS-ALPN-01 validation.
-func (o AppCertificatesAcmeValidationPtrOutput) AlpnConfigured() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *AppCertificatesAcmeValidation) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.AlpnConfigured
-	}).(pulumi.BoolPtrOutput)
-}
-
-// Whether the `_acme-challenge` CNAME record is set up, allowing DNS-01 validation.
-func (o AppCertificatesAcmeValidationPtrOutput) DnsConfigured() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *AppCertificatesAcmeValidation) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.DnsConfigured
-	}).(pulumi.BoolPtrOutput)
-}
-
-// Whether the hostname points at the app, allowing HTTP-01 validation.
-func (o AppCertificatesAcmeValidationPtrOutput) HttpConfigured() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *AppCertificatesAcmeValidation) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.HttpConfigured
-	}).(pulumi.BoolPtrOutput)
-}
-
-// Whether the `_fly-ownership` TXT record is set up.
-func (o AppCertificatesAcmeValidationPtrOutput) OwnershipTxtConfigured() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *AppCertificatesAcmeValidation) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.OwnershipTxtConfigured
-	}).(pulumi.BoolPtrOutput)
-}
-
 // Query params for the API request.
 type AppCertificatesCheckCreateQueryParams struct {
 	// Additional query params to send with the request that are not defined in the API spec.
@@ -1120,315 +700,6 @@ func (o AppCertificatesCheckCreateQueryParamsPtrOutput) AdditionalParams() pulum
 	}).(pulumi.StringMapOutput)
 }
 
-// Record for DNS-01 validation.
-type AppCertificatesCheckDNSRequirementsAcmeChallenge struct {
-	// Name of the CNAME record to create, such as `_acme-challenge.example.com`.
-	Name *string `pulumi:"name"`
-	// Value the CNAME record must point to.
-	Target *string `pulumi:"target"`
-}
-
-// Record for DNS-01 validation.
-type AppCertificatesCheckDNSRequirementsAcmeChallengeOutput struct{ *pulumi.OutputState }
-
-func (AppCertificatesCheckDNSRequirementsAcmeChallengeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*AppCertificatesCheckDNSRequirementsAcmeChallenge)(nil)).Elem()
-}
-
-func (o AppCertificatesCheckDNSRequirementsAcmeChallengeOutput) ToAppCertificatesCheckDNSRequirementsAcmeChallengeOutput() AppCertificatesCheckDNSRequirementsAcmeChallengeOutput {
-	return o
-}
-
-func (o AppCertificatesCheckDNSRequirementsAcmeChallengeOutput) ToAppCertificatesCheckDNSRequirementsAcmeChallengeOutputWithContext(ctx context.Context) AppCertificatesCheckDNSRequirementsAcmeChallengeOutput {
-	return o
-}
-
-// Name of the CNAME record to create, such as `_acme-challenge.example.com`.
-func (o AppCertificatesCheckDNSRequirementsAcmeChallengeOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v AppCertificatesCheckDNSRequirementsAcmeChallenge) *string { return v.Name }).(pulumi.StringPtrOutput)
-}
-
-// Value the CNAME record must point to.
-func (o AppCertificatesCheckDNSRequirementsAcmeChallengeOutput) Target() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v AppCertificatesCheckDNSRequirementsAcmeChallenge) *string { return v.Target }).(pulumi.StringPtrOutput)
-}
-
-type AppCertificatesCheckDNSRequirementsAcmeChallengePtrOutput struct{ *pulumi.OutputState }
-
-func (AppCertificatesCheckDNSRequirementsAcmeChallengePtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**AppCertificatesCheckDNSRequirementsAcmeChallenge)(nil)).Elem()
-}
-
-func (o AppCertificatesCheckDNSRequirementsAcmeChallengePtrOutput) ToAppCertificatesCheckDNSRequirementsAcmeChallengePtrOutput() AppCertificatesCheckDNSRequirementsAcmeChallengePtrOutput {
-	return o
-}
-
-func (o AppCertificatesCheckDNSRequirementsAcmeChallengePtrOutput) ToAppCertificatesCheckDNSRequirementsAcmeChallengePtrOutputWithContext(ctx context.Context) AppCertificatesCheckDNSRequirementsAcmeChallengePtrOutput {
-	return o
-}
-
-func (o AppCertificatesCheckDNSRequirementsAcmeChallengePtrOutput) Elem() AppCertificatesCheckDNSRequirementsAcmeChallengeOutput {
-	return o.ApplyT(func(v *AppCertificatesCheckDNSRequirementsAcmeChallenge) AppCertificatesCheckDNSRequirementsAcmeChallenge {
-		if v != nil {
-			return *v
-		}
-		var ret AppCertificatesCheckDNSRequirementsAcmeChallenge
-		return ret
-	}).(AppCertificatesCheckDNSRequirementsAcmeChallengeOutput)
-}
-
-// Name of the CNAME record to create, such as `_acme-challenge.example.com`.
-func (o AppCertificatesCheckDNSRequirementsAcmeChallengePtrOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *AppCertificatesCheckDNSRequirementsAcmeChallenge) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Name
-	}).(pulumi.StringPtrOutput)
-}
-
-// Value the CNAME record must point to.
-func (o AppCertificatesCheckDNSRequirementsAcmeChallengePtrOutput) Target() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *AppCertificatesCheckDNSRequirementsAcmeChallenge) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Target
-	}).(pulumi.StringPtrOutput)
-}
-
-// Record for proving ownership of the hostname.
-type AppCertificatesCheckDNSRequirementsOwnership struct {
-	// TXT record value that proves ownership for this app.
-	AppValue *string `pulumi:"appValue"`
-	// Name of the TXT record to create, such as `_fly-ownership.example.com`.
-	Name *string `pulumi:"name"`
-	// TXT record value that proves ownership for every app in the organization.
-	OrgValue *string `pulumi:"orgValue"`
-}
-
-// Record for proving ownership of the hostname.
-type AppCertificatesCheckDNSRequirementsOwnershipOutput struct{ *pulumi.OutputState }
-
-func (AppCertificatesCheckDNSRequirementsOwnershipOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*AppCertificatesCheckDNSRequirementsOwnership)(nil)).Elem()
-}
-
-func (o AppCertificatesCheckDNSRequirementsOwnershipOutput) ToAppCertificatesCheckDNSRequirementsOwnershipOutput() AppCertificatesCheckDNSRequirementsOwnershipOutput {
-	return o
-}
-
-func (o AppCertificatesCheckDNSRequirementsOwnershipOutput) ToAppCertificatesCheckDNSRequirementsOwnershipOutputWithContext(ctx context.Context) AppCertificatesCheckDNSRequirementsOwnershipOutput {
-	return o
-}
-
-// TXT record value that proves ownership for this app.
-func (o AppCertificatesCheckDNSRequirementsOwnershipOutput) AppValue() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v AppCertificatesCheckDNSRequirementsOwnership) *string { return v.AppValue }).(pulumi.StringPtrOutput)
-}
-
-// Name of the TXT record to create, such as `_fly-ownership.example.com`.
-func (o AppCertificatesCheckDNSRequirementsOwnershipOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v AppCertificatesCheckDNSRequirementsOwnership) *string { return v.Name }).(pulumi.StringPtrOutput)
-}
-
-// TXT record value that proves ownership for every app in the organization.
-func (o AppCertificatesCheckDNSRequirementsOwnershipOutput) OrgValue() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v AppCertificatesCheckDNSRequirementsOwnership) *string { return v.OrgValue }).(pulumi.StringPtrOutput)
-}
-
-type AppCertificatesCheckDNSRequirementsOwnershipPtrOutput struct{ *pulumi.OutputState }
-
-func (AppCertificatesCheckDNSRequirementsOwnershipPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**AppCertificatesCheckDNSRequirementsOwnership)(nil)).Elem()
-}
-
-func (o AppCertificatesCheckDNSRequirementsOwnershipPtrOutput) ToAppCertificatesCheckDNSRequirementsOwnershipPtrOutput() AppCertificatesCheckDNSRequirementsOwnershipPtrOutput {
-	return o
-}
-
-func (o AppCertificatesCheckDNSRequirementsOwnershipPtrOutput) ToAppCertificatesCheckDNSRequirementsOwnershipPtrOutputWithContext(ctx context.Context) AppCertificatesCheckDNSRequirementsOwnershipPtrOutput {
-	return o
-}
-
-func (o AppCertificatesCheckDNSRequirementsOwnershipPtrOutput) Elem() AppCertificatesCheckDNSRequirementsOwnershipOutput {
-	return o.ApplyT(func(v *AppCertificatesCheckDNSRequirementsOwnership) AppCertificatesCheckDNSRequirementsOwnership {
-		if v != nil {
-			return *v
-		}
-		var ret AppCertificatesCheckDNSRequirementsOwnership
-		return ret
-	}).(AppCertificatesCheckDNSRequirementsOwnershipOutput)
-}
-
-// TXT record value that proves ownership for this app.
-func (o AppCertificatesCheckDNSRequirementsOwnershipPtrOutput) AppValue() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *AppCertificatesCheckDNSRequirementsOwnership) *string {
-		if v == nil {
-			return nil
-		}
-		return v.AppValue
-	}).(pulumi.StringPtrOutput)
-}
-
-// Name of the TXT record to create, such as `_fly-ownership.example.com`.
-func (o AppCertificatesCheckDNSRequirementsOwnershipPtrOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *AppCertificatesCheckDNSRequirementsOwnership) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Name
-	}).(pulumi.StringPtrOutput)
-}
-
-// TXT record value that proves ownership for every app in the organization.
-func (o AppCertificatesCheckDNSRequirementsOwnershipPtrOutput) OrgValue() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *AppCertificatesCheckDNSRequirementsOwnership) *string {
-		if v == nil {
-			return nil
-		}
-		return v.OrgValue
-	}).(pulumi.StringPtrOutput)
-}
-
-// DNS records to create to point the hostname at the app and validate it.
-type AppCertificatesCheckDnsRequirements struct {
-	// IPv4 addresses the hostname's A records can point to: the app's global IPv4 addresses
-	// and its shared IPv4 address.
-	A []string `pulumi:"a"`
-	// IPv6 addresses the hostname's AAAA records can point to: the app's global IPv6
-	// addresses.
-	Aaaa []string `pulumi:"aaaa"`
-	// Record for DNS-01 validation.
-	AcmeChallenge *AppCertificatesCheckDNSRequirementsAcmeChallenge `pulumi:"acmeChallenge"`
-	// Target the hostname can CNAME to instead of using A and AAAA records.
-	Cname *string `pulumi:"cname"`
-	// Record for proving ownership of the hostname.
-	Ownership *AppCertificatesCheckDNSRequirementsOwnership `pulumi:"ownership"`
-}
-
-// DNS records to create to point the hostname at the app and validate it.
-type AppCertificatesCheckDnsRequirementsOutput struct{ *pulumi.OutputState }
-
-func (AppCertificatesCheckDnsRequirementsOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*AppCertificatesCheckDnsRequirements)(nil)).Elem()
-}
-
-func (o AppCertificatesCheckDnsRequirementsOutput) ToAppCertificatesCheckDnsRequirementsOutput() AppCertificatesCheckDnsRequirementsOutput {
-	return o
-}
-
-func (o AppCertificatesCheckDnsRequirementsOutput) ToAppCertificatesCheckDnsRequirementsOutputWithContext(ctx context.Context) AppCertificatesCheckDnsRequirementsOutput {
-	return o
-}
-
-// IPv4 addresses the hostname's A records can point to: the app's global IPv4 addresses
-// and its shared IPv4 address.
-func (o AppCertificatesCheckDnsRequirementsOutput) A() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v AppCertificatesCheckDnsRequirements) []string { return v.A }).(pulumi.StringArrayOutput)
-}
-
-// IPv6 addresses the hostname's AAAA records can point to: the app's global IPv6
-// addresses.
-func (o AppCertificatesCheckDnsRequirementsOutput) Aaaa() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v AppCertificatesCheckDnsRequirements) []string { return v.Aaaa }).(pulumi.StringArrayOutput)
-}
-
-// Record for DNS-01 validation.
-func (o AppCertificatesCheckDnsRequirementsOutput) AcmeChallenge() AppCertificatesCheckDNSRequirementsAcmeChallengePtrOutput {
-	return o.ApplyT(func(v AppCertificatesCheckDnsRequirements) *AppCertificatesCheckDNSRequirementsAcmeChallenge {
-		return v.AcmeChallenge
-	}).(AppCertificatesCheckDNSRequirementsAcmeChallengePtrOutput)
-}
-
-// Target the hostname can CNAME to instead of using A and AAAA records.
-func (o AppCertificatesCheckDnsRequirementsOutput) Cname() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v AppCertificatesCheckDnsRequirements) *string { return v.Cname }).(pulumi.StringPtrOutput)
-}
-
-// Record for proving ownership of the hostname.
-func (o AppCertificatesCheckDnsRequirementsOutput) Ownership() AppCertificatesCheckDNSRequirementsOwnershipPtrOutput {
-	return o.ApplyT(func(v AppCertificatesCheckDnsRequirements) *AppCertificatesCheckDNSRequirementsOwnership {
-		return v.Ownership
-	}).(AppCertificatesCheckDNSRequirementsOwnershipPtrOutput)
-}
-
-type AppCertificatesCheckDnsRequirementsPtrOutput struct{ *pulumi.OutputState }
-
-func (AppCertificatesCheckDnsRequirementsPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**AppCertificatesCheckDnsRequirements)(nil)).Elem()
-}
-
-func (o AppCertificatesCheckDnsRequirementsPtrOutput) ToAppCertificatesCheckDnsRequirementsPtrOutput() AppCertificatesCheckDnsRequirementsPtrOutput {
-	return o
-}
-
-func (o AppCertificatesCheckDnsRequirementsPtrOutput) ToAppCertificatesCheckDnsRequirementsPtrOutputWithContext(ctx context.Context) AppCertificatesCheckDnsRequirementsPtrOutput {
-	return o
-}
-
-func (o AppCertificatesCheckDnsRequirementsPtrOutput) Elem() AppCertificatesCheckDnsRequirementsOutput {
-	return o.ApplyT(func(v *AppCertificatesCheckDnsRequirements) AppCertificatesCheckDnsRequirements {
-		if v != nil {
-			return *v
-		}
-		var ret AppCertificatesCheckDnsRequirements
-		return ret
-	}).(AppCertificatesCheckDnsRequirementsOutput)
-}
-
-// IPv4 addresses the hostname's A records can point to: the app's global IPv4 addresses
-// and its shared IPv4 address.
-func (o AppCertificatesCheckDnsRequirementsPtrOutput) A() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v *AppCertificatesCheckDnsRequirements) []string {
-		if v == nil {
-			return nil
-		}
-		return v.A
-	}).(pulumi.StringArrayOutput)
-}
-
-// IPv6 addresses the hostname's AAAA records can point to: the app's global IPv6
-// addresses.
-func (o AppCertificatesCheckDnsRequirementsPtrOutput) Aaaa() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v *AppCertificatesCheckDnsRequirements) []string {
-		if v == nil {
-			return nil
-		}
-		return v.Aaaa
-	}).(pulumi.StringArrayOutput)
-}
-
-// Record for DNS-01 validation.
-func (o AppCertificatesCheckDnsRequirementsPtrOutput) AcmeChallenge() AppCertificatesCheckDNSRequirementsAcmeChallengePtrOutput {
-	return o.ApplyT(func(v *AppCertificatesCheckDnsRequirements) *AppCertificatesCheckDNSRequirementsAcmeChallenge {
-		if v == nil {
-			return nil
-		}
-		return v.AcmeChallenge
-	}).(AppCertificatesCheckDNSRequirementsAcmeChallengePtrOutput)
-}
-
-// Target the hostname can CNAME to instead of using A and AAAA records.
-func (o AppCertificatesCheckDnsRequirementsPtrOutput) Cname() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *AppCertificatesCheckDnsRequirements) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Cname
-	}).(pulumi.StringPtrOutput)
-}
-
-// Record for proving ownership of the hostname.
-func (o AppCertificatesCheckDnsRequirementsPtrOutput) Ownership() AppCertificatesCheckDNSRequirementsOwnershipPtrOutput {
-	return o.ApplyT(func(v *AppCertificatesCheckDnsRequirements) *AppCertificatesCheckDNSRequirementsOwnership {
-		if v == nil {
-			return nil
-		}
-		return v.Ownership
-	}).(AppCertificatesCheckDNSRequirementsOwnershipPtrOutput)
-}
-
 // Query params for each of the operations of the resource.
 type AppCertificatesCheckQueryParams struct {
 	// Query params for the create operation.
@@ -1567,117 +838,6 @@ func (o AppCertificatesCheckQueryParamsPtrOutput) Create() AppCertificatesCheckC
 		}
 		return v.Create
 	}).(AppCertificatesCheckCreateQueryParamsPtrOutput)
-}
-
-// Which validation methods are currently possible.
-type AppCertificatesCheckValidation struct {
-	// Whether the hostname points at the app, allowing TLS-ALPN-01 validation.
-	AlpnConfigured *bool `pulumi:"alpnConfigured"`
-	// Whether the `_acme-challenge` CNAME record is set up, allowing DNS-01 validation.
-	DnsConfigured *bool `pulumi:"dnsConfigured"`
-	// Whether the hostname points at the app, allowing HTTP-01 validation.
-	HttpConfigured *bool `pulumi:"httpConfigured"`
-	// Whether the `_fly-ownership` TXT record is set up.
-	OwnershipTxtConfigured *bool `pulumi:"ownershipTxtConfigured"`
-}
-
-// Which validation methods are currently possible.
-type AppCertificatesCheckValidationOutput struct{ *pulumi.OutputState }
-
-func (AppCertificatesCheckValidationOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*AppCertificatesCheckValidation)(nil)).Elem()
-}
-
-func (o AppCertificatesCheckValidationOutput) ToAppCertificatesCheckValidationOutput() AppCertificatesCheckValidationOutput {
-	return o
-}
-
-func (o AppCertificatesCheckValidationOutput) ToAppCertificatesCheckValidationOutputWithContext(ctx context.Context) AppCertificatesCheckValidationOutput {
-	return o
-}
-
-// Whether the hostname points at the app, allowing TLS-ALPN-01 validation.
-func (o AppCertificatesCheckValidationOutput) AlpnConfigured() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v AppCertificatesCheckValidation) *bool { return v.AlpnConfigured }).(pulumi.BoolPtrOutput)
-}
-
-// Whether the `_acme-challenge` CNAME record is set up, allowing DNS-01 validation.
-func (o AppCertificatesCheckValidationOutput) DnsConfigured() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v AppCertificatesCheckValidation) *bool { return v.DnsConfigured }).(pulumi.BoolPtrOutput)
-}
-
-// Whether the hostname points at the app, allowing HTTP-01 validation.
-func (o AppCertificatesCheckValidationOutput) HttpConfigured() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v AppCertificatesCheckValidation) *bool { return v.HttpConfigured }).(pulumi.BoolPtrOutput)
-}
-
-// Whether the `_fly-ownership` TXT record is set up.
-func (o AppCertificatesCheckValidationOutput) OwnershipTxtConfigured() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v AppCertificatesCheckValidation) *bool { return v.OwnershipTxtConfigured }).(pulumi.BoolPtrOutput)
-}
-
-type AppCertificatesCheckValidationPtrOutput struct{ *pulumi.OutputState }
-
-func (AppCertificatesCheckValidationPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**AppCertificatesCheckValidation)(nil)).Elem()
-}
-
-func (o AppCertificatesCheckValidationPtrOutput) ToAppCertificatesCheckValidationPtrOutput() AppCertificatesCheckValidationPtrOutput {
-	return o
-}
-
-func (o AppCertificatesCheckValidationPtrOutput) ToAppCertificatesCheckValidationPtrOutputWithContext(ctx context.Context) AppCertificatesCheckValidationPtrOutput {
-	return o
-}
-
-func (o AppCertificatesCheckValidationPtrOutput) Elem() AppCertificatesCheckValidationOutput {
-	return o.ApplyT(func(v *AppCertificatesCheckValidation) AppCertificatesCheckValidation {
-		if v != nil {
-			return *v
-		}
-		var ret AppCertificatesCheckValidation
-		return ret
-	}).(AppCertificatesCheckValidationOutput)
-}
-
-// Whether the hostname points at the app, allowing TLS-ALPN-01 validation.
-func (o AppCertificatesCheckValidationPtrOutput) AlpnConfigured() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *AppCertificatesCheckValidation) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.AlpnConfigured
-	}).(pulumi.BoolPtrOutput)
-}
-
-// Whether the `_acme-challenge` CNAME record is set up, allowing DNS-01 validation.
-func (o AppCertificatesCheckValidationPtrOutput) DnsConfigured() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *AppCertificatesCheckValidation) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.DnsConfigured
-	}).(pulumi.BoolPtrOutput)
-}
-
-// Whether the hostname points at the app, allowing HTTP-01 validation.
-func (o AppCertificatesCheckValidationPtrOutput) HttpConfigured() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *AppCertificatesCheckValidation) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.HttpConfigured
-	}).(pulumi.BoolPtrOutput)
-}
-
-// Whether the `_fly-ownership` TXT record is set up.
-func (o AppCertificatesCheckValidationPtrOutput) OwnershipTxtConfigured() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *AppCertificatesCheckValidation) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.OwnershipTxtConfigured
-	}).(pulumi.BoolPtrOutput)
 }
 
 // Query params for the API request.
@@ -4574,12 +3734,15 @@ func (o ComputePtrOutput) RequiredHostFeatures() pulumi.StringArrayOutput {
 	}).(pulumi.StringArrayOutput)
 }
 
-// An object defining the Machine configuration
+// The Machine's configuration, as provided when it was created or last updated, with
+// `metadata` and `mounts` reflecting their current values. Null when the host is not
+// reachable (`host_status` is not `ok`) or `summary=true` was requested; see
+// `incomplete_config`.
 type Config struct {
 	// Optional boolean telling the Machine to destroy itself once it’s complete (default false)
 	AutoDestroy *bool `pulumi:"autoDestroy"`
 	// Beta: a cache drive attached to the Machine. This field may be removed in the future
-	CacheDrive *MachineFlyMachineConfigCacheDrive `pulumi:"cacheDrive"`
+	CacheDrive *FlyMachineConfigCacheDrive `pulumi:"cacheDrive"`
 	// An optional object that defines one or more named top-level checks. The key for each check is the check name.
 	Checks map[string]FlyMachineConfigChecksProperties `pulumi:"checks"`
 	// Containers are a list of containers that will run in the machine, each from its own image.
@@ -4587,21 +3750,21 @@ type Config struct {
 	// Deprecated: use Service.Autostart instead
 	DisableMachineAutostart *bool `pulumi:"disableMachineAutostart"`
 	// DNS settings for the Machine
-	Dns *MachineFlyMachineConfigDns `pulumi:"dns"`
+	Dns *FlyMachineConfigDns `pulumi:"dns"`
 	// An object filled with key/value pairs to be set as environment variables
 	Env map[string]string `pulumi:"env"`
 	// Files to write into the Machine, from either a raw value or an app secret
 	Files []FlyFile `pulumi:"files"`
 	// The resources (CPUs, memory, etc.) allocated to the Machine
-	Guest *MachineFlyMachineConfigGuest `pulumi:"guest"`
+	Guest *FlyMachineConfigGuest `pulumi:"guest"`
 	// The docker image to run
 	Image *string `pulumi:"image"`
 	// Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
-	Init *MachineFlyMachineConfigInit `pulumi:"init"`
+	Init *FlyMachineConfigInit `pulumi:"init"`
 	// Key/value pairs of Machine metadata. Fly.io uses metadata internally for routing, process groups, and clusters
 	Metadata map[string]string `pulumi:"metadata"`
 	// An optional metrics endpoint for Prometheus on Fly.io to scrape
-	Metrics *MachineFlyMachineConfigMetrics `pulumi:"metrics"`
+	Metrics *FlyMachineConfigMetrics `pulumi:"metrics"`
 	// Persistent volumes to mount in the Machine. A Machine can mount at most one volume, which must be on
 	// the same host. The mounted volume cannot be changed by updating the Machine
 	Mounts []FlyMachineMount `pulumi:"mounts"`
@@ -4610,10 +3773,10 @@ type Config struct {
 	// images, use containers instead
 	Processes []FlyMachineProcess `pulumi:"processes"`
 	// Whether and how the Machine is restarted after its main process exits
-	Restart *MachineFlyMachineConfigRestart `pulumi:"restart"`
+	Restart *FlyMachineConfigRestart `pulumi:"restart"`
 	// Beta: the size of the Machine's root filesystem and whether it persists. This field may be
 	// removed in the future
-	Rootfs *MachineFlyMachineConfigRootfs `pulumi:"rootfs"`
+	Rootfs *FlyMachineConfigRootfs `pulumi:"rootfs"`
 	// Run the Machine at an interval: one of hourly, daily, weekly or monthly. The interval starts when
 	// the Machine is created
 	Schedule *string `pulumi:"schedule"`
@@ -4622,7 +3785,7 @@ type Config struct {
 	// Deprecated: use Guest instead
 	Size *string `pulumi:"size"`
 	// Spot pricing settings for the Machine
-	Spot *MachineFlyMachineConfigSpot `pulumi:"spot"`
+	Spot *FlyMachineConfigSpot `pulumi:"spot"`
 	// Standbys enable a machine to be a standby for another. In the event of a hardware failure,
 	// the standby machine will be started.
 	Standbys []string `pulumi:"standbys"`
@@ -4632,7 +3795,7 @@ type Config struct {
 	// app; no bucket is created for you
 	Statics []FlyStatic `pulumi:"statics"`
 	// How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
-	StopConfig *MachineFlyMachineConfigStopConfig `pulumi:"stopConfig"`
+	StopConfig *FlyMachineConfigStopConfig `pulumi:"stopConfig"`
 }
 
 // ConfigInput is an input type that accepts ConfigArgs and ConfigOutput values.
@@ -4646,12 +3809,15 @@ type ConfigInput interface {
 	ToConfigOutputWithContext(context.Context) ConfigOutput
 }
 
-// An object defining the Machine configuration
+// The Machine's configuration, as provided when it was created or last updated, with
+// `metadata` and `mounts` reflecting their current values. Null when the host is not
+// reachable (`host_status` is not `ok`) or `summary=true` was requested; see
+// `incomplete_config`.
 type ConfigArgs struct {
 	// Optional boolean telling the Machine to destroy itself once it’s complete (default false)
 	AutoDestroy pulumi.BoolPtrInput `pulumi:"autoDestroy"`
 	// Beta: a cache drive attached to the Machine. This field may be removed in the future
-	CacheDrive MachineFlyMachineConfigCacheDrivePtrInput `pulumi:"cacheDrive"`
+	CacheDrive FlyMachineConfigCacheDrivePtrInput `pulumi:"cacheDrive"`
 	// An optional object that defines one or more named top-level checks. The key for each check is the check name.
 	Checks FlyMachineConfigChecksPropertiesMapInput `pulumi:"checks"`
 	// Containers are a list of containers that will run in the machine, each from its own image.
@@ -4659,21 +3825,21 @@ type ConfigArgs struct {
 	// Deprecated: use Service.Autostart instead
 	DisableMachineAutostart pulumi.BoolPtrInput `pulumi:"disableMachineAutostart"`
 	// DNS settings for the Machine
-	Dns MachineFlyMachineConfigDnsPtrInput `pulumi:"dns"`
+	Dns FlyMachineConfigDnsPtrInput `pulumi:"dns"`
 	// An object filled with key/value pairs to be set as environment variables
 	Env pulumi.StringMapInput `pulumi:"env"`
 	// Files to write into the Machine, from either a raw value or an app secret
 	Files FlyFileArrayInput `pulumi:"files"`
 	// The resources (CPUs, memory, etc.) allocated to the Machine
-	Guest MachineFlyMachineConfigGuestPtrInput `pulumi:"guest"`
+	Guest FlyMachineConfigGuestPtrInput `pulumi:"guest"`
 	// The docker image to run
 	Image pulumi.StringPtrInput `pulumi:"image"`
 	// Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
-	Init MachineFlyMachineConfigInitPtrInput `pulumi:"init"`
+	Init FlyMachineConfigInitPtrInput `pulumi:"init"`
 	// Key/value pairs of Machine metadata. Fly.io uses metadata internally for routing, process groups, and clusters
 	Metadata pulumi.StringMapInput `pulumi:"metadata"`
 	// An optional metrics endpoint for Prometheus on Fly.io to scrape
-	Metrics MachineFlyMachineConfigMetricsPtrInput `pulumi:"metrics"`
+	Metrics FlyMachineConfigMetricsPtrInput `pulumi:"metrics"`
 	// Persistent volumes to mount in the Machine. A Machine can mount at most one volume, which must be on
 	// the same host. The mounted volume cannot be changed by updating the Machine
 	Mounts FlyMachineMountArrayInput `pulumi:"mounts"`
@@ -4682,10 +3848,10 @@ type ConfigArgs struct {
 	// images, use containers instead
 	Processes FlyMachineProcessArrayInput `pulumi:"processes"`
 	// Whether and how the Machine is restarted after its main process exits
-	Restart MachineFlyMachineConfigRestartPtrInput `pulumi:"restart"`
+	Restart FlyMachineConfigRestartPtrInput `pulumi:"restart"`
 	// Beta: the size of the Machine's root filesystem and whether it persists. This field may be
 	// removed in the future
-	Rootfs MachineFlyMachineConfigRootfsPtrInput `pulumi:"rootfs"`
+	Rootfs FlyMachineConfigRootfsPtrInput `pulumi:"rootfs"`
 	// Run the Machine at an interval: one of hourly, daily, weekly or monthly. The interval starts when
 	// the Machine is created
 	Schedule pulumi.StringPtrInput `pulumi:"schedule"`
@@ -4694,7 +3860,7 @@ type ConfigArgs struct {
 	// Deprecated: use Guest instead
 	Size pulumi.StringPtrInput `pulumi:"size"`
 	// Spot pricing settings for the Machine
-	Spot MachineFlyMachineConfigSpotPtrInput `pulumi:"spot"`
+	Spot FlyMachineConfigSpotPtrInput `pulumi:"spot"`
 	// Standbys enable a machine to be a standby for another. In the event of a hardware failure,
 	// the standby machine will be started.
 	Standbys pulumi.StringArrayInput `pulumi:"standbys"`
@@ -4704,7 +3870,7 @@ type ConfigArgs struct {
 	// app; no bucket is created for you
 	Statics FlyStaticArrayInput `pulumi:"statics"`
 	// How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
-	StopConfig MachineFlyMachineConfigStopConfigPtrInput `pulumi:"stopConfig"`
+	StopConfig FlyMachineConfigStopConfigPtrInput `pulumi:"stopConfig"`
 }
 
 func (ConfigArgs) ElementType() reflect.Type {
@@ -4760,7 +3926,10 @@ func (i *configPtrType) ToConfigPtrOutputWithContext(ctx context.Context) Config
 	return pulumi.ToOutputWithContext(ctx, i).(ConfigPtrOutput)
 }
 
-// An object defining the Machine configuration
+// The Machine's configuration, as provided when it was created or last updated, with
+// `metadata` and `mounts` reflecting their current values. Null when the host is not
+// reachable (`host_status` is not `ok`) or `summary=true` was requested; see
+// `incomplete_config`.
 type ConfigOutput struct{ *pulumi.OutputState }
 
 func (ConfigOutput) ElementType() reflect.Type {
@@ -4791,8 +3960,8 @@ func (o ConfigOutput) AutoDestroy() pulumi.BoolPtrOutput {
 }
 
 // Beta: a cache drive attached to the Machine. This field may be removed in the future
-func (o ConfigOutput) CacheDrive() MachineFlyMachineConfigCacheDrivePtrOutput {
-	return o.ApplyT(func(v Config) *MachineFlyMachineConfigCacheDrive { return v.CacheDrive }).(MachineFlyMachineConfigCacheDrivePtrOutput)
+func (o ConfigOutput) CacheDrive() FlyMachineConfigCacheDrivePtrOutput {
+	return o.ApplyT(func(v Config) *FlyMachineConfigCacheDrive { return v.CacheDrive }).(FlyMachineConfigCacheDrivePtrOutput)
 }
 
 // An optional object that defines one or more named top-level checks. The key for each check is the check name.
@@ -4811,8 +3980,8 @@ func (o ConfigOutput) DisableMachineAutostart() pulumi.BoolPtrOutput {
 }
 
 // DNS settings for the Machine
-func (o ConfigOutput) Dns() MachineFlyMachineConfigDnsPtrOutput {
-	return o.ApplyT(func(v Config) *MachineFlyMachineConfigDns { return v.Dns }).(MachineFlyMachineConfigDnsPtrOutput)
+func (o ConfigOutput) Dns() FlyMachineConfigDnsPtrOutput {
+	return o.ApplyT(func(v Config) *FlyMachineConfigDns { return v.Dns }).(FlyMachineConfigDnsPtrOutput)
 }
 
 // An object filled with key/value pairs to be set as environment variables
@@ -4826,8 +3995,8 @@ func (o ConfigOutput) Files() FlyFileArrayOutput {
 }
 
 // The resources (CPUs, memory, etc.) allocated to the Machine
-func (o ConfigOutput) Guest() MachineFlyMachineConfigGuestPtrOutput {
-	return o.ApplyT(func(v Config) *MachineFlyMachineConfigGuest { return v.Guest }).(MachineFlyMachineConfigGuestPtrOutput)
+func (o ConfigOutput) Guest() FlyMachineConfigGuestPtrOutput {
+	return o.ApplyT(func(v Config) *FlyMachineConfigGuest { return v.Guest }).(FlyMachineConfigGuestPtrOutput)
 }
 
 // The docker image to run
@@ -4836,8 +4005,8 @@ func (o ConfigOutput) Image() pulumi.StringPtrOutput {
 }
 
 // Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
-func (o ConfigOutput) Init() MachineFlyMachineConfigInitPtrOutput {
-	return o.ApplyT(func(v Config) *MachineFlyMachineConfigInit { return v.Init }).(MachineFlyMachineConfigInitPtrOutput)
+func (o ConfigOutput) Init() FlyMachineConfigInitPtrOutput {
+	return o.ApplyT(func(v Config) *FlyMachineConfigInit { return v.Init }).(FlyMachineConfigInitPtrOutput)
 }
 
 // Key/value pairs of Machine metadata. Fly.io uses metadata internally for routing, process groups, and clusters
@@ -4846,8 +4015,8 @@ func (o ConfigOutput) Metadata() pulumi.StringMapOutput {
 }
 
 // An optional metrics endpoint for Prometheus on Fly.io to scrape
-func (o ConfigOutput) Metrics() MachineFlyMachineConfigMetricsPtrOutput {
-	return o.ApplyT(func(v Config) *MachineFlyMachineConfigMetrics { return v.Metrics }).(MachineFlyMachineConfigMetricsPtrOutput)
+func (o ConfigOutput) Metrics() FlyMachineConfigMetricsPtrOutput {
+	return o.ApplyT(func(v Config) *FlyMachineConfigMetrics { return v.Metrics }).(FlyMachineConfigMetricsPtrOutput)
 }
 
 // Persistent volumes to mount in the Machine. A Machine can mount at most one volume, which must be on
@@ -4864,14 +4033,14 @@ func (o ConfigOutput) Processes() FlyMachineProcessArrayOutput {
 }
 
 // Whether and how the Machine is restarted after its main process exits
-func (o ConfigOutput) Restart() MachineFlyMachineConfigRestartPtrOutput {
-	return o.ApplyT(func(v Config) *MachineFlyMachineConfigRestart { return v.Restart }).(MachineFlyMachineConfigRestartPtrOutput)
+func (o ConfigOutput) Restart() FlyMachineConfigRestartPtrOutput {
+	return o.ApplyT(func(v Config) *FlyMachineConfigRestart { return v.Restart }).(FlyMachineConfigRestartPtrOutput)
 }
 
 // Beta: the size of the Machine's root filesystem and whether it persists. This field may be
 // removed in the future
-func (o ConfigOutput) Rootfs() MachineFlyMachineConfigRootfsPtrOutput {
-	return o.ApplyT(func(v Config) *MachineFlyMachineConfigRootfs { return v.Rootfs }).(MachineFlyMachineConfigRootfsPtrOutput)
+func (o ConfigOutput) Rootfs() FlyMachineConfigRootfsPtrOutput {
+	return o.ApplyT(func(v Config) *FlyMachineConfigRootfs { return v.Rootfs }).(FlyMachineConfigRootfsPtrOutput)
 }
 
 // Run the Machine at an interval: one of hourly, daily, weekly or monthly. The interval starts when
@@ -4891,8 +4060,8 @@ func (o ConfigOutput) Size() pulumi.StringPtrOutput {
 }
 
 // Spot pricing settings for the Machine
-func (o ConfigOutput) Spot() MachineFlyMachineConfigSpotPtrOutput {
-	return o.ApplyT(func(v Config) *MachineFlyMachineConfigSpot { return v.Spot }).(MachineFlyMachineConfigSpotPtrOutput)
+func (o ConfigOutput) Spot() FlyMachineConfigSpotPtrOutput {
+	return o.ApplyT(func(v Config) *FlyMachineConfigSpot { return v.Spot }).(FlyMachineConfigSpotPtrOutput)
 }
 
 // Standbys enable a machine to be a standby for another. In the event of a hardware failure,
@@ -4910,8 +4079,8 @@ func (o ConfigOutput) Statics() FlyStaticArrayOutput {
 }
 
 // How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
-func (o ConfigOutput) StopConfig() MachineFlyMachineConfigStopConfigPtrOutput {
-	return o.ApplyT(func(v Config) *MachineFlyMachineConfigStopConfig { return v.StopConfig }).(MachineFlyMachineConfigStopConfigPtrOutput)
+func (o ConfigOutput) StopConfig() FlyMachineConfigStopConfigPtrOutput {
+	return o.ApplyT(func(v Config) *FlyMachineConfigStopConfig { return v.StopConfig }).(FlyMachineConfigStopConfigPtrOutput)
 }
 
 type ConfigPtrOutput struct{ *pulumi.OutputState }
@@ -4949,13 +4118,13 @@ func (o ConfigPtrOutput) AutoDestroy() pulumi.BoolPtrOutput {
 }
 
 // Beta: a cache drive attached to the Machine. This field may be removed in the future
-func (o ConfigPtrOutput) CacheDrive() MachineFlyMachineConfigCacheDrivePtrOutput {
-	return o.ApplyT(func(v *Config) *MachineFlyMachineConfigCacheDrive {
+func (o ConfigPtrOutput) CacheDrive() FlyMachineConfigCacheDrivePtrOutput {
+	return o.ApplyT(func(v *Config) *FlyMachineConfigCacheDrive {
 		if v == nil {
 			return nil
 		}
 		return v.CacheDrive
-	}).(MachineFlyMachineConfigCacheDrivePtrOutput)
+	}).(FlyMachineConfigCacheDrivePtrOutput)
 }
 
 // An optional object that defines one or more named top-level checks. The key for each check is the check name.
@@ -4989,13 +4158,13 @@ func (o ConfigPtrOutput) DisableMachineAutostart() pulumi.BoolPtrOutput {
 }
 
 // DNS settings for the Machine
-func (o ConfigPtrOutput) Dns() MachineFlyMachineConfigDnsPtrOutput {
-	return o.ApplyT(func(v *Config) *MachineFlyMachineConfigDns {
+func (o ConfigPtrOutput) Dns() FlyMachineConfigDnsPtrOutput {
+	return o.ApplyT(func(v *Config) *FlyMachineConfigDns {
 		if v == nil {
 			return nil
 		}
 		return v.Dns
-	}).(MachineFlyMachineConfigDnsPtrOutput)
+	}).(FlyMachineConfigDnsPtrOutput)
 }
 
 // An object filled with key/value pairs to be set as environment variables
@@ -5019,13 +4188,13 @@ func (o ConfigPtrOutput) Files() FlyFileArrayOutput {
 }
 
 // The resources (CPUs, memory, etc.) allocated to the Machine
-func (o ConfigPtrOutput) Guest() MachineFlyMachineConfigGuestPtrOutput {
-	return o.ApplyT(func(v *Config) *MachineFlyMachineConfigGuest {
+func (o ConfigPtrOutput) Guest() FlyMachineConfigGuestPtrOutput {
+	return o.ApplyT(func(v *Config) *FlyMachineConfigGuest {
 		if v == nil {
 			return nil
 		}
 		return v.Guest
-	}).(MachineFlyMachineConfigGuestPtrOutput)
+	}).(FlyMachineConfigGuestPtrOutput)
 }
 
 // The docker image to run
@@ -5039,13 +4208,13 @@ func (o ConfigPtrOutput) Image() pulumi.StringPtrOutput {
 }
 
 // Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
-func (o ConfigPtrOutput) Init() MachineFlyMachineConfigInitPtrOutput {
-	return o.ApplyT(func(v *Config) *MachineFlyMachineConfigInit {
+func (o ConfigPtrOutput) Init() FlyMachineConfigInitPtrOutput {
+	return o.ApplyT(func(v *Config) *FlyMachineConfigInit {
 		if v == nil {
 			return nil
 		}
 		return v.Init
-	}).(MachineFlyMachineConfigInitPtrOutput)
+	}).(FlyMachineConfigInitPtrOutput)
 }
 
 // Key/value pairs of Machine metadata. Fly.io uses metadata internally for routing, process groups, and clusters
@@ -5059,13 +4228,13 @@ func (o ConfigPtrOutput) Metadata() pulumi.StringMapOutput {
 }
 
 // An optional metrics endpoint for Prometheus on Fly.io to scrape
-func (o ConfigPtrOutput) Metrics() MachineFlyMachineConfigMetricsPtrOutput {
-	return o.ApplyT(func(v *Config) *MachineFlyMachineConfigMetrics {
+func (o ConfigPtrOutput) Metrics() FlyMachineConfigMetricsPtrOutput {
+	return o.ApplyT(func(v *Config) *FlyMachineConfigMetrics {
 		if v == nil {
 			return nil
 		}
 		return v.Metrics
-	}).(MachineFlyMachineConfigMetricsPtrOutput)
+	}).(FlyMachineConfigMetricsPtrOutput)
 }
 
 // Persistent volumes to mount in the Machine. A Machine can mount at most one volume, which must be on
@@ -5092,24 +4261,24 @@ func (o ConfigPtrOutput) Processes() FlyMachineProcessArrayOutput {
 }
 
 // Whether and how the Machine is restarted after its main process exits
-func (o ConfigPtrOutput) Restart() MachineFlyMachineConfigRestartPtrOutput {
-	return o.ApplyT(func(v *Config) *MachineFlyMachineConfigRestart {
+func (o ConfigPtrOutput) Restart() FlyMachineConfigRestartPtrOutput {
+	return o.ApplyT(func(v *Config) *FlyMachineConfigRestart {
 		if v == nil {
 			return nil
 		}
 		return v.Restart
-	}).(MachineFlyMachineConfigRestartPtrOutput)
+	}).(FlyMachineConfigRestartPtrOutput)
 }
 
 // Beta: the size of the Machine's root filesystem and whether it persists. This field may be
 // removed in the future
-func (o ConfigPtrOutput) Rootfs() MachineFlyMachineConfigRootfsPtrOutput {
-	return o.ApplyT(func(v *Config) *MachineFlyMachineConfigRootfs {
+func (o ConfigPtrOutput) Rootfs() FlyMachineConfigRootfsPtrOutput {
+	return o.ApplyT(func(v *Config) *FlyMachineConfigRootfs {
 		if v == nil {
 			return nil
 		}
 		return v.Rootfs
-	}).(MachineFlyMachineConfigRootfsPtrOutput)
+	}).(FlyMachineConfigRootfsPtrOutput)
 }
 
 // Run the Machine at an interval: one of hourly, daily, weekly or monthly. The interval starts when
@@ -5144,13 +4313,13 @@ func (o ConfigPtrOutput) Size() pulumi.StringPtrOutput {
 }
 
 // Spot pricing settings for the Machine
-func (o ConfigPtrOutput) Spot() MachineFlyMachineConfigSpotPtrOutput {
-	return o.ApplyT(func(v *Config) *MachineFlyMachineConfigSpot {
+func (o ConfigPtrOutput) Spot() FlyMachineConfigSpotPtrOutput {
+	return o.ApplyT(func(v *Config) *FlyMachineConfigSpot {
 		if v == nil {
 			return nil
 		}
 		return v.Spot
-	}).(MachineFlyMachineConfigSpotPtrOutput)
+	}).(FlyMachineConfigSpotPtrOutput)
 }
 
 // Standbys enable a machine to be a standby for another. In the event of a hardware failure,
@@ -5178,13 +4347,13 @@ func (o ConfigPtrOutput) Statics() FlyStaticArrayOutput {
 }
 
 // How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
-func (o ConfigPtrOutput) StopConfig() MachineFlyMachineConfigStopConfigPtrOutput {
-	return o.ApplyT(func(v *Config) *MachineFlyMachineConfigStopConfig {
+func (o ConfigPtrOutput) StopConfig() FlyMachineConfigStopConfigPtrOutput {
+	return o.ApplyT(func(v *Config) *FlyMachineConfigStopConfig {
 		if v == nil {
 			return nil
 		}
 		return v.StopConfig
-	}).(MachineFlyMachineConfigStopConfigPtrOutput)
+	}).(FlyMachineConfigStopConfigPtrOutput)
 }
 
 type DNSRecords struct {
@@ -5520,12 +4689,17 @@ func (o DNSRequirementsOwnershipPtrOutput) OrgValue() pulumi.StringPtrOutput {
 
 // The lease.
 type Data struct {
-	// Description given when the lease was acquired.
+	// Description or reason for the lease.
 	Description *string `pulumi:"description"`
 	// When the lease expires, in Unix seconds.
 	ExpiresAt *int `pulumi:"expiresAt"`
+	// Unique ID generated for the lease. Pass it in the `fly-machine-lease-nonce` header to
+	// act on the leased Machine, refresh the lease, or release it.
+	Nonce *string `pulumi:"nonce"`
 	// Email address of the user who acquired the lease.
 	Owner *string `pulumi:"owner"`
+	// ID of the Machine's version at the time of the request.
+	Version *string `pulumi:"version"`
 }
 
 // The lease.
@@ -5543,7 +4717,7 @@ func (o DataOutput) ToDataOutputWithContext(ctx context.Context) DataOutput {
 	return o
 }
 
-// Description given when the lease was acquired.
+// Description or reason for the lease.
 func (o DataOutput) Description() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Data) *string { return v.Description }).(pulumi.StringPtrOutput)
 }
@@ -5553,9 +4727,20 @@ func (o DataOutput) ExpiresAt() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v Data) *int { return v.ExpiresAt }).(pulumi.IntPtrOutput)
 }
 
+// Unique ID generated for the lease. Pass it in the `fly-machine-lease-nonce` header to
+// act on the leased Machine, refresh the lease, or release it.
+func (o DataOutput) Nonce() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Data) *string { return v.Nonce }).(pulumi.StringPtrOutput)
+}
+
 // Email address of the user who acquired the lease.
 func (o DataOutput) Owner() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Data) *string { return v.Owner }).(pulumi.StringPtrOutput)
+}
+
+// ID of the Machine's version at the time of the request.
+func (o DataOutput) Version() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Data) *string { return v.Version }).(pulumi.StringPtrOutput)
 }
 
 type DataPtrOutput struct{ *pulumi.OutputState }
@@ -5582,7 +4767,7 @@ func (o DataPtrOutput) Elem() DataOutput {
 	}).(DataOutput)
 }
 
-// Description given when the lease was acquired.
+// Description or reason for the lease.
 func (o DataPtrOutput) Description() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Data) *string {
 		if v == nil {
@@ -5602,6 +4787,17 @@ func (o DataPtrOutput) ExpiresAt() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
+// Unique ID generated for the lease. Pass it in the `fly-machine-lease-nonce` header to
+// act on the leased Machine, refresh the lease, or release it.
+func (o DataPtrOutput) Nonce() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Data) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Nonce
+	}).(pulumi.StringPtrOutput)
+}
+
 // Email address of the user who acquired the lease.
 func (o DataPtrOutput) Owner() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Data) *string {
@@ -5609,6 +4805,16 @@ func (o DataPtrOutput) Owner() pulumi.StringPtrOutput {
 			return nil
 		}
 		return v.Owner
+	}).(pulumi.StringPtrOutput)
+}
+
+// ID of the Machine's version at the time of the request.
+func (o DataPtrOutput) Version() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Data) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Version
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -7770,6 +6976,82 @@ type FlyMachineConfigCacheDrive struct {
 	SizeMb *int `pulumi:"sizeMb"`
 }
 
+// FlyMachineConfigCacheDriveInput is an input type that accepts FlyMachineConfigCacheDriveArgs and FlyMachineConfigCacheDriveOutput values.
+// You can construct a concrete instance of `FlyMachineConfigCacheDriveInput` via:
+//
+//	FlyMachineConfigCacheDriveArgs{...}
+type FlyMachineConfigCacheDriveInput interface {
+	pulumi.Input
+
+	ToFlyMachineConfigCacheDriveOutput() FlyMachineConfigCacheDriveOutput
+	ToFlyMachineConfigCacheDriveOutputWithContext(context.Context) FlyMachineConfigCacheDriveOutput
+}
+
+// Beta: a cache drive attached to the Machine. This field may be removed in the future
+type FlyMachineConfigCacheDriveArgs struct {
+	// Optional absolute guest mount path. When set, the device is formatted as ext4.
+	// Without a path, the device retains legacy raw block behavior. Contents survive
+	// same-host restarts and path changes, but are discarded on size or mode changes,
+	// relocation, recovery on another host, and cloning.
+	Path pulumi.StringPtrInput `pulumi:"path"`
+	// Fixed size of the Machine-owned cache drive in MiB. At most 51200.
+	// With a path, at least 16 MiB is required; without a path, 0 disables the device.
+	SizeMb pulumi.IntPtrInput `pulumi:"sizeMb"`
+}
+
+func (FlyMachineConfigCacheDriveArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FlyMachineConfigCacheDrive)(nil)).Elem()
+}
+
+func (i FlyMachineConfigCacheDriveArgs) ToFlyMachineConfigCacheDriveOutput() FlyMachineConfigCacheDriveOutput {
+	return i.ToFlyMachineConfigCacheDriveOutputWithContext(context.Background())
+}
+
+func (i FlyMachineConfigCacheDriveArgs) ToFlyMachineConfigCacheDriveOutputWithContext(ctx context.Context) FlyMachineConfigCacheDriveOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineConfigCacheDriveOutput)
+}
+
+func (i FlyMachineConfigCacheDriveArgs) ToFlyMachineConfigCacheDrivePtrOutput() FlyMachineConfigCacheDrivePtrOutput {
+	return i.ToFlyMachineConfigCacheDrivePtrOutputWithContext(context.Background())
+}
+
+func (i FlyMachineConfigCacheDriveArgs) ToFlyMachineConfigCacheDrivePtrOutputWithContext(ctx context.Context) FlyMachineConfigCacheDrivePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineConfigCacheDriveOutput).ToFlyMachineConfigCacheDrivePtrOutputWithContext(ctx)
+}
+
+// FlyMachineConfigCacheDrivePtrInput is an input type that accepts FlyMachineConfigCacheDriveArgs, FlyMachineConfigCacheDrivePtr and FlyMachineConfigCacheDrivePtrOutput values.
+// You can construct a concrete instance of `FlyMachineConfigCacheDrivePtrInput` via:
+//
+//	        FlyMachineConfigCacheDriveArgs{...}
+//
+//	or:
+//
+//	        nil
+type FlyMachineConfigCacheDrivePtrInput interface {
+	pulumi.Input
+
+	ToFlyMachineConfigCacheDrivePtrOutput() FlyMachineConfigCacheDrivePtrOutput
+	ToFlyMachineConfigCacheDrivePtrOutputWithContext(context.Context) FlyMachineConfigCacheDrivePtrOutput
+}
+
+type flyMachineConfigCacheDrivePtrType FlyMachineConfigCacheDriveArgs
+
+func FlyMachineConfigCacheDrivePtr(v *FlyMachineConfigCacheDriveArgs) FlyMachineConfigCacheDrivePtrInput {
+	return (*flyMachineConfigCacheDrivePtrType)(v)
+}
+
+func (*flyMachineConfigCacheDrivePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FlyMachineConfigCacheDrive)(nil)).Elem()
+}
+
+func (i *flyMachineConfigCacheDrivePtrType) ToFlyMachineConfigCacheDrivePtrOutput() FlyMachineConfigCacheDrivePtrOutput {
+	return i.ToFlyMachineConfigCacheDrivePtrOutputWithContext(context.Background())
+}
+
+func (i *flyMachineConfigCacheDrivePtrType) ToFlyMachineConfigCacheDrivePtrOutputWithContext(ctx context.Context) FlyMachineConfigCacheDrivePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineConfigCacheDrivePtrOutput)
+}
+
 // Beta: a cache drive attached to the Machine. This field may be removed in the future
 type FlyMachineConfigCacheDriveOutput struct{ *pulumi.OutputState }
 
@@ -7783,6 +7065,16 @@ func (o FlyMachineConfigCacheDriveOutput) ToFlyMachineConfigCacheDriveOutput() F
 
 func (o FlyMachineConfigCacheDriveOutput) ToFlyMachineConfigCacheDriveOutputWithContext(ctx context.Context) FlyMachineConfigCacheDriveOutput {
 	return o
+}
+
+func (o FlyMachineConfigCacheDriveOutput) ToFlyMachineConfigCacheDrivePtrOutput() FlyMachineConfigCacheDrivePtrOutput {
+	return o.ToFlyMachineConfigCacheDrivePtrOutputWithContext(context.Background())
+}
+
+func (o FlyMachineConfigCacheDriveOutput) ToFlyMachineConfigCacheDrivePtrOutputWithContext(ctx context.Context) FlyMachineConfigCacheDrivePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FlyMachineConfigCacheDrive) *FlyMachineConfigCacheDrive {
+		return &v
+	}).(FlyMachineConfigCacheDrivePtrOutput)
 }
 
 // Optional absolute guest mount path. When set, the device is formatted as ext4.
@@ -8065,6 +7357,89 @@ type FlyMachineConfigDns struct {
 	SkipRegistration *bool `pulumi:"skipRegistration"`
 }
 
+// FlyMachineConfigDnsInput is an input type that accepts FlyMachineConfigDnsArgs and FlyMachineConfigDnsOutput values.
+// You can construct a concrete instance of `FlyMachineConfigDnsInput` via:
+//
+//	FlyMachineConfigDnsArgs{...}
+type FlyMachineConfigDnsInput interface {
+	pulumi.Input
+
+	ToFlyMachineConfigDnsOutput() FlyMachineConfigDnsOutput
+	ToFlyMachineConfigDnsOutputWithContext(context.Context) FlyMachineConfigDnsOutput
+}
+
+// DNS settings for the Machine
+type FlyMachineConfigDnsArgs struct {
+	// Forward DNS queries for some domains to other DNS servers
+	DnsForwardRules FlyDnsForwardRuleArrayInput `pulumi:"dnsForwardRules"`
+	// Hostname of the Machine. Defaults to the Machine ID. Also added to /etc/hosts with the
+	// Machine's 6PN address
+	Hostname pulumi.StringPtrInput `pulumi:"hostname"`
+	// Fully qualified domain name added to /etc/hosts for `hostname`
+	HostnameFqdn pulumi.StringPtrInput `pulumi:"hostnameFqdn"`
+	// Nameservers to use instead of the default, Fly.io's private DNS server `fdaa::3`
+	Nameservers pulumi.StringArrayInput `pulumi:"nameservers"`
+	// Options for /etc/resolv.conf
+	Options FlyDnsOptionArrayInput `pulumi:"options"`
+	// Search domains for /etc/resolv.conf
+	Searches pulumi.StringArrayInput `pulumi:"searches"`
+	// Currently has no effect
+	SkipRegistration pulumi.BoolPtrInput `pulumi:"skipRegistration"`
+}
+
+func (FlyMachineConfigDnsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FlyMachineConfigDns)(nil)).Elem()
+}
+
+func (i FlyMachineConfigDnsArgs) ToFlyMachineConfigDnsOutput() FlyMachineConfigDnsOutput {
+	return i.ToFlyMachineConfigDnsOutputWithContext(context.Background())
+}
+
+func (i FlyMachineConfigDnsArgs) ToFlyMachineConfigDnsOutputWithContext(ctx context.Context) FlyMachineConfigDnsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineConfigDnsOutput)
+}
+
+func (i FlyMachineConfigDnsArgs) ToFlyMachineConfigDnsPtrOutput() FlyMachineConfigDnsPtrOutput {
+	return i.ToFlyMachineConfigDnsPtrOutputWithContext(context.Background())
+}
+
+func (i FlyMachineConfigDnsArgs) ToFlyMachineConfigDnsPtrOutputWithContext(ctx context.Context) FlyMachineConfigDnsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineConfigDnsOutput).ToFlyMachineConfigDnsPtrOutputWithContext(ctx)
+}
+
+// FlyMachineConfigDnsPtrInput is an input type that accepts FlyMachineConfigDnsArgs, FlyMachineConfigDnsPtr and FlyMachineConfigDnsPtrOutput values.
+// You can construct a concrete instance of `FlyMachineConfigDnsPtrInput` via:
+//
+//	        FlyMachineConfigDnsArgs{...}
+//
+//	or:
+//
+//	        nil
+type FlyMachineConfigDnsPtrInput interface {
+	pulumi.Input
+
+	ToFlyMachineConfigDnsPtrOutput() FlyMachineConfigDnsPtrOutput
+	ToFlyMachineConfigDnsPtrOutputWithContext(context.Context) FlyMachineConfigDnsPtrOutput
+}
+
+type flyMachineConfigDnsPtrType FlyMachineConfigDnsArgs
+
+func FlyMachineConfigDnsPtr(v *FlyMachineConfigDnsArgs) FlyMachineConfigDnsPtrInput {
+	return (*flyMachineConfigDnsPtrType)(v)
+}
+
+func (*flyMachineConfigDnsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FlyMachineConfigDns)(nil)).Elem()
+}
+
+func (i *flyMachineConfigDnsPtrType) ToFlyMachineConfigDnsPtrOutput() FlyMachineConfigDnsPtrOutput {
+	return i.ToFlyMachineConfigDnsPtrOutputWithContext(context.Background())
+}
+
+func (i *flyMachineConfigDnsPtrType) ToFlyMachineConfigDnsPtrOutputWithContext(ctx context.Context) FlyMachineConfigDnsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineConfigDnsPtrOutput)
+}
+
 // DNS settings for the Machine
 type FlyMachineConfigDnsOutput struct{ *pulumi.OutputState }
 
@@ -8078,6 +7453,16 @@ func (o FlyMachineConfigDnsOutput) ToFlyMachineConfigDnsOutput() FlyMachineConfi
 
 func (o FlyMachineConfigDnsOutput) ToFlyMachineConfigDnsOutputWithContext(ctx context.Context) FlyMachineConfigDnsOutput {
 	return o
+}
+
+func (o FlyMachineConfigDnsOutput) ToFlyMachineConfigDnsPtrOutput() FlyMachineConfigDnsPtrOutput {
+	return o.ToFlyMachineConfigDnsPtrOutputWithContext(context.Background())
+}
+
+func (o FlyMachineConfigDnsOutput) ToFlyMachineConfigDnsPtrOutputWithContext(ctx context.Context) FlyMachineConfigDnsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FlyMachineConfigDns) *FlyMachineConfigDns {
+		return &v
+	}).(FlyMachineConfigDnsPtrOutput)
 }
 
 // Forward DNS queries for some domains to other DNS servers
@@ -8244,6 +7629,103 @@ type FlyMachineConfigGuest struct {
 	RequiredHostFeatures []string `pulumi:"requiredHostFeatures"`
 }
 
+// FlyMachineConfigGuestInput is an input type that accepts FlyMachineConfigGuestArgs and FlyMachineConfigGuestOutput values.
+// You can construct a concrete instance of `FlyMachineConfigGuestInput` via:
+//
+//	FlyMachineConfigGuestArgs{...}
+type FlyMachineConfigGuestInput interface {
+	pulumi.Input
+
+	ToFlyMachineConfigGuestOutput() FlyMachineConfigGuestOutput
+	ToFlyMachineConfigGuestOutputWithContext(context.Context) FlyMachineConfigGuestOutput
+}
+
+// The resources (CPUs, memory, etc.) allocated to the Machine
+type FlyMachineConfigGuestArgs struct {
+	// Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
+	// Defaults to shared when `guest` is omitted
+	CpuKind pulumi.StringPtrInput `pulumi:"cpuKind"`
+	// Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
+	// performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
+	// omitted
+	Cpus pulumi.IntPtrInput `pulumi:"cpus"`
+	// No longer supported. Requests that set it are rejected
+	GpuKind pulumi.StringPtrInput `pulumi:"gpuKind"`
+	// No longer supported. Requests that set it are rejected
+	Gpus pulumi.IntPtrInput `pulumi:"gpus"`
+	// Place the Machine on hosts dedicated to the organization under this ID. Only available to
+	// organizations with dedicated hosts
+	HostDedicationId pulumi.StringPtrInput `pulumi:"hostDedicationId"`
+	// Extra arguments appended to the guest kernel command line
+	KernelArgs pulumi.StringArrayInput `pulumi:"kernelArgs"`
+	// Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
+	// the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
+	// starts with a limit of memory_mb
+	MaxMemoryMb pulumi.IntPtrInput `pulumi:"maxMemoryMb"`
+	// Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
+	// between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
+	// `guest` is omitted
+	MemoryMb pulumi.IntPtrInput `pulumi:"memoryMb"`
+	// Deprecated: use MachineConfig.Rootfs instead
+	PersistRootfs FlyMachineGuestPersistRootfsPtrInput `pulumi:"persistRootfs"`
+	// Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
+	// of lowercase letters, digits and dashes. Each feature must be enabled for the organization
+	RequiredHostFeatures pulumi.StringArrayInput `pulumi:"requiredHostFeatures"`
+}
+
+func (FlyMachineConfigGuestArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FlyMachineConfigGuest)(nil)).Elem()
+}
+
+func (i FlyMachineConfigGuestArgs) ToFlyMachineConfigGuestOutput() FlyMachineConfigGuestOutput {
+	return i.ToFlyMachineConfigGuestOutputWithContext(context.Background())
+}
+
+func (i FlyMachineConfigGuestArgs) ToFlyMachineConfigGuestOutputWithContext(ctx context.Context) FlyMachineConfigGuestOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineConfigGuestOutput)
+}
+
+func (i FlyMachineConfigGuestArgs) ToFlyMachineConfigGuestPtrOutput() FlyMachineConfigGuestPtrOutput {
+	return i.ToFlyMachineConfigGuestPtrOutputWithContext(context.Background())
+}
+
+func (i FlyMachineConfigGuestArgs) ToFlyMachineConfigGuestPtrOutputWithContext(ctx context.Context) FlyMachineConfigGuestPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineConfigGuestOutput).ToFlyMachineConfigGuestPtrOutputWithContext(ctx)
+}
+
+// FlyMachineConfigGuestPtrInput is an input type that accepts FlyMachineConfigGuestArgs, FlyMachineConfigGuestPtr and FlyMachineConfigGuestPtrOutput values.
+// You can construct a concrete instance of `FlyMachineConfigGuestPtrInput` via:
+//
+//	        FlyMachineConfigGuestArgs{...}
+//
+//	or:
+//
+//	        nil
+type FlyMachineConfigGuestPtrInput interface {
+	pulumi.Input
+
+	ToFlyMachineConfigGuestPtrOutput() FlyMachineConfigGuestPtrOutput
+	ToFlyMachineConfigGuestPtrOutputWithContext(context.Context) FlyMachineConfigGuestPtrOutput
+}
+
+type flyMachineConfigGuestPtrType FlyMachineConfigGuestArgs
+
+func FlyMachineConfigGuestPtr(v *FlyMachineConfigGuestArgs) FlyMachineConfigGuestPtrInput {
+	return (*flyMachineConfigGuestPtrType)(v)
+}
+
+func (*flyMachineConfigGuestPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FlyMachineConfigGuest)(nil)).Elem()
+}
+
+func (i *flyMachineConfigGuestPtrType) ToFlyMachineConfigGuestPtrOutput() FlyMachineConfigGuestPtrOutput {
+	return i.ToFlyMachineConfigGuestPtrOutputWithContext(context.Background())
+}
+
+func (i *flyMachineConfigGuestPtrType) ToFlyMachineConfigGuestPtrOutputWithContext(ctx context.Context) FlyMachineConfigGuestPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineConfigGuestPtrOutput)
+}
+
 // The resources (CPUs, memory, etc.) allocated to the Machine
 type FlyMachineConfigGuestOutput struct{ *pulumi.OutputState }
 
@@ -8257,6 +7739,16 @@ func (o FlyMachineConfigGuestOutput) ToFlyMachineConfigGuestOutput() FlyMachineC
 
 func (o FlyMachineConfigGuestOutput) ToFlyMachineConfigGuestOutputWithContext(ctx context.Context) FlyMachineConfigGuestOutput {
 	return o
+}
+
+func (o FlyMachineConfigGuestOutput) ToFlyMachineConfigGuestPtrOutput() FlyMachineConfigGuestPtrOutput {
+	return o.ToFlyMachineConfigGuestPtrOutputWithContext(context.Background())
+}
+
+func (o FlyMachineConfigGuestOutput) ToFlyMachineConfigGuestPtrOutputWithContext(ctx context.Context) FlyMachineConfigGuestPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FlyMachineConfigGuest) *FlyMachineConfigGuest {
+		return &v
+	}).(FlyMachineConfigGuestPtrOutput)
 }
 
 // Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
@@ -8468,6 +7960,87 @@ type FlyMachineConfigInit struct {
 	Tty *bool `pulumi:"tty"`
 }
 
+// FlyMachineConfigInitInput is an input type that accepts FlyMachineConfigInitArgs and FlyMachineConfigInitOutput values.
+// You can construct a concrete instance of `FlyMachineConfigInitInput` via:
+//
+//	FlyMachineConfigInitArgs{...}
+type FlyMachineConfigInitInput interface {
+	pulumi.Input
+
+	ToFlyMachineConfigInitOutput() FlyMachineConfigInitOutput
+	ToFlyMachineConfigInitOutputWithContext(context.Context) FlyMachineConfigInitOutput
+}
+
+// Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
+type FlyMachineConfigInitArgs struct {
+	// Replaces the image's CMD. It's appended to the entrypoint
+	Cmd pulumi.StringArrayInput `pulumi:"cmd"`
+	// Replaces the image's ENTRYPOINT
+	Entrypoint pulumi.StringArrayInput `pulumi:"entrypoint"`
+	// Command to run instead of the image's ENTRYPOINT and CMD. Takes precedence over entrypoint
+	// and cmd
+	Exec pulumi.StringArrayInput `pulumi:"exec"`
+	// Currently has no effect. Use `guest.kernel_args` instead
+	KernelArgs pulumi.StringArrayInput `pulumi:"kernelArgs"`
+	// Size in MiB of a swap device to give the Machine. Machines with swap cannot be suspended
+	SwapSizeMb pulumi.IntPtrInput `pulumi:"swapSizeMb"`
+	// Currently has no effect
+	Tty pulumi.BoolPtrInput `pulumi:"tty"`
+}
+
+func (FlyMachineConfigInitArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FlyMachineConfigInit)(nil)).Elem()
+}
+
+func (i FlyMachineConfigInitArgs) ToFlyMachineConfigInitOutput() FlyMachineConfigInitOutput {
+	return i.ToFlyMachineConfigInitOutputWithContext(context.Background())
+}
+
+func (i FlyMachineConfigInitArgs) ToFlyMachineConfigInitOutputWithContext(ctx context.Context) FlyMachineConfigInitOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineConfigInitOutput)
+}
+
+func (i FlyMachineConfigInitArgs) ToFlyMachineConfigInitPtrOutput() FlyMachineConfigInitPtrOutput {
+	return i.ToFlyMachineConfigInitPtrOutputWithContext(context.Background())
+}
+
+func (i FlyMachineConfigInitArgs) ToFlyMachineConfigInitPtrOutputWithContext(ctx context.Context) FlyMachineConfigInitPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineConfigInitOutput).ToFlyMachineConfigInitPtrOutputWithContext(ctx)
+}
+
+// FlyMachineConfigInitPtrInput is an input type that accepts FlyMachineConfigInitArgs, FlyMachineConfigInitPtr and FlyMachineConfigInitPtrOutput values.
+// You can construct a concrete instance of `FlyMachineConfigInitPtrInput` via:
+//
+//	        FlyMachineConfigInitArgs{...}
+//
+//	or:
+//
+//	        nil
+type FlyMachineConfigInitPtrInput interface {
+	pulumi.Input
+
+	ToFlyMachineConfigInitPtrOutput() FlyMachineConfigInitPtrOutput
+	ToFlyMachineConfigInitPtrOutputWithContext(context.Context) FlyMachineConfigInitPtrOutput
+}
+
+type flyMachineConfigInitPtrType FlyMachineConfigInitArgs
+
+func FlyMachineConfigInitPtr(v *FlyMachineConfigInitArgs) FlyMachineConfigInitPtrInput {
+	return (*flyMachineConfigInitPtrType)(v)
+}
+
+func (*flyMachineConfigInitPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FlyMachineConfigInit)(nil)).Elem()
+}
+
+func (i *flyMachineConfigInitPtrType) ToFlyMachineConfigInitPtrOutput() FlyMachineConfigInitPtrOutput {
+	return i.ToFlyMachineConfigInitPtrOutputWithContext(context.Background())
+}
+
+func (i *flyMachineConfigInitPtrType) ToFlyMachineConfigInitPtrOutputWithContext(ctx context.Context) FlyMachineConfigInitPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineConfigInitPtrOutput)
+}
+
 // Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
 type FlyMachineConfigInitOutput struct{ *pulumi.OutputState }
 
@@ -8481,6 +8054,16 @@ func (o FlyMachineConfigInitOutput) ToFlyMachineConfigInitOutput() FlyMachineCon
 
 func (o FlyMachineConfigInitOutput) ToFlyMachineConfigInitOutputWithContext(ctx context.Context) FlyMachineConfigInitOutput {
 	return o
+}
+
+func (o FlyMachineConfigInitOutput) ToFlyMachineConfigInitPtrOutput() FlyMachineConfigInitPtrOutput {
+	return o.ToFlyMachineConfigInitPtrOutputWithContext(context.Background())
+}
+
+func (o FlyMachineConfigInitOutput) ToFlyMachineConfigInitPtrOutputWithContext(ctx context.Context) FlyMachineConfigInitPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FlyMachineConfigInit) *FlyMachineConfigInit {
+		return &v
+	}).(FlyMachineConfigInitPtrOutput)
 }
 
 // Replaces the image's CMD. It's appended to the entrypoint
@@ -8609,6 +8192,80 @@ type FlyMachineConfigMetrics struct {
 	Port *int `pulumi:"port"`
 }
 
+// FlyMachineConfigMetricsInput is an input type that accepts FlyMachineConfigMetricsArgs and FlyMachineConfigMetricsOutput values.
+// You can construct a concrete instance of `FlyMachineConfigMetricsInput` via:
+//
+//	FlyMachineConfigMetricsArgs{...}
+type FlyMachineConfigMetricsInput interface {
+	pulumi.Input
+
+	ToFlyMachineConfigMetricsOutput() FlyMachineConfigMetricsOutput
+	ToFlyMachineConfigMetricsOutputWithContext(context.Context) FlyMachineConfigMetricsOutput
+}
+
+// An optional metrics endpoint for Prometheus on Fly.io to scrape
+type FlyMachineConfigMetricsArgs struct {
+	// Scrape over HTTPS instead of HTTP
+	Https pulumi.BoolPtrInput `pulumi:"https"`
+	// HTTP path to scrape. Defaults to `/`
+	Path pulumi.StringPtrInput `pulumi:"path"`
+	// Port in the Machine to scrape metrics from
+	Port pulumi.IntPtrInput `pulumi:"port"`
+}
+
+func (FlyMachineConfigMetricsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FlyMachineConfigMetrics)(nil)).Elem()
+}
+
+func (i FlyMachineConfigMetricsArgs) ToFlyMachineConfigMetricsOutput() FlyMachineConfigMetricsOutput {
+	return i.ToFlyMachineConfigMetricsOutputWithContext(context.Background())
+}
+
+func (i FlyMachineConfigMetricsArgs) ToFlyMachineConfigMetricsOutputWithContext(ctx context.Context) FlyMachineConfigMetricsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineConfigMetricsOutput)
+}
+
+func (i FlyMachineConfigMetricsArgs) ToFlyMachineConfigMetricsPtrOutput() FlyMachineConfigMetricsPtrOutput {
+	return i.ToFlyMachineConfigMetricsPtrOutputWithContext(context.Background())
+}
+
+func (i FlyMachineConfigMetricsArgs) ToFlyMachineConfigMetricsPtrOutputWithContext(ctx context.Context) FlyMachineConfigMetricsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineConfigMetricsOutput).ToFlyMachineConfigMetricsPtrOutputWithContext(ctx)
+}
+
+// FlyMachineConfigMetricsPtrInput is an input type that accepts FlyMachineConfigMetricsArgs, FlyMachineConfigMetricsPtr and FlyMachineConfigMetricsPtrOutput values.
+// You can construct a concrete instance of `FlyMachineConfigMetricsPtrInput` via:
+//
+//	        FlyMachineConfigMetricsArgs{...}
+//
+//	or:
+//
+//	        nil
+type FlyMachineConfigMetricsPtrInput interface {
+	pulumi.Input
+
+	ToFlyMachineConfigMetricsPtrOutput() FlyMachineConfigMetricsPtrOutput
+	ToFlyMachineConfigMetricsPtrOutputWithContext(context.Context) FlyMachineConfigMetricsPtrOutput
+}
+
+type flyMachineConfigMetricsPtrType FlyMachineConfigMetricsArgs
+
+func FlyMachineConfigMetricsPtr(v *FlyMachineConfigMetricsArgs) FlyMachineConfigMetricsPtrInput {
+	return (*flyMachineConfigMetricsPtrType)(v)
+}
+
+func (*flyMachineConfigMetricsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FlyMachineConfigMetrics)(nil)).Elem()
+}
+
+func (i *flyMachineConfigMetricsPtrType) ToFlyMachineConfigMetricsPtrOutput() FlyMachineConfigMetricsPtrOutput {
+	return i.ToFlyMachineConfigMetricsPtrOutputWithContext(context.Background())
+}
+
+func (i *flyMachineConfigMetricsPtrType) ToFlyMachineConfigMetricsPtrOutputWithContext(ctx context.Context) FlyMachineConfigMetricsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineConfigMetricsPtrOutput)
+}
+
 // An optional metrics endpoint for Prometheus on Fly.io to scrape
 type FlyMachineConfigMetricsOutput struct{ *pulumi.OutputState }
 
@@ -8622,6 +8279,16 @@ func (o FlyMachineConfigMetricsOutput) ToFlyMachineConfigMetricsOutput() FlyMach
 
 func (o FlyMachineConfigMetricsOutput) ToFlyMachineConfigMetricsOutputWithContext(ctx context.Context) FlyMachineConfigMetricsOutput {
 	return o
+}
+
+func (o FlyMachineConfigMetricsOutput) ToFlyMachineConfigMetricsPtrOutput() FlyMachineConfigMetricsPtrOutput {
+	return o.ToFlyMachineConfigMetricsPtrOutputWithContext(context.Background())
+}
+
+func (o FlyMachineConfigMetricsOutput) ToFlyMachineConfigMetricsPtrOutputWithContext(ctx context.Context) FlyMachineConfigMetricsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FlyMachineConfigMetrics) *FlyMachineConfigMetrics {
+		return &v
+	}).(FlyMachineConfigMetricsPtrOutput)
 }
 
 // Scrape over HTTPS instead of HTTP
@@ -8703,6 +8370,80 @@ type FlyMachineConfigRestart struct {
 	Policy *FlyMachineRestartPolicy `pulumi:"policy"`
 }
 
+// FlyMachineConfigRestartInput is an input type that accepts FlyMachineConfigRestartArgs and FlyMachineConfigRestartOutput values.
+// You can construct a concrete instance of `FlyMachineConfigRestartInput` via:
+//
+//	FlyMachineConfigRestartArgs{...}
+type FlyMachineConfigRestartInput interface {
+	pulumi.Input
+
+	ToFlyMachineConfigRestartOutput() FlyMachineConfigRestartOutput
+	ToFlyMachineConfigRestartOutputWithContext(context.Context) FlyMachineConfigRestartOutput
+}
+
+// Whether and how the Machine is restarted after its main process exits
+type FlyMachineConfigRestartArgs struct {
+	// When policy is on-failure, the maximum number of times to attempt to restart the Machine before letting it stop.
+	MaxRetries pulumi.IntPtrInput `pulumi:"maxRetries"`
+	// * no - Never try to restart a Machine automatically when its main process exits, whether that’s on purpose or on a crash.
+	// * always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.
+	// * on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules.
+	Policy FlyMachineRestartPolicyPtrInput `pulumi:"policy"`
+}
+
+func (FlyMachineConfigRestartArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FlyMachineConfigRestart)(nil)).Elem()
+}
+
+func (i FlyMachineConfigRestartArgs) ToFlyMachineConfigRestartOutput() FlyMachineConfigRestartOutput {
+	return i.ToFlyMachineConfigRestartOutputWithContext(context.Background())
+}
+
+func (i FlyMachineConfigRestartArgs) ToFlyMachineConfigRestartOutputWithContext(ctx context.Context) FlyMachineConfigRestartOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineConfigRestartOutput)
+}
+
+func (i FlyMachineConfigRestartArgs) ToFlyMachineConfigRestartPtrOutput() FlyMachineConfigRestartPtrOutput {
+	return i.ToFlyMachineConfigRestartPtrOutputWithContext(context.Background())
+}
+
+func (i FlyMachineConfigRestartArgs) ToFlyMachineConfigRestartPtrOutputWithContext(ctx context.Context) FlyMachineConfigRestartPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineConfigRestartOutput).ToFlyMachineConfigRestartPtrOutputWithContext(ctx)
+}
+
+// FlyMachineConfigRestartPtrInput is an input type that accepts FlyMachineConfigRestartArgs, FlyMachineConfigRestartPtr and FlyMachineConfigRestartPtrOutput values.
+// You can construct a concrete instance of `FlyMachineConfigRestartPtrInput` via:
+//
+//	        FlyMachineConfigRestartArgs{...}
+//
+//	or:
+//
+//	        nil
+type FlyMachineConfigRestartPtrInput interface {
+	pulumi.Input
+
+	ToFlyMachineConfigRestartPtrOutput() FlyMachineConfigRestartPtrOutput
+	ToFlyMachineConfigRestartPtrOutputWithContext(context.Context) FlyMachineConfigRestartPtrOutput
+}
+
+type flyMachineConfigRestartPtrType FlyMachineConfigRestartArgs
+
+func FlyMachineConfigRestartPtr(v *FlyMachineConfigRestartArgs) FlyMachineConfigRestartPtrInput {
+	return (*flyMachineConfigRestartPtrType)(v)
+}
+
+func (*flyMachineConfigRestartPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FlyMachineConfigRestart)(nil)).Elem()
+}
+
+func (i *flyMachineConfigRestartPtrType) ToFlyMachineConfigRestartPtrOutput() FlyMachineConfigRestartPtrOutput {
+	return i.ToFlyMachineConfigRestartPtrOutputWithContext(context.Background())
+}
+
+func (i *flyMachineConfigRestartPtrType) ToFlyMachineConfigRestartPtrOutputWithContext(ctx context.Context) FlyMachineConfigRestartPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineConfigRestartPtrOutput)
+}
+
 // Whether and how the Machine is restarted after its main process exits
 type FlyMachineConfigRestartOutput struct{ *pulumi.OutputState }
 
@@ -8716,6 +8457,16 @@ func (o FlyMachineConfigRestartOutput) ToFlyMachineConfigRestartOutput() FlyMach
 
 func (o FlyMachineConfigRestartOutput) ToFlyMachineConfigRestartOutputWithContext(ctx context.Context) FlyMachineConfigRestartOutput {
 	return o
+}
+
+func (o FlyMachineConfigRestartOutput) ToFlyMachineConfigRestartPtrOutput() FlyMachineConfigRestartPtrOutput {
+	return o.ToFlyMachineConfigRestartPtrOutputWithContext(context.Background())
+}
+
+func (o FlyMachineConfigRestartOutput) ToFlyMachineConfigRestartPtrOutputWithContext(ctx context.Context) FlyMachineConfigRestartPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FlyMachineConfigRestart) *FlyMachineConfigRestart {
+		return &v
+	}).(FlyMachineConfigRestartPtrOutput)
 }
 
 // When policy is on-failure, the maximum number of times to attempt to restart the Machine before letting it stop.
@@ -8787,6 +8538,81 @@ type FlyMachineConfigRootfs struct {
 	SizeGb *int `pulumi:"sizeGb"`
 }
 
+// FlyMachineConfigRootfsInput is an input type that accepts FlyMachineConfigRootfsArgs and FlyMachineConfigRootfsOutput values.
+// You can construct a concrete instance of `FlyMachineConfigRootfsInput` via:
+//
+//	FlyMachineConfigRootfsArgs{...}
+type FlyMachineConfigRootfsInput interface {
+	pulumi.Input
+
+	ToFlyMachineConfigRootfsOutput() FlyMachineConfigRootfsOutput
+	ToFlyMachineConfigRootfsOutputWithContext(context.Context) FlyMachineConfigRootfsOutput
+}
+
+// Beta: the size of the Machine's root filesystem and whether it persists. This field may be
+// removed in the future
+type FlyMachineConfigRootfsArgs struct {
+	// Whether changes to the root filesystem are kept. `never` (default): reset on every start.
+	// `restart`: kept across stops and restarts, reset when the Machine is updated. `always`: also
+	// kept across updates
+	Persist FlyMachineRootfsPersistPtrInput `pulumi:"persist"`
+	// Size of the root filesystem in GB. At most 50; 0 uses the default
+	SizeGb pulumi.IntPtrInput `pulumi:"sizeGb"`
+}
+
+func (FlyMachineConfigRootfsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FlyMachineConfigRootfs)(nil)).Elem()
+}
+
+func (i FlyMachineConfigRootfsArgs) ToFlyMachineConfigRootfsOutput() FlyMachineConfigRootfsOutput {
+	return i.ToFlyMachineConfigRootfsOutputWithContext(context.Background())
+}
+
+func (i FlyMachineConfigRootfsArgs) ToFlyMachineConfigRootfsOutputWithContext(ctx context.Context) FlyMachineConfigRootfsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineConfigRootfsOutput)
+}
+
+func (i FlyMachineConfigRootfsArgs) ToFlyMachineConfigRootfsPtrOutput() FlyMachineConfigRootfsPtrOutput {
+	return i.ToFlyMachineConfigRootfsPtrOutputWithContext(context.Background())
+}
+
+func (i FlyMachineConfigRootfsArgs) ToFlyMachineConfigRootfsPtrOutputWithContext(ctx context.Context) FlyMachineConfigRootfsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineConfigRootfsOutput).ToFlyMachineConfigRootfsPtrOutputWithContext(ctx)
+}
+
+// FlyMachineConfigRootfsPtrInput is an input type that accepts FlyMachineConfigRootfsArgs, FlyMachineConfigRootfsPtr and FlyMachineConfigRootfsPtrOutput values.
+// You can construct a concrete instance of `FlyMachineConfigRootfsPtrInput` via:
+//
+//	        FlyMachineConfigRootfsArgs{...}
+//
+//	or:
+//
+//	        nil
+type FlyMachineConfigRootfsPtrInput interface {
+	pulumi.Input
+
+	ToFlyMachineConfigRootfsPtrOutput() FlyMachineConfigRootfsPtrOutput
+	ToFlyMachineConfigRootfsPtrOutputWithContext(context.Context) FlyMachineConfigRootfsPtrOutput
+}
+
+type flyMachineConfigRootfsPtrType FlyMachineConfigRootfsArgs
+
+func FlyMachineConfigRootfsPtr(v *FlyMachineConfigRootfsArgs) FlyMachineConfigRootfsPtrInput {
+	return (*flyMachineConfigRootfsPtrType)(v)
+}
+
+func (*flyMachineConfigRootfsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FlyMachineConfigRootfs)(nil)).Elem()
+}
+
+func (i *flyMachineConfigRootfsPtrType) ToFlyMachineConfigRootfsPtrOutput() FlyMachineConfigRootfsPtrOutput {
+	return i.ToFlyMachineConfigRootfsPtrOutputWithContext(context.Background())
+}
+
+func (i *flyMachineConfigRootfsPtrType) ToFlyMachineConfigRootfsPtrOutputWithContext(ctx context.Context) FlyMachineConfigRootfsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineConfigRootfsPtrOutput)
+}
+
 // Beta: the size of the Machine's root filesystem and whether it persists. This field may be
 // removed in the future
 type FlyMachineConfigRootfsOutput struct{ *pulumi.OutputState }
@@ -8801,6 +8627,16 @@ func (o FlyMachineConfigRootfsOutput) ToFlyMachineConfigRootfsOutput() FlyMachin
 
 func (o FlyMachineConfigRootfsOutput) ToFlyMachineConfigRootfsOutputWithContext(ctx context.Context) FlyMachineConfigRootfsOutput {
 	return o
+}
+
+func (o FlyMachineConfigRootfsOutput) ToFlyMachineConfigRootfsPtrOutput() FlyMachineConfigRootfsPtrOutput {
+	return o.ToFlyMachineConfigRootfsPtrOutputWithContext(context.Background())
+}
+
+func (o FlyMachineConfigRootfsOutput) ToFlyMachineConfigRootfsPtrOutputWithContext(ctx context.Context) FlyMachineConfigRootfsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FlyMachineConfigRootfs) *FlyMachineConfigRootfs {
+		return &v
+	}).(FlyMachineConfigRootfsPtrOutput)
 }
 
 // Whether changes to the root filesystem are kept. `never` (default): reset on every start.
@@ -8867,6 +8703,76 @@ type FlyMachineConfigSpot struct {
 	MaxPriceFraction *float64 `pulumi:"maxPriceFraction"`
 }
 
+// FlyMachineConfigSpotInput is an input type that accepts FlyMachineConfigSpotArgs and FlyMachineConfigSpotOutput values.
+// You can construct a concrete instance of `FlyMachineConfigSpotInput` via:
+//
+//	FlyMachineConfigSpotArgs{...}
+type FlyMachineConfigSpotInput interface {
+	pulumi.Input
+
+	ToFlyMachineConfigSpotOutput() FlyMachineConfigSpotOutput
+	ToFlyMachineConfigSpotOutputWithContext(context.Context) FlyMachineConfigSpotOutput
+}
+
+// Spot pricing settings for the Machine
+type FlyMachineConfigSpotArgs struct {
+	// MaxPriceFraction is the maximum fraction of the full Machine price you will pay for this Machine. Range: (0, 1.0]
+	MaxPriceFraction pulumi.Float64PtrInput `pulumi:"maxPriceFraction"`
+}
+
+func (FlyMachineConfigSpotArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FlyMachineConfigSpot)(nil)).Elem()
+}
+
+func (i FlyMachineConfigSpotArgs) ToFlyMachineConfigSpotOutput() FlyMachineConfigSpotOutput {
+	return i.ToFlyMachineConfigSpotOutputWithContext(context.Background())
+}
+
+func (i FlyMachineConfigSpotArgs) ToFlyMachineConfigSpotOutputWithContext(ctx context.Context) FlyMachineConfigSpotOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineConfigSpotOutput)
+}
+
+func (i FlyMachineConfigSpotArgs) ToFlyMachineConfigSpotPtrOutput() FlyMachineConfigSpotPtrOutput {
+	return i.ToFlyMachineConfigSpotPtrOutputWithContext(context.Background())
+}
+
+func (i FlyMachineConfigSpotArgs) ToFlyMachineConfigSpotPtrOutputWithContext(ctx context.Context) FlyMachineConfigSpotPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineConfigSpotOutput).ToFlyMachineConfigSpotPtrOutputWithContext(ctx)
+}
+
+// FlyMachineConfigSpotPtrInput is an input type that accepts FlyMachineConfigSpotArgs, FlyMachineConfigSpotPtr and FlyMachineConfigSpotPtrOutput values.
+// You can construct a concrete instance of `FlyMachineConfigSpotPtrInput` via:
+//
+//	        FlyMachineConfigSpotArgs{...}
+//
+//	or:
+//
+//	        nil
+type FlyMachineConfigSpotPtrInput interface {
+	pulumi.Input
+
+	ToFlyMachineConfigSpotPtrOutput() FlyMachineConfigSpotPtrOutput
+	ToFlyMachineConfigSpotPtrOutputWithContext(context.Context) FlyMachineConfigSpotPtrOutput
+}
+
+type flyMachineConfigSpotPtrType FlyMachineConfigSpotArgs
+
+func FlyMachineConfigSpotPtr(v *FlyMachineConfigSpotArgs) FlyMachineConfigSpotPtrInput {
+	return (*flyMachineConfigSpotPtrType)(v)
+}
+
+func (*flyMachineConfigSpotPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FlyMachineConfigSpot)(nil)).Elem()
+}
+
+func (i *flyMachineConfigSpotPtrType) ToFlyMachineConfigSpotPtrOutput() FlyMachineConfigSpotPtrOutput {
+	return i.ToFlyMachineConfigSpotPtrOutputWithContext(context.Background())
+}
+
+func (i *flyMachineConfigSpotPtrType) ToFlyMachineConfigSpotPtrOutputWithContext(ctx context.Context) FlyMachineConfigSpotPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineConfigSpotPtrOutput)
+}
+
 // Spot pricing settings for the Machine
 type FlyMachineConfigSpotOutput struct{ *pulumi.OutputState }
 
@@ -8880,6 +8786,16 @@ func (o FlyMachineConfigSpotOutput) ToFlyMachineConfigSpotOutput() FlyMachineCon
 
 func (o FlyMachineConfigSpotOutput) ToFlyMachineConfigSpotOutputWithContext(ctx context.Context) FlyMachineConfigSpotOutput {
 	return o
+}
+
+func (o FlyMachineConfigSpotOutput) ToFlyMachineConfigSpotPtrOutput() FlyMachineConfigSpotPtrOutput {
+	return o.ToFlyMachineConfigSpotPtrOutputWithContext(context.Background())
+}
+
+func (o FlyMachineConfigSpotOutput) ToFlyMachineConfigSpotPtrOutputWithContext(ctx context.Context) FlyMachineConfigSpotPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FlyMachineConfigSpot) *FlyMachineConfigSpot {
+		return &v
+	}).(FlyMachineConfigSpotPtrOutput)
 }
 
 // MaxPriceFraction is the maximum fraction of the full Machine price you will pay for this Machine. Range: (0, 1.0]
@@ -8930,6 +8846,79 @@ type FlyMachineConfigStopConfig struct {
 	Timeout *string `pulumi:"timeout"`
 }
 
+// FlyMachineConfigStopConfigInput is an input type that accepts FlyMachineConfigStopConfigArgs and FlyMachineConfigStopConfigOutput values.
+// You can construct a concrete instance of `FlyMachineConfigStopConfigInput` via:
+//
+//	FlyMachineConfigStopConfigArgs{...}
+type FlyMachineConfigStopConfigInput interface {
+	pulumi.Input
+
+	ToFlyMachineConfigStopConfigOutput() FlyMachineConfigStopConfigOutput
+	ToFlyMachineConfigStopConfigOutputWithContext(context.Context) FlyMachineConfigStopConfigOutput
+}
+
+// How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
+type FlyMachineConfigStopConfigArgs struct {
+	// Signal to send to the Machine's processes. Defaults to SIGINT
+	Signal FlyStopConfigSignalPtrInput `pulumi:"signal"`
+	// How long to wait for the Machine to exit after sending the signal, before killing it. At most
+	// 5 minutes (1 minute for spot Machines). Defaults to 5s (60s for spot Machines)
+	Timeout pulumi.StringPtrInput `pulumi:"timeout"`
+}
+
+func (FlyMachineConfigStopConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FlyMachineConfigStopConfig)(nil)).Elem()
+}
+
+func (i FlyMachineConfigStopConfigArgs) ToFlyMachineConfigStopConfigOutput() FlyMachineConfigStopConfigOutput {
+	return i.ToFlyMachineConfigStopConfigOutputWithContext(context.Background())
+}
+
+func (i FlyMachineConfigStopConfigArgs) ToFlyMachineConfigStopConfigOutputWithContext(ctx context.Context) FlyMachineConfigStopConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineConfigStopConfigOutput)
+}
+
+func (i FlyMachineConfigStopConfigArgs) ToFlyMachineConfigStopConfigPtrOutput() FlyMachineConfigStopConfigPtrOutput {
+	return i.ToFlyMachineConfigStopConfigPtrOutputWithContext(context.Background())
+}
+
+func (i FlyMachineConfigStopConfigArgs) ToFlyMachineConfigStopConfigPtrOutputWithContext(ctx context.Context) FlyMachineConfigStopConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineConfigStopConfigOutput).ToFlyMachineConfigStopConfigPtrOutputWithContext(ctx)
+}
+
+// FlyMachineConfigStopConfigPtrInput is an input type that accepts FlyMachineConfigStopConfigArgs, FlyMachineConfigStopConfigPtr and FlyMachineConfigStopConfigPtrOutput values.
+// You can construct a concrete instance of `FlyMachineConfigStopConfigPtrInput` via:
+//
+//	        FlyMachineConfigStopConfigArgs{...}
+//
+//	or:
+//
+//	        nil
+type FlyMachineConfigStopConfigPtrInput interface {
+	pulumi.Input
+
+	ToFlyMachineConfigStopConfigPtrOutput() FlyMachineConfigStopConfigPtrOutput
+	ToFlyMachineConfigStopConfigPtrOutputWithContext(context.Context) FlyMachineConfigStopConfigPtrOutput
+}
+
+type flyMachineConfigStopConfigPtrType FlyMachineConfigStopConfigArgs
+
+func FlyMachineConfigStopConfigPtr(v *FlyMachineConfigStopConfigArgs) FlyMachineConfigStopConfigPtrInput {
+	return (*flyMachineConfigStopConfigPtrType)(v)
+}
+
+func (*flyMachineConfigStopConfigPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FlyMachineConfigStopConfig)(nil)).Elem()
+}
+
+func (i *flyMachineConfigStopConfigPtrType) ToFlyMachineConfigStopConfigPtrOutput() FlyMachineConfigStopConfigPtrOutput {
+	return i.ToFlyMachineConfigStopConfigPtrOutputWithContext(context.Background())
+}
+
+func (i *flyMachineConfigStopConfigPtrType) ToFlyMachineConfigStopConfigPtrOutputWithContext(ctx context.Context) FlyMachineConfigStopConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineConfigStopConfigPtrOutput)
+}
+
 // How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
 type FlyMachineConfigStopConfigOutput struct{ *pulumi.OutputState }
 
@@ -8943,6 +8932,16 @@ func (o FlyMachineConfigStopConfigOutput) ToFlyMachineConfigStopConfigOutput() F
 
 func (o FlyMachineConfigStopConfigOutput) ToFlyMachineConfigStopConfigOutputWithContext(ctx context.Context) FlyMachineConfigStopConfigOutput {
 	return o
+}
+
+func (o FlyMachineConfigStopConfigOutput) ToFlyMachineConfigStopConfigPtrOutput() FlyMachineConfigStopConfigPtrOutput {
+	return o.ToFlyMachineConfigStopConfigPtrOutputWithContext(context.Background())
+}
+
+func (o FlyMachineConfigStopConfigOutput) ToFlyMachineConfigStopConfigPtrOutputWithContext(ctx context.Context) FlyMachineConfigStopConfigPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FlyMachineConfigStopConfig) *FlyMachineConfigStopConfig {
+		return &v
+	}).(FlyMachineConfigStopConfigPtrOutput)
 }
 
 // Signal to send to the Machine's processes. Defaults to SIGINT
@@ -10343,7 +10342,7 @@ type FlyMachineService struct {
 	// An optional list of service checks
 	Checks []FlyMachineServiceCheck `pulumi:"checks"`
 	// Load limits Fly Proxy uses to balance traffic across Machines
-	Concurrency *FlyMachineServiceConcurrency `pulumi:"concurrency"`
+	Concurrency *MachinesFlyMachineServiceConcurrency `pulumi:"concurrency"`
 	// Currently has no effect
 	ForceInstanceDescription *string `pulumi:"forceInstanceDescription"`
 	// Currently has no effect
@@ -10381,7 +10380,7 @@ type FlyMachineServiceArgs struct {
 	// An optional list of service checks
 	Checks FlyMachineServiceCheckArrayInput `pulumi:"checks"`
 	// Load limits Fly Proxy uses to balance traffic across Machines
-	Concurrency FlyMachineServiceConcurrencyPtrInput `pulumi:"concurrency"`
+	Concurrency MachinesFlyMachineServiceConcurrencyPtrInput `pulumi:"concurrency"`
 	// Currently has no effect
 	ForceInstanceDescription pulumi.StringPtrInput `pulumi:"forceInstanceDescription"`
 	// Currently has no effect
@@ -10467,8 +10466,8 @@ func (o FlyMachineServiceOutput) Checks() FlyMachineServiceCheckArrayOutput {
 }
 
 // Load limits Fly Proxy uses to balance traffic across Machines
-func (o FlyMachineServiceOutput) Concurrency() FlyMachineServiceConcurrencyPtrOutput {
-	return o.ApplyT(func(v FlyMachineService) *FlyMachineServiceConcurrency { return v.Concurrency }).(FlyMachineServiceConcurrencyPtrOutput)
+func (o FlyMachineServiceOutput) Concurrency() MachinesFlyMachineServiceConcurrencyPtrOutput {
+	return o.ApplyT(func(v FlyMachineService) *MachinesFlyMachineServiceConcurrency { return v.Concurrency }).(MachinesFlyMachineServiceConcurrencyPtrOutput)
 }
 
 // Currently has no effect
@@ -10707,192 +10706,6 @@ func (o FlyMachineServiceCheckArrayOutput) Index(i pulumi.IntInput) FlyMachineSe
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) FlyMachineServiceCheck {
 		return vs[0].([]FlyMachineServiceCheck)[vs[1].(int)]
 	}).(FlyMachineServiceCheckOutput)
-}
-
-// Load limits Fly Proxy uses to balance traffic across Machines
-type FlyMachineServiceConcurrency struct {
-	// Fly Proxy sends no more than this many connections or requests to a Machine at once. 0 means
-	// no hard limit
-	HardLimit *int `pulumi:"hardLimit"`
-	// Above this many connections or requests, Fly Proxy prefers other Machines. Defaults to 20,
-	// and is lowered to hard_limit if higher
-	SoftLimit *int `pulumi:"softLimit"`
-	// What to count: `connections` (default) or `requests`
-	Type *string `pulumi:"type"`
-}
-
-// FlyMachineServiceConcurrencyInput is an input type that accepts FlyMachineServiceConcurrencyArgs and FlyMachineServiceConcurrencyOutput values.
-// You can construct a concrete instance of `FlyMachineServiceConcurrencyInput` via:
-//
-//	FlyMachineServiceConcurrencyArgs{...}
-type FlyMachineServiceConcurrencyInput interface {
-	pulumi.Input
-
-	ToFlyMachineServiceConcurrencyOutput() FlyMachineServiceConcurrencyOutput
-	ToFlyMachineServiceConcurrencyOutputWithContext(context.Context) FlyMachineServiceConcurrencyOutput
-}
-
-// Load limits Fly Proxy uses to balance traffic across Machines
-type FlyMachineServiceConcurrencyArgs struct {
-	// Fly Proxy sends no more than this many connections or requests to a Machine at once. 0 means
-	// no hard limit
-	HardLimit pulumi.IntPtrInput `pulumi:"hardLimit"`
-	// Above this many connections or requests, Fly Proxy prefers other Machines. Defaults to 20,
-	// and is lowered to hard_limit if higher
-	SoftLimit pulumi.IntPtrInput `pulumi:"softLimit"`
-	// What to count: `connections` (default) or `requests`
-	Type pulumi.StringPtrInput `pulumi:"type"`
-}
-
-func (FlyMachineServiceConcurrencyArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*FlyMachineServiceConcurrency)(nil)).Elem()
-}
-
-func (i FlyMachineServiceConcurrencyArgs) ToFlyMachineServiceConcurrencyOutput() FlyMachineServiceConcurrencyOutput {
-	return i.ToFlyMachineServiceConcurrencyOutputWithContext(context.Background())
-}
-
-func (i FlyMachineServiceConcurrencyArgs) ToFlyMachineServiceConcurrencyOutputWithContext(ctx context.Context) FlyMachineServiceConcurrencyOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineServiceConcurrencyOutput)
-}
-
-func (i FlyMachineServiceConcurrencyArgs) ToFlyMachineServiceConcurrencyPtrOutput() FlyMachineServiceConcurrencyPtrOutput {
-	return i.ToFlyMachineServiceConcurrencyPtrOutputWithContext(context.Background())
-}
-
-func (i FlyMachineServiceConcurrencyArgs) ToFlyMachineServiceConcurrencyPtrOutputWithContext(ctx context.Context) FlyMachineServiceConcurrencyPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineServiceConcurrencyOutput).ToFlyMachineServiceConcurrencyPtrOutputWithContext(ctx)
-}
-
-// FlyMachineServiceConcurrencyPtrInput is an input type that accepts FlyMachineServiceConcurrencyArgs, FlyMachineServiceConcurrencyPtr and FlyMachineServiceConcurrencyPtrOutput values.
-// You can construct a concrete instance of `FlyMachineServiceConcurrencyPtrInput` via:
-//
-//	        FlyMachineServiceConcurrencyArgs{...}
-//
-//	or:
-//
-//	        nil
-type FlyMachineServiceConcurrencyPtrInput interface {
-	pulumi.Input
-
-	ToFlyMachineServiceConcurrencyPtrOutput() FlyMachineServiceConcurrencyPtrOutput
-	ToFlyMachineServiceConcurrencyPtrOutputWithContext(context.Context) FlyMachineServiceConcurrencyPtrOutput
-}
-
-type flyMachineServiceConcurrencyPtrType FlyMachineServiceConcurrencyArgs
-
-func FlyMachineServiceConcurrencyPtr(v *FlyMachineServiceConcurrencyArgs) FlyMachineServiceConcurrencyPtrInput {
-	return (*flyMachineServiceConcurrencyPtrType)(v)
-}
-
-func (*flyMachineServiceConcurrencyPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**FlyMachineServiceConcurrency)(nil)).Elem()
-}
-
-func (i *flyMachineServiceConcurrencyPtrType) ToFlyMachineServiceConcurrencyPtrOutput() FlyMachineServiceConcurrencyPtrOutput {
-	return i.ToFlyMachineServiceConcurrencyPtrOutputWithContext(context.Background())
-}
-
-func (i *flyMachineServiceConcurrencyPtrType) ToFlyMachineServiceConcurrencyPtrOutputWithContext(ctx context.Context) FlyMachineServiceConcurrencyPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineServiceConcurrencyPtrOutput)
-}
-
-// Load limits Fly Proxy uses to balance traffic across Machines
-type FlyMachineServiceConcurrencyOutput struct{ *pulumi.OutputState }
-
-func (FlyMachineServiceConcurrencyOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*FlyMachineServiceConcurrency)(nil)).Elem()
-}
-
-func (o FlyMachineServiceConcurrencyOutput) ToFlyMachineServiceConcurrencyOutput() FlyMachineServiceConcurrencyOutput {
-	return o
-}
-
-func (o FlyMachineServiceConcurrencyOutput) ToFlyMachineServiceConcurrencyOutputWithContext(ctx context.Context) FlyMachineServiceConcurrencyOutput {
-	return o
-}
-
-func (o FlyMachineServiceConcurrencyOutput) ToFlyMachineServiceConcurrencyPtrOutput() FlyMachineServiceConcurrencyPtrOutput {
-	return o.ToFlyMachineServiceConcurrencyPtrOutputWithContext(context.Background())
-}
-
-func (o FlyMachineServiceConcurrencyOutput) ToFlyMachineServiceConcurrencyPtrOutputWithContext(ctx context.Context) FlyMachineServiceConcurrencyPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v FlyMachineServiceConcurrency) *FlyMachineServiceConcurrency {
-		return &v
-	}).(FlyMachineServiceConcurrencyPtrOutput)
-}
-
-// Fly Proxy sends no more than this many connections or requests to a Machine at once. 0 means
-// no hard limit
-func (o FlyMachineServiceConcurrencyOutput) HardLimit() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v FlyMachineServiceConcurrency) *int { return v.HardLimit }).(pulumi.IntPtrOutput)
-}
-
-// Above this many connections or requests, Fly Proxy prefers other Machines. Defaults to 20,
-// and is lowered to hard_limit if higher
-func (o FlyMachineServiceConcurrencyOutput) SoftLimit() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v FlyMachineServiceConcurrency) *int { return v.SoftLimit }).(pulumi.IntPtrOutput)
-}
-
-// What to count: `connections` (default) or `requests`
-func (o FlyMachineServiceConcurrencyOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v FlyMachineServiceConcurrency) *string { return v.Type }).(pulumi.StringPtrOutput)
-}
-
-type FlyMachineServiceConcurrencyPtrOutput struct{ *pulumi.OutputState }
-
-func (FlyMachineServiceConcurrencyPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**FlyMachineServiceConcurrency)(nil)).Elem()
-}
-
-func (o FlyMachineServiceConcurrencyPtrOutput) ToFlyMachineServiceConcurrencyPtrOutput() FlyMachineServiceConcurrencyPtrOutput {
-	return o
-}
-
-func (o FlyMachineServiceConcurrencyPtrOutput) ToFlyMachineServiceConcurrencyPtrOutputWithContext(ctx context.Context) FlyMachineServiceConcurrencyPtrOutput {
-	return o
-}
-
-func (o FlyMachineServiceConcurrencyPtrOutput) Elem() FlyMachineServiceConcurrencyOutput {
-	return o.ApplyT(func(v *FlyMachineServiceConcurrency) FlyMachineServiceConcurrency {
-		if v != nil {
-			return *v
-		}
-		var ret FlyMachineServiceConcurrency
-		return ret
-	}).(FlyMachineServiceConcurrencyOutput)
-}
-
-// Fly Proxy sends no more than this many connections or requests to a Machine at once. 0 means
-// no hard limit
-func (o FlyMachineServiceConcurrencyPtrOutput) HardLimit() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *FlyMachineServiceConcurrency) *int {
-		if v == nil {
-			return nil
-		}
-		return v.HardLimit
-	}).(pulumi.IntPtrOutput)
-}
-
-// Above this many connections or requests, Fly Proxy prefers other Machines. Defaults to 20,
-// and is lowered to hard_limit if higher
-func (o FlyMachineServiceConcurrencyPtrOutput) SoftLimit() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *FlyMachineServiceConcurrency) *int {
-		if v == nil {
-			return nil
-		}
-		return v.SoftLimit
-	}).(pulumi.IntPtrOutput)
-}
-
-// What to count: `connections` (default) or `requests`
-func (o FlyMachineServiceConcurrencyPtrOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *FlyMachineServiceConcurrency) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Type
-	}).(pulumi.StringPtrOutput)
 }
 
 type FlyReplayCache struct {
@@ -13057,134 +12870,6 @@ func (o IPAssignmentNetworkPtrOutput) OrgSlug() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// The image the Machine runs, as resolved when it was last created or updated.
-type ImageRef struct {
-	// Content digest of the image (`sha256:...`).
-	Digest *string `pulumi:"digest"`
-	// The image's OCI labels.
-	Labels map[string]string `pulumi:"labels"`
-	// Registry host of the image, such as `registry.fly.io`.
-	Registry *string `pulumi:"registry"`
-	// Repository of the image within the registry, such as `library/nginx`.
-	Repository *string `pulumi:"repository"`
-	// Tag the image was referenced by, if any.
-	Tag *string `pulumi:"tag"`
-}
-
-// The image the Machine runs, as resolved when it was last created or updated.
-type ImageRefOutput struct{ *pulumi.OutputState }
-
-func (ImageRefOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ImageRef)(nil)).Elem()
-}
-
-func (o ImageRefOutput) ToImageRefOutput() ImageRefOutput {
-	return o
-}
-
-func (o ImageRefOutput) ToImageRefOutputWithContext(ctx context.Context) ImageRefOutput {
-	return o
-}
-
-// Content digest of the image (`sha256:...`).
-func (o ImageRefOutput) Digest() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ImageRef) *string { return v.Digest }).(pulumi.StringPtrOutput)
-}
-
-// The image's OCI labels.
-func (o ImageRefOutput) Labels() pulumi.StringMapOutput {
-	return o.ApplyT(func(v ImageRef) map[string]string { return v.Labels }).(pulumi.StringMapOutput)
-}
-
-// Registry host of the image, such as `registry.fly.io`.
-func (o ImageRefOutput) Registry() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ImageRef) *string { return v.Registry }).(pulumi.StringPtrOutput)
-}
-
-// Repository of the image within the registry, such as `library/nginx`.
-func (o ImageRefOutput) Repository() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ImageRef) *string { return v.Repository }).(pulumi.StringPtrOutput)
-}
-
-// Tag the image was referenced by, if any.
-func (o ImageRefOutput) Tag() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ImageRef) *string { return v.Tag }).(pulumi.StringPtrOutput)
-}
-
-type ImageRefPtrOutput struct{ *pulumi.OutputState }
-
-func (ImageRefPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ImageRef)(nil)).Elem()
-}
-
-func (o ImageRefPtrOutput) ToImageRefPtrOutput() ImageRefPtrOutput {
-	return o
-}
-
-func (o ImageRefPtrOutput) ToImageRefPtrOutputWithContext(ctx context.Context) ImageRefPtrOutput {
-	return o
-}
-
-func (o ImageRefPtrOutput) Elem() ImageRefOutput {
-	return o.ApplyT(func(v *ImageRef) ImageRef {
-		if v != nil {
-			return *v
-		}
-		var ret ImageRef
-		return ret
-	}).(ImageRefOutput)
-}
-
-// Content digest of the image (`sha256:...`).
-func (o ImageRefPtrOutput) Digest() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ImageRef) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Digest
-	}).(pulumi.StringPtrOutput)
-}
-
-// The image's OCI labels.
-func (o ImageRefPtrOutput) Labels() pulumi.StringMapOutput {
-	return o.ApplyT(func(v *ImageRef) map[string]string {
-		if v == nil {
-			return nil
-		}
-		return v.Labels
-	}).(pulumi.StringMapOutput)
-}
-
-// Registry host of the image, such as `registry.fly.io`.
-func (o ImageRefPtrOutput) Registry() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ImageRef) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Registry
-	}).(pulumi.StringPtrOutput)
-}
-
-// Repository of the image within the registry, such as `library/nginx`.
-func (o ImageRefPtrOutput) Repository() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ImageRef) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Repository
-	}).(pulumi.StringPtrOutput)
-}
-
-// Tag the image was referenced by, if any.
-func (o ImageRefPtrOutput) Tag() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ImageRef) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Tag
-	}).(pulumi.StringPtrOutput)
-}
-
 // Last known configuration, returned in place of `config` when the host could not be
 // reached (`host_status` is not `ok`) or when listing Machines with `summary=true`. It
 // comes from Fly.io's replicated state rather than the host, so it may be stale or lack
@@ -13193,7 +12878,7 @@ type IncompleteConfig struct {
 	// Optional boolean telling the Machine to destroy itself once it’s complete (default false)
 	AutoDestroy *bool `pulumi:"autoDestroy"`
 	// Beta: a cache drive attached to the Machine. This field may be removed in the future
-	CacheDrive *MachineFlyMachineConfigCacheDrive `pulumi:"cacheDrive"`
+	CacheDrive *FlyMachineConfigCacheDrive `pulumi:"cacheDrive"`
 	// An optional object that defines one or more named top-level checks. The key for each check is the check name.
 	Checks map[string]FlyMachineConfigChecksProperties `pulumi:"checks"`
 	// Containers are a list of containers that will run in the machine, each from its own image.
@@ -13201,21 +12886,21 @@ type IncompleteConfig struct {
 	// Deprecated: use Service.Autostart instead
 	DisableMachineAutostart *bool `pulumi:"disableMachineAutostart"`
 	// DNS settings for the Machine
-	Dns *MachineFlyMachineConfigDns `pulumi:"dns"`
+	Dns *FlyMachineConfigDns `pulumi:"dns"`
 	// An object filled with key/value pairs to be set as environment variables
 	Env map[string]string `pulumi:"env"`
 	// Files to write into the Machine, from either a raw value or an app secret
 	Files []FlyFile `pulumi:"files"`
 	// The resources (CPUs, memory, etc.) allocated to the Machine
-	Guest *MachineFlyMachineConfigGuest `pulumi:"guest"`
+	Guest *FlyMachineConfigGuest `pulumi:"guest"`
 	// The docker image to run
 	Image *string `pulumi:"image"`
 	// Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
-	Init *MachineFlyMachineConfigInit `pulumi:"init"`
+	Init *FlyMachineConfigInit `pulumi:"init"`
 	// Key/value pairs of Machine metadata. Fly.io uses metadata internally for routing, process groups, and clusters
 	Metadata map[string]string `pulumi:"metadata"`
 	// An optional metrics endpoint for Prometheus on Fly.io to scrape
-	Metrics *MachineFlyMachineConfigMetrics `pulumi:"metrics"`
+	Metrics *FlyMachineConfigMetrics `pulumi:"metrics"`
 	// Persistent volumes to mount in the Machine. A Machine can mount at most one volume, which must be on
 	// the same host. The mounted volume cannot be changed by updating the Machine
 	Mounts []FlyMachineMount `pulumi:"mounts"`
@@ -13224,10 +12909,10 @@ type IncompleteConfig struct {
 	// images, use containers instead
 	Processes []FlyMachineProcess `pulumi:"processes"`
 	// Whether and how the Machine is restarted after its main process exits
-	Restart *MachineFlyMachineConfigRestart `pulumi:"restart"`
+	Restart *FlyMachineConfigRestart `pulumi:"restart"`
 	// Beta: the size of the Machine's root filesystem and whether it persists. This field may be
 	// removed in the future
-	Rootfs *MachineFlyMachineConfigRootfs `pulumi:"rootfs"`
+	Rootfs *FlyMachineConfigRootfs `pulumi:"rootfs"`
 	// Run the Machine at an interval: one of hourly, daily, weekly or monthly. The interval starts when
 	// the Machine is created
 	Schedule *string `pulumi:"schedule"`
@@ -13236,7 +12921,7 @@ type IncompleteConfig struct {
 	// Deprecated: use Guest instead
 	Size *string `pulumi:"size"`
 	// Spot pricing settings for the Machine
-	Spot *MachineFlyMachineConfigSpot `pulumi:"spot"`
+	Spot *FlyMachineConfigSpot `pulumi:"spot"`
 	// Standbys enable a machine to be a standby for another. In the event of a hardware failure,
 	// the standby machine will be started.
 	Standbys []string `pulumi:"standbys"`
@@ -13246,7 +12931,7 @@ type IncompleteConfig struct {
 	// app; no bucket is created for you
 	Statics []FlyStatic `pulumi:"statics"`
 	// How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
-	StopConfig *MachineFlyMachineConfigStopConfig `pulumi:"stopConfig"`
+	StopConfig *FlyMachineConfigStopConfig `pulumi:"stopConfig"`
 }
 
 // Last known configuration, returned in place of `config` when the host could not be
@@ -13273,8 +12958,8 @@ func (o IncompleteConfigOutput) AutoDestroy() pulumi.BoolPtrOutput {
 }
 
 // Beta: a cache drive attached to the Machine. This field may be removed in the future
-func (o IncompleteConfigOutput) CacheDrive() MachineFlyMachineConfigCacheDrivePtrOutput {
-	return o.ApplyT(func(v IncompleteConfig) *MachineFlyMachineConfigCacheDrive { return v.CacheDrive }).(MachineFlyMachineConfigCacheDrivePtrOutput)
+func (o IncompleteConfigOutput) CacheDrive() FlyMachineConfigCacheDrivePtrOutput {
+	return o.ApplyT(func(v IncompleteConfig) *FlyMachineConfigCacheDrive { return v.CacheDrive }).(FlyMachineConfigCacheDrivePtrOutput)
 }
 
 // An optional object that defines one or more named top-level checks. The key for each check is the check name.
@@ -13293,8 +12978,8 @@ func (o IncompleteConfigOutput) DisableMachineAutostart() pulumi.BoolPtrOutput {
 }
 
 // DNS settings for the Machine
-func (o IncompleteConfigOutput) Dns() MachineFlyMachineConfigDnsPtrOutput {
-	return o.ApplyT(func(v IncompleteConfig) *MachineFlyMachineConfigDns { return v.Dns }).(MachineFlyMachineConfigDnsPtrOutput)
+func (o IncompleteConfigOutput) Dns() FlyMachineConfigDnsPtrOutput {
+	return o.ApplyT(func(v IncompleteConfig) *FlyMachineConfigDns { return v.Dns }).(FlyMachineConfigDnsPtrOutput)
 }
 
 // An object filled with key/value pairs to be set as environment variables
@@ -13308,8 +12993,8 @@ func (o IncompleteConfigOutput) Files() FlyFileArrayOutput {
 }
 
 // The resources (CPUs, memory, etc.) allocated to the Machine
-func (o IncompleteConfigOutput) Guest() MachineFlyMachineConfigGuestPtrOutput {
-	return o.ApplyT(func(v IncompleteConfig) *MachineFlyMachineConfigGuest { return v.Guest }).(MachineFlyMachineConfigGuestPtrOutput)
+func (o IncompleteConfigOutput) Guest() FlyMachineConfigGuestPtrOutput {
+	return o.ApplyT(func(v IncompleteConfig) *FlyMachineConfigGuest { return v.Guest }).(FlyMachineConfigGuestPtrOutput)
 }
 
 // The docker image to run
@@ -13318,8 +13003,8 @@ func (o IncompleteConfigOutput) Image() pulumi.StringPtrOutput {
 }
 
 // Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
-func (o IncompleteConfigOutput) Init() MachineFlyMachineConfigInitPtrOutput {
-	return o.ApplyT(func(v IncompleteConfig) *MachineFlyMachineConfigInit { return v.Init }).(MachineFlyMachineConfigInitPtrOutput)
+func (o IncompleteConfigOutput) Init() FlyMachineConfigInitPtrOutput {
+	return o.ApplyT(func(v IncompleteConfig) *FlyMachineConfigInit { return v.Init }).(FlyMachineConfigInitPtrOutput)
 }
 
 // Key/value pairs of Machine metadata. Fly.io uses metadata internally for routing, process groups, and clusters
@@ -13328,8 +13013,8 @@ func (o IncompleteConfigOutput) Metadata() pulumi.StringMapOutput {
 }
 
 // An optional metrics endpoint for Prometheus on Fly.io to scrape
-func (o IncompleteConfigOutput) Metrics() MachineFlyMachineConfigMetricsPtrOutput {
-	return o.ApplyT(func(v IncompleteConfig) *MachineFlyMachineConfigMetrics { return v.Metrics }).(MachineFlyMachineConfigMetricsPtrOutput)
+func (o IncompleteConfigOutput) Metrics() FlyMachineConfigMetricsPtrOutput {
+	return o.ApplyT(func(v IncompleteConfig) *FlyMachineConfigMetrics { return v.Metrics }).(FlyMachineConfigMetricsPtrOutput)
 }
 
 // Persistent volumes to mount in the Machine. A Machine can mount at most one volume, which must be on
@@ -13346,14 +13031,14 @@ func (o IncompleteConfigOutput) Processes() FlyMachineProcessArrayOutput {
 }
 
 // Whether and how the Machine is restarted after its main process exits
-func (o IncompleteConfigOutput) Restart() MachineFlyMachineConfigRestartPtrOutput {
-	return o.ApplyT(func(v IncompleteConfig) *MachineFlyMachineConfigRestart { return v.Restart }).(MachineFlyMachineConfigRestartPtrOutput)
+func (o IncompleteConfigOutput) Restart() FlyMachineConfigRestartPtrOutput {
+	return o.ApplyT(func(v IncompleteConfig) *FlyMachineConfigRestart { return v.Restart }).(FlyMachineConfigRestartPtrOutput)
 }
 
 // Beta: the size of the Machine's root filesystem and whether it persists. This field may be
 // removed in the future
-func (o IncompleteConfigOutput) Rootfs() MachineFlyMachineConfigRootfsPtrOutput {
-	return o.ApplyT(func(v IncompleteConfig) *MachineFlyMachineConfigRootfs { return v.Rootfs }).(MachineFlyMachineConfigRootfsPtrOutput)
+func (o IncompleteConfigOutput) Rootfs() FlyMachineConfigRootfsPtrOutput {
+	return o.ApplyT(func(v IncompleteConfig) *FlyMachineConfigRootfs { return v.Rootfs }).(FlyMachineConfigRootfsPtrOutput)
 }
 
 // Run the Machine at an interval: one of hourly, daily, weekly or monthly. The interval starts when
@@ -13373,8 +13058,8 @@ func (o IncompleteConfigOutput) Size() pulumi.StringPtrOutput {
 }
 
 // Spot pricing settings for the Machine
-func (o IncompleteConfigOutput) Spot() MachineFlyMachineConfigSpotPtrOutput {
-	return o.ApplyT(func(v IncompleteConfig) *MachineFlyMachineConfigSpot { return v.Spot }).(MachineFlyMachineConfigSpotPtrOutput)
+func (o IncompleteConfigOutput) Spot() FlyMachineConfigSpotPtrOutput {
+	return o.ApplyT(func(v IncompleteConfig) *FlyMachineConfigSpot { return v.Spot }).(FlyMachineConfigSpotPtrOutput)
 }
 
 // Standbys enable a machine to be a standby for another. In the event of a hardware failure,
@@ -13392,8 +13077,8 @@ func (o IncompleteConfigOutput) Statics() FlyStaticArrayOutput {
 }
 
 // How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
-func (o IncompleteConfigOutput) StopConfig() MachineFlyMachineConfigStopConfigPtrOutput {
-	return o.ApplyT(func(v IncompleteConfig) *MachineFlyMachineConfigStopConfig { return v.StopConfig }).(MachineFlyMachineConfigStopConfigPtrOutput)
+func (o IncompleteConfigOutput) StopConfig() FlyMachineConfigStopConfigPtrOutput {
+	return o.ApplyT(func(v IncompleteConfig) *FlyMachineConfigStopConfig { return v.StopConfig }).(FlyMachineConfigStopConfigPtrOutput)
 }
 
 type IncompleteConfigPtrOutput struct{ *pulumi.OutputState }
@@ -13431,13 +13116,13 @@ func (o IncompleteConfigPtrOutput) AutoDestroy() pulumi.BoolPtrOutput {
 }
 
 // Beta: a cache drive attached to the Machine. This field may be removed in the future
-func (o IncompleteConfigPtrOutput) CacheDrive() MachineFlyMachineConfigCacheDrivePtrOutput {
-	return o.ApplyT(func(v *IncompleteConfig) *MachineFlyMachineConfigCacheDrive {
+func (o IncompleteConfigPtrOutput) CacheDrive() FlyMachineConfigCacheDrivePtrOutput {
+	return o.ApplyT(func(v *IncompleteConfig) *FlyMachineConfigCacheDrive {
 		if v == nil {
 			return nil
 		}
 		return v.CacheDrive
-	}).(MachineFlyMachineConfigCacheDrivePtrOutput)
+	}).(FlyMachineConfigCacheDrivePtrOutput)
 }
 
 // An optional object that defines one or more named top-level checks. The key for each check is the check name.
@@ -13471,13 +13156,13 @@ func (o IncompleteConfigPtrOutput) DisableMachineAutostart() pulumi.BoolPtrOutpu
 }
 
 // DNS settings for the Machine
-func (o IncompleteConfigPtrOutput) Dns() MachineFlyMachineConfigDnsPtrOutput {
-	return o.ApplyT(func(v *IncompleteConfig) *MachineFlyMachineConfigDns {
+func (o IncompleteConfigPtrOutput) Dns() FlyMachineConfigDnsPtrOutput {
+	return o.ApplyT(func(v *IncompleteConfig) *FlyMachineConfigDns {
 		if v == nil {
 			return nil
 		}
 		return v.Dns
-	}).(MachineFlyMachineConfigDnsPtrOutput)
+	}).(FlyMachineConfigDnsPtrOutput)
 }
 
 // An object filled with key/value pairs to be set as environment variables
@@ -13501,13 +13186,13 @@ func (o IncompleteConfigPtrOutput) Files() FlyFileArrayOutput {
 }
 
 // The resources (CPUs, memory, etc.) allocated to the Machine
-func (o IncompleteConfigPtrOutput) Guest() MachineFlyMachineConfigGuestPtrOutput {
-	return o.ApplyT(func(v *IncompleteConfig) *MachineFlyMachineConfigGuest {
+func (o IncompleteConfigPtrOutput) Guest() FlyMachineConfigGuestPtrOutput {
+	return o.ApplyT(func(v *IncompleteConfig) *FlyMachineConfigGuest {
 		if v == nil {
 			return nil
 		}
 		return v.Guest
-	}).(MachineFlyMachineConfigGuestPtrOutput)
+	}).(FlyMachineConfigGuestPtrOutput)
 }
 
 // The docker image to run
@@ -13521,13 +13206,13 @@ func (o IncompleteConfigPtrOutput) Image() pulumi.StringPtrOutput {
 }
 
 // Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
-func (o IncompleteConfigPtrOutput) Init() MachineFlyMachineConfigInitPtrOutput {
-	return o.ApplyT(func(v *IncompleteConfig) *MachineFlyMachineConfigInit {
+func (o IncompleteConfigPtrOutput) Init() FlyMachineConfigInitPtrOutput {
+	return o.ApplyT(func(v *IncompleteConfig) *FlyMachineConfigInit {
 		if v == nil {
 			return nil
 		}
 		return v.Init
-	}).(MachineFlyMachineConfigInitPtrOutput)
+	}).(FlyMachineConfigInitPtrOutput)
 }
 
 // Key/value pairs of Machine metadata. Fly.io uses metadata internally for routing, process groups, and clusters
@@ -13541,13 +13226,13 @@ func (o IncompleteConfigPtrOutput) Metadata() pulumi.StringMapOutput {
 }
 
 // An optional metrics endpoint for Prometheus on Fly.io to scrape
-func (o IncompleteConfigPtrOutput) Metrics() MachineFlyMachineConfigMetricsPtrOutput {
-	return o.ApplyT(func(v *IncompleteConfig) *MachineFlyMachineConfigMetrics {
+func (o IncompleteConfigPtrOutput) Metrics() FlyMachineConfigMetricsPtrOutput {
+	return o.ApplyT(func(v *IncompleteConfig) *FlyMachineConfigMetrics {
 		if v == nil {
 			return nil
 		}
 		return v.Metrics
-	}).(MachineFlyMachineConfigMetricsPtrOutput)
+	}).(FlyMachineConfigMetricsPtrOutput)
 }
 
 // Persistent volumes to mount in the Machine. A Machine can mount at most one volume, which must be on
@@ -13574,24 +13259,24 @@ func (o IncompleteConfigPtrOutput) Processes() FlyMachineProcessArrayOutput {
 }
 
 // Whether and how the Machine is restarted after its main process exits
-func (o IncompleteConfigPtrOutput) Restart() MachineFlyMachineConfigRestartPtrOutput {
-	return o.ApplyT(func(v *IncompleteConfig) *MachineFlyMachineConfigRestart {
+func (o IncompleteConfigPtrOutput) Restart() FlyMachineConfigRestartPtrOutput {
+	return o.ApplyT(func(v *IncompleteConfig) *FlyMachineConfigRestart {
 		if v == nil {
 			return nil
 		}
 		return v.Restart
-	}).(MachineFlyMachineConfigRestartPtrOutput)
+	}).(FlyMachineConfigRestartPtrOutput)
 }
 
 // Beta: the size of the Machine's root filesystem and whether it persists. This field may be
 // removed in the future
-func (o IncompleteConfigPtrOutput) Rootfs() MachineFlyMachineConfigRootfsPtrOutput {
-	return o.ApplyT(func(v *IncompleteConfig) *MachineFlyMachineConfigRootfs {
+func (o IncompleteConfigPtrOutput) Rootfs() FlyMachineConfigRootfsPtrOutput {
+	return o.ApplyT(func(v *IncompleteConfig) *FlyMachineConfigRootfs {
 		if v == nil {
 			return nil
 		}
 		return v.Rootfs
-	}).(MachineFlyMachineConfigRootfsPtrOutput)
+	}).(FlyMachineConfigRootfsPtrOutput)
 }
 
 // Run the Machine at an interval: one of hourly, daily, weekly or monthly. The interval starts when
@@ -13626,13 +13311,13 @@ func (o IncompleteConfigPtrOutput) Size() pulumi.StringPtrOutput {
 }
 
 // Spot pricing settings for the Machine
-func (o IncompleteConfigPtrOutput) Spot() MachineFlyMachineConfigSpotPtrOutput {
-	return o.ApplyT(func(v *IncompleteConfig) *MachineFlyMachineConfigSpot {
+func (o IncompleteConfigPtrOutput) Spot() FlyMachineConfigSpotPtrOutput {
+	return o.ApplyT(func(v *IncompleteConfig) *FlyMachineConfigSpot {
 		if v == nil {
 			return nil
 		}
 		return v.Spot
-	}).(MachineFlyMachineConfigSpotPtrOutput)
+	}).(FlyMachineConfigSpotPtrOutput)
 }
 
 // Standbys enable a machine to be a standby for another. In the event of a hardware failure,
@@ -13660,13 +13345,13 @@ func (o IncompleteConfigPtrOutput) Statics() FlyStaticArrayOutput {
 }
 
 // How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
-func (o IncompleteConfigPtrOutput) StopConfig() MachineFlyMachineConfigStopConfigPtrOutput {
-	return o.ApplyT(func(v *IncompleteConfig) *MachineFlyMachineConfigStopConfig {
+func (o IncompleteConfigPtrOutput) StopConfig() FlyMachineConfigStopConfigPtrOutput {
+	return o.ApplyT(func(v *IncompleteConfig) *FlyMachineConfigStopConfig {
 		if v == nil {
 			return nil
 		}
 		return v.StopConfig
-	}).(MachineFlyMachineConfigStopConfigPtrOutput)
+	}).(FlyMachineConfigStopConfigPtrOutput)
 }
 
 // The allocated IPv4 and IPv6 addresses when the `egress_pair` type was requested; null
@@ -13806,102 +13491,6 @@ func (o IssuedCertificateArrayOutput) Index(i pulumi.IntInput) IssuedCertificate
 	}).(IssuedCertificateOutput)
 }
 
-// The lease currently held on the Machine. Only returned when `include_leases=true`
-// was requested and a lease is held.
-type Lease struct {
-	// Description given when the lease was acquired.
-	Description *string `pulumi:"description"`
-	// When the lease expires, in Unix seconds.
-	ExpiresAt *int `pulumi:"expiresAt"`
-	// Email address of the user who acquired the lease.
-	Owner *string `pulumi:"owner"`
-}
-
-// The lease currently held on the Machine. Only returned when `include_leases=true`
-// was requested and a lease is held.
-type LeaseOutput struct{ *pulumi.OutputState }
-
-func (LeaseOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*Lease)(nil)).Elem()
-}
-
-func (o LeaseOutput) ToLeaseOutput() LeaseOutput {
-	return o
-}
-
-func (o LeaseOutput) ToLeaseOutputWithContext(ctx context.Context) LeaseOutput {
-	return o
-}
-
-// Description given when the lease was acquired.
-func (o LeaseOutput) Description() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v Lease) *string { return v.Description }).(pulumi.StringPtrOutput)
-}
-
-// When the lease expires, in Unix seconds.
-func (o LeaseOutput) ExpiresAt() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v Lease) *int { return v.ExpiresAt }).(pulumi.IntPtrOutput)
-}
-
-// Email address of the user who acquired the lease.
-func (o LeaseOutput) Owner() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v Lease) *string { return v.Owner }).(pulumi.StringPtrOutput)
-}
-
-type LeasePtrOutput struct{ *pulumi.OutputState }
-
-func (LeasePtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**Lease)(nil)).Elem()
-}
-
-func (o LeasePtrOutput) ToLeasePtrOutput() LeasePtrOutput {
-	return o
-}
-
-func (o LeasePtrOutput) ToLeasePtrOutputWithContext(ctx context.Context) LeasePtrOutput {
-	return o
-}
-
-func (o LeasePtrOutput) Elem() LeaseOutput {
-	return o.ApplyT(func(v *Lease) Lease {
-		if v != nil {
-			return *v
-		}
-		var ret Lease
-		return ret
-	}).(LeaseOutput)
-}
-
-// Description given when the lease was acquired.
-func (o LeasePtrOutput) Description() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Lease) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Description
-	}).(pulumi.StringPtrOutput)
-}
-
-// When the lease expires, in Unix seconds.
-func (o LeasePtrOutput) ExpiresAt() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *Lease) *int {
-		if v == nil {
-			return nil
-		}
-		return v.ExpiresAt
-	}).(pulumi.IntPtrOutput)
-}
-
-// Email address of the user who acquired the lease.
-func (o LeasePtrOutput) Owner() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Lease) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Owner
-	}).(pulumi.StringPtrOutput)
-}
-
 type LeaseResponse struct {
 	// The lease.
 	Data *LeaseResponseData `pulumi:"data"`
@@ -13911,12 +13500,17 @@ type LeaseResponse struct {
 
 // The lease.
 type LeaseResponseData struct {
-	// Description given when the lease was acquired.
+	// Description or reason for the lease.
 	Description *string `pulumi:"description"`
 	// When the lease expires, in Unix seconds.
 	ExpiresAt *int `pulumi:"expiresAt"`
+	// Unique ID generated for the lease. Pass it in the `fly-machine-lease-nonce` header to
+	// act on the leased Machine, refresh the lease, or release it.
+	Nonce *string `pulumi:"nonce"`
 	// Email address of the user who acquired the lease.
 	Owner *string `pulumi:"owner"`
+	// ID of the Machine's version at the time of the request.
+	Version *string `pulumi:"version"`
 }
 
 // The lease.
@@ -13934,7 +13528,7 @@ func (o LeaseResponseDataOutput) ToLeaseResponseDataOutputWithContext(ctx contex
 	return o
 }
 
-// Description given when the lease was acquired.
+// Description or reason for the lease.
 func (o LeaseResponseDataOutput) Description() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LeaseResponseData) *string { return v.Description }).(pulumi.StringPtrOutput)
 }
@@ -13944,9 +13538,20 @@ func (o LeaseResponseDataOutput) ExpiresAt() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v LeaseResponseData) *int { return v.ExpiresAt }).(pulumi.IntPtrOutput)
 }
 
+// Unique ID generated for the lease. Pass it in the `fly-machine-lease-nonce` header to
+// act on the leased Machine, refresh the lease, or release it.
+func (o LeaseResponseDataOutput) Nonce() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LeaseResponseData) *string { return v.Nonce }).(pulumi.StringPtrOutput)
+}
+
 // Email address of the user who acquired the lease.
 func (o LeaseResponseDataOutput) Owner() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LeaseResponseData) *string { return v.Owner }).(pulumi.StringPtrOutput)
+}
+
+// ID of the Machine's version at the time of the request.
+func (o LeaseResponseDataOutput) Version() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LeaseResponseData) *string { return v.Version }).(pulumi.StringPtrOutput)
 }
 
 type LeaseResponseDataPtrOutput struct{ *pulumi.OutputState }
@@ -13973,7 +13578,7 @@ func (o LeaseResponseDataPtrOutput) Elem() LeaseResponseDataOutput {
 	}).(LeaseResponseDataOutput)
 }
 
-// Description given when the lease was acquired.
+// Description or reason for the lease.
 func (o LeaseResponseDataPtrOutput) Description() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *LeaseResponseData) *string {
 		if v == nil {
@@ -13993,6 +13598,17 @@ func (o LeaseResponseDataPtrOutput) ExpiresAt() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
+// Unique ID generated for the lease. Pass it in the `fly-machine-lease-nonce` header to
+// act on the leased Machine, refresh the lease, or release it.
+func (o LeaseResponseDataPtrOutput) Nonce() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *LeaseResponseData) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Nonce
+	}).(pulumi.StringPtrOutput)
+}
+
 // Email address of the user who acquired the lease.
 func (o LeaseResponseDataPtrOutput) Owner() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *LeaseResponseData) *string {
@@ -14000,6 +13616,16 @@ func (o LeaseResponseDataPtrOutput) Owner() pulumi.StringPtrOutput {
 			return nil
 		}
 		return v.Owner
+	}).(pulumi.StringPtrOutput)
+}
+
+// ID of the Machine's version at the time of the request.
+func (o LeaseResponseDataPtrOutput) Version() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *LeaseResponseData) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Version
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -16201,7 +15827,7 @@ type MachineConfig struct {
 	// Optional boolean telling the Machine to destroy itself once it’s complete (default false)
 	AutoDestroy *bool `pulumi:"autoDestroy"`
 	// Beta: a cache drive attached to the Machine. This field may be removed in the future
-	CacheDrive *MachineFlyMachineConfigCacheDrive `pulumi:"cacheDrive"`
+	CacheDrive *FlyMachineConfigCacheDrive `pulumi:"cacheDrive"`
 	// An optional object that defines one or more named top-level checks. The key for each check is the check name.
 	Checks map[string]FlyMachineConfigChecksProperties `pulumi:"checks"`
 	// Containers are a list of containers that will run in the machine, each from its own image.
@@ -16209,21 +15835,21 @@ type MachineConfig struct {
 	// Deprecated: use Service.Autostart instead
 	DisableMachineAutostart *bool `pulumi:"disableMachineAutostart"`
 	// DNS settings for the Machine
-	Dns *MachineFlyMachineConfigDns `pulumi:"dns"`
+	Dns *FlyMachineConfigDns `pulumi:"dns"`
 	// An object filled with key/value pairs to be set as environment variables
 	Env map[string]string `pulumi:"env"`
 	// Files to write into the Machine, from either a raw value or an app secret
 	Files []FlyFile `pulumi:"files"`
 	// The resources (CPUs, memory, etc.) allocated to the Machine
-	Guest *MachineFlyMachineConfigGuest `pulumi:"guest"`
+	Guest *FlyMachineConfigGuest `pulumi:"guest"`
 	// The docker image to run
 	Image *string `pulumi:"image"`
 	// Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
-	Init *MachineFlyMachineConfigInit `pulumi:"init"`
+	Init *FlyMachineConfigInit `pulumi:"init"`
 	// Key/value pairs of Machine metadata. Fly.io uses metadata internally for routing, process groups, and clusters
 	Metadata map[string]string `pulumi:"metadata"`
 	// An optional metrics endpoint for Prometheus on Fly.io to scrape
-	Metrics *MachineFlyMachineConfigMetrics `pulumi:"metrics"`
+	Metrics *FlyMachineConfigMetrics `pulumi:"metrics"`
 	// Persistent volumes to mount in the Machine. A Machine can mount at most one volume, which must be on
 	// the same host. The mounted volume cannot be changed by updating the Machine
 	Mounts []FlyMachineMount `pulumi:"mounts"`
@@ -16232,10 +15858,10 @@ type MachineConfig struct {
 	// images, use containers instead
 	Processes []FlyMachineProcess `pulumi:"processes"`
 	// Whether and how the Machine is restarted after its main process exits
-	Restart *MachineFlyMachineConfigRestart `pulumi:"restart"`
+	Restart *FlyMachineConfigRestart `pulumi:"restart"`
 	// Beta: the size of the Machine's root filesystem and whether it persists. This field may be
 	// removed in the future
-	Rootfs *MachineFlyMachineConfigRootfs `pulumi:"rootfs"`
+	Rootfs *FlyMachineConfigRootfs `pulumi:"rootfs"`
 	// Run the Machine at an interval: one of hourly, daily, weekly or monthly. The interval starts when
 	// the Machine is created
 	Schedule *string `pulumi:"schedule"`
@@ -16244,7 +15870,7 @@ type MachineConfig struct {
 	// Deprecated: use Guest instead
 	Size *string `pulumi:"size"`
 	// Spot pricing settings for the Machine
-	Spot *MachineFlyMachineConfigSpot `pulumi:"spot"`
+	Spot *FlyMachineConfigSpot `pulumi:"spot"`
 	// Standbys enable a machine to be a standby for another. In the event of a hardware failure,
 	// the standby machine will be started.
 	Standbys []string `pulumi:"standbys"`
@@ -16254,7 +15880,7 @@ type MachineConfig struct {
 	// app; no bucket is created for you
 	Statics []FlyStatic `pulumi:"statics"`
 	// How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
-	StopConfig *MachineFlyMachineConfigStopConfig `pulumi:"stopConfig"`
+	StopConfig *FlyMachineConfigStopConfig `pulumi:"stopConfig"`
 }
 
 // The Machine's configuration, as provided when it was created or last updated, with
@@ -16281,8 +15907,8 @@ func (o MachineConfigOutput) AutoDestroy() pulumi.BoolPtrOutput {
 }
 
 // Beta: a cache drive attached to the Machine. This field may be removed in the future
-func (o MachineConfigOutput) CacheDrive() MachineFlyMachineConfigCacheDrivePtrOutput {
-	return o.ApplyT(func(v MachineConfig) *MachineFlyMachineConfigCacheDrive { return v.CacheDrive }).(MachineFlyMachineConfigCacheDrivePtrOutput)
+func (o MachineConfigOutput) CacheDrive() FlyMachineConfigCacheDrivePtrOutput {
+	return o.ApplyT(func(v MachineConfig) *FlyMachineConfigCacheDrive { return v.CacheDrive }).(FlyMachineConfigCacheDrivePtrOutput)
 }
 
 // An optional object that defines one or more named top-level checks. The key for each check is the check name.
@@ -16301,8 +15927,8 @@ func (o MachineConfigOutput) DisableMachineAutostart() pulumi.BoolPtrOutput {
 }
 
 // DNS settings for the Machine
-func (o MachineConfigOutput) Dns() MachineFlyMachineConfigDnsPtrOutput {
-	return o.ApplyT(func(v MachineConfig) *MachineFlyMachineConfigDns { return v.Dns }).(MachineFlyMachineConfigDnsPtrOutput)
+func (o MachineConfigOutput) Dns() FlyMachineConfigDnsPtrOutput {
+	return o.ApplyT(func(v MachineConfig) *FlyMachineConfigDns { return v.Dns }).(FlyMachineConfigDnsPtrOutput)
 }
 
 // An object filled with key/value pairs to be set as environment variables
@@ -16316,8 +15942,8 @@ func (o MachineConfigOutput) Files() FlyFileArrayOutput {
 }
 
 // The resources (CPUs, memory, etc.) allocated to the Machine
-func (o MachineConfigOutput) Guest() MachineFlyMachineConfigGuestPtrOutput {
-	return o.ApplyT(func(v MachineConfig) *MachineFlyMachineConfigGuest { return v.Guest }).(MachineFlyMachineConfigGuestPtrOutput)
+func (o MachineConfigOutput) Guest() FlyMachineConfigGuestPtrOutput {
+	return o.ApplyT(func(v MachineConfig) *FlyMachineConfigGuest { return v.Guest }).(FlyMachineConfigGuestPtrOutput)
 }
 
 // The docker image to run
@@ -16326,8 +15952,8 @@ func (o MachineConfigOutput) Image() pulumi.StringPtrOutput {
 }
 
 // Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
-func (o MachineConfigOutput) Init() MachineFlyMachineConfigInitPtrOutput {
-	return o.ApplyT(func(v MachineConfig) *MachineFlyMachineConfigInit { return v.Init }).(MachineFlyMachineConfigInitPtrOutput)
+func (o MachineConfigOutput) Init() FlyMachineConfigInitPtrOutput {
+	return o.ApplyT(func(v MachineConfig) *FlyMachineConfigInit { return v.Init }).(FlyMachineConfigInitPtrOutput)
 }
 
 // Key/value pairs of Machine metadata. Fly.io uses metadata internally for routing, process groups, and clusters
@@ -16336,8 +15962,8 @@ func (o MachineConfigOutput) Metadata() pulumi.StringMapOutput {
 }
 
 // An optional metrics endpoint for Prometheus on Fly.io to scrape
-func (o MachineConfigOutput) Metrics() MachineFlyMachineConfigMetricsPtrOutput {
-	return o.ApplyT(func(v MachineConfig) *MachineFlyMachineConfigMetrics { return v.Metrics }).(MachineFlyMachineConfigMetricsPtrOutput)
+func (o MachineConfigOutput) Metrics() FlyMachineConfigMetricsPtrOutput {
+	return o.ApplyT(func(v MachineConfig) *FlyMachineConfigMetrics { return v.Metrics }).(FlyMachineConfigMetricsPtrOutput)
 }
 
 // Persistent volumes to mount in the Machine. A Machine can mount at most one volume, which must be on
@@ -16354,14 +15980,14 @@ func (o MachineConfigOutput) Processes() FlyMachineProcessArrayOutput {
 }
 
 // Whether and how the Machine is restarted after its main process exits
-func (o MachineConfigOutput) Restart() MachineFlyMachineConfigRestartPtrOutput {
-	return o.ApplyT(func(v MachineConfig) *MachineFlyMachineConfigRestart { return v.Restart }).(MachineFlyMachineConfigRestartPtrOutput)
+func (o MachineConfigOutput) Restart() FlyMachineConfigRestartPtrOutput {
+	return o.ApplyT(func(v MachineConfig) *FlyMachineConfigRestart { return v.Restart }).(FlyMachineConfigRestartPtrOutput)
 }
 
 // Beta: the size of the Machine's root filesystem and whether it persists. This field may be
 // removed in the future
-func (o MachineConfigOutput) Rootfs() MachineFlyMachineConfigRootfsPtrOutput {
-	return o.ApplyT(func(v MachineConfig) *MachineFlyMachineConfigRootfs { return v.Rootfs }).(MachineFlyMachineConfigRootfsPtrOutput)
+func (o MachineConfigOutput) Rootfs() FlyMachineConfigRootfsPtrOutput {
+	return o.ApplyT(func(v MachineConfig) *FlyMachineConfigRootfs { return v.Rootfs }).(FlyMachineConfigRootfsPtrOutput)
 }
 
 // Run the Machine at an interval: one of hourly, daily, weekly or monthly. The interval starts when
@@ -16381,8 +16007,8 @@ func (o MachineConfigOutput) Size() pulumi.StringPtrOutput {
 }
 
 // Spot pricing settings for the Machine
-func (o MachineConfigOutput) Spot() MachineFlyMachineConfigSpotPtrOutput {
-	return o.ApplyT(func(v MachineConfig) *MachineFlyMachineConfigSpot { return v.Spot }).(MachineFlyMachineConfigSpotPtrOutput)
+func (o MachineConfigOutput) Spot() FlyMachineConfigSpotPtrOutput {
+	return o.ApplyT(func(v MachineConfig) *FlyMachineConfigSpot { return v.Spot }).(FlyMachineConfigSpotPtrOutput)
 }
 
 // Standbys enable a machine to be a standby for another. In the event of a hardware failure,
@@ -16400,8 +16026,8 @@ func (o MachineConfigOutput) Statics() FlyStaticArrayOutput {
 }
 
 // How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
-func (o MachineConfigOutput) StopConfig() MachineFlyMachineConfigStopConfigPtrOutput {
-	return o.ApplyT(func(v MachineConfig) *MachineFlyMachineConfigStopConfig { return v.StopConfig }).(MachineFlyMachineConfigStopConfigPtrOutput)
+func (o MachineConfigOutput) StopConfig() FlyMachineConfigStopConfigPtrOutput {
+	return o.ApplyT(func(v MachineConfig) *FlyMachineConfigStopConfig { return v.StopConfig }).(FlyMachineConfigStopConfigPtrOutput)
 }
 
 type MachineConfigPtrOutput struct{ *pulumi.OutputState }
@@ -16439,13 +16065,13 @@ func (o MachineConfigPtrOutput) AutoDestroy() pulumi.BoolPtrOutput {
 }
 
 // Beta: a cache drive attached to the Machine. This field may be removed in the future
-func (o MachineConfigPtrOutput) CacheDrive() MachineFlyMachineConfigCacheDrivePtrOutput {
-	return o.ApplyT(func(v *MachineConfig) *MachineFlyMachineConfigCacheDrive {
+func (o MachineConfigPtrOutput) CacheDrive() FlyMachineConfigCacheDrivePtrOutput {
+	return o.ApplyT(func(v *MachineConfig) *FlyMachineConfigCacheDrive {
 		if v == nil {
 			return nil
 		}
 		return v.CacheDrive
-	}).(MachineFlyMachineConfigCacheDrivePtrOutput)
+	}).(FlyMachineConfigCacheDrivePtrOutput)
 }
 
 // An optional object that defines one or more named top-level checks. The key for each check is the check name.
@@ -16479,13 +16105,13 @@ func (o MachineConfigPtrOutput) DisableMachineAutostart() pulumi.BoolPtrOutput {
 }
 
 // DNS settings for the Machine
-func (o MachineConfigPtrOutput) Dns() MachineFlyMachineConfigDnsPtrOutput {
-	return o.ApplyT(func(v *MachineConfig) *MachineFlyMachineConfigDns {
+func (o MachineConfigPtrOutput) Dns() FlyMachineConfigDnsPtrOutput {
+	return o.ApplyT(func(v *MachineConfig) *FlyMachineConfigDns {
 		if v == nil {
 			return nil
 		}
 		return v.Dns
-	}).(MachineFlyMachineConfigDnsPtrOutput)
+	}).(FlyMachineConfigDnsPtrOutput)
 }
 
 // An object filled with key/value pairs to be set as environment variables
@@ -16509,13 +16135,13 @@ func (o MachineConfigPtrOutput) Files() FlyFileArrayOutput {
 }
 
 // The resources (CPUs, memory, etc.) allocated to the Machine
-func (o MachineConfigPtrOutput) Guest() MachineFlyMachineConfigGuestPtrOutput {
-	return o.ApplyT(func(v *MachineConfig) *MachineFlyMachineConfigGuest {
+func (o MachineConfigPtrOutput) Guest() FlyMachineConfigGuestPtrOutput {
+	return o.ApplyT(func(v *MachineConfig) *FlyMachineConfigGuest {
 		if v == nil {
 			return nil
 		}
 		return v.Guest
-	}).(MachineFlyMachineConfigGuestPtrOutput)
+	}).(FlyMachineConfigGuestPtrOutput)
 }
 
 // The docker image to run
@@ -16529,13 +16155,13 @@ func (o MachineConfigPtrOutput) Image() pulumi.StringPtrOutput {
 }
 
 // Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
-func (o MachineConfigPtrOutput) Init() MachineFlyMachineConfigInitPtrOutput {
-	return o.ApplyT(func(v *MachineConfig) *MachineFlyMachineConfigInit {
+func (o MachineConfigPtrOutput) Init() FlyMachineConfigInitPtrOutput {
+	return o.ApplyT(func(v *MachineConfig) *FlyMachineConfigInit {
 		if v == nil {
 			return nil
 		}
 		return v.Init
-	}).(MachineFlyMachineConfigInitPtrOutput)
+	}).(FlyMachineConfigInitPtrOutput)
 }
 
 // Key/value pairs of Machine metadata. Fly.io uses metadata internally for routing, process groups, and clusters
@@ -16549,13 +16175,13 @@ func (o MachineConfigPtrOutput) Metadata() pulumi.StringMapOutput {
 }
 
 // An optional metrics endpoint for Prometheus on Fly.io to scrape
-func (o MachineConfigPtrOutput) Metrics() MachineFlyMachineConfigMetricsPtrOutput {
-	return o.ApplyT(func(v *MachineConfig) *MachineFlyMachineConfigMetrics {
+func (o MachineConfigPtrOutput) Metrics() FlyMachineConfigMetricsPtrOutput {
+	return o.ApplyT(func(v *MachineConfig) *FlyMachineConfigMetrics {
 		if v == nil {
 			return nil
 		}
 		return v.Metrics
-	}).(MachineFlyMachineConfigMetricsPtrOutput)
+	}).(FlyMachineConfigMetricsPtrOutput)
 }
 
 // Persistent volumes to mount in the Machine. A Machine can mount at most one volume, which must be on
@@ -16582,24 +16208,24 @@ func (o MachineConfigPtrOutput) Processes() FlyMachineProcessArrayOutput {
 }
 
 // Whether and how the Machine is restarted after its main process exits
-func (o MachineConfigPtrOutput) Restart() MachineFlyMachineConfigRestartPtrOutput {
-	return o.ApplyT(func(v *MachineConfig) *MachineFlyMachineConfigRestart {
+func (o MachineConfigPtrOutput) Restart() FlyMachineConfigRestartPtrOutput {
+	return o.ApplyT(func(v *MachineConfig) *FlyMachineConfigRestart {
 		if v == nil {
 			return nil
 		}
 		return v.Restart
-	}).(MachineFlyMachineConfigRestartPtrOutput)
+	}).(FlyMachineConfigRestartPtrOutput)
 }
 
 // Beta: the size of the Machine's root filesystem and whether it persists. This field may be
 // removed in the future
-func (o MachineConfigPtrOutput) Rootfs() MachineFlyMachineConfigRootfsPtrOutput {
-	return o.ApplyT(func(v *MachineConfig) *MachineFlyMachineConfigRootfs {
+func (o MachineConfigPtrOutput) Rootfs() FlyMachineConfigRootfsPtrOutput {
+	return o.ApplyT(func(v *MachineConfig) *FlyMachineConfigRootfs {
 		if v == nil {
 			return nil
 		}
 		return v.Rootfs
-	}).(MachineFlyMachineConfigRootfsPtrOutput)
+	}).(FlyMachineConfigRootfsPtrOutput)
 }
 
 // Run the Machine at an interval: one of hourly, daily, weekly or monthly. The interval starts when
@@ -16634,13 +16260,13 @@ func (o MachineConfigPtrOutput) Size() pulumi.StringPtrOutput {
 }
 
 // Spot pricing settings for the Machine
-func (o MachineConfigPtrOutput) Spot() MachineFlyMachineConfigSpotPtrOutput {
-	return o.ApplyT(func(v *MachineConfig) *MachineFlyMachineConfigSpot {
+func (o MachineConfigPtrOutput) Spot() FlyMachineConfigSpotPtrOutput {
+	return o.ApplyT(func(v *MachineConfig) *FlyMachineConfigSpot {
 		if v == nil {
 			return nil
 		}
 		return v.Spot
-	}).(MachineFlyMachineConfigSpotPtrOutput)
+	}).(FlyMachineConfigSpotPtrOutput)
 }
 
 // Standbys enable a machine to be a standby for another. In the event of a hardware failure,
@@ -16668,13 +16294,13 @@ func (o MachineConfigPtrOutput) Statics() FlyStaticArrayOutput {
 }
 
 // How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
-func (o MachineConfigPtrOutput) StopConfig() MachineFlyMachineConfigStopConfigPtrOutput {
-	return o.ApplyT(func(v *MachineConfig) *MachineFlyMachineConfigStopConfig {
+func (o MachineConfigPtrOutput) StopConfig() FlyMachineConfigStopConfigPtrOutput {
+	return o.ApplyT(func(v *MachineConfig) *FlyMachineConfigStopConfig {
 		if v == nil {
 			return nil
 		}
 		return v.StopConfig
-	}).(MachineFlyMachineConfigStopConfigPtrOutput)
+	}).(FlyMachineConfigStopConfigPtrOutput)
 }
 
 // Query params for the API request.
@@ -17067,1843 +16693,6 @@ func (o MachineEventArrayOutput) Index(i pulumi.IntInput) MachineEventOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) MachineEvent {
 		return vs[0].([]MachineEvent)[vs[1].(int)]
 	}).(MachineEventOutput)
-}
-
-// Beta: a cache drive attached to the Machine. This field may be removed in the future
-type MachineFlyMachineConfigCacheDrive struct {
-	// Optional absolute guest mount path. When set, the device is formatted as ext4.
-	// Without a path, the device retains legacy raw block behavior. Contents survive
-	// same-host restarts and path changes, but are discarded on size or mode changes,
-	// relocation, recovery on another host, and cloning.
-	Path *string `pulumi:"path"`
-	// Fixed size of the Machine-owned cache drive in MiB. At most 51200.
-	// With a path, at least 16 MiB is required; without a path, 0 disables the device.
-	SizeMb *int `pulumi:"sizeMb"`
-}
-
-// MachineFlyMachineConfigCacheDriveInput is an input type that accepts MachineFlyMachineConfigCacheDriveArgs and MachineFlyMachineConfigCacheDriveOutput values.
-// You can construct a concrete instance of `MachineFlyMachineConfigCacheDriveInput` via:
-//
-//	MachineFlyMachineConfigCacheDriveArgs{...}
-type MachineFlyMachineConfigCacheDriveInput interface {
-	pulumi.Input
-
-	ToMachineFlyMachineConfigCacheDriveOutput() MachineFlyMachineConfigCacheDriveOutput
-	ToMachineFlyMachineConfigCacheDriveOutputWithContext(context.Context) MachineFlyMachineConfigCacheDriveOutput
-}
-
-// Beta: a cache drive attached to the Machine. This field may be removed in the future
-type MachineFlyMachineConfigCacheDriveArgs struct {
-	// Optional absolute guest mount path. When set, the device is formatted as ext4.
-	// Without a path, the device retains legacy raw block behavior. Contents survive
-	// same-host restarts and path changes, but are discarded on size or mode changes,
-	// relocation, recovery on another host, and cloning.
-	Path pulumi.StringPtrInput `pulumi:"path"`
-	// Fixed size of the Machine-owned cache drive in MiB. At most 51200.
-	// With a path, at least 16 MiB is required; without a path, 0 disables the device.
-	SizeMb pulumi.IntPtrInput `pulumi:"sizeMb"`
-}
-
-func (MachineFlyMachineConfigCacheDriveArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*MachineFlyMachineConfigCacheDrive)(nil)).Elem()
-}
-
-func (i MachineFlyMachineConfigCacheDriveArgs) ToMachineFlyMachineConfigCacheDriveOutput() MachineFlyMachineConfigCacheDriveOutput {
-	return i.ToMachineFlyMachineConfigCacheDriveOutputWithContext(context.Background())
-}
-
-func (i MachineFlyMachineConfigCacheDriveArgs) ToMachineFlyMachineConfigCacheDriveOutputWithContext(ctx context.Context) MachineFlyMachineConfigCacheDriveOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MachineFlyMachineConfigCacheDriveOutput)
-}
-
-func (i MachineFlyMachineConfigCacheDriveArgs) ToMachineFlyMachineConfigCacheDrivePtrOutput() MachineFlyMachineConfigCacheDrivePtrOutput {
-	return i.ToMachineFlyMachineConfigCacheDrivePtrOutputWithContext(context.Background())
-}
-
-func (i MachineFlyMachineConfigCacheDriveArgs) ToMachineFlyMachineConfigCacheDrivePtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigCacheDrivePtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MachineFlyMachineConfigCacheDriveOutput).ToMachineFlyMachineConfigCacheDrivePtrOutputWithContext(ctx)
-}
-
-// MachineFlyMachineConfigCacheDrivePtrInput is an input type that accepts MachineFlyMachineConfigCacheDriveArgs, MachineFlyMachineConfigCacheDrivePtr and MachineFlyMachineConfigCacheDrivePtrOutput values.
-// You can construct a concrete instance of `MachineFlyMachineConfigCacheDrivePtrInput` via:
-//
-//	        MachineFlyMachineConfigCacheDriveArgs{...}
-//
-//	or:
-//
-//	        nil
-type MachineFlyMachineConfigCacheDrivePtrInput interface {
-	pulumi.Input
-
-	ToMachineFlyMachineConfigCacheDrivePtrOutput() MachineFlyMachineConfigCacheDrivePtrOutput
-	ToMachineFlyMachineConfigCacheDrivePtrOutputWithContext(context.Context) MachineFlyMachineConfigCacheDrivePtrOutput
-}
-
-type machineFlyMachineConfigCacheDrivePtrType MachineFlyMachineConfigCacheDriveArgs
-
-func MachineFlyMachineConfigCacheDrivePtr(v *MachineFlyMachineConfigCacheDriveArgs) MachineFlyMachineConfigCacheDrivePtrInput {
-	return (*machineFlyMachineConfigCacheDrivePtrType)(v)
-}
-
-func (*machineFlyMachineConfigCacheDrivePtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**MachineFlyMachineConfigCacheDrive)(nil)).Elem()
-}
-
-func (i *machineFlyMachineConfigCacheDrivePtrType) ToMachineFlyMachineConfigCacheDrivePtrOutput() MachineFlyMachineConfigCacheDrivePtrOutput {
-	return i.ToMachineFlyMachineConfigCacheDrivePtrOutputWithContext(context.Background())
-}
-
-func (i *machineFlyMachineConfigCacheDrivePtrType) ToMachineFlyMachineConfigCacheDrivePtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigCacheDrivePtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MachineFlyMachineConfigCacheDrivePtrOutput)
-}
-
-// Beta: a cache drive attached to the Machine. This field may be removed in the future
-type MachineFlyMachineConfigCacheDriveOutput struct{ *pulumi.OutputState }
-
-func (MachineFlyMachineConfigCacheDriveOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*MachineFlyMachineConfigCacheDrive)(nil)).Elem()
-}
-
-func (o MachineFlyMachineConfigCacheDriveOutput) ToMachineFlyMachineConfigCacheDriveOutput() MachineFlyMachineConfigCacheDriveOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigCacheDriveOutput) ToMachineFlyMachineConfigCacheDriveOutputWithContext(ctx context.Context) MachineFlyMachineConfigCacheDriveOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigCacheDriveOutput) ToMachineFlyMachineConfigCacheDrivePtrOutput() MachineFlyMachineConfigCacheDrivePtrOutput {
-	return o.ToMachineFlyMachineConfigCacheDrivePtrOutputWithContext(context.Background())
-}
-
-func (o MachineFlyMachineConfigCacheDriveOutput) ToMachineFlyMachineConfigCacheDrivePtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigCacheDrivePtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v MachineFlyMachineConfigCacheDrive) *MachineFlyMachineConfigCacheDrive {
-		return &v
-	}).(MachineFlyMachineConfigCacheDrivePtrOutput)
-}
-
-// Optional absolute guest mount path. When set, the device is formatted as ext4.
-// Without a path, the device retains legacy raw block behavior. Contents survive
-// same-host restarts and path changes, but are discarded on size or mode changes,
-// relocation, recovery on another host, and cloning.
-func (o MachineFlyMachineConfigCacheDriveOutput) Path() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v MachineFlyMachineConfigCacheDrive) *string { return v.Path }).(pulumi.StringPtrOutput)
-}
-
-// Fixed size of the Machine-owned cache drive in MiB. At most 51200.
-// With a path, at least 16 MiB is required; without a path, 0 disables the device.
-func (o MachineFlyMachineConfigCacheDriveOutput) SizeMb() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v MachineFlyMachineConfigCacheDrive) *int { return v.SizeMb }).(pulumi.IntPtrOutput)
-}
-
-type MachineFlyMachineConfigCacheDrivePtrOutput struct{ *pulumi.OutputState }
-
-func (MachineFlyMachineConfigCacheDrivePtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**MachineFlyMachineConfigCacheDrive)(nil)).Elem()
-}
-
-func (o MachineFlyMachineConfigCacheDrivePtrOutput) ToMachineFlyMachineConfigCacheDrivePtrOutput() MachineFlyMachineConfigCacheDrivePtrOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigCacheDrivePtrOutput) ToMachineFlyMachineConfigCacheDrivePtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigCacheDrivePtrOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigCacheDrivePtrOutput) Elem() MachineFlyMachineConfigCacheDriveOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigCacheDrive) MachineFlyMachineConfigCacheDrive {
-		if v != nil {
-			return *v
-		}
-		var ret MachineFlyMachineConfigCacheDrive
-		return ret
-	}).(MachineFlyMachineConfigCacheDriveOutput)
-}
-
-// Optional absolute guest mount path. When set, the device is formatted as ext4.
-// Without a path, the device retains legacy raw block behavior. Contents survive
-// same-host restarts and path changes, but are discarded on size or mode changes,
-// relocation, recovery on another host, and cloning.
-func (o MachineFlyMachineConfigCacheDrivePtrOutput) Path() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigCacheDrive) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Path
-	}).(pulumi.StringPtrOutput)
-}
-
-// Fixed size of the Machine-owned cache drive in MiB. At most 51200.
-// With a path, at least 16 MiB is required; without a path, 0 disables the device.
-func (o MachineFlyMachineConfigCacheDrivePtrOutput) SizeMb() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigCacheDrive) *int {
-		if v == nil {
-			return nil
-		}
-		return v.SizeMb
-	}).(pulumi.IntPtrOutput)
-}
-
-// DNS settings for the Machine
-type MachineFlyMachineConfigDns struct {
-	// Forward DNS queries for some domains to other DNS servers
-	DnsForwardRules []FlyDnsForwardRule `pulumi:"dnsForwardRules"`
-	// Hostname of the Machine. Defaults to the Machine ID. Also added to /etc/hosts with the
-	// Machine's 6PN address
-	Hostname *string `pulumi:"hostname"`
-	// Fully qualified domain name added to /etc/hosts for `hostname`
-	HostnameFqdn *string `pulumi:"hostnameFqdn"`
-	// Nameservers to use instead of the default, Fly.io's private DNS server `fdaa::3`
-	Nameservers []string `pulumi:"nameservers"`
-	// Options for /etc/resolv.conf
-	Options []FlyDnsOption `pulumi:"options"`
-	// Search domains for /etc/resolv.conf
-	Searches []string `pulumi:"searches"`
-	// Currently has no effect
-	SkipRegistration *bool `pulumi:"skipRegistration"`
-}
-
-// MachineFlyMachineConfigDnsInput is an input type that accepts MachineFlyMachineConfigDnsArgs and MachineFlyMachineConfigDnsOutput values.
-// You can construct a concrete instance of `MachineFlyMachineConfigDnsInput` via:
-//
-//	MachineFlyMachineConfigDnsArgs{...}
-type MachineFlyMachineConfigDnsInput interface {
-	pulumi.Input
-
-	ToMachineFlyMachineConfigDnsOutput() MachineFlyMachineConfigDnsOutput
-	ToMachineFlyMachineConfigDnsOutputWithContext(context.Context) MachineFlyMachineConfigDnsOutput
-}
-
-// DNS settings for the Machine
-type MachineFlyMachineConfigDnsArgs struct {
-	// Forward DNS queries for some domains to other DNS servers
-	DnsForwardRules FlyDnsForwardRuleArrayInput `pulumi:"dnsForwardRules"`
-	// Hostname of the Machine. Defaults to the Machine ID. Also added to /etc/hosts with the
-	// Machine's 6PN address
-	Hostname pulumi.StringPtrInput `pulumi:"hostname"`
-	// Fully qualified domain name added to /etc/hosts for `hostname`
-	HostnameFqdn pulumi.StringPtrInput `pulumi:"hostnameFqdn"`
-	// Nameservers to use instead of the default, Fly.io's private DNS server `fdaa::3`
-	Nameservers pulumi.StringArrayInput `pulumi:"nameservers"`
-	// Options for /etc/resolv.conf
-	Options FlyDnsOptionArrayInput `pulumi:"options"`
-	// Search domains for /etc/resolv.conf
-	Searches pulumi.StringArrayInput `pulumi:"searches"`
-	// Currently has no effect
-	SkipRegistration pulumi.BoolPtrInput `pulumi:"skipRegistration"`
-}
-
-func (MachineFlyMachineConfigDnsArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*MachineFlyMachineConfigDns)(nil)).Elem()
-}
-
-func (i MachineFlyMachineConfigDnsArgs) ToMachineFlyMachineConfigDnsOutput() MachineFlyMachineConfigDnsOutput {
-	return i.ToMachineFlyMachineConfigDnsOutputWithContext(context.Background())
-}
-
-func (i MachineFlyMachineConfigDnsArgs) ToMachineFlyMachineConfigDnsOutputWithContext(ctx context.Context) MachineFlyMachineConfigDnsOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MachineFlyMachineConfigDnsOutput)
-}
-
-func (i MachineFlyMachineConfigDnsArgs) ToMachineFlyMachineConfigDnsPtrOutput() MachineFlyMachineConfigDnsPtrOutput {
-	return i.ToMachineFlyMachineConfigDnsPtrOutputWithContext(context.Background())
-}
-
-func (i MachineFlyMachineConfigDnsArgs) ToMachineFlyMachineConfigDnsPtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigDnsPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MachineFlyMachineConfigDnsOutput).ToMachineFlyMachineConfigDnsPtrOutputWithContext(ctx)
-}
-
-// MachineFlyMachineConfigDnsPtrInput is an input type that accepts MachineFlyMachineConfigDnsArgs, MachineFlyMachineConfigDnsPtr and MachineFlyMachineConfigDnsPtrOutput values.
-// You can construct a concrete instance of `MachineFlyMachineConfigDnsPtrInput` via:
-//
-//	        MachineFlyMachineConfigDnsArgs{...}
-//
-//	or:
-//
-//	        nil
-type MachineFlyMachineConfigDnsPtrInput interface {
-	pulumi.Input
-
-	ToMachineFlyMachineConfigDnsPtrOutput() MachineFlyMachineConfigDnsPtrOutput
-	ToMachineFlyMachineConfigDnsPtrOutputWithContext(context.Context) MachineFlyMachineConfigDnsPtrOutput
-}
-
-type machineFlyMachineConfigDnsPtrType MachineFlyMachineConfigDnsArgs
-
-func MachineFlyMachineConfigDnsPtr(v *MachineFlyMachineConfigDnsArgs) MachineFlyMachineConfigDnsPtrInput {
-	return (*machineFlyMachineConfigDnsPtrType)(v)
-}
-
-func (*machineFlyMachineConfigDnsPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**MachineFlyMachineConfigDns)(nil)).Elem()
-}
-
-func (i *machineFlyMachineConfigDnsPtrType) ToMachineFlyMachineConfigDnsPtrOutput() MachineFlyMachineConfigDnsPtrOutput {
-	return i.ToMachineFlyMachineConfigDnsPtrOutputWithContext(context.Background())
-}
-
-func (i *machineFlyMachineConfigDnsPtrType) ToMachineFlyMachineConfigDnsPtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigDnsPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MachineFlyMachineConfigDnsPtrOutput)
-}
-
-// DNS settings for the Machine
-type MachineFlyMachineConfigDnsOutput struct{ *pulumi.OutputState }
-
-func (MachineFlyMachineConfigDnsOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*MachineFlyMachineConfigDns)(nil)).Elem()
-}
-
-func (o MachineFlyMachineConfigDnsOutput) ToMachineFlyMachineConfigDnsOutput() MachineFlyMachineConfigDnsOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigDnsOutput) ToMachineFlyMachineConfigDnsOutputWithContext(ctx context.Context) MachineFlyMachineConfigDnsOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigDnsOutput) ToMachineFlyMachineConfigDnsPtrOutput() MachineFlyMachineConfigDnsPtrOutput {
-	return o.ToMachineFlyMachineConfigDnsPtrOutputWithContext(context.Background())
-}
-
-func (o MachineFlyMachineConfigDnsOutput) ToMachineFlyMachineConfigDnsPtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigDnsPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v MachineFlyMachineConfigDns) *MachineFlyMachineConfigDns {
-		return &v
-	}).(MachineFlyMachineConfigDnsPtrOutput)
-}
-
-// Forward DNS queries for some domains to other DNS servers
-func (o MachineFlyMachineConfigDnsOutput) DnsForwardRules() FlyDnsForwardRuleArrayOutput {
-	return o.ApplyT(func(v MachineFlyMachineConfigDns) []FlyDnsForwardRule { return v.DnsForwardRules }).(FlyDnsForwardRuleArrayOutput)
-}
-
-// Hostname of the Machine. Defaults to the Machine ID. Also added to /etc/hosts with the
-// Machine's 6PN address
-func (o MachineFlyMachineConfigDnsOutput) Hostname() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v MachineFlyMachineConfigDns) *string { return v.Hostname }).(pulumi.StringPtrOutput)
-}
-
-// Fully qualified domain name added to /etc/hosts for `hostname`
-func (o MachineFlyMachineConfigDnsOutput) HostnameFqdn() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v MachineFlyMachineConfigDns) *string { return v.HostnameFqdn }).(pulumi.StringPtrOutput)
-}
-
-// Nameservers to use instead of the default, Fly.io's private DNS server `fdaa::3`
-func (o MachineFlyMachineConfigDnsOutput) Nameservers() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v MachineFlyMachineConfigDns) []string { return v.Nameservers }).(pulumi.StringArrayOutput)
-}
-
-// Options for /etc/resolv.conf
-func (o MachineFlyMachineConfigDnsOutput) Options() FlyDnsOptionArrayOutput {
-	return o.ApplyT(func(v MachineFlyMachineConfigDns) []FlyDnsOption { return v.Options }).(FlyDnsOptionArrayOutput)
-}
-
-// Search domains for /etc/resolv.conf
-func (o MachineFlyMachineConfigDnsOutput) Searches() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v MachineFlyMachineConfigDns) []string { return v.Searches }).(pulumi.StringArrayOutput)
-}
-
-// Currently has no effect
-func (o MachineFlyMachineConfigDnsOutput) SkipRegistration() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v MachineFlyMachineConfigDns) *bool { return v.SkipRegistration }).(pulumi.BoolPtrOutput)
-}
-
-type MachineFlyMachineConfigDnsPtrOutput struct{ *pulumi.OutputState }
-
-func (MachineFlyMachineConfigDnsPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**MachineFlyMachineConfigDns)(nil)).Elem()
-}
-
-func (o MachineFlyMachineConfigDnsPtrOutput) ToMachineFlyMachineConfigDnsPtrOutput() MachineFlyMachineConfigDnsPtrOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigDnsPtrOutput) ToMachineFlyMachineConfigDnsPtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigDnsPtrOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigDnsPtrOutput) Elem() MachineFlyMachineConfigDnsOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigDns) MachineFlyMachineConfigDns {
-		if v != nil {
-			return *v
-		}
-		var ret MachineFlyMachineConfigDns
-		return ret
-	}).(MachineFlyMachineConfigDnsOutput)
-}
-
-// Forward DNS queries for some domains to other DNS servers
-func (o MachineFlyMachineConfigDnsPtrOutput) DnsForwardRules() FlyDnsForwardRuleArrayOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigDns) []FlyDnsForwardRule {
-		if v == nil {
-			return nil
-		}
-		return v.DnsForwardRules
-	}).(FlyDnsForwardRuleArrayOutput)
-}
-
-// Hostname of the Machine. Defaults to the Machine ID. Also added to /etc/hosts with the
-// Machine's 6PN address
-func (o MachineFlyMachineConfigDnsPtrOutput) Hostname() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigDns) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Hostname
-	}).(pulumi.StringPtrOutput)
-}
-
-// Fully qualified domain name added to /etc/hosts for `hostname`
-func (o MachineFlyMachineConfigDnsPtrOutput) HostnameFqdn() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigDns) *string {
-		if v == nil {
-			return nil
-		}
-		return v.HostnameFqdn
-	}).(pulumi.StringPtrOutput)
-}
-
-// Nameservers to use instead of the default, Fly.io's private DNS server `fdaa::3`
-func (o MachineFlyMachineConfigDnsPtrOutput) Nameservers() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigDns) []string {
-		if v == nil {
-			return nil
-		}
-		return v.Nameservers
-	}).(pulumi.StringArrayOutput)
-}
-
-// Options for /etc/resolv.conf
-func (o MachineFlyMachineConfigDnsPtrOutput) Options() FlyDnsOptionArrayOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigDns) []FlyDnsOption {
-		if v == nil {
-			return nil
-		}
-		return v.Options
-	}).(FlyDnsOptionArrayOutput)
-}
-
-// Search domains for /etc/resolv.conf
-func (o MachineFlyMachineConfigDnsPtrOutput) Searches() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigDns) []string {
-		if v == nil {
-			return nil
-		}
-		return v.Searches
-	}).(pulumi.StringArrayOutput)
-}
-
-// Currently has no effect
-func (o MachineFlyMachineConfigDnsPtrOutput) SkipRegistration() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigDns) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.SkipRegistration
-	}).(pulumi.BoolPtrOutput)
-}
-
-// The resources (CPUs, memory, etc.) allocated to the Machine
-type MachineFlyMachineConfigGuest struct {
-	// Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
-	// Defaults to shared when `guest` is omitted
-	CpuKind *string `pulumi:"cpuKind"`
-	// Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
-	// performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
-	// omitted
-	Cpus *int `pulumi:"cpus"`
-	// No longer supported. Requests that set it are rejected
-	GpuKind *string `pulumi:"gpuKind"`
-	// No longer supported. Requests that set it are rejected
-	Gpus *int `pulumi:"gpus"`
-	// Place the Machine on hosts dedicated to the organization under this ID. Only available to
-	// organizations with dedicated hosts
-	HostDedicationId *string `pulumi:"hostDedicationId"`
-	// Extra arguments appended to the guest kernel command line
-	KernelArgs []string `pulumi:"kernelArgs"`
-	// Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
-	// the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
-	// starts with a limit of memory_mb
-	MaxMemoryMb *int `pulumi:"maxMemoryMb"`
-	// Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
-	// between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
-	// `guest` is omitted
-	MemoryMb *int `pulumi:"memoryMb"`
-	// Deprecated: use MachineConfig.Rootfs instead
-	PersistRootfs *FlyMachineGuestPersistRootfs `pulumi:"persistRootfs"`
-	// Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
-	// of lowercase letters, digits and dashes. Each feature must be enabled for the organization
-	RequiredHostFeatures []string `pulumi:"requiredHostFeatures"`
-}
-
-// MachineFlyMachineConfigGuestInput is an input type that accepts MachineFlyMachineConfigGuestArgs and MachineFlyMachineConfigGuestOutput values.
-// You can construct a concrete instance of `MachineFlyMachineConfigGuestInput` via:
-//
-//	MachineFlyMachineConfigGuestArgs{...}
-type MachineFlyMachineConfigGuestInput interface {
-	pulumi.Input
-
-	ToMachineFlyMachineConfigGuestOutput() MachineFlyMachineConfigGuestOutput
-	ToMachineFlyMachineConfigGuestOutputWithContext(context.Context) MachineFlyMachineConfigGuestOutput
-}
-
-// The resources (CPUs, memory, etc.) allocated to the Machine
-type MachineFlyMachineConfigGuestArgs struct {
-	// Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
-	// Defaults to shared when `guest` is omitted
-	CpuKind pulumi.StringPtrInput `pulumi:"cpuKind"`
-	// Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
-	// performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
-	// omitted
-	Cpus pulumi.IntPtrInput `pulumi:"cpus"`
-	// No longer supported. Requests that set it are rejected
-	GpuKind pulumi.StringPtrInput `pulumi:"gpuKind"`
-	// No longer supported. Requests that set it are rejected
-	Gpus pulumi.IntPtrInput `pulumi:"gpus"`
-	// Place the Machine on hosts dedicated to the organization under this ID. Only available to
-	// organizations with dedicated hosts
-	HostDedicationId pulumi.StringPtrInput `pulumi:"hostDedicationId"`
-	// Extra arguments appended to the guest kernel command line
-	KernelArgs pulumi.StringArrayInput `pulumi:"kernelArgs"`
-	// Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
-	// the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
-	// starts with a limit of memory_mb
-	MaxMemoryMb pulumi.IntPtrInput `pulumi:"maxMemoryMb"`
-	// Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
-	// between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
-	// `guest` is omitted
-	MemoryMb pulumi.IntPtrInput `pulumi:"memoryMb"`
-	// Deprecated: use MachineConfig.Rootfs instead
-	PersistRootfs FlyMachineGuestPersistRootfsPtrInput `pulumi:"persistRootfs"`
-	// Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
-	// of lowercase letters, digits and dashes. Each feature must be enabled for the organization
-	RequiredHostFeatures pulumi.StringArrayInput `pulumi:"requiredHostFeatures"`
-}
-
-func (MachineFlyMachineConfigGuestArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*MachineFlyMachineConfigGuest)(nil)).Elem()
-}
-
-func (i MachineFlyMachineConfigGuestArgs) ToMachineFlyMachineConfigGuestOutput() MachineFlyMachineConfigGuestOutput {
-	return i.ToMachineFlyMachineConfigGuestOutputWithContext(context.Background())
-}
-
-func (i MachineFlyMachineConfigGuestArgs) ToMachineFlyMachineConfigGuestOutputWithContext(ctx context.Context) MachineFlyMachineConfigGuestOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MachineFlyMachineConfigGuestOutput)
-}
-
-func (i MachineFlyMachineConfigGuestArgs) ToMachineFlyMachineConfigGuestPtrOutput() MachineFlyMachineConfigGuestPtrOutput {
-	return i.ToMachineFlyMachineConfigGuestPtrOutputWithContext(context.Background())
-}
-
-func (i MachineFlyMachineConfigGuestArgs) ToMachineFlyMachineConfigGuestPtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigGuestPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MachineFlyMachineConfigGuestOutput).ToMachineFlyMachineConfigGuestPtrOutputWithContext(ctx)
-}
-
-// MachineFlyMachineConfigGuestPtrInput is an input type that accepts MachineFlyMachineConfigGuestArgs, MachineFlyMachineConfigGuestPtr and MachineFlyMachineConfigGuestPtrOutput values.
-// You can construct a concrete instance of `MachineFlyMachineConfigGuestPtrInput` via:
-//
-//	        MachineFlyMachineConfigGuestArgs{...}
-//
-//	or:
-//
-//	        nil
-type MachineFlyMachineConfigGuestPtrInput interface {
-	pulumi.Input
-
-	ToMachineFlyMachineConfigGuestPtrOutput() MachineFlyMachineConfigGuestPtrOutput
-	ToMachineFlyMachineConfigGuestPtrOutputWithContext(context.Context) MachineFlyMachineConfigGuestPtrOutput
-}
-
-type machineFlyMachineConfigGuestPtrType MachineFlyMachineConfigGuestArgs
-
-func MachineFlyMachineConfigGuestPtr(v *MachineFlyMachineConfigGuestArgs) MachineFlyMachineConfigGuestPtrInput {
-	return (*machineFlyMachineConfigGuestPtrType)(v)
-}
-
-func (*machineFlyMachineConfigGuestPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**MachineFlyMachineConfigGuest)(nil)).Elem()
-}
-
-func (i *machineFlyMachineConfigGuestPtrType) ToMachineFlyMachineConfigGuestPtrOutput() MachineFlyMachineConfigGuestPtrOutput {
-	return i.ToMachineFlyMachineConfigGuestPtrOutputWithContext(context.Background())
-}
-
-func (i *machineFlyMachineConfigGuestPtrType) ToMachineFlyMachineConfigGuestPtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigGuestPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MachineFlyMachineConfigGuestPtrOutput)
-}
-
-// The resources (CPUs, memory, etc.) allocated to the Machine
-type MachineFlyMachineConfigGuestOutput struct{ *pulumi.OutputState }
-
-func (MachineFlyMachineConfigGuestOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*MachineFlyMachineConfigGuest)(nil)).Elem()
-}
-
-func (o MachineFlyMachineConfigGuestOutput) ToMachineFlyMachineConfigGuestOutput() MachineFlyMachineConfigGuestOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigGuestOutput) ToMachineFlyMachineConfigGuestOutputWithContext(ctx context.Context) MachineFlyMachineConfigGuestOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigGuestOutput) ToMachineFlyMachineConfigGuestPtrOutput() MachineFlyMachineConfigGuestPtrOutput {
-	return o.ToMachineFlyMachineConfigGuestPtrOutputWithContext(context.Background())
-}
-
-func (o MachineFlyMachineConfigGuestOutput) ToMachineFlyMachineConfigGuestPtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigGuestPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v MachineFlyMachineConfigGuest) *MachineFlyMachineConfigGuest {
-		return &v
-	}).(MachineFlyMachineConfigGuestPtrOutput)
-}
-
-// Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
-// Defaults to shared when `guest` is omitted
-func (o MachineFlyMachineConfigGuestOutput) CpuKind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v MachineFlyMachineConfigGuest) *string { return v.CpuKind }).(pulumi.StringPtrOutput)
-}
-
-// Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
-// performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
-// omitted
-func (o MachineFlyMachineConfigGuestOutput) Cpus() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v MachineFlyMachineConfigGuest) *int { return v.Cpus }).(pulumi.IntPtrOutput)
-}
-
-// No longer supported. Requests that set it are rejected
-func (o MachineFlyMachineConfigGuestOutput) GpuKind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v MachineFlyMachineConfigGuest) *string { return v.GpuKind }).(pulumi.StringPtrOutput)
-}
-
-// No longer supported. Requests that set it are rejected
-func (o MachineFlyMachineConfigGuestOutput) Gpus() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v MachineFlyMachineConfigGuest) *int { return v.Gpus }).(pulumi.IntPtrOutput)
-}
-
-// Place the Machine on hosts dedicated to the organization under this ID. Only available to
-// organizations with dedicated hosts
-func (o MachineFlyMachineConfigGuestOutput) HostDedicationId() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v MachineFlyMachineConfigGuest) *string { return v.HostDedicationId }).(pulumi.StringPtrOutput)
-}
-
-// Extra arguments appended to the guest kernel command line
-func (o MachineFlyMachineConfigGuestOutput) KernelArgs() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v MachineFlyMachineConfigGuest) []string { return v.KernelArgs }).(pulumi.StringArrayOutput)
-}
-
-// Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
-// the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
-// starts with a limit of memory_mb
-func (o MachineFlyMachineConfigGuestOutput) MaxMemoryMb() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v MachineFlyMachineConfigGuest) *int { return v.MaxMemoryMb }).(pulumi.IntPtrOutput)
-}
-
-// Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
-// between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
-// `guest` is omitted
-func (o MachineFlyMachineConfigGuestOutput) MemoryMb() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v MachineFlyMachineConfigGuest) *int { return v.MemoryMb }).(pulumi.IntPtrOutput)
-}
-
-// Deprecated: use MachineConfig.Rootfs instead
-func (o MachineFlyMachineConfigGuestOutput) PersistRootfs() FlyMachineGuestPersistRootfsPtrOutput {
-	return o.ApplyT(func(v MachineFlyMachineConfigGuest) *FlyMachineGuestPersistRootfs { return v.PersistRootfs }).(FlyMachineGuestPersistRootfsPtrOutput)
-}
-
-// Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
-// of lowercase letters, digits and dashes. Each feature must be enabled for the organization
-func (o MachineFlyMachineConfigGuestOutput) RequiredHostFeatures() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v MachineFlyMachineConfigGuest) []string { return v.RequiredHostFeatures }).(pulumi.StringArrayOutput)
-}
-
-type MachineFlyMachineConfigGuestPtrOutput struct{ *pulumi.OutputState }
-
-func (MachineFlyMachineConfigGuestPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**MachineFlyMachineConfigGuest)(nil)).Elem()
-}
-
-func (o MachineFlyMachineConfigGuestPtrOutput) ToMachineFlyMachineConfigGuestPtrOutput() MachineFlyMachineConfigGuestPtrOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigGuestPtrOutput) ToMachineFlyMachineConfigGuestPtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigGuestPtrOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigGuestPtrOutput) Elem() MachineFlyMachineConfigGuestOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigGuest) MachineFlyMachineConfigGuest {
-		if v != nil {
-			return *v
-		}
-		var ret MachineFlyMachineConfigGuest
-		return ret
-	}).(MachineFlyMachineConfigGuestOutput)
-}
-
-// Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
-// Defaults to shared when `guest` is omitted
-func (o MachineFlyMachineConfigGuestPtrOutput) CpuKind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigGuest) *string {
-		if v == nil {
-			return nil
-		}
-		return v.CpuKind
-	}).(pulumi.StringPtrOutput)
-}
-
-// Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
-// performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
-// omitted
-func (o MachineFlyMachineConfigGuestPtrOutput) Cpus() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigGuest) *int {
-		if v == nil {
-			return nil
-		}
-		return v.Cpus
-	}).(pulumi.IntPtrOutput)
-}
-
-// No longer supported. Requests that set it are rejected
-func (o MachineFlyMachineConfigGuestPtrOutput) GpuKind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigGuest) *string {
-		if v == nil {
-			return nil
-		}
-		return v.GpuKind
-	}).(pulumi.StringPtrOutput)
-}
-
-// No longer supported. Requests that set it are rejected
-func (o MachineFlyMachineConfigGuestPtrOutput) Gpus() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigGuest) *int {
-		if v == nil {
-			return nil
-		}
-		return v.Gpus
-	}).(pulumi.IntPtrOutput)
-}
-
-// Place the Machine on hosts dedicated to the organization under this ID. Only available to
-// organizations with dedicated hosts
-func (o MachineFlyMachineConfigGuestPtrOutput) HostDedicationId() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigGuest) *string {
-		if v == nil {
-			return nil
-		}
-		return v.HostDedicationId
-	}).(pulumi.StringPtrOutput)
-}
-
-// Extra arguments appended to the guest kernel command line
-func (o MachineFlyMachineConfigGuestPtrOutput) KernelArgs() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigGuest) []string {
-		if v == nil {
-			return nil
-		}
-		return v.KernelArgs
-	}).(pulumi.StringArrayOutput)
-}
-
-// Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
-// the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
-// starts with a limit of memory_mb
-func (o MachineFlyMachineConfigGuestPtrOutput) MaxMemoryMb() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigGuest) *int {
-		if v == nil {
-			return nil
-		}
-		return v.MaxMemoryMb
-	}).(pulumi.IntPtrOutput)
-}
-
-// Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
-// between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
-// `guest` is omitted
-func (o MachineFlyMachineConfigGuestPtrOutput) MemoryMb() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigGuest) *int {
-		if v == nil {
-			return nil
-		}
-		return v.MemoryMb
-	}).(pulumi.IntPtrOutput)
-}
-
-// Deprecated: use MachineConfig.Rootfs instead
-func (o MachineFlyMachineConfigGuestPtrOutput) PersistRootfs() FlyMachineGuestPersistRootfsPtrOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigGuest) *FlyMachineGuestPersistRootfs {
-		if v == nil {
-			return nil
-		}
-		return v.PersistRootfs
-	}).(FlyMachineGuestPersistRootfsPtrOutput)
-}
-
-// Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
-// of lowercase letters, digits and dashes. Each feature must be enabled for the organization
-func (o MachineFlyMachineConfigGuestPtrOutput) RequiredHostFeatures() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigGuest) []string {
-		if v == nil {
-			return nil
-		}
-		return v.RequiredHostFeatures
-	}).(pulumi.StringArrayOutput)
-}
-
-// Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
-type MachineFlyMachineConfigInit struct {
-	// Replaces the image's CMD. It's appended to the entrypoint
-	Cmd []string `pulumi:"cmd"`
-	// Replaces the image's ENTRYPOINT
-	Entrypoint []string `pulumi:"entrypoint"`
-	// Command to run instead of the image's ENTRYPOINT and CMD. Takes precedence over entrypoint
-	// and cmd
-	Exec []string `pulumi:"exec"`
-	// Currently has no effect. Use `guest.kernel_args` instead
-	KernelArgs []string `pulumi:"kernelArgs"`
-	// Size in MiB of a swap device to give the Machine. Machines with swap cannot be suspended
-	SwapSizeMb *int `pulumi:"swapSizeMb"`
-	// Currently has no effect
-	Tty *bool `pulumi:"tty"`
-}
-
-// MachineFlyMachineConfigInitInput is an input type that accepts MachineFlyMachineConfigInitArgs and MachineFlyMachineConfigInitOutput values.
-// You can construct a concrete instance of `MachineFlyMachineConfigInitInput` via:
-//
-//	MachineFlyMachineConfigInitArgs{...}
-type MachineFlyMachineConfigInitInput interface {
-	pulumi.Input
-
-	ToMachineFlyMachineConfigInitOutput() MachineFlyMachineConfigInitOutput
-	ToMachineFlyMachineConfigInitOutputWithContext(context.Context) MachineFlyMachineConfigInitOutput
-}
-
-// Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
-type MachineFlyMachineConfigInitArgs struct {
-	// Replaces the image's CMD. It's appended to the entrypoint
-	Cmd pulumi.StringArrayInput `pulumi:"cmd"`
-	// Replaces the image's ENTRYPOINT
-	Entrypoint pulumi.StringArrayInput `pulumi:"entrypoint"`
-	// Command to run instead of the image's ENTRYPOINT and CMD. Takes precedence over entrypoint
-	// and cmd
-	Exec pulumi.StringArrayInput `pulumi:"exec"`
-	// Currently has no effect. Use `guest.kernel_args` instead
-	KernelArgs pulumi.StringArrayInput `pulumi:"kernelArgs"`
-	// Size in MiB of a swap device to give the Machine. Machines with swap cannot be suspended
-	SwapSizeMb pulumi.IntPtrInput `pulumi:"swapSizeMb"`
-	// Currently has no effect
-	Tty pulumi.BoolPtrInput `pulumi:"tty"`
-}
-
-func (MachineFlyMachineConfigInitArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*MachineFlyMachineConfigInit)(nil)).Elem()
-}
-
-func (i MachineFlyMachineConfigInitArgs) ToMachineFlyMachineConfigInitOutput() MachineFlyMachineConfigInitOutput {
-	return i.ToMachineFlyMachineConfigInitOutputWithContext(context.Background())
-}
-
-func (i MachineFlyMachineConfigInitArgs) ToMachineFlyMachineConfigInitOutputWithContext(ctx context.Context) MachineFlyMachineConfigInitOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MachineFlyMachineConfigInitOutput)
-}
-
-func (i MachineFlyMachineConfigInitArgs) ToMachineFlyMachineConfigInitPtrOutput() MachineFlyMachineConfigInitPtrOutput {
-	return i.ToMachineFlyMachineConfigInitPtrOutputWithContext(context.Background())
-}
-
-func (i MachineFlyMachineConfigInitArgs) ToMachineFlyMachineConfigInitPtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigInitPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MachineFlyMachineConfigInitOutput).ToMachineFlyMachineConfigInitPtrOutputWithContext(ctx)
-}
-
-// MachineFlyMachineConfigInitPtrInput is an input type that accepts MachineFlyMachineConfigInitArgs, MachineFlyMachineConfigInitPtr and MachineFlyMachineConfigInitPtrOutput values.
-// You can construct a concrete instance of `MachineFlyMachineConfigInitPtrInput` via:
-//
-//	        MachineFlyMachineConfigInitArgs{...}
-//
-//	or:
-//
-//	        nil
-type MachineFlyMachineConfigInitPtrInput interface {
-	pulumi.Input
-
-	ToMachineFlyMachineConfigInitPtrOutput() MachineFlyMachineConfigInitPtrOutput
-	ToMachineFlyMachineConfigInitPtrOutputWithContext(context.Context) MachineFlyMachineConfigInitPtrOutput
-}
-
-type machineFlyMachineConfigInitPtrType MachineFlyMachineConfigInitArgs
-
-func MachineFlyMachineConfigInitPtr(v *MachineFlyMachineConfigInitArgs) MachineFlyMachineConfigInitPtrInput {
-	return (*machineFlyMachineConfigInitPtrType)(v)
-}
-
-func (*machineFlyMachineConfigInitPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**MachineFlyMachineConfigInit)(nil)).Elem()
-}
-
-func (i *machineFlyMachineConfigInitPtrType) ToMachineFlyMachineConfigInitPtrOutput() MachineFlyMachineConfigInitPtrOutput {
-	return i.ToMachineFlyMachineConfigInitPtrOutputWithContext(context.Background())
-}
-
-func (i *machineFlyMachineConfigInitPtrType) ToMachineFlyMachineConfigInitPtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigInitPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MachineFlyMachineConfigInitPtrOutput)
-}
-
-// Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
-type MachineFlyMachineConfigInitOutput struct{ *pulumi.OutputState }
-
-func (MachineFlyMachineConfigInitOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*MachineFlyMachineConfigInit)(nil)).Elem()
-}
-
-func (o MachineFlyMachineConfigInitOutput) ToMachineFlyMachineConfigInitOutput() MachineFlyMachineConfigInitOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigInitOutput) ToMachineFlyMachineConfigInitOutputWithContext(ctx context.Context) MachineFlyMachineConfigInitOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigInitOutput) ToMachineFlyMachineConfigInitPtrOutput() MachineFlyMachineConfigInitPtrOutput {
-	return o.ToMachineFlyMachineConfigInitPtrOutputWithContext(context.Background())
-}
-
-func (o MachineFlyMachineConfigInitOutput) ToMachineFlyMachineConfigInitPtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigInitPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v MachineFlyMachineConfigInit) *MachineFlyMachineConfigInit {
-		return &v
-	}).(MachineFlyMachineConfigInitPtrOutput)
-}
-
-// Replaces the image's CMD. It's appended to the entrypoint
-func (o MachineFlyMachineConfigInitOutput) Cmd() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v MachineFlyMachineConfigInit) []string { return v.Cmd }).(pulumi.StringArrayOutput)
-}
-
-// Replaces the image's ENTRYPOINT
-func (o MachineFlyMachineConfigInitOutput) Entrypoint() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v MachineFlyMachineConfigInit) []string { return v.Entrypoint }).(pulumi.StringArrayOutput)
-}
-
-// Command to run instead of the image's ENTRYPOINT and CMD. Takes precedence over entrypoint
-// and cmd
-func (o MachineFlyMachineConfigInitOutput) Exec() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v MachineFlyMachineConfigInit) []string { return v.Exec }).(pulumi.StringArrayOutput)
-}
-
-// Currently has no effect. Use `guest.kernel_args` instead
-func (o MachineFlyMachineConfigInitOutput) KernelArgs() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v MachineFlyMachineConfigInit) []string { return v.KernelArgs }).(pulumi.StringArrayOutput)
-}
-
-// Size in MiB of a swap device to give the Machine. Machines with swap cannot be suspended
-func (o MachineFlyMachineConfigInitOutput) SwapSizeMb() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v MachineFlyMachineConfigInit) *int { return v.SwapSizeMb }).(pulumi.IntPtrOutput)
-}
-
-// Currently has no effect
-func (o MachineFlyMachineConfigInitOutput) Tty() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v MachineFlyMachineConfigInit) *bool { return v.Tty }).(pulumi.BoolPtrOutput)
-}
-
-type MachineFlyMachineConfigInitPtrOutput struct{ *pulumi.OutputState }
-
-func (MachineFlyMachineConfigInitPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**MachineFlyMachineConfigInit)(nil)).Elem()
-}
-
-func (o MachineFlyMachineConfigInitPtrOutput) ToMachineFlyMachineConfigInitPtrOutput() MachineFlyMachineConfigInitPtrOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigInitPtrOutput) ToMachineFlyMachineConfigInitPtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigInitPtrOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigInitPtrOutput) Elem() MachineFlyMachineConfigInitOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigInit) MachineFlyMachineConfigInit {
-		if v != nil {
-			return *v
-		}
-		var ret MachineFlyMachineConfigInit
-		return ret
-	}).(MachineFlyMachineConfigInitOutput)
-}
-
-// Replaces the image's CMD. It's appended to the entrypoint
-func (o MachineFlyMachineConfigInitPtrOutput) Cmd() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigInit) []string {
-		if v == nil {
-			return nil
-		}
-		return v.Cmd
-	}).(pulumi.StringArrayOutput)
-}
-
-// Replaces the image's ENTRYPOINT
-func (o MachineFlyMachineConfigInitPtrOutput) Entrypoint() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigInit) []string {
-		if v == nil {
-			return nil
-		}
-		return v.Entrypoint
-	}).(pulumi.StringArrayOutput)
-}
-
-// Command to run instead of the image's ENTRYPOINT and CMD. Takes precedence over entrypoint
-// and cmd
-func (o MachineFlyMachineConfigInitPtrOutput) Exec() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigInit) []string {
-		if v == nil {
-			return nil
-		}
-		return v.Exec
-	}).(pulumi.StringArrayOutput)
-}
-
-// Currently has no effect. Use `guest.kernel_args` instead
-func (o MachineFlyMachineConfigInitPtrOutput) KernelArgs() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigInit) []string {
-		if v == nil {
-			return nil
-		}
-		return v.KernelArgs
-	}).(pulumi.StringArrayOutput)
-}
-
-// Size in MiB of a swap device to give the Machine. Machines with swap cannot be suspended
-func (o MachineFlyMachineConfigInitPtrOutput) SwapSizeMb() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigInit) *int {
-		if v == nil {
-			return nil
-		}
-		return v.SwapSizeMb
-	}).(pulumi.IntPtrOutput)
-}
-
-// Currently has no effect
-func (o MachineFlyMachineConfigInitPtrOutput) Tty() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigInit) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.Tty
-	}).(pulumi.BoolPtrOutput)
-}
-
-// An optional metrics endpoint for Prometheus on Fly.io to scrape
-type MachineFlyMachineConfigMetrics struct {
-	// Scrape over HTTPS instead of HTTP
-	Https *bool `pulumi:"https"`
-	// HTTP path to scrape. Defaults to `/`
-	Path *string `pulumi:"path"`
-	// Port in the Machine to scrape metrics from
-	Port *int `pulumi:"port"`
-}
-
-// MachineFlyMachineConfigMetricsInput is an input type that accepts MachineFlyMachineConfigMetricsArgs and MachineFlyMachineConfigMetricsOutput values.
-// You can construct a concrete instance of `MachineFlyMachineConfigMetricsInput` via:
-//
-//	MachineFlyMachineConfigMetricsArgs{...}
-type MachineFlyMachineConfigMetricsInput interface {
-	pulumi.Input
-
-	ToMachineFlyMachineConfigMetricsOutput() MachineFlyMachineConfigMetricsOutput
-	ToMachineFlyMachineConfigMetricsOutputWithContext(context.Context) MachineFlyMachineConfigMetricsOutput
-}
-
-// An optional metrics endpoint for Prometheus on Fly.io to scrape
-type MachineFlyMachineConfigMetricsArgs struct {
-	// Scrape over HTTPS instead of HTTP
-	Https pulumi.BoolPtrInput `pulumi:"https"`
-	// HTTP path to scrape. Defaults to `/`
-	Path pulumi.StringPtrInput `pulumi:"path"`
-	// Port in the Machine to scrape metrics from
-	Port pulumi.IntPtrInput `pulumi:"port"`
-}
-
-func (MachineFlyMachineConfigMetricsArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*MachineFlyMachineConfigMetrics)(nil)).Elem()
-}
-
-func (i MachineFlyMachineConfigMetricsArgs) ToMachineFlyMachineConfigMetricsOutput() MachineFlyMachineConfigMetricsOutput {
-	return i.ToMachineFlyMachineConfigMetricsOutputWithContext(context.Background())
-}
-
-func (i MachineFlyMachineConfigMetricsArgs) ToMachineFlyMachineConfigMetricsOutputWithContext(ctx context.Context) MachineFlyMachineConfigMetricsOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MachineFlyMachineConfigMetricsOutput)
-}
-
-func (i MachineFlyMachineConfigMetricsArgs) ToMachineFlyMachineConfigMetricsPtrOutput() MachineFlyMachineConfigMetricsPtrOutput {
-	return i.ToMachineFlyMachineConfigMetricsPtrOutputWithContext(context.Background())
-}
-
-func (i MachineFlyMachineConfigMetricsArgs) ToMachineFlyMachineConfigMetricsPtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigMetricsPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MachineFlyMachineConfigMetricsOutput).ToMachineFlyMachineConfigMetricsPtrOutputWithContext(ctx)
-}
-
-// MachineFlyMachineConfigMetricsPtrInput is an input type that accepts MachineFlyMachineConfigMetricsArgs, MachineFlyMachineConfigMetricsPtr and MachineFlyMachineConfigMetricsPtrOutput values.
-// You can construct a concrete instance of `MachineFlyMachineConfigMetricsPtrInput` via:
-//
-//	        MachineFlyMachineConfigMetricsArgs{...}
-//
-//	or:
-//
-//	        nil
-type MachineFlyMachineConfigMetricsPtrInput interface {
-	pulumi.Input
-
-	ToMachineFlyMachineConfigMetricsPtrOutput() MachineFlyMachineConfigMetricsPtrOutput
-	ToMachineFlyMachineConfigMetricsPtrOutputWithContext(context.Context) MachineFlyMachineConfigMetricsPtrOutput
-}
-
-type machineFlyMachineConfigMetricsPtrType MachineFlyMachineConfigMetricsArgs
-
-func MachineFlyMachineConfigMetricsPtr(v *MachineFlyMachineConfigMetricsArgs) MachineFlyMachineConfigMetricsPtrInput {
-	return (*machineFlyMachineConfigMetricsPtrType)(v)
-}
-
-func (*machineFlyMachineConfigMetricsPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**MachineFlyMachineConfigMetrics)(nil)).Elem()
-}
-
-func (i *machineFlyMachineConfigMetricsPtrType) ToMachineFlyMachineConfigMetricsPtrOutput() MachineFlyMachineConfigMetricsPtrOutput {
-	return i.ToMachineFlyMachineConfigMetricsPtrOutputWithContext(context.Background())
-}
-
-func (i *machineFlyMachineConfigMetricsPtrType) ToMachineFlyMachineConfigMetricsPtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigMetricsPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MachineFlyMachineConfigMetricsPtrOutput)
-}
-
-// An optional metrics endpoint for Prometheus on Fly.io to scrape
-type MachineFlyMachineConfigMetricsOutput struct{ *pulumi.OutputState }
-
-func (MachineFlyMachineConfigMetricsOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*MachineFlyMachineConfigMetrics)(nil)).Elem()
-}
-
-func (o MachineFlyMachineConfigMetricsOutput) ToMachineFlyMachineConfigMetricsOutput() MachineFlyMachineConfigMetricsOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigMetricsOutput) ToMachineFlyMachineConfigMetricsOutputWithContext(ctx context.Context) MachineFlyMachineConfigMetricsOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigMetricsOutput) ToMachineFlyMachineConfigMetricsPtrOutput() MachineFlyMachineConfigMetricsPtrOutput {
-	return o.ToMachineFlyMachineConfigMetricsPtrOutputWithContext(context.Background())
-}
-
-func (o MachineFlyMachineConfigMetricsOutput) ToMachineFlyMachineConfigMetricsPtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigMetricsPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v MachineFlyMachineConfigMetrics) *MachineFlyMachineConfigMetrics {
-		return &v
-	}).(MachineFlyMachineConfigMetricsPtrOutput)
-}
-
-// Scrape over HTTPS instead of HTTP
-func (o MachineFlyMachineConfigMetricsOutput) Https() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v MachineFlyMachineConfigMetrics) *bool { return v.Https }).(pulumi.BoolPtrOutput)
-}
-
-// HTTP path to scrape. Defaults to `/`
-func (o MachineFlyMachineConfigMetricsOutput) Path() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v MachineFlyMachineConfigMetrics) *string { return v.Path }).(pulumi.StringPtrOutput)
-}
-
-// Port in the Machine to scrape metrics from
-func (o MachineFlyMachineConfigMetricsOutput) Port() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v MachineFlyMachineConfigMetrics) *int { return v.Port }).(pulumi.IntPtrOutput)
-}
-
-type MachineFlyMachineConfigMetricsPtrOutput struct{ *pulumi.OutputState }
-
-func (MachineFlyMachineConfigMetricsPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**MachineFlyMachineConfigMetrics)(nil)).Elem()
-}
-
-func (o MachineFlyMachineConfigMetricsPtrOutput) ToMachineFlyMachineConfigMetricsPtrOutput() MachineFlyMachineConfigMetricsPtrOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigMetricsPtrOutput) ToMachineFlyMachineConfigMetricsPtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigMetricsPtrOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigMetricsPtrOutput) Elem() MachineFlyMachineConfigMetricsOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigMetrics) MachineFlyMachineConfigMetrics {
-		if v != nil {
-			return *v
-		}
-		var ret MachineFlyMachineConfigMetrics
-		return ret
-	}).(MachineFlyMachineConfigMetricsOutput)
-}
-
-// Scrape over HTTPS instead of HTTP
-func (o MachineFlyMachineConfigMetricsPtrOutput) Https() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigMetrics) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.Https
-	}).(pulumi.BoolPtrOutput)
-}
-
-// HTTP path to scrape. Defaults to `/`
-func (o MachineFlyMachineConfigMetricsPtrOutput) Path() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigMetrics) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Path
-	}).(pulumi.StringPtrOutput)
-}
-
-// Port in the Machine to scrape metrics from
-func (o MachineFlyMachineConfigMetricsPtrOutput) Port() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigMetrics) *int {
-		if v == nil {
-			return nil
-		}
-		return v.Port
-	}).(pulumi.IntPtrOutput)
-}
-
-// Whether and how the Machine is restarted after its main process exits
-type MachineFlyMachineConfigRestart struct {
-	// When policy is on-failure, the maximum number of times to attempt to restart the Machine before letting it stop.
-	MaxRetries *int `pulumi:"maxRetries"`
-	// * no - Never try to restart a Machine automatically when its main process exits, whether that’s on purpose or on a crash.
-	// * always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.
-	// * on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules.
-	Policy *FlyMachineRestartPolicy `pulumi:"policy"`
-}
-
-// MachineFlyMachineConfigRestartInput is an input type that accepts MachineFlyMachineConfigRestartArgs and MachineFlyMachineConfigRestartOutput values.
-// You can construct a concrete instance of `MachineFlyMachineConfigRestartInput` via:
-//
-//	MachineFlyMachineConfigRestartArgs{...}
-type MachineFlyMachineConfigRestartInput interface {
-	pulumi.Input
-
-	ToMachineFlyMachineConfigRestartOutput() MachineFlyMachineConfigRestartOutput
-	ToMachineFlyMachineConfigRestartOutputWithContext(context.Context) MachineFlyMachineConfigRestartOutput
-}
-
-// Whether and how the Machine is restarted after its main process exits
-type MachineFlyMachineConfigRestartArgs struct {
-	// When policy is on-failure, the maximum number of times to attempt to restart the Machine before letting it stop.
-	MaxRetries pulumi.IntPtrInput `pulumi:"maxRetries"`
-	// * no - Never try to restart a Machine automatically when its main process exits, whether that’s on purpose or on a crash.
-	// * always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.
-	// * on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules.
-	Policy FlyMachineRestartPolicyPtrInput `pulumi:"policy"`
-}
-
-func (MachineFlyMachineConfigRestartArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*MachineFlyMachineConfigRestart)(nil)).Elem()
-}
-
-func (i MachineFlyMachineConfigRestartArgs) ToMachineFlyMachineConfigRestartOutput() MachineFlyMachineConfigRestartOutput {
-	return i.ToMachineFlyMachineConfigRestartOutputWithContext(context.Background())
-}
-
-func (i MachineFlyMachineConfigRestartArgs) ToMachineFlyMachineConfigRestartOutputWithContext(ctx context.Context) MachineFlyMachineConfigRestartOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MachineFlyMachineConfigRestartOutput)
-}
-
-func (i MachineFlyMachineConfigRestartArgs) ToMachineFlyMachineConfigRestartPtrOutput() MachineFlyMachineConfigRestartPtrOutput {
-	return i.ToMachineFlyMachineConfigRestartPtrOutputWithContext(context.Background())
-}
-
-func (i MachineFlyMachineConfigRestartArgs) ToMachineFlyMachineConfigRestartPtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigRestartPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MachineFlyMachineConfigRestartOutput).ToMachineFlyMachineConfigRestartPtrOutputWithContext(ctx)
-}
-
-// MachineFlyMachineConfigRestartPtrInput is an input type that accepts MachineFlyMachineConfigRestartArgs, MachineFlyMachineConfigRestartPtr and MachineFlyMachineConfigRestartPtrOutput values.
-// You can construct a concrete instance of `MachineFlyMachineConfigRestartPtrInput` via:
-//
-//	        MachineFlyMachineConfigRestartArgs{...}
-//
-//	or:
-//
-//	        nil
-type MachineFlyMachineConfigRestartPtrInput interface {
-	pulumi.Input
-
-	ToMachineFlyMachineConfigRestartPtrOutput() MachineFlyMachineConfigRestartPtrOutput
-	ToMachineFlyMachineConfigRestartPtrOutputWithContext(context.Context) MachineFlyMachineConfigRestartPtrOutput
-}
-
-type machineFlyMachineConfigRestartPtrType MachineFlyMachineConfigRestartArgs
-
-func MachineFlyMachineConfigRestartPtr(v *MachineFlyMachineConfigRestartArgs) MachineFlyMachineConfigRestartPtrInput {
-	return (*machineFlyMachineConfigRestartPtrType)(v)
-}
-
-func (*machineFlyMachineConfigRestartPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**MachineFlyMachineConfigRestart)(nil)).Elem()
-}
-
-func (i *machineFlyMachineConfigRestartPtrType) ToMachineFlyMachineConfigRestartPtrOutput() MachineFlyMachineConfigRestartPtrOutput {
-	return i.ToMachineFlyMachineConfigRestartPtrOutputWithContext(context.Background())
-}
-
-func (i *machineFlyMachineConfigRestartPtrType) ToMachineFlyMachineConfigRestartPtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigRestartPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MachineFlyMachineConfigRestartPtrOutput)
-}
-
-// Whether and how the Machine is restarted after its main process exits
-type MachineFlyMachineConfigRestartOutput struct{ *pulumi.OutputState }
-
-func (MachineFlyMachineConfigRestartOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*MachineFlyMachineConfigRestart)(nil)).Elem()
-}
-
-func (o MachineFlyMachineConfigRestartOutput) ToMachineFlyMachineConfigRestartOutput() MachineFlyMachineConfigRestartOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigRestartOutput) ToMachineFlyMachineConfigRestartOutputWithContext(ctx context.Context) MachineFlyMachineConfigRestartOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigRestartOutput) ToMachineFlyMachineConfigRestartPtrOutput() MachineFlyMachineConfigRestartPtrOutput {
-	return o.ToMachineFlyMachineConfigRestartPtrOutputWithContext(context.Background())
-}
-
-func (o MachineFlyMachineConfigRestartOutput) ToMachineFlyMachineConfigRestartPtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigRestartPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v MachineFlyMachineConfigRestart) *MachineFlyMachineConfigRestart {
-		return &v
-	}).(MachineFlyMachineConfigRestartPtrOutput)
-}
-
-// When policy is on-failure, the maximum number of times to attempt to restart the Machine before letting it stop.
-func (o MachineFlyMachineConfigRestartOutput) MaxRetries() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v MachineFlyMachineConfigRestart) *int { return v.MaxRetries }).(pulumi.IntPtrOutput)
-}
-
-// * no - Never try to restart a Machine automatically when its main process exits, whether that’s on purpose or on a crash.
-// * always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.
-// * on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules.
-func (o MachineFlyMachineConfigRestartOutput) Policy() FlyMachineRestartPolicyPtrOutput {
-	return o.ApplyT(func(v MachineFlyMachineConfigRestart) *FlyMachineRestartPolicy { return v.Policy }).(FlyMachineRestartPolicyPtrOutput)
-}
-
-type MachineFlyMachineConfigRestartPtrOutput struct{ *pulumi.OutputState }
-
-func (MachineFlyMachineConfigRestartPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**MachineFlyMachineConfigRestart)(nil)).Elem()
-}
-
-func (o MachineFlyMachineConfigRestartPtrOutput) ToMachineFlyMachineConfigRestartPtrOutput() MachineFlyMachineConfigRestartPtrOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigRestartPtrOutput) ToMachineFlyMachineConfigRestartPtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigRestartPtrOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigRestartPtrOutput) Elem() MachineFlyMachineConfigRestartOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigRestart) MachineFlyMachineConfigRestart {
-		if v != nil {
-			return *v
-		}
-		var ret MachineFlyMachineConfigRestart
-		return ret
-	}).(MachineFlyMachineConfigRestartOutput)
-}
-
-// When policy is on-failure, the maximum number of times to attempt to restart the Machine before letting it stop.
-func (o MachineFlyMachineConfigRestartPtrOutput) MaxRetries() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigRestart) *int {
-		if v == nil {
-			return nil
-		}
-		return v.MaxRetries
-	}).(pulumi.IntPtrOutput)
-}
-
-// * no - Never try to restart a Machine automatically when its main process exits, whether that’s on purpose or on a crash.
-// * always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.
-// * on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules.
-func (o MachineFlyMachineConfigRestartPtrOutput) Policy() FlyMachineRestartPolicyPtrOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigRestart) *FlyMachineRestartPolicy {
-		if v == nil {
-			return nil
-		}
-		return v.Policy
-	}).(FlyMachineRestartPolicyPtrOutput)
-}
-
-// Beta: the size of the Machine's root filesystem and whether it persists. This field may be
-// removed in the future
-type MachineFlyMachineConfigRootfs struct {
-	// Whether changes to the root filesystem are kept. `never` (default): reset on every start.
-	// `restart`: kept across stops and restarts, reset when the Machine is updated. `always`: also
-	// kept across updates
-	Persist *FlyMachineRootfsPersist `pulumi:"persist"`
-	// Size of the root filesystem in GB. At most 50; 0 uses the default
-	SizeGb *int `pulumi:"sizeGb"`
-}
-
-// MachineFlyMachineConfigRootfsInput is an input type that accepts MachineFlyMachineConfigRootfsArgs and MachineFlyMachineConfigRootfsOutput values.
-// You can construct a concrete instance of `MachineFlyMachineConfigRootfsInput` via:
-//
-//	MachineFlyMachineConfigRootfsArgs{...}
-type MachineFlyMachineConfigRootfsInput interface {
-	pulumi.Input
-
-	ToMachineFlyMachineConfigRootfsOutput() MachineFlyMachineConfigRootfsOutput
-	ToMachineFlyMachineConfigRootfsOutputWithContext(context.Context) MachineFlyMachineConfigRootfsOutput
-}
-
-// Beta: the size of the Machine's root filesystem and whether it persists. This field may be
-// removed in the future
-type MachineFlyMachineConfigRootfsArgs struct {
-	// Whether changes to the root filesystem are kept. `never` (default): reset on every start.
-	// `restart`: kept across stops and restarts, reset when the Machine is updated. `always`: also
-	// kept across updates
-	Persist FlyMachineRootfsPersistPtrInput `pulumi:"persist"`
-	// Size of the root filesystem in GB. At most 50; 0 uses the default
-	SizeGb pulumi.IntPtrInput `pulumi:"sizeGb"`
-}
-
-func (MachineFlyMachineConfigRootfsArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*MachineFlyMachineConfigRootfs)(nil)).Elem()
-}
-
-func (i MachineFlyMachineConfigRootfsArgs) ToMachineFlyMachineConfigRootfsOutput() MachineFlyMachineConfigRootfsOutput {
-	return i.ToMachineFlyMachineConfigRootfsOutputWithContext(context.Background())
-}
-
-func (i MachineFlyMachineConfigRootfsArgs) ToMachineFlyMachineConfigRootfsOutputWithContext(ctx context.Context) MachineFlyMachineConfigRootfsOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MachineFlyMachineConfigRootfsOutput)
-}
-
-func (i MachineFlyMachineConfigRootfsArgs) ToMachineFlyMachineConfigRootfsPtrOutput() MachineFlyMachineConfigRootfsPtrOutput {
-	return i.ToMachineFlyMachineConfigRootfsPtrOutputWithContext(context.Background())
-}
-
-func (i MachineFlyMachineConfigRootfsArgs) ToMachineFlyMachineConfigRootfsPtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigRootfsPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MachineFlyMachineConfigRootfsOutput).ToMachineFlyMachineConfigRootfsPtrOutputWithContext(ctx)
-}
-
-// MachineFlyMachineConfigRootfsPtrInput is an input type that accepts MachineFlyMachineConfigRootfsArgs, MachineFlyMachineConfigRootfsPtr and MachineFlyMachineConfigRootfsPtrOutput values.
-// You can construct a concrete instance of `MachineFlyMachineConfigRootfsPtrInput` via:
-//
-//	        MachineFlyMachineConfigRootfsArgs{...}
-//
-//	or:
-//
-//	        nil
-type MachineFlyMachineConfigRootfsPtrInput interface {
-	pulumi.Input
-
-	ToMachineFlyMachineConfigRootfsPtrOutput() MachineFlyMachineConfigRootfsPtrOutput
-	ToMachineFlyMachineConfigRootfsPtrOutputWithContext(context.Context) MachineFlyMachineConfigRootfsPtrOutput
-}
-
-type machineFlyMachineConfigRootfsPtrType MachineFlyMachineConfigRootfsArgs
-
-func MachineFlyMachineConfigRootfsPtr(v *MachineFlyMachineConfigRootfsArgs) MachineFlyMachineConfigRootfsPtrInput {
-	return (*machineFlyMachineConfigRootfsPtrType)(v)
-}
-
-func (*machineFlyMachineConfigRootfsPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**MachineFlyMachineConfigRootfs)(nil)).Elem()
-}
-
-func (i *machineFlyMachineConfigRootfsPtrType) ToMachineFlyMachineConfigRootfsPtrOutput() MachineFlyMachineConfigRootfsPtrOutput {
-	return i.ToMachineFlyMachineConfigRootfsPtrOutputWithContext(context.Background())
-}
-
-func (i *machineFlyMachineConfigRootfsPtrType) ToMachineFlyMachineConfigRootfsPtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigRootfsPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MachineFlyMachineConfigRootfsPtrOutput)
-}
-
-// Beta: the size of the Machine's root filesystem and whether it persists. This field may be
-// removed in the future
-type MachineFlyMachineConfigRootfsOutput struct{ *pulumi.OutputState }
-
-func (MachineFlyMachineConfigRootfsOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*MachineFlyMachineConfigRootfs)(nil)).Elem()
-}
-
-func (o MachineFlyMachineConfigRootfsOutput) ToMachineFlyMachineConfigRootfsOutput() MachineFlyMachineConfigRootfsOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigRootfsOutput) ToMachineFlyMachineConfigRootfsOutputWithContext(ctx context.Context) MachineFlyMachineConfigRootfsOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigRootfsOutput) ToMachineFlyMachineConfigRootfsPtrOutput() MachineFlyMachineConfigRootfsPtrOutput {
-	return o.ToMachineFlyMachineConfigRootfsPtrOutputWithContext(context.Background())
-}
-
-func (o MachineFlyMachineConfigRootfsOutput) ToMachineFlyMachineConfigRootfsPtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigRootfsPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v MachineFlyMachineConfigRootfs) *MachineFlyMachineConfigRootfs {
-		return &v
-	}).(MachineFlyMachineConfigRootfsPtrOutput)
-}
-
-// Whether changes to the root filesystem are kept. `never` (default): reset on every start.
-// `restart`: kept across stops and restarts, reset when the Machine is updated. `always`: also
-// kept across updates
-func (o MachineFlyMachineConfigRootfsOutput) Persist() FlyMachineRootfsPersistPtrOutput {
-	return o.ApplyT(func(v MachineFlyMachineConfigRootfs) *FlyMachineRootfsPersist { return v.Persist }).(FlyMachineRootfsPersistPtrOutput)
-}
-
-// Size of the root filesystem in GB. At most 50; 0 uses the default
-func (o MachineFlyMachineConfigRootfsOutput) SizeGb() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v MachineFlyMachineConfigRootfs) *int { return v.SizeGb }).(pulumi.IntPtrOutput)
-}
-
-type MachineFlyMachineConfigRootfsPtrOutput struct{ *pulumi.OutputState }
-
-func (MachineFlyMachineConfigRootfsPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**MachineFlyMachineConfigRootfs)(nil)).Elem()
-}
-
-func (o MachineFlyMachineConfigRootfsPtrOutput) ToMachineFlyMachineConfigRootfsPtrOutput() MachineFlyMachineConfigRootfsPtrOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigRootfsPtrOutput) ToMachineFlyMachineConfigRootfsPtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigRootfsPtrOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigRootfsPtrOutput) Elem() MachineFlyMachineConfigRootfsOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigRootfs) MachineFlyMachineConfigRootfs {
-		if v != nil {
-			return *v
-		}
-		var ret MachineFlyMachineConfigRootfs
-		return ret
-	}).(MachineFlyMachineConfigRootfsOutput)
-}
-
-// Whether changes to the root filesystem are kept. `never` (default): reset on every start.
-// `restart`: kept across stops and restarts, reset when the Machine is updated. `always`: also
-// kept across updates
-func (o MachineFlyMachineConfigRootfsPtrOutput) Persist() FlyMachineRootfsPersistPtrOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigRootfs) *FlyMachineRootfsPersist {
-		if v == nil {
-			return nil
-		}
-		return v.Persist
-	}).(FlyMachineRootfsPersistPtrOutput)
-}
-
-// Size of the root filesystem in GB. At most 50; 0 uses the default
-func (o MachineFlyMachineConfigRootfsPtrOutput) SizeGb() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigRootfs) *int {
-		if v == nil {
-			return nil
-		}
-		return v.SizeGb
-	}).(pulumi.IntPtrOutput)
-}
-
-// Spot pricing settings for the Machine
-type MachineFlyMachineConfigSpot struct {
-	// MaxPriceFraction is the maximum fraction of the full Machine price you will pay for this Machine. Range: (0, 1.0]
-	MaxPriceFraction *float64 `pulumi:"maxPriceFraction"`
-}
-
-// MachineFlyMachineConfigSpotInput is an input type that accepts MachineFlyMachineConfigSpotArgs and MachineFlyMachineConfigSpotOutput values.
-// You can construct a concrete instance of `MachineFlyMachineConfigSpotInput` via:
-//
-//	MachineFlyMachineConfigSpotArgs{...}
-type MachineFlyMachineConfigSpotInput interface {
-	pulumi.Input
-
-	ToMachineFlyMachineConfigSpotOutput() MachineFlyMachineConfigSpotOutput
-	ToMachineFlyMachineConfigSpotOutputWithContext(context.Context) MachineFlyMachineConfigSpotOutput
-}
-
-// Spot pricing settings for the Machine
-type MachineFlyMachineConfigSpotArgs struct {
-	// MaxPriceFraction is the maximum fraction of the full Machine price you will pay for this Machine. Range: (0, 1.0]
-	MaxPriceFraction pulumi.Float64PtrInput `pulumi:"maxPriceFraction"`
-}
-
-func (MachineFlyMachineConfigSpotArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*MachineFlyMachineConfigSpot)(nil)).Elem()
-}
-
-func (i MachineFlyMachineConfigSpotArgs) ToMachineFlyMachineConfigSpotOutput() MachineFlyMachineConfigSpotOutput {
-	return i.ToMachineFlyMachineConfigSpotOutputWithContext(context.Background())
-}
-
-func (i MachineFlyMachineConfigSpotArgs) ToMachineFlyMachineConfigSpotOutputWithContext(ctx context.Context) MachineFlyMachineConfigSpotOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MachineFlyMachineConfigSpotOutput)
-}
-
-func (i MachineFlyMachineConfigSpotArgs) ToMachineFlyMachineConfigSpotPtrOutput() MachineFlyMachineConfigSpotPtrOutput {
-	return i.ToMachineFlyMachineConfigSpotPtrOutputWithContext(context.Background())
-}
-
-func (i MachineFlyMachineConfigSpotArgs) ToMachineFlyMachineConfigSpotPtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigSpotPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MachineFlyMachineConfigSpotOutput).ToMachineFlyMachineConfigSpotPtrOutputWithContext(ctx)
-}
-
-// MachineFlyMachineConfigSpotPtrInput is an input type that accepts MachineFlyMachineConfigSpotArgs, MachineFlyMachineConfigSpotPtr and MachineFlyMachineConfigSpotPtrOutput values.
-// You can construct a concrete instance of `MachineFlyMachineConfigSpotPtrInput` via:
-//
-//	        MachineFlyMachineConfigSpotArgs{...}
-//
-//	or:
-//
-//	        nil
-type MachineFlyMachineConfigSpotPtrInput interface {
-	pulumi.Input
-
-	ToMachineFlyMachineConfigSpotPtrOutput() MachineFlyMachineConfigSpotPtrOutput
-	ToMachineFlyMachineConfigSpotPtrOutputWithContext(context.Context) MachineFlyMachineConfigSpotPtrOutput
-}
-
-type machineFlyMachineConfigSpotPtrType MachineFlyMachineConfigSpotArgs
-
-func MachineFlyMachineConfigSpotPtr(v *MachineFlyMachineConfigSpotArgs) MachineFlyMachineConfigSpotPtrInput {
-	return (*machineFlyMachineConfigSpotPtrType)(v)
-}
-
-func (*machineFlyMachineConfigSpotPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**MachineFlyMachineConfigSpot)(nil)).Elem()
-}
-
-func (i *machineFlyMachineConfigSpotPtrType) ToMachineFlyMachineConfigSpotPtrOutput() MachineFlyMachineConfigSpotPtrOutput {
-	return i.ToMachineFlyMachineConfigSpotPtrOutputWithContext(context.Background())
-}
-
-func (i *machineFlyMachineConfigSpotPtrType) ToMachineFlyMachineConfigSpotPtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigSpotPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MachineFlyMachineConfigSpotPtrOutput)
-}
-
-// Spot pricing settings for the Machine
-type MachineFlyMachineConfigSpotOutput struct{ *pulumi.OutputState }
-
-func (MachineFlyMachineConfigSpotOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*MachineFlyMachineConfigSpot)(nil)).Elem()
-}
-
-func (o MachineFlyMachineConfigSpotOutput) ToMachineFlyMachineConfigSpotOutput() MachineFlyMachineConfigSpotOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigSpotOutput) ToMachineFlyMachineConfigSpotOutputWithContext(ctx context.Context) MachineFlyMachineConfigSpotOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigSpotOutput) ToMachineFlyMachineConfigSpotPtrOutput() MachineFlyMachineConfigSpotPtrOutput {
-	return o.ToMachineFlyMachineConfigSpotPtrOutputWithContext(context.Background())
-}
-
-func (o MachineFlyMachineConfigSpotOutput) ToMachineFlyMachineConfigSpotPtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigSpotPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v MachineFlyMachineConfigSpot) *MachineFlyMachineConfigSpot {
-		return &v
-	}).(MachineFlyMachineConfigSpotPtrOutput)
-}
-
-// MaxPriceFraction is the maximum fraction of the full Machine price you will pay for this Machine. Range: (0, 1.0]
-func (o MachineFlyMachineConfigSpotOutput) MaxPriceFraction() pulumi.Float64PtrOutput {
-	return o.ApplyT(func(v MachineFlyMachineConfigSpot) *float64 { return v.MaxPriceFraction }).(pulumi.Float64PtrOutput)
-}
-
-type MachineFlyMachineConfigSpotPtrOutput struct{ *pulumi.OutputState }
-
-func (MachineFlyMachineConfigSpotPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**MachineFlyMachineConfigSpot)(nil)).Elem()
-}
-
-func (o MachineFlyMachineConfigSpotPtrOutput) ToMachineFlyMachineConfigSpotPtrOutput() MachineFlyMachineConfigSpotPtrOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigSpotPtrOutput) ToMachineFlyMachineConfigSpotPtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigSpotPtrOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigSpotPtrOutput) Elem() MachineFlyMachineConfigSpotOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigSpot) MachineFlyMachineConfigSpot {
-		if v != nil {
-			return *v
-		}
-		var ret MachineFlyMachineConfigSpot
-		return ret
-	}).(MachineFlyMachineConfigSpotOutput)
-}
-
-// MaxPriceFraction is the maximum fraction of the full Machine price you will pay for this Machine. Range: (0, 1.0]
-func (o MachineFlyMachineConfigSpotPtrOutput) MaxPriceFraction() pulumi.Float64PtrOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigSpot) *float64 {
-		if v == nil {
-			return nil
-		}
-		return v.MaxPriceFraction
-	}).(pulumi.Float64PtrOutput)
-}
-
-// How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
-type MachineFlyMachineConfigStopConfig struct {
-	// Signal to send to the Machine's processes. Defaults to SIGINT
-	Signal *FlyStopConfigSignal `pulumi:"signal"`
-	// How long to wait for the Machine to exit after sending the signal, before killing it. At most
-	// 5 minutes (1 minute for spot Machines). Defaults to 5s (60s for spot Machines)
-	Timeout *string `pulumi:"timeout"`
-}
-
-// MachineFlyMachineConfigStopConfigInput is an input type that accepts MachineFlyMachineConfigStopConfigArgs and MachineFlyMachineConfigStopConfigOutput values.
-// You can construct a concrete instance of `MachineFlyMachineConfigStopConfigInput` via:
-//
-//	MachineFlyMachineConfigStopConfigArgs{...}
-type MachineFlyMachineConfigStopConfigInput interface {
-	pulumi.Input
-
-	ToMachineFlyMachineConfigStopConfigOutput() MachineFlyMachineConfigStopConfigOutput
-	ToMachineFlyMachineConfigStopConfigOutputWithContext(context.Context) MachineFlyMachineConfigStopConfigOutput
-}
-
-// How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
-type MachineFlyMachineConfigStopConfigArgs struct {
-	// Signal to send to the Machine's processes. Defaults to SIGINT
-	Signal FlyStopConfigSignalPtrInput `pulumi:"signal"`
-	// How long to wait for the Machine to exit after sending the signal, before killing it. At most
-	// 5 minutes (1 minute for spot Machines). Defaults to 5s (60s for spot Machines)
-	Timeout pulumi.StringPtrInput `pulumi:"timeout"`
-}
-
-func (MachineFlyMachineConfigStopConfigArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*MachineFlyMachineConfigStopConfig)(nil)).Elem()
-}
-
-func (i MachineFlyMachineConfigStopConfigArgs) ToMachineFlyMachineConfigStopConfigOutput() MachineFlyMachineConfigStopConfigOutput {
-	return i.ToMachineFlyMachineConfigStopConfigOutputWithContext(context.Background())
-}
-
-func (i MachineFlyMachineConfigStopConfigArgs) ToMachineFlyMachineConfigStopConfigOutputWithContext(ctx context.Context) MachineFlyMachineConfigStopConfigOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MachineFlyMachineConfigStopConfigOutput)
-}
-
-func (i MachineFlyMachineConfigStopConfigArgs) ToMachineFlyMachineConfigStopConfigPtrOutput() MachineFlyMachineConfigStopConfigPtrOutput {
-	return i.ToMachineFlyMachineConfigStopConfigPtrOutputWithContext(context.Background())
-}
-
-func (i MachineFlyMachineConfigStopConfigArgs) ToMachineFlyMachineConfigStopConfigPtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigStopConfigPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MachineFlyMachineConfigStopConfigOutput).ToMachineFlyMachineConfigStopConfigPtrOutputWithContext(ctx)
-}
-
-// MachineFlyMachineConfigStopConfigPtrInput is an input type that accepts MachineFlyMachineConfigStopConfigArgs, MachineFlyMachineConfigStopConfigPtr and MachineFlyMachineConfigStopConfigPtrOutput values.
-// You can construct a concrete instance of `MachineFlyMachineConfigStopConfigPtrInput` via:
-//
-//	        MachineFlyMachineConfigStopConfigArgs{...}
-//
-//	or:
-//
-//	        nil
-type MachineFlyMachineConfigStopConfigPtrInput interface {
-	pulumi.Input
-
-	ToMachineFlyMachineConfigStopConfigPtrOutput() MachineFlyMachineConfigStopConfigPtrOutput
-	ToMachineFlyMachineConfigStopConfigPtrOutputWithContext(context.Context) MachineFlyMachineConfigStopConfigPtrOutput
-}
-
-type machineFlyMachineConfigStopConfigPtrType MachineFlyMachineConfigStopConfigArgs
-
-func MachineFlyMachineConfigStopConfigPtr(v *MachineFlyMachineConfigStopConfigArgs) MachineFlyMachineConfigStopConfigPtrInput {
-	return (*machineFlyMachineConfigStopConfigPtrType)(v)
-}
-
-func (*machineFlyMachineConfigStopConfigPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**MachineFlyMachineConfigStopConfig)(nil)).Elem()
-}
-
-func (i *machineFlyMachineConfigStopConfigPtrType) ToMachineFlyMachineConfigStopConfigPtrOutput() MachineFlyMachineConfigStopConfigPtrOutput {
-	return i.ToMachineFlyMachineConfigStopConfigPtrOutputWithContext(context.Background())
-}
-
-func (i *machineFlyMachineConfigStopConfigPtrType) ToMachineFlyMachineConfigStopConfigPtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigStopConfigPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MachineFlyMachineConfigStopConfigPtrOutput)
-}
-
-// How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
-type MachineFlyMachineConfigStopConfigOutput struct{ *pulumi.OutputState }
-
-func (MachineFlyMachineConfigStopConfigOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*MachineFlyMachineConfigStopConfig)(nil)).Elem()
-}
-
-func (o MachineFlyMachineConfigStopConfigOutput) ToMachineFlyMachineConfigStopConfigOutput() MachineFlyMachineConfigStopConfigOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigStopConfigOutput) ToMachineFlyMachineConfigStopConfigOutputWithContext(ctx context.Context) MachineFlyMachineConfigStopConfigOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigStopConfigOutput) ToMachineFlyMachineConfigStopConfigPtrOutput() MachineFlyMachineConfigStopConfigPtrOutput {
-	return o.ToMachineFlyMachineConfigStopConfigPtrOutputWithContext(context.Background())
-}
-
-func (o MachineFlyMachineConfigStopConfigOutput) ToMachineFlyMachineConfigStopConfigPtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigStopConfigPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v MachineFlyMachineConfigStopConfig) *MachineFlyMachineConfigStopConfig {
-		return &v
-	}).(MachineFlyMachineConfigStopConfigPtrOutput)
-}
-
-// Signal to send to the Machine's processes. Defaults to SIGINT
-func (o MachineFlyMachineConfigStopConfigOutput) Signal() FlyStopConfigSignalPtrOutput {
-	return o.ApplyT(func(v MachineFlyMachineConfigStopConfig) *FlyStopConfigSignal { return v.Signal }).(FlyStopConfigSignalPtrOutput)
-}
-
-// How long to wait for the Machine to exit after sending the signal, before killing it. At most
-// 5 minutes (1 minute for spot Machines). Defaults to 5s (60s for spot Machines)
-func (o MachineFlyMachineConfigStopConfigOutput) Timeout() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v MachineFlyMachineConfigStopConfig) *string { return v.Timeout }).(pulumi.StringPtrOutput)
-}
-
-type MachineFlyMachineConfigStopConfigPtrOutput struct{ *pulumi.OutputState }
-
-func (MachineFlyMachineConfigStopConfigPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**MachineFlyMachineConfigStopConfig)(nil)).Elem()
-}
-
-func (o MachineFlyMachineConfigStopConfigPtrOutput) ToMachineFlyMachineConfigStopConfigPtrOutput() MachineFlyMachineConfigStopConfigPtrOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigStopConfigPtrOutput) ToMachineFlyMachineConfigStopConfigPtrOutputWithContext(ctx context.Context) MachineFlyMachineConfigStopConfigPtrOutput {
-	return o
-}
-
-func (o MachineFlyMachineConfigStopConfigPtrOutput) Elem() MachineFlyMachineConfigStopConfigOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigStopConfig) MachineFlyMachineConfigStopConfig {
-		if v != nil {
-			return *v
-		}
-		var ret MachineFlyMachineConfigStopConfig
-		return ret
-	}).(MachineFlyMachineConfigStopConfigOutput)
-}
-
-// Signal to send to the Machine's processes. Defaults to SIGINT
-func (o MachineFlyMachineConfigStopConfigPtrOutput) Signal() FlyStopConfigSignalPtrOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigStopConfig) *FlyStopConfigSignal {
-		if v == nil {
-			return nil
-		}
-		return v.Signal
-	}).(FlyStopConfigSignalPtrOutput)
-}
-
-// How long to wait for the Machine to exit after sending the signal, before killing it. At most
-// 5 minutes (1 minute for spot Machines). Defaults to 5s (60s for spot Machines)
-func (o MachineFlyMachineConfigStopConfigPtrOutput) Timeout() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *MachineFlyMachineConfigStopConfig) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Timeout
-	}).(pulumi.StringPtrOutput)
 }
 
 // The image the Machine runs, as resolved when it was last created or updated.
@@ -21216,6 +19005,192 @@ func (o MachinesExecQueryParamsPtrOutput) Create() MachinesExecCreateQueryParams
 		}
 		return v.Create
 	}).(MachinesExecCreateQueryParamsPtrOutput)
+}
+
+// Load limits Fly Proxy uses to balance traffic across Machines
+type MachinesFlyMachineServiceConcurrency struct {
+	// Fly Proxy sends no more than this many connections or requests to a Machine at once. 0 means
+	// no hard limit
+	HardLimit *int `pulumi:"hardLimit"`
+	// Above this many connections or requests, Fly Proxy prefers other Machines. Defaults to 20,
+	// and is lowered to hard_limit if higher
+	SoftLimit *int `pulumi:"softLimit"`
+	// What to count: `connections` (default) or `requests`
+	Type *string `pulumi:"type"`
+}
+
+// MachinesFlyMachineServiceConcurrencyInput is an input type that accepts MachinesFlyMachineServiceConcurrencyArgs and MachinesFlyMachineServiceConcurrencyOutput values.
+// You can construct a concrete instance of `MachinesFlyMachineServiceConcurrencyInput` via:
+//
+//	MachinesFlyMachineServiceConcurrencyArgs{...}
+type MachinesFlyMachineServiceConcurrencyInput interface {
+	pulumi.Input
+
+	ToMachinesFlyMachineServiceConcurrencyOutput() MachinesFlyMachineServiceConcurrencyOutput
+	ToMachinesFlyMachineServiceConcurrencyOutputWithContext(context.Context) MachinesFlyMachineServiceConcurrencyOutput
+}
+
+// Load limits Fly Proxy uses to balance traffic across Machines
+type MachinesFlyMachineServiceConcurrencyArgs struct {
+	// Fly Proxy sends no more than this many connections or requests to a Machine at once. 0 means
+	// no hard limit
+	HardLimit pulumi.IntPtrInput `pulumi:"hardLimit"`
+	// Above this many connections or requests, Fly Proxy prefers other Machines. Defaults to 20,
+	// and is lowered to hard_limit if higher
+	SoftLimit pulumi.IntPtrInput `pulumi:"softLimit"`
+	// What to count: `connections` (default) or `requests`
+	Type pulumi.StringPtrInput `pulumi:"type"`
+}
+
+func (MachinesFlyMachineServiceConcurrencyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*MachinesFlyMachineServiceConcurrency)(nil)).Elem()
+}
+
+func (i MachinesFlyMachineServiceConcurrencyArgs) ToMachinesFlyMachineServiceConcurrencyOutput() MachinesFlyMachineServiceConcurrencyOutput {
+	return i.ToMachinesFlyMachineServiceConcurrencyOutputWithContext(context.Background())
+}
+
+func (i MachinesFlyMachineServiceConcurrencyArgs) ToMachinesFlyMachineServiceConcurrencyOutputWithContext(ctx context.Context) MachinesFlyMachineServiceConcurrencyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MachinesFlyMachineServiceConcurrencyOutput)
+}
+
+func (i MachinesFlyMachineServiceConcurrencyArgs) ToMachinesFlyMachineServiceConcurrencyPtrOutput() MachinesFlyMachineServiceConcurrencyPtrOutput {
+	return i.ToMachinesFlyMachineServiceConcurrencyPtrOutputWithContext(context.Background())
+}
+
+func (i MachinesFlyMachineServiceConcurrencyArgs) ToMachinesFlyMachineServiceConcurrencyPtrOutputWithContext(ctx context.Context) MachinesFlyMachineServiceConcurrencyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MachinesFlyMachineServiceConcurrencyOutput).ToMachinesFlyMachineServiceConcurrencyPtrOutputWithContext(ctx)
+}
+
+// MachinesFlyMachineServiceConcurrencyPtrInput is an input type that accepts MachinesFlyMachineServiceConcurrencyArgs, MachinesFlyMachineServiceConcurrencyPtr and MachinesFlyMachineServiceConcurrencyPtrOutput values.
+// You can construct a concrete instance of `MachinesFlyMachineServiceConcurrencyPtrInput` via:
+//
+//	        MachinesFlyMachineServiceConcurrencyArgs{...}
+//
+//	or:
+//
+//	        nil
+type MachinesFlyMachineServiceConcurrencyPtrInput interface {
+	pulumi.Input
+
+	ToMachinesFlyMachineServiceConcurrencyPtrOutput() MachinesFlyMachineServiceConcurrencyPtrOutput
+	ToMachinesFlyMachineServiceConcurrencyPtrOutputWithContext(context.Context) MachinesFlyMachineServiceConcurrencyPtrOutput
+}
+
+type machinesFlyMachineServiceConcurrencyPtrType MachinesFlyMachineServiceConcurrencyArgs
+
+func MachinesFlyMachineServiceConcurrencyPtr(v *MachinesFlyMachineServiceConcurrencyArgs) MachinesFlyMachineServiceConcurrencyPtrInput {
+	return (*machinesFlyMachineServiceConcurrencyPtrType)(v)
+}
+
+func (*machinesFlyMachineServiceConcurrencyPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**MachinesFlyMachineServiceConcurrency)(nil)).Elem()
+}
+
+func (i *machinesFlyMachineServiceConcurrencyPtrType) ToMachinesFlyMachineServiceConcurrencyPtrOutput() MachinesFlyMachineServiceConcurrencyPtrOutput {
+	return i.ToMachinesFlyMachineServiceConcurrencyPtrOutputWithContext(context.Background())
+}
+
+func (i *machinesFlyMachineServiceConcurrencyPtrType) ToMachinesFlyMachineServiceConcurrencyPtrOutputWithContext(ctx context.Context) MachinesFlyMachineServiceConcurrencyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MachinesFlyMachineServiceConcurrencyPtrOutput)
+}
+
+// Load limits Fly Proxy uses to balance traffic across Machines
+type MachinesFlyMachineServiceConcurrencyOutput struct{ *pulumi.OutputState }
+
+func (MachinesFlyMachineServiceConcurrencyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MachinesFlyMachineServiceConcurrency)(nil)).Elem()
+}
+
+func (o MachinesFlyMachineServiceConcurrencyOutput) ToMachinesFlyMachineServiceConcurrencyOutput() MachinesFlyMachineServiceConcurrencyOutput {
+	return o
+}
+
+func (o MachinesFlyMachineServiceConcurrencyOutput) ToMachinesFlyMachineServiceConcurrencyOutputWithContext(ctx context.Context) MachinesFlyMachineServiceConcurrencyOutput {
+	return o
+}
+
+func (o MachinesFlyMachineServiceConcurrencyOutput) ToMachinesFlyMachineServiceConcurrencyPtrOutput() MachinesFlyMachineServiceConcurrencyPtrOutput {
+	return o.ToMachinesFlyMachineServiceConcurrencyPtrOutputWithContext(context.Background())
+}
+
+func (o MachinesFlyMachineServiceConcurrencyOutput) ToMachinesFlyMachineServiceConcurrencyPtrOutputWithContext(ctx context.Context) MachinesFlyMachineServiceConcurrencyPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v MachinesFlyMachineServiceConcurrency) *MachinesFlyMachineServiceConcurrency {
+		return &v
+	}).(MachinesFlyMachineServiceConcurrencyPtrOutput)
+}
+
+// Fly Proxy sends no more than this many connections or requests to a Machine at once. 0 means
+// no hard limit
+func (o MachinesFlyMachineServiceConcurrencyOutput) HardLimit() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v MachinesFlyMachineServiceConcurrency) *int { return v.HardLimit }).(pulumi.IntPtrOutput)
+}
+
+// Above this many connections or requests, Fly Proxy prefers other Machines. Defaults to 20,
+// and is lowered to hard_limit if higher
+func (o MachinesFlyMachineServiceConcurrencyOutput) SoftLimit() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v MachinesFlyMachineServiceConcurrency) *int { return v.SoftLimit }).(pulumi.IntPtrOutput)
+}
+
+// What to count: `connections` (default) or `requests`
+func (o MachinesFlyMachineServiceConcurrencyOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MachinesFlyMachineServiceConcurrency) *string { return v.Type }).(pulumi.StringPtrOutput)
+}
+
+type MachinesFlyMachineServiceConcurrencyPtrOutput struct{ *pulumi.OutputState }
+
+func (MachinesFlyMachineServiceConcurrencyPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**MachinesFlyMachineServiceConcurrency)(nil)).Elem()
+}
+
+func (o MachinesFlyMachineServiceConcurrencyPtrOutput) ToMachinesFlyMachineServiceConcurrencyPtrOutput() MachinesFlyMachineServiceConcurrencyPtrOutput {
+	return o
+}
+
+func (o MachinesFlyMachineServiceConcurrencyPtrOutput) ToMachinesFlyMachineServiceConcurrencyPtrOutputWithContext(ctx context.Context) MachinesFlyMachineServiceConcurrencyPtrOutput {
+	return o
+}
+
+func (o MachinesFlyMachineServiceConcurrencyPtrOutput) Elem() MachinesFlyMachineServiceConcurrencyOutput {
+	return o.ApplyT(func(v *MachinesFlyMachineServiceConcurrency) MachinesFlyMachineServiceConcurrency {
+		if v != nil {
+			return *v
+		}
+		var ret MachinesFlyMachineServiceConcurrency
+		return ret
+	}).(MachinesFlyMachineServiceConcurrencyOutput)
+}
+
+// Fly Proxy sends no more than this many connections or requests to a Machine at once. 0 means
+// no hard limit
+func (o MachinesFlyMachineServiceConcurrencyPtrOutput) HardLimit() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *MachinesFlyMachineServiceConcurrency) *int {
+		if v == nil {
+			return nil
+		}
+		return v.HardLimit
+	}).(pulumi.IntPtrOutput)
+}
+
+// Above this many connections or requests, Fly Proxy prefers other Machines. Defaults to 20,
+// and is lowered to hard_limit if higher
+func (o MachinesFlyMachineServiceConcurrencyPtrOutput) SoftLimit() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *MachinesFlyMachineServiceConcurrency) *int {
+		if v == nil {
+			return nil
+		}
+		return v.SoftLimit
+	}).(pulumi.IntPtrOutput)
+}
+
+// What to count: `connections` (default) or `requests`
+func (o MachinesFlyMachineServiceConcurrencyPtrOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *MachinesFlyMachineServiceConcurrency) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Type
+	}).(pulumi.StringPtrOutput)
 }
 
 // Query params for the API request.
@@ -31129,8 +29104,26 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyFileArrayInput)(nil)).Elem(), FlyFileArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyHTTPOptionsResponseInput)(nil)).Elem(), FlyHTTPOptionsResponseArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyHTTPOptionsResponsePtrInput)(nil)).Elem(), FlyHTTPOptionsResponseArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineConfigCacheDriveInput)(nil)).Elem(), FlyMachineConfigCacheDriveArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineConfigCacheDrivePtrInput)(nil)).Elem(), FlyMachineConfigCacheDriveArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineConfigChecksPropertiesInput)(nil)).Elem(), FlyMachineConfigChecksPropertiesArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineConfigChecksPropertiesMapInput)(nil)).Elem(), FlyMachineConfigChecksPropertiesMap{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineConfigDnsInput)(nil)).Elem(), FlyMachineConfigDnsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineConfigDnsPtrInput)(nil)).Elem(), FlyMachineConfigDnsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineConfigGuestInput)(nil)).Elem(), FlyMachineConfigGuestArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineConfigGuestPtrInput)(nil)).Elem(), FlyMachineConfigGuestArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineConfigInitInput)(nil)).Elem(), FlyMachineConfigInitArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineConfigInitPtrInput)(nil)).Elem(), FlyMachineConfigInitArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineConfigMetricsInput)(nil)).Elem(), FlyMachineConfigMetricsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineConfigMetricsPtrInput)(nil)).Elem(), FlyMachineConfigMetricsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineConfigRestartInput)(nil)).Elem(), FlyMachineConfigRestartArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineConfigRestartPtrInput)(nil)).Elem(), FlyMachineConfigRestartArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineConfigRootfsInput)(nil)).Elem(), FlyMachineConfigRootfsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineConfigRootfsPtrInput)(nil)).Elem(), FlyMachineConfigRootfsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineConfigSpotInput)(nil)).Elem(), FlyMachineConfigSpotArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineConfigSpotPtrInput)(nil)).Elem(), FlyMachineConfigSpotArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineConfigStopConfigInput)(nil)).Elem(), FlyMachineConfigStopConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineConfigStopConfigPtrInput)(nil)).Elem(), FlyMachineConfigStopConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineHTTPHeaderInput)(nil)).Elem(), FlyMachineHTTPHeaderArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineHTTPHeaderArrayInput)(nil)).Elem(), FlyMachineHTTPHeaderArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineMountInput)(nil)).Elem(), FlyMachineMountArgs{})
@@ -31151,8 +29144,6 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineServiceArrayInput)(nil)).Elem(), FlyMachineServiceArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineServiceCheckInput)(nil)).Elem(), FlyMachineServiceCheckArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineServiceCheckArrayInput)(nil)).Elem(), FlyMachineServiceCheckArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineServiceConcurrencyInput)(nil)).Elem(), FlyMachineServiceConcurrencyArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineServiceConcurrencyPtrInput)(nil)).Elem(), FlyMachineServiceConcurrencyArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyReplayCacheInput)(nil)).Elem(), FlyReplayCacheArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyReplayCacheArrayInput)(nil)).Elem(), FlyReplayCacheArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyStaticInput)(nil)).Elem(), FlyStaticArgs{})
@@ -31204,24 +29195,6 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*MachineCreateQueryParamsPtrInput)(nil)).Elem(), MachineCreateQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MachineDeleteQueryParamsInput)(nil)).Elem(), MachineDeleteQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MachineDeleteQueryParamsPtrInput)(nil)).Elem(), MachineDeleteQueryParamsArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*MachineFlyMachineConfigCacheDriveInput)(nil)).Elem(), MachineFlyMachineConfigCacheDriveArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*MachineFlyMachineConfigCacheDrivePtrInput)(nil)).Elem(), MachineFlyMachineConfigCacheDriveArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*MachineFlyMachineConfigDnsInput)(nil)).Elem(), MachineFlyMachineConfigDnsArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*MachineFlyMachineConfigDnsPtrInput)(nil)).Elem(), MachineFlyMachineConfigDnsArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*MachineFlyMachineConfigGuestInput)(nil)).Elem(), MachineFlyMachineConfigGuestArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*MachineFlyMachineConfigGuestPtrInput)(nil)).Elem(), MachineFlyMachineConfigGuestArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*MachineFlyMachineConfigInitInput)(nil)).Elem(), MachineFlyMachineConfigInitArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*MachineFlyMachineConfigInitPtrInput)(nil)).Elem(), MachineFlyMachineConfigInitArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*MachineFlyMachineConfigMetricsInput)(nil)).Elem(), MachineFlyMachineConfigMetricsArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*MachineFlyMachineConfigMetricsPtrInput)(nil)).Elem(), MachineFlyMachineConfigMetricsArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*MachineFlyMachineConfigRestartInput)(nil)).Elem(), MachineFlyMachineConfigRestartArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*MachineFlyMachineConfigRestartPtrInput)(nil)).Elem(), MachineFlyMachineConfigRestartArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*MachineFlyMachineConfigRootfsInput)(nil)).Elem(), MachineFlyMachineConfigRootfsArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*MachineFlyMachineConfigRootfsPtrInput)(nil)).Elem(), MachineFlyMachineConfigRootfsArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*MachineFlyMachineConfigSpotInput)(nil)).Elem(), MachineFlyMachineConfigSpotArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*MachineFlyMachineConfigSpotPtrInput)(nil)).Elem(), MachineFlyMachineConfigSpotArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*MachineFlyMachineConfigStopConfigInput)(nil)).Elem(), MachineFlyMachineConfigStopConfigArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*MachineFlyMachineConfigStopConfigPtrInput)(nil)).Elem(), MachineFlyMachineConfigStopConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MachinePutQueryParamsInput)(nil)).Elem(), MachinePutQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MachinePutQueryParamsPtrInput)(nil)).Elem(), MachinePutQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MachineQueryParamsInput)(nil)).Elem(), MachineQueryParamsArgs{})
@@ -31236,6 +29209,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*MachinesExecCreateQueryParamsPtrInput)(nil)).Elem(), MachinesExecCreateQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MachinesExecQueryParamsInput)(nil)).Elem(), MachinesExecQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MachinesExecQueryParamsPtrInput)(nil)).Elem(), MachinesExecQueryParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MachinesFlyMachineServiceConcurrencyInput)(nil)).Elem(), MachinesFlyMachineServiceConcurrencyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MachinesFlyMachineServiceConcurrencyPtrInput)(nil)).Elem(), MachinesFlyMachineServiceConcurrencyArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MachinesLeaseCreateQueryParamsInput)(nil)).Elem(), MachinesLeaseCreateQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MachinesLeaseCreateQueryParamsPtrInput)(nil)).Elem(), MachinesLeaseCreateQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MachinesLeaseQueryParamsInput)(nil)).Elem(), MachinesLeaseQueryParamsArgs{})
@@ -31358,30 +29333,14 @@ func init() {
 	pulumi.RegisterOutputType(AppTypeArrayOutput{})
 	pulumi.RegisterOutputType(AppCertificatesAcmeCreateQueryParamsOutput{})
 	pulumi.RegisterOutputType(AppCertificatesAcmeCreateQueryParamsPtrOutput{})
-	pulumi.RegisterOutputType(AppCertificatesAcmeDNSRequirementsAcmeChallengeOutput{})
-	pulumi.RegisterOutputType(AppCertificatesAcmeDNSRequirementsAcmeChallengePtrOutput{})
-	pulumi.RegisterOutputType(AppCertificatesAcmeDNSRequirementsOwnershipOutput{})
-	pulumi.RegisterOutputType(AppCertificatesAcmeDNSRequirementsOwnershipPtrOutput{})
 	pulumi.RegisterOutputType(AppCertificatesAcmeDeleteQueryParamsOutput{})
 	pulumi.RegisterOutputType(AppCertificatesAcmeDeleteQueryParamsPtrOutput{})
-	pulumi.RegisterOutputType(AppCertificatesAcmeDnsRequirementsOutput{})
-	pulumi.RegisterOutputType(AppCertificatesAcmeDnsRequirementsPtrOutput{})
 	pulumi.RegisterOutputType(AppCertificatesAcmeQueryParamsOutput{})
 	pulumi.RegisterOutputType(AppCertificatesAcmeQueryParamsPtrOutput{})
-	pulumi.RegisterOutputType(AppCertificatesAcmeValidationOutput{})
-	pulumi.RegisterOutputType(AppCertificatesAcmeValidationPtrOutput{})
 	pulumi.RegisterOutputType(AppCertificatesCheckCreateQueryParamsOutput{})
 	pulumi.RegisterOutputType(AppCertificatesCheckCreateQueryParamsPtrOutput{})
-	pulumi.RegisterOutputType(AppCertificatesCheckDNSRequirementsAcmeChallengeOutput{})
-	pulumi.RegisterOutputType(AppCertificatesCheckDNSRequirementsAcmeChallengePtrOutput{})
-	pulumi.RegisterOutputType(AppCertificatesCheckDNSRequirementsOwnershipOutput{})
-	pulumi.RegisterOutputType(AppCertificatesCheckDNSRequirementsOwnershipPtrOutput{})
-	pulumi.RegisterOutputType(AppCertificatesCheckDnsRequirementsOutput{})
-	pulumi.RegisterOutputType(AppCertificatesCheckDnsRequirementsPtrOutput{})
 	pulumi.RegisterOutputType(AppCertificatesCheckQueryParamsOutput{})
 	pulumi.RegisterOutputType(AppCertificatesCheckQueryParamsPtrOutput{})
-	pulumi.RegisterOutputType(AppCertificatesCheckValidationOutput{})
-	pulumi.RegisterOutputType(AppCertificatesCheckValidationPtrOutput{})
 	pulumi.RegisterOutputType(AppCertificatesCustomCreateQueryParamsOutput{})
 	pulumi.RegisterOutputType(AppCertificatesCustomCreateQueryParamsPtrOutput{})
 	pulumi.RegisterOutputType(AppCertificatesCustomDeleteQueryParamsOutput{})
@@ -31502,8 +29461,6 @@ func init() {
 	pulumi.RegisterOutputType(FlyMachineServiceArrayOutput{})
 	pulumi.RegisterOutputType(FlyMachineServiceCheckOutput{})
 	pulumi.RegisterOutputType(FlyMachineServiceCheckArrayOutput{})
-	pulumi.RegisterOutputType(FlyMachineServiceConcurrencyOutput{})
-	pulumi.RegisterOutputType(FlyMachineServiceConcurrencyPtrOutput{})
 	pulumi.RegisterOutputType(FlyReplayCacheOutput{})
 	pulumi.RegisterOutputType(FlyReplayCacheArrayOutput{})
 	pulumi.RegisterOutputType(FlyStaticOutput{})
@@ -31534,16 +29491,12 @@ func init() {
 	pulumi.RegisterOutputType(IPAssignmentArrayOutput{})
 	pulumi.RegisterOutputType(IPAssignmentNetworkOutput{})
 	pulumi.RegisterOutputType(IPAssignmentNetworkPtrOutput{})
-	pulumi.RegisterOutputType(ImageRefOutput{})
-	pulumi.RegisterOutputType(ImageRefPtrOutput{})
 	pulumi.RegisterOutputType(IncompleteConfigOutput{})
 	pulumi.RegisterOutputType(IncompleteConfigPtrOutput{})
 	pulumi.RegisterOutputType(IpPairOutput{})
 	pulumi.RegisterOutputType(IpPairPtrOutput{})
 	pulumi.RegisterOutputType(IssuedCertificateOutput{})
 	pulumi.RegisterOutputType(IssuedCertificateArrayOutput{})
-	pulumi.RegisterOutputType(LeaseOutput{})
-	pulumi.RegisterOutputType(LeasePtrOutput{})
 	pulumi.RegisterOutputType(LeaseResponseDataOutput{})
 	pulumi.RegisterOutputType(LeaseResponseDataPtrOutput{})
 	pulumi.RegisterOutputType(ListAppCertificatesQueryParamsOutput{})
@@ -31579,24 +29532,6 @@ func init() {
 	pulumi.RegisterOutputType(MachineDeleteQueryParamsPtrOutput{})
 	pulumi.RegisterOutputType(MachineEventOutput{})
 	pulumi.RegisterOutputType(MachineEventArrayOutput{})
-	pulumi.RegisterOutputType(MachineFlyMachineConfigCacheDriveOutput{})
-	pulumi.RegisterOutputType(MachineFlyMachineConfigCacheDrivePtrOutput{})
-	pulumi.RegisterOutputType(MachineFlyMachineConfigDnsOutput{})
-	pulumi.RegisterOutputType(MachineFlyMachineConfigDnsPtrOutput{})
-	pulumi.RegisterOutputType(MachineFlyMachineConfigGuestOutput{})
-	pulumi.RegisterOutputType(MachineFlyMachineConfigGuestPtrOutput{})
-	pulumi.RegisterOutputType(MachineFlyMachineConfigInitOutput{})
-	pulumi.RegisterOutputType(MachineFlyMachineConfigInitPtrOutput{})
-	pulumi.RegisterOutputType(MachineFlyMachineConfigMetricsOutput{})
-	pulumi.RegisterOutputType(MachineFlyMachineConfigMetricsPtrOutput{})
-	pulumi.RegisterOutputType(MachineFlyMachineConfigRestartOutput{})
-	pulumi.RegisterOutputType(MachineFlyMachineConfigRestartPtrOutput{})
-	pulumi.RegisterOutputType(MachineFlyMachineConfigRootfsOutput{})
-	pulumi.RegisterOutputType(MachineFlyMachineConfigRootfsPtrOutput{})
-	pulumi.RegisterOutputType(MachineFlyMachineConfigSpotOutput{})
-	pulumi.RegisterOutputType(MachineFlyMachineConfigSpotPtrOutput{})
-	pulumi.RegisterOutputType(MachineFlyMachineConfigStopConfigOutput{})
-	pulumi.RegisterOutputType(MachineFlyMachineConfigStopConfigPtrOutput{})
 	pulumi.RegisterOutputType(MachineImageRefOutput{})
 	pulumi.RegisterOutputType(MachineImageRefPtrOutput{})
 	pulumi.RegisterOutputType(MachineIncompleteConfigOutput{})
@@ -31621,6 +29556,8 @@ func init() {
 	pulumi.RegisterOutputType(MachinesExecCreateQueryParamsPtrOutput{})
 	pulumi.RegisterOutputType(MachinesExecQueryParamsOutput{})
 	pulumi.RegisterOutputType(MachinesExecQueryParamsPtrOutput{})
+	pulumi.RegisterOutputType(MachinesFlyMachineServiceConcurrencyOutput{})
+	pulumi.RegisterOutputType(MachinesFlyMachineServiceConcurrencyPtrOutput{})
 	pulumi.RegisterOutputType(MachinesLeaseCreateQueryParamsOutput{})
 	pulumi.RegisterOutputType(MachinesLeaseCreateQueryParamsPtrOutput{})
 	pulumi.RegisterOutputType(MachinesLeaseQueryParamsOutput{})
