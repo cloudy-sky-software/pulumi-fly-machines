@@ -4,7 +4,7 @@ go 1.27
 
 require (
 	github.com/cloudy-sky-software/pulschema v0.0.0-20261114221026-a1890f54b98e
-	github.com/cloudy-sky-software/pulumi-provider-framework v0.0.0-20261113003417-56f54b31408b
+	github.com/cloudy-sky-software/pulumi-provider-framework v0.0.0-20261113155742-386266845fdc
 	github.com/getkin/kin-openapi v0.153.0
 	github.com/google/uuid v1.6.0
 	github.com/pkg/errors v0.9.1
