@@ -3,14 +3,14 @@ module github.com/cloudy-sky-software/pulumi-fly-machines/provider
 go 1.27
 
 require (
-	github.com/cloudy-sky-software/pulschema v0.0.0-20261112163646-bb8bd8ccd05e
+	github.com/cloudy-sky-software/pulschema v0.0.0-20261114221026-a1890f54b98e
 	github.com/cloudy-sky-software/pulumi-provider-framework v0.0.0-20261113003417-56f54b31408b
 	github.com/getkin/kin-openapi v0.153.0
 	github.com/google/uuid v1.6.0
 	github.com/pkg/errors v0.9.1
 	github.com/pulumi/pulumi-dotnet/pulumi-language-dotnet/v3 v3.118.0
-	github.com/pulumi/pulumi/pkg/v3 v3.275.0
-	github.com/pulumi/pulumi/sdk/v3 v3.275.0
+	github.com/pulumi/pulumi/pkg/v3 v3.276.0
+	github.com/pulumi/pulumi/sdk/v3 v3.276.0
 	github.com/stretchr/testify v1.12.1
 	google.golang.org/protobuf v1.36.12
 	gopkg.in/yaml.v3 v3.0.1
@@ -79,8 +79,6 @@ require (
 	github.com/muesli/cancelreader v0.2.2 // indirect
 	github.com/muesli/termenv v0.16.0 // indirect
 	github.com/natefinch/atomic v1.0.1 // indirect
-	github.com/oasdiff/yaml v0.1.1 // indirect
-	github.com/oasdiff/yaml3 v0.0.14 // indirect
 	github.com/opentracing/basictracer-go v1.1.0 // indirect
 	github.com/opentracing/opentracing-go v1.2.0 // indirect
 	github.com/pgavlin/fx v0.1.6 // indirect
@@ -140,5 +138,3 @@ require (
 	google.golang.org/grpc v1.85.0 // indirect
 	lukechampine.com/frand v1.5.1 // indirect
 )
-
-replace github.com/cloudy-sky-software/pulschema => ../../pulschema
