@@ -175,6 +175,10 @@ class Secrets(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter
     def secrets(self) -> pulumi.Output[Optional[Sequence['outputs.AppSecret']]]:
+        """
+        The secrets from the request, with their new values and digests; deleted secrets only
+        have a name.
+        """
         return pulumi.get(self, "secrets")
 
     @_builtins.property

@@ -32,7 +32,10 @@ class MachinesMetadataArgs:
 
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input[_builtins.str] machine_id: Machine ID
+        :param pulumi.Input[_builtins.str] machine_version: Only apply the change if this is still the Machine's current version; otherwise fail
+               with 412. Defaults to the current version.
         :param pulumi.Input['MachinesMetadataQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
+        :param pulumi.Input[_builtins.str] updated_at: Time to record for the change in the Machine's `metadata_update` event. Defaults to now.
         """
         if app_name is not None:
             pulumi.set(__self__, "app_name", app_name)
@@ -74,6 +77,10 @@ class MachinesMetadataArgs:
     @_builtins.property
     @pulumi.getter(name="machineVersion")
     def machine_version(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Only apply the change if this is still the Machine's current version; otherwise fail
+        with 412. Defaults to the current version.
+        """
         return pulumi.get(self, "machine_version")
 
     @machine_version.setter
@@ -104,6 +111,9 @@ class MachinesMetadataArgs:
     @_builtins.property
     @pulumi.getter(name="updatedAt")
     def updated_at(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Time to record for the change in the Machine's `metadata_update` event. Defaults to now.
+        """
         return pulumi.get(self, "updated_at")
 
     @updated_at.setter
@@ -131,7 +141,10 @@ class MachinesMetadata(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input[_builtins.str] machine_id: Machine ID
+        :param pulumi.Input[_builtins.str] machine_version: Only apply the change if this is still the Machine's current version; otherwise fail
+               with 412. Defaults to the current version.
         :param pulumi.Input[Union['MachinesMetadataQueryParamsArgs', 'MachinesMetadataQueryParamsArgsDict', 'outputs.MachinesMetadataQueryParams']] query_params: Query params to send with the API requests for this resource.
+        :param pulumi.Input[_builtins.str] updated_at: Time to record for the change in the Machine's `metadata_update` event. Defaults to now.
         """
         ...
     @overload
@@ -215,6 +228,10 @@ class MachinesMetadata(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter(name="machineVersion")
     def machine_version(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Only apply the change if this is still the Machine's current version; otherwise fail
+        with 412. Defaults to the current version.
+        """
         return pulumi.get(self, "machine_version")
 
     @_builtins.property
@@ -233,5 +250,8 @@ class MachinesMetadata(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter(name="updatedAt")
     def updated_at(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Time to record for the change in the Machine's `metadata_update` event. Defaults to now.
+        """
         return pulumi.get(self, "updated_at")
 

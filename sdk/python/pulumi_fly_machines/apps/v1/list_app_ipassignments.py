@@ -33,6 +33,9 @@ class ListAppIPAssignmentsResult:
     @_builtins.property
     @pulumi.getter
     def ips(self) -> Optional[Sequence['outputs.IPAssignment']]:
+        """
+        The app's IP addresses, including its shared IPv4 address and egress addresses.
+        """
         return pulumi.get(self, "ips")
 
 

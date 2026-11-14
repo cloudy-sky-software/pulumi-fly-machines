@@ -14,7 +14,10 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     [OutputType]
     public sealed class FlyContainerHealthcheck
     {
-        public readonly Outputs.FlyExecHealthcheck? Exec;
+        /// <summary>
+        /// Check that a command run in the container exits with status 0
+        /// </summary>
+        public readonly Outputs.FlyContainerHealthcheckExec? Exec;
         /// <summary>
         /// The number of times the check must fail before considering the container unhealthy.
         /// </summary>
@@ -23,7 +26,10 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         /// The time in seconds to wait after a container starts before checking its health.
         /// </summary>
         public readonly int? GracePeriod;
-        public readonly Outputs.FlyHTTPHealthcheck? Http;
+        /// <summary>
+        /// Check that an HTTP request succeeds
+        /// </summary>
+        public readonly Outputs.FlyContainerHealthcheckHttp? Http;
         /// <summary>
         /// The time in seconds between executing the defined check.
         /// </summary>
@@ -40,7 +46,10 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         /// The number of times the check must succeeed before considering the container healthy.
         /// </summary>
         public readonly int? SuccessThreshold;
-        public readonly Outputs.FlyTCPHealthcheck? Tcp;
+        /// <summary>
+        /// Check that a TCP connection can be opened
+        /// </summary>
+        public readonly Outputs.FlyContainerHealthcheckTcp? Tcp;
         /// <summary>
         /// The time in seconds to wait for the check to complete.
         /// </summary>
@@ -52,13 +61,13 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
 
         [OutputConstructor]
         private FlyContainerHealthcheck(
-            Outputs.FlyExecHealthcheck? exec,
+            Outputs.FlyContainerHealthcheckExec? exec,
 
             int? failureThreshold,
 
             int? gracePeriod,
 
-            Outputs.FlyHTTPHealthcheck? http,
+            Outputs.FlyContainerHealthcheckHttp? http,
 
             int? interval,
 
@@ -68,7 +77,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
 
             int? successThreshold,
 
-            Outputs.FlyTCPHealthcheck? tcp,
+            Outputs.FlyContainerHealthcheckTcp? tcp,
 
             int? timeout,
 

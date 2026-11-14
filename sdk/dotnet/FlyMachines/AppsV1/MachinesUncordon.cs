@@ -13,6 +13,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
     [FlyMachinesResourceType("fly-machines:apps/v1:MachinesUncordon")]
     public partial class MachinesUncordon : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// Always true.
+        /// </summary>
         [Output("ok")]
         public Output<bool?> Ok { get; private set; } = null!;
 

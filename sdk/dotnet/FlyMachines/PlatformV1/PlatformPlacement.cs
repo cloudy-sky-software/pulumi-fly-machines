@@ -14,6 +14,13 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.PlatformV1
     public partial class PlatformPlacement : global::Pulumi.CustomResource
     {
         /// <summary>
+        /// The regions Machines would be placed in. With `count` 0, every requested region with the
+        /// organization's Machine limit in it.
+        /// </summary>
+        [Output("Regions")]
+        public Output<ImmutableArray<Outputs.PlacementRegionPlacement>> Regions { get; private set; } = null!;
+
+        /// <summary>
         /// Resource requirements for the Machine to simulate. Defaults to a performance-1x machine
         /// </summary>
         [Output("compute")]
@@ -26,6 +33,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.PlatformV1
         [Output("count")]
         public Output<int?> Count { get; private set; } = null!;
 
+        /// <summary>
+        /// Slug of the organization to place Machines for, or `personal`. Required.
+        /// </summary>
         [Output("orgSlug")]
         public Output<string> OrgSlug { get; private set; } = null!;
 
@@ -37,17 +47,22 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.PlatformV1
 
         /// <summary>
         /// Region expression for placement as a comma-delimited set of regions or aliases.
-        /// Defaults to "[region],any", to prefer the API endpoint's local region with any other region as fallback.
+        /// Defaults to the API endpoint's local region. When `count` is greater than 0, `any` is
+        /// added as a fallback.
         /// </summary>
         [Output("region")]
         public Output<string?> Region { get; private set; } = null!;
 
-        [Output("regions")]
-        public Output<ImmutableArray<Outputs.PlacementRegionPlacement>> Regions { get; private set; } = null!;
-
+        /// <summary>
+        /// Currently unused.
+        /// </summary>
         [Output("volumeName")]
         public Output<string?> VolumeName { get; private set; } = null!;
 
+        /// <summary>
+        /// Size of a volume each Machine will need, in bytes. Only hosts with room for it are
+        /// considered.
+        /// </summary>
         [Output("volumeSizeBytes")]
         public Output<int?> VolumeSizeBytes { get; private set; } = null!;
 
@@ -116,6 +131,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.PlatformV1
         [Input("count")]
         public Input<int>? Count { get; set; }
 
+        /// <summary>
+        /// Slug of the organization to place Machines for, or `personal`. Required.
+        /// </summary>
         [Input("orgSlug", required: true)]
         public Input<string> OrgSlug { get; set; } = null!;
 
@@ -127,14 +145,22 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.PlatformV1
 
         /// <summary>
         /// Region expression for placement as a comma-delimited set of regions or aliases.
-        /// Defaults to "[region],any", to prefer the API endpoint's local region with any other region as fallback.
+        /// Defaults to the API endpoint's local region. When `count` is greater than 0, `any` is
+        /// added as a fallback.
         /// </summary>
         [Input("region")]
         public Input<string>? Region { get; set; }
 
+        /// <summary>
+        /// Currently unused.
+        /// </summary>
         [Input("volumeName")]
         public Input<string>? VolumeName { get; set; }
 
+        /// <summary>
+        /// Size of a volume each Machine will need, in bytes. Only hosts with room for it are
+        /// considered.
+        /// </summary>
         [Input("volumeSizeBytes")]
         public Input<int>? VolumeSizeBytes { get; set; }
 

@@ -44,13 +44,24 @@ export class VolumesExtend extends pulumi.CustomResource {
         return obj['__pulumiType'] === VolumesExtend.__pulumiType;
     }
 
+    /**
+     * Whether the volume is attached to a running Machine that could not resize its filesystem
+     * while running. If true, restart the Machine for the filesystem to use the new size.
+     */
     declare public /*out*/ readonly needsRestart: pulumi.Output<boolean | undefined>;
     /**
      * Query params to send with the API requests for this resource.
      */
     declare public readonly queryParams: pulumi.Output<outputs.apps.v1.VolumesExtendQueryParams | undefined>;
+    /**
+     * New size of the volume in GiB. Must be larger than the current size and at most the
+     * organization's maximum (500 by default).
+     */
     declare public readonly sizeGb: pulumi.Output<number | undefined>;
-    declare public /*out*/ readonly volume: pulumi.Output<outputs.apps.v1.Volume | undefined>;
+    /**
+     * The extended volume.
+     */
+    declare public /*out*/ readonly volume: pulumi.Output<outputs.apps.v1.VolumesExtendVolume | undefined>;
 
     /**
      * Create a VolumesExtend resource with the given unique name, arguments, and options.
@@ -92,6 +103,10 @@ export interface VolumesExtendArgs {
      * Query params to send with the API requests for this resource.
      */
     queryParams?: pulumi.Input<inputs.apps.v1.VolumesExtendQueryParamsArgs | undefined>;
+    /**
+     * New size of the volume in GiB. Must be larger than the current size and at most the
+     * organization's maximum (500 by default).
+     */
     sizeGb?: pulumi.Input<number | undefined>;
     /**
      * Volume ID

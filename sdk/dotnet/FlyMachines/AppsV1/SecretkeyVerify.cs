@@ -13,8 +13,11 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
     [FlyMachinesResourceType("fly-machines:apps/v1:SecretkeyVerify")]
     public partial class SecretkeyVerify : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// Data that was signed, base64-encoded.
+        /// </summary>
         [Output("plaintext")]
-        public Output<ImmutableArray<int>> Plaintext { get; private set; } = null!;
+        public Output<string?> Plaintext { get; private set; } = null!;
 
         /// <summary>
         /// Query params to send with the API requests for this resource.
@@ -22,8 +25,11 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Output("queryParams")]
         public Output<Outputs.SecretkeyVerifyQueryParams?> QueryParams { get; private set; } = null!;
 
+        /// <summary>
+        /// Signature or MAC to check, base64-encoded.
+        /// </summary>
         [Output("signature")]
-        public Output<ImmutableArray<int>> Signature { get; private set; } = null!;
+        public Output<string?> Signature { get; private set; } = null!;
 
 
         /// <summary>
@@ -77,13 +83,11 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Input("appName")]
         public Input<string>? AppName { get; set; }
 
+        /// <summary>
+        /// Data that was signed, base64-encoded.
+        /// </summary>
         [Input("plaintext")]
-        private InputList<int>? _plaintext;
-        public InputList<int> Plaintext
-        {
-            get => _plaintext ?? (_plaintext = new InputList<int>());
-            set => _plaintext = value;
-        }
+        public Input<string>? Plaintext { get; set; }
 
         /// <summary>
         /// Query params to send with the API requests for this resource.
@@ -97,13 +101,11 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Input("secretName")]
         public Input<string>? SecretName { get; set; }
 
+        /// <summary>
+        /// Signature or MAC to check, base64-encoded.
+        /// </summary>
         [Input("signature")]
-        private InputList<int>? _signature;
-        public InputList<int> Signature
-        {
-            get => _signature ?? (_signature = new InputList<int>());
-            set => _signature = value;
-        }
+        public Input<string>? Signature { get; set; }
 
         public SecretkeyVerifyArgs()
         {

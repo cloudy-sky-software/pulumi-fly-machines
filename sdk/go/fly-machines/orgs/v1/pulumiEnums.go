@@ -102,6 +102,8 @@ func (o FlyMachineGuestPersistRootfsPtrOutput) ToStringPtrOutputWithContext(ctx 
 	}).(pulumi.StringPtrOutput)
 }
 
+// Whether Fly.io could reach the volume's host: `ok` if it could, `unreachable` or
+// `unknown` if it could not, in which case host-reported fields are missing.
 type OrgVolumeHostStatus string
 
 const (
@@ -193,6 +195,8 @@ func (o OrgVolumeHostStatusPtrOutput) ToStringPtrOutputWithContext(ctx context.C
 	}).(pulumi.StringPtrOutput)
 }
 
+// Kind of volume: `local` for regular volumes, or `cache` for volumes that hold
+// disposable data and support neither snapshots nor restores.
 type OrgVolumeType string
 
 const (

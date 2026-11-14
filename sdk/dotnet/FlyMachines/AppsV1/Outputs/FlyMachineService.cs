@@ -14,6 +14,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     [OutputType]
     public sealed class FlyMachineService
     {
+        /// <summary>
+        /// Whether Fly Proxy starts stopped or suspended Machines when requests arrive. Defaults to true
+        /// </summary>
         public readonly bool? Autostart;
         /// <summary>
         /// Accepts a string (new format) or a boolean (old format). For backward compatibility with older clients, the API continues to use booleans for "off" and "stop" in responses.
@@ -26,12 +29,34 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         /// An optional list of service checks
         /// </summary>
         public readonly ImmutableArray<Outputs.FlyMachineServiceCheck> Checks;
+        /// <summary>
+        /// Load limits Fly Proxy uses to balance traffic across Machines
+        /// </summary>
         public readonly Outputs.FlyMachineServiceConcurrency? Concurrency;
+        /// <summary>
+        /// Currently has no effect
+        /// </summary>
         public readonly string? ForceInstanceDescription;
+        /// <summary>
+        /// Currently has no effect
+        /// </summary>
         public readonly string? ForceInstanceKey;
+        /// <summary>
+        /// Port in the Machine that Fly Proxy forwards traffic to. Defaults to 8080
+        /// </summary>
         public readonly int? InternalPort;
+        /// <summary>
+        /// When autostop is on, the number of Machines Fly Proxy keeps running in the app's primary
+        /// region (`PRIMARY_REGION` env var). Machines in other regions can all be stopped
+        /// </summary>
         public readonly int? MinMachinesRunning;
+        /// <summary>
+        /// Public ports that Fly Proxy accepts traffic on
+        /// </summary>
         public readonly ImmutableArray<Outputs.FlyMachinePort> Ports;
+        /// <summary>
+        /// Protocol: tcp or udp. Defaults to tcp
+        /// </summary>
         public readonly string? Protocol;
 
         [OutputConstructor]

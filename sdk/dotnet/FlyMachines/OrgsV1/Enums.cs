@@ -39,6 +39,10 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.OrgsV1
         public override string ToString() => _value;
     }
 
+    /// <summary>
+    /// Whether Fly.io could reach the volume's host: `ok` if it could, `unreachable` or
+    /// `unknown` if it could not, in which case host-reported fields are missing.
+    /// </summary>
     [EnumType]
     public readonly struct OrgVolumeHostStatus : IEquatable<OrgVolumeHostStatus>
     {
@@ -68,6 +72,10 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.OrgsV1
         public override string ToString() => _value;
     }
 
+    /// <summary>
+    /// Kind of volume: `local` for regular volumes, or `cache` for volumes that hold
+    /// disposable data and support neither snapshots nor restores.
+    /// </summary>
     [EnumType]
     public readonly struct OrgVolumeType : IEquatable<OrgVolumeType>
     {

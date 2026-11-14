@@ -36,6 +36,8 @@ __all__ = [
     'PostgresDatabaseCreateQueryParams',
     'PostgresDatabaseDeleteQueryParams',
     'PostgresDatabaseQueryParams',
+    'PostgresDatabasesQueryCreateQueryParams',
+    'PostgresDatabasesQueryQueryParams',
     'PostgresDeleteQueryParams',
     'PostgresExtension',
     'PostgresExtensionCreateQueryParams',
@@ -47,6 +49,7 @@ __all__ = [
     'PostgresNodeEndpointsDirect',
     'PostgresNodeEndpointsPooler',
     'PostgresPlan',
+    'PostgresQueryColumn',
     'PostgresQueryParams',
     'PostgresReadQueryParams',
     'PostgresRestoreCreateQueryParams',
@@ -1174,6 +1177,71 @@ class PostgresDatabaseQueryParams(dict):
 
 
 @pulumi.output_type
+class PostgresDatabasesQueryCreateQueryParams(dict):
+    """
+    Query params for the API request.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "additionalParams":
+            suggest = "additional_params"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PostgresDatabasesQueryCreateQueryParams. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PostgresDatabasesQueryCreateQueryParams.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PostgresDatabasesQueryCreateQueryParams.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+
+@pulumi.output_type
+class PostgresDatabasesQueryQueryParams(dict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    def __init__(__self__, *,
+                 create: Optional['outputs.PostgresDatabasesQueryCreateQueryParams'] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param 'PostgresDatabasesQueryCreateQueryParams' create: Query params for the create operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> Optional['outputs.PostgresDatabasesQueryCreateQueryParams']:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+
+@pulumi.output_type
 class PostgresDeleteQueryParams(dict):
     """
     Query params for the API request.
@@ -1649,6 +1717,37 @@ class PostgresPlan(dict):
         Plan slug. Pass it as `plan` when creating or forking a cluster.
         """
         return pulumi.get(self, "plan")
+
+
+@pulumi.output_type
+class PostgresQueryColumn(dict):
+    def __init__(__self__, *,
+                 name: Optional[_builtins.str] = None,
+                 type: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str name: Column name as returned by Postgres.
+        :param _builtins.str type: Postgres type name.
+        """
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> Optional[_builtins.str]:
+        """
+        Column name as returned by Postgres.
+        """
+        return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> Optional[_builtins.str]:
+        """
+        Postgres type name.
+        """
+        return pulumi.get(self, "type")
 
 
 @pulumi.output_type

@@ -16,32 +16,65 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.PlatformV1.Inputs
     /// </summary>
     public sealed class ComputeArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
+        /// Defaults to shared when `guest` is omitted
+        /// </summary>
         [Input("cpuKind")]
         public Input<string>? CpuKind { get; set; }
 
+        /// <summary>
+        /// Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
+        /// performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
+        /// omitted
+        /// </summary>
         [Input("cpus")]
         public Input<int>? Cpus { get; set; }
 
+        /// <summary>
+        /// No longer supported. Requests that set it are rejected
+        /// </summary>
         [Input("gpuKind")]
         public Input<string>? GpuKind { get; set; }
 
+        /// <summary>
+        /// No longer supported. Requests that set it are rejected
+        /// </summary>
         [Input("gpus")]
         public Input<int>? Gpus { get; set; }
 
+        /// <summary>
+        /// Place the Machine on hosts dedicated to the organization under this ID. Only available to
+        /// organizations with dedicated hosts
+        /// </summary>
         [Input("hostDedicationId")]
         public Input<string>? HostDedicationId { get; set; }
 
         [Input("kernelArgs")]
         private InputList<string>? _kernelArgs;
+
+        /// <summary>
+        /// Extra arguments appended to the guest kernel command line
+        /// </summary>
         public InputList<string> KernelArgs
         {
             get => _kernelArgs ?? (_kernelArgs = new InputList<string>());
             set => _kernelArgs = value;
         }
 
+        /// <summary>
+        /// Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
+        /// the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
+        /// starts with a limit of memory_mb
+        /// </summary>
         [Input("maxMemoryMb")]
         public Input<int>? MaxMemoryMb { get; set; }
 
+        /// <summary>
+        /// Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
+        /// between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
+        /// `guest` is omitted
+        /// </summary>
         [Input("memoryMb")]
         public Input<int>? MemoryMb { get; set; }
 
@@ -53,6 +86,11 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.PlatformV1.Inputs
 
         [Input("requiredHostFeatures")]
         private InputList<string>? _requiredHostFeatures;
+
+        /// <summary>
+        /// Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
+        /// of lowercase letters, digits and dashes. Each feature must be enabled for the organization
+        /// </summary>
         public InputList<string> RequiredHostFeatures
         {
             get => _requiredHostFeatures ?? (_requiredHostFeatures = new InputList<string>());

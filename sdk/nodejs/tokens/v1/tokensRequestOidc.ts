@@ -47,7 +47,14 @@ export class TokensRequestOidc extends pulumi.CustomResource {
         return obj['__pulumiType'] === TokensRequestOidc.__pulumiType;
     }
 
+    /**
+     * Value of the token's `aud` claim. Defaults to `https://fly.io/<org-slug>`.
+     */
     declare public readonly aud: pulumi.Output<string | undefined>;
+    /**
+     * Add AWS principal tag claims (`https://aws.amazon.com/tags/principal_tags/<tag>`) for use
+     * with AWS IAM: FlyAppName, FlyOrgSlug, FlyOrgId, FlyMachineName and FlyRegion.
+     */
     declare public readonly awsPrincipalTags: pulumi.Output<boolean | undefined>;
     /**
      * Query params to send with the API requests for this resource.
@@ -82,7 +89,14 @@ export class TokensRequestOidc extends pulumi.CustomResource {
  * The set of arguments for constructing a TokensRequestOidc resource.
  */
 export interface TokensRequestOidcArgs {
+    /**
+     * Value of the token's `aud` claim. Defaults to `https://fly.io/<org-slug>`.
+     */
     aud?: pulumi.Input<string | undefined>;
+    /**
+     * Add AWS principal tag claims (`https://aws.amazon.com/tags/principal_tags/<tag>`) for use
+     * with AWS IAM: FlyAppName, FlyOrgSlug, FlyOrgId, FlyMachineName and FlyRegion.
+     */
     awsPrincipalTags?: pulumi.Input<boolean | undefined>;
     /**
      * Query params to send with the API requests for this resource.

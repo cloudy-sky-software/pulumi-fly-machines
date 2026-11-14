@@ -32,28 +32,113 @@ export interface GetVolumeArgs {
 }
 
 export interface GetVolumeResult {
+    /**
+     * Always null.
+     *
+     * Deprecated: volumes are no longer attached to Nomad allocations.
+     */
     readonly attachedAllocId?: string;
+    /**
+     * ID of the Machine the volume is attached to, or null if it is not attached.
+     */
     readonly attachedMachineId?: string;
+    /**
+     * Whether daily automatic snapshots are taken.
+     */
     readonly autoBackupEnabled?: boolean;
+    /**
+     * Size of a filesystem block, in bytes. See `blocks`.
+     */
     readonly blockSize?: number;
+    /**
+     * Size of the volume's filesystem, in blocks of `block_size` bytes, as last reported by a
+     * Machine that mounted the volume. 0 if never reported, if the host could not be reached,
+     * or with `summary=true`.
+     */
     readonly blocks?: number;
+    /**
+     * Number of filesystem blocks available to unprivileged users. See `blocks`.
+     */
     readonly blocksAvail?: number;
+    /**
+     * Number of free filesystem blocks, including blocks reserved for the root user. See
+     * `blocks`.
+     */
     readonly blocksFree?: number;
+    /**
+     * Size of the volume, in bytes. 0 if the host could not be reached or with `summary=true`.
+     */
     readonly bytesTotal?: number;
+    /**
+     * Bytes of storage the volume occupies on its host. Volumes are thinly provisioned, so this
+     * grows as blocks are written and does not shrink when files are deleted. It is not the
+     * filesystem's usage; use `blocks` and `blocks_free` for that. 0 if the host could not be
+     * reached or with `summary=true`.
+     */
     readonly bytesUsed?: number;
+    /**
+     * When the volume was created.
+     */
     readonly createdAt?: string;
+    /**
+     * Whether the volume is encrypted at rest.
+     */
     readonly encrypted?: boolean;
+    /**
+     * Filesystem the volume was formatted with: `ext4`, or `raw` for an unformatted block
+     * device.
+     */
     readonly fstype?: string;
+    /**
+     * Features of the volume's host. Only returned when the request sets the
+     * `fly-include-host-features: true` header.
+     */
     readonly hostFeatures?: string[];
+    /**
+     * Whether Fly.io could reach the volume's host: `ok` if it could, `unreachable` or
+     * `unknown` if it could not, in which case host-reported fields are missing.
+     */
     readonly hostStatus?: enums.apps.v1.VolumeHostStatus;
+    /**
+     * Unique ID of the volume, such as `vol_1234567890abcdef`.
+     */
     readonly id?: string;
+    /**
+     * Name of the volume. Several volumes of an app can share a name.
+     */
     readonly name?: string;
+    /**
+     * Code of the region the volume is in.
+     */
     readonly region?: string;
+    /**
+     * Host features the volume's host was required to have; see `compute.required_host_features`
+     * in the create request.
+     */
     readonly requiredHostFeatures?: string[];
+    /**
+     * Size of the volume, in GiB.
+     */
     readonly sizeGb?: number;
+    /**
+     * Number of days snapshots of the volume are kept.
+     */
     readonly snapshotRetention?: number;
+    /**
+     * State of the volume, such as `creating`, `created`, `extending`, `restoring`,
+     * `hydrating`, `scheduling_destroy`, `pending_destroy`, `destroying`, `destroyed`, or
+     * `failed`.
+     */
     readonly state?: string;
+    /**
+     * Kind of volume: `local` for regular volumes, or `cache` for volumes that hold
+     * disposable data and support neither snapshots nor restores.
+     */
     readonly type?: enums.apps.v1.VolumeType;
+    /**
+     * Identifies the host the volume is on. Volumes with different zones are on different
+     * hosts.
+     */
     readonly zone?: string;
 }
 export function getVolumeOutput(args: GetVolumeOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetVolumeResult> {

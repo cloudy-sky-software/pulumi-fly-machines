@@ -3634,6 +3634,286 @@ func (o PostgresDatabaseQueryParamsPtrOutput) Delete() PostgresDatabaseDeleteQue
 }
 
 // Query params for the API request.
+type PostgresDatabasesQueryCreateQueryParams struct {
+	// Additional query params to send with the request that are not defined in the API spec.
+	AdditionalParams map[string]string `pulumi:"additionalParams"`
+}
+
+// PostgresDatabasesQueryCreateQueryParamsInput is an input type that accepts PostgresDatabasesQueryCreateQueryParamsArgs and PostgresDatabasesQueryCreateQueryParamsOutput values.
+// You can construct a concrete instance of `PostgresDatabasesQueryCreateQueryParamsInput` via:
+//
+//	PostgresDatabasesQueryCreateQueryParamsArgs{...}
+type PostgresDatabasesQueryCreateQueryParamsInput interface {
+	pulumi.Input
+
+	ToPostgresDatabasesQueryCreateQueryParamsOutput() PostgresDatabasesQueryCreateQueryParamsOutput
+	ToPostgresDatabasesQueryCreateQueryParamsOutputWithContext(context.Context) PostgresDatabasesQueryCreateQueryParamsOutput
+}
+
+// Query params for the API request.
+type PostgresDatabasesQueryCreateQueryParamsArgs struct {
+	// Additional query params to send with the request that are not defined in the API spec.
+	AdditionalParams pulumi.StringMapInput `pulumi:"additionalParams"`
+}
+
+func (PostgresDatabasesQueryCreateQueryParamsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PostgresDatabasesQueryCreateQueryParams)(nil)).Elem()
+}
+
+func (i PostgresDatabasesQueryCreateQueryParamsArgs) ToPostgresDatabasesQueryCreateQueryParamsOutput() PostgresDatabasesQueryCreateQueryParamsOutput {
+	return i.ToPostgresDatabasesQueryCreateQueryParamsOutputWithContext(context.Background())
+}
+
+func (i PostgresDatabasesQueryCreateQueryParamsArgs) ToPostgresDatabasesQueryCreateQueryParamsOutputWithContext(ctx context.Context) PostgresDatabasesQueryCreateQueryParamsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PostgresDatabasesQueryCreateQueryParamsOutput)
+}
+
+func (i PostgresDatabasesQueryCreateQueryParamsArgs) ToPostgresDatabasesQueryCreateQueryParamsPtrOutput() PostgresDatabasesQueryCreateQueryParamsPtrOutput {
+	return i.ToPostgresDatabasesQueryCreateQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (i PostgresDatabasesQueryCreateQueryParamsArgs) ToPostgresDatabasesQueryCreateQueryParamsPtrOutputWithContext(ctx context.Context) PostgresDatabasesQueryCreateQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PostgresDatabasesQueryCreateQueryParamsOutput).ToPostgresDatabasesQueryCreateQueryParamsPtrOutputWithContext(ctx)
+}
+
+// PostgresDatabasesQueryCreateQueryParamsPtrInput is an input type that accepts PostgresDatabasesQueryCreateQueryParamsArgs, PostgresDatabasesQueryCreateQueryParamsPtr and PostgresDatabasesQueryCreateQueryParamsPtrOutput values.
+// You can construct a concrete instance of `PostgresDatabasesQueryCreateQueryParamsPtrInput` via:
+//
+//	        PostgresDatabasesQueryCreateQueryParamsArgs{...}
+//
+//	or:
+//
+//	        nil
+type PostgresDatabasesQueryCreateQueryParamsPtrInput interface {
+	pulumi.Input
+
+	ToPostgresDatabasesQueryCreateQueryParamsPtrOutput() PostgresDatabasesQueryCreateQueryParamsPtrOutput
+	ToPostgresDatabasesQueryCreateQueryParamsPtrOutputWithContext(context.Context) PostgresDatabasesQueryCreateQueryParamsPtrOutput
+}
+
+type postgresDatabasesQueryCreateQueryParamsPtrType PostgresDatabasesQueryCreateQueryParamsArgs
+
+func PostgresDatabasesQueryCreateQueryParamsPtr(v *PostgresDatabasesQueryCreateQueryParamsArgs) PostgresDatabasesQueryCreateQueryParamsPtrInput {
+	return (*postgresDatabasesQueryCreateQueryParamsPtrType)(v)
+}
+
+func (*postgresDatabasesQueryCreateQueryParamsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PostgresDatabasesQueryCreateQueryParams)(nil)).Elem()
+}
+
+func (i *postgresDatabasesQueryCreateQueryParamsPtrType) ToPostgresDatabasesQueryCreateQueryParamsPtrOutput() PostgresDatabasesQueryCreateQueryParamsPtrOutput {
+	return i.ToPostgresDatabasesQueryCreateQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (i *postgresDatabasesQueryCreateQueryParamsPtrType) ToPostgresDatabasesQueryCreateQueryParamsPtrOutputWithContext(ctx context.Context) PostgresDatabasesQueryCreateQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PostgresDatabasesQueryCreateQueryParamsPtrOutput)
+}
+
+// Query params for the API request.
+type PostgresDatabasesQueryCreateQueryParamsOutput struct{ *pulumi.OutputState }
+
+func (PostgresDatabasesQueryCreateQueryParamsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PostgresDatabasesQueryCreateQueryParams)(nil)).Elem()
+}
+
+func (o PostgresDatabasesQueryCreateQueryParamsOutput) ToPostgresDatabasesQueryCreateQueryParamsOutput() PostgresDatabasesQueryCreateQueryParamsOutput {
+	return o
+}
+
+func (o PostgresDatabasesQueryCreateQueryParamsOutput) ToPostgresDatabasesQueryCreateQueryParamsOutputWithContext(ctx context.Context) PostgresDatabasesQueryCreateQueryParamsOutput {
+	return o
+}
+
+func (o PostgresDatabasesQueryCreateQueryParamsOutput) ToPostgresDatabasesQueryCreateQueryParamsPtrOutput() PostgresDatabasesQueryCreateQueryParamsPtrOutput {
+	return o.ToPostgresDatabasesQueryCreateQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (o PostgresDatabasesQueryCreateQueryParamsOutput) ToPostgresDatabasesQueryCreateQueryParamsPtrOutputWithContext(ctx context.Context) PostgresDatabasesQueryCreateQueryParamsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PostgresDatabasesQueryCreateQueryParams) *PostgresDatabasesQueryCreateQueryParams {
+		return &v
+	}).(PostgresDatabasesQueryCreateQueryParamsPtrOutput)
+}
+
+// Additional query params to send with the request that are not defined in the API spec.
+func (o PostgresDatabasesQueryCreateQueryParamsOutput) AdditionalParams() pulumi.StringMapOutput {
+	return o.ApplyT(func(v PostgresDatabasesQueryCreateQueryParams) map[string]string { return v.AdditionalParams }).(pulumi.StringMapOutput)
+}
+
+type PostgresDatabasesQueryCreateQueryParamsPtrOutput struct{ *pulumi.OutputState }
+
+func (PostgresDatabasesQueryCreateQueryParamsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PostgresDatabasesQueryCreateQueryParams)(nil)).Elem()
+}
+
+func (o PostgresDatabasesQueryCreateQueryParamsPtrOutput) ToPostgresDatabasesQueryCreateQueryParamsPtrOutput() PostgresDatabasesQueryCreateQueryParamsPtrOutput {
+	return o
+}
+
+func (o PostgresDatabasesQueryCreateQueryParamsPtrOutput) ToPostgresDatabasesQueryCreateQueryParamsPtrOutputWithContext(ctx context.Context) PostgresDatabasesQueryCreateQueryParamsPtrOutput {
+	return o
+}
+
+func (o PostgresDatabasesQueryCreateQueryParamsPtrOutput) Elem() PostgresDatabasesQueryCreateQueryParamsOutput {
+	return o.ApplyT(func(v *PostgresDatabasesQueryCreateQueryParams) PostgresDatabasesQueryCreateQueryParams {
+		if v != nil {
+			return *v
+		}
+		var ret PostgresDatabasesQueryCreateQueryParams
+		return ret
+	}).(PostgresDatabasesQueryCreateQueryParamsOutput)
+}
+
+// Additional query params to send with the request that are not defined in the API spec.
+func (o PostgresDatabasesQueryCreateQueryParamsPtrOutput) AdditionalParams() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *PostgresDatabasesQueryCreateQueryParams) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.AdditionalParams
+	}).(pulumi.StringMapOutput)
+}
+
+// Query params for each of the operations of the resource.
+type PostgresDatabasesQueryQueryParams struct {
+	// Query params for the create operation.
+	Create *PostgresDatabasesQueryCreateQueryParams `pulumi:"create"`
+}
+
+// PostgresDatabasesQueryQueryParamsInput is an input type that accepts PostgresDatabasesQueryQueryParamsArgs and PostgresDatabasesQueryQueryParamsOutput values.
+// You can construct a concrete instance of `PostgresDatabasesQueryQueryParamsInput` via:
+//
+//	PostgresDatabasesQueryQueryParamsArgs{...}
+type PostgresDatabasesQueryQueryParamsInput interface {
+	pulumi.Input
+
+	ToPostgresDatabasesQueryQueryParamsOutput() PostgresDatabasesQueryQueryParamsOutput
+	ToPostgresDatabasesQueryQueryParamsOutputWithContext(context.Context) PostgresDatabasesQueryQueryParamsOutput
+}
+
+// Query params for each of the operations of the resource.
+type PostgresDatabasesQueryQueryParamsArgs struct {
+	// Query params for the create operation.
+	Create PostgresDatabasesQueryCreateQueryParamsPtrInput `pulumi:"create"`
+}
+
+func (PostgresDatabasesQueryQueryParamsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PostgresDatabasesQueryQueryParams)(nil)).Elem()
+}
+
+func (i PostgresDatabasesQueryQueryParamsArgs) ToPostgresDatabasesQueryQueryParamsOutput() PostgresDatabasesQueryQueryParamsOutput {
+	return i.ToPostgresDatabasesQueryQueryParamsOutputWithContext(context.Background())
+}
+
+func (i PostgresDatabasesQueryQueryParamsArgs) ToPostgresDatabasesQueryQueryParamsOutputWithContext(ctx context.Context) PostgresDatabasesQueryQueryParamsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PostgresDatabasesQueryQueryParamsOutput)
+}
+
+func (i PostgresDatabasesQueryQueryParamsArgs) ToPostgresDatabasesQueryQueryParamsPtrOutput() PostgresDatabasesQueryQueryParamsPtrOutput {
+	return i.ToPostgresDatabasesQueryQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (i PostgresDatabasesQueryQueryParamsArgs) ToPostgresDatabasesQueryQueryParamsPtrOutputWithContext(ctx context.Context) PostgresDatabasesQueryQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PostgresDatabasesQueryQueryParamsOutput).ToPostgresDatabasesQueryQueryParamsPtrOutputWithContext(ctx)
+}
+
+// PostgresDatabasesQueryQueryParamsPtrInput is an input type that accepts PostgresDatabasesQueryQueryParamsArgs, PostgresDatabasesQueryQueryParamsPtr and PostgresDatabasesQueryQueryParamsPtrOutput values.
+// You can construct a concrete instance of `PostgresDatabasesQueryQueryParamsPtrInput` via:
+//
+//	        PostgresDatabasesQueryQueryParamsArgs{...}
+//
+//	or:
+//
+//	        nil
+type PostgresDatabasesQueryQueryParamsPtrInput interface {
+	pulumi.Input
+
+	ToPostgresDatabasesQueryQueryParamsPtrOutput() PostgresDatabasesQueryQueryParamsPtrOutput
+	ToPostgresDatabasesQueryQueryParamsPtrOutputWithContext(context.Context) PostgresDatabasesQueryQueryParamsPtrOutput
+}
+
+type postgresDatabasesQueryQueryParamsPtrType PostgresDatabasesQueryQueryParamsArgs
+
+func PostgresDatabasesQueryQueryParamsPtr(v *PostgresDatabasesQueryQueryParamsArgs) PostgresDatabasesQueryQueryParamsPtrInput {
+	return (*postgresDatabasesQueryQueryParamsPtrType)(v)
+}
+
+func (*postgresDatabasesQueryQueryParamsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PostgresDatabasesQueryQueryParams)(nil)).Elem()
+}
+
+func (i *postgresDatabasesQueryQueryParamsPtrType) ToPostgresDatabasesQueryQueryParamsPtrOutput() PostgresDatabasesQueryQueryParamsPtrOutput {
+	return i.ToPostgresDatabasesQueryQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (i *postgresDatabasesQueryQueryParamsPtrType) ToPostgresDatabasesQueryQueryParamsPtrOutputWithContext(ctx context.Context) PostgresDatabasesQueryQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PostgresDatabasesQueryQueryParamsPtrOutput)
+}
+
+// Query params for each of the operations of the resource.
+type PostgresDatabasesQueryQueryParamsOutput struct{ *pulumi.OutputState }
+
+func (PostgresDatabasesQueryQueryParamsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PostgresDatabasesQueryQueryParams)(nil)).Elem()
+}
+
+func (o PostgresDatabasesQueryQueryParamsOutput) ToPostgresDatabasesQueryQueryParamsOutput() PostgresDatabasesQueryQueryParamsOutput {
+	return o
+}
+
+func (o PostgresDatabasesQueryQueryParamsOutput) ToPostgresDatabasesQueryQueryParamsOutputWithContext(ctx context.Context) PostgresDatabasesQueryQueryParamsOutput {
+	return o
+}
+
+func (o PostgresDatabasesQueryQueryParamsOutput) ToPostgresDatabasesQueryQueryParamsPtrOutput() PostgresDatabasesQueryQueryParamsPtrOutput {
+	return o.ToPostgresDatabasesQueryQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (o PostgresDatabasesQueryQueryParamsOutput) ToPostgresDatabasesQueryQueryParamsPtrOutputWithContext(ctx context.Context) PostgresDatabasesQueryQueryParamsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PostgresDatabasesQueryQueryParams) *PostgresDatabasesQueryQueryParams {
+		return &v
+	}).(PostgresDatabasesQueryQueryParamsPtrOutput)
+}
+
+// Query params for the create operation.
+func (o PostgresDatabasesQueryQueryParamsOutput) Create() PostgresDatabasesQueryCreateQueryParamsPtrOutput {
+	return o.ApplyT(func(v PostgresDatabasesQueryQueryParams) *PostgresDatabasesQueryCreateQueryParams { return v.Create }).(PostgresDatabasesQueryCreateQueryParamsPtrOutput)
+}
+
+type PostgresDatabasesQueryQueryParamsPtrOutput struct{ *pulumi.OutputState }
+
+func (PostgresDatabasesQueryQueryParamsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PostgresDatabasesQueryQueryParams)(nil)).Elem()
+}
+
+func (o PostgresDatabasesQueryQueryParamsPtrOutput) ToPostgresDatabasesQueryQueryParamsPtrOutput() PostgresDatabasesQueryQueryParamsPtrOutput {
+	return o
+}
+
+func (o PostgresDatabasesQueryQueryParamsPtrOutput) ToPostgresDatabasesQueryQueryParamsPtrOutputWithContext(ctx context.Context) PostgresDatabasesQueryQueryParamsPtrOutput {
+	return o
+}
+
+func (o PostgresDatabasesQueryQueryParamsPtrOutput) Elem() PostgresDatabasesQueryQueryParamsOutput {
+	return o.ApplyT(func(v *PostgresDatabasesQueryQueryParams) PostgresDatabasesQueryQueryParams {
+		if v != nil {
+			return *v
+		}
+		var ret PostgresDatabasesQueryQueryParams
+		return ret
+	}).(PostgresDatabasesQueryQueryParamsOutput)
+}
+
+// Query params for the create operation.
+func (o PostgresDatabasesQueryQueryParamsPtrOutput) Create() PostgresDatabasesQueryCreateQueryParamsPtrOutput {
+	return o.ApplyT(func(v *PostgresDatabasesQueryQueryParams) *PostgresDatabasesQueryCreateQueryParams {
+		if v == nil {
+			return nil
+		}
+		return v.Create
+	}).(PostgresDatabasesQueryCreateQueryParamsPtrOutput)
+}
+
+// Query params for the API request.
 type PostgresDeleteQueryParams struct {
 	// Additional query params to send with the request that are not defined in the API spec.
 	AdditionalParams map[string]string `pulumi:"additionalParams"`
@@ -4884,6 +5164,57 @@ func (o PostgresPlanArrayOutput) Index(i pulumi.IntInput) PostgresPlanOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PostgresPlan {
 		return vs[0].([]PostgresPlan)[vs[1].(int)]
 	}).(PostgresPlanOutput)
+}
+
+type PostgresQueryColumn struct {
+	// Column name as returned by Postgres.
+	Name *string `pulumi:"name"`
+	// Postgres type name.
+	Type *string `pulumi:"type"`
+}
+
+type PostgresQueryColumnOutput struct{ *pulumi.OutputState }
+
+func (PostgresQueryColumnOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PostgresQueryColumn)(nil)).Elem()
+}
+
+func (o PostgresQueryColumnOutput) ToPostgresQueryColumnOutput() PostgresQueryColumnOutput {
+	return o
+}
+
+func (o PostgresQueryColumnOutput) ToPostgresQueryColumnOutputWithContext(ctx context.Context) PostgresQueryColumnOutput {
+	return o
+}
+
+// Column name as returned by Postgres.
+func (o PostgresQueryColumnOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PostgresQueryColumn) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+// Postgres type name.
+func (o PostgresQueryColumnOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PostgresQueryColumn) *string { return v.Type }).(pulumi.StringPtrOutput)
+}
+
+type PostgresQueryColumnArrayOutput struct{ *pulumi.OutputState }
+
+func (PostgresQueryColumnArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PostgresQueryColumn)(nil)).Elem()
+}
+
+func (o PostgresQueryColumnArrayOutput) ToPostgresQueryColumnArrayOutput() PostgresQueryColumnArrayOutput {
+	return o
+}
+
+func (o PostgresQueryColumnArrayOutput) ToPostgresQueryColumnArrayOutputWithContext(ctx context.Context) PostgresQueryColumnArrayOutput {
+	return o
+}
+
+func (o PostgresQueryColumnArrayOutput) Index(i pulumi.IntInput) PostgresQueryColumnOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PostgresQueryColumn {
+		return vs[0].([]PostgresQueryColumn)[vs[1].(int)]
+	}).(PostgresQueryColumnOutput)
 }
 
 // Query params for each of the operations of the resource.
@@ -6508,6 +6839,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*PostgresDatabaseDeleteQueryParamsPtrInput)(nil)).Elem(), PostgresDatabaseDeleteQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PostgresDatabaseQueryParamsInput)(nil)).Elem(), PostgresDatabaseQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PostgresDatabaseQueryParamsPtrInput)(nil)).Elem(), PostgresDatabaseQueryParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PostgresDatabasesQueryCreateQueryParamsInput)(nil)).Elem(), PostgresDatabasesQueryCreateQueryParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PostgresDatabasesQueryCreateQueryParamsPtrInput)(nil)).Elem(), PostgresDatabasesQueryCreateQueryParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PostgresDatabasesQueryQueryParamsInput)(nil)).Elem(), PostgresDatabasesQueryQueryParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PostgresDatabasesQueryQueryParamsPtrInput)(nil)).Elem(), PostgresDatabasesQueryQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PostgresDeleteQueryParamsInput)(nil)).Elem(), PostgresDeleteQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PostgresDeleteQueryParamsPtrInput)(nil)).Elem(), PostgresDeleteQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PostgresExtensionCreateQueryParamsInput)(nil)).Elem(), PostgresExtensionCreateQueryParamsArgs{})
@@ -6594,6 +6929,10 @@ func init() {
 	pulumi.RegisterOutputType(PostgresDatabaseDeleteQueryParamsPtrOutput{})
 	pulumi.RegisterOutputType(PostgresDatabaseQueryParamsOutput{})
 	pulumi.RegisterOutputType(PostgresDatabaseQueryParamsPtrOutput{})
+	pulumi.RegisterOutputType(PostgresDatabasesQueryCreateQueryParamsOutput{})
+	pulumi.RegisterOutputType(PostgresDatabasesQueryCreateQueryParamsPtrOutput{})
+	pulumi.RegisterOutputType(PostgresDatabasesQueryQueryParamsOutput{})
+	pulumi.RegisterOutputType(PostgresDatabasesQueryQueryParamsPtrOutput{})
 	pulumi.RegisterOutputType(PostgresDeleteQueryParamsOutput{})
 	pulumi.RegisterOutputType(PostgresDeleteQueryParamsPtrOutput{})
 	pulumi.RegisterOutputType(PostgresExtensionTypeOutput{})
@@ -6616,6 +6955,8 @@ func init() {
 	pulumi.RegisterOutputType(PostgresNodeEndpointsPoolerPtrOutput{})
 	pulumi.RegisterOutputType(PostgresPlanOutput{})
 	pulumi.RegisterOutputType(PostgresPlanArrayOutput{})
+	pulumi.RegisterOutputType(PostgresQueryColumnOutput{})
+	pulumi.RegisterOutputType(PostgresQueryColumnArrayOutput{})
 	pulumi.RegisterOutputType(PostgresQueryParamsOutput{})
 	pulumi.RegisterOutputType(PostgresQueryParamsPtrOutput{})
 	pulumi.RegisterOutputType(PostgresReadQueryParamsOutput{})

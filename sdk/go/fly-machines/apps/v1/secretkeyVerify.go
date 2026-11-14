@@ -14,10 +14,12 @@ import (
 type SecretkeyVerify struct {
 	pulumi.CustomResourceState
 
-	Plaintext pulumi.IntArrayOutput `pulumi:"plaintext"`
+	// Data that was signed, base64-encoded.
+	Plaintext pulumi.StringPtrOutput `pulumi:"plaintext"`
 	// Query params to send with the API requests for this resource.
 	QueryParams SecretkeyVerifyQueryParamsPtrOutput `pulumi:"queryParams"`
-	Signature   pulumi.IntArrayOutput               `pulumi:"signature"`
+	// Signature or MAC to check, base64-encoded.
+	Signature pulumi.StringPtrOutput `pulumi:"signature"`
 }
 
 // NewSecretkeyVerify registers a new resource with the given unique name, arguments, and options.
@@ -67,25 +69,29 @@ func SecretkeyVerifyExists(ctx *pulumi.Context,
 
 type secretkeyVerifyArgs struct {
 	// Fly App Name
-	AppName   *string `pulumi:"appName"`
-	Plaintext []int   `pulumi:"plaintext"`
+	AppName *string `pulumi:"appName"`
+	// Data that was signed, base64-encoded.
+	Plaintext *string `pulumi:"plaintext"`
 	// Query params to send with the API requests for this resource.
 	QueryParams *SecretkeyVerifyQueryParams `pulumi:"queryParams"`
 	// Secret key name
 	SecretName *string `pulumi:"secretName"`
-	Signature  []int   `pulumi:"signature"`
+	// Signature or MAC to check, base64-encoded.
+	Signature *string `pulumi:"signature"`
 }
 
 // The set of arguments for constructing a SecretkeyVerify resource.
 type SecretkeyVerifyArgs struct {
 	// Fly App Name
-	AppName   pulumi.StringPtrInput
-	Plaintext pulumi.IntArrayInput
+	AppName pulumi.StringPtrInput
+	// Data that was signed, base64-encoded.
+	Plaintext pulumi.StringPtrInput
 	// Query params to send with the API requests for this resource.
 	QueryParams SecretkeyVerifyQueryParamsPtrInput
 	// Secret key name
 	SecretName pulumi.StringPtrInput
-	Signature  pulumi.IntArrayInput
+	// Signature or MAC to check, base64-encoded.
+	Signature pulumi.StringPtrInput
 }
 
 func (SecretkeyVerifyArgs) ElementType() reflect.Type {
@@ -125,8 +131,9 @@ func (o SecretkeyVerifyOutput) ToSecretkeyVerifyOutputWithContext(ctx context.Co
 	return o
 }
 
-func (o SecretkeyVerifyOutput) Plaintext() pulumi.IntArrayOutput {
-	return o.ApplyT(func(v *SecretkeyVerify) pulumi.IntArrayOutput { return v.Plaintext }).(pulumi.IntArrayOutput)
+// Data that was signed, base64-encoded.
+func (o SecretkeyVerifyOutput) Plaintext() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SecretkeyVerify) pulumi.StringPtrOutput { return v.Plaintext }).(pulumi.StringPtrOutput)
 }
 
 // Query params to send with the API requests for this resource.
@@ -134,8 +141,9 @@ func (o SecretkeyVerifyOutput) QueryParams() SecretkeyVerifyQueryParamsPtrOutput
 	return o.ApplyT(func(v *SecretkeyVerify) SecretkeyVerifyQueryParamsPtrOutput { return v.QueryParams }).(SecretkeyVerifyQueryParamsPtrOutput)
 }
 
-func (o SecretkeyVerifyOutput) Signature() pulumi.IntArrayOutput {
-	return o.ApplyT(func(v *SecretkeyVerify) pulumi.IntArrayOutput { return v.Signature }).(pulumi.IntArrayOutput)
+// Signature or MAC to check, base64-encoded.
+func (o SecretkeyVerifyOutput) Signature() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SecretkeyVerify) pulumi.StringPtrOutput { return v.Signature }).(pulumi.StringPtrOutput)
 }
 
 func init() {

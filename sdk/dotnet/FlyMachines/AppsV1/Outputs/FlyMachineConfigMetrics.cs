@@ -17,8 +17,17 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     [OutputType]
     public sealed class FlyMachineConfigMetrics
     {
+        /// <summary>
+        /// Scrape over HTTPS instead of HTTP
+        /// </summary>
         public readonly bool? Https;
+        /// <summary>
+        /// HTTP path to scrape. Defaults to `/`
+        /// </summary>
         public readonly string? Path;
+        /// <summary>
+        /// Port in the Machine to scrape metrics from
+        /// </summary>
         public readonly int? Port;
 
         [OutputConstructor]

@@ -10,20 +10,46 @@ import * as utilities from "../utilities";
 
 export namespace apps {
     export namespace v1 {
-        export interface AcmeChallenge {
-            name?: string;
-            target?: string;
-        }
-
         export interface App {
+            /**
+             * Unique ID of the app, as used by Fly.io's GraphQL API.
+             */
             id?: string;
+            /**
+             * Fly.io's internal numeric ID of the app.
+             */
             internalNumericId?: number;
+            /**
+             * Number of the app's Machines that have not been destroyed.
+             */
             machineCount?: number;
+            /**
+             * Globally unique name of the app.
+             */
             name?: string;
+            /**
+             * Name of the private network the app is attached to: `default` for the organization's
+             * default network, or the name given when the app was created.
+             */
             network?: string;
+            /**
+             * The /48 IPv6 prefix of the private (6PN) network the app is attached to, such as
+             * `fdaa:0:1234::/48`. Apps on the same network share it.
+             */
             networkCidr?: string;
-            organization?: outputs.apps.v1.AppOrganizationInfo;
-            status?: string;
+            /**
+             * The organization that owns the app.
+             */
+            organization?: outputs.apps.v1.AppOrganization;
+            /**
+             * State of the app. `pending` until one of its Machines changes state. After that, updated
+             * asynchronously whenever a Machine changes state: `deployed` if at least one Machine is
+             * started, and `suspended` otherwise.
+             */
+            status?: enums.apps.v1.AppStatus;
+            /**
+             * Number of the app's volumes that have not been destroyed or scheduled for destruction.
+             */
             volumeCount?: number;
         }
 
@@ -38,6 +64,38 @@ export namespace apps {
         }
 
         /**
+         * Record for DNS-01 validation.
+         */
+        export interface AppCertificatesAcmeDNSRequirementsAcmeChallenge {
+            /**
+             * Name of the CNAME record to create, such as `_acme-challenge.example.com`.
+             */
+            name?: string;
+            /**
+             * Value the CNAME record must point to.
+             */
+            target?: string;
+        }
+
+        /**
+         * Record for proving ownership of the hostname.
+         */
+        export interface AppCertificatesAcmeDNSRequirementsOwnership {
+            /**
+             * TXT record value that proves ownership for this app.
+             */
+            appValue?: string;
+            /**
+             * Name of the TXT record to create, such as `_fly-ownership.example.com`.
+             */
+            name?: string;
+            /**
+             * TXT record value that proves ownership for every app in the organization.
+             */
+            orgValue?: string;
+        }
+
+        /**
          * Query params for the API request.
          */
         export interface AppCertificatesAcmeDeleteQueryParams {
@@ -45,6 +103,34 @@ export namespace apps {
              * Additional query params to send with the request that are not defined in the API spec.
              */
             additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * DNS records to create to point the hostname at the app and validate it.
+         */
+        export interface AppCertificatesAcmeDnsRequirements {
+            /**
+             * IPv4 addresses the hostname's A records can point to: the app's global IPv4 addresses
+             * and its shared IPv4 address.
+             */
+            a?: string[];
+            /**
+             * IPv6 addresses the hostname's AAAA records can point to: the app's global IPv6
+             * addresses.
+             */
+            aaaa?: string[];
+            /**
+             * Record for DNS-01 validation.
+             */
+            acmeChallenge?: outputs.apps.v1.AppCertificatesAcmeDNSRequirementsAcmeChallenge;
+            /**
+             * Target the hostname can CNAME to instead of using A and AAAA records.
+             */
+            cname?: string;
+            /**
+             * Record for proving ownership of the hostname.
+             */
+            ownership?: outputs.apps.v1.AppCertificatesAcmeDNSRequirementsOwnership;
         }
 
         /**
@@ -62,6 +148,28 @@ export namespace apps {
         }
 
         /**
+         * Which validation methods are currently possible.
+         */
+        export interface AppCertificatesAcmeValidation {
+            /**
+             * Whether the hostname points at the app, allowing TLS-ALPN-01 validation.
+             */
+            alpnConfigured?: boolean;
+            /**
+             * Whether the `_acme-challenge` CNAME record is set up, allowing DNS-01 validation.
+             */
+            dnsConfigured?: boolean;
+            /**
+             * Whether the hostname points at the app, allowing HTTP-01 validation.
+             */
+            httpConfigured?: boolean;
+            /**
+             * Whether the `_fly-ownership` TXT record is set up.
+             */
+            ownershipTxtConfigured?: boolean;
+        }
+
+        /**
          * Query params for the API request.
          */
         export interface AppCertificatesCheckCreateQueryParams {
@@ -72,6 +180,66 @@ export namespace apps {
         }
 
         /**
+         * Record for DNS-01 validation.
+         */
+        export interface AppCertificatesCheckDNSRequirementsAcmeChallenge {
+            /**
+             * Name of the CNAME record to create, such as `_acme-challenge.example.com`.
+             */
+            name?: string;
+            /**
+             * Value the CNAME record must point to.
+             */
+            target?: string;
+        }
+
+        /**
+         * Record for proving ownership of the hostname.
+         */
+        export interface AppCertificatesCheckDNSRequirementsOwnership {
+            /**
+             * TXT record value that proves ownership for this app.
+             */
+            appValue?: string;
+            /**
+             * Name of the TXT record to create, such as `_fly-ownership.example.com`.
+             */
+            name?: string;
+            /**
+             * TXT record value that proves ownership for every app in the organization.
+             */
+            orgValue?: string;
+        }
+
+        /**
+         * DNS records to create to point the hostname at the app and validate it.
+         */
+        export interface AppCertificatesCheckDnsRequirements {
+            /**
+             * IPv4 addresses the hostname's A records can point to: the app's global IPv4 addresses
+             * and its shared IPv4 address.
+             */
+            a?: string[];
+            /**
+             * IPv6 addresses the hostname's AAAA records can point to: the app's global IPv6
+             * addresses.
+             */
+            aaaa?: string[];
+            /**
+             * Record for DNS-01 validation.
+             */
+            acmeChallenge?: outputs.apps.v1.AppCertificatesCheckDNSRequirementsAcmeChallenge;
+            /**
+             * Target the hostname can CNAME to instead of using A and AAAA records.
+             */
+            cname?: string;
+            /**
+             * Record for proving ownership of the hostname.
+             */
+            ownership?: outputs.apps.v1.AppCertificatesCheckDNSRequirementsOwnership;
+        }
+
+        /**
          * Query params for each of the operations of the resource.
          */
         export interface AppCertificatesCheckQueryParams {
@@ -79,6 +247,28 @@ export namespace apps {
              * Query params for the create operation.
              */
             create?: outputs.apps.v1.AppCertificatesCheckCreateQueryParams;
+        }
+
+        /**
+         * Which validation methods are currently possible.
+         */
+        export interface AppCertificatesCheckValidation {
+            /**
+             * Whether the hostname points at the app, allowing TLS-ALPN-01 validation.
+             */
+            alpnConfigured?: boolean;
+            /**
+             * Whether the `_acme-challenge` CNAME record is set up, allowing DNS-01 validation.
+             */
+            dnsConfigured?: boolean;
+            /**
+             * Whether the hostname points at the app, allowing HTTP-01 validation.
+             */
+            httpConfigured?: boolean;
+            /**
+             * Whether the `_fly-ownership` TXT record is set up.
+             */
+            ownershipTxtConfigured?: boolean;
         }
 
         /**
@@ -189,9 +379,21 @@ export namespace apps {
             delete?: outputs.apps.v1.AppIPAssignmentDeleteQueryParams;
         }
 
-        export interface AppOrganizationInfo {
+        /**
+         * The organization that owns the app.
+         */
+        export interface AppOrganization {
+            /**
+             * Fly.io's internal numeric ID of the organization.
+             */
             internalNumericId?: number;
+            /**
+             * Display name of the organization.
+             */
             name?: string;
+            /**
+             * Slug of the organization, used to refer to it in API requests such as `org_slug`.
+             */
             slug?: string;
         }
 
@@ -224,75 +426,366 @@ export namespace apps {
         }
 
         export interface AppSecret {
+            /**
+             * When the secret was first set. Only returned when reading secrets.
+             */
             createdAt?: string;
+            /**
+             * Short fingerprint of the value, to tell whether it changed without revealing it. Omitted
+             * for deleted secrets.
+             */
             digest?: string;
+            /**
+             * Name of the secret.
+             */
             name?: string;
+            /**
+             * When the secret's value last changed. Only returned when reading secrets.
+             */
             updatedAt?: string;
+            /**
+             * Value of the secret. Only returned with `show_secrets=true`, and when setting secrets.
+             */
             value?: string;
         }
 
+        /**
+         * DNS records to create to point the hostname at the app and validate it.
+         */
+        export interface CertificateDetailDnsRequirements {
+            /**
+             * IPv4 addresses the hostname's A records can point to: the app's global IPv4 addresses
+             * and its shared IPv4 address.
+             */
+            a?: string[];
+            /**
+             * IPv6 addresses the hostname's AAAA records can point to: the app's global IPv6
+             * addresses.
+             */
+            aaaa?: string[];
+            /**
+             * Record for DNS-01 validation.
+             */
+            acmeChallenge?: outputs.apps.v1.DNSRequirementsAcmeChallenge;
+            /**
+             * Target the hostname can CNAME to instead of using A and AAAA records.
+             */
+            cname?: string;
+            /**
+             * Record for proving ownership of the hostname.
+             */
+            ownership?: outputs.apps.v1.DNSRequirementsOwnership;
+        }
+
+        /**
+         * Which validation methods are currently possible.
+         */
+        export interface CertificateDetailValidation {
+            /**
+             * Whether the hostname points at the app, allowing TLS-ALPN-01 validation.
+             */
+            alpnConfigured?: boolean;
+            /**
+             * Whether the `_acme-challenge` CNAME record is set up, allowing DNS-01 validation.
+             */
+            dnsConfigured?: boolean;
+            /**
+             * Whether the hostname points at the app, allowing HTTP-01 validation.
+             */
+            httpConfigured?: boolean;
+            /**
+             * Whether the `_fly-ownership` TXT record is set up.
+             */
+            ownershipTxtConfigured?: boolean;
+        }
+
         export interface CertificateEntry {
+            /**
+             * When the certificate was added; for Fly.io-issued certificates, the earliest one.
+             */
             createdAt?: string;
+            /**
+             * When the certificate expires; for Fly.io-issued certificates, the latest one.
+             */
             expiresAt?: string;
+            /**
+             * The individual Fly.io-issued certificates, newest first. Empty for custom certificates.
+             */
             issued?: outputs.apps.v1.IssuedCertificate[];
+            /**
+             * Issuer of a custom certificate. Omitted for Fly.io-issued certificates.
+             */
             issuer?: string;
+            /**
+             * `custom` for an uploaded certificate, `fly` for certificates issued by Fly.io.
+             */
             source?: enums.apps.v1.CertificateEntrySource;
+            /**
+             * `active` once ownership of the hostname is verified. Until then, `pending_ownership` for
+             * custom certificates and `pending_validation` for Fly.io-issued certificates.
+             */
             status?: enums.apps.v1.CertificateEntryStatus;
         }
 
         export interface CertificateSummary {
+            /**
+             * Whether the hostname points at the app, allowing TLS-ALPN-01 validation.
+             */
             acmeAlpnConfigured?: boolean;
+            /**
+             * Whether the `_acme-challenge` CNAME record is set up, allowing DNS-01 validation.
+             */
             acmeDnsConfigured?: boolean;
+            /**
+             * Whether the hostname points at the app, allowing HTTP-01 validation.
+             */
             acmeHttpConfigured?: boolean;
+            /**
+             * Whether Fly.io-issued (ACME) certificates were requested for the hostname.
+             */
             acmeRequested?: boolean;
+            /**
+             * Whether ownership of the hostname has been verified by any of the methods above.
+             */
             configured?: boolean;
+            /**
+             * When the hostname was added to the app.
+             */
             createdAt?: string;
+            /**
+             * DNS provider detected for the hostname, if known.
+             */
             dnsProvider?: string;
+            /**
+             * Whether a custom certificate was uploaded for the hostname.
+             */
             hasCustomCertificate?: boolean;
+            /**
+             * Whether Fly.io has issued certificates for the hostname.
+             */
             hasFlyCertificate?: boolean;
+            /**
+             * The hostname the certificate is for. May start with `*.` for a wildcard certificate.
+             */
             hostname?: string;
+            /**
+             * Whether the `_fly-ownership` TXT record is set up.
+             */
             ownershipTxtConfigured?: boolean;
+            /**
+             * Human-readable status: `Ready`, `Awaiting certificates`, `Awaiting configuration`, or a
+             * hint about what is misconfigured.
+             */
             status?: string;
+            /**
+             * When the hostname's certificate configuration last changed.
+             */
             updatedAt?: string;
         }
 
-        export interface CertificateValidation {
-            alpnConfigured?: boolean;
-            dnsConfigured?: boolean;
-            httpConfigured?: boolean;
-            ownershipTxtConfigured?: boolean;
-        }
-
         export interface CertificateValidationError {
+            /**
+             * Machine-readable error code.
+             */
             code?: string;
+            /**
+             * Human-readable description of the problem.
+             */
             message?: string;
+            /**
+             * How to fix the problem, if known.
+             */
             remediation?: string;
+            /**
+             * When the problem was detected.
+             */
             timestamp?: string;
         }
 
         export interface CheckStatus {
+            /**
+             * Name of the check: the key of a top-level check in `config.checks`, or
+             * `servicecheck-<index>-<type>-<internal_port>` for a check defined in a service.
+             */
             name?: string;
+            /**
+             * Output of the most recent check run, such as an error message.
+             */
             output?: string;
-            status?: string;
+            /**
+             * Result of the check: `passing`, `warning`, or `critical`.
+             */
+            status?: enums.apps.v1.CheckStatusStatus;
+            /**
+             * When the check's status was last updated.
+             */
             updatedAt?: string;
         }
 
+        /**
+         * Requirements of the Machine that will use the volume, so that the volume is placed on a
+         * host that can run it. Uses `cpus`, `memory_mb`, `cpu_kind`, `host_dedication_id`, and
+         * `required_host_features`.
+         */
+        export interface Compute {
+            /**
+             * Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
+             * Defaults to shared when `guest` is omitted
+             */
+            cpuKind?: string;
+            /**
+             * Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
+             * performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
+             * omitted
+             */
+            cpus?: number;
+            /**
+             * No longer supported. Requests that set it are rejected
+             */
+            gpuKind?: string;
+            /**
+             * No longer supported. Requests that set it are rejected
+             */
+            gpus?: number;
+            /**
+             * Place the Machine on hosts dedicated to the organization under this ID. Only available to
+             * organizations with dedicated hosts
+             */
+            hostDedicationId?: string;
+            /**
+             * Extra arguments appended to the guest kernel command line
+             */
+            kernelArgs?: string[];
+            /**
+             * Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
+             * the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
+             * starts with a limit of memory_mb
+             */
+            maxMemoryMb?: number;
+            /**
+             * Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
+             * between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
+             * `guest` is omitted
+             */
+            memoryMb?: number;
+            /**
+             * Deprecated: use MachineConfig.Rootfs instead
+             */
+            persistRootfs?: enums.apps.v1.FlyMachineGuestPersistRootfs;
+            /**
+             * Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
+             * of lowercase letters, digits and dashes. Each feature must be enabled for the organization
+             */
+            requiredHostFeatures?: string[];
+        }
+
         export interface DNSRecords {
+            /**
+             * A records found for the hostname.
+             */
             a?: string[];
+            /**
+             * AAAA records found for the hostname.
+             */
             aaaa?: string[];
+            /**
+             * Target of the `_acme-challenge` CNAME record, if found.
+             */
             acmeChallengeCname?: string;
+            /**
+             * CNAME records found for the hostname.
+             */
             cname?: string[];
+            /**
+             * Value of the `_fly-ownership` TXT record, if found.
+             */
             ownershipTxt?: string;
+            /**
+             * All addresses the hostname resolved to, after following CNAMEs.
+             */
             resolvedAddresses?: string[];
+            /**
+             * Primary name server from the SOA record of the hostname's zone.
+             */
             soa?: string;
         }
 
-        export interface DNSRequirements {
+        /**
+         * Record for DNS-01 validation.
+         */
+        export interface DNSRequirementsAcmeChallenge {
+            /**
+             * Name of the CNAME record to create, such as `_acme-challenge.example.com`.
+             */
+            name?: string;
+            /**
+             * Value the CNAME record must point to.
+             */
+            target?: string;
+        }
+
+        /**
+         * Record for proving ownership of the hostname.
+         */
+        export interface DNSRequirementsOwnership {
+            /**
+             * TXT record value that proves ownership for this app.
+             */
+            appValue?: string;
+            /**
+             * Name of the TXT record to create, such as `_fly-ownership.example.com`.
+             */
+            name?: string;
+            /**
+             * TXT record value that proves ownership for every app in the organization.
+             */
+            orgValue?: string;
+        }
+
+        /**
+         * The lease.
+         */
+        export interface Data {
+            /**
+             * Description given when the lease was acquired.
+             */
+            description?: string;
+            /**
+             * When the lease expires, in Unix seconds.
+             */
+            expiresAt?: number;
+            /**
+             * Email address of the user who acquired the lease.
+             */
+            owner?: string;
+        }
+
+        /**
+         * DNS records to create to point the hostname at the app and validate it.
+         */
+        export interface DnsRequirements {
+            /**
+             * IPv4 addresses the hostname's A records can point to: the app's global IPv4 addresses
+             * and its shared IPv4 address.
+             */
             a?: string[];
+            /**
+             * IPv6 addresses the hostname's AAAA records can point to: the app's global IPv6
+             * addresses.
+             */
             aaaa?: string[];
-            acmeChallenge?: outputs.apps.v1.AcmeChallenge;
+            /**
+             * Record for DNS-01 validation.
+             */
+            acmeChallenge?: outputs.apps.v1.DNSRequirementsAcmeChallenge;
+            /**
+             * Target the hostname can CNAME to instead of using A and AAAA records.
+             */
             cname?: string;
-            ownership?: outputs.apps.v1.OwnershipVerification;
+            /**
+             * Record for proving ownership of the hostname.
+             */
+            ownership?: outputs.apps.v1.DNSRequirementsOwnership;
         }
 
         export interface FlyContainerConfig {
@@ -378,17 +871,34 @@ export namespace apps {
          * Stop is used to define the signal and timeout for stopping the container.
          */
         export interface FlyContainerConfigStop {
+            /**
+             * Signal to send to the Machine's processes. Defaults to SIGINT
+             */
             signal?: enums.apps.v1.FlyStopConfigSignal;
+            /**
+             * How long to wait for the Machine to exit after sending the signal, before killing it. At most
+             * 5 minutes (1 minute for spot Machines). Defaults to 5s (60s for spot Machines)
+             */
             timeout?: string;
         }
 
         export interface FlyContainerDependency {
+            /**
+             * When the container can start: once the dependency has `started`, is `healthy`, or has
+             * `exited_successfully`
+             */
             condition?: enums.apps.v1.FlyContainerDependencyCondition;
+            /**
+             * Name of the container this one depends on
+             */
             name?: string;
         }
 
         export interface FlyContainerHealthcheck {
-            exec?: outputs.apps.v1.FlyExecHealthcheck;
+            /**
+             * Check that a command run in the container exits with status 0
+             */
+            exec?: outputs.apps.v1.FlyContainerHealthcheckExec;
             /**
              * The number of times the check must fail before considering the container unhealthy.
              */
@@ -397,7 +907,10 @@ export namespace apps {
              * The time in seconds to wait after a container starts before checking its health.
              */
             gracePeriod?: number;
-            http?: outputs.apps.v1.FlyHTTPHealthcheck;
+            /**
+             * Check that an HTTP request succeeds
+             */
+            http?: outputs.apps.v1.FlyContainerHealthcheckHttp;
             /**
              * The time in seconds between executing the defined check.
              */
@@ -414,7 +927,10 @@ export namespace apps {
              * The number of times the check must succeeed before considering the container healthy.
              */
             successThreshold?: number;
-            tcp?: outputs.apps.v1.FlyTCPHealthcheck;
+            /**
+             * Check that a TCP connection can be opened
+             */
+            tcp?: outputs.apps.v1.FlyContainerHealthcheckTcp;
             /**
              * The time in seconds to wait for the check to complete.
              */
@@ -425,32 +941,10 @@ export namespace apps {
             unhealthy?: enums.apps.v1.FlyContainerHealthcheckUnhealthy;
         }
 
-        export interface FlyDnsForwardRule {
-            addr?: string;
-            basename?: string;
-        }
-
-        export interface FlyDnsOption {
-            name?: string;
-            value?: string;
-        }
-
         /**
-         * EnvVar defines an environment variable to be populated from a machine field, env_var
+         * Check that a command run in the container exits with status 0
          */
-        export interface FlyEnvFrom {
-            /**
-             * EnvVar is required and is the name of the environment variable that will be set from the
-             * secret. It must be a valid environment variable name.
-             */
-            envVar?: string;
-            /**
-             * FieldRef selects a field of the Machine: supports id, version, app_name, private_ip, region, image.
-             */
-            fieldRef?: enums.apps.v1.FlyEnvFromFieldRef;
-        }
-
-        export interface FlyExecHealthcheck {
+        export interface FlyContainerHealthcheckExec {
             /**
              * The command to run to check the health of the container (e.g. ["cat", "/tmp/healthy"])
              */
@@ -458,33 +952,9 @@ export namespace apps {
         }
 
         /**
-         * A file that will be written to the Machine. One of RawValue or SecretName must be set.
+         * Check that an HTTP request succeeds
          */
-        export interface FlyFile {
-            /**
-             * GuestPath is the path on the machine where the file will be written and must be an absolute path.
-             * For example: /full/path/to/file.json
-             */
-            guestPath?: string;
-            /**
-             * The name of an image to use the OCI image config as the file contents.
-             */
-            imageConfig?: string;
-            /**
-             * Mode bits used to set permissions on this file as accepted by chmod(2).
-             */
-            mode?: number;
-            /**
-             * The base64 encoded string of the file contents.
-             */
-            rawValue?: string;
-            /**
-             * The name of the secret that contains the base64 encoded file contents.
-             */
-            secretName?: string;
-        }
-
-        export interface FlyHTTPHealthcheck {
+        export interface FlyContainerHealthcheckHttp {
             /**
              * Additional headers to send with the request
              */
@@ -515,27 +985,1535 @@ export namespace apps {
             tlsSkipVerify?: boolean;
         }
 
-        export interface FlyHTTPOptions {
-            compress?: boolean;
-            h2Backend?: boolean;
-            headersReadTimeout?: number;
-            idleTimeout?: number;
-            replayCache?: outputs.apps.v1.FlyReplayCache[];
-            response?: outputs.apps.v1.FlyHTTPResponseOptions;
+        /**
+         * Check that a TCP connection can be opened
+         */
+        export interface FlyContainerHealthcheckTcp {
+            /**
+             * The port to connect to, often the same as internal_port
+             */
+            port?: number;
         }
 
-        export interface FlyHTTPResponseOptions {
+        export interface FlyDnsForwardRule {
+            /**
+             * Address and port of the DNS server to forward queries to over TCP, e.g. `10.0.0.1:53`
+             */
+            addr?: string;
+            /**
+             * Domain to forward queries for, including subdomains. Must end in a dot, e.g. `example.com.`
+             */
+            basename?: string;
+        }
+
+        export interface FlyDnsOption {
+            /**
+             * Option name, e.g. `ndots`
+             */
+            name?: string;
+            /**
+             * Option value, e.g. `5`
+             */
+            value?: string;
+        }
+
+        /**
+         * EnvVar defines an environment variable to be populated from a machine field, env_var
+         */
+        export interface FlyEnvFrom {
+            /**
+             * EnvVar is required and is the name of the environment variable that will be set from the
+             * secret. It must be a valid environment variable name.
+             */
+            envVar?: string;
+            /**
+             * FieldRef selects a field of the Machine: supports id, version, app_name, private_ip, region, image.
+             */
+            fieldRef?: enums.apps.v1.FlyEnvFromFieldRef;
+        }
+
+        /**
+         * A file that will be written to the Machine. One of RawValue or SecretName must be set.
+         */
+        export interface FlyFile {
+            /**
+             * GuestPath is the path on the machine where the file will be written and must be an absolute path.
+             * For example: /full/path/to/file.json
+             */
+            guestPath?: string;
+            /**
+             * The name of an image to use the OCI image config as the file contents.
+             */
+            imageConfig?: string;
+            /**
+             * Mode bits used to set permissions on this file as accepted by chmod(2).
+             */
+            mode?: number;
+            /**
+             * The base64 encoded string of the file contents.
+             */
+            rawValue?: string;
+            /**
+             * The name of the secret that contains the base64 encoded file contents.
+             */
+            secretName?: string;
+        }
+
+        /**
+         * Changes Fly Proxy makes to responses
+         */
+        export interface FlyHTTPOptionsResponse {
+            /**
+             * Response headers to set. A string sets the header, a list of strings sets it to multiple
+             * values, and false removes it
+             */
             headers?: {[key: string]: any};
+            /**
+             * Don't let Fly Proxy add or change any response headers
+             */
             pristine?: boolean;
         }
 
-        export interface FlyMachineConfig {
+        /**
+         * Beta: a cache drive attached to the Machine. This field may be removed in the future
+         */
+        export interface FlyMachineConfigCacheDrive {
+            /**
+             * Optional absolute guest mount path. When set, the device is formatted as ext4.
+             * Without a path, the device retains legacy raw block behavior. Contents survive
+             * same-host restarts and path changes, but are discarded on size or mode changes,
+             * relocation, recovery on another host, and cloning.
+             */
+            path?: string;
+            /**
+             * Fixed size of the Machine-owned cache drive in MiB. At most 51200.
+             * With a path, at least 16 MiB is required; without a path, 0 disables the device.
+             */
+            sizeMb?: number;
+        }
+
+        /**
+         * An optional object that defines one or more named top-level checks. The key for each check is the check name.
+         */
+        export interface FlyMachineConfigChecksProperties {
+            /**
+             * The time to wait after a VM starts before checking its health
+             */
+            gracePeriod?: string;
+            /**
+             * For http checks, headers to send with the request
+             */
+            headers?: outputs.apps.v1.FlyMachineHTTPHeader[];
+            /**
+             * The time between connectivity checks
+             */
+            interval?: string;
+            /**
+             * Kind of the check (informational, readiness)
+             */
+            kind?: enums.apps.v1.ChecksKind;
+            /**
+             * For http checks, the HTTP method to use to when making the request
+             */
+            method?: string;
+            /**
+             * For http checks, the path to send the request to
+             */
+            path?: string;
+            /**
+             * The port to connect to, often the same as internal_port
+             */
+            port?: number;
+            /**
+             * For http checks, whether to use http or https
+             */
+            protocol?: string;
+            /**
+             * The maximum time a connection can take before being reported as failing its health check
+             */
+            timeout?: string;
+            /**
+             * If the protocol is https, the hostname to use for TLS certificate validation
+             */
+            tlsServerName?: string;
+            /**
+             * For http checks with https protocol, whether or not to verify the TLS certificate
+             */
+            tlsSkipVerify?: boolean;
+            /**
+             * tcp or http
+             */
+            type?: string;
+        }
+
+        /**
+         * DNS settings for the Machine
+         */
+        export interface FlyMachineConfigDns {
+            /**
+             * Forward DNS queries for some domains to other DNS servers
+             */
+            dnsForwardRules?: outputs.apps.v1.FlyDnsForwardRule[];
+            /**
+             * Hostname of the Machine. Defaults to the Machine ID. Also added to /etc/hosts with the
+             * Machine's 6PN address
+             */
+            hostname?: string;
+            /**
+             * Fully qualified domain name added to /etc/hosts for `hostname`
+             */
+            hostnameFqdn?: string;
+            /**
+             * Nameservers to use instead of the default, Fly.io's private DNS server `fdaa::3`
+             */
+            nameservers?: string[];
+            /**
+             * Options for /etc/resolv.conf
+             */
+            options?: outputs.apps.v1.FlyDnsOption[];
+            /**
+             * Search domains for /etc/resolv.conf
+             */
+            searches?: string[];
+            /**
+             * Currently has no effect
+             */
+            skipRegistration?: boolean;
+        }
+
+        /**
+         * The resources (CPUs, memory, etc.) allocated to the Machine
+         */
+        export interface FlyMachineConfigGuest {
+            /**
+             * Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
+             * Defaults to shared when `guest` is omitted
+             */
+            cpuKind?: string;
+            /**
+             * Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
+             * performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
+             * omitted
+             */
+            cpus?: number;
+            /**
+             * No longer supported. Requests that set it are rejected
+             */
+            gpuKind?: string;
+            /**
+             * No longer supported. Requests that set it are rejected
+             */
+            gpus?: number;
+            /**
+             * Place the Machine on hosts dedicated to the organization under this ID. Only available to
+             * organizations with dedicated hosts
+             */
+            hostDedicationId?: string;
+            /**
+             * Extra arguments appended to the guest kernel command line
+             */
+            kernelArgs?: string[];
+            /**
+             * Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
+             * the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
+             * starts with a limit of memory_mb
+             */
+            maxMemoryMb?: number;
+            /**
+             * Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
+             * between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
+             * `guest` is omitted
+             */
+            memoryMb?: number;
+            /**
+             * Deprecated: use MachineConfig.Rootfs instead
+             */
+            persistRootfs?: enums.apps.v1.FlyMachineGuestPersistRootfs;
+            /**
+             * Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
+             * of lowercase letters, digits and dashes. Each feature must be enabled for the organization
+             */
+            requiredHostFeatures?: string[];
+        }
+
+        /**
+         * Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
+         */
+        export interface FlyMachineConfigInit {
+            /**
+             * Replaces the image's CMD. It's appended to the entrypoint
+             */
+            cmd?: string[];
+            /**
+             * Replaces the image's ENTRYPOINT
+             */
+            entrypoint?: string[];
+            /**
+             * Command to run instead of the image's ENTRYPOINT and CMD. Takes precedence over entrypoint
+             * and cmd
+             */
+            exec?: string[];
+            /**
+             * Currently has no effect. Use `guest.kernel_args` instead
+             */
+            kernelArgs?: string[];
+            /**
+             * Size in MiB of a swap device to give the Machine. Machines with swap cannot be suspended
+             */
+            swapSizeMb?: number;
+            /**
+             * Currently has no effect
+             */
+            tty?: boolean;
+        }
+
+        /**
+         * An optional metrics endpoint for Prometheus on Fly.io to scrape
+         */
+        export interface FlyMachineConfigMetrics {
+            /**
+             * Scrape over HTTPS instead of HTTP
+             */
+            https?: boolean;
+            /**
+             * HTTP path to scrape. Defaults to `/`
+             */
+            path?: string;
+            /**
+             * Port in the Machine to scrape metrics from
+             */
+            port?: number;
+        }
+
+        /**
+         * Whether and how the Machine is restarted after its main process exits
+         */
+        export interface FlyMachineConfigRestart {
+            /**
+             * When policy is on-failure, the maximum number of times to attempt to restart the Machine before letting it stop.
+             */
+            maxRetries?: number;
+            /**
+             * * no - Never try to restart a Machine automatically when its main process exits, whether that’s on purpose or on a crash.
+             * * always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.
+             * * on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules.
+             */
+            policy?: enums.apps.v1.FlyMachineRestartPolicy;
+        }
+
+        /**
+         * Beta: the size of the Machine's root filesystem and whether it persists. This field may be
+         * removed in the future
+         */
+        export interface FlyMachineConfigRootfs {
+            /**
+             * Whether changes to the root filesystem are kept. `never` (default): reset on every start.
+             * `restart`: kept across stops and restarts, reset when the Machine is updated. `always`: also
+             * kept across updates
+             */
+            persist?: enums.apps.v1.FlyMachineRootfsPersist;
+            /**
+             * Size of the root filesystem in GB. At most 50; 0 uses the default
+             */
+            sizeGb?: number;
+        }
+
+        /**
+         * Spot pricing settings for the Machine
+         */
+        export interface FlyMachineConfigSpot {
+            /**
+             * MaxPriceFraction is the maximum fraction of the full Machine price you will pay for this Machine. Range: (0, 1.0]
+             */
+            maxPriceFraction?: number;
+        }
+
+        /**
+         * How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
+         */
+        export interface FlyMachineConfigStopConfig {
+            /**
+             * Signal to send to the Machine's processes. Defaults to SIGINT
+             */
+            signal?: enums.apps.v1.FlyStopConfigSignal;
+            /**
+             * How long to wait for the Machine to exit after sending the signal, before killing it. At most
+             * 5 minutes (1 minute for spot Machines). Defaults to 5s (60s for spot Machines)
+             */
+            timeout?: string;
+        }
+
+        /**
+         * For http checks, an array of objects with string field Name and array of strings field Values. The key/value pairs specify header and header values that will get passed with the check call.
+         */
+        export interface FlyMachineHTTPHeader {
+            /**
+             * The header name
+             */
+            name?: string;
+            /**
+             * The header value
+             */
+            values?: string[];
+        }
+
+        export interface FlyMachineMount {
+            /**
+             * With automatic extension, grow the volume by this many GB at a time. Between 1 and 100.
+             * Mutually exclusive with add_size_percent
+             */
+            addSizeGb?: number;
+            /**
+             * AddSizePercent grows by a percentage of the current size, rounded up to GiB.
+             * It is mutually exclusive with AddSizeGb.
+             */
+            addSizePercent?: number;
+            /**
+             * Whether the volume is encrypted. Set by Fly.io; ignored in requests
+             */
+            encrypted?: boolean;
+            /**
+             * Enable automatic volume extension: grow the volume when its usage exceeds this percentage.
+             * Between 50 and 99; 0 disables it
+             */
+            extendThresholdPercent?: number;
+            /**
+             * MinAddSizeGb is the minimum proportional growth in GiB (default 1).
+             */
+            minAddSizeGb?: number;
+            /**
+             * Name of the volume. Set by Fly.io; ignored in requests
+             */
+            name?: string;
+            /**
+             * Absolute path in the Machine to mount the volume at. Required
+             */
+            path?: string;
+            /**
+             * Size of the volume in GB. Set by Fly.io; ignored in requests
+             */
+            sizeGb?: number;
+            /**
+             * With automatic extension, never grow the volume beyond this size in GB. At most the
+             * organization's maximum volume size
+             */
+            sizeGbLimit?: number;
+            /**
+             * ID (`vol_...`) or name of the volume to mount. Required. With a name, any unattached volume
+             * of the app with that name in the Machine's region is used
+             */
+            volume?: string;
+        }
+
+        export interface FlyMachinePort {
+            /**
+             * Last public port of a range
+             */
+            endPort?: number;
+            /**
+             * Redirect plain HTTP requests to HTTPS
+             */
+            forceHttps?: boolean;
+            /**
+             * How Fly Proxy handles connections before forwarding them: `tls` terminates TLS, `pg_tls`
+             * terminates PostgreSQL TLS, `http` handles HTTP, `proxy_proto` adds a PROXY protocol header.
+             * Without handlers, raw TCP is forwarded
+             */
+            handlers?: string[];
+            /**
+             * Options for the `http` handler
+             */
+            httpOptions?: outputs.apps.v1.FlyMachinePortHttpOptions;
+            /**
+             * Public port. Use either port, or start_port and end_port
+             */
+            port?: number;
+            /**
+             * Options for the `proxy_proto` handler
+             */
+            proxyProtoOptions?: outputs.apps.v1.FlyMachinePortProxyProtoOptions;
+            /**
+             * First public port of a range
+             */
+            startPort?: number;
+            /**
+             * Options for the `tls` handler
+             */
+            tlsOptions?: outputs.apps.v1.FlyMachinePortTlsOptions;
+        }
+
+        /**
+         * Options for the `http` handler
+         */
+        export interface FlyMachinePortHttpOptions {
+            /**
+             * Compress response bodies. Defaults to true
+             */
+            compress?: boolean;
+            /**
+             * Use HTTP/2 to talk to the Machine
+             */
+            h2Backend?: boolean;
+            /**
+             * Seconds Fly Proxy waits for a client to send request headers. Defaults to 5
+             */
+            headersReadTimeout?: number;
+            /**
+             * Seconds a client connection can be idle between requests before it's closed. Defaults to 300
+             */
+            idleTimeout?: number;
+            /**
+             * Cache `fly-replay` responses from the Machine: once a client is replayed, its further
+             * requests are replayed directly, keyed on a cookie or header, without asking the Machine again
+             */
+            replayCache?: outputs.apps.v1.FlyReplayCache[];
+            /**
+             * Changes Fly Proxy makes to responses
+             */
+            response?: outputs.apps.v1.FlyHTTPOptionsResponse;
+        }
+
+        /**
+         * Options for the `proxy_proto` handler
+         */
+        export interface FlyMachinePortProxyProtoOptions {
+            /**
+             * With version v2, add the Fly-Src header and its signature to the PROXY protocol header
+             */
+            flySrc?: boolean;
+            /**
+             * PROXY protocol version: v1 (default) or v2
+             */
+            version?: string;
+        }
+
+        /**
+         * Options for the `tls` handler
+         */
+        export interface FlyMachinePortTlsOptions {
+            /**
+             * ALPN protocols to offer, e.g. `h2`, `http/1.1`. Defaults to `h2` and `http/1.1`
+             */
+            alpn?: string[];
+            /**
+             * Use a self-signed certificate when there is no certificate for the requested hostname
+             */
+            defaultSelfSigned?: boolean;
+            /**
+             * TLS versions to accept: `TLSv1.2`, `TLSv1.3`. Defaults to both
+             */
+            versions?: string[];
+        }
+
+        export interface FlyMachineProcess {
+            /**
+             * Replaces the image's CMD for this process. It's appended to the entrypoint
+             */
+            cmd?: string[];
+            /**
+             * Replaces the image's ENTRYPOINT for this process
+             */
+            entrypoint?: string[];
+            /**
+             * Environment variables for this process, in addition to the Machine's `env`
+             */
+            env?: {[key: string]: string};
+            /**
+             * EnvFrom can be provided to set environment variables from machine fields.
+             */
+            envFrom?: outputs.apps.v1.FlyEnvFrom[];
+            /**
+             * Command to run instead of the image's ENTRYPOINT and CMD. Takes precedence over entrypoint
+             * and cmd
+             */
+            exec?: string[];
+            /**
+             * IgnoreAppSecrets can be set to true to ignore the secrets for the App the Machine belongs to
+             * and only use the secrets provided at the process level. The default/legacy behavior is to use
+             * the secrets provided at the App level.
+             */
+            ignoreAppSecrets?: boolean;
+            /**
+             * Secrets can be provided at the process level to explicitly indicate which secrets should be
+             * used for the process. If not provided, the secrets provided at the machine level will be used.
+             */
+            secrets?: outputs.apps.v1.FlyMachineSecret[];
+            /**
+             * User to run the process as, instead of the image's USER
+             */
+            user?: string;
+        }
+
+        /**
+         * A Secret needing to be set in the environment of the Machine. env_var is required
+         */
+        export interface FlyMachineSecret {
+            /**
+             * EnvVar is required and is the name of the environment variable that will be set from the
+             * secret. It must be a valid environment variable name.
+             */
+            envVar?: string;
+            /**
+             * Name is optional and when provided is used to reference a secret name where the EnvVar is
+             * different from what was set as the secret name.
+             */
+            name?: string;
+        }
+
+        export interface FlyMachineService {
+            /**
+             * Whether Fly Proxy starts stopped or suspended Machines when requests arrive. Defaults to true
+             */
+            autostart?: boolean;
+            /**
+             * Accepts a string (new format) or a boolean (old format). For backward compatibility with older clients, the API continues to use booleans for "off" and "stop" in responses.
+             * * "off" or false - Do not autostop the Machine.
+             * * "stop" or true - Automatically stop the Machine.
+             * * "suspend" - Automatically suspend the Machine, falling back to a full stop if this is not possible.
+             */
+            autostop?: enums.apps.v1.FlyMachineServiceAutostop;
+            /**
+             * An optional list of service checks
+             */
+            checks?: outputs.apps.v1.FlyMachineServiceCheck[];
+            /**
+             * Load limits Fly Proxy uses to balance traffic across Machines
+             */
+            concurrency?: outputs.apps.v1.FlyMachineServiceConcurrency;
+            /**
+             * Currently has no effect
+             */
+            forceInstanceDescription?: string;
+            /**
+             * Currently has no effect
+             */
+            forceInstanceKey?: string;
+            /**
+             * Port in the Machine that Fly Proxy forwards traffic to. Defaults to 8080
+             */
+            internalPort?: number;
+            /**
+             * When autostop is on, the number of Machines Fly Proxy keeps running in the app's primary
+             * region (`PRIMARY_REGION` env var). Machines in other regions can all be stopped
+             */
+            minMachinesRunning?: number;
+            /**
+             * Public ports that Fly Proxy accepts traffic on
+             */
+            ports?: outputs.apps.v1.FlyMachinePort[];
+            /**
+             * Protocol: tcp or udp. Defaults to tcp
+             */
+            protocol?: string;
+        }
+
+        export interface FlyMachineServiceCheck {
+            /**
+             * The time to wait after a VM starts before checking its health
+             */
+            gracePeriod?: string;
+            /**
+             * For http checks, headers to send with the request
+             */
+            headers?: outputs.apps.v1.FlyMachineHTTPHeader[];
+            /**
+             * The time between connectivity checks
+             */
+            interval?: string;
+            /**
+             * For http checks, the HTTP method to use to when making the request
+             */
+            method?: string;
+            /**
+             * For http checks, the path to send the request to
+             */
+            path?: string;
+            /**
+             * The port to connect to, often the same as internal_port
+             */
+            port?: number;
+            /**
+             * For http checks, whether to use http or https
+             */
+            protocol?: string;
+            /**
+             * The maximum time a connection can take before being reported as failing its health check
+             */
+            timeout?: string;
+            /**
+             * If the protocol is https, the hostname to use for TLS certificate validation
+             */
+            tlsServerName?: string;
+            /**
+             * For http checks with https protocol, whether or not to verify the TLS certificate
+             */
+            tlsSkipVerify?: boolean;
+            /**
+             * tcp or http
+             */
+            type?: string;
+        }
+
+        /**
+         * Load limits Fly Proxy uses to balance traffic across Machines
+         */
+        export interface FlyMachineServiceConcurrency {
+            /**
+             * Fly Proxy sends no more than this many connections or requests to a Machine at once. 0 means
+             * no hard limit
+             */
+            hardLimit?: number;
+            /**
+             * Above this many connections or requests, Fly Proxy prefers other Machines. Defaults to 20,
+             * and is lowered to hard_limit if higher
+             */
+            softLimit?: number;
+            /**
+             * What to count: `connections` (default) or `requests`
+             */
+            type?: string;
+        }
+
+        export interface FlyReplayCache {
+            /**
+             * Let clients skip the cache by sending the `fly-replay-cache-control: skip` header
+             */
+            allowBypass?: boolean;
+            /**
+             * Name of the cookie or header to key the cache on
+             */
+            name?: string;
+            /**
+             * Requests whose path starts with this prefix use the rule. May start with a hostname, e.g.
+             * `example.com/api/*`
+             */
+            pathPrefix?: string;
+            /**
+             * How long a cached replay is used, in seconds
+             */
+            ttlSeconds?: number;
+            /**
+             * Currently either "cookie" or "header"
+             */
+            type?: enums.apps.v1.FlyReplayCacheType;
+        }
+
+        export interface FlyStatic {
+            /**
+             * The path inside the Machine, or inside tigris_bucket when set, where the files to serve are located
+             */
+            guestPath: string;
+            /**
+             * The document served for requests to the URL prefix or any of its subfolders. Only works with tigris_bucket
+             */
+            indexDocument?: string;
+            /**
+             * An existing Tigris bucket belonging to the app to read the files from, instead of the Machine's
+             * filesystem. The files are still served through the Machine
+             */
+            tigrisBucket?: string;
+            /**
+             * The URL prefix under which the files are served
+             */
+            urlPrefix: string;
+        }
+
+        export interface IPAssignment {
+            /**
+             * When the address was assigned to the app, in RFC 3339 format. Null for the app's shared
+             * IPv4 address.
+             */
+            createdAt?: string;
+            /**
+             * Whether this is an egress address, used for the app's outbound traffic rather than for
+             * receiving requests.
+             */
+            egress?: boolean;
+            /**
+             * The IP address.
+             */
+            ip?: string;
+            /**
+             * The 6PN network a Flycast (private_v6) address belongs to. Null for all other IP types.
+             */
+            network?: outputs.apps.v1.IPAssignmentNetwork;
+            /**
+             * Region the address is scoped to, or `global` for addresses announced in all regions.
+             * Empty for the app's shared IPv4 address.
+             */
+            region?: string;
+            /**
+             * Name of the service the address is scoped to, if any.
+             */
+            serviceName?: string;
+            /**
+             * Whether this is the app's shared IPv4 address, which other apps use too.
+             */
+            shared?: boolean;
+        }
+
+        /**
+         * The 6PN network a Flycast (private_v6) address belongs to. Null for all other IP types.
+         */
+        export interface IPAssignmentNetwork {
+            /**
+             * Network name; empty for the organization's default network.
+             */
+            name?: string;
+            /**
+             * Slug of the organization the network belongs to.
+             */
+            orgSlug?: string;
+        }
+
+        /**
+         * The image the Machine runs, as resolved when it was last created or updated.
+         */
+        export interface ImageRef {
+            /**
+             * Content digest of the image (`sha256:...`).
+             */
+            digest?: string;
+            /**
+             * The image's OCI labels.
+             */
+            labels?: {[key: string]: string};
+            /**
+             * Registry host of the image, such as `registry.fly.io`.
+             */
+            registry?: string;
+            /**
+             * Repository of the image within the registry, such as `library/nginx`.
+             */
+            repository?: string;
+            /**
+             * Tag the image was referenced by, if any.
+             */
+            tag?: string;
+        }
+
+        /**
+         * Last known configuration, returned in place of `config` when the host could not be
+         * reached (`host_status` is not `ok`) or when listing Machines with `summary=true`. It
+         * comes from Fly.io's replicated state rather than the host, so it may be stale or lack
+         * fields.
+         */
+        export interface IncompleteConfig {
             /**
              * Optional boolean telling the Machine to destroy itself once it’s complete (default false)
              */
             autoDestroy?: boolean;
             /**
-             * A cache drive attached to the Machine
+             * Beta: a cache drive attached to the Machine. This field may be removed in the future
+             */
+            cacheDrive?: outputs.apps.v1.MachineFlyMachineConfigCacheDrive;
+            /**
+             * An optional object that defines one or more named top-level checks. The key for each check is the check name.
+             */
+            checks?: {[key: string]: outputs.apps.v1.FlyMachineConfigChecksProperties};
+            /**
+             * Containers are a list of containers that will run in the machine, each from its own image.
+             */
+            containers?: outputs.apps.v1.FlyContainerConfig[];
+            /**
+             * Deprecated: use Service.Autostart instead
+             */
+            disableMachineAutostart?: boolean;
+            /**
+             * DNS settings for the Machine
+             */
+            dns?: outputs.apps.v1.MachineFlyMachineConfigDns;
+            /**
+             * An object filled with key/value pairs to be set as environment variables
+             */
+            env?: {[key: string]: string};
+            /**
+             * Files to write into the Machine, from either a raw value or an app secret
+             */
+            files?: outputs.apps.v1.FlyFile[];
+            /**
+             * The resources (CPUs, memory, etc.) allocated to the Machine
+             */
+            guest?: outputs.apps.v1.MachineFlyMachineConfigGuest;
+            /**
+             * The docker image to run
+             */
+            image?: string;
+            /**
+             * Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
+             */
+            init?: outputs.apps.v1.MachineFlyMachineConfigInit;
+            /**
+             * Key/value pairs of Machine metadata. Fly.io uses metadata internally for routing, process groups, and clusters
+             */
+            metadata?: {[key: string]: string};
+            /**
+             * An optional metrics endpoint for Prometheus on Fly.io to scrape
+             */
+            metrics?: outputs.apps.v1.MachineFlyMachineConfigMetrics;
+            /**
+             * Persistent volumes to mount in the Machine. A Machine can mount at most one volume, which must be on
+             * the same host. The mounted volume cannot be changed by updating the Machine
+             */
+            mounts?: outputs.apps.v1.FlyMachineMount[];
+            /**
+             * Multiple processes to run within this one Machine, all from the Machine's image. Unrelated to the
+             * process groups in fly.toml, which run on separate Machines. To run processes from different
+             * images, use containers instead
+             */
+            processes?: outputs.apps.v1.FlyMachineProcess[];
+            /**
+             * Whether and how the Machine is restarted after its main process exits
+             */
+            restart?: outputs.apps.v1.MachineFlyMachineConfigRestart;
+            /**
+             * Beta: the size of the Machine's root filesystem and whether it persists. This field may be
+             * removed in the future
+             */
+            rootfs?: outputs.apps.v1.MachineFlyMachineConfigRootfs;
+            /**
+             * Run the Machine at an interval: one of hourly, daily, weekly or monthly. The interval starts when
+             * the Machine is created
+             */
+            schedule?: string;
+            /**
+             * Network services that Fly Proxy routes traffic to
+             */
+            services?: outputs.apps.v1.FlyMachineService[];
+            /**
+             * Deprecated: use Guest instead
+             */
+            size?: string;
+            /**
+             * Spot pricing settings for the Machine
+             */
+            spot?: outputs.apps.v1.MachineFlyMachineConfigSpot;
+            /**
+             * Standbys enable a machine to be a standby for another. In the event of a hardware failure,
+             * the standby machine will be started.
+             */
+            standbys?: string[];
+            /**
+             * Static files to serve under a URL prefix. Fly Proxy routes matching requests to a file server
+             * inside the Machine, bypassing your application's own process; the Machine must be running. The
+             * files are read either from a path inside the Machine or from a Tigris bucket that belongs to the
+             * app; no bucket is created for you
+             */
+            statics?: outputs.apps.v1.FlyStatic[];
+            /**
+             * How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
+             */
+            stopConfig?: outputs.apps.v1.MachineFlyMachineConfigStopConfig;
+        }
+
+        /**
+         * The allocated IPv4 and IPv6 addresses when the `egress_pair` type was requested; null
+         * otherwise.
+         */
+        export interface IpPair {
+            /**
+             * The egress IPv4 address.
+             */
+            v4?: string;
+            /**
+             * The egress IPv6 address.
+             */
+            v6?: string;
+        }
+
+        export interface IssuedCertificate {
+            /**
+             * The certificate authority that issued the certificate.
+             */
+            certificateAuthority?: string;
+            /**
+             * When the certificate expires.
+             */
+            expiresAt?: string;
+            /**
+             * Key type of the certificate.
+             */
+            type?: enums.apps.v1.IssuedCertificateType;
+        }
+
+        /**
+         * The lease currently held on the Machine. Only returned when `include_leases=true`
+         * was requested and a lease is held.
+         */
+        export interface Lease {
+            /**
+             * Description given when the lease was acquired.
+             */
+            description?: string;
+            /**
+             * When the lease expires, in Unix seconds.
+             */
+            expiresAt?: number;
+            /**
+             * Email address of the user who acquired the lease.
+             */
+            owner?: string;
+        }
+
+        /**
+         * The lease.
+         */
+        export interface LeaseResponseData {
+            /**
+             * Description given when the lease was acquired.
+             */
+            description?: string;
+            /**
+             * When the lease expires, in Unix seconds.
+             */
+            expiresAt?: number;
+            /**
+             * Email address of the user who acquired the lease.
+             */
+            owner?: string;
+        }
+
+        export interface ListenSocket {
+            /**
+             * Local address and port the socket is bound to, such as `0.0.0.0:8080` or `[::]:8080`.
+             */
+            address?: string;
+            /**
+             * Protocol of the socket. Always `tcp`.
+             */
+            proto?: string;
+        }
+
+        export interface Machine {
+            /**
+             * Status of each health check: the Machine's top-level `checks` and its services'
+             * checks.
+             */
+            checks?: outputs.apps.v1.CheckStatus[];
+            /**
+             * The Machine's configuration, as provided when it was created or last updated, with
+             * `metadata` and `mounts` reflecting their current values. Null when the host is not
+             * reachable (`host_status` is not `ok`) or `summary=true` was requested; see
+             * `incomplete_config`.
+             */
+            config?: outputs.apps.v1.MachineConfig;
+            /**
+             * Whether the Machine is cordoned, meaning Fly Proxy does not route requests to it. See
+             * the Cordon Machine endpoint.
+             */
+            cordoned?: boolean;
+            /**
+             * When the Machine was created.
+             */
+            createdAt?: string;
+            /**
+             * Up to 5 of the most recent events of the current Machine version, newest first. Use
+             * the List Events endpoint for more.
+             */
+            events?: outputs.apps.v1.MachineEvent[];
+            /**
+             * Features of the Machine's host, for comparison with `config.guest.required_host_features`.
+             * Only returned when the request sets the `fly-include-host-features: true` header.
+             */
+            hostFeatures?: string[];
+            /**
+             * Whether Fly.io could reach the Machine's host: `ok` if it could, `unreachable` if it
+             * could not, in which case the response is built from last known state. `unknown` if the
+             * host's status was not reported.
+             */
+            hostStatus?: enums.apps.v1.MachineHostStatus;
+            /**
+             * Unique ID of the Machine.
+             */
+            id?: string;
+            /**
+             * The image the Machine runs, as resolved when it was last created or updated.
+             */
+            imageRef?: outputs.apps.v1.MachineImageRef;
+            /**
+             * Last known configuration, returned in place of `config` when the host could not be
+             * reached (`host_status` is not `ok`) or when listing Machines with `summary=true`. It
+             * comes from Fly.io's replicated state rather than the host, so it may be stale or lack
+             * fields.
+             */
+            incompleteConfig?: outputs.apps.v1.MachineIncompleteConfig;
+            /**
+             * Same value as `version`.
+             *
+             * Deprecated: use `version`.
+             */
+            instanceId?: string;
+            /**
+             * The lease currently held on the Machine. Only returned when `include_leases=true`
+             * was requested and a lease is held.
+             */
+            lease?: outputs.apps.v1.MachineLease;
+            /**
+             * Name of the Machine. Generated when not provided at creation. Names are not required
+             * to be unique.
+             */
+            name?: string;
+            /**
+             * Nonce of the lease acquired on the Machine at creation. Only returned when creating a
+             * Machine with `lease_ttl` set. Pass it in the `fly-machine-lease-nonce` header to act on
+             * the Machine while the lease is held.
+             */
+            nonce?: string;
+            /**
+             * The Machine's address on the organization's private (6PN) IPv6 network.
+             */
+            privateIp?: string;
+            /**
+             * Code of the region the Machine runs in, such as `iad`.
+             */
+            region?: string;
+            /**
+             * Current state of the Machine, taken from the status of its most recent event. One of
+             * `created`, `starting`, `started`, `stopping`, `stopped`, `suspending`, `suspended`,
+             * `replacing`, `replaced`, `destroying`, `destroyed`, `failed`, `migrating`, `migrated`,
+             * `archived`, or `pending`. See https://fly.io/docs/machines/machine-states/.
+             */
+            state?: string;
+            /**
+             * Time of the Machine's most recent event, truncated to whole seconds. The zero time
+             * (0001-01-01T00:00:00Z) if the host could not be reached. With `summary=true`, the time
+             * Fly.io last recorded a change to the Machine.
+             */
+            updatedAt?: string;
+            /**
+             * Unique ID of this version of the Machine. Every update creates a new version. Pass it
+             * as `current_version` when updating the Machine to reject the update if the Machine has
+             * changed since this version.
+             */
+            version?: string;
+        }
+
+        /**
+         * The Machine's configuration, as provided when it was created or last updated, with
+         * `metadata` and `mounts` reflecting their current values. Null when the host is not
+         * reachable (`host_status` is not `ok`) or `summary=true` was requested; see
+         * `incomplete_config`.
+         */
+        export interface MachineConfig {
+            /**
+             * Optional boolean telling the Machine to destroy itself once it’s complete (default false)
+             */
+            autoDestroy?: boolean;
+            /**
+             * Beta: a cache drive attached to the Machine. This field may be removed in the future
+             */
+            cacheDrive?: outputs.apps.v1.MachineFlyMachineConfigCacheDrive;
+            /**
+             * An optional object that defines one or more named top-level checks. The key for each check is the check name.
+             */
+            checks?: {[key: string]: outputs.apps.v1.FlyMachineConfigChecksProperties};
+            /**
+             * Containers are a list of containers that will run in the machine, each from its own image.
+             */
+            containers?: outputs.apps.v1.FlyContainerConfig[];
+            /**
+             * Deprecated: use Service.Autostart instead
+             */
+            disableMachineAutostart?: boolean;
+            /**
+             * DNS settings for the Machine
+             */
+            dns?: outputs.apps.v1.MachineFlyMachineConfigDns;
+            /**
+             * An object filled with key/value pairs to be set as environment variables
+             */
+            env?: {[key: string]: string};
+            /**
+             * Files to write into the Machine, from either a raw value or an app secret
+             */
+            files?: outputs.apps.v1.FlyFile[];
+            /**
+             * The resources (CPUs, memory, etc.) allocated to the Machine
+             */
+            guest?: outputs.apps.v1.MachineFlyMachineConfigGuest;
+            /**
+             * The docker image to run
+             */
+            image?: string;
+            /**
+             * Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
+             */
+            init?: outputs.apps.v1.MachineFlyMachineConfigInit;
+            /**
+             * Key/value pairs of Machine metadata. Fly.io uses metadata internally for routing, process groups, and clusters
+             */
+            metadata?: {[key: string]: string};
+            /**
+             * An optional metrics endpoint for Prometheus on Fly.io to scrape
+             */
+            metrics?: outputs.apps.v1.MachineFlyMachineConfigMetrics;
+            /**
+             * Persistent volumes to mount in the Machine. A Machine can mount at most one volume, which must be on
+             * the same host. The mounted volume cannot be changed by updating the Machine
+             */
+            mounts?: outputs.apps.v1.FlyMachineMount[];
+            /**
+             * Multiple processes to run within this one Machine, all from the Machine's image. Unrelated to the
+             * process groups in fly.toml, which run on separate Machines. To run processes from different
+             * images, use containers instead
+             */
+            processes?: outputs.apps.v1.FlyMachineProcess[];
+            /**
+             * Whether and how the Machine is restarted after its main process exits
+             */
+            restart?: outputs.apps.v1.MachineFlyMachineConfigRestart;
+            /**
+             * Beta: the size of the Machine's root filesystem and whether it persists. This field may be
+             * removed in the future
+             */
+            rootfs?: outputs.apps.v1.MachineFlyMachineConfigRootfs;
+            /**
+             * Run the Machine at an interval: one of hourly, daily, weekly or monthly. The interval starts when
+             * the Machine is created
+             */
+            schedule?: string;
+            /**
+             * Network services that Fly Proxy routes traffic to
+             */
+            services?: outputs.apps.v1.FlyMachineService[];
+            /**
+             * Deprecated: use Guest instead
+             */
+            size?: string;
+            /**
+             * Spot pricing settings for the Machine
+             */
+            spot?: outputs.apps.v1.MachineFlyMachineConfigSpot;
+            /**
+             * Standbys enable a machine to be a standby for another. In the event of a hardware failure,
+             * the standby machine will be started.
+             */
+            standbys?: string[];
+            /**
+             * Static files to serve under a URL prefix. Fly Proxy routes matching requests to a file server
+             * inside the Machine, bypassing your application's own process; the Machine must be running. The
+             * files are read either from a path inside the Machine or from a Tigris bucket that belongs to the
+             * app; no bucket is created for you
+             */
+            statics?: outputs.apps.v1.FlyStatic[];
+            /**
+             * How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
+             */
+            stopConfig?: outputs.apps.v1.MachineFlyMachineConfigStopConfig;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachineCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface MachineDeleteQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+            /**
+             * Kill the Machine first if it's not stopped, suspended, failed, pending or archived
+             */
+            force?: boolean;
+        }
+
+        export interface MachineEvent {
+            /**
+             * Unique ID of the event (a ULID).
+             */
+            id?: string;
+            /**
+             * Details that depend on the event type. For example, `exit` events carry the exit
+             * code and whether the process was killed for running out of memory, and `update`
+             * events carry the new version.
+             */
+            request?: any;
+            /**
+             * Who triggered the event: `user` for requests to this API, `flyd` for the host's
+             * Machine manager acting on its own (for example when a Machine exits or restarts), or
+             * `proxy` for Fly Proxy starting and stopping Machines.
+             */
+            source?: string;
+            /**
+             * The state the Machine moved to with this event, such as `created`, `started`, or
+             * `stopped`. The Machine's `state` is the status of its latest event.
+             */
+            status?: string;
+            /**
+             * When the event happened, in Unix milliseconds.
+             */
+            timestamp?: number;
+            /**
+             * What happened, such as `launch`, `start`, `stop`, `exit`, `restart`, `update`,
+             * `suspension`, `cancel_suspension`, `migration`, `metadata_update`, `archive`, or
+             * `destroy`.
+             */
+            type?: string;
+        }
+
+        /**
+         * Beta: a cache drive attached to the Machine. This field may be removed in the future
+         */
+        export interface MachineFlyMachineConfigCacheDrive {
+            /**
+             * Optional absolute guest mount path. When set, the device is formatted as ext4.
+             * Without a path, the device retains legacy raw block behavior. Contents survive
+             * same-host restarts and path changes, but are discarded on size or mode changes,
+             * relocation, recovery on another host, and cloning.
+             */
+            path?: string;
+            /**
+             * Fixed size of the Machine-owned cache drive in MiB. At most 51200.
+             * With a path, at least 16 MiB is required; without a path, 0 disables the device.
+             */
+            sizeMb?: number;
+        }
+
+        /**
+         * DNS settings for the Machine
+         */
+        export interface MachineFlyMachineConfigDns {
+            /**
+             * Forward DNS queries for some domains to other DNS servers
+             */
+            dnsForwardRules?: outputs.apps.v1.FlyDnsForwardRule[];
+            /**
+             * Hostname of the Machine. Defaults to the Machine ID. Also added to /etc/hosts with the
+             * Machine's 6PN address
+             */
+            hostname?: string;
+            /**
+             * Fully qualified domain name added to /etc/hosts for `hostname`
+             */
+            hostnameFqdn?: string;
+            /**
+             * Nameservers to use instead of the default, Fly.io's private DNS server `fdaa::3`
+             */
+            nameservers?: string[];
+            /**
+             * Options for /etc/resolv.conf
+             */
+            options?: outputs.apps.v1.FlyDnsOption[];
+            /**
+             * Search domains for /etc/resolv.conf
+             */
+            searches?: string[];
+            /**
+             * Currently has no effect
+             */
+            skipRegistration?: boolean;
+        }
+
+        /**
+         * The resources (CPUs, memory, etc.) allocated to the Machine
+         */
+        export interface MachineFlyMachineConfigGuest {
+            /**
+             * Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
+             * Defaults to shared when `guest` is omitted
+             */
+            cpuKind?: string;
+            /**
+             * Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
+             * performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
+             * omitted
+             */
+            cpus?: number;
+            /**
+             * No longer supported. Requests that set it are rejected
+             */
+            gpuKind?: string;
+            /**
+             * No longer supported. Requests that set it are rejected
+             */
+            gpus?: number;
+            /**
+             * Place the Machine on hosts dedicated to the organization under this ID. Only available to
+             * organizations with dedicated hosts
+             */
+            hostDedicationId?: string;
+            /**
+             * Extra arguments appended to the guest kernel command line
+             */
+            kernelArgs?: string[];
+            /**
+             * Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
+             * the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
+             * starts with a limit of memory_mb
+             */
+            maxMemoryMb?: number;
+            /**
+             * Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
+             * between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
+             * `guest` is omitted
+             */
+            memoryMb?: number;
+            /**
+             * Deprecated: use MachineConfig.Rootfs instead
+             */
+            persistRootfs?: enums.apps.v1.FlyMachineGuestPersistRootfs;
+            /**
+             * Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
+             * of lowercase letters, digits and dashes. Each feature must be enabled for the organization
+             */
+            requiredHostFeatures?: string[];
+        }
+
+        /**
+         * Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
+         */
+        export interface MachineFlyMachineConfigInit {
+            /**
+             * Replaces the image's CMD. It's appended to the entrypoint
+             */
+            cmd?: string[];
+            /**
+             * Replaces the image's ENTRYPOINT
+             */
+            entrypoint?: string[];
+            /**
+             * Command to run instead of the image's ENTRYPOINT and CMD. Takes precedence over entrypoint
+             * and cmd
+             */
+            exec?: string[];
+            /**
+             * Currently has no effect. Use `guest.kernel_args` instead
+             */
+            kernelArgs?: string[];
+            /**
+             * Size in MiB of a swap device to give the Machine. Machines with swap cannot be suspended
+             */
+            swapSizeMb?: number;
+            /**
+             * Currently has no effect
+             */
+            tty?: boolean;
+        }
+
+        /**
+         * An optional metrics endpoint for Prometheus on Fly.io to scrape
+         */
+        export interface MachineFlyMachineConfigMetrics {
+            /**
+             * Scrape over HTTPS instead of HTTP
+             */
+            https?: boolean;
+            /**
+             * HTTP path to scrape. Defaults to `/`
+             */
+            path?: string;
+            /**
+             * Port in the Machine to scrape metrics from
+             */
+            port?: number;
+        }
+
+        /**
+         * Whether and how the Machine is restarted after its main process exits
+         */
+        export interface MachineFlyMachineConfigRestart {
+            /**
+             * When policy is on-failure, the maximum number of times to attempt to restart the Machine before letting it stop.
+             */
+            maxRetries?: number;
+            /**
+             * * no - Never try to restart a Machine automatically when its main process exits, whether that’s on purpose or on a crash.
+             * * always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.
+             * * on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules.
+             */
+            policy?: enums.apps.v1.FlyMachineRestartPolicy;
+        }
+
+        /**
+         * Beta: the size of the Machine's root filesystem and whether it persists. This field may be
+         * removed in the future
+         */
+        export interface MachineFlyMachineConfigRootfs {
+            /**
+             * Whether changes to the root filesystem are kept. `never` (default): reset on every start.
+             * `restart`: kept across stops and restarts, reset when the Machine is updated. `always`: also
+             * kept across updates
+             */
+            persist?: enums.apps.v1.FlyMachineRootfsPersist;
+            /**
+             * Size of the root filesystem in GB. At most 50; 0 uses the default
+             */
+            sizeGb?: number;
+        }
+
+        /**
+         * Spot pricing settings for the Machine
+         */
+        export interface MachineFlyMachineConfigSpot {
+            /**
+             * MaxPriceFraction is the maximum fraction of the full Machine price you will pay for this Machine. Range: (0, 1.0]
+             */
+            maxPriceFraction?: number;
+        }
+
+        /**
+         * How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
+         */
+        export interface MachineFlyMachineConfigStopConfig {
+            /**
+             * Signal to send to the Machine's processes. Defaults to SIGINT
+             */
+            signal?: enums.apps.v1.FlyStopConfigSignal;
+            /**
+             * How long to wait for the Machine to exit after sending the signal, before killing it. At most
+             * 5 minutes (1 minute for spot Machines). Defaults to 5s (60s for spot Machines)
+             */
+            timeout?: string;
+        }
+
+        /**
+         * The image the Machine runs, as resolved when it was last created or updated.
+         */
+        export interface MachineImageRef {
+            /**
+             * Content digest of the image (`sha256:...`).
+             */
+            digest?: string;
+            /**
+             * The image's OCI labels.
+             */
+            labels?: {[key: string]: string};
+            /**
+             * Registry host of the image, such as `registry.fly.io`.
+             */
+            registry?: string;
+            /**
+             * Repository of the image within the registry, such as `library/nginx`.
+             */
+            repository?: string;
+            /**
+             * Tag the image was referenced by, if any.
+             */
+            tag?: string;
+        }
+
+        /**
+         * Last known configuration, returned in place of `config` when the host could not be
+         * reached (`host_status` is not `ok`) or when listing Machines with `summary=true`. It
+         * comes from Fly.io's replicated state rather than the host, so it may be stale or lack
+         * fields.
+         */
+        export interface MachineIncompleteConfig {
+            /**
+             * Optional boolean telling the Machine to destroy itself once it’s complete (default false)
+             */
+            autoDestroy?: boolean;
+            /**
+             * Beta: a cache drive attached to the Machine. This field may be removed in the future
              */
             cacheDrive?: outputs.apps.v1.FlyMachineConfigCacheDrive;
             /**
@@ -598,7 +2576,8 @@ export namespace apps {
              */
             restart?: outputs.apps.v1.FlyMachineConfigRestart;
             /**
-             * The size of the Machine's root filesystem and whether it persists
+             * Beta: the size of the Machine's root filesystem and whether it persists. This field may be
+             * removed in the future
              */
             rootfs?: outputs.apps.v1.FlyMachineConfigRootfs;
             /**
@@ -637,502 +2616,22 @@ export namespace apps {
         }
 
         /**
-         * A cache drive attached to the Machine
+         * The lease currently held on the Machine. Only returned when `include_leases=true`
+         * was requested and a lease is held.
          */
-        export interface FlyMachineConfigCacheDrive {
-            sizeMb?: number;
-        }
-
-        /**
-         * An optional object that defines one or more named top-level checks. The key for each check is the check name.
-         */
-        export interface FlyMachineConfigChecksProperties {
+        export interface MachineLease {
             /**
-             * The time to wait after a VM starts before checking its health
+             * Description given when the lease was acquired.
              */
-            gracePeriod?: string;
-            headers?: outputs.apps.v1.FlyMachineHTTPHeader[];
+            description?: string;
             /**
-             * The time between connectivity checks
+             * When the lease expires, in Unix seconds.
              */
-            interval?: string;
+            expiresAt?: number;
             /**
-             * Kind of the check (informational, readiness)
+             * Email address of the user who acquired the lease.
              */
-            kind?: enums.apps.v1.ChecksKind;
-            /**
-             * For http checks, the HTTP method to use to when making the request
-             */
-            method?: string;
-            /**
-             * For http checks, the path to send the request to
-             */
-            path?: string;
-            /**
-             * The port to connect to, often the same as internal_port
-             */
-            port?: number;
-            /**
-             * For http checks, whether to use http or https
-             */
-            protocol?: string;
-            /**
-             * The maximum time a connection can take before being reported as failing its health check
-             */
-            timeout?: string;
-            /**
-             * If the protocol is https, the hostname to use for TLS certificate validation
-             */
-            tlsServerName?: string;
-            /**
-             * For http checks with https protocol, whether or not to verify the TLS certificate
-             */
-            tlsSkipVerify?: boolean;
-            /**
-             * tcp or http
-             */
-            type?: string;
-        }
-
-        /**
-         * DNS settings for the Machine
-         */
-        export interface FlyMachineConfigDns {
-            dnsForwardRules?: outputs.apps.v1.FlyDnsForwardRule[];
-            hostname?: string;
-            hostnameFqdn?: string;
-            nameservers?: string[];
-            options?: outputs.apps.v1.FlyDnsOption[];
-            searches?: string[];
-            skipRegistration?: boolean;
-        }
-
-        /**
-         * The resources (CPUs, memory, etc.) allocated to the Machine
-         */
-        export interface FlyMachineConfigGuest {
-            cpuKind?: string;
-            cpus?: number;
-            gpuKind?: string;
-            gpus?: number;
-            hostDedicationId?: string;
-            kernelArgs?: string[];
-            maxMemoryMb?: number;
-            memoryMb?: number;
-            /**
-             * Deprecated: use MachineConfig.Rootfs instead
-             */
-            persistRootfs?: enums.apps.v1.FlyMachineGuestPersistRootfs;
-            requiredHostFeatures?: string[];
-        }
-
-        /**
-         * Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
-         */
-        export interface FlyMachineConfigInit {
-            cmd?: string[];
-            entrypoint?: string[];
-            exec?: string[];
-            kernelArgs?: string[];
-            swapSizeMb?: number;
-            tty?: boolean;
-        }
-
-        /**
-         * An optional metrics endpoint for Prometheus on Fly.io to scrape
-         */
-        export interface FlyMachineConfigMetrics {
-            https?: boolean;
-            path?: string;
-            port?: number;
-        }
-
-        /**
-         * Whether and how the Machine is restarted after its main process exits
-         */
-        export interface FlyMachineConfigRestart {
-            /**
-             * When policy is on-failure, the maximum number of times to attempt to restart the Machine before letting it stop.
-             */
-            maxRetries?: number;
-            /**
-             * * no - Never try to restart a Machine automatically when its main process exits, whether that’s on purpose or on a crash.
-             * * always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.
-             * * on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules.
-             */
-            policy?: enums.apps.v1.FlyMachineRestartPolicy;
-        }
-
-        /**
-         * The size of the Machine's root filesystem and whether it persists
-         */
-        export interface FlyMachineConfigRootfs {
-            persist?: enums.apps.v1.FlyMachineRootfsPersist;
-            sizeGb?: number;
-        }
-
-        /**
-         * Spot pricing settings for the Machine
-         */
-        export interface FlyMachineConfigSpot {
-            /**
-             * MaxPriceFraction is the maximum fraction of the full Machine price you will pay for this Machine. Range: (0, 1.0]
-             */
-            maxPriceFraction?: number;
-        }
-
-        /**
-         * How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
-         */
-        export interface FlyMachineConfigStopConfig {
-            signal?: enums.apps.v1.FlyStopConfigSignal;
-            timeout?: string;
-        }
-
-        export interface FlyMachineGuest {
-            cpuKind?: string;
-            cpus?: number;
-            gpuKind?: string;
-            gpus?: number;
-            hostDedicationId?: string;
-            kernelArgs?: string[];
-            maxMemoryMb?: number;
-            memoryMb?: number;
-            /**
-             * Deprecated: use MachineConfig.Rootfs instead
-             */
-            persistRootfs?: enums.apps.v1.FlyMachineGuestPersistRootfs;
-            requiredHostFeatures?: string[];
-        }
-
-        /**
-         * For http checks, an array of objects with string field Name and array of strings field Values. The key/value pairs specify header and header values that will get passed with the check call.
-         */
-        export interface FlyMachineHTTPHeader {
-            /**
-             * The header name
-             */
-            name?: string;
-            /**
-             * The header value
-             */
-            values?: string[];
-        }
-
-        export interface FlyMachineMount {
-            addSizeGb?: number;
-            /**
-             * AddSizePercent grows by a percentage of the current size, rounded up to GiB.
-             * It is mutually exclusive with AddSizeGb.
-             */
-            addSizePercent?: number;
-            encrypted?: boolean;
-            extendThresholdPercent?: number;
-            /**
-             * MinAddSizeGb is the minimum proportional growth in GiB (default 1).
-             */
-            minAddSizeGb?: number;
-            name?: string;
-            path?: string;
-            sizeGb?: number;
-            sizeGbLimit?: number;
-            volume?: string;
-        }
-
-        export interface FlyMachinePort {
-            endPort?: number;
-            forceHttps?: boolean;
-            handlers?: string[];
-            httpOptions?: outputs.apps.v1.FlyHTTPOptions;
-            port?: number;
-            proxyProtoOptions?: outputs.apps.v1.FlyProxyProtoOptions;
-            startPort?: number;
-            tlsOptions?: outputs.apps.v1.FlyTLSOptions;
-        }
-
-        export interface FlyMachineProcess {
-            cmd?: string[];
-            entrypoint?: string[];
-            env?: {[key: string]: string};
-            /**
-             * EnvFrom can be provided to set environment variables from machine fields.
-             */
-            envFrom?: outputs.apps.v1.FlyEnvFrom[];
-            exec?: string[];
-            /**
-             * IgnoreAppSecrets can be set to true to ignore the secrets for the App the Machine belongs to
-             * and only use the secrets provided at the process level. The default/legacy behavior is to use
-             * the secrets provided at the App level.
-             */
-            ignoreAppSecrets?: boolean;
-            /**
-             * Secrets can be provided at the process level to explicitly indicate which secrets should be
-             * used for the process. If not provided, the secrets provided at the machine level will be used.
-             */
-            secrets?: outputs.apps.v1.FlyMachineSecret[];
-            user?: string;
-        }
-
-        /**
-         * A Secret needing to be set in the environment of the Machine. env_var is required
-         */
-        export interface FlyMachineSecret {
-            /**
-             * EnvVar is required and is the name of the environment variable that will be set from the
-             * secret. It must be a valid environment variable name.
-             */
-            envVar?: string;
-            /**
-             * Name is optional and when provided is used to reference a secret name where the EnvVar is
-             * different from what was set as the secret name.
-             */
-            name?: string;
-        }
-
-        export interface FlyMachineService {
-            autostart?: boolean;
-            /**
-             * Accepts a string (new format) or a boolean (old format). For backward compatibility with older clients, the API continues to use booleans for "off" and "stop" in responses.
-             * * "off" or false - Do not autostop the Machine.
-             * * "stop" or true - Automatically stop the Machine.
-             * * "suspend" - Automatically suspend the Machine, falling back to a full stop if this is not possible.
-             */
-            autostop?: enums.apps.v1.FlyMachineServiceAutostop;
-            /**
-             * An optional list of service checks
-             */
-            checks?: outputs.apps.v1.FlyMachineServiceCheck[];
-            concurrency?: outputs.apps.v1.FlyMachineServiceConcurrency;
-            forceInstanceDescription?: string;
-            forceInstanceKey?: string;
-            internalPort?: number;
-            minMachinesRunning?: number;
-            ports?: outputs.apps.v1.FlyMachinePort[];
-            protocol?: string;
-        }
-
-        export interface FlyMachineServiceCheck {
-            /**
-             * The time to wait after a VM starts before checking its health
-             */
-            gracePeriod?: string;
-            headers?: outputs.apps.v1.FlyMachineHTTPHeader[];
-            /**
-             * The time between connectivity checks
-             */
-            interval?: string;
-            /**
-             * For http checks, the HTTP method to use to when making the request
-             */
-            method?: string;
-            /**
-             * For http checks, the path to send the request to
-             */
-            path?: string;
-            /**
-             * The port to connect to, often the same as internal_port
-             */
-            port?: number;
-            /**
-             * For http checks, whether to use http or https
-             */
-            protocol?: string;
-            /**
-             * The maximum time a connection can take before being reported as failing its health check
-             */
-            timeout?: string;
-            /**
-             * If the protocol is https, the hostname to use for TLS certificate validation
-             */
-            tlsServerName?: string;
-            /**
-             * For http checks with https protocol, whether or not to verify the TLS certificate
-             */
-            tlsSkipVerify?: boolean;
-            /**
-             * tcp or http
-             */
-            type?: string;
-        }
-
-        export interface FlyMachineServiceConcurrency {
-            hardLimit?: number;
-            softLimit?: number;
-            type?: string;
-        }
-
-        export interface FlyProxyProtoOptions {
-            flySrc?: boolean;
-            version?: string;
-        }
-
-        export interface FlyReplayCache {
-            allowBypass?: boolean;
-            /**
-             * Name of the cookie or header to key the cache on
-             */
-            name?: string;
-            pathPrefix?: string;
-            ttlSeconds?: number;
-            /**
-             * Currently either "cookie" or "header"
-             */
-            type?: enums.apps.v1.FlyReplayCacheType;
-        }
-
-        export interface FlyStatic {
-            /**
-             * The path inside the Machine, or inside tigris_bucket when set, where the files to serve are located
-             */
-            guestPath: string;
-            /**
-             * The document served for requests to the URL prefix or any of its subfolders. Only works with tigris_bucket
-             */
-            indexDocument?: string;
-            /**
-             * An existing Tigris bucket belonging to the app to read the files from, instead of the Machine's
-             * filesystem. The files are still served through the Machine
-             */
-            tigrisBucket?: string;
-            /**
-             * The URL prefix under which the files are served
-             */
-            urlPrefix: string;
-        }
-
-        export interface FlyTCPHealthcheck {
-            /**
-             * The port to connect to, often the same as internal_port
-             */
-            port?: number;
-        }
-
-        export interface FlyTLSOptions {
-            alpn?: string[];
-            defaultSelfSigned?: boolean;
-            versions?: string[];
-        }
-
-        export interface IPAssignment {
-            createdAt?: string;
-            egress?: boolean;
-            ip?: string;
-            /**
-             * The 6PN network a Flycast (private_v6) address belongs to. Null for all other IP types.
-             */
-            network?: outputs.apps.v1.IPAssignmentNetwork;
-            region?: string;
-            serviceName?: string;
-            shared?: boolean;
-        }
-
-        /**
-         * The 6PN network a Flycast (private_v6) address belongs to. Null for all other IP types.
-         */
-        export interface IPAssignmentNetwork {
-            /**
-             * Network name; empty for the organization's default network.
-             */
-            name?: string;
-            orgSlug?: string;
-        }
-
-        export interface ImageRef {
-            digest?: string;
-            labels?: {[key: string]: string};
-            registry?: string;
-            repository?: string;
-            tag?: string;
-        }
-
-        /**
-         * ip_pair is returned when "egress-pair" IP type is requested; in this case, ip is null.
-         */
-        export interface IpPair {
-            v4?: string;
-            v6?: string;
-        }
-
-        export interface IssuedCertificate {
-            certificateAuthority?: string;
-            expiresAt?: string;
-            type?: enums.apps.v1.IssuedCertificateType;
-        }
-
-        export interface ListenSocket {
-            address?: string;
-            proto?: string;
-        }
-
-        export interface Machine {
-            checks?: outputs.apps.v1.CheckStatus[];
-            config?: outputs.apps.v1.FlyMachineConfig;
-            cordoned?: boolean;
-            createdAt?: string;
-            events?: outputs.apps.v1.MachineEvent[];
-            hostFeatures?: string[];
-            hostStatus?: enums.apps.v1.MachineHostStatus;
-            id?: string;
-            imageRef?: outputs.apps.v1.ImageRef;
-            incompleteConfig?: outputs.apps.v1.FlyMachineConfig;
-            /**
-             * InstanceID is the same value as `version`.
-             *
-             * Deprecated: use `version`.
-             */
-            instanceId?: string;
-            lease?: outputs.apps.v1.StrippedLease;
-            name?: string;
-            /**
-             * Nonce is only every returned on machine creation if a lease_duration was provided.
-             */
-            nonce?: string;
-            /**
-             * PrivateIP is the internal 6PN address of the machine.
-             */
-            privateIp?: string;
-            region?: string;
-            state?: string;
-            updatedAt?: string;
-            /**
-             * Version is unique for each version of the machine. Pass it as
-             * `current_version` when updating the Machine to reject the update if the
-             * Machine has changed since this version.
-             */
-            version?: string;
-        }
-
-        /**
-         * Query params for the API request.
-         */
-        export interface MachineCreateQueryParams {
-            /**
-             * Additional query params to send with the request that are not defined in the API spec.
-             */
-            additionalParams?: {[key: string]: string};
-        }
-
-        /**
-         * Query params for the API request.
-         */
-        export interface MachineDeleteQueryParams {
-            /**
-             * Additional query params to send with the request that are not defined in the API spec.
-             */
-            additionalParams?: {[key: string]: string};
-            /**
-             * Kill the Machine first if it's not stopped, suspended, failed, pending or archived
-             */
-            force?: boolean;
-        }
-
-        export interface MachineEvent {
-            id?: string;
-            request?: any;
-            source?: string;
-            status?: string;
-            timestamp?: number;
-            type?: string;
+            owner?: string;
         }
 
         /**
@@ -1186,8 +2685,125 @@ export namespace apps {
         }
 
         export interface MachineVersion {
-            userConfig?: outputs.apps.v1.FlyMachineConfig;
+            /**
+             * The configuration of that version, as provided by the create or update request.
+             */
+            userConfig?: outputs.apps.v1.MachineVersionUserConfig;
+            /**
+             * ID of the Machine version.
+             */
             version?: string;
+        }
+
+        /**
+         * The configuration of that version, as provided by the create or update request.
+         */
+        export interface MachineVersionUserConfig {
+            /**
+             * Optional boolean telling the Machine to destroy itself once it’s complete (default false)
+             */
+            autoDestroy?: boolean;
+            /**
+             * Beta: a cache drive attached to the Machine. This field may be removed in the future
+             */
+            cacheDrive?: outputs.apps.v1.FlyMachineConfigCacheDrive;
+            /**
+             * An optional object that defines one or more named top-level checks. The key for each check is the check name.
+             */
+            checks?: {[key: string]: outputs.apps.v1.FlyMachineConfigChecksProperties};
+            /**
+             * Containers are a list of containers that will run in the machine, each from its own image.
+             */
+            containers?: outputs.apps.v1.FlyContainerConfig[];
+            /**
+             * Deprecated: use Service.Autostart instead
+             */
+            disableMachineAutostart?: boolean;
+            /**
+             * DNS settings for the Machine
+             */
+            dns?: outputs.apps.v1.FlyMachineConfigDns;
+            /**
+             * An object filled with key/value pairs to be set as environment variables
+             */
+            env?: {[key: string]: string};
+            /**
+             * Files to write into the Machine, from either a raw value or an app secret
+             */
+            files?: outputs.apps.v1.FlyFile[];
+            /**
+             * The resources (CPUs, memory, etc.) allocated to the Machine
+             */
+            guest?: outputs.apps.v1.FlyMachineConfigGuest;
+            /**
+             * The docker image to run
+             */
+            image?: string;
+            /**
+             * Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
+             */
+            init?: outputs.apps.v1.FlyMachineConfigInit;
+            /**
+             * Key/value pairs of Machine metadata. Fly.io uses metadata internally for routing, process groups, and clusters
+             */
+            metadata?: {[key: string]: string};
+            /**
+             * An optional metrics endpoint for Prometheus on Fly.io to scrape
+             */
+            metrics?: outputs.apps.v1.FlyMachineConfigMetrics;
+            /**
+             * Persistent volumes to mount in the Machine. A Machine can mount at most one volume, which must be on
+             * the same host. The mounted volume cannot be changed by updating the Machine
+             */
+            mounts?: outputs.apps.v1.FlyMachineMount[];
+            /**
+             * Multiple processes to run within this one Machine, all from the Machine's image. Unrelated to the
+             * process groups in fly.toml, which run on separate Machines. To run processes from different
+             * images, use containers instead
+             */
+            processes?: outputs.apps.v1.FlyMachineProcess[];
+            /**
+             * Whether and how the Machine is restarted after its main process exits
+             */
+            restart?: outputs.apps.v1.FlyMachineConfigRestart;
+            /**
+             * Beta: the size of the Machine's root filesystem and whether it persists. This field may be
+             * removed in the future
+             */
+            rootfs?: outputs.apps.v1.FlyMachineConfigRootfs;
+            /**
+             * Run the Machine at an interval: one of hourly, daily, weekly or monthly. The interval starts when
+             * the Machine is created
+             */
+            schedule?: string;
+            /**
+             * Network services that Fly Proxy routes traffic to
+             */
+            services?: outputs.apps.v1.FlyMachineService[];
+            /**
+             * Deprecated: use Guest instead
+             */
+            size?: string;
+            /**
+             * Spot pricing settings for the Machine
+             */
+            spot?: outputs.apps.v1.FlyMachineConfigSpot;
+            /**
+             * Standbys enable a machine to be a standby for another. In the event of a hardware failure,
+             * the standby machine will be started.
+             */
+            standbys?: string[];
+            /**
+             * Static files to serve under a URL prefix. Fly Proxy routes matching requests to a file server
+             * inside the Machine, bypassing your application's own process; the Machine must be running. The
+             * files are read either from a path inside the Machine or from a Tigris bucket that belongs to the
+             * app; no bucket is created for you
+             */
+            statics?: outputs.apps.v1.FlyStatic[];
+            /**
+             * How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
+             */
+            stopConfig?: outputs.apps.v1.FlyMachineConfigStopConfig;
         }
 
         /**
@@ -1238,6 +2854,10 @@ export namespace apps {
              * Additional query params to send with the request that are not defined in the API spec.
              */
             additionalParams?: {[key: string]: string};
+            /**
+             * How long the lease is valid, in seconds. Overridden by ttl in the request body.
+             */
+            ttl?: number;
         }
 
         /**
@@ -1542,20 +3162,39 @@ export namespace apps {
             create?: outputs.apps.v1.MachinesUncordonCreateQueryParams;
         }
 
-        export interface OwnershipVerification {
-            appValue?: string;
-            name?: string;
-            orgValue?: string;
-        }
-
         export interface ProcessStat {
+            /**
+             * The process's command line, with arguments separated by spaces.
+             */
             command?: string;
+            /**
+             * Average CPU usage over the process's lifetime, in percent of one CPU. May exceed 100
+             * on Machines with more than one CPU.
+             */
             cpu?: number;
+            /**
+             * The process's working directory.
+             */
             directory?: string;
+            /**
+             * TCP sockets the process is listening on.
+             */
             listenSockets?: outputs.apps.v1.ListenSocket[];
+            /**
+             * Process ID inside the Machine.
+             */
             pid?: number;
+            /**
+             * Resident set size: the physical memory the process uses, in bytes.
+             */
             rss?: number;
+            /**
+             * How long the process has been running, in seconds.
+             */
             rtime?: number;
+            /**
+             * When the process started, in seconds since the Machine booted.
+             */
             stime?: number;
         }
 
@@ -1580,10 +3219,25 @@ export namespace apps {
         }
 
         export interface SecretKey {
+            /**
+             * When the key was first set.
+             */
             createdAt?: string;
+            /**
+             * Name of the secret key.
+             */
             name?: string;
-            publicKey?: number[];
+            /**
+             * Public key of asymmetric keys (`nacl_box`, `nacl_sign`, `es256`), base64-encoded.
+             */
+            publicKey?: string;
+            /**
+             * Type of the key: `hs256`, `hs384`, `hs512`, `xaes256gcm`, `nacl_auth`, `nacl_box`, `nacl_secretbox`, `nacl_sign`, or `es256`.
+             */
             type?: string;
+            /**
+             * When the key last changed.
+             */
             updatedAt?: string;
         }
 
@@ -1614,11 +3268,11 @@ export namespace apps {
              */
             additionalParams?: {[key: string]: string};
             /**
-             * Minimum secrets version to return. Returned when setting a new secret
+             * Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
              */
             minVersion?: string;
             /**
-             * Show the secret value.
+             * Include the secret value. Only allowed when the request comes from a Machine of the app; otherwise the request fails with 403.
              */
             showSecrets?: boolean;
         }
@@ -1642,7 +3296,7 @@ export namespace apps {
              */
             additionalParams?: {[key: string]: string};
             /**
-             * Minimum secrets version to return. Returned when setting a new secret
+             * Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
              */
             minVersion?: string;
         }
@@ -1676,7 +3330,7 @@ export namespace apps {
              */
             additionalParams?: {[key: string]: string};
             /**
-             * Minimum secrets version to return. Returned when setting a new secret
+             * Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
              */
             minVersion?: string;
         }
@@ -1738,7 +3392,7 @@ export namespace apps {
              */
             additionalParams?: {[key: string]: string};
             /**
-             * Minimum secrets version to return. Returned when setting a new secret
+             * Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
              */
             minVersion?: string;
         }
@@ -1752,7 +3406,7 @@ export namespace apps {
              */
             additionalParams?: {[key: string]: string};
             /**
-             * Minimum secrets version to return. Returned when setting a new secret
+             * Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
              */
             minVersion?: string;
         }
@@ -1776,7 +3430,7 @@ export namespace apps {
              */
             additionalParams?: {[key: string]: string};
             /**
-             * Minimum secrets version to return. Returned when setting a new secret
+             * Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
              */
             minVersion?: string;
         }
@@ -1825,35 +3479,136 @@ export namespace apps {
             additionalParams?: {[key: string]: string};
         }
 
-        export interface StrippedLease {
-            description?: string;
-            expiresAt?: number;
-            owner?: string;
+        /**
+         * Which validation methods are currently possible.
+         */
+        export interface Validation {
+            /**
+             * Whether the hostname points at the app, allowing TLS-ALPN-01 validation.
+             */
+            alpnConfigured?: boolean;
+            /**
+             * Whether the `_acme-challenge` CNAME record is set up, allowing DNS-01 validation.
+             */
+            dnsConfigured?: boolean;
+            /**
+             * Whether the hostname points at the app, allowing HTTP-01 validation.
+             */
+            httpConfigured?: boolean;
+            /**
+             * Whether the `_fly-ownership` TXT record is set up.
+             */
+            ownershipTxtConfigured?: boolean;
         }
 
         export interface Volume {
+            /**
+             * Always null.
+             *
+             * Deprecated: volumes are no longer attached to Nomad allocations.
+             */
             attachedAllocId?: string;
+            /**
+             * ID of the Machine the volume is attached to, or null if it is not attached.
+             */
             attachedMachineId?: string;
+            /**
+             * Whether daily automatic snapshots are taken.
+             */
             autoBackupEnabled?: boolean;
+            /**
+             * Size of a filesystem block, in bytes. See `blocks`.
+             */
             blockSize?: number;
+            /**
+             * Size of the volume's filesystem, in blocks of `block_size` bytes, as last reported by a
+             * Machine that mounted the volume. 0 if never reported, if the host could not be reached,
+             * or with `summary=true`.
+             */
             blocks?: number;
+            /**
+             * Number of filesystem blocks available to unprivileged users. See `blocks`.
+             */
             blocksAvail?: number;
+            /**
+             * Number of free filesystem blocks, including blocks reserved for the root user. See
+             * `blocks`.
+             */
             blocksFree?: number;
+            /**
+             * Size of the volume, in bytes. 0 if the host could not be reached or with `summary=true`.
+             */
             bytesTotal?: number;
+            /**
+             * Bytes of storage the volume occupies on its host. Volumes are thinly provisioned, so this
+             * grows as blocks are written and does not shrink when files are deleted. It is not the
+             * filesystem's usage; use `blocks` and `blocks_free` for that. 0 if the host could not be
+             * reached or with `summary=true`.
+             */
             bytesUsed?: number;
+            /**
+             * When the volume was created.
+             */
             createdAt?: string;
+            /**
+             * Whether the volume is encrypted at rest.
+             */
             encrypted?: boolean;
+            /**
+             * Filesystem the volume was formatted with: `ext4`, or `raw` for an unformatted block
+             * device.
+             */
             fstype?: string;
+            /**
+             * Features of the volume's host. Only returned when the request sets the
+             * `fly-include-host-features: true` header.
+             */
             hostFeatures?: string[];
+            /**
+             * Whether Fly.io could reach the volume's host: `ok` if it could, `unreachable` or
+             * `unknown` if it could not, in which case host-reported fields are missing.
+             */
             hostStatus?: enums.apps.v1.VolumeHostStatus;
+            /**
+             * Unique ID of the volume, such as `vol_1234567890abcdef`.
+             */
             id?: string;
+            /**
+             * Name of the volume. Several volumes of an app can share a name.
+             */
             name?: string;
+            /**
+             * Code of the region the volume is in.
+             */
             region?: string;
+            /**
+             * Host features the volume's host was required to have; see `compute.required_host_features`
+             * in the create request.
+             */
             requiredHostFeatures?: string[];
+            /**
+             * Size of the volume, in GiB.
+             */
             sizeGb?: number;
+            /**
+             * Number of days snapshots of the volume are kept.
+             */
             snapshotRetention?: number;
+            /**
+             * State of the volume, such as `creating`, `created`, `extending`, `restoring`,
+             * `hydrating`, `scheduling_destroy`, `pending_destroy`, `destroying`, `destroyed`, or
+             * `failed`.
+             */
             state?: string;
+            /**
+             * Kind of volume: `local` for regular volumes, or `cache` for volumes that hold
+             * disposable data and support neither snapshots nor restores.
+             */
             type?: enums.apps.v1.VolumeType;
+            /**
+             * Identifies the host the volume is on. Volumes with different zones are on different
+             * hosts.
+             */
             zone?: string;
         }
 
@@ -1920,12 +3675,35 @@ export namespace apps {
         }
 
         export interface VolumeSnapshot {
+            /**
+             * When the snapshot finished, in RFC 3339 format. The zero time
+             * (0001-01-01T00:00:00Z) while the snapshot is in progress.
+             */
             createdAt?: string;
+            /**
+             * Content digest of the snapshot. Empty while the snapshot is in progress.
+             */
             digest?: string;
+            /**
+             * Unique ID of the snapshot. Pass it as `snapshot_id` when creating a volume to restore it.
+             */
             id?: string;
+            /**
+             * Number of days the snapshot is kept after it was created. Omitted while the snapshot is
+             * in progress.
+             */
             retentionDays?: number;
+            /**
+             * Size of the stored snapshot, in bytes. 0 while the snapshot is in progress.
+             */
             size?: number;
+            /**
+             * `created` for completed snapshots; other values while the snapshot is in progress.
+             */
             status?: string;
+            /**
+             * Size of the volume the snapshot was taken of, in bytes.
+             */
             volumeSize?: number;
         }
 
@@ -1983,71 +3761,357 @@ export namespace apps {
             put?: outputs.apps.v1.VolumesExtendPutQueryParams;
         }
 
+        /**
+         * The extended volume.
+         */
+        export interface VolumesExtendVolume {
+            /**
+             * Always null.
+             *
+             * Deprecated: volumes are no longer attached to Nomad allocations.
+             */
+            attachedAllocId?: string;
+            /**
+             * ID of the Machine the volume is attached to, or null if it is not attached.
+             */
+            attachedMachineId?: string;
+            /**
+             * Whether daily automatic snapshots are taken.
+             */
+            autoBackupEnabled?: boolean;
+            /**
+             * Size of a filesystem block, in bytes. See `blocks`.
+             */
+            blockSize?: number;
+            /**
+             * Size of the volume's filesystem, in blocks of `block_size` bytes, as last reported by a
+             * Machine that mounted the volume. 0 if never reported, if the host could not be reached,
+             * or with `summary=true`.
+             */
+            blocks?: number;
+            /**
+             * Number of filesystem blocks available to unprivileged users. See `blocks`.
+             */
+            blocksAvail?: number;
+            /**
+             * Number of free filesystem blocks, including blocks reserved for the root user. See
+             * `blocks`.
+             */
+            blocksFree?: number;
+            /**
+             * Size of the volume, in bytes. 0 if the host could not be reached or with `summary=true`.
+             */
+            bytesTotal?: number;
+            /**
+             * Bytes of storage the volume occupies on its host. Volumes are thinly provisioned, so this
+             * grows as blocks are written and does not shrink when files are deleted. It is not the
+             * filesystem's usage; use `blocks` and `blocks_free` for that. 0 if the host could not be
+             * reached or with `summary=true`.
+             */
+            bytesUsed?: number;
+            /**
+             * When the volume was created.
+             */
+            createdAt?: string;
+            /**
+             * Whether the volume is encrypted at rest.
+             */
+            encrypted?: boolean;
+            /**
+             * Filesystem the volume was formatted with: `ext4`, or `raw` for an unformatted block
+             * device.
+             */
+            fstype?: string;
+            /**
+             * Features of the volume's host. Only returned when the request sets the
+             * `fly-include-host-features: true` header.
+             */
+            hostFeatures?: string[];
+            /**
+             * Whether Fly.io could reach the volume's host: `ok` if it could, `unreachable` or
+             * `unknown` if it could not, in which case host-reported fields are missing.
+             */
+            hostStatus?: enums.apps.v1.VolumeHostStatus;
+            /**
+             * Unique ID of the volume, such as `vol_1234567890abcdef`.
+             */
+            id?: string;
+            /**
+             * Name of the volume. Several volumes of an app can share a name.
+             */
+            name?: string;
+            /**
+             * Code of the region the volume is in.
+             */
+            region?: string;
+            /**
+             * Host features the volume's host was required to have; see `compute.required_host_features`
+             * in the create request.
+             */
+            requiredHostFeatures?: string[];
+            /**
+             * Size of the volume, in GiB.
+             */
+            sizeGb?: number;
+            /**
+             * Number of days snapshots of the volume are kept.
+             */
+            snapshotRetention?: number;
+            /**
+             * State of the volume, such as `creating`, `created`, `extending`, `restoring`,
+             * `hydrating`, `scheduling_destroy`, `pending_destroy`, `destroying`, `destroyed`, or
+             * `failed`.
+             */
+            state?: string;
+            /**
+             * Kind of volume: `local` for regular volumes, or `cache` for volumes that hold
+             * disposable data and support neither snapshots nor restores.
+             */
+            type?: enums.apps.v1.VolumeType;
+            /**
+             * Identifies the host the volume is on. Volumes with different zones are on different
+             * hosts.
+             */
+            zone?: string;
+        }
+
     }
 }
 
 export namespace orgs {
     export namespace v1 {
-        export interface FlyMachineGuest {
+        /**
+         * The Machine's CPU, memory, and GPU configuration.
+         */
+        export interface MachineOverviewConfigGuest {
+            /**
+             * Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
+             * Defaults to shared when `guest` is omitted
+             */
             cpuKind?: string;
+            /**
+             * Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
+             * performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
+             * omitted
+             */
             cpus?: number;
+            /**
+             * No longer supported. Requests that set it are rejected
+             */
             gpuKind?: string;
+            /**
+             * No longer supported. Requests that set it are rejected
+             */
             gpus?: number;
+            /**
+             * Place the Machine on hosts dedicated to the organization under this ID. Only available to
+             * organizations with dedicated hosts
+             */
             hostDedicationId?: string;
+            /**
+             * Extra arguments appended to the guest kernel command line
+             */
             kernelArgs?: string[];
+            /**
+             * Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
+             * the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
+             * starts with a limit of memory_mb
+             */
             maxMemoryMb?: number;
+            /**
+             * Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
+             * between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
+             * `guest` is omitted
+             */
             memoryMb?: number;
             /**
              * Deprecated: use MachineConfig.Rootfs instead
              */
             persistRootfs?: enums.orgs.v1.FlyMachineGuestPersistRootfs;
+            /**
+             * Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
+             * of lowercase letters, digits and dashes. Each feature must be enabled for the organization
+             */
             requiredHostFeatures?: string[];
-        }
-
-        export interface MachineOverviewConfig {
-            guest?: outputs.orgs.v1.FlyMachineGuest;
-            image?: string;
-            metadata?: {[key: string]: string};
         }
 
         export interface OrgMachine {
+            /**
+             * Name of the app the Machine belongs to.
+             */
             appName?: string;
-            config?: outputs.orgs.v1.MachineOverviewConfig;
+            /**
+             * Subset of the Machine's configuration. Omitted when `summary=true`.
+             */
+            config?: outputs.orgs.v1.OrgMachineConfig;
+            /**
+             * When the Machine was created.
+             */
             createdAt?: string;
+            /**
+             * Unique ID of the Machine.
+             */
             id?: string;
+            /**
+             * Name of the Machine.
+             */
             name?: string;
+            /**
+             * The Machine's address on the organization's private (6PN) IPv6 network.
+             */
             privateIp?: string;
+            /**
+             * Code of the region the Machine runs in.
+             */
             region?: string;
+            /**
+             * Current state of the Machine; see the `state` field of Machine.
+             */
             state?: string;
+            /**
+             * When Fly.io last recorded a change to the Machine.
+             */
             updatedAt?: string;
+            /**
+             * ID of the Machine's current version.
+             */
             version?: string;
         }
 
+        /**
+         * Subset of the Machine's configuration. Omitted when `summary=true`.
+         */
+        export interface OrgMachineConfig {
+            /**
+             * The Machine's CPU, memory, and GPU configuration.
+             */
+            guest?: outputs.orgs.v1.MachineOverviewConfigGuest;
+            /**
+             * The image reference the Machine was configured with.
+             */
+            image?: string;
+            /**
+             * The Machine's metadata key-value pairs.
+             */
+            metadata?: {[key: string]: string};
+        }
+
         export interface OrgVolume {
+            /**
+             * Name of the app the volume belongs to.
+             */
             appName?: string;
+            /**
+             * Always null.
+             *
+             * Deprecated: volumes are no longer attached to Nomad allocations.
+             */
             attachedAllocId?: string;
+            /**
+             * ID of the Machine the volume is attached to, or null if it is not attached.
+             */
             attachedMachineId?: string;
+            /**
+             * Whether daily automatic snapshots are taken.
+             */
             autoBackupEnabled?: boolean;
+            /**
+             * Size of a filesystem block, in bytes. See `blocks`.
+             */
             blockSize?: number;
+            /**
+             * Size of the volume's filesystem, in blocks of `block_size` bytes, as last reported by a
+             * Machine that mounted the volume. 0 if never reported, if the host could not be reached,
+             * or with `summary=true`.
+             */
             blocks?: number;
+            /**
+             * Number of filesystem blocks available to unprivileged users. See `blocks`.
+             */
             blocksAvail?: number;
+            /**
+             * Number of free filesystem blocks, including blocks reserved for the root user. See
+             * `blocks`.
+             */
             blocksFree?: number;
+            /**
+             * Size of the volume, in bytes. 0 if the host could not be reached or with `summary=true`.
+             */
             bytesTotal?: number;
+            /**
+             * Bytes of storage the volume occupies on its host. Volumes are thinly provisioned, so this
+             * grows as blocks are written and does not shrink when files are deleted. It is not the
+             * filesystem's usage; use `blocks` and `blocks_free` for that. 0 if the host could not be
+             * reached or with `summary=true`.
+             */
             bytesUsed?: number;
+            /**
+             * When the volume was created.
+             */
             createdAt?: string;
+            /**
+             * Whether the volume is encrypted at rest.
+             */
             encrypted?: boolean;
+            /**
+             * Filesystem the volume was formatted with: `ext4`, or `raw` for an unformatted block
+             * device.
+             */
             fstype?: string;
+            /**
+             * Features of the volume's host. Only returned when the request sets the
+             * `fly-include-host-features: true` header.
+             */
             hostFeatures?: string[];
+            /**
+             * Whether Fly.io could reach the volume's host: `ok` if it could, `unreachable` or
+             * `unknown` if it could not, in which case host-reported fields are missing.
+             */
             hostStatus?: enums.orgs.v1.OrgVolumeHostStatus;
+            /**
+             * Unique ID of the volume, such as `vol_1234567890abcdef`.
+             */
             id?: string;
+            /**
+             * Name of the volume. Several volumes of an app can share a name.
+             */
             name?: string;
+            /**
+             * Code of the region the volume is in.
+             */
             region?: string;
+            /**
+             * Host features the volume's host was required to have; see `compute.required_host_features`
+             * in the create request.
+             */
             requiredHostFeatures?: string[];
+            /**
+             * Size of the volume, in GiB.
+             */
             sizeGb?: number;
+            /**
+             * Number of days snapshots of the volume are kept.
+             */
             snapshotRetention?: number;
+            /**
+             * State of the volume, such as `creating`, `created`, `extending`, `restoring`,
+             * `hydrating`, `scheduling_destroy`, `pending_destroy`, `destroying`, `destroyed`, or
+             * `failed`.
+             */
             state?: string;
+            /**
+             * Kind of volume: `local` for regular volumes, or `cache` for volumes that hold
+             * disposable data and support neither snapshots nor restores.
+             */
             type?: enums.orgs.v1.OrgVolumeType;
+            /**
+             * When Fly.io last recorded a change to the volume.
+             */
             updatedAt?: string;
+            /**
+             * Identifies the host the volume is on. Volumes with different zones are on different
+             * hosts.
+             */
             zone?: string;
         }
 
@@ -2060,37 +4124,111 @@ export namespace platform {
          * Resource requirements for the Machine to simulate. Defaults to a performance-1x machine
          */
         export interface Compute {
+            /**
+             * Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
+             * Defaults to shared when `guest` is omitted
+             */
             cpuKind?: string;
+            /**
+             * Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
+             * performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
+             * omitted
+             */
             cpus?: number;
+            /**
+             * No longer supported. Requests that set it are rejected
+             */
             gpuKind?: string;
+            /**
+             * No longer supported. Requests that set it are rejected
+             */
             gpus?: number;
+            /**
+             * Place the Machine on hosts dedicated to the organization under this ID. Only available to
+             * organizations with dedicated hosts
+             */
             hostDedicationId?: string;
+            /**
+             * Extra arguments appended to the guest kernel command line
+             */
             kernelArgs?: string[];
+            /**
+             * Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
+             * the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
+             * starts with a limit of memory_mb
+             */
             maxMemoryMb?: number;
+            /**
+             * Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
+             * between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
+             * `guest` is omitted
+             */
             memoryMb?: number;
             /**
              * Deprecated: use MachineConfig.Rootfs instead
              */
             persistRootfs?: enums.platform.v1.FlyMachineGuestPersistRootfs;
+            /**
+             * Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
+             * of lowercase letters, digits and dashes. Each feature must be enabled for the organization
+             */
             requiredHostFeatures?: string[];
         }
 
         export interface MainRegionRow {
+            /**
+             * Region code, such as `iad`, used to select the region in other requests.
+             */
             code?: string;
+            /**
+             * Whether the region is deprecated. Avoid creating new resources in it.
+             */
             deprecated?: boolean;
+            /**
+             * Whether the region has a WireGuard gateway that private network peers can connect to.
+             */
             gatewayAvailable?: boolean;
-            geoRegion?: string;
+            /**
+             * Geographic area the region belongs to.
+             */
+            geoRegion?: enums.platform.v1.MainRegionRowGeoRegion;
+            /**
+             * Latitude of the region's location.
+             */
             latitude?: number;
+            /**
+             * Longitude of the region's location.
+             */
             longitude?: number;
+            /**
+             * Whether Managed Postgres clusters can be created in the region.
+             */
             mpgAvailable?: boolean;
+            /**
+             * Human-readable name of the region, such as `Ashburn, Virginia (US)`.
+             */
             name?: string;
+            /**
+             * Whether only organizations on a paid plan can use the region.
+             */
             requiresPaidPlan?: boolean;
         }
 
         export interface PlacementRegionPlacement {
-            concurrency?: number;
-            count?: number;
-            region?: string;
+            /**
+             * Number of distinct hosts those Machines would be spread over. 0 when the request's count
+             * is 0.
+             */
+            Concurrency?: number;
+            /**
+             * Number of Machines that would be placed in the region. When the request's count is 0, the
+             * organization's Machine limit for the region instead.
+             */
+            Count?: number;
+            /**
+             * Code of the region.
+             */
+            Region?: string;
         }
 
         /**
@@ -2472,6 +4610,26 @@ export namespace postgres {
         /**
          * Query params for the API request.
          */
+        export interface PostgresDatabasesQueryCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface PostgresDatabasesQueryQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.postgres.v1.PostgresDatabasesQueryCreateQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
         export interface PostgresDeleteQueryParams {
             /**
              * Additional query params to send with the request that are not defined in the API spec.
@@ -2623,6 +4781,17 @@ export namespace postgres {
              * Plan slug. Pass it as `plan` when creating or forking a cluster.
              */
             plan?: enums.postgres.v1.PostgresPlanPlan;
+        }
+
+        export interface PostgresQueryColumn {
+            /**
+             * Column name as returned by Postgres.
+             */
+            name?: string;
+            /**
+             * Postgres type name.
+             */
+            type?: string;
         }
 
         /**
@@ -2789,24 +4958,6 @@ export namespace postgres {
 
 export namespace tokens {
     export namespace v1 {
-        export interface FlyioAccess {
-            action?: enums.tokens.v1.FlyioAccessAction;
-            appFeature?: string;
-            appid?: number;
-            cluster?: string;
-            command?: string[];
-            feature?: string;
-            machine?: string;
-            machineFeature?: string;
-            mutation?: string;
-            orgid?: number;
-            sourceApp?: string;
-            sourceMachine?: string;
-            sourceOrganization?: string;
-            storageObject?: string;
-            volume?: string;
-        }
-
         export interface MacaroonCaveatSet {
             caveats?: any[];
         }
@@ -2818,29 +4969,37 @@ export namespace tokens {
         }
 
         export interface MainTokenInfo {
+            /**
+             * Names of the apps the token is restricted to. Omitted if the token is not restricted to
+             * specific apps.
+             */
             apps?: string[];
+            /**
+             * Slug of the organization the token is scoped to.
+             */
             orgSlug?: string;
+            /**
+             * Name of the organization the token is scoped to.
+             */
             organization?: string;
             /**
-             * Machine the token is restricted to (FromMachine caveat)
+             * ID of the Machine the token may only be used from. Omitted if the token is not restricted
+             * to a Machine.
              */
             restrictedToMachine?: string;
             /**
-             * Machine making the request
+             * Never set.
              */
             sourceMachineId?: string;
+            /**
+             * ID of the token.
+             */
             tokenId?: string;
             /**
-             * User identifier if token is for a user
+             * Opaque identifier of the user the token belongs to: the first 7 hex characters of a hash of
+             * the user's ID. Omitted for tokens that do not belong to a user.
              */
             user?: string;
-        }
-
-        export interface RootVerifiedToken {
-            caveats?: outputs.tokens.v1.MacaroonCaveatSet;
-            header?: string;
-            nonce?: outputs.tokens.v1.MacaroonNonce;
-            permissionToken?: number[];
         }
 
         /**
@@ -2861,6 +5020,27 @@ export namespace tokens {
              * Query params for the create operation.
              */
             create?: outputs.tokens.v1.TokensAuthenticateCreateQueryParams;
+        }
+
+        /**
+         * The requested access, with names resolved to IDs.
+         */
+        export interface TokensAuthorizeAccess {
+            action?: enums.tokens.v1.FlyioAccessAction;
+            appFeature?: string;
+            appid?: number;
+            cluster?: string;
+            command?: string[];
+            feature?: string;
+            machine?: string;
+            machineFeature?: string;
+            mutation?: string;
+            orgid?: number;
+            sourceApp?: string;
+            sourceMachine?: string;
+            sourceOrganization?: string;
+            storageObject?: string;
+            volume?: string;
         }
 
         /**
@@ -2921,6 +5101,16 @@ export namespace tokens {
              * Query params for the create operation.
              */
             create?: outputs.tokens.v1.TokensRequestOidcCreateQueryParams;
+        }
+
+        /**
+         * The token that grants the requested access.
+         */
+        export interface VerifiedToken {
+            caveats?: outputs.tokens.v1.MacaroonCaveatSet;
+            header?: string;
+            nonce?: outputs.tokens.v1.MacaroonNonce;
+            permissionToken?: number[];
         }
 
     }

@@ -14,7 +14,13 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     [OutputType]
     public sealed class FlyDnsForwardRule
     {
+        /// <summary>
+        /// Address and port of the DNS server to forward queries to over TCP, e.g. `10.0.0.1:53`
+        /// </summary>
         public readonly string? Addr;
+        /// <summary>
+        /// Domain to forward queries for, including subdomains. Must end in a dot, e.g. `example.com.`
+        /// </summary>
         public readonly string? Basename;
 
         [OutputConstructor]

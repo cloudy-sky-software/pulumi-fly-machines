@@ -14,18 +14,29 @@ import (
 type AppCertificatesAcme struct {
 	pulumi.CustomResourceState
 
-	AcmeRequested   pulumi.BoolPtrOutput        `pulumi:"acmeRequested"`
-	Certificates    CertificateEntryArrayOutput `pulumi:"certificates"`
-	Configured      pulumi.BoolPtrOutput        `pulumi:"configured"`
-	DnsProvider     pulumi.StringPtrOutput      `pulumi:"dnsProvider"`
-	DnsRequirements DNSRequirementsPtrOutput    `pulumi:"dnsRequirements"`
-	Hostname        pulumi.StringPtrOutput      `pulumi:"hostname"`
+	// Whether Fly.io-issued (ACME) certificates were requested for the hostname.
+	AcmeRequested pulumi.BoolPtrOutput `pulumi:"acmeRequested"`
+	// The hostname's certificates: at most one custom entry and one Fly.io entry.
+	Certificates CertificateEntryArrayOutput `pulumi:"certificates"`
+	// Whether ownership of the hostname has been verified.
+	Configured pulumi.BoolPtrOutput `pulumi:"configured"`
+	// DNS provider detected for the hostname, if known.
+	DnsProvider pulumi.StringPtrOutput `pulumi:"dnsProvider"`
+	// DNS records to create to point the hostname at the app and validate it.
+	DnsRequirements AppCertificatesAcmeDnsRequirementsPtrOutput `pulumi:"dnsRequirements"`
+	// The hostname the certificate is for. May start with `*.` for a wildcard certificate.
+	Hostname pulumi.StringPtrOutput `pulumi:"hostname"`
 	// Query params to send with the API requests for this resource.
-	QueryParams      AppCertificatesAcmeQueryParamsPtrOutput `pulumi:"queryParams"`
-	RateLimitedUntil pulumi.StringPtrOutput                  `pulumi:"rateLimitedUntil"`
-	Status           pulumi.StringPtrOutput                  `pulumi:"status"`
-	Validation       CertificateValidationPtrOutput          `pulumi:"validation"`
-	ValidationErrors CertificateValidationErrorArrayOutput   `pulumi:"validationErrors"`
+	QueryParams AppCertificatesAcmeQueryParamsPtrOutput `pulumi:"queryParams"`
+	// If Let's Encrypt is rate-limiting certificate requests for the hostname, when that ends.
+	RateLimitedUntil pulumi.StringPtrOutput `pulumi:"rateLimitedUntil"`
+	// Human-readable status: `Ready`, `Awaiting certificates`, `Awaiting configuration`, or a
+	// hint about what is misconfigured.
+	Status pulumi.StringPtrOutput `pulumi:"status"`
+	// Which validation methods are currently possible.
+	Validation AppCertificatesAcmeValidationPtrOutput `pulumi:"validation"`
+	// Problems found by the most recent validation.
+	ValidationErrors CertificateValidationErrorArrayOutput `pulumi:"validationErrors"`
 }
 
 // NewAppCertificatesAcme registers a new resource with the given unique name, arguments, and options.
@@ -75,7 +86,9 @@ func AppCertificatesAcmeExists(ctx *pulumi.Context,
 
 type appCertificatesAcmeArgs struct {
 	// Fly App Name
-	AppName  *string `pulumi:"appName"`
+	AppName *string `pulumi:"appName"`
+	// Hostname to request certificates for, such as `example.com` or `*.example.com`.
+	// Required. Hostnames under `fly.dev` are not allowed.
 	Hostname *string `pulumi:"hostname"`
 	// Query params to send with the API requests for this resource.
 	QueryParams *AppCertificatesAcmeQueryParams `pulumi:"queryParams"`
@@ -84,7 +97,9 @@ type appCertificatesAcmeArgs struct {
 // The set of arguments for constructing a AppCertificatesAcme resource.
 type AppCertificatesAcmeArgs struct {
 	// Fly App Name
-	AppName  pulumi.StringPtrInput
+	AppName pulumi.StringPtrInput
+	// Hostname to request certificates for, such as `example.com` or `*.example.com`.
+	// Required. Hostnames under `fly.dev` are not allowed.
 	Hostname pulumi.StringPtrInput
 	// Query params to send with the API requests for this resource.
 	QueryParams AppCertificatesAcmeQueryParamsPtrInput
@@ -127,26 +142,32 @@ func (o AppCertificatesAcmeOutput) ToAppCertificatesAcmeOutputWithContext(ctx co
 	return o
 }
 
+// Whether Fly.io-issued (ACME) certificates were requested for the hostname.
 func (o AppCertificatesAcmeOutput) AcmeRequested() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *AppCertificatesAcme) pulumi.BoolPtrOutput { return v.AcmeRequested }).(pulumi.BoolPtrOutput)
 }
 
+// The hostname's certificates: at most one custom entry and one Fly.io entry.
 func (o AppCertificatesAcmeOutput) Certificates() CertificateEntryArrayOutput {
 	return o.ApplyT(func(v *AppCertificatesAcme) CertificateEntryArrayOutput { return v.Certificates }).(CertificateEntryArrayOutput)
 }
 
+// Whether ownership of the hostname has been verified.
 func (o AppCertificatesAcmeOutput) Configured() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *AppCertificatesAcme) pulumi.BoolPtrOutput { return v.Configured }).(pulumi.BoolPtrOutput)
 }
 
+// DNS provider detected for the hostname, if known.
 func (o AppCertificatesAcmeOutput) DnsProvider() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AppCertificatesAcme) pulumi.StringPtrOutput { return v.DnsProvider }).(pulumi.StringPtrOutput)
 }
 
-func (o AppCertificatesAcmeOutput) DnsRequirements() DNSRequirementsPtrOutput {
-	return o.ApplyT(func(v *AppCertificatesAcme) DNSRequirementsPtrOutput { return v.DnsRequirements }).(DNSRequirementsPtrOutput)
+// DNS records to create to point the hostname at the app and validate it.
+func (o AppCertificatesAcmeOutput) DnsRequirements() AppCertificatesAcmeDnsRequirementsPtrOutput {
+	return o.ApplyT(func(v *AppCertificatesAcme) AppCertificatesAcmeDnsRequirementsPtrOutput { return v.DnsRequirements }).(AppCertificatesAcmeDnsRequirementsPtrOutput)
 }
 
+// The hostname the certificate is for. May start with `*.` for a wildcard certificate.
 func (o AppCertificatesAcmeOutput) Hostname() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AppCertificatesAcme) pulumi.StringPtrOutput { return v.Hostname }).(pulumi.StringPtrOutput)
 }
@@ -156,18 +177,23 @@ func (o AppCertificatesAcmeOutput) QueryParams() AppCertificatesAcmeQueryParamsP
 	return o.ApplyT(func(v *AppCertificatesAcme) AppCertificatesAcmeQueryParamsPtrOutput { return v.QueryParams }).(AppCertificatesAcmeQueryParamsPtrOutput)
 }
 
+// If Let's Encrypt is rate-limiting certificate requests for the hostname, when that ends.
 func (o AppCertificatesAcmeOutput) RateLimitedUntil() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AppCertificatesAcme) pulumi.StringPtrOutput { return v.RateLimitedUntil }).(pulumi.StringPtrOutput)
 }
 
+// Human-readable status: `Ready`, `Awaiting certificates`, `Awaiting configuration`, or a
+// hint about what is misconfigured.
 func (o AppCertificatesAcmeOutput) Status() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AppCertificatesAcme) pulumi.StringPtrOutput { return v.Status }).(pulumi.StringPtrOutput)
 }
 
-func (o AppCertificatesAcmeOutput) Validation() CertificateValidationPtrOutput {
-	return o.ApplyT(func(v *AppCertificatesAcme) CertificateValidationPtrOutput { return v.Validation }).(CertificateValidationPtrOutput)
+// Which validation methods are currently possible.
+func (o AppCertificatesAcmeOutput) Validation() AppCertificatesAcmeValidationPtrOutput {
+	return o.ApplyT(func(v *AppCertificatesAcme) AppCertificatesAcmeValidationPtrOutput { return v.Validation }).(AppCertificatesAcmeValidationPtrOutput)
 }
 
+// Problems found by the most recent validation.
 func (o AppCertificatesAcmeOutput) ValidationErrors() CertificateValidationErrorArrayOutput {
 	return o.ApplyT(func(v *AppCertificatesAcme) CertificateValidationErrorArrayOutput { return v.ValidationErrors }).(CertificateValidationErrorArrayOutput)
 }

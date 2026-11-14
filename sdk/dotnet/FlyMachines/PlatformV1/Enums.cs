@@ -38,4 +38,38 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.PlatformV1
 
         public override string ToString() => _value;
     }
+
+    /// <summary>
+    /// Geographic area the region belongs to.
+    /// </summary>
+    [EnumType]
+    public readonly struct MainRegionRowGeoRegion : IEquatable<MainRegionRowGeoRegion>
+    {
+        private readonly string _value;
+
+        private MainRegionRowGeoRegion(string value)
+        {
+            _value = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        public static MainRegionRowGeoRegion Africa { get; } = new MainRegionRowGeoRegion("africa");
+        public static MainRegionRowGeoRegion AsiaPacific { get; } = new MainRegionRowGeoRegion("asia_pacific");
+        public static MainRegionRowGeoRegion Europe { get; } = new MainRegionRowGeoRegion("europe");
+        public static MainRegionRowGeoRegion NorthAmerica { get; } = new MainRegionRowGeoRegion("north_america");
+        public static MainRegionRowGeoRegion SouthAmerica { get; } = new MainRegionRowGeoRegion("south_america");
+
+        public static bool operator ==(MainRegionRowGeoRegion left, MainRegionRowGeoRegion right) => left.Equals(right);
+        public static bool operator !=(MainRegionRowGeoRegion left, MainRegionRowGeoRegion right) => !left.Equals(right);
+
+        public static explicit operator string(MainRegionRowGeoRegion value) => value._value;
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object? obj) => obj is MainRegionRowGeoRegion other && Equals(other);
+        public bool Equals(MainRegionRowGeoRegion other) => string.Equals(_value, other._value, StringComparison.Ordinal);
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode() => _value?.GetHashCode() ?? 0;
+
+        public override string ToString() => _value;
+    }
 }

@@ -13,15 +13,31 @@ export const AppIPAssignmentType = {
 } as const;
 
 /**
- * Type of IP address to allocate. "egress-pair" allocates both v4 and v6 egress IP addresses (recommended when using egress IPs).
+ * Type of IP address to allocate. Required.
  */
 export type AppIPAssignmentType = (typeof AppIPAssignmentType)[keyof typeof AppIPAssignmentType];
+
+export const AppStatus = {
+    Pending: "pending",
+    Deployed: "deployed",
+    Suspended: "suspended",
+} as const;
+
+/**
+ * State of the app. `pending` until one of its Machines changes state. After that, updated
+ * asynchronously whenever a Machine changes state: `deployed` if at least one Machine is
+ * started, and `suspended` otherwise.
+ */
+export type AppStatus = (typeof AppStatus)[keyof typeof AppStatus];
 
 export const CertificateEntrySource = {
     Custom: "custom",
     Fly: "fly",
 } as const;
 
+/**
+ * `custom` for an uploaded certificate, `fly` for certificates issued by Fly.io.
+ */
 export type CertificateEntrySource = (typeof CertificateEntrySource)[keyof typeof CertificateEntrySource];
 
 export const CertificateEntryStatus = {
@@ -30,7 +46,22 @@ export const CertificateEntryStatus = {
     PendingValidation: "pending_validation",
 } as const;
 
+/**
+ * `active` once ownership of the hostname is verified. Until then, `pending_ownership` for
+ * custom certificates and `pending_validation` for Fly.io-issued certificates.
+ */
 export type CertificateEntryStatus = (typeof CertificateEntryStatus)[keyof typeof CertificateEntryStatus];
+
+export const CheckStatusStatus = {
+    Passing: "passing",
+    Warning: "warning",
+    Critical: "critical",
+} as const;
+
+/**
+ * Result of the check: `passing`, `warning`, or `critical`.
+ */
+export type CheckStatusStatus = (typeof CheckStatusStatus)[keyof typeof CheckStatusStatus];
 
 export const ChecksKind = {
     Informational: "informational",
@@ -48,6 +79,10 @@ export const FlyContainerDependencyCondition = {
     Started: "started",
 } as const;
 
+/**
+ * When the container can start: once the dependency has `started`, is `healthy`, or has
+ * `exited_successfully`
+ */
 export type FlyContainerDependencyCondition = (typeof FlyContainerDependencyCondition)[keyof typeof FlyContainerDependencyCondition];
 
 export const FlyContainerHealthcheckKind = {
@@ -123,6 +158,11 @@ export const FlyMachineRootfsPersist = {
     Restart: "restart",
 } as const;
 
+/**
+ * Whether changes to the root filesystem are kept. `never` (default): reset on every start.
+ * `restart`: kept across stops and restarts, reset when the Machine is updated. `always`: also
+ * kept across updates
+ */
 export type FlyMachineRootfsPersist = (typeof FlyMachineRootfsPersist)[keyof typeof FlyMachineRootfsPersist];
 
 export const FlyMachineServiceAutostop = {
@@ -159,7 +199,20 @@ export const FlyStopConfigSignal = {
     Sigterm: "SIGTERM",
 } as const;
 
+/**
+ * Signal to send to the Machine's processes. Defaults to SIGINT
+ */
 export type FlyStopConfigSignal = (typeof FlyStopConfigSignal)[keyof typeof FlyStopConfigSignal];
+
+export const Fstype = {
+    Ext4: "ext4",
+    Raw: "raw",
+} as const;
+
+/**
+ * Filesystem to format the volume with: `ext4`, or `raw` for an unformatted block device.
+ */
+export type Fstype = (typeof Fstype)[keyof typeof Fstype];
 
 export const GetMachinesWaitQueryParamsState = {
     Started: "started",
@@ -167,6 +220,7 @@ export const GetMachinesWaitQueryParamsState = {
     Suspended: "suspended",
     Destroyed: "destroyed",
     Failed: "failed",
+    Archived: "archived",
     Settled: "settled",
 } as const;
 
@@ -178,6 +232,10 @@ export const HostStatus = {
     Unreachable: "unreachable",
 } as const;
 
+/**
+ * Whether Fly.io could reach the volume's host: `ok` if it could, `unreachable` or
+ * `unknown` if it could not, in which case host-reported fields are missing.
+ */
 export type HostStatus = (typeof HostStatus)[keyof typeof HostStatus];
 
 export const IssuedCertificateType = {
@@ -185,7 +243,35 @@ export const IssuedCertificateType = {
     Ecdsa: "ecdsa",
 } as const;
 
+/**
+ * Key type of the certificate.
+ */
 export type IssuedCertificateType = (typeof IssuedCertificateType)[keyof typeof IssuedCertificateType];
+
+export const LeaseResponseStatus = {
+    Success: "success",
+} as const;
+
+/**
+ * Always `success`.
+ */
+export type LeaseResponseStatus = (typeof LeaseResponseStatus)[keyof typeof LeaseResponseStatus];
+
+export const ListMachinesProcessesQueryParamsOrder = {
+    Asc: "asc",
+    Desc: "desc",
+} as const;
+
+export type ListMachinesProcessesQueryParamsOrder = (typeof ListMachinesProcessesQueryParamsOrder)[keyof typeof ListMachinesProcessesQueryParamsOrder];
+
+export const ListMachinesProcessesQueryParamsSortBy = {
+    Cpu: "cpu",
+    Pid: "pid",
+    Stime: "stime",
+    Rtime: "rtime",
+} as const;
+
+export type ListMachinesProcessesQueryParamsSortBy = (typeof ListMachinesProcessesQueryParamsSortBy)[keyof typeof ListMachinesProcessesQueryParamsSortBy];
 
 export const MachineHostStatus = {
     Ok: "ok",
@@ -193,6 +279,11 @@ export const MachineHostStatus = {
     Unreachable: "unreachable",
 } as const;
 
+/**
+ * Whether Fly.io could reach the Machine's host: `ok` if it could, `unreachable` if it
+ * could not, in which case the response is built from last known state. `unknown` if the
+ * host's status was not reported.
+ */
 export type MachineHostStatus = (typeof MachineHostStatus)[keyof typeof MachineHostStatus];
 
 export const MachinesRestartCreateQueryParamsSignal = {
@@ -224,6 +315,9 @@ export const MachinesSignalSignal = {
     Sigusr2: "SIGUSR2",
 } as const;
 
+/**
+ * Signal to send to the Machine's main process.
+ */
 export type MachinesSignalSignal = (typeof MachinesSignalSignal)[keyof typeof MachinesSignalSignal];
 
 export const Signal = {
@@ -236,13 +330,30 @@ export const Signal = {
     Sigterm: "SIGTERM",
 } as const;
 
+/**
+ * Signal to send to the Machine's main process. Defaults to `config.stop_config.signal`, or
+ * SIGINT.
+ */
 export type Signal = (typeof Signal)[keyof typeof Signal];
+
+export const Status = {
+    Success: "success",
+} as const;
+
+/**
+ * Always `success`.
+ */
+export type Status = (typeof Status)[keyof typeof Status];
 
 export const Type = {
     Local: "local",
     Cache: "cache",
 } as const;
 
+/**
+ * Kind of volume: `local` for regular volumes, or `cache` for volumes that hold
+ * disposable data and support neither snapshots nor restores.
+ */
 export type Type = (typeof Type)[keyof typeof Type];
 
 export const VolumeHostStatus = {
@@ -251,6 +362,10 @@ export const VolumeHostStatus = {
     Unreachable: "unreachable",
 } as const;
 
+/**
+ * Whether Fly.io could reach the volume's host: `ok` if it could, `unreachable` or
+ * `unknown` if it could not, in which case host-reported fields are missing.
+ */
 export type VolumeHostStatus = (typeof VolumeHostStatus)[keyof typeof VolumeHostStatus];
 
 export const VolumeType = {
@@ -258,4 +373,8 @@ export const VolumeType = {
     Cache: "cache",
 } as const;
 
+/**
+ * Kind of volume: `local` for regular volumes, or `cache` for volumes that hold
+ * disposable data and support neither snapshots nor restores.
+ */
 export type VolumeType = (typeof VolumeType)[keyof typeof VolumeType];

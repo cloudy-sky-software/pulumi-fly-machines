@@ -19,6 +19,10 @@ export const OrgVolumeHostStatus = {
     Unreachable: "unreachable",
 } as const;
 
+/**
+ * Whether Fly.io could reach the volume's host: `ok` if it could, `unreachable` or
+ * `unknown` if it could not, in which case host-reported fields are missing.
+ */
 export type OrgVolumeHostStatus = (typeof OrgVolumeHostStatus)[keyof typeof OrgVolumeHostStatus];
 
 export const OrgVolumeType = {
@@ -26,4 +30,8 @@ export const OrgVolumeType = {
     Cache: "cache",
 } as const;
 
+/**
+ * Kind of volume: `local` for regular volumes, or `cache` for volumes that hold
+ * disposable data and support neither snapshots nor restores.
+ */
 export type OrgVolumeType = (typeof OrgVolumeType)[keyof typeof OrgVolumeType];

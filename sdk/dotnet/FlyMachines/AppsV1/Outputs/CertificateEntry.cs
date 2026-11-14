@@ -14,11 +14,30 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     [OutputType]
     public sealed class CertificateEntry
     {
+        /// <summary>
+        /// When the certificate was added; for Fly.io-issued certificates, the earliest one.
+        /// </summary>
         public readonly string? CreatedAt;
+        /// <summary>
+        /// When the certificate expires; for Fly.io-issued certificates, the latest one.
+        /// </summary>
         public readonly string? ExpiresAt;
+        /// <summary>
+        /// The individual Fly.io-issued certificates, newest first. Empty for custom certificates.
+        /// </summary>
         public readonly ImmutableArray<Outputs.IssuedCertificate> Issued;
+        /// <summary>
+        /// Issuer of a custom certificate. Omitted for Fly.io-issued certificates.
+        /// </summary>
         public readonly string? Issuer;
+        /// <summary>
+        /// `custom` for an uploaded certificate, `fly` for certificates issued by Fly.io.
+        /// </summary>
         public readonly CloudySkySoftware.Pulumi.FlyMachines.AppsV1.CertificateEntrySource? Source;
+        /// <summary>
+        /// `active` once ownership of the hostname is verified. Until then, `pending_ownership` for
+        /// custom certificates and `pending_validation` for Fly.io-issued certificates.
+        /// </summary>
         public readonly CloudySkySoftware.Pulumi.FlyMachines.AppsV1.CertificateEntryStatus? Status;
 
         [OutputConstructor]

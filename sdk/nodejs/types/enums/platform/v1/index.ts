@@ -12,3 +12,16 @@ export const FlyMachineGuestPersistRootfs = {
  * Deprecated: use MachineConfig.Rootfs instead
  */
 export type FlyMachineGuestPersistRootfs = (typeof FlyMachineGuestPersistRootfs)[keyof typeof FlyMachineGuestPersistRootfs];
+
+export const MainRegionRowGeoRegion = {
+    Africa: "africa",
+    AsiaPacific: "asia_pacific",
+    Europe: "europe",
+    NorthAmerica: "north_america",
+    SouthAmerica: "south_america",
+} as const;
+
+/**
+ * Geographic area the region belongs to.
+ */
+export type MainRegionRowGeoRegion = (typeof MainRegionRowGeoRegion)[keyof typeof MainRegionRowGeoRegion];

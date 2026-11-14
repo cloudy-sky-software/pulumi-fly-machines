@@ -29,6 +29,7 @@ type ListAppIPAssignmentsArgs struct {
 }
 
 type ListAppIPAssignmentsResult struct {
+	// The app's IP addresses, including its shared IPv4 address and egress addresses.
 	Ips []IPAssignment `pulumi:"ips"`
 }
 
@@ -62,6 +63,7 @@ func (o ListAppIPAssignmentsResultOutput) ToListAppIPAssignmentsResultOutputWith
 	return o
 }
 
+// The app's IP addresses, including its shared IPv4 address and egress addresses.
 func (o ListAppIPAssignmentsResultOutput) Ips() IPAssignmentArrayOutput {
 	return o.ApplyT(func(v ListAppIPAssignmentsResult) []IPAssignment { return v.Ips }).(IPAssignmentArrayOutput)
 }

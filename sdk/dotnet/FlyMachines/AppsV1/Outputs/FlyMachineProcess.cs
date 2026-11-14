@@ -14,13 +14,26 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     [OutputType]
     public sealed class FlyMachineProcess
     {
+        /// <summary>
+        /// Replaces the image's CMD for this process. It's appended to the entrypoint
+        /// </summary>
         public readonly ImmutableArray<string> Cmd;
+        /// <summary>
+        /// Replaces the image's ENTRYPOINT for this process
+        /// </summary>
         public readonly ImmutableArray<string> Entrypoint;
+        /// <summary>
+        /// Environment variables for this process, in addition to the Machine's `env`
+        /// </summary>
         public readonly ImmutableDictionary<string, string>? Env;
         /// <summary>
         /// EnvFrom can be provided to set environment variables from machine fields.
         /// </summary>
         public readonly ImmutableArray<Outputs.FlyEnvFrom> EnvFrom;
+        /// <summary>
+        /// Command to run instead of the image's ENTRYPOINT and CMD. Takes precedence over entrypoint
+        /// and cmd
+        /// </summary>
         public readonly ImmutableArray<string> Exec;
         /// <summary>
         /// IgnoreAppSecrets can be set to true to ignore the secrets for the App the Machine belongs to
@@ -33,6 +46,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         /// used for the process. If not provided, the secrets provided at the machine level will be used.
         /// </summary>
         public readonly ImmutableArray<Outputs.FlyMachineSecret> Secrets;
+        /// <summary>
+        /// User to run the process as, instead of the image's USER
+        /// </summary>
         public readonly string? User;
 
         [OutputConstructor]

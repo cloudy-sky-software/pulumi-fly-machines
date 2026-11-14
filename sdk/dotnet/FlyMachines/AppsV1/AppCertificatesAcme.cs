@@ -13,21 +13,39 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
     [FlyMachinesResourceType("fly-machines:apps/v1:AppCertificatesAcme")]
     public partial class AppCertificatesAcme : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// Whether Fly.io-issued (ACME) certificates were requested for the hostname.
+        /// </summary>
         [Output("acmeRequested")]
         public Output<bool?> AcmeRequested { get; private set; } = null!;
 
+        /// <summary>
+        /// The hostname's certificates: at most one custom entry and one Fly.io entry.
+        /// </summary>
         [Output("certificates")]
         public Output<ImmutableArray<Outputs.CertificateEntry>> Certificates { get; private set; } = null!;
 
+        /// <summary>
+        /// Whether ownership of the hostname has been verified.
+        /// </summary>
         [Output("configured")]
         public Output<bool?> Configured { get; private set; } = null!;
 
+        /// <summary>
+        /// DNS provider detected for the hostname, if known.
+        /// </summary>
         [Output("dnsProvider")]
         public Output<string?> DnsProvider { get; private set; } = null!;
 
+        /// <summary>
+        /// DNS records to create to point the hostname at the app and validate it.
+        /// </summary>
         [Output("dnsRequirements")]
-        public Output<Outputs.DNSRequirements?> DnsRequirements { get; private set; } = null!;
+        public Output<Outputs.AppCertificatesAcmeDnsRequirements?> DnsRequirements { get; private set; } = null!;
 
+        /// <summary>
+        /// The hostname the certificate is for. May start with `*.` for a wildcard certificate.
+        /// </summary>
         [Output("hostname")]
         public Output<string?> Hostname { get; private set; } = null!;
 
@@ -37,15 +55,28 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Output("queryParams")]
         public Output<Outputs.AppCertificatesAcmeQueryParams?> QueryParams { get; private set; } = null!;
 
+        /// <summary>
+        /// If Let's Encrypt is rate-limiting certificate requests for the hostname, when that ends.
+        /// </summary>
         [Output("rateLimitedUntil")]
         public Output<string?> RateLimitedUntil { get; private set; } = null!;
 
+        /// <summary>
+        /// Human-readable status: `Ready`, `Awaiting certificates`, `Awaiting configuration`, or a
+        /// hint about what is misconfigured.
+        /// </summary>
         [Output("status")]
         public Output<string?> Status { get; private set; } = null!;
 
+        /// <summary>
+        /// Which validation methods are currently possible.
+        /// </summary>
         [Output("validation")]
-        public Output<Outputs.CertificateValidation?> Validation { get; private set; } = null!;
+        public Output<Outputs.AppCertificatesAcmeValidation?> Validation { get; private set; } = null!;
 
+        /// <summary>
+        /// Problems found by the most recent validation.
+        /// </summary>
         [Output("validationErrors")]
         public Output<ImmutableArray<Outputs.CertificateValidationError>> ValidationErrors { get; private set; } = null!;
 
@@ -101,6 +132,10 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Input("appName")]
         public Input<string>? AppName { get; set; }
 
+        /// <summary>
+        /// Hostname to request certificates for, such as `example.com` or `*.example.com`.
+        /// Required. Hostnames under `fly.dev` are not allowed.
+        /// </summary>
         [Input("hostname")]
         public Input<string>? Hostname { get; set; }
 

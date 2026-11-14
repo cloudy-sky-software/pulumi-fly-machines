@@ -32,15 +32,46 @@ export interface GetAppCertificateArgs {
 }
 
 export interface GetAppCertificateResult {
+    /**
+     * Whether Fly.io-issued (ACME) certificates were requested for the hostname.
+     */
     readonly acmeRequested?: boolean;
+    /**
+     * The hostname's certificates: at most one custom entry and one Fly.io entry.
+     */
     readonly certificates?: outputs.apps.v1.CertificateEntry[];
+    /**
+     * Whether ownership of the hostname has been verified.
+     */
     readonly configured?: boolean;
+    /**
+     * DNS provider detected for the hostname, if known.
+     */
     readonly dnsProvider?: string;
-    readonly dnsRequirements?: outputs.apps.v1.DNSRequirements;
+    /**
+     * DNS records to create to point the hostname at the app and validate it.
+     */
+    readonly dnsRequirements?: outputs.apps.v1.CertificateDetailDnsRequirements;
+    /**
+     * The hostname the certificate is for. May start with `*.` for a wildcard certificate.
+     */
     readonly hostname?: string;
+    /**
+     * If Let's Encrypt is rate-limiting certificate requests for the hostname, when that ends.
+     */
     readonly rateLimitedUntil?: string;
+    /**
+     * Human-readable status: `Ready`, `Awaiting certificates`, `Awaiting configuration`, or a
+     * hint about what is misconfigured.
+     */
     readonly status?: string;
-    readonly validation?: outputs.apps.v1.CertificateValidation;
+    /**
+     * Which validation methods are currently possible.
+     */
+    readonly validation?: outputs.apps.v1.CertificateDetailValidation;
+    /**
+     * Problems found by the most recent validation.
+     */
     readonly validationErrors?: outputs.apps.v1.CertificateValidationError[];
 }
 export function getAppCertificateOutput(args: GetAppCertificateOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetAppCertificateResult> {

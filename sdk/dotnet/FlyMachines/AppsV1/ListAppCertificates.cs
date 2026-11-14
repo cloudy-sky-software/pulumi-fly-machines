@@ -67,8 +67,17 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
     [OutputType]
     public sealed class ListAppCertificatesResult
     {
+        /// <summary>
+        /// The certificates on this page, ordered by when they were added.
+        /// </summary>
         public readonly ImmutableArray<Outputs.CertificateSummary> Certificates;
+        /// <summary>
+        /// Pagination cursor for the next page. Absent when no more certificates remain.
+        /// </summary>
         public readonly string? NextCursor;
+        /// <summary>
+        /// Number of certificates matching `filter` (and after `cursor`, if given), across all pages.
+        /// </summary>
         public readonly int? TotalCount;
 
         [OutputConstructor]

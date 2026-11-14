@@ -75,6 +75,11 @@ export type PostgresDatabase = import("./postgresDatabase").PostgresDatabase;
 export const PostgresDatabase: typeof import("./postgresDatabase").PostgresDatabase = null as any;
 utilities.lazyLoad(exports, ["PostgresDatabase"], () => require("./postgresDatabase"));
 
+export { PostgresDatabasesQueryArgs } from "./postgresDatabasesQuery";
+export type PostgresDatabasesQuery = import("./postgresDatabasesQuery").PostgresDatabasesQuery;
+export const PostgresDatabasesQuery: typeof import("./postgresDatabasesQuery").PostgresDatabasesQuery = null as any;
+utilities.lazyLoad(exports, ["PostgresDatabasesQuery"], () => require("./postgresDatabasesQuery"));
+
 export { PostgresExtensionArgs } from "./postgresExtension";
 export type PostgresExtension = import("./postgresExtension").PostgresExtension;
 export const PostgresExtension: typeof import("./postgresExtension").PostgresExtension = null as any;
@@ -116,6 +121,8 @@ const _module = {
                 return new PostgresBackup(name, <any>undefined, { urn })
             case "fly-machines:postgres/v1:PostgresDatabase":
                 return new PostgresDatabase(name, <any>undefined, { urn })
+            case "fly-machines:postgres/v1:PostgresDatabasesQuery":
+                return new PostgresDatabasesQuery(name, <any>undefined, { urn })
             case "fly-machines:postgres/v1:PostgresExtension":
                 return new PostgresExtension(name, <any>undefined, { urn })
             case "fly-machines:postgres/v1:PostgresFork":

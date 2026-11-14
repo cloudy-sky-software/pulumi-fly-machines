@@ -13,12 +13,22 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
     [FlyMachinesResourceType("fly-machines:apps/v1:Secret")]
     public partial class Secret : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// When the secret was first set. Only returned when reading secrets.
+        /// </summary>
         [Output("createdAt")]
         public Output<string?> CreatedAt { get; private set; } = null!;
 
+        /// <summary>
+        /// Short fingerprint of the value, to tell whether it changed without revealing it. Omitted
+        /// for deleted secrets.
+        /// </summary>
         [Output("digest")]
         public Output<string?> Digest { get; private set; } = null!;
 
+        /// <summary>
+        /// Name of the secret.
+        /// </summary>
         [Output("name")]
         public Output<string?> Name { get; private set; } = null!;
 
@@ -28,9 +38,15 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Output("queryParams")]
         public Output<Outputs.SecretQueryParams?> QueryParams { get; private set; } = null!;
 
+        /// <summary>
+        /// When the secret's value last changed. Only returned when reading secrets.
+        /// </summary>
         [Output("updatedAt")]
         public Output<string?> UpdatedAt { get; private set; } = null!;
 
+        /// <summary>
+        /// Value of the secret. Only returned with `show_secrets=true`, and when setting secrets.
+        /// </summary>
         [Output("value")]
         public Output<string?> Value { get; private set; } = null!;
 
@@ -105,6 +121,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Input("secretName")]
         public Input<string>? SecretName { get; set; }
 
+        /// <summary>
+        /// New value of the secret.
+        /// </summary>
         [Input("value")]
         public Input<string>? Value { get; set; }
 

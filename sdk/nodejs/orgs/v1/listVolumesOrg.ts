@@ -27,9 +27,21 @@ export interface ListVolumesOrgArgs {
 }
 
 export interface ListVolumesOrgResult {
+    /**
+     * `updated_at` of the last volume on this page.
+     */
     readonly lastUpdatedAt?: string;
+    /**
+     * ID of the last volume on this page.
+     */
     readonly lastVolumeId?: string;
+    /**
+     * Pagination cursor for the next page. Absent when no more volumes remain.
+     */
     readonly nextCursor?: string;
+    /**
+     * The volumes on this page.
+     */
     readonly volumes?: outputs.orgs.v1.OrgVolume[];
 }
 export function listVolumesOrgOutput(args: ListVolumesOrgOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<ListVolumesOrgResult> {

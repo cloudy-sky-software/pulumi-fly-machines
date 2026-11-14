@@ -44,12 +44,18 @@ export class SecretkeyVerify extends pulumi.CustomResource {
         return obj['__pulumiType'] === SecretkeyVerify.__pulumiType;
     }
 
-    declare public readonly plaintext: pulumi.Output<number[] | undefined>;
+    /**
+     * Data that was signed, base64-encoded.
+     */
+    declare public readonly plaintext: pulumi.Output<string | undefined>;
     /**
      * Query params to send with the API requests for this resource.
      */
     declare public readonly queryParams: pulumi.Output<outputs.apps.v1.SecretkeyVerifyQueryParams | undefined>;
-    declare public readonly signature: pulumi.Output<number[] | undefined>;
+    /**
+     * Signature or MAC to check, base64-encoded.
+     */
+    declare public readonly signature: pulumi.Output<string | undefined>;
 
     /**
      * Create a SecretkeyVerify resource with the given unique name, arguments, and options.
@@ -85,7 +91,10 @@ export interface SecretkeyVerifyArgs {
      * Fly App Name
      */
     appName?: pulumi.Input<string | undefined>;
-    plaintext?: pulumi.Input<pulumi.Input<number>[] | undefined>;
+    /**
+     * Data that was signed, base64-encoded.
+     */
+    plaintext?: pulumi.Input<string | undefined>;
     /**
      * Query params to send with the API requests for this resource.
      */
@@ -94,5 +103,8 @@ export interface SecretkeyVerifyArgs {
      * Secret key name
      */
     secretName?: pulumi.Input<string | undefined>;
-    signature?: pulumi.Input<pulumi.Input<number>[] | undefined>;
+    /**
+     * Signature or MAC to check, base64-encoded.
+     */
+    signature?: pulumi.Input<string | undefined>;
 }

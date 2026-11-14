@@ -14,21 +14,32 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.PlatformV1.Outputs
     [OutputType]
     public sealed class PlacementRegionPlacement
     {
+        /// <summary>
+        /// Number of distinct hosts those Machines would be spread over. 0 when the request's count
+        /// is 0.
+        /// </summary>
         public readonly int? Concurrency;
+        /// <summary>
+        /// Number of Machines that would be placed in the region. When the request's count is 0, the
+        /// organization's Machine limit for the region instead.
+        /// </summary>
         public readonly int? Count;
+        /// <summary>
+        /// Code of the region.
+        /// </summary>
         public readonly string? Region;
 
         [OutputConstructor]
         private PlacementRegionPlacement(
-            int? concurrency,
+            int? Concurrency,
 
-            int? count,
+            int? Count,
 
-            string? region)
+            string? Region)
         {
-            Concurrency = concurrency;
-            Count = count;
-            Region = region;
+            this.Concurrency = Concurrency;
+            this.Count = Count;
+            this.Region = Region;
         }
     }
 }

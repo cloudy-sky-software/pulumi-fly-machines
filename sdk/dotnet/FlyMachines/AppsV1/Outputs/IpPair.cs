@@ -12,12 +12,19 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
 {
 
     /// <summary>
-    /// ip_pair is returned when "egress-pair" IP type is requested; in this case, ip is null.
+    /// The allocated IPv4 and IPv6 addresses when the `egress_pair` type was requested; null
+    /// otherwise.
     /// </summary>
     [OutputType]
     public sealed class IpPair
     {
+        /// <summary>
+        /// The egress IPv4 address.
+        /// </summary>
         public readonly string? V4;
+        /// <summary>
+        /// The egress IPv6 address.
+        /// </summary>
         public readonly string? V6;
 
         [OutputConstructor]

@@ -13,44 +13,91 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
     [FlyMachinesResourceType("fly-machines:apps/v1:Machine")]
     public partial class Machine : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// Status of each health check: the Machine's top-level `checks` and its services'
+        /// checks.
+        /// </summary>
         [Output("checks")]
         public Output<ImmutableArray<Outputs.CheckStatus>> Checks { get; private set; } = null!;
 
+        /// <summary>
+        /// The Machine's configuration, as provided when it was created or last updated, with
+        /// `metadata` and `mounts` reflecting their current values. Null when the host is not
+        /// reachable (`host_status` is not `ok`) or `summary=true` was requested; see
+        /// `incomplete_config`.
+        /// </summary>
         [Output("config")]
-        public Output<Outputs.FlyMachineConfig?> Config { get; private set; } = null!;
+        public Output<Outputs.MachineConfig?> Config { get; private set; } = null!;
 
+        /// <summary>
+        /// Whether the Machine is cordoned, meaning Fly Proxy does not route requests to it. See
+        /// the Cordon Machine endpoint.
+        /// </summary>
         [Output("cordoned")]
         public Output<bool?> Cordoned { get; private set; } = null!;
 
+        /// <summary>
+        /// When the Machine was created.
+        /// </summary>
         [Output("createdAt")]
         public Output<string?> CreatedAt { get; private set; } = null!;
 
+        /// <summary>
+        /// Up to 5 of the most recent events of the current Machine version, newest first. Use
+        /// the List Events endpoint for more.
+        /// </summary>
         [Output("events")]
         public Output<ImmutableArray<Outputs.MachineEvent>> Events { get; private set; } = null!;
 
+        /// <summary>
+        /// Features of the Machine's host, for comparison with `config.guest.required_host_features`.
+        /// Only returned when the request sets the `fly-include-host-features: true` header.
+        /// </summary>
         [Output("hostFeatures")]
         public Output<ImmutableArray<string>> HostFeatures { get; private set; } = null!;
 
+        /// <summary>
+        /// Whether Fly.io could reach the Machine's host: `ok` if it could, `unreachable` if it
+        /// could not, in which case the response is built from last known state. `unknown` if the
+        /// host's status was not reported.
+        /// </summary>
         [Output("hostStatus")]
         public Output<CloudySkySoftware.Pulumi.FlyMachines.AppsV1.HostStatus?> HostStatus { get; private set; } = null!;
 
+        /// <summary>
+        /// The image the Machine runs, as resolved when it was last created or updated.
+        /// </summary>
         [Output("imageRef")]
         public Output<Outputs.ImageRef?> ImageRef { get; private set; } = null!;
 
+        /// <summary>
+        /// Last known configuration, returned in place of `config` when the host could not be
+        /// reached (`host_status` is not `ok`) or when listing Machines with `summary=true`. It
+        /// comes from Fly.io's replicated state rather than the host, so it may be stale or lack
+        /// fields.
+        /// </summary>
         [Output("incompleteConfig")]
-        public Output<Outputs.FlyMachineConfig?> IncompleteConfig { get; private set; } = null!;
+        public Output<Outputs.IncompleteConfig?> IncompleteConfig { get; private set; } = null!;
 
         /// <summary>
-        /// InstanceID is the same value as `version`.
+        /// Same value as `version`.
         /// 
         /// Deprecated: use `version`.
         /// </summary>
         [Output("instanceId")]
         public Output<string?> InstanceId { get; private set; } = null!;
 
+        /// <summary>
+        /// The lease currently held on the Machine. Only returned when `include_leases=true`
+        /// was requested and a lease is held.
+        /// </summary>
         [Output("lease")]
-        public Output<Outputs.StrippedLease?> Lease { get; private set; } = null!;
+        public Output<Outputs.Lease?> Lease { get; private set; } = null!;
 
+        /// <summary>
+        /// Acquire a lease on the new Machine that lasts this many seconds. The response's `nonce`
+        /// field holds the lease nonce.
+        /// </summary>
         [Output("leaseTtl")]
         public Output<int?> LeaseTtl { get; private set; } = null!;
 
@@ -63,17 +110,23 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Output("minSecretsVersion")]
         public Output<int?> MinSecretsVersion { get; private set; } = null!;
 
+        /// <summary>
+        /// Name of the Machine. Generated when not provided at creation. Names are not required
+        /// to be unique.
+        /// </summary>
         [Output("name")]
         public Output<string?> Name { get; private set; } = null!;
 
         /// <summary>
-        /// Nonce is only every returned on machine creation if a lease_duration was provided.
+        /// Nonce of the lease acquired on the Machine at creation. Only returned when creating a
+        /// Machine with `lease_ttl` set. Pass it in the `fly-machine-lease-nonce` header to act on
+        /// the Machine while the lease is held.
         /// </summary>
         [Output("nonce")]
         public Output<string?> Nonce { get; private set; } = null!;
 
         /// <summary>
-        /// PrivateIP is the internal 6PN address of the machine.
+        /// The Machine's address on the organization's private (6PN) IPv6 network.
         /// </summary>
         [Output("privateIp")]
         public Output<string?> PrivateIp { get; private set; } = null!;
@@ -84,28 +137,55 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Output("queryParams")]
         public Output<Outputs.MachineQueryParams?> QueryParams { get; private set; } = null!;
 
+        /// <summary>
+        /// Code of the region the Machine runs in, such as `iad`.
+        /// </summary>
         [Output("region")]
         public Output<string?> Region { get; private set; } = null!;
 
+        /// <summary>
+        /// Create the Machine without starting it. It ends up `stopped`; start it with the Start
+        /// Machine endpoint. Not allowed for spot Machines.
+        /// </summary>
         [Output("skipLaunch")]
         public Output<bool?> SkipLaunch { get; private set; } = null!;
 
+        /// <summary>
+        /// Don't look up the app's current secrets version. The Machine still gets the app's
+        /// secrets, but may not see recent changes to them. Takes precedence over
+        /// `min_secrets_version`.
+        /// </summary>
         [Output("skipSecrets")]
         public Output<bool?> SkipSecrets { get; private set; } = null!;
 
+        /// <summary>
+        /// Create the Machine cordoned, so Fly Proxy doesn't route requests to it until it is
+        /// uncordoned. Its services are still registered.
+        /// </summary>
         [Output("skipServiceRegistration")]
         public Output<bool?> SkipServiceRegistration { get; private set; } = null!;
 
+        /// <summary>
+        /// Current state of the Machine, taken from the status of its most recent event. One of
+        /// `created`, `starting`, `started`, `stopping`, `stopped`, `suspending`, `suspended`,
+        /// `replacing`, `replaced`, `destroying`, `destroyed`, `failed`, `migrating`, `migrated`,
+        /// `archived`, or `pending`. See https://fly.io/docs/machines/machine-states/.
+        /// </summary>
         [Output("state")]
         public Output<string?> State { get; private set; } = null!;
 
+        /// <summary>
+        /// Time of the Machine's most recent event, truncated to whole seconds. The zero time
+        /// (0001-01-01T00:00:00Z) if the host could not be reached. With `summary=true`, the time
+        /// Fly.io last recorded a change to the Machine.
+        /// </summary>
         [Output("updatedAt")]
         public Output<string?> UpdatedAt { get; private set; } = null!;
 
         /// <summary>
-        /// Version is unique for each version of the machine. Pass it as
-        /// `current_version` when updating the Machine to reject the update if the
-        /// Machine has changed since this version.
+        /// Unique ID of this version of the Machine. Every update creates a new version. Pass it
+        /// as `current_version` when updating the Machine to reject the update if the Machine has
+        /// changed since this version.
         /// </summary>
         [Output("version")]
         public Output<string?> Version { get; private set; } = null!;
@@ -168,6 +248,10 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Input("config")]
         public Input<Inputs.ConfigArgs>? Config { get; set; }
 
+        /// <summary>
+        /// Acquire a lease on the new Machine that lasts this many seconds. The response's `nonce`
+        /// field holds the lease nonce.
+        /// </summary>
         [Input("leaseTtl")]
         public Input<int>? LeaseTtl { get; set; }
 
@@ -181,7 +265,8 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         public Input<int>? MinSecretsVersion { get; set; }
 
         /// <summary>
-        /// Unique name for this Machine. If omitted, one is generated for you
+        /// Name for this Machine. If omitted, one is generated for you. Names are not required to be
+        /// unique.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
@@ -193,17 +278,35 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         public Input<Inputs.MachineQueryParamsArgs>? QueryParams { get; set; }
 
         /// <summary>
-        /// The target region. Omitting this param launches in the same region as your WireGuard peer connection (somewhere near you).
+        /// The region to create the Machine in, such as `iad`. Also accepts a comma-separated list
+        /// of regions and region groups (`any`, `us`, `na`, `sa`, `eu`, `apac`, `africa`,
+        /// `asia_pacific`, `europe`, `north_america`, `south_america`), in which case Fly.io picks one
+        /// with capacity. If the Machine mounts a volume, defaults to the volume's region; the region
+        /// must include it. Otherwise defaults to the region of the API server handling the request,
+        /// which is usually the one closest to you.
         /// </summary>
         [Input("region")]
         public Input<string>? Region { get; set; }
 
+        /// <summary>
+        /// Create the Machine without starting it. It ends up `stopped`; start it with the Start
+        /// Machine endpoint. Not allowed for spot Machines.
+        /// </summary>
         [Input("skipLaunch")]
         public Input<bool>? SkipLaunch { get; set; }
 
+        /// <summary>
+        /// Don't look up the app's current secrets version. The Machine still gets the app's
+        /// secrets, but may not see recent changes to them. Takes precedence over
+        /// `min_secrets_version`.
+        /// </summary>
         [Input("skipSecrets")]
         public Input<bool>? SkipSecrets { get; set; }
 
+        /// <summary>
+        /// Create the Machine cordoned, so Fly Proxy doesn't route requests to it until it is
+        /// uncordoned. Its services are still registered.
+        /// </summary>
         [Input("skipServiceRegistration")]
         public Input<bool>? SkipServiceRegistration { get; set; }
 

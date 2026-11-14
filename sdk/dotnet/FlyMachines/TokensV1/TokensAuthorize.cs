@@ -13,9 +13,15 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.TokensV1
     [FlyMachinesResourceType("fly-machines:tokens/v1:TokensAuthorize")]
     public partial class TokensAuthorize : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// The requested access, with names resolved to IDs.
+        /// </summary>
         [Output("access")]
-        public Output<Outputs.FlyioAccess?> Access { get; private set; } = null!;
+        public Output<Outputs.TokensAuthorizeAccess?> Access { get; private set; } = null!;
 
+        /// <summary>
+        /// Value of the Authorization header to verify, e.g. `FlyV1 fm2_...`.
+        /// </summary>
         [Output("header")]
         public Output<string?> Header { get; private set; } = null!;
 
@@ -25,8 +31,11 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.TokensV1
         [Output("queryParams")]
         public Output<Outputs.TokensAuthorizeQueryParams?> QueryParams { get; private set; } = null!;
 
+        /// <summary>
+        /// The token that grants the requested access.
+        /// </summary>
         [Output("verifiedToken")]
-        public Output<Outputs.RootVerifiedToken?> VerifiedToken { get; private set; } = null!;
+        public Output<Outputs.VerifiedToken?> VerifiedToken { get; private set; } = null!;
 
 
         /// <summary>
@@ -74,9 +83,15 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.TokensV1
 
     public sealed class TokensAuthorizeArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Access to check the token against.
+        /// </summary>
         [Input("access")]
-        public Input<Inputs.MainTokenAccessArgs>? Access { get; set; }
+        public Input<Inputs.AccessArgs>? Access { get; set; }
 
+        /// <summary>
+        /// Value of the Authorization header to verify, e.g. `FlyV1 fm2_...`.
+        /// </summary>
         [Input("header")]
         public Input<string>? Header { get; set; }
 

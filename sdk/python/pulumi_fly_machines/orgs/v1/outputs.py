@@ -17,14 +17,17 @@ from . import outputs
 from ._enums import *
 
 __all__ = [
-    'FlyMachineGuest',
-    'MachineOverviewConfig',
+    'MachineOverviewConfigGuest',
     'OrgMachine',
+    'OrgMachineConfig',
     'OrgVolume',
 ]
 
 @pulumi.output_type
-class FlyMachineGuest(dict):
+class MachineOverviewConfigGuest(dict):
+    """
+    The Machine's CPU, memory, and GPU configuration.
+    """
     def __init__(__self__, *,
                  cpu_kind: Optional[_builtins.str] = None,
                  cpus: Optional[_builtins.int] = None,
@@ -37,7 +40,27 @@ class FlyMachineGuest(dict):
                  persist_rootfs: Optional['FlyMachineGuestPersistRootfs'] = None,
                  required_host_features: Optional[Sequence[_builtins.str]] = None):
         """
+        The Machine's CPU, memory, and GPU configuration.
+
+        :param _builtins.str cpu_kind: Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
+               Defaults to shared when `guest` is omitted
+        :param _builtins.int cpus: Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
+               performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
+               omitted
+        :param _builtins.str gpu_kind: No longer supported. Requests that set it are rejected
+        :param _builtins.int gpus: No longer supported. Requests that set it are rejected
+        :param _builtins.str host_dedication_id: Place the Machine on hosts dedicated to the organization under this ID. Only available to
+               organizations with dedicated hosts
+        :param Sequence[_builtins.str] kernel_args: Extra arguments appended to the guest kernel command line
+        :param _builtins.int max_memory_mb: Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
+               the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
+               starts with a limit of memory_mb
+        :param _builtins.int memory_mb: Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
+               between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
+               `guest` is omitted
         :param 'FlyMachineGuestPersistRootfs' persist_rootfs: Deprecated: use MachineConfig.Rootfs instead
+        :param Sequence[_builtins.str] required_host_features: Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
+               of lowercase letters, digits and dashes. Each feature must be enabled for the organization
         """
         if cpu_kind is not None:
             pulumi.set(__self__, "cpu_kind", cpu_kind)
@@ -63,41 +86,73 @@ class FlyMachineGuest(dict):
     @_builtins.property
     @pulumi.getter(name="cpuKind")
     def cpu_kind(self) -> Optional[_builtins.str]:
+        """
+        Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
+        Defaults to shared when `guest` is omitted
+        """
         return pulumi.get(self, "cpu_kind")
 
     @_builtins.property
     @pulumi.getter
     def cpus(self) -> Optional[_builtins.int]:
+        """
+        Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
+        performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
+        omitted
+        """
         return pulumi.get(self, "cpus")
 
     @_builtins.property
     @pulumi.getter(name="gpuKind")
     def gpu_kind(self) -> Optional[_builtins.str]:
+        """
+        No longer supported. Requests that set it are rejected
+        """
         return pulumi.get(self, "gpu_kind")
 
     @_builtins.property
     @pulumi.getter
     def gpus(self) -> Optional[_builtins.int]:
+        """
+        No longer supported. Requests that set it are rejected
+        """
         return pulumi.get(self, "gpus")
 
     @_builtins.property
     @pulumi.getter(name="hostDedicationId")
     def host_dedication_id(self) -> Optional[_builtins.str]:
+        """
+        Place the Machine on hosts dedicated to the organization under this ID. Only available to
+        organizations with dedicated hosts
+        """
         return pulumi.get(self, "host_dedication_id")
 
     @_builtins.property
     @pulumi.getter(name="kernelArgs")
     def kernel_args(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        Extra arguments appended to the guest kernel command line
+        """
         return pulumi.get(self, "kernel_args")
 
     @_builtins.property
     @pulumi.getter(name="maxMemoryMb")
     def max_memory_mb(self) -> Optional[_builtins.int]:
+        """
+        Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
+        the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
+        starts with a limit of memory_mb
+        """
         return pulumi.get(self, "max_memory_mb")
 
     @_builtins.property
     @pulumi.getter(name="memoryMb")
     def memory_mb(self) -> Optional[_builtins.int]:
+        """
+        Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
+        between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
+        `guest` is omitted
+        """
         return pulumi.get(self, "memory_mb")
 
     @_builtins.property
@@ -111,43 +166,18 @@ class FlyMachineGuest(dict):
     @_builtins.property
     @pulumi.getter(name="requiredHostFeatures")
     def required_host_features(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
+        of lowercase letters, digits and dashes. Each feature must be enabled for the organization
+        """
         return pulumi.get(self, "required_host_features")
-
-
-@pulumi.output_type
-class MachineOverviewConfig(dict):
-    def __init__(__self__, *,
-                 guest: Optional['outputs.FlyMachineGuest'] = None,
-                 image: Optional[_builtins.str] = None,
-                 metadata: Optional[Mapping[str, _builtins.str]] = None):
-        if guest is not None:
-            pulumi.set(__self__, "guest", guest)
-        if image is not None:
-            pulumi.set(__self__, "image", image)
-        if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
-
-    @_builtins.property
-    @pulumi.getter
-    def guest(self) -> Optional['outputs.FlyMachineGuest']:
-        return pulumi.get(self, "guest")
-
-    @_builtins.property
-    @pulumi.getter
-    def image(self) -> Optional[_builtins.str]:
-        return pulumi.get(self, "image")
-
-    @_builtins.property
-    @pulumi.getter
-    def metadata(self) -> Optional[Mapping[str, _builtins.str]]:
-        return pulumi.get(self, "metadata")
 
 
 @pulumi.output_type
 class OrgMachine(dict):
     def __init__(__self__, *,
                  app_name: Optional[_builtins.str] = None,
-                 config: Optional['outputs.MachineOverviewConfig'] = None,
+                 config: Optional['outputs.OrgMachineConfig'] = None,
                  created_at: Optional[_builtins.str] = None,
                  id: Optional[_builtins.str] = None,
                  name: Optional[_builtins.str] = None,
@@ -156,6 +186,18 @@ class OrgMachine(dict):
                  state: Optional[_builtins.str] = None,
                  updated_at: Optional[_builtins.str] = None,
                  version: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str app_name: Name of the app the Machine belongs to.
+        :param 'OrgMachineConfig' config: Subset of the Machine's configuration. Omitted when `summary=true`.
+        :param _builtins.str created_at: When the Machine was created.
+        :param _builtins.str id: Unique ID of the Machine.
+        :param _builtins.str name: Name of the Machine.
+        :param _builtins.str private_ip: The Machine's address on the organization's private (6PN) IPv6 network.
+        :param _builtins.str region: Code of the region the Machine runs in.
+        :param _builtins.str state: Current state of the Machine; see the `state` field of Machine.
+        :param _builtins.str updated_at: When Fly.io last recorded a change to the Machine.
+        :param _builtins.str version: ID of the Machine's current version.
+        """
         if app_name is not None:
             pulumi.set(__self__, "app_name", app_name)
         if config is not None:
@@ -180,52 +222,130 @@ class OrgMachine(dict):
     @_builtins.property
     @pulumi.getter(name="appName")
     def app_name(self) -> Optional[_builtins.str]:
+        """
+        Name of the app the Machine belongs to.
+        """
         return pulumi.get(self, "app_name")
 
     @_builtins.property
     @pulumi.getter
-    def config(self) -> Optional['outputs.MachineOverviewConfig']:
+    def config(self) -> Optional['outputs.OrgMachineConfig']:
+        """
+        Subset of the Machine's configuration. Omitted when `summary=true`.
+        """
         return pulumi.get(self, "config")
 
     @_builtins.property
     @pulumi.getter(name="createdAt")
     def created_at(self) -> Optional[_builtins.str]:
+        """
+        When the Machine was created.
+        """
         return pulumi.get(self, "created_at")
 
     @_builtins.property
     @pulumi.getter
     def id(self) -> Optional[_builtins.str]:
+        """
+        Unique ID of the Machine.
+        """
         return pulumi.get(self, "id")
 
     @_builtins.property
     @pulumi.getter
     def name(self) -> Optional[_builtins.str]:
+        """
+        Name of the Machine.
+        """
         return pulumi.get(self, "name")
 
     @_builtins.property
     @pulumi.getter(name="privateIp")
     def private_ip(self) -> Optional[_builtins.str]:
+        """
+        The Machine's address on the organization's private (6PN) IPv6 network.
+        """
         return pulumi.get(self, "private_ip")
 
     @_builtins.property
     @pulumi.getter
     def region(self) -> Optional[_builtins.str]:
+        """
+        Code of the region the Machine runs in.
+        """
         return pulumi.get(self, "region")
 
     @_builtins.property
     @pulumi.getter
     def state(self) -> Optional[_builtins.str]:
+        """
+        Current state of the Machine; see the `state` field of Machine.
+        """
         return pulumi.get(self, "state")
 
     @_builtins.property
     @pulumi.getter(name="updatedAt")
     def updated_at(self) -> Optional[_builtins.str]:
+        """
+        When Fly.io last recorded a change to the Machine.
+        """
         return pulumi.get(self, "updated_at")
 
     @_builtins.property
     @pulumi.getter
     def version(self) -> Optional[_builtins.str]:
+        """
+        ID of the Machine's current version.
+        """
         return pulumi.get(self, "version")
+
+
+@pulumi.output_type
+class OrgMachineConfig(dict):
+    """
+    Subset of the Machine's configuration. Omitted when `summary=true`.
+    """
+    def __init__(__self__, *,
+                 guest: Optional['outputs.MachineOverviewConfigGuest'] = None,
+                 image: Optional[_builtins.str] = None,
+                 metadata: Optional[Mapping[str, _builtins.str]] = None):
+        """
+        Subset of the Machine's configuration. Omitted when `summary=true`.
+
+        :param 'MachineOverviewConfigGuest' guest: The Machine's CPU, memory, and GPU configuration.
+        :param _builtins.str image: The image reference the Machine was configured with.
+        :param Mapping[str, _builtins.str] metadata: The Machine's metadata key-value pairs.
+        """
+        if guest is not None:
+            pulumi.set(__self__, "guest", guest)
+        if image is not None:
+            pulumi.set(__self__, "image", image)
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+
+    @_builtins.property
+    @pulumi.getter
+    def guest(self) -> Optional['outputs.MachineOverviewConfigGuest']:
+        """
+        The Machine's CPU, memory, and GPU configuration.
+        """
+        return pulumi.get(self, "guest")
+
+    @_builtins.property
+    @pulumi.getter
+    def image(self) -> Optional[_builtins.str]:
+        """
+        The image reference the Machine was configured with.
+        """
+        return pulumi.get(self, "image")
+
+    @_builtins.property
+    @pulumi.getter
+    def metadata(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        The Machine's metadata key-value pairs.
+        """
+        return pulumi.get(self, "metadata")
 
 
 @pulumi.output_type
@@ -256,6 +376,49 @@ class OrgVolume(dict):
                  type: Optional['OrgVolumeType'] = None,
                  updated_at: Optional[_builtins.str] = None,
                  zone: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str app_name: Name of the app the volume belongs to.
+        :param _builtins.str attached_alloc_id: Always null.
+               
+               Deprecated: volumes are no longer attached to Nomad allocations.
+        :param _builtins.str attached_machine_id: ID of the Machine the volume is attached to, or null if it is not attached.
+        :param _builtins.bool auto_backup_enabled: Whether daily automatic snapshots are taken.
+        :param _builtins.int block_size: Size of a filesystem block, in bytes. See `blocks`.
+        :param _builtins.int blocks: Size of the volume's filesystem, in blocks of `block_size` bytes, as last reported by a
+               Machine that mounted the volume. 0 if never reported, if the host could not be reached,
+               or with `summary=true`.
+        :param _builtins.int blocks_avail: Number of filesystem blocks available to unprivileged users. See `blocks`.
+        :param _builtins.int blocks_free: Number of free filesystem blocks, including blocks reserved for the root user. See
+               `blocks`.
+        :param _builtins.int bytes_total: Size of the volume, in bytes. 0 if the host could not be reached or with `summary=true`.
+        :param _builtins.int bytes_used: Bytes of storage the volume occupies on its host. Volumes are thinly provisioned, so this
+               grows as blocks are written and does not shrink when files are deleted. It is not the
+               filesystem's usage; use `blocks` and `blocks_free` for that. 0 if the host could not be
+               reached or with `summary=true`.
+        :param _builtins.str created_at: When the volume was created.
+        :param _builtins.bool encrypted: Whether the volume is encrypted at rest.
+        :param _builtins.str fstype: Filesystem the volume was formatted with: `ext4`, or `raw` for an unformatted block
+               device.
+        :param Sequence[_builtins.str] host_features: Features of the volume's host. Only returned when the request sets the
+               `fly-include-host-features: true` header.
+        :param 'OrgVolumeHostStatus' host_status: Whether Fly.io could reach the volume's host: `ok` if it could, `unreachable` or
+               `unknown` if it could not, in which case host-reported fields are missing.
+        :param _builtins.str id: Unique ID of the volume, such as `vol_1234567890abcdef`.
+        :param _builtins.str name: Name of the volume. Several volumes of an app can share a name.
+        :param _builtins.str region: Code of the region the volume is in.
+        :param Sequence[_builtins.str] required_host_features: Host features the volume's host was required to have; see `compute.required_host_features`
+               in the create request.
+        :param _builtins.int size_gb: Size of the volume, in GiB.
+        :param _builtins.int snapshot_retention: Number of days snapshots of the volume are kept.
+        :param _builtins.str state: State of the volume, such as `creating`, `created`, `extending`, `restoring`,
+               `hydrating`, `scheduling_destroy`, `pending_destroy`, `destroying`, `destroyed`, or
+               `failed`.
+        :param 'OrgVolumeType' type: Kind of volume: `local` for regular volumes, or `cache` for volumes that hold
+               disposable data and support neither snapshots nor restores.
+        :param _builtins.str updated_at: When Fly.io last recorded a change to the volume.
+        :param _builtins.str zone: Identifies the host the volume is on. Volumes with different zones are on different
+               hosts.
+        """
         if app_name is not None:
             pulumi.set(__self__, "app_name", app_name)
         if attached_alloc_id is not None:
@@ -310,126 +473,217 @@ class OrgVolume(dict):
     @_builtins.property
     @pulumi.getter(name="appName")
     def app_name(self) -> Optional[_builtins.str]:
+        """
+        Name of the app the volume belongs to.
+        """
         return pulumi.get(self, "app_name")
 
     @_builtins.property
     @pulumi.getter(name="attachedAllocId")
     def attached_alloc_id(self) -> Optional[_builtins.str]:
+        """
+        Always null.
+
+        Deprecated: volumes are no longer attached to Nomad allocations.
+        """
         return pulumi.get(self, "attached_alloc_id")
 
     @_builtins.property
     @pulumi.getter(name="attachedMachineId")
     def attached_machine_id(self) -> Optional[_builtins.str]:
+        """
+        ID of the Machine the volume is attached to, or null if it is not attached.
+        """
         return pulumi.get(self, "attached_machine_id")
 
     @_builtins.property
     @pulumi.getter(name="autoBackupEnabled")
     def auto_backup_enabled(self) -> Optional[_builtins.bool]:
+        """
+        Whether daily automatic snapshots are taken.
+        """
         return pulumi.get(self, "auto_backup_enabled")
 
     @_builtins.property
     @pulumi.getter(name="blockSize")
     def block_size(self) -> Optional[_builtins.int]:
+        """
+        Size of a filesystem block, in bytes. See `blocks`.
+        """
         return pulumi.get(self, "block_size")
 
     @_builtins.property
     @pulumi.getter
     def blocks(self) -> Optional[_builtins.int]:
+        """
+        Size of the volume's filesystem, in blocks of `block_size` bytes, as last reported by a
+        Machine that mounted the volume. 0 if never reported, if the host could not be reached,
+        or with `summary=true`.
+        """
         return pulumi.get(self, "blocks")
 
     @_builtins.property
     @pulumi.getter(name="blocksAvail")
     def blocks_avail(self) -> Optional[_builtins.int]:
+        """
+        Number of filesystem blocks available to unprivileged users. See `blocks`.
+        """
         return pulumi.get(self, "blocks_avail")
 
     @_builtins.property
     @pulumi.getter(name="blocksFree")
     def blocks_free(self) -> Optional[_builtins.int]:
+        """
+        Number of free filesystem blocks, including blocks reserved for the root user. See
+        `blocks`.
+        """
         return pulumi.get(self, "blocks_free")
 
     @_builtins.property
     @pulumi.getter(name="bytesTotal")
     def bytes_total(self) -> Optional[_builtins.int]:
+        """
+        Size of the volume, in bytes. 0 if the host could not be reached or with `summary=true`.
+        """
         return pulumi.get(self, "bytes_total")
 
     @_builtins.property
     @pulumi.getter(name="bytesUsed")
     def bytes_used(self) -> Optional[_builtins.int]:
+        """
+        Bytes of storage the volume occupies on its host. Volumes are thinly provisioned, so this
+        grows as blocks are written and does not shrink when files are deleted. It is not the
+        filesystem's usage; use `blocks` and `blocks_free` for that. 0 if the host could not be
+        reached or with `summary=true`.
+        """
         return pulumi.get(self, "bytes_used")
 
     @_builtins.property
     @pulumi.getter(name="createdAt")
     def created_at(self) -> Optional[_builtins.str]:
+        """
+        When the volume was created.
+        """
         return pulumi.get(self, "created_at")
 
     @_builtins.property
     @pulumi.getter
     def encrypted(self) -> Optional[_builtins.bool]:
+        """
+        Whether the volume is encrypted at rest.
+        """
         return pulumi.get(self, "encrypted")
 
     @_builtins.property
     @pulumi.getter
     def fstype(self) -> Optional[_builtins.str]:
+        """
+        Filesystem the volume was formatted with: `ext4`, or `raw` for an unformatted block
+        device.
+        """
         return pulumi.get(self, "fstype")
 
     @_builtins.property
     @pulumi.getter(name="hostFeatures")
     def host_features(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        Features of the volume's host. Only returned when the request sets the
+        `fly-include-host-features: true` header.
+        """
         return pulumi.get(self, "host_features")
 
     @_builtins.property
     @pulumi.getter(name="hostStatus")
     def host_status(self) -> Optional['OrgVolumeHostStatus']:
+        """
+        Whether Fly.io could reach the volume's host: `ok` if it could, `unreachable` or
+        `unknown` if it could not, in which case host-reported fields are missing.
+        """
         return pulumi.get(self, "host_status")
 
     @_builtins.property
     @pulumi.getter
     def id(self) -> Optional[_builtins.str]:
+        """
+        Unique ID of the volume, such as `vol_1234567890abcdef`.
+        """
         return pulumi.get(self, "id")
 
     @_builtins.property
     @pulumi.getter
     def name(self) -> Optional[_builtins.str]:
+        """
+        Name of the volume. Several volumes of an app can share a name.
+        """
         return pulumi.get(self, "name")
 
     @_builtins.property
     @pulumi.getter
     def region(self) -> Optional[_builtins.str]:
+        """
+        Code of the region the volume is in.
+        """
         return pulumi.get(self, "region")
 
     @_builtins.property
     @pulumi.getter(name="requiredHostFeatures")
     def required_host_features(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        Host features the volume's host was required to have; see `compute.required_host_features`
+        in the create request.
+        """
         return pulumi.get(self, "required_host_features")
 
     @_builtins.property
     @pulumi.getter(name="sizeGb")
     def size_gb(self) -> Optional[_builtins.int]:
+        """
+        Size of the volume, in GiB.
+        """
         return pulumi.get(self, "size_gb")
 
     @_builtins.property
     @pulumi.getter(name="snapshotRetention")
     def snapshot_retention(self) -> Optional[_builtins.int]:
+        """
+        Number of days snapshots of the volume are kept.
+        """
         return pulumi.get(self, "snapshot_retention")
 
     @_builtins.property
     @pulumi.getter
     def state(self) -> Optional[_builtins.str]:
+        """
+        State of the volume, such as `creating`, `created`, `extending`, `restoring`,
+        `hydrating`, `scheduling_destroy`, `pending_destroy`, `destroying`, `destroyed`, or
+        `failed`.
+        """
         return pulumi.get(self, "state")
 
     @_builtins.property
     @pulumi.getter
     def type(self) -> Optional['OrgVolumeType']:
+        """
+        Kind of volume: `local` for regular volumes, or `cache` for volumes that hold
+        disposable data and support neither snapshots nor restores.
+        """
         return pulumi.get(self, "type")
 
     @_builtins.property
     @pulumi.getter(name="updatedAt")
     def updated_at(self) -> Optional[_builtins.str]:
+        """
+        When Fly.io last recorded a change to the volume.
+        """
         return pulumi.get(self, "updated_at")
 
     @_builtins.property
     @pulumi.getter
     def zone(self) -> Optional[_builtins.str]:
+        """
+        Identifies the host the volume is on. Volumes with different zones are on different
+        hosts.
+        """
         return pulumi.get(self, "zone")
 
 

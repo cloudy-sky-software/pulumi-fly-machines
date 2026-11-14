@@ -11,13 +11,31 @@ using Pulumi;
 namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
 {
 
+    /// <summary>
+    /// The image the Machine runs, as resolved when it was last created or updated.
+    /// </summary>
     [OutputType]
     public sealed class ImageRef
     {
+        /// <summary>
+        /// Content digest of the image (`sha256:...`).
+        /// </summary>
         public readonly string? Digest;
+        /// <summary>
+        /// The image's OCI labels.
+        /// </summary>
         public readonly ImmutableDictionary<string, string>? Labels;
+        /// <summary>
+        /// Registry host of the image, such as `registry.fly.io`.
+        /// </summary>
         public readonly string? Registry;
+        /// <summary>
+        /// Repository of the image within the registry, such as `library/nginx`.
+        /// </summary>
         public readonly string? Repository;
+        /// <summary>
+        /// Tag the image was referenced by, if any.
+        /// </summary>
         public readonly string? Tag;
 
         [OutputConstructor]

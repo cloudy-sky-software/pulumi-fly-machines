@@ -101,6 +101,7 @@
         "postgres/v1/postgresAttachment.ts",
         "postgres/v1/postgresBackup.ts",
         "postgres/v1/postgresDatabase.ts",
+        "postgres/v1/postgresDatabasesQuery.ts",
         "postgres/v1/postgresExtension.ts",
         "postgres/v1/postgresFork.ts",
         "postgres/v1/postgresRestore.ts",

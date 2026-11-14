@@ -48,6 +48,10 @@ export class Secrets extends pulumi.CustomResource {
      * Query params to send with the API requests for this resource.
      */
     declare public readonly queryParams: pulumi.Output<outputs.apps.v1.SecretsQueryParams | undefined>;
+    /**
+     * The secrets from the request, with their new values and digests; deleted secrets only
+     * have a name.
+     */
     declare public /*out*/ readonly secrets: pulumi.Output<outputs.apps.v1.AppSecret[] | undefined>;
     declare public readonly values: pulumi.Output<{[key: string]: string} | undefined>;
     /**

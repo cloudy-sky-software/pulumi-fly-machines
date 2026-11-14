@@ -29,15 +29,28 @@ type LookupAppArgs struct {
 }
 
 type LookupAppResult struct {
-	Id                *string              `pulumi:"id"`
-	InternalNumericId *int                 `pulumi:"internalNumericId"`
-	MachineCount      *int                 `pulumi:"machineCount"`
-	Name              *string              `pulumi:"name"`
-	Network           *string              `pulumi:"network"`
-	NetworkCidr       *string              `pulumi:"networkCidr"`
-	Organization      *AppOrganizationInfo `pulumi:"organization"`
-	Status            *string              `pulumi:"status"`
-	VolumeCount       *int                 `pulumi:"volumeCount"`
+	// Unique ID of the app, as used by Fly.io's GraphQL API.
+	Id *string `pulumi:"id"`
+	// Fly.io's internal numeric ID of the app.
+	InternalNumericId *int `pulumi:"internalNumericId"`
+	// Number of the app's Machines that have not been destroyed.
+	MachineCount *int `pulumi:"machineCount"`
+	// Globally unique name of the app.
+	Name *string `pulumi:"name"`
+	// Name of the private network the app is attached to: `default` for the organization's
+	// default network, or the name given when the app was created.
+	Network *string `pulumi:"network"`
+	// The /48 IPv6 prefix of the private (6PN) network the app is attached to, such as
+	// `fdaa:0:1234::/48`. Apps on the same network share it.
+	NetworkCidr *string `pulumi:"networkCidr"`
+	// The organization that owns the app.
+	Organization *AppOrganization `pulumi:"organization"`
+	// State of the app. `pending` until one of its Machines changes state. After that, updated
+	// asynchronously whenever a Machine changes state: `deployed` if at least one Machine is
+	// started, and `suspended` otherwise.
+	Status *AppStatus `pulumi:"status"`
+	// Number of the app's volumes that have not been destroyed or scheduled for destruction.
+	VolumeCount *int `pulumi:"volumeCount"`
 }
 
 func LookupAppOutput(ctx *pulumi.Context, args LookupAppOutputArgs, opts ...pulumi.InvokeOption) LookupAppResultOutput {
@@ -70,38 +83,51 @@ func (o LookupAppResultOutput) ToLookupAppResultOutputWithContext(ctx context.Co
 	return o
 }
 
+// Unique ID of the app, as used by Fly.io's GraphQL API.
 func (o LookupAppResultOutput) Id() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LookupAppResult) *string { return v.Id }).(pulumi.StringPtrOutput)
 }
 
+// Fly.io's internal numeric ID of the app.
 func (o LookupAppResultOutput) InternalNumericId() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v LookupAppResult) *int { return v.InternalNumericId }).(pulumi.IntPtrOutput)
 }
 
+// Number of the app's Machines that have not been destroyed.
 func (o LookupAppResultOutput) MachineCount() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v LookupAppResult) *int { return v.MachineCount }).(pulumi.IntPtrOutput)
 }
 
+// Globally unique name of the app.
 func (o LookupAppResultOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LookupAppResult) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
+// Name of the private network the app is attached to: `default` for the organization's
+// default network, or the name given when the app was created.
 func (o LookupAppResultOutput) Network() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LookupAppResult) *string { return v.Network }).(pulumi.StringPtrOutput)
 }
 
+// The /48 IPv6 prefix of the private (6PN) network the app is attached to, such as
+// `fdaa:0:1234::/48`. Apps on the same network share it.
 func (o LookupAppResultOutput) NetworkCidr() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LookupAppResult) *string { return v.NetworkCidr }).(pulumi.StringPtrOutput)
 }
 
-func (o LookupAppResultOutput) Organization() AppOrganizationInfoPtrOutput {
-	return o.ApplyT(func(v LookupAppResult) *AppOrganizationInfo { return v.Organization }).(AppOrganizationInfoPtrOutput)
+// The organization that owns the app.
+func (o LookupAppResultOutput) Organization() AppOrganizationPtrOutput {
+	return o.ApplyT(func(v LookupAppResult) *AppOrganization { return v.Organization }).(AppOrganizationPtrOutput)
 }
 
-func (o LookupAppResultOutput) Status() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v LookupAppResult) *string { return v.Status }).(pulumi.StringPtrOutput)
+// State of the app. `pending` until one of its Machines changes state. After that, updated
+// asynchronously whenever a Machine changes state: `deployed` if at least one Machine is
+// started, and `suspended` otherwise.
+func (o LookupAppResultOutput) Status() AppStatusPtrOutput {
+	return o.ApplyT(func(v LookupAppResult) *AppStatus { return v.Status }).(AppStatusPtrOutput)
 }
 
+// Number of the app's volumes that have not been destroyed or scheduled for destruction.
 func (o LookupAppResultOutput) VolumeCount() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v LookupAppResult) *int { return v.VolumeCount }).(pulumi.IntPtrOutput)
 }

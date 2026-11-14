@@ -14,20 +14,30 @@ import (
 type AppIPAssignment struct {
 	pulumi.CustomResourceState
 
+	// When the address was assigned to the app, in RFC 3339 format.
 	CreatedAt pulumi.StringPtrOutput `pulumi:"createdAt"`
-	Egress    pulumi.BoolPtrOutput   `pulumi:"egress"`
-	Ip        pulumi.StringPtrOutput `pulumi:"ip"`
-	// ip_pair is returned when "egress-pair" IP type is requested; in this case, ip is null.
+	// Whether this is an egress address.
+	Egress pulumi.BoolPtrOutput `pulumi:"egress"`
+	// The allocated IP address. Null for `egress_pair`; see `ip_pair`.
+	Ip pulumi.StringPtrOutput `pulumi:"ip"`
+	// The allocated IPv4 and IPv6 addresses when the `egress_pair` type was requested; null
+	// otherwise.
 	IpPair IpPairPtrOutput `pulumi:"ipPair"`
 	// The 6PN network a Flycast (private_v6) address belongs to. Null for all other IP types.
 	Network IPAssignmentNetworkPtrOutput `pulumi:"network"`
-	OrgSlug pulumi.StringPtrOutput       `pulumi:"orgSlug"`
+	// Only for `private_v6`: slug of the organization whose private network the Flycast address
+	// is allocated in, to make the app reachable from that organization. Defaults to the app's
+	// organization.
+	OrgSlug pulumi.StringPtrOutput `pulumi:"orgSlug"`
 	// Query params to send with the API requests for this resource.
 	QueryParams AppIPAssignmentQueryParamsPtrOutput `pulumi:"queryParams"`
-	Region      pulumi.StringPtrOutput              `pulumi:"region"`
-	ServiceName pulumi.StringPtrOutput              `pulumi:"serviceName"`
-	Shared      pulumi.BoolPtrOutput                `pulumi:"shared"`
-	// Type of IP address to allocate. "egress-pair" allocates both v4 and v6 egress IP addresses (recommended when using egress IPs).
+	// Region the address is scoped to, or `global` for addresses announced in all regions.
+	Region pulumi.StringPtrOutput `pulumi:"region"`
+	// Name of the service the address is scoped to, if any.
+	ServiceName pulumi.StringPtrOutput `pulumi:"serviceName"`
+	// Whether this is the app's shared IPv4 address.
+	Shared pulumi.BoolPtrOutput `pulumi:"shared"`
+	// Type of IP address to allocate. Required.
 	Type AppIPAssignmentTypePtrOutput `pulumi:"type"`
 }
 
@@ -79,13 +89,22 @@ func AppIPAssignmentExists(ctx *pulumi.Context,
 type appIPAssignmentArgs struct {
 	// Fly App Name
 	AppName *string `pulumi:"appName"`
+	// Only for `private_v6`: name of the private network to allocate the Flycast address in.
+	// Defaults to the organization's default network.
 	Network *string `pulumi:"network"`
+	// Only for `private_v6`: slug of the organization whose private network the Flycast address
+	// is allocated in, to make the app reachable from that organization. Defaults to the app's
+	// organization.
 	OrgSlug *string `pulumi:"orgSlug"`
 	// Query params to send with the API requests for this resource.
 	QueryParams *AppIPAssignmentQueryParams `pulumi:"queryParams"`
-	Region      *string                     `pulumi:"region"`
-	ServiceName *string                     `pulumi:"serviceName"`
-	// Type of IP address to allocate. "egress-pair" allocates both v4 and v6 egress IP addresses (recommended when using egress IPs).
+	// Region to scope the address to. Required for egress types. Optional for `v4` and `v6`,
+	// which default to `global` (announced in all regions). Must be empty or `global` for
+	// `shared_v4` and `private_v6`.
+	Region *string `pulumi:"region"`
+	// Scope the address to a single service of the app. Not supported for egress types.
+	ServiceName *string `pulumi:"serviceName"`
+	// Type of IP address to allocate. Required.
 	Type *AppIPAssignmentType `pulumi:"type"`
 }
 
@@ -93,13 +112,22 @@ type appIPAssignmentArgs struct {
 type AppIPAssignmentArgs struct {
 	// Fly App Name
 	AppName pulumi.StringPtrInput
+	// Only for `private_v6`: name of the private network to allocate the Flycast address in.
+	// Defaults to the organization's default network.
 	Network pulumi.StringPtrInput
+	// Only for `private_v6`: slug of the organization whose private network the Flycast address
+	// is allocated in, to make the app reachable from that organization. Defaults to the app's
+	// organization.
 	OrgSlug pulumi.StringPtrInput
 	// Query params to send with the API requests for this resource.
 	QueryParams AppIPAssignmentQueryParamsPtrInput
-	Region      pulumi.StringPtrInput
+	// Region to scope the address to. Required for egress types. Optional for `v4` and `v6`,
+	// which default to `global` (announced in all regions). Must be empty or `global` for
+	// `shared_v4` and `private_v6`.
+	Region pulumi.StringPtrInput
+	// Scope the address to a single service of the app. Not supported for egress types.
 	ServiceName pulumi.StringPtrInput
-	// Type of IP address to allocate. "egress-pair" allocates both v4 and v6 egress IP addresses (recommended when using egress IPs).
+	// Type of IP address to allocate. Required.
 	Type AppIPAssignmentTypePtrInput
 }
 
@@ -140,19 +168,23 @@ func (o AppIPAssignmentOutput) ToAppIPAssignmentOutputWithContext(ctx context.Co
 	return o
 }
 
+// When the address was assigned to the app, in RFC 3339 format.
 func (o AppIPAssignmentOutput) CreatedAt() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AppIPAssignment) pulumi.StringPtrOutput { return v.CreatedAt }).(pulumi.StringPtrOutput)
 }
 
+// Whether this is an egress address.
 func (o AppIPAssignmentOutput) Egress() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *AppIPAssignment) pulumi.BoolPtrOutput { return v.Egress }).(pulumi.BoolPtrOutput)
 }
 
+// The allocated IP address. Null for `egress_pair`; see `ip_pair`.
 func (o AppIPAssignmentOutput) Ip() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AppIPAssignment) pulumi.StringPtrOutput { return v.Ip }).(pulumi.StringPtrOutput)
 }
 
-// ip_pair is returned when "egress-pair" IP type is requested; in this case, ip is null.
+// The allocated IPv4 and IPv6 addresses when the `egress_pair` type was requested; null
+// otherwise.
 func (o AppIPAssignmentOutput) IpPair() IpPairPtrOutput {
 	return o.ApplyT(func(v *AppIPAssignment) IpPairPtrOutput { return v.IpPair }).(IpPairPtrOutput)
 }
@@ -162,6 +194,9 @@ func (o AppIPAssignmentOutput) Network() IPAssignmentNetworkPtrOutput {
 	return o.ApplyT(func(v *AppIPAssignment) IPAssignmentNetworkPtrOutput { return v.Network }).(IPAssignmentNetworkPtrOutput)
 }
 
+// Only for `private_v6`: slug of the organization whose private network the Flycast address
+// is allocated in, to make the app reachable from that organization. Defaults to the app's
+// organization.
 func (o AppIPAssignmentOutput) OrgSlug() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AppIPAssignment) pulumi.StringPtrOutput { return v.OrgSlug }).(pulumi.StringPtrOutput)
 }
@@ -171,19 +206,22 @@ func (o AppIPAssignmentOutput) QueryParams() AppIPAssignmentQueryParamsPtrOutput
 	return o.ApplyT(func(v *AppIPAssignment) AppIPAssignmentQueryParamsPtrOutput { return v.QueryParams }).(AppIPAssignmentQueryParamsPtrOutput)
 }
 
+// Region the address is scoped to, or `global` for addresses announced in all regions.
 func (o AppIPAssignmentOutput) Region() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AppIPAssignment) pulumi.StringPtrOutput { return v.Region }).(pulumi.StringPtrOutput)
 }
 
+// Name of the service the address is scoped to, if any.
 func (o AppIPAssignmentOutput) ServiceName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AppIPAssignment) pulumi.StringPtrOutput { return v.ServiceName }).(pulumi.StringPtrOutput)
 }
 
+// Whether this is the app's shared IPv4 address.
 func (o AppIPAssignmentOutput) Shared() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *AppIPAssignment) pulumi.BoolPtrOutput { return v.Shared }).(pulumi.BoolPtrOutput)
 }
 
-// Type of IP address to allocate. "egress-pair" allocates both v4 and v6 egress IP addresses (recommended when using egress IPs).
+// Type of IP address to allocate. Required.
 func (o AppIPAssignmentOutput) Type() AppIPAssignmentTypePtrOutput {
 	return o.ApplyT(func(v *AppIPAssignment) AppIPAssignmentTypePtrOutput { return v.Type }).(AppIPAssignmentTypePtrOutput)
 }

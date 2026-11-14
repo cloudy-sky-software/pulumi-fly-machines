@@ -14,7 +14,13 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     [OutputType]
     public sealed class ListenSocket
     {
+        /// <summary>
+        /// Local address and port the socket is bound to, such as `0.0.0.0:8080` or `[::]:8080`.
+        /// </summary>
         public readonly string? Address;
+        /// <summary>
+        /// Protocol of the socket. Always `tcp`.
+        /// </summary>
         public readonly string? Proto;
 
         [OutputConstructor]

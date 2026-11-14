@@ -31,11 +31,17 @@ type LookupSecretArgs struct {
 }
 
 type LookupSecretResult struct {
+	// When the secret was first set. Only returned when reading secrets.
 	CreatedAt *string `pulumi:"createdAt"`
-	Digest    *string `pulumi:"digest"`
-	Name      *string `pulumi:"name"`
+	// Short fingerprint of the value, to tell whether it changed without revealing it. Omitted
+	// for deleted secrets.
+	Digest *string `pulumi:"digest"`
+	// Name of the secret.
+	Name *string `pulumi:"name"`
+	// When the secret's value last changed. Only returned when reading secrets.
 	UpdatedAt *string `pulumi:"updatedAt"`
-	Value     *string `pulumi:"value"`
+	// Value of the secret. Only returned with `show_secrets=true`, and when setting secrets.
+	Value *string `pulumi:"value"`
 }
 
 func LookupSecretOutput(ctx *pulumi.Context, args LookupSecretOutputArgs, opts ...pulumi.InvokeOption) LookupSecretResultOutput {
@@ -70,22 +76,28 @@ func (o LookupSecretResultOutput) ToLookupSecretResultOutputWithContext(ctx cont
 	return o
 }
 
+// When the secret was first set. Only returned when reading secrets.
 func (o LookupSecretResultOutput) CreatedAt() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LookupSecretResult) *string { return v.CreatedAt }).(pulumi.StringPtrOutput)
 }
 
+// Short fingerprint of the value, to tell whether it changed without revealing it. Omitted
+// for deleted secrets.
 func (o LookupSecretResultOutput) Digest() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LookupSecretResult) *string { return v.Digest }).(pulumi.StringPtrOutput)
 }
 
+// Name of the secret.
 func (o LookupSecretResultOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LookupSecretResult) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
+// When the secret's value last changed. Only returned when reading secrets.
 func (o LookupSecretResultOutput) UpdatedAt() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LookupSecretResult) *string { return v.UpdatedAt }).(pulumi.StringPtrOutput)
 }
 
+// Value of the secret. Only returned with `show_secrets=true`, and when setting secrets.
 func (o LookupSecretResultOutput) Value() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LookupSecretResult) *string { return v.Value }).(pulumi.StringPtrOutput)
 }

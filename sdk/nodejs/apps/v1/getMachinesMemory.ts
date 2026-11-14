@@ -32,7 +32,15 @@ export interface GetMachinesMemoryArgs {
 }
 
 export interface GetMachinesMemoryResult {
+    /**
+     * Highest limit, in MiB, that the Machine could currently be raised to: its configured
+     * memory (`guest.max_memory_mb` if set, else `guest.memory_mb`), capped by the host's free
+     * memory.
+     */
     readonly availableMb?: number;
+    /**
+     * Memory, in MiB, the guest can currently use.
+     */
     readonly limitMb?: number;
 }
 export function getMachinesMemoryOutput(args: GetMachinesMemoryOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetMachinesMemoryResult> {

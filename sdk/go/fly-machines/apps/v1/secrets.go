@@ -16,8 +16,10 @@ type Secrets struct {
 
 	// Query params to send with the API requests for this resource.
 	QueryParams SecretsQueryParamsPtrOutput `pulumi:"queryParams"`
-	Secrets     AppSecretArrayOutput        `pulumi:"secrets"`
-	Values      pulumi.StringMapOutput      `pulumi:"values"`
+	// The secrets from the request, with their new values and digests; deleted secrets only
+	// have a name.
+	Secrets AppSecretArrayOutput   `pulumi:"secrets"`
+	Values  pulumi.StringMapOutput `pulumi:"values"`
 	// The app's secrets version after this change. Pass it as `min_secrets_version` when creating or
 	// updating Machines so that they are guaranteed to see the change.
 	Version pulumi.IntPtrOutput `pulumi:"version"`
@@ -127,6 +129,8 @@ func (o SecretsOutput) QueryParams() SecretsQueryParamsPtrOutput {
 	return o.ApplyT(func(v *Secrets) SecretsQueryParamsPtrOutput { return v.QueryParams }).(SecretsQueryParamsPtrOutput)
 }
 
+// The secrets from the request, with their new values and digests; deleted secrets only
+// have a name.
 func (o SecretsOutput) Secrets() AppSecretArrayOutput {
 	return o.ApplyT(func(v *Secrets) AppSecretArrayOutput { return v.Secrets }).(AppSecretArrayOutput)
 }

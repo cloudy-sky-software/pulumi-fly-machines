@@ -14,7 +14,14 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     [OutputType]
     public sealed class FlyContainerDependency
     {
+        /// <summary>
+        /// When the container can start: once the dependency has `started`, is `healthy`, or has
+        /// `exited_successfully`
+        /// </summary>
         public readonly CloudySkySoftware.Pulumi.FlyMachines.AppsV1.FlyContainerDependencyCondition? Condition;
+        /// <summary>
+        /// Name of the container this one depends on
+        /// </summary>
         public readonly string? Name;
 
         [OutputConstructor]

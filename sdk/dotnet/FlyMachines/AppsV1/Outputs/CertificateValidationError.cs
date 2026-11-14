@@ -14,9 +14,21 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     [OutputType]
     public sealed class CertificateValidationError
     {
+        /// <summary>
+        /// Machine-readable error code.
+        /// </summary>
         public readonly string? Code;
+        /// <summary>
+        /// Human-readable description of the problem.
+        /// </summary>
         public readonly string? Message;
+        /// <summary>
+        /// How to fix the problem, if known.
+        /// </summary>
         public readonly string? Remediation;
+        /// <summary>
+        /// When the problem was detected.
+        /// </summary>
         public readonly string? Timestamp;
 
         [OutputConstructor]

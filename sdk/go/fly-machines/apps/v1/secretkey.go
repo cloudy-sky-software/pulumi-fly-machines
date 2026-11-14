@@ -14,15 +14,23 @@ import (
 type Secretkey struct {
 	pulumi.CustomResourceState
 
+	// When the key was first set.
 	CreatedAt pulumi.StringPtrOutput `pulumi:"createdAt"`
-	Name      pulumi.StringPtrOutput `pulumi:"name"`
-	PublicKey pulumi.IntArrayOutput  `pulumi:"publicKey"`
+	// Name of the secret key.
+	Name pulumi.StringPtrOutput `pulumi:"name"`
+	// Public key of asymmetric keys (`nacl_box`, `nacl_sign`, `es256`), base64-encoded.
+	PublicKey pulumi.StringPtrOutput `pulumi:"publicKey"`
 	// Query params to send with the API requests for this resource.
 	QueryParams SecretkeyQueryParamsPtrOutput `pulumi:"queryParams"`
-	Type        pulumi.StringPtrOutput        `pulumi:"type"`
-	UpdatedAt   pulumi.StringPtrOutput        `pulumi:"updatedAt"`
-	Value       pulumi.IntArrayOutput         `pulumi:"value"`
-	Version     pulumi.IntPtrOutput           `pulumi:"version"`
+	// Type of the key: `hs256`, `hs384`, `hs512`, `xaes256gcm`, `nacl_auth`, `nacl_box`, `nacl_secretbox`, `nacl_sign`, or `es256`.
+	Type pulumi.StringPtrOutput `pulumi:"type"`
+	// When the key last changed.
+	UpdatedAt pulumi.StringPtrOutput `pulumi:"updatedAt"`
+	// Key material, base64-encoded. Ignored when generating a key.
+	Value pulumi.StringPtrOutput `pulumi:"value"`
+	// The app's secrets version after this change. Pass it as `min_version` to read the change
+	// back.
+	Version pulumi.IntPtrOutput `pulumi:"version"`
 }
 
 // NewSecretkey registers a new resource with the given unique name, arguments, and options.
@@ -77,8 +85,10 @@ type secretkeyArgs struct {
 	QueryParams *SecretkeyQueryParams `pulumi:"queryParams"`
 	// Secret key name
 	SecretName *string `pulumi:"secretName"`
-	Type       *string `pulumi:"type"`
-	Value      []int   `pulumi:"value"`
+	// Type of the key: `hs256`, `hs384`, `hs512`, `xaes256gcm`, `nacl_auth`, `nacl_box`, `nacl_secretbox`, `nacl_sign`, or `es256`. Required.
+	Type *string `pulumi:"type"`
+	// Key material, base64-encoded. Ignored when generating a key.
+	Value *string `pulumi:"value"`
 }
 
 // The set of arguments for constructing a Secretkey resource.
@@ -89,8 +99,10 @@ type SecretkeyArgs struct {
 	QueryParams SecretkeyQueryParamsPtrInput
 	// Secret key name
 	SecretName pulumi.StringPtrInput
-	Type       pulumi.StringPtrInput
-	Value      pulumi.IntArrayInput
+	// Type of the key: `hs256`, `hs384`, `hs512`, `xaes256gcm`, `nacl_auth`, `nacl_box`, `nacl_secretbox`, `nacl_sign`, or `es256`. Required.
+	Type pulumi.StringPtrInput
+	// Key material, base64-encoded. Ignored when generating a key.
+	Value pulumi.StringPtrInput
 }
 
 func (SecretkeyArgs) ElementType() reflect.Type {
@@ -130,16 +142,19 @@ func (o SecretkeyOutput) ToSecretkeyOutputWithContext(ctx context.Context) Secre
 	return o
 }
 
+// When the key was first set.
 func (o SecretkeyOutput) CreatedAt() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Secretkey) pulumi.StringPtrOutput { return v.CreatedAt }).(pulumi.StringPtrOutput)
 }
 
+// Name of the secret key.
 func (o SecretkeyOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Secretkey) pulumi.StringPtrOutput { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-func (o SecretkeyOutput) PublicKey() pulumi.IntArrayOutput {
-	return o.ApplyT(func(v *Secretkey) pulumi.IntArrayOutput { return v.PublicKey }).(pulumi.IntArrayOutput)
+// Public key of asymmetric keys (`nacl_box`, `nacl_sign`, `es256`), base64-encoded.
+func (o SecretkeyOutput) PublicKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Secretkey) pulumi.StringPtrOutput { return v.PublicKey }).(pulumi.StringPtrOutput)
 }
 
 // Query params to send with the API requests for this resource.
@@ -147,18 +162,23 @@ func (o SecretkeyOutput) QueryParams() SecretkeyQueryParamsPtrOutput {
 	return o.ApplyT(func(v *Secretkey) SecretkeyQueryParamsPtrOutput { return v.QueryParams }).(SecretkeyQueryParamsPtrOutput)
 }
 
+// Type of the key: `hs256`, `hs384`, `hs512`, `xaes256gcm`, `nacl_auth`, `nacl_box`, `nacl_secretbox`, `nacl_sign`, or `es256`.
 func (o SecretkeyOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Secretkey) pulumi.StringPtrOutput { return v.Type }).(pulumi.StringPtrOutput)
 }
 
+// When the key last changed.
 func (o SecretkeyOutput) UpdatedAt() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Secretkey) pulumi.StringPtrOutput { return v.UpdatedAt }).(pulumi.StringPtrOutput)
 }
 
-func (o SecretkeyOutput) Value() pulumi.IntArrayOutput {
-	return o.ApplyT(func(v *Secretkey) pulumi.IntArrayOutput { return v.Value }).(pulumi.IntArrayOutput)
+// Key material, base64-encoded. Ignored when generating a key.
+func (o SecretkeyOutput) Value() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Secretkey) pulumi.StringPtrOutput { return v.Value }).(pulumi.StringPtrOutput)
 }
 
+// The app's secrets version after this change. Pass it as `min_version` to read the change
+// back.
 func (o SecretkeyOutput) Version() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Secretkey) pulumi.IntPtrOutput { return v.Version }).(pulumi.IntPtrOutput)
 }

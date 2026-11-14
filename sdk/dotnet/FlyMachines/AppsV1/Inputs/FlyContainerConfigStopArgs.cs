@@ -16,9 +16,16 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
     /// </summary>
     public sealed class FlyContainerConfigStopArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Signal to send to the Machine's processes. Defaults to SIGINT
+        /// </summary>
         [Input("signal")]
         public Input<CloudySkySoftware.Pulumi.FlyMachines.AppsV1.FlyStopConfigSignal>? Signal { get; set; }
 
+        /// <summary>
+        /// How long to wait for the Machine to exit after sending the signal, before killing it. At most
+        /// 5 minutes (1 minute for spot Machines). Defaults to 5s (60s for spot Machines)
+        /// </summary>
         [Input("timeout")]
         public Input<string>? Timeout { get; set; }
 

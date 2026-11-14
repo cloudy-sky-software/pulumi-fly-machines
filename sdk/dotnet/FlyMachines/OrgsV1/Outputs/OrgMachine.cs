@@ -14,22 +14,52 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.OrgsV1.Outputs
     [OutputType]
     public sealed class OrgMachine
     {
+        /// <summary>
+        /// Name of the app the Machine belongs to.
+        /// </summary>
         public readonly string? AppName;
-        public readonly Outputs.MachineOverviewConfig? Config;
+        /// <summary>
+        /// Subset of the Machine's configuration. Omitted when `summary=true`.
+        /// </summary>
+        public readonly Outputs.OrgMachineConfig? Config;
+        /// <summary>
+        /// When the Machine was created.
+        /// </summary>
         public readonly string? CreatedAt;
+        /// <summary>
+        /// Unique ID of the Machine.
+        /// </summary>
         public readonly string? Id;
+        /// <summary>
+        /// Name of the Machine.
+        /// </summary>
         public readonly string? Name;
+        /// <summary>
+        /// The Machine's address on the organization's private (6PN) IPv6 network.
+        /// </summary>
         public readonly string? PrivateIp;
+        /// <summary>
+        /// Code of the region the Machine runs in.
+        /// </summary>
         public readonly string? Region;
+        /// <summary>
+        /// Current state of the Machine; see the `state` field of Machine.
+        /// </summary>
         public readonly string? State;
+        /// <summary>
+        /// When Fly.io last recorded a change to the Machine.
+        /// </summary>
         public readonly string? UpdatedAt;
+        /// <summary>
+        /// ID of the Machine's current version.
+        /// </summary>
         public readonly string? Version;
 
         [OutputConstructor]
         private OrgMachine(
             string? appName,
 
-            Outputs.MachineOverviewConfig? config,
+            Outputs.OrgMachineConfig? config,
 
             string? createdAt,
 

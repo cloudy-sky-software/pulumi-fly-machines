@@ -14,11 +14,16 @@ import (
 type MachinesStop struct {
 	pulumi.CustomResourceState
 
+	// Always true.
 	Ok pulumi.BoolPtrOutput `pulumi:"ok"`
 	// Query params to send with the API requests for this resource.
 	QueryParams MachinesStopQueryParamsPtrOutput `pulumi:"queryParams"`
-	Signal      SignalPtrOutput                  `pulumi:"signal"`
-	Timeout     pulumi.StringPtrOutput           `pulumi:"timeout"`
+	// Signal to send to the Machine's main process. Defaults to `config.stop_config.signal`, or
+	// SIGINT.
+	Signal SignalPtrOutput `pulumi:"signal"`
+	// How long to wait for the Machine to exit after sending `signal` before killing it, as a
+	// Go duration string. Defaults to `config.stop_config.timeout`, or 5s.
+	Timeout pulumi.StringPtrOutput `pulumi:"timeout"`
 }
 
 // NewMachinesStop registers a new resource with the given unique name, arguments, and options.
@@ -73,8 +78,12 @@ type machinesStopArgs struct {
 	MachineId *string `pulumi:"machineId"`
 	// Query params to send with the API requests for this resource.
 	QueryParams *MachinesStopQueryParams `pulumi:"queryParams"`
-	Signal      *Signal                  `pulumi:"signal"`
-	Timeout     *string                  `pulumi:"timeout"`
+	// Signal to send to the Machine's main process. Defaults to `config.stop_config.signal`, or
+	// SIGINT.
+	Signal *Signal `pulumi:"signal"`
+	// How long to wait for the Machine to exit after sending `signal` before killing it, as a
+	// Go duration string. Defaults to `config.stop_config.timeout`, or 5s.
+	Timeout *string `pulumi:"timeout"`
 }
 
 // The set of arguments for constructing a MachinesStop resource.
@@ -85,8 +94,12 @@ type MachinesStopArgs struct {
 	MachineId pulumi.StringPtrInput
 	// Query params to send with the API requests for this resource.
 	QueryParams MachinesStopQueryParamsPtrInput
-	Signal      SignalPtrInput
-	Timeout     pulumi.StringPtrInput
+	// Signal to send to the Machine's main process. Defaults to `config.stop_config.signal`, or
+	// SIGINT.
+	Signal SignalPtrInput
+	// How long to wait for the Machine to exit after sending `signal` before killing it, as a
+	// Go duration string. Defaults to `config.stop_config.timeout`, or 5s.
+	Timeout pulumi.StringPtrInput
 }
 
 func (MachinesStopArgs) ElementType() reflect.Type {
@@ -126,6 +139,7 @@ func (o MachinesStopOutput) ToMachinesStopOutputWithContext(ctx context.Context)
 	return o
 }
 
+// Always true.
 func (o MachinesStopOutput) Ok() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *MachinesStop) pulumi.BoolPtrOutput { return v.Ok }).(pulumi.BoolPtrOutput)
 }
@@ -135,10 +149,14 @@ func (o MachinesStopOutput) QueryParams() MachinesStopQueryParamsPtrOutput {
 	return o.ApplyT(func(v *MachinesStop) MachinesStopQueryParamsPtrOutput { return v.QueryParams }).(MachinesStopQueryParamsPtrOutput)
 }
 
+// Signal to send to the Machine's main process. Defaults to `config.stop_config.signal`, or
+// SIGINT.
 func (o MachinesStopOutput) Signal() SignalPtrOutput {
 	return o.ApplyT(func(v *MachinesStop) SignalPtrOutput { return v.Signal }).(SignalPtrOutput)
 }
 
+// How long to wait for the Machine to exit after sending `signal` before killing it, as a
+// Go duration string. Defaults to `config.stop_config.timeout`, or 5s.
 func (o MachinesStopOutput) Timeout() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *MachinesStop) pulumi.StringPtrOutput { return v.Timeout }).(pulumi.StringPtrOutput)
 }

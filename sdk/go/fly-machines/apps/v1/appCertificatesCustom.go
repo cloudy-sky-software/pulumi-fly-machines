@@ -14,20 +14,33 @@ import (
 type AppCertificatesCustom struct {
 	pulumi.CustomResourceState
 
-	AcmeRequested   pulumi.BoolPtrOutput        `pulumi:"acmeRequested"`
-	Certificates    CertificateEntryArrayOutput `pulumi:"certificates"`
-	Configured      pulumi.BoolPtrOutput        `pulumi:"configured"`
-	DnsProvider     pulumi.StringPtrOutput      `pulumi:"dnsProvider"`
-	DnsRequirements DNSRequirementsPtrOutput    `pulumi:"dnsRequirements"`
-	Fullchain       pulumi.StringPtrOutput      `pulumi:"fullchain"`
-	Hostname        pulumi.StringPtrOutput      `pulumi:"hostname"`
-	PrivateKey      pulumi.StringPtrOutput      `pulumi:"privateKey"`
+	// Whether Fly.io-issued (ACME) certificates were requested for the hostname.
+	AcmeRequested pulumi.BoolPtrOutput `pulumi:"acmeRequested"`
+	// The hostname's certificates: at most one custom entry and one Fly.io entry.
+	Certificates CertificateEntryArrayOutput `pulumi:"certificates"`
+	// Whether ownership of the hostname has been verified.
+	Configured pulumi.BoolPtrOutput `pulumi:"configured"`
+	// DNS provider detected for the hostname, if known.
+	DnsProvider pulumi.StringPtrOutput `pulumi:"dnsProvider"`
+	// DNS records to create to point the hostname at the app and validate it.
+	DnsRequirements DnsRequirementsPtrOutput `pulumi:"dnsRequirements"`
+	// PEM-encoded certificate, followed by any intermediate certificates. Required.
+	Fullchain pulumi.StringPtrOutput `pulumi:"fullchain"`
+	// The hostname the certificate is for. May start with `*.` for a wildcard certificate.
+	Hostname pulumi.StringPtrOutput `pulumi:"hostname"`
+	// PEM-encoded private key of the certificate. Required.
+	PrivateKey pulumi.StringPtrOutput `pulumi:"privateKey"`
 	// Query params to send with the API requests for this resource.
-	QueryParams      AppCertificatesCustomQueryParamsPtrOutput `pulumi:"queryParams"`
-	RateLimitedUntil pulumi.StringPtrOutput                    `pulumi:"rateLimitedUntil"`
-	Status           pulumi.StringPtrOutput                    `pulumi:"status"`
-	Validation       CertificateValidationPtrOutput            `pulumi:"validation"`
-	ValidationErrors CertificateValidationErrorArrayOutput     `pulumi:"validationErrors"`
+	QueryParams AppCertificatesCustomQueryParamsPtrOutput `pulumi:"queryParams"`
+	// If Let's Encrypt is rate-limiting certificate requests for the hostname, when that ends.
+	RateLimitedUntil pulumi.StringPtrOutput `pulumi:"rateLimitedUntil"`
+	// Human-readable status: `Ready`, `Awaiting certificates`, `Awaiting configuration`, or a
+	// hint about what is misconfigured.
+	Status pulumi.StringPtrOutput `pulumi:"status"`
+	// Which validation methods are currently possible.
+	Validation ValidationPtrOutput `pulumi:"validation"`
+	// Problems found by the most recent validation.
+	ValidationErrors CertificateValidationErrorArrayOutput `pulumi:"validationErrors"`
 }
 
 // NewAppCertificatesCustom registers a new resource with the given unique name, arguments, and options.
@@ -77,9 +90,12 @@ func AppCertificatesCustomExists(ctx *pulumi.Context,
 
 type appCertificatesCustomArgs struct {
 	// Fly App Name
-	AppName    *string `pulumi:"appName"`
-	Fullchain  *string `pulumi:"fullchain"`
-	Hostname   *string `pulumi:"hostname"`
+	AppName *string `pulumi:"appName"`
+	// PEM-encoded certificate, followed by any intermediate certificates. Required.
+	Fullchain *string `pulumi:"fullchain"`
+	// Hostname the certificate is for. Required. Hostnames under `fly.dev` are not allowed.
+	Hostname *string `pulumi:"hostname"`
+	// PEM-encoded private key of the certificate. Required.
 	PrivateKey *string `pulumi:"privateKey"`
 	// Query params to send with the API requests for this resource.
 	QueryParams *AppCertificatesCustomQueryParams `pulumi:"queryParams"`
@@ -88,9 +104,12 @@ type appCertificatesCustomArgs struct {
 // The set of arguments for constructing a AppCertificatesCustom resource.
 type AppCertificatesCustomArgs struct {
 	// Fly App Name
-	AppName    pulumi.StringPtrInput
-	Fullchain  pulumi.StringPtrInput
-	Hostname   pulumi.StringPtrInput
+	AppName pulumi.StringPtrInput
+	// PEM-encoded certificate, followed by any intermediate certificates. Required.
+	Fullchain pulumi.StringPtrInput
+	// Hostname the certificate is for. Required. Hostnames under `fly.dev` are not allowed.
+	Hostname pulumi.StringPtrInput
+	// PEM-encoded private key of the certificate. Required.
 	PrivateKey pulumi.StringPtrInput
 	// Query params to send with the API requests for this resource.
 	QueryParams AppCertificatesCustomQueryParamsPtrInput
@@ -133,34 +152,42 @@ func (o AppCertificatesCustomOutput) ToAppCertificatesCustomOutputWithContext(ct
 	return o
 }
 
+// Whether Fly.io-issued (ACME) certificates were requested for the hostname.
 func (o AppCertificatesCustomOutput) AcmeRequested() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *AppCertificatesCustom) pulumi.BoolPtrOutput { return v.AcmeRequested }).(pulumi.BoolPtrOutput)
 }
 
+// The hostname's certificates: at most one custom entry and one Fly.io entry.
 func (o AppCertificatesCustomOutput) Certificates() CertificateEntryArrayOutput {
 	return o.ApplyT(func(v *AppCertificatesCustom) CertificateEntryArrayOutput { return v.Certificates }).(CertificateEntryArrayOutput)
 }
 
+// Whether ownership of the hostname has been verified.
 func (o AppCertificatesCustomOutput) Configured() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *AppCertificatesCustom) pulumi.BoolPtrOutput { return v.Configured }).(pulumi.BoolPtrOutput)
 }
 
+// DNS provider detected for the hostname, if known.
 func (o AppCertificatesCustomOutput) DnsProvider() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AppCertificatesCustom) pulumi.StringPtrOutput { return v.DnsProvider }).(pulumi.StringPtrOutput)
 }
 
-func (o AppCertificatesCustomOutput) DnsRequirements() DNSRequirementsPtrOutput {
-	return o.ApplyT(func(v *AppCertificatesCustom) DNSRequirementsPtrOutput { return v.DnsRequirements }).(DNSRequirementsPtrOutput)
+// DNS records to create to point the hostname at the app and validate it.
+func (o AppCertificatesCustomOutput) DnsRequirements() DnsRequirementsPtrOutput {
+	return o.ApplyT(func(v *AppCertificatesCustom) DnsRequirementsPtrOutput { return v.DnsRequirements }).(DnsRequirementsPtrOutput)
 }
 
+// PEM-encoded certificate, followed by any intermediate certificates. Required.
 func (o AppCertificatesCustomOutput) Fullchain() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AppCertificatesCustom) pulumi.StringPtrOutput { return v.Fullchain }).(pulumi.StringPtrOutput)
 }
 
+// The hostname the certificate is for. May start with `*.` for a wildcard certificate.
 func (o AppCertificatesCustomOutput) Hostname() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AppCertificatesCustom) pulumi.StringPtrOutput { return v.Hostname }).(pulumi.StringPtrOutput)
 }
 
+// PEM-encoded private key of the certificate. Required.
 func (o AppCertificatesCustomOutput) PrivateKey() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AppCertificatesCustom) pulumi.StringPtrOutput { return v.PrivateKey }).(pulumi.StringPtrOutput)
 }
@@ -170,18 +197,23 @@ func (o AppCertificatesCustomOutput) QueryParams() AppCertificatesCustomQueryPar
 	return o.ApplyT(func(v *AppCertificatesCustom) AppCertificatesCustomQueryParamsPtrOutput { return v.QueryParams }).(AppCertificatesCustomQueryParamsPtrOutput)
 }
 
+// If Let's Encrypt is rate-limiting certificate requests for the hostname, when that ends.
 func (o AppCertificatesCustomOutput) RateLimitedUntil() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AppCertificatesCustom) pulumi.StringPtrOutput { return v.RateLimitedUntil }).(pulumi.StringPtrOutput)
 }
 
+// Human-readable status: `Ready`, `Awaiting certificates`, `Awaiting configuration`, or a
+// hint about what is misconfigured.
 func (o AppCertificatesCustomOutput) Status() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AppCertificatesCustom) pulumi.StringPtrOutput { return v.Status }).(pulumi.StringPtrOutput)
 }
 
-func (o AppCertificatesCustomOutput) Validation() CertificateValidationPtrOutput {
-	return o.ApplyT(func(v *AppCertificatesCustom) CertificateValidationPtrOutput { return v.Validation }).(CertificateValidationPtrOutput)
+// Which validation methods are currently possible.
+func (o AppCertificatesCustomOutput) Validation() ValidationPtrOutput {
+	return o.ApplyT(func(v *AppCertificatesCustom) ValidationPtrOutput { return v.Validation }).(ValidationPtrOutput)
 }
 
+// Problems found by the most recent validation.
 func (o AppCertificatesCustomOutput) ValidationErrors() CertificateValidationErrorArrayOutput {
 	return o.ApplyT(func(v *AppCertificatesCustom) CertificateValidationErrorArrayOutput { return v.ValidationErrors }).(CertificateValidationErrorArrayOutput)
 }

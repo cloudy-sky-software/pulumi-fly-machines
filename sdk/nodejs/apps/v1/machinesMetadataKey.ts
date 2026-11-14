@@ -48,7 +48,13 @@ export class MachinesMetadataKey extends pulumi.CustomResource {
      * Query params to send with the API requests for this resource.
      */
     declare public readonly queryParams: pulumi.Output<outputs.apps.v1.MachinesMetadataKeyQueryParams | undefined>;
+    /**
+     * Time to record for the change in the Machine's `metadata_update` event. Defaults to now.
+     */
     declare public readonly updatedAt: pulumi.Output<string | undefined>;
+    /**
+     * Value to set. Must not be empty or whitespace only.
+     */
     declare public readonly value: pulumi.Output<string | undefined>;
 
     /**
@@ -98,6 +104,12 @@ export interface MachinesMetadataKeyArgs {
      * Query params to send with the API requests for this resource.
      */
     queryParams?: pulumi.Input<inputs.apps.v1.MachinesMetadataKeyQueryParamsArgs | undefined>;
+    /**
+     * Time to record for the change in the Machine's `metadata_update` event. Defaults to now.
+     */
     updatedAt?: pulumi.Input<string | undefined>;
+    /**
+     * Value to set. Must not be empty or whitespace only.
+     */
     value?: pulumi.Input<string | undefined>;
 }

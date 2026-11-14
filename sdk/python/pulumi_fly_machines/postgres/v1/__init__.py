@@ -21,6 +21,7 @@ from .postgres import *
 from .postgres_attachment import *
 from .postgres_backup import *
 from .postgres_database import *
+from .postgres_databases_query import *
 from .postgres_extension import *
 from .postgres_fork import *
 from .postgres_restore import *

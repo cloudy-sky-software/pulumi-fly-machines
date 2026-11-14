@@ -24,6 +24,10 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
 
         [Input("headers")]
         private InputList<Inputs.FlyMachineHTTPHeaderArgs>? _headers;
+
+        /// <summary>
+        /// For http checks, headers to send with the request
+        /// </summary>
         public InputList<Inputs.FlyMachineHTTPHeaderArgs> Headers
         {
             get => _headers ?? (_headers = new InputList<Inputs.FlyMachineHTTPHeaderArgs>());

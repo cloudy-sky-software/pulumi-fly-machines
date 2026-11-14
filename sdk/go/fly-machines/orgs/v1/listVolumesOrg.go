@@ -29,10 +29,14 @@ type ListVolumesOrgArgs struct {
 }
 
 type ListVolumesOrgResult struct {
-	LastUpdatedAt *string     `pulumi:"lastUpdatedAt"`
-	LastVolumeId  *string     `pulumi:"lastVolumeId"`
-	NextCursor    *string     `pulumi:"nextCursor"`
-	Volumes       []OrgVolume `pulumi:"volumes"`
+	// `updated_at` of the last volume on this page.
+	LastUpdatedAt *string `pulumi:"lastUpdatedAt"`
+	// ID of the last volume on this page.
+	LastVolumeId *string `pulumi:"lastVolumeId"`
+	// Pagination cursor for the next page. Absent when no more volumes remain.
+	NextCursor *string `pulumi:"nextCursor"`
+	// The volumes on this page.
+	Volumes []OrgVolume `pulumi:"volumes"`
 }
 
 func ListVolumesOrgOutput(ctx *pulumi.Context, args ListVolumesOrgOutputArgs, opts ...pulumi.InvokeOption) ListVolumesOrgResultOutput {
@@ -65,18 +69,22 @@ func (o ListVolumesOrgResultOutput) ToListVolumesOrgResultOutputWithContext(ctx 
 	return o
 }
 
+// `updated_at` of the last volume on this page.
 func (o ListVolumesOrgResultOutput) LastUpdatedAt() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ListVolumesOrgResult) *string { return v.LastUpdatedAt }).(pulumi.StringPtrOutput)
 }
 
+// ID of the last volume on this page.
 func (o ListVolumesOrgResultOutput) LastVolumeId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ListVolumesOrgResult) *string { return v.LastVolumeId }).(pulumi.StringPtrOutput)
 }
 
+// Pagination cursor for the next page. Absent when no more volumes remain.
 func (o ListVolumesOrgResultOutput) NextCursor() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ListVolumesOrgResult) *string { return v.NextCursor }).(pulumi.StringPtrOutput)
 }
 
+// The volumes on this page.
 func (o ListVolumesOrgResultOutput) Volumes() OrgVolumeArrayOutput {
 	return o.ApplyT(func(v ListVolumesOrgResult) []OrgVolume { return v.Volumes }).(OrgVolumeArrayOutput)
 }

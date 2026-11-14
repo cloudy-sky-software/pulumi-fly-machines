@@ -11,11 +11,25 @@ using Pulumi;
 namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
 {
 
+    /// <summary>
+    /// Load limits Fly Proxy uses to balance traffic across Machines
+    /// </summary>
     [OutputType]
     public sealed class FlyMachineServiceConcurrency
     {
+        /// <summary>
+        /// Fly Proxy sends no more than this many connections or requests to a Machine at once. 0 means
+        /// no hard limit
+        /// </summary>
         public readonly int? HardLimit;
+        /// <summary>
+        /// Above this many connections or requests, Fly Proxy prefers other Machines. Defaults to 20,
+        /// and is lowered to hard_limit if higher
+        /// </summary>
         public readonly int? SoftLimit;
+        /// <summary>
+        /// What to count: `connections` (default) or `requests`
+        /// </summary>
         public readonly string? Type;
 
         [OutputConstructor]

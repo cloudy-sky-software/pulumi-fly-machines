@@ -14,20 +14,35 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.TokensV1.Outputs
     [OutputType]
     public sealed class MainTokenInfo
     {
+        /// <summary>
+        /// Names of the apps the token is restricted to. Omitted if the token is not restricted to
+        /// specific apps.
+        /// </summary>
         public readonly ImmutableArray<string> Apps;
+        /// <summary>
+        /// Slug of the organization the token is scoped to.
+        /// </summary>
         public readonly string? OrgSlug;
+        /// <summary>
+        /// Name of the organization the token is scoped to.
+        /// </summary>
         public readonly string? Organization;
         /// <summary>
-        /// Machine the token is restricted to (FromMachine caveat)
+        /// ID of the Machine the token may only be used from. Omitted if the token is not restricted
+        /// to a Machine.
         /// </summary>
         public readonly string? RestrictedToMachine;
         /// <summary>
-        /// Machine making the request
+        /// Never set.
         /// </summary>
         public readonly string? SourceMachineId;
+        /// <summary>
+        /// ID of the token.
+        /// </summary>
         public readonly string? TokenId;
         /// <summary>
-        /// User identifier if token is for a user
+        /// Opaque identifier of the user the token belongs to: the first 7 hex characters of a hash of
+        /// the user's ID. Omitted for tokens that do not belong to a user.
         /// </summary>
         public readonly string? User;
 

@@ -44,22 +44,69 @@ export class Machine extends pulumi.CustomResource {
         return obj['__pulumiType'] === Machine.__pulumiType;
     }
 
-    declare public /*out*/ readonly checks: pulumi.Output<outputs.apps.v1.CheckStatus[] | undefined>;
-    declare public readonly config: pulumi.Output<outputs.apps.v1.FlyMachineConfig | undefined>;
-    declare public /*out*/ readonly cordoned: pulumi.Output<boolean | undefined>;
-    declare public /*out*/ readonly createdAt: pulumi.Output<string | undefined>;
-    declare public /*out*/ readonly events: pulumi.Output<outputs.apps.v1.MachineEvent[] | undefined>;
-    declare public /*out*/ readonly hostFeatures: pulumi.Output<string[] | undefined>;
-    declare public /*out*/ readonly hostStatus: pulumi.Output<enums.apps.v1.HostStatus | undefined>;
-    declare public /*out*/ readonly imageRef: pulumi.Output<outputs.apps.v1.ImageRef | undefined>;
-    declare public /*out*/ readonly incompleteConfig: pulumi.Output<outputs.apps.v1.FlyMachineConfig | undefined>;
     /**
-     * InstanceID is the same value as `version`.
+     * Status of each health check: the Machine's top-level `checks` and its services'
+     * checks.
+     */
+    declare public /*out*/ readonly checks: pulumi.Output<outputs.apps.v1.CheckStatus[] | undefined>;
+    /**
+     * The Machine's configuration, as provided when it was created or last updated, with
+     * `metadata` and `mounts` reflecting their current values. Null when the host is not
+     * reachable (`host_status` is not `ok`) or `summary=true` was requested; see
+     * `incomplete_config`.
+     */
+    declare public readonly config: pulumi.Output<outputs.apps.v1.MachineConfig | undefined>;
+    /**
+     * Whether the Machine is cordoned, meaning Fly Proxy does not route requests to it. See
+     * the Cordon Machine endpoint.
+     */
+    declare public /*out*/ readonly cordoned: pulumi.Output<boolean | undefined>;
+    /**
+     * When the Machine was created.
+     */
+    declare public /*out*/ readonly createdAt: pulumi.Output<string | undefined>;
+    /**
+     * Up to 5 of the most recent events of the current Machine version, newest first. Use
+     * the List Events endpoint for more.
+     */
+    declare public /*out*/ readonly events: pulumi.Output<outputs.apps.v1.MachineEvent[] | undefined>;
+    /**
+     * Features of the Machine's host, for comparison with `config.guest.required_host_features`.
+     * Only returned when the request sets the `fly-include-host-features: true` header.
+     */
+    declare public /*out*/ readonly hostFeatures: pulumi.Output<string[] | undefined>;
+    /**
+     * Whether Fly.io could reach the Machine's host: `ok` if it could, `unreachable` if it
+     * could not, in which case the response is built from last known state. `unknown` if the
+     * host's status was not reported.
+     */
+    declare public /*out*/ readonly hostStatus: pulumi.Output<enums.apps.v1.HostStatus | undefined>;
+    /**
+     * The image the Machine runs, as resolved when it was last created or updated.
+     */
+    declare public /*out*/ readonly imageRef: pulumi.Output<outputs.apps.v1.ImageRef | undefined>;
+    /**
+     * Last known configuration, returned in place of `config` when the host could not be
+     * reached (`host_status` is not `ok`) or when listing Machines with `summary=true`. It
+     * comes from Fly.io's replicated state rather than the host, so it may be stale or lack
+     * fields.
+     */
+    declare public /*out*/ readonly incompleteConfig: pulumi.Output<outputs.apps.v1.IncompleteConfig | undefined>;
+    /**
+     * Same value as `version`.
      *
      * Deprecated: use `version`.
      */
     declare public /*out*/ readonly instanceId: pulumi.Output<string | undefined>;
-    declare public /*out*/ readonly lease: pulumi.Output<outputs.apps.v1.StrippedLease | undefined>;
+    /**
+     * The lease currently held on the Machine. Only returned when `include_leases=true`
+     * was requested and a lease is held.
+     */
+    declare public /*out*/ readonly lease: pulumi.Output<outputs.apps.v1.Lease | undefined>;
+    /**
+     * Acquire a lease on the new Machine that lasts this many seconds. The response's `nonce`
+     * field holds the lease nonce.
+     */
     declare public readonly leaseTtl: pulumi.Output<number | undefined>;
     /**
      * The minimum version of the app's secrets the Machine must run with. Set it to the `version`
@@ -68,29 +115,62 @@ export class Machine extends pulumi.CustomResource {
      * `config`. If omitted, the app's current secrets version is looked up for you.
      */
     declare public readonly minSecretsVersion: pulumi.Output<number | undefined>;
+    /**
+     * Name of the Machine. Generated when not provided at creation. Names are not required
+     * to be unique.
+     */
     declare public readonly name: pulumi.Output<string | undefined>;
     /**
-     * Nonce is only every returned on machine creation if a lease_duration was provided.
+     * Nonce of the lease acquired on the Machine at creation. Only returned when creating a
+     * Machine with `lease_ttl` set. Pass it in the `fly-machine-lease-nonce` header to act on
+     * the Machine while the lease is held.
      */
     declare public /*out*/ readonly nonce: pulumi.Output<string | undefined>;
     /**
-     * PrivateIP is the internal 6PN address of the machine.
+     * The Machine's address on the organization's private (6PN) IPv6 network.
      */
     declare public /*out*/ readonly privateIp: pulumi.Output<string | undefined>;
     /**
      * Query params to send with the API requests for this resource.
      */
     declare public readonly queryParams: pulumi.Output<outputs.apps.v1.MachineQueryParams | undefined>;
+    /**
+     * Code of the region the Machine runs in, such as `iad`.
+     */
     declare public readonly region: pulumi.Output<string | undefined>;
+    /**
+     * Create the Machine without starting it. It ends up `stopped`; start it with the Start
+     * Machine endpoint. Not allowed for spot Machines.
+     */
     declare public readonly skipLaunch: pulumi.Output<boolean | undefined>;
+    /**
+     * Don't look up the app's current secrets version. The Machine still gets the app's
+     * secrets, but may not see recent changes to them. Takes precedence over
+     * `min_secrets_version`.
+     */
     declare public readonly skipSecrets: pulumi.Output<boolean | undefined>;
+    /**
+     * Create the Machine cordoned, so Fly Proxy doesn't route requests to it until it is
+     * uncordoned. Its services are still registered.
+     */
     declare public readonly skipServiceRegistration: pulumi.Output<boolean | undefined>;
+    /**
+     * Current state of the Machine, taken from the status of its most recent event. One of
+     * `created`, `starting`, `started`, `stopping`, `stopped`, `suspending`, `suspended`,
+     * `replacing`, `replaced`, `destroying`, `destroyed`, `failed`, `migrating`, `migrated`,
+     * `archived`, or `pending`. See https://fly.io/docs/machines/machine-states/.
+     */
     declare public /*out*/ readonly state: pulumi.Output<string | undefined>;
+    /**
+     * Time of the Machine's most recent event, truncated to whole seconds. The zero time
+     * (0001-01-01T00:00:00Z) if the host could not be reached. With `summary=true`, the time
+     * Fly.io last recorded a change to the Machine.
+     */
     declare public /*out*/ readonly updatedAt: pulumi.Output<string | undefined>;
     /**
-     * Version is unique for each version of the machine. Pass it as
-     * `current_version` when updating the Machine to reject the update if the
-     * Machine has changed since this version.
+     * Unique ID of this version of the Machine. Every update creates a new version. Pass it
+     * as `current_version` when updating the Machine to reject the update if the Machine has
+     * changed since this version.
      */
     declare public /*out*/ readonly version: pulumi.Output<string | undefined>;
 
@@ -173,6 +253,10 @@ export interface MachineArgs {
      * An object defining the Machine configuration
      */
     config?: pulumi.Input<inputs.apps.v1.ConfigArgs | undefined>;
+    /**
+     * Acquire a lease on the new Machine that lasts this many seconds. The response's `nonce`
+     * field holds the lease nonce.
+     */
     leaseTtl?: pulumi.Input<number | undefined>;
     /**
      * The minimum version of the app's secrets the Machine must run with. Set it to the `version`
@@ -182,7 +266,8 @@ export interface MachineArgs {
      */
     minSecretsVersion?: pulumi.Input<number | undefined>;
     /**
-     * Unique name for this Machine. If omitted, one is generated for you
+     * Name for this Machine. If omitted, one is generated for you. Names are not required to be
+     * unique.
      */
     name?: pulumi.Input<string | undefined>;
     /**
@@ -190,10 +275,28 @@ export interface MachineArgs {
      */
     queryParams?: pulumi.Input<inputs.apps.v1.MachineQueryParamsArgs | undefined>;
     /**
-     * The target region. Omitting this param launches in the same region as your WireGuard peer connection (somewhere near you).
+     * The region to create the Machine in, such as `iad`. Also accepts a comma-separated list
+     * of regions and region groups (`any`, `us`, `na`, `sa`, `eu`, `apac`, `africa`,
+     * `asia_pacific`, `europe`, `north_america`, `south_america`), in which case Fly.io picks one
+     * with capacity. If the Machine mounts a volume, defaults to the volume's region; the region
+     * must include it. Otherwise defaults to the region of the API server handling the request,
+     * which is usually the one closest to you.
      */
     region?: pulumi.Input<string | undefined>;
+    /**
+     * Create the Machine without starting it. It ends up `stopped`; start it with the Start
+     * Machine endpoint. Not allowed for spot Machines.
+     */
     skipLaunch?: pulumi.Input<boolean | undefined>;
+    /**
+     * Don't look up the app's current secrets version. The Machine still gets the app's
+     * secrets, but may not see recent changes to them. Takes precedence over
+     * `min_secrets_version`.
+     */
     skipSecrets?: pulumi.Input<boolean | undefined>;
+    /**
+     * Create the Machine cordoned, so Fly Proxy doesn't route requests to it until it is
+     * uncordoned. Its services are still registered.
+     */
     skipServiceRegistration?: pulumi.Input<boolean | undefined>;
 }

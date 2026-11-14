@@ -25,6 +25,10 @@ class FlyMachineGuestPersistRootfs(_builtins.str, Enum):
 
 @pulumi.type_token("fly-machines:orgs/v1:OrgVolumeHostStatus")
 class OrgVolumeHostStatus(_builtins.str, Enum):
+    """
+    Whether Fly.io could reach the volume's host: `ok` if it could, `unreachable` or
+    `unknown` if it could not, in which case host-reported fields are missing.
+    """
     OK = "ok"
     UNKNOWN = "unknown"
     UNREACHABLE = "unreachable"
@@ -32,5 +36,9 @@ class OrgVolumeHostStatus(_builtins.str, Enum):
 
 @pulumi.type_token("fly-machines:orgs/v1:OrgVolumeType")
 class OrgVolumeType(_builtins.str, Enum):
+    """
+    Kind of volume: `local` for regular volumes, or `cache` for volumes that hold
+    disposable data and support neither snapshots nor restores.
+    """
     LOCAL = "local"
     CACHE = "cache"

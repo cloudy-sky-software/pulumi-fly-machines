@@ -14,13 +14,19 @@ import (
 type Secret struct {
 	pulumi.CustomResourceState
 
+	// When the secret was first set. Only returned when reading secrets.
 	CreatedAt pulumi.StringPtrOutput `pulumi:"createdAt"`
-	Digest    pulumi.StringPtrOutput `pulumi:"digest"`
-	Name      pulumi.StringPtrOutput `pulumi:"name"`
+	// Short fingerprint of the value, to tell whether it changed without revealing it. Omitted
+	// for deleted secrets.
+	Digest pulumi.StringPtrOutput `pulumi:"digest"`
+	// Name of the secret.
+	Name pulumi.StringPtrOutput `pulumi:"name"`
 	// Query params to send with the API requests for this resource.
 	QueryParams SecretQueryParamsPtrOutput `pulumi:"queryParams"`
-	UpdatedAt   pulumi.StringPtrOutput     `pulumi:"updatedAt"`
-	Value       pulumi.StringPtrOutput     `pulumi:"value"`
+	// When the secret's value last changed. Only returned when reading secrets.
+	UpdatedAt pulumi.StringPtrOutput `pulumi:"updatedAt"`
+	// Value of the secret. Only returned with `show_secrets=true`, and when setting secrets.
+	Value pulumi.StringPtrOutput `pulumi:"value"`
 	// The app's secrets version after this change. Pass it as `min_secrets_version` when creating or
 	// updating Machines so that they are guaranteed to see the change.
 	Version pulumi.IntPtrOutput `pulumi:"version"`
@@ -78,7 +84,8 @@ type secretArgs struct {
 	QueryParams *SecretQueryParams `pulumi:"queryParams"`
 	// App secret name
 	SecretName *string `pulumi:"secretName"`
-	Value      *string `pulumi:"value"`
+	// New value of the secret.
+	Value *string `pulumi:"value"`
 }
 
 // The set of arguments for constructing a Secret resource.
@@ -89,7 +96,8 @@ type SecretArgs struct {
 	QueryParams SecretQueryParamsPtrInput
 	// App secret name
 	SecretName pulumi.StringPtrInput
-	Value      pulumi.StringPtrInput
+	// New value of the secret.
+	Value pulumi.StringPtrInput
 }
 
 func (SecretArgs) ElementType() reflect.Type {
@@ -129,14 +137,18 @@ func (o SecretOutput) ToSecretOutputWithContext(ctx context.Context) SecretOutpu
 	return o
 }
 
+// When the secret was first set. Only returned when reading secrets.
 func (o SecretOutput) CreatedAt() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Secret) pulumi.StringPtrOutput { return v.CreatedAt }).(pulumi.StringPtrOutput)
 }
 
+// Short fingerprint of the value, to tell whether it changed without revealing it. Omitted
+// for deleted secrets.
 func (o SecretOutput) Digest() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Secret) pulumi.StringPtrOutput { return v.Digest }).(pulumi.StringPtrOutput)
 }
 
+// Name of the secret.
 func (o SecretOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Secret) pulumi.StringPtrOutput { return v.Name }).(pulumi.StringPtrOutput)
 }
@@ -146,10 +158,12 @@ func (o SecretOutput) QueryParams() SecretQueryParamsPtrOutput {
 	return o.ApplyT(func(v *Secret) SecretQueryParamsPtrOutput { return v.QueryParams }).(SecretQueryParamsPtrOutput)
 }
 
+// When the secret's value last changed. Only returned when reading secrets.
 func (o SecretOutput) UpdatedAt() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Secret) pulumi.StringPtrOutput { return v.UpdatedAt }).(pulumi.StringPtrOutput)
 }
 
+// Value of the secret. Only returned with `show_secrets=true`, and when setting secrets.
 func (o SecretOutput) Value() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Secret) pulumi.StringPtrOutput { return v.Value }).(pulumi.StringPtrOutput)
 }

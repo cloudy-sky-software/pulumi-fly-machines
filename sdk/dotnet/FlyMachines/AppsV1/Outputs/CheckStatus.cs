@@ -14,9 +14,22 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     [OutputType]
     public sealed class CheckStatus
     {
+        /// <summary>
+        /// Name of the check: the key of a top-level check in `config.checks`, or
+        /// `servicecheck-&lt;index&gt;-&lt;type&gt;-&lt;internal_port&gt;` for a check defined in a service.
+        /// </summary>
         public readonly string? Name;
+        /// <summary>
+        /// Output of the most recent check run, such as an error message.
+        /// </summary>
         public readonly string? Output;
-        public readonly string? Status;
+        /// <summary>
+        /// Result of the check: `passing`, `warning`, or `critical`.
+        /// </summary>
+        public readonly CloudySkySoftware.Pulumi.FlyMachines.AppsV1.CheckStatusStatus? Status;
+        /// <summary>
+        /// When the check's status was last updated.
+        /// </summary>
         public readonly string? UpdatedAt;
 
         [OutputConstructor]
@@ -25,7 +38,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
 
             string? output,
 
-            string? status,
+            CloudySkySoftware.Pulumi.FlyMachines.AppsV1.CheckStatusStatus? status,
 
             string? updatedAt)
         {

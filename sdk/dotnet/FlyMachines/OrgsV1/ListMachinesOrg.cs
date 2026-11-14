@@ -67,10 +67,26 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.OrgsV1
     [OutputType]
     public sealed class ListMachinesOrgResult
     {
+        /// <summary>
+        /// Regions that could not be queried. Their Machines are missing from the response.
+        /// </summary>
         public readonly ImmutableArray<string> ErrorRegions;
+        /// <summary>
+        /// ID of the last Machine on this page.
+        /// </summary>
         public readonly string? LastMachineId;
+        /// <summary>
+        /// `updated_at` of the last Machine on this page.
+        /// </summary>
         public readonly string? LastUpdatedAt;
+        /// <summary>
+        /// The Machines on this page.
+        /// </summary>
         public readonly ImmutableArray<Outputs.OrgMachine> Machines;
+        /// <summary>
+        /// Pagination cursor for the next page. Absent when no more Machines remain. Cursors expire
+        /// 30 minutes after the first page was requested.
+        /// </summary>
         public readonly string? NextCursor;
 
         [OutputConstructor]

@@ -27,6 +27,9 @@ export interface ListSecretsArgs {
 }
 
 export interface ListSecretsResult {
+    /**
+     * The app's secrets.
+     */
     readonly secrets?: outputs.apps.v1.AppSecret[];
 }
 export function listSecretsOutput(args: ListSecretsOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<ListSecretsResult> {

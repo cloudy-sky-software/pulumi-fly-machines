@@ -14,10 +14,15 @@ import (
 type AppDeployToken struct {
 	pulumi.CustomResourceState
 
+	// How long the token is valid, as a Go duration string such as `720h`. If omitted, the
+	// token is valid for as long as the token used to make this request.
 	Expiry pulumi.StringPtrOutput `pulumi:"expiry"`
 	// Query params to send with the API requests for this resource.
 	QueryParams AppDeployTokenQueryParamsPtrOutput `pulumi:"queryParams"`
-	Token       pulumi.StringPtrOutput             `pulumi:"token"`
+	// The deploy token, including its ` FlyV1  ` scheme prefix, ready to be used as an
+	// `Authorization` header value. It is derived from the token used to make this request
+	// and limited to the app, plus the organization's WireGuard and remote builder features.
+	Token pulumi.StringPtrOutput `pulumi:"token"`
 }
 
 // NewAppDeployToken registers a new resource with the given unique name, arguments, and options.
@@ -68,7 +73,9 @@ func AppDeployTokenExists(ctx *pulumi.Context,
 type appDeployTokenArgs struct {
 	// Fly App Name
 	AppName *string `pulumi:"appName"`
-	Expiry  *string `pulumi:"expiry"`
+	// How long the token is valid, as a Go duration string such as `720h`. If omitted, the
+	// token is valid for as long as the token used to make this request.
+	Expiry *string `pulumi:"expiry"`
 	// Query params to send with the API requests for this resource.
 	QueryParams *AppDeployTokenQueryParams `pulumi:"queryParams"`
 }
@@ -77,7 +84,9 @@ type appDeployTokenArgs struct {
 type AppDeployTokenArgs struct {
 	// Fly App Name
 	AppName pulumi.StringPtrInput
-	Expiry  pulumi.StringPtrInput
+	// How long the token is valid, as a Go duration string such as `720h`. If omitted, the
+	// token is valid for as long as the token used to make this request.
+	Expiry pulumi.StringPtrInput
 	// Query params to send with the API requests for this resource.
 	QueryParams AppDeployTokenQueryParamsPtrInput
 }
@@ -119,6 +128,8 @@ func (o AppDeployTokenOutput) ToAppDeployTokenOutputWithContext(ctx context.Cont
 	return o
 }
 
+// How long the token is valid, as a Go duration string such as `720h`. If omitted, the
+// token is valid for as long as the token used to make this request.
 func (o AppDeployTokenOutput) Expiry() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AppDeployToken) pulumi.StringPtrOutput { return v.Expiry }).(pulumi.StringPtrOutput)
 }
@@ -128,6 +139,9 @@ func (o AppDeployTokenOutput) QueryParams() AppDeployTokenQueryParamsPtrOutput {
 	return o.ApplyT(func(v *AppDeployToken) AppDeployTokenQueryParamsPtrOutput { return v.QueryParams }).(AppDeployTokenQueryParamsPtrOutput)
 }
 
+// The deploy token, including its ` FlyV1  ` scheme prefix, ready to be used as an
+// `Authorization` header value. It is derived from the token used to make this request
+// and limited to the app, plus the organization's WireGuard and remote builder features.
 func (o AppDeployTokenOutput) Token() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AppDeployToken) pulumi.StringPtrOutput { return v.Token }).(pulumi.StringPtrOutput)
 }

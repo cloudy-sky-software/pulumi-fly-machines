@@ -16,10 +16,10 @@ from ... import _utilities
 from ._enums import *
 
 __all__ = [
+    'AccessArgs',
+    'AccessArgsDict',
     'GetCurrentTokenQueryParams',
     'GetCurrentTokenQueryParamsDict',
-    'MainTokenAccessArgs',
-    'MainTokenAccessArgsDict',
     'TokensAuthenticateCreateQueryParamsArgs',
     'TokensAuthenticateCreateQueryParamsArgsDict',
     'TokensAuthenticateQueryParamsArgs',
@@ -38,41 +38,10 @@ __all__ = [
     'TokensRequestOidcQueryParamsArgsDict',
 ]
 
-class GetCurrentTokenQueryParamsDict(TypedDict):
+class AccessArgsDict(TypedDict):
     """
-    Query params for the API request.
+    Access to check the token against.
     """
-    additional_params: NotRequired[Mapping[str, _builtins.str]]
-    """
-    Additional query params to send with the request that are not defined in the API spec.
-    """
-
-@pulumi.input_type
-class GetCurrentTokenQueryParams:
-    def __init__(__self__, *,
-                 additional_params: Optional[Mapping[str, _builtins.str]] = None):
-        """
-        Query params for the API request.
-
-        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
-        """
-        if additional_params is not None:
-            pulumi.set(__self__, "additional_params", additional_params)
-
-    @_builtins.property
-    @pulumi.getter(name="additionalParams")
-    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
-        """
-        Additional query params to send with the request that are not defined in the API spec.
-        """
-        return pulumi.get(self, "additional_params")
-
-    @additional_params.setter
-    def additional_params(self, value: Optional[Mapping[str, _builtins.str]]):
-        pulumi.set(self, "additional_params", value)
-
-
-class MainTokenAccessArgsDict(TypedDict):
     action: NotRequired[pulumi.Input[Optional['MainTokenAccessAction']]]
     """
     Action is the action being taken on the specified resource. This is the
@@ -146,7 +115,7 @@ class MainTokenAccessArgsDict(TypedDict):
     """
 
 @pulumi.input_type
-class MainTokenAccessArgs:
+class AccessArgs:
     def __init__(__self__, *,
                  action: pulumi.Input[Optional['MainTokenAccessAction']] = None,
                  app_feature: pulumi.Input[Optional[_builtins.str]] = None,
@@ -161,6 +130,8 @@ class MainTokenAccessArgs:
                  storage_object: pulumi.Input[Optional[_builtins.str]] = None,
                  volume_id: pulumi.Input[Optional[_builtins.str]] = None):
         """
+        Access to check the token against.
+
         :param pulumi.Input['MainTokenAccessAction'] action: Action is the action being taken on the specified resource. This is the
                combination of individual action characters (e.g "rw")
                  - r: read
@@ -388,6 +359,40 @@ class MainTokenAccessArgs:
     @volume_id.setter
     def volume_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "volume_id", value)
+
+
+class GetCurrentTokenQueryParamsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[Mapping[str, _builtins.str]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class GetCurrentTokenQueryParams:
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: Optional[Mapping[str, _builtins.str]]):
+        pulumi.set(self, "additional_params", value)
 
 
 class TokensAuthenticateCreateQueryParamsArgsDict(TypedDict):

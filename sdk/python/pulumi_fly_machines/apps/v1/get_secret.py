@@ -44,26 +44,42 @@ class GetSecretResult:
     @_builtins.property
     @pulumi.getter(name="createdAt")
     def created_at(self) -> Optional[_builtins.str]:
+        """
+        When the secret was first set. Only returned when reading secrets.
+        """
         return pulumi.get(self, "created_at")
 
     @_builtins.property
     @pulumi.getter
     def digest(self) -> Optional[_builtins.str]:
+        """
+        Short fingerprint of the value, to tell whether it changed without revealing it. Omitted
+        for deleted secrets.
+        """
         return pulumi.get(self, "digest")
 
     @_builtins.property
     @pulumi.getter
     def name(self) -> Optional[_builtins.str]:
+        """
+        Name of the secret.
+        """
         return pulumi.get(self, "name")
 
     @_builtins.property
     @pulumi.getter(name="updatedAt")
     def updated_at(self) -> Optional[_builtins.str]:
+        """
+        When the secret's value last changed. Only returned when reading secrets.
+        """
         return pulumi.get(self, "updated_at")
 
     @_builtins.property
     @pulumi.getter
     def value(self) -> Optional[_builtins.str]:
+        """
+        Value of the secret. Only returned with `show_secrets=true`, and when setting secrets.
+        """
         return pulumi.get(self, "value")
 
 

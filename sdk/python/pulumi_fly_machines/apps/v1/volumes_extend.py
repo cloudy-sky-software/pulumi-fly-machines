@@ -31,6 +31,8 @@ class VolumesExtendArgs:
 
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input['VolumesExtendQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
+        :param pulumi.Input[_builtins.int] size_gb: New size of the volume in GiB. Must be larger than the current size and at most the
+               organization's maximum (500 by default).
         :param pulumi.Input[_builtins.str] volume_id: Volume ID
         """
         if app_name is not None:
@@ -69,6 +71,10 @@ class VolumesExtendArgs:
     @_builtins.property
     @pulumi.getter(name="sizeGb")
     def size_gb(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        New size of the volume in GiB. Must be larger than the current size and at most the
+        organization's maximum (500 by default).
+        """
         return pulumi.get(self, "size_gb")
 
     @size_gb.setter
@@ -106,6 +112,8 @@ class VolumesExtend(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input[Union['VolumesExtendQueryParamsArgs', 'VolumesExtendQueryParamsArgsDict', 'outputs.VolumesExtendQueryParams']] query_params: Query params to send with the API requests for this resource.
+        :param pulumi.Input[_builtins.int] size_gb: New size of the volume in GiB. Must be larger than the current size and at most the
+               organization's maximum (500 by default).
         :param pulumi.Input[_builtins.str] volume_id: Volume ID
         """
         ...
@@ -188,6 +196,10 @@ class VolumesExtend(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter(name="needsRestart")
     def needs_restart(self) -> pulumi.Output[Optional[_builtins.bool]]:
+        """
+        Whether the volume is attached to a running Machine that could not resize its filesystem
+        while running. If true, restart the Machine for the filesystem to use the new size.
+        """
         return pulumi.get(self, "needs_restart")
 
     @_builtins.property
@@ -201,10 +213,17 @@ class VolumesExtend(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter(name="sizeGb")
     def size_gb(self) -> pulumi.Output[Optional[_builtins.int]]:
+        """
+        New size of the volume in GiB. Must be larger than the current size and at most the
+        organization's maximum (500 by default).
+        """
         return pulumi.get(self, "size_gb")
 
     @_builtins.property
     @pulumi.getter
-    def volume(self) -> pulumi.Output[Optional['outputs.Volume']]:
+    def volume(self) -> pulumi.Output[Optional['outputs.VolumesExtendVolume']]:
+        """
+        The extended volume.
+        """
         return pulumi.get(self, "volume")
 

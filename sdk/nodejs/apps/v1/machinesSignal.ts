@@ -44,11 +44,17 @@ export class MachinesSignal extends pulumi.CustomResource {
         return obj['__pulumiType'] === MachinesSignal.__pulumiType;
     }
 
+    /**
+     * Always true.
+     */
     declare public /*out*/ readonly ok: pulumi.Output<boolean | undefined>;
     /**
      * Query params to send with the API requests for this resource.
      */
     declare public readonly queryParams: pulumi.Output<outputs.apps.v1.MachinesSignalQueryParams | undefined>;
+    /**
+     * Signal to send to the Machine's main process.
+     */
     declare public readonly signal: pulumi.Output<enums.apps.v1.MachinesSignalSignal | undefined>;
 
     /**
@@ -93,5 +99,8 @@ export interface MachinesSignalArgs {
      * Query params to send with the API requests for this resource.
      */
     queryParams?: pulumi.Input<inputs.apps.v1.MachinesSignalQueryParamsArgs | undefined>;
+    /**
+     * Signal to send to the Machine's main process.
+     */
     signal?: pulumi.Input<enums.apps.v1.MachinesSignalSignal | undefined>;
 }

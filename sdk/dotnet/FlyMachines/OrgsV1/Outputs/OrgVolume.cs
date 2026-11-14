@@ -14,30 +14,121 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.OrgsV1.Outputs
     [OutputType]
     public sealed class OrgVolume
     {
+        /// <summary>
+        /// Name of the app the volume belongs to.
+        /// </summary>
         public readonly string? AppName;
+        /// <summary>
+        /// Always null.
+        /// 
+        /// Deprecated: volumes are no longer attached to Nomad allocations.
+        /// </summary>
         public readonly string? AttachedAllocId;
+        /// <summary>
+        /// ID of the Machine the volume is attached to, or null if it is not attached.
+        /// </summary>
         public readonly string? AttachedMachineId;
+        /// <summary>
+        /// Whether daily automatic snapshots are taken.
+        /// </summary>
         public readonly bool? AutoBackupEnabled;
+        /// <summary>
+        /// Size of a filesystem block, in bytes. See `blocks`.
+        /// </summary>
         public readonly int? BlockSize;
+        /// <summary>
+        /// Size of the volume's filesystem, in blocks of `block_size` bytes, as last reported by a
+        /// Machine that mounted the volume. 0 if never reported, if the host could not be reached,
+        /// or with `summary=true`.
+        /// </summary>
         public readonly int? Blocks;
+        /// <summary>
+        /// Number of filesystem blocks available to unprivileged users. See `blocks`.
+        /// </summary>
         public readonly int? BlocksAvail;
+        /// <summary>
+        /// Number of free filesystem blocks, including blocks reserved for the root user. See
+        /// `blocks`.
+        /// </summary>
         public readonly int? BlocksFree;
+        /// <summary>
+        /// Size of the volume, in bytes. 0 if the host could not be reached or with `summary=true`.
+        /// </summary>
         public readonly int? BytesTotal;
+        /// <summary>
+        /// Bytes of storage the volume occupies on its host. Volumes are thinly provisioned, so this
+        /// grows as blocks are written and does not shrink when files are deleted. It is not the
+        /// filesystem's usage; use `blocks` and `blocks_free` for that. 0 if the host could not be
+        /// reached or with `summary=true`.
+        /// </summary>
         public readonly int? BytesUsed;
+        /// <summary>
+        /// When the volume was created.
+        /// </summary>
         public readonly string? CreatedAt;
+        /// <summary>
+        /// Whether the volume is encrypted at rest.
+        /// </summary>
         public readonly bool? Encrypted;
+        /// <summary>
+        /// Filesystem the volume was formatted with: `ext4`, or `raw` for an unformatted block
+        /// device.
+        /// </summary>
         public readonly string? Fstype;
+        /// <summary>
+        /// Features of the volume's host. Only returned when the request sets the
+        /// `fly-include-host-features: true` header.
+        /// </summary>
         public readonly ImmutableArray<string> HostFeatures;
+        /// <summary>
+        /// Whether Fly.io could reach the volume's host: `ok` if it could, `unreachable` or
+        /// `unknown` if it could not, in which case host-reported fields are missing.
+        /// </summary>
         public readonly CloudySkySoftware.Pulumi.FlyMachines.OrgsV1.OrgVolumeHostStatus? HostStatus;
+        /// <summary>
+        /// Unique ID of the volume, such as `vol_1234567890abcdef`.
+        /// </summary>
         public readonly string? Id;
+        /// <summary>
+        /// Name of the volume. Several volumes of an app can share a name.
+        /// </summary>
         public readonly string? Name;
+        /// <summary>
+        /// Code of the region the volume is in.
+        /// </summary>
         public readonly string? Region;
+        /// <summary>
+        /// Host features the volume's host was required to have; see `compute.required_host_features`
+        /// in the create request.
+        /// </summary>
         public readonly ImmutableArray<string> RequiredHostFeatures;
+        /// <summary>
+        /// Size of the volume, in GiB.
+        /// </summary>
         public readonly int? SizeGb;
+        /// <summary>
+        /// Number of days snapshots of the volume are kept.
+        /// </summary>
         public readonly int? SnapshotRetention;
+        /// <summary>
+        /// State of the volume, such as `creating`, `created`, `extending`, `restoring`,
+        /// `hydrating`, `scheduling_destroy`, `pending_destroy`, `destroying`, `destroyed`, or
+        /// `failed`.
+        /// </summary>
         public readonly string? State;
+        /// <summary>
+        /// Kind of volume: `local` for regular volumes, or `cache` for volumes that hold
+        /// disposable data and support neither snapshots nor restores.
+        /// </summary>
         public readonly CloudySkySoftware.Pulumi.FlyMachines.OrgsV1.OrgVolumeType? Type;
+        /// <summary>
+        /// When Fly.io last recorded a change to the volume.
+        /// </summary>
         public readonly string? UpdatedAt;
+        /// <summary>
+        /// Identifies the host the volume is on. Volumes with different zones are on different
+        /// hosts.
+        /// </summary>
         public readonly string? Zone;
 
         [OutputConstructor]

@@ -88,6 +88,7 @@ _utilities.register(
    "fly-machines:postgres/v1:PostgresAttachment": "PostgresAttachment",
    "fly-machines:postgres/v1:PostgresBackup": "PostgresBackup",
    "fly-machines:postgres/v1:PostgresDatabase": "PostgresDatabase",
+   "fly-machines:postgres/v1:PostgresDatabasesQuery": "PostgresDatabasesQuery",
    "fly-machines:postgres/v1:PostgresExtension": "PostgresExtension",
    "fly-machines:postgres/v1:PostgresFork": "PostgresFork",
    "fly-machines:postgres/v1:PostgresRestore": "PostgresRestore",

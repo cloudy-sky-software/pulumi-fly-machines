@@ -44,6 +44,9 @@ export class App extends pulumi.CustomResource {
         return obj['__pulumiType'] === App.__pulumiType;
     }
 
+    /**
+     * When the app was created, in Unix milliseconds.
+     */
     declare public /*out*/ readonly createdAt: pulumi.Output<number | undefined>;
     /**
      * Request a wildcard TLS certificate for *.svc.<app-name>.fly.dev. Defaults to false. Certificate provisioning is asynchronous; this does not create services or configure their routing.

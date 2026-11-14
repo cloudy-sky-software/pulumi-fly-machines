@@ -14,11 +14,14 @@ import (
 type TokensAuthorize struct {
 	pulumi.CustomResourceState
 
-	Access FlyioAccessPtrOutput   `pulumi:"access"`
+	// The requested access, with names resolved to IDs.
+	Access TokensAuthorizeAccessPtrOutput `pulumi:"access"`
+	// Value of the Authorization header to verify, e.g. `FlyV1 fm2_...`.
 	Header pulumi.StringPtrOutput `pulumi:"header"`
 	// Query params to send with the API requests for this resource.
-	QueryParams   TokensAuthorizeQueryParamsPtrOutput `pulumi:"queryParams"`
-	VerifiedToken RootVerifiedTokenPtrOutput          `pulumi:"verifiedToken"`
+	QueryParams TokensAuthorizeQueryParamsPtrOutput `pulumi:"queryParams"`
+	// The token that grants the requested access.
+	VerifiedToken VerifiedTokenPtrOutput `pulumi:"verifiedToken"`
 }
 
 // NewTokensAuthorize registers a new resource with the given unique name, arguments, and options.
@@ -67,15 +70,19 @@ func TokensAuthorizeExists(ctx *pulumi.Context,
 }
 
 type tokensAuthorizeArgs struct {
-	Access *MainTokenAccess `pulumi:"access"`
-	Header *string          `pulumi:"header"`
+	// Access to check the token against.
+	Access *Access `pulumi:"access"`
+	// Value of the Authorization header to verify, e.g. `FlyV1 fm2_...`.
+	Header *string `pulumi:"header"`
 	// Query params to send with the API requests for this resource.
 	QueryParams *TokensAuthorizeQueryParams `pulumi:"queryParams"`
 }
 
 // The set of arguments for constructing a TokensAuthorize resource.
 type TokensAuthorizeArgs struct {
-	Access MainTokenAccessPtrInput
+	// Access to check the token against.
+	Access AccessPtrInput
+	// Value of the Authorization header to verify, e.g. `FlyV1 fm2_...`.
 	Header pulumi.StringPtrInput
 	// Query params to send with the API requests for this resource.
 	QueryParams TokensAuthorizeQueryParamsPtrInput
@@ -118,10 +125,12 @@ func (o TokensAuthorizeOutput) ToTokensAuthorizeOutputWithContext(ctx context.Co
 	return o
 }
 
-func (o TokensAuthorizeOutput) Access() FlyioAccessPtrOutput {
-	return o.ApplyT(func(v *TokensAuthorize) FlyioAccessPtrOutput { return v.Access }).(FlyioAccessPtrOutput)
+// The requested access, with names resolved to IDs.
+func (o TokensAuthorizeOutput) Access() TokensAuthorizeAccessPtrOutput {
+	return o.ApplyT(func(v *TokensAuthorize) TokensAuthorizeAccessPtrOutput { return v.Access }).(TokensAuthorizeAccessPtrOutput)
 }
 
+// Value of the Authorization header to verify, e.g. `FlyV1 fm2_...`.
 func (o TokensAuthorizeOutput) Header() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *TokensAuthorize) pulumi.StringPtrOutput { return v.Header }).(pulumi.StringPtrOutput)
 }
@@ -131,8 +140,9 @@ func (o TokensAuthorizeOutput) QueryParams() TokensAuthorizeQueryParamsPtrOutput
 	return o.ApplyT(func(v *TokensAuthorize) TokensAuthorizeQueryParamsPtrOutput { return v.QueryParams }).(TokensAuthorizeQueryParamsPtrOutput)
 }
 
-func (o TokensAuthorizeOutput) VerifiedToken() RootVerifiedTokenPtrOutput {
-	return o.ApplyT(func(v *TokensAuthorize) RootVerifiedTokenPtrOutput { return v.VerifiedToken }).(RootVerifiedTokenPtrOutput)
+// The token that grants the requested access.
+func (o TokensAuthorizeOutput) VerifiedToken() VerifiedTokenPtrOutput {
+	return o.ApplyT(func(v *TokensAuthorize) VerifiedTokenPtrOutput { return v.VerifiedToken }).(VerifiedTokenPtrOutput)
 }
 
 func init() {

@@ -42,21 +42,34 @@ class GetMachinesWaitResult:
     @_builtins.property
     @pulumi.getter(name="eventId")
     def event_id(self) -> Optional[_builtins.str]:
+        """
+        ID of the event that moved the Machine into `state`. Pass it as `from_event_id` to wait
+        for a later state change.
+        """
         return pulumi.get(self, "event_id")
 
     @_builtins.property
     @pulumi.getter
     def ok(self) -> Optional[_builtins.bool]:
+        """
+        Always true.
+        """
         return pulumi.get(self, "ok")
 
     @_builtins.property
     @pulumi.getter
     def state(self) -> Optional[_builtins.str]:
+        """
+        The state the Machine reached, one of the requested states.
+        """
         return pulumi.get(self, "state")
 
     @_builtins.property
     @pulumi.getter
     def version(self) -> Optional[_builtins.str]:
+        """
+        ID of the Machine version that reached `state`.
+        """
         return pulumi.get(self, "version")
 
 

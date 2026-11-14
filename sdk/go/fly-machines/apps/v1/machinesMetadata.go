@@ -14,11 +14,14 @@ import (
 type MachinesMetadata struct {
 	pulumi.CustomResourceState
 
+	// Only apply the change if this is still the Machine's current version; otherwise fail
+	// with 412. Defaults to the current version.
 	MachineVersion pulumi.StringPtrOutput `pulumi:"machineVersion"`
 	Metadata       pulumi.StringMapOutput `pulumi:"metadata"`
 	// Query params to send with the API requests for this resource.
 	QueryParams MachinesMetadataQueryParamsPtrOutput `pulumi:"queryParams"`
-	UpdatedAt   pulumi.StringPtrOutput               `pulumi:"updatedAt"`
+	// Time to record for the change in the Machine's `metadata_update` event. Defaults to now.
+	UpdatedAt pulumi.StringPtrOutput `pulumi:"updatedAt"`
 }
 
 // NewMachinesMetadata registers a new resource with the given unique name, arguments, and options.
@@ -70,12 +73,15 @@ type machinesMetadataArgs struct {
 	// Fly App Name
 	AppName *string `pulumi:"appName"`
 	// Machine ID
-	MachineId      *string           `pulumi:"machineId"`
+	MachineId *string `pulumi:"machineId"`
+	// Only apply the change if this is still the Machine's current version; otherwise fail
+	// with 412. Defaults to the current version.
 	MachineVersion *string           `pulumi:"machineVersion"`
 	Metadata       map[string]string `pulumi:"metadata"`
 	// Query params to send with the API requests for this resource.
 	QueryParams *MachinesMetadataQueryParams `pulumi:"queryParams"`
-	UpdatedAt   *string                      `pulumi:"updatedAt"`
+	// Time to record for the change in the Machine's `metadata_update` event. Defaults to now.
+	UpdatedAt *string `pulumi:"updatedAt"`
 }
 
 // The set of arguments for constructing a MachinesMetadata resource.
@@ -83,12 +89,15 @@ type MachinesMetadataArgs struct {
 	// Fly App Name
 	AppName pulumi.StringPtrInput
 	// Machine ID
-	MachineId      pulumi.StringPtrInput
+	MachineId pulumi.StringPtrInput
+	// Only apply the change if this is still the Machine's current version; otherwise fail
+	// with 412. Defaults to the current version.
 	MachineVersion pulumi.StringPtrInput
 	Metadata       pulumi.StringMapInput
 	// Query params to send with the API requests for this resource.
 	QueryParams MachinesMetadataQueryParamsPtrInput
-	UpdatedAt   pulumi.StringPtrInput
+	// Time to record for the change in the Machine's `metadata_update` event. Defaults to now.
+	UpdatedAt pulumi.StringPtrInput
 }
 
 func (MachinesMetadataArgs) ElementType() reflect.Type {
@@ -128,6 +137,8 @@ func (o MachinesMetadataOutput) ToMachinesMetadataOutputWithContext(ctx context.
 	return o
 }
 
+// Only apply the change if this is still the Machine's current version; otherwise fail
+// with 412. Defaults to the current version.
 func (o MachinesMetadataOutput) MachineVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *MachinesMetadata) pulumi.StringPtrOutput { return v.MachineVersion }).(pulumi.StringPtrOutput)
 }
@@ -141,6 +152,7 @@ func (o MachinesMetadataOutput) QueryParams() MachinesMetadataQueryParamsPtrOutp
 	return o.ApplyT(func(v *MachinesMetadata) MachinesMetadataQueryParamsPtrOutput { return v.QueryParams }).(MachinesMetadataQueryParamsPtrOutput)
 }
 
+// Time to record for the change in the Machine's `metadata_update` event. Defaults to now.
 func (o MachinesMetadataOutput) UpdatedAt() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *MachinesMetadata) pulumi.StringPtrOutput { return v.UpdatedAt }).(pulumi.StringPtrOutput)
 }

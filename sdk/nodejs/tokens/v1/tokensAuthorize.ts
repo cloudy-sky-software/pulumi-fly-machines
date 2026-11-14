@@ -44,13 +44,22 @@ export class TokensAuthorize extends pulumi.CustomResource {
         return obj['__pulumiType'] === TokensAuthorize.__pulumiType;
     }
 
-    declare public readonly access: pulumi.Output<outputs.tokens.v1.FlyioAccess | undefined>;
+    /**
+     * The requested access, with names resolved to IDs.
+     */
+    declare public readonly access: pulumi.Output<outputs.tokens.v1.TokensAuthorizeAccess | undefined>;
+    /**
+     * Value of the Authorization header to verify, e.g. `FlyV1 fm2_...`.
+     */
     declare public readonly header: pulumi.Output<string | undefined>;
     /**
      * Query params to send with the API requests for this resource.
      */
     declare public readonly queryParams: pulumi.Output<outputs.tokens.v1.TokensAuthorizeQueryParams | undefined>;
-    declare public /*out*/ readonly verifiedToken: pulumi.Output<outputs.tokens.v1.RootVerifiedToken | undefined>;
+    /**
+     * The token that grants the requested access.
+     */
+    declare public /*out*/ readonly verifiedToken: pulumi.Output<outputs.tokens.v1.VerifiedToken | undefined>;
 
     /**
      * Create a TokensAuthorize resource with the given unique name, arguments, and options.
@@ -82,7 +91,13 @@ export class TokensAuthorize extends pulumi.CustomResource {
  * The set of arguments for constructing a TokensAuthorize resource.
  */
 export interface TokensAuthorizeArgs {
-    access?: pulumi.Input<inputs.tokens.v1.MainTokenAccessArgs | undefined>;
+    /**
+     * Access to check the token against.
+     */
+    access?: pulumi.Input<inputs.tokens.v1.AccessArgs | undefined>;
+    /**
+     * Value of the Authorization header to verify, e.g. `FlyV1 fm2_...`.
+     */
     header?: pulumi.Input<string | undefined>;
     /**
      * Query params to send with the API requests for this resource.

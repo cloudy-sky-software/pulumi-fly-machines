@@ -23,10 +23,10 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         public Input<bool>? AutoDestroy { get; set; }
 
         /// <summary>
-        /// A cache drive attached to the Machine
+        /// Beta: a cache drive attached to the Machine. This field may be removed in the future
         /// </summary>
         [Input("cacheDrive")]
-        public Input<Inputs.FlyMachineConfigCacheDriveArgs>? CacheDrive { get; set; }
+        public Input<Inputs.MachineFlyMachineConfigCacheDriveArgs>? CacheDrive { get; set; }
 
         [Input("checks")]
         private InputMap<Inputs.FlyMachineConfigChecksPropertiesArgs>? _checks;
@@ -62,7 +62,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         /// DNS settings for the Machine
         /// </summary>
         [Input("dns")]
-        public Input<Inputs.FlyMachineConfigDnsArgs>? Dns { get; set; }
+        public Input<Inputs.MachineFlyMachineConfigDnsArgs>? Dns { get; set; }
 
         [Input("env")]
         private InputMap<string>? _env;
@@ -92,7 +92,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         /// The resources (CPUs, memory, etc.) allocated to the Machine
         /// </summary>
         [Input("guest")]
-        public Input<Inputs.FlyMachineConfigGuestArgs>? Guest { get; set; }
+        public Input<Inputs.MachineFlyMachineConfigGuestArgs>? Guest { get; set; }
 
         /// <summary>
         /// The docker image to run
@@ -104,7 +104,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         /// Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
         /// </summary>
         [Input("init")]
-        public Input<Inputs.FlyMachineConfigInitArgs>? Init { get; set; }
+        public Input<Inputs.MachineFlyMachineConfigInitArgs>? Init { get; set; }
 
         [Input("metadata")]
         private InputMap<string>? _metadata;
@@ -122,7 +122,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         /// An optional metrics endpoint for Prometheus on Fly.io to scrape
         /// </summary>
         [Input("metrics")]
-        public Input<Inputs.FlyMachineConfigMetricsArgs>? Metrics { get; set; }
+        public Input<Inputs.MachineFlyMachineConfigMetricsArgs>? Metrics { get; set; }
 
         [Input("mounts")]
         private InputList<Inputs.FlyMachineMountArgs>? _mounts;
@@ -155,13 +155,14 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         /// Whether and how the Machine is restarted after its main process exits
         /// </summary>
         [Input("restart")]
-        public Input<Inputs.FlyMachineConfigRestartArgs>? Restart { get; set; }
+        public Input<Inputs.MachineFlyMachineConfigRestartArgs>? Restart { get; set; }
 
         /// <summary>
-        /// The size of the Machine's root filesystem and whether it persists
+        /// Beta: the size of the Machine's root filesystem and whether it persists. This field may be
+        /// removed in the future
         /// </summary>
         [Input("rootfs")]
-        public Input<Inputs.FlyMachineConfigRootfsArgs>? Rootfs { get; set; }
+        public Input<Inputs.MachineFlyMachineConfigRootfsArgs>? Rootfs { get; set; }
 
         /// <summary>
         /// Run the Machine at an interval: one of hourly, daily, weekly or monthly. The interval starts when
@@ -192,7 +193,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         /// Spot pricing settings for the Machine
         /// </summary>
         [Input("spot")]
-        public Input<Inputs.FlyMachineConfigSpotArgs>? Spot { get; set; }
+        public Input<Inputs.MachineFlyMachineConfigSpotArgs>? Spot { get; set; }
 
         [Input("standbys")]
         private InputList<string>? _standbys;
@@ -226,7 +227,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         /// How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
         /// </summary>
         [Input("stopConfig")]
-        public Input<Inputs.FlyMachineConfigStopConfigArgs>? StopConfig { get; set; }
+        public Input<Inputs.MachineFlyMachineConfigStopConfigArgs>? StopConfig { get; set; }
 
         public ConfigArgs()
         {

@@ -55,17 +55,24 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.PlatformV1
     [OutputType]
     public sealed class GetPlatformRegionResult
     {
-        public readonly string? Nearest;
+        /// <summary>
+        /// The regions available to the caller.
+        /// </summary>
         public readonly ImmutableArray<Outputs.MainRegionRow> Regions;
+        /// <summary>
+        /// Code of the region of the Fly.io edge that received the request, usually the one
+        /// closest to the caller.
+        /// </summary>
+        public readonly string? Nearest;
 
         [OutputConstructor]
         private GetPlatformRegionResult(
-            string? nearest,
+            ImmutableArray<Outputs.MainRegionRow> Regions,
 
-            ImmutableArray<Outputs.MainRegionRow> regions)
+            string? nearest)
         {
+            this.Regions = Regions;
             Nearest = nearest;
-            Regions = regions;
         }
     }
 }

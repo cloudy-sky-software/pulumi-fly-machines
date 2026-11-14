@@ -14,22 +14,50 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     [OutputType]
     public sealed class FlyMachineMount
     {
+        /// <summary>
+        /// With automatic extension, grow the volume by this many GB at a time. Between 1 and 100.
+        /// Mutually exclusive with add_size_percent
+        /// </summary>
         public readonly int? AddSizeGb;
         /// <summary>
         /// AddSizePercent grows by a percentage of the current size, rounded up to GiB.
         /// It is mutually exclusive with AddSizeGb.
         /// </summary>
         public readonly int? AddSizePercent;
+        /// <summary>
+        /// Whether the volume is encrypted. Set by Fly.io; ignored in requests
+        /// </summary>
         public readonly bool? Encrypted;
+        /// <summary>
+        /// Enable automatic volume extension: grow the volume when its usage exceeds this percentage.
+        /// Between 50 and 99; 0 disables it
+        /// </summary>
         public readonly int? ExtendThresholdPercent;
         /// <summary>
         /// MinAddSizeGb is the minimum proportional growth in GiB (default 1).
         /// </summary>
         public readonly int? MinAddSizeGb;
+        /// <summary>
+        /// Name of the volume. Set by Fly.io; ignored in requests
+        /// </summary>
         public readonly string? Name;
+        /// <summary>
+        /// Absolute path in the Machine to mount the volume at. Required
+        /// </summary>
         public readonly string? Path;
+        /// <summary>
+        /// Size of the volume in GB. Set by Fly.io; ignored in requests
+        /// </summary>
         public readonly int? SizeGb;
+        /// <summary>
+        /// With automatic extension, never grow the volume beyond this size in GB. At most the
+        /// organization's maximum volume size
+        /// </summary>
         public readonly int? SizeGbLimit;
+        /// <summary>
+        /// ID (`vol_...`) or name of the volume to mount. Required. With a name, any unattached volume
+        /// of the app with that name in the Machine's region is used
+        /// </summary>
         public readonly string? Volume;
 
         [OutputConstructor]

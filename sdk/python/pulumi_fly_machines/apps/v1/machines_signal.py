@@ -32,6 +32,7 @@ class MachinesSignalArgs:
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input[_builtins.str] machine_id: Machine ID
         :param pulumi.Input['MachinesSignalQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
+        :param pulumi.Input['MachinesSignalSignal'] signal: Signal to send to the Machine's main process.
         """
         if app_name is not None:
             pulumi.set(__self__, "app_name", app_name)
@@ -81,6 +82,9 @@ class MachinesSignalArgs:
     @_builtins.property
     @pulumi.getter
     def signal(self) -> pulumi.Input[Optional['MachinesSignalSignal']]:
+        """
+        Signal to send to the Machine's main process.
+        """
         return pulumi.get(self, "signal")
 
     @signal.setter
@@ -107,6 +111,7 @@ class MachinesSignal(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input[_builtins.str] machine_id: Machine ID
         :param pulumi.Input[Union['MachinesSignalQueryParamsArgs', 'MachinesSignalQueryParamsArgsDict', 'outputs.MachinesSignalQueryParams']] query_params: Query params to send with the API requests for this resource.
+        :param pulumi.Input['MachinesSignalSignal'] signal: Signal to send to the Machine's main process.
         """
         ...
     @overload
@@ -186,6 +191,9 @@ class MachinesSignal(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter
     def ok(self) -> pulumi.Output[Optional[_builtins.bool]]:
+        """
+        Always true.
+        """
         return pulumi.get(self, "ok")
 
     @_builtins.property
@@ -199,5 +207,8 @@ class MachinesSignal(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter
     def signal(self) -> pulumi.Output[Optional['MachinesSignalSignal']]:
+        """
+        Signal to send to the Machine's main process.
+        """
         return pulumi.get(self, "signal")
 

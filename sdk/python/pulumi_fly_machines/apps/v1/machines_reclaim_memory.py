@@ -28,6 +28,8 @@ class MachinesReclaimMemoryArgs:
         """
         The set of arguments for constructing a MachinesReclaimMemory resource.
 
+        :param pulumi.Input[_builtins.int] amount_mb: Memory to reclaim, in MiB. Must be positive and at most the Machine's memory limit minus
+               128 MiB.
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input[_builtins.str] machine_id: Machine ID
         :param pulumi.Input['MachinesReclaimMemoryQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
@@ -44,6 +46,10 @@ class MachinesReclaimMemoryArgs:
     @_builtins.property
     @pulumi.getter(name="amountMb")
     def amount_mb(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Memory to reclaim, in MiB. Must be positive and at most the Machine's memory limit minus
+        128 MiB.
+        """
         return pulumi.get(self, "amount_mb")
 
     @amount_mb.setter
@@ -103,6 +109,8 @@ class MachinesReclaimMemory(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[_builtins.int] amount_mb: Memory to reclaim, in MiB. Must be positive and at most the Machine's memory limit minus
+               128 MiB.
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input[_builtins.str] machine_id: Machine ID
         :param pulumi.Input[Union['MachinesReclaimMemoryQueryParamsArgs', 'MachinesReclaimMemoryQueryParamsArgsDict', 'outputs.MachinesReclaimMemoryQueryParams']] query_params: Query params to send with the API requests for this resource.
@@ -185,11 +193,18 @@ class MachinesReclaimMemory(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter(name="actualMb")
     def actual_mb(self) -> pulumi.Output[Optional[_builtins.int]]:
+        """
+        Memory, in MiB, that the guest actually gave up. Can be less than requested.
+        """
         return pulumi.get(self, "actual_mb")
 
     @_builtins.property
     @pulumi.getter(name="amountMb")
     def amount_mb(self) -> pulumi.Output[Optional[_builtins.int]]:
+        """
+        Memory to reclaim, in MiB. Must be positive and at most the Machine's memory limit minus
+        128 MiB.
+        """
         return pulumi.get(self, "amount_mb")
 
     @_builtins.property

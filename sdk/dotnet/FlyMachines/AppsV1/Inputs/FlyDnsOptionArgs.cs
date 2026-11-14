@@ -13,9 +13,15 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
 
     public sealed class FlyDnsOptionArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Option name, e.g. `ndots`
+        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
+        /// <summary>
+        /// Option value, e.g. `5`
+        /// </summary>
         [Input("value")]
         public Input<string>? Value { get; set; }
 

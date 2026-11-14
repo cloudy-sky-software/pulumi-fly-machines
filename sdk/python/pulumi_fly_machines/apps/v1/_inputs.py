@@ -50,6 +50,8 @@ __all__ = [
     'AppQueryParamsArgsDict',
     'AppReadQueryParamsArgs',
     'AppReadQueryParamsArgsDict',
+    'ComputeArgs',
+    'ComputeArgsDict',
     'ConfigArgs',
     'ConfigArgsDict',
     'FlyContainerConfigArgs',
@@ -62,50 +64,36 @@ __all__ = [
     'FlyContainerDependencyArgsDict',
     'FlyContainerHealthcheckArgs',
     'FlyContainerHealthcheckArgsDict',
+    'FlyContainerHealthcheckExecArgs',
+    'FlyContainerHealthcheckExecArgsDict',
+    'FlyContainerHealthcheckHttpArgs',
+    'FlyContainerHealthcheckHttpArgsDict',
+    'FlyContainerHealthcheckTcpArgs',
+    'FlyContainerHealthcheckTcpArgsDict',
     'FlyDnsForwardRuleArgs',
     'FlyDnsForwardRuleArgsDict',
     'FlyDnsOptionArgs',
     'FlyDnsOptionArgsDict',
     'FlyEnvFromArgs',
     'FlyEnvFromArgsDict',
-    'FlyExecHealthcheckArgs',
-    'FlyExecHealthcheckArgsDict',
     'FlyFileArgs',
     'FlyFileArgsDict',
-    'FlyHTTPHealthcheckArgs',
-    'FlyHTTPHealthcheckArgsDict',
-    'FlyHTTPOptionsArgs',
-    'FlyHTTPOptionsArgsDict',
-    'FlyHTTPResponseOptionsArgs',
-    'FlyHTTPResponseOptionsArgsDict',
-    'FlyMachineConfigCacheDriveArgs',
-    'FlyMachineConfigCacheDriveArgsDict',
+    'FlyHTTPOptionsResponseArgs',
+    'FlyHTTPOptionsResponseArgsDict',
     'FlyMachineConfigChecksPropertiesArgs',
     'FlyMachineConfigChecksPropertiesArgsDict',
-    'FlyMachineConfigDnsArgs',
-    'FlyMachineConfigDnsArgsDict',
-    'FlyMachineConfigGuestArgs',
-    'FlyMachineConfigGuestArgsDict',
-    'FlyMachineConfigInitArgs',
-    'FlyMachineConfigInitArgsDict',
-    'FlyMachineConfigMetricsArgs',
-    'FlyMachineConfigMetricsArgsDict',
-    'FlyMachineConfigRestartArgs',
-    'FlyMachineConfigRestartArgsDict',
-    'FlyMachineConfigRootfsArgs',
-    'FlyMachineConfigRootfsArgsDict',
-    'FlyMachineConfigSpotArgs',
-    'FlyMachineConfigSpotArgsDict',
-    'FlyMachineConfigStopConfigArgs',
-    'FlyMachineConfigStopConfigArgsDict',
-    'FlyMachineGuestArgs',
-    'FlyMachineGuestArgsDict',
     'FlyMachineHTTPHeaderArgs',
     'FlyMachineHTTPHeaderArgsDict',
     'FlyMachineMountArgs',
     'FlyMachineMountArgsDict',
     'FlyMachinePortArgs',
     'FlyMachinePortArgsDict',
+    'FlyMachinePortHttpOptionsArgs',
+    'FlyMachinePortHttpOptionsArgsDict',
+    'FlyMachinePortProxyProtoOptionsArgs',
+    'FlyMachinePortProxyProtoOptionsArgsDict',
+    'FlyMachinePortTlsOptionsArgs',
+    'FlyMachinePortTlsOptionsArgsDict',
     'FlyMachineProcessArgs',
     'FlyMachineProcessArgsDict',
     'FlyMachineSecretArgs',
@@ -116,16 +104,10 @@ __all__ = [
     'FlyMachineServiceCheckArgsDict',
     'FlyMachineServiceConcurrencyArgs',
     'FlyMachineServiceConcurrencyArgsDict',
-    'FlyProxyProtoOptionsArgs',
-    'FlyProxyProtoOptionsArgsDict',
     'FlyReplayCacheArgs',
     'FlyReplayCacheArgsDict',
     'FlyStaticArgs',
     'FlyStaticArgsDict',
-    'FlyTCPHealthcheckArgs',
-    'FlyTCPHealthcheckArgsDict',
-    'FlyTLSOptionsArgs',
-    'FlyTLSOptionsArgsDict',
     'GetAppCertificateQueryParams',
     'GetAppCertificateQueryParamsDict',
     'GetAppQueryParams',
@@ -174,6 +156,24 @@ __all__ = [
     'MachineCreateQueryParamsArgsDict',
     'MachineDeleteQueryParamsArgs',
     'MachineDeleteQueryParamsArgsDict',
+    'MachineFlyMachineConfigCacheDriveArgs',
+    'MachineFlyMachineConfigCacheDriveArgsDict',
+    'MachineFlyMachineConfigDnsArgs',
+    'MachineFlyMachineConfigDnsArgsDict',
+    'MachineFlyMachineConfigGuestArgs',
+    'MachineFlyMachineConfigGuestArgsDict',
+    'MachineFlyMachineConfigInitArgs',
+    'MachineFlyMachineConfigInitArgsDict',
+    'MachineFlyMachineConfigMetricsArgs',
+    'MachineFlyMachineConfigMetricsArgsDict',
+    'MachineFlyMachineConfigRestartArgs',
+    'MachineFlyMachineConfigRestartArgsDict',
+    'MachineFlyMachineConfigRootfsArgs',
+    'MachineFlyMachineConfigRootfsArgsDict',
+    'MachineFlyMachineConfigSpotArgs',
+    'MachineFlyMachineConfigSpotArgsDict',
+    'MachineFlyMachineConfigStopConfigArgs',
+    'MachineFlyMachineConfigStopConfigArgsDict',
     'MachinePutQueryParamsArgs',
     'MachinePutQueryParamsArgsDict',
     'MachineQueryParamsArgs',
@@ -986,6 +986,251 @@ class AppReadQueryParamsArgs:
         pulumi.set(self, "additional_params", value)
 
 
+class ComputeArgsDict(TypedDict):
+    """
+    Requirements of the Machine that will use the volume, so that the volume is placed on a
+    host that can run it. Uses `cpus`, `memory_mb`, `cpu_kind`, `host_dedication_id`, and
+    `required_host_features`.
+    """
+    cpu_kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
+    Defaults to shared when `guest` is omitted
+    """
+    cpus: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
+    performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
+    omitted
+    """
+    gpu_kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    No longer supported. Requests that set it are rejected
+    """
+    gpus: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    No longer supported. Requests that set it are rejected
+    """
+    host_dedication_id: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Place the Machine on hosts dedicated to the organization under this ID. Only available to
+    organizations with dedicated hosts
+    """
+    kernel_args: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    Extra arguments appended to the guest kernel command line
+    """
+    max_memory_mb: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
+    the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
+    starts with a limit of memory_mb
+    """
+    memory_mb: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
+    between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
+    `guest` is omitted
+    """
+    persist_rootfs: NotRequired[pulumi.Input[Optional['FlyMachineGuestPersistRootfs']]]
+    """
+    Deprecated: use MachineConfig.Rootfs instead
+    """
+    required_host_features: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
+    of lowercase letters, digits and dashes. Each feature must be enabled for the organization
+    """
+
+@pulumi.input_type
+class ComputeArgs:
+    def __init__(__self__, *,
+                 cpu_kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 cpus: pulumi.Input[Optional[_builtins.int]] = None,
+                 gpu_kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 gpus: pulumi.Input[Optional[_builtins.int]] = None,
+                 host_dedication_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 kernel_args: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 max_memory_mb: pulumi.Input[Optional[_builtins.int]] = None,
+                 memory_mb: pulumi.Input[Optional[_builtins.int]] = None,
+                 persist_rootfs: pulumi.Input[Optional['FlyMachineGuestPersistRootfs']] = None,
+                 required_host_features: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
+        """
+        Requirements of the Machine that will use the volume, so that the volume is placed on a
+        host that can run it. Uses `cpus`, `memory_mb`, `cpu_kind`, `host_dedication_id`, and
+        `required_host_features`.
+
+        :param pulumi.Input[_builtins.str] cpu_kind: Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
+               Defaults to shared when `guest` is omitted
+        :param pulumi.Input[_builtins.int] cpus: Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
+               performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
+               omitted
+        :param pulumi.Input[_builtins.str] gpu_kind: No longer supported. Requests that set it are rejected
+        :param pulumi.Input[_builtins.int] gpus: No longer supported. Requests that set it are rejected
+        :param pulumi.Input[_builtins.str] host_dedication_id: Place the Machine on hosts dedicated to the organization under this ID. Only available to
+               organizations with dedicated hosts
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] kernel_args: Extra arguments appended to the guest kernel command line
+        :param pulumi.Input[_builtins.int] max_memory_mb: Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
+               the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
+               starts with a limit of memory_mb
+        :param pulumi.Input[_builtins.int] memory_mb: Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
+               between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
+               `guest` is omitted
+        :param pulumi.Input['FlyMachineGuestPersistRootfs'] persist_rootfs: Deprecated: use MachineConfig.Rootfs instead
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] required_host_features: Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
+               of lowercase letters, digits and dashes. Each feature must be enabled for the organization
+        """
+        if cpu_kind is not None:
+            pulumi.set(__self__, "cpu_kind", cpu_kind)
+        if cpus is not None:
+            pulumi.set(__self__, "cpus", cpus)
+        if gpu_kind is not None:
+            pulumi.set(__self__, "gpu_kind", gpu_kind)
+        if gpus is not None:
+            pulumi.set(__self__, "gpus", gpus)
+        if host_dedication_id is not None:
+            pulumi.set(__self__, "host_dedication_id", host_dedication_id)
+        if kernel_args is not None:
+            pulumi.set(__self__, "kernel_args", kernel_args)
+        if max_memory_mb is not None:
+            pulumi.set(__self__, "max_memory_mb", max_memory_mb)
+        if memory_mb is not None:
+            pulumi.set(__self__, "memory_mb", memory_mb)
+        if persist_rootfs is not None:
+            pulumi.set(__self__, "persist_rootfs", persist_rootfs)
+        if required_host_features is not None:
+            pulumi.set(__self__, "required_host_features", required_host_features)
+
+    @_builtins.property
+    @pulumi.getter(name="cpuKind")
+    def cpu_kind(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
+        Defaults to shared when `guest` is omitted
+        """
+        return pulumi.get(self, "cpu_kind")
+
+    @cpu_kind.setter
+    def cpu_kind(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "cpu_kind", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def cpus(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
+        performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
+        omitted
+        """
+        return pulumi.get(self, "cpus")
+
+    @cpus.setter
+    def cpus(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "cpus", value)
+
+    @_builtins.property
+    @pulumi.getter(name="gpuKind")
+    def gpu_kind(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        No longer supported. Requests that set it are rejected
+        """
+        return pulumi.get(self, "gpu_kind")
+
+    @gpu_kind.setter
+    def gpu_kind(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "gpu_kind", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def gpus(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        No longer supported. Requests that set it are rejected
+        """
+        return pulumi.get(self, "gpus")
+
+    @gpus.setter
+    def gpus(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "gpus", value)
+
+    @_builtins.property
+    @pulumi.getter(name="hostDedicationId")
+    def host_dedication_id(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Place the Machine on hosts dedicated to the organization under this ID. Only available to
+        organizations with dedicated hosts
+        """
+        return pulumi.get(self, "host_dedication_id")
+
+    @host_dedication_id.setter
+    def host_dedication_id(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "host_dedication_id", value)
+
+    @_builtins.property
+    @pulumi.getter(name="kernelArgs")
+    def kernel_args(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        Extra arguments appended to the guest kernel command line
+        """
+        return pulumi.get(self, "kernel_args")
+
+    @kernel_args.setter
+    def kernel_args(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "kernel_args", value)
+
+    @_builtins.property
+    @pulumi.getter(name="maxMemoryMb")
+    def max_memory_mb(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
+        the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
+        starts with a limit of memory_mb
+        """
+        return pulumi.get(self, "max_memory_mb")
+
+    @max_memory_mb.setter
+    def max_memory_mb(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "max_memory_mb", value)
+
+    @_builtins.property
+    @pulumi.getter(name="memoryMb")
+    def memory_mb(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
+        between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
+        `guest` is omitted
+        """
+        return pulumi.get(self, "memory_mb")
+
+    @memory_mb.setter
+    def memory_mb(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "memory_mb", value)
+
+    @_builtins.property
+    @pulumi.getter(name="persistRootfs")
+    def persist_rootfs(self) -> pulumi.Input[Optional['FlyMachineGuestPersistRootfs']]:
+        """
+        Deprecated: use MachineConfig.Rootfs instead
+        """
+        return pulumi.get(self, "persist_rootfs")
+
+    @persist_rootfs.setter
+    def persist_rootfs(self, value: pulumi.Input[Optional['FlyMachineGuestPersistRootfs']]):
+        pulumi.set(self, "persist_rootfs", value)
+
+    @_builtins.property
+    @pulumi.getter(name="requiredHostFeatures")
+    def required_host_features(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
+        of lowercase letters, digits and dashes. Each feature must be enabled for the organization
+        """
+        return pulumi.get(self, "required_host_features")
+
+    @required_host_features.setter
+    def required_host_features(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "required_host_features", value)
+
+
 class ConfigArgsDict(TypedDict):
     """
     An object defining the Machine configuration
@@ -994,9 +1239,9 @@ class ConfigArgsDict(TypedDict):
     """
     Optional boolean telling the Machine to destroy itself once it’s complete (default false)
     """
-    cache_drive: NotRequired[pulumi.Input[Optional['FlyMachineConfigCacheDriveArgsDict']]]
+    cache_drive: NotRequired[pulumi.Input[Optional['MachineFlyMachineConfigCacheDriveArgsDict']]]
     """
-    A cache drive attached to the Machine
+    Beta: a cache drive attached to the Machine. This field may be removed in the future
     """
     checks: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input['FlyMachineConfigChecksPropertiesArgsDict']]]]]
     """
@@ -1010,7 +1255,7 @@ class ConfigArgsDict(TypedDict):
     """
     Deprecated: use Service.Autostart instead
     """
-    dns: NotRequired[pulumi.Input[Optional['FlyMachineConfigDnsArgsDict']]]
+    dns: NotRequired[pulumi.Input[Optional['MachineFlyMachineConfigDnsArgsDict']]]
     """
     DNS settings for the Machine
     """
@@ -1022,7 +1267,7 @@ class ConfigArgsDict(TypedDict):
     """
     Files to write into the Machine, from either a raw value or an app secret
     """
-    guest: NotRequired[pulumi.Input[Optional['FlyMachineConfigGuestArgsDict']]]
+    guest: NotRequired[pulumi.Input[Optional['MachineFlyMachineConfigGuestArgsDict']]]
     """
     The resources (CPUs, memory, etc.) allocated to the Machine
     """
@@ -1030,7 +1275,7 @@ class ConfigArgsDict(TypedDict):
     """
     The docker image to run
     """
-    init: NotRequired[pulumi.Input[Optional['FlyMachineConfigInitArgsDict']]]
+    init: NotRequired[pulumi.Input[Optional['MachineFlyMachineConfigInitArgsDict']]]
     """
     Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
     """
@@ -1038,7 +1283,7 @@ class ConfigArgsDict(TypedDict):
     """
     Key/value pairs of Machine metadata. Fly.io uses metadata internally for routing, process groups, and clusters
     """
-    metrics: NotRequired[pulumi.Input[Optional['FlyMachineConfigMetricsArgsDict']]]
+    metrics: NotRequired[pulumi.Input[Optional['MachineFlyMachineConfigMetricsArgsDict']]]
     """
     An optional metrics endpoint for Prometheus on Fly.io to scrape
     """
@@ -1053,13 +1298,14 @@ class ConfigArgsDict(TypedDict):
     process groups in fly.toml, which run on separate Machines. To run processes from different
     images, use containers instead
     """
-    restart: NotRequired[pulumi.Input[Optional['FlyMachineConfigRestartArgsDict']]]
+    restart: NotRequired[pulumi.Input[Optional['MachineFlyMachineConfigRestartArgsDict']]]
     """
     Whether and how the Machine is restarted after its main process exits
     """
-    rootfs: NotRequired[pulumi.Input[Optional['FlyMachineConfigRootfsArgsDict']]]
+    rootfs: NotRequired[pulumi.Input[Optional['MachineFlyMachineConfigRootfsArgsDict']]]
     """
-    The size of the Machine's root filesystem and whether it persists
+    Beta: the size of the Machine's root filesystem and whether it persists. This field may be
+    removed in the future
     """
     schedule: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
@@ -1074,7 +1320,7 @@ class ConfigArgsDict(TypedDict):
     """
     Deprecated: use Guest instead
     """
-    spot: NotRequired[pulumi.Input[Optional['FlyMachineConfigSpotArgsDict']]]
+    spot: NotRequired[pulumi.Input[Optional['MachineFlyMachineConfigSpotArgsDict']]]
     """
     Spot pricing settings for the Machine
     """
@@ -1090,7 +1336,7 @@ class ConfigArgsDict(TypedDict):
     files are read either from a path inside the Machine or from a Tigris bucket that belongs to the
     app; no bucket is created for you
     """
-    stop_config: NotRequired[pulumi.Input[Optional['FlyMachineConfigStopConfigArgsDict']]]
+    stop_config: NotRequired[pulumi.Input[Optional['MachineFlyMachineConfigStopConfigArgsDict']]]
     """
     How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
     """
@@ -1099,64 +1345,65 @@ class ConfigArgsDict(TypedDict):
 class ConfigArgs:
     def __init__(__self__, *,
                  auto_destroy: pulumi.Input[Optional[_builtins.bool]] = None,
-                 cache_drive: pulumi.Input[Optional['FlyMachineConfigCacheDriveArgs']] = None,
+                 cache_drive: pulumi.Input[Optional['MachineFlyMachineConfigCacheDriveArgs']] = None,
                  checks: pulumi.Input[Optional[Mapping[str, pulumi.Input['FlyMachineConfigChecksPropertiesArgs']]]] = None,
                  containers: pulumi.Input[Optional[Sequence[pulumi.Input['FlyContainerConfigArgs']]]] = None,
                  disable_machine_autostart: pulumi.Input[Optional[_builtins.bool]] = None,
-                 dns: pulumi.Input[Optional['FlyMachineConfigDnsArgs']] = None,
+                 dns: pulumi.Input[Optional['MachineFlyMachineConfigDnsArgs']] = None,
                  env: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
                  files: pulumi.Input[Optional[Sequence[pulumi.Input['FlyFileArgs']]]] = None,
-                 guest: pulumi.Input[Optional['FlyMachineConfigGuestArgs']] = None,
+                 guest: pulumi.Input[Optional['MachineFlyMachineConfigGuestArgs']] = None,
                  image: pulumi.Input[Optional[_builtins.str]] = None,
-                 init: pulumi.Input[Optional['FlyMachineConfigInitArgs']] = None,
+                 init: pulumi.Input[Optional['MachineFlyMachineConfigInitArgs']] = None,
                  metadata: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
-                 metrics: pulumi.Input[Optional['FlyMachineConfigMetricsArgs']] = None,
+                 metrics: pulumi.Input[Optional['MachineFlyMachineConfigMetricsArgs']] = None,
                  mounts: pulumi.Input[Optional[Sequence[pulumi.Input['FlyMachineMountArgs']]]] = None,
                  processes: pulumi.Input[Optional[Sequence[pulumi.Input['FlyMachineProcessArgs']]]] = None,
-                 restart: pulumi.Input[Optional['FlyMachineConfigRestartArgs']] = None,
-                 rootfs: pulumi.Input[Optional['FlyMachineConfigRootfsArgs']] = None,
+                 restart: pulumi.Input[Optional['MachineFlyMachineConfigRestartArgs']] = None,
+                 rootfs: pulumi.Input[Optional['MachineFlyMachineConfigRootfsArgs']] = None,
                  schedule: pulumi.Input[Optional[_builtins.str]] = None,
                  services: pulumi.Input[Optional[Sequence[pulumi.Input['FlyMachineServiceArgs']]]] = None,
                  size: pulumi.Input[Optional[_builtins.str]] = None,
-                 spot: pulumi.Input[Optional['FlyMachineConfigSpotArgs']] = None,
+                 spot: pulumi.Input[Optional['MachineFlyMachineConfigSpotArgs']] = None,
                  standbys: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  statics: pulumi.Input[Optional[Sequence[pulumi.Input['FlyStaticArgs']]]] = None,
-                 stop_config: pulumi.Input[Optional['FlyMachineConfigStopConfigArgs']] = None):
+                 stop_config: pulumi.Input[Optional['MachineFlyMachineConfigStopConfigArgs']] = None):
         """
         An object defining the Machine configuration
 
         :param pulumi.Input[_builtins.bool] auto_destroy: Optional boolean telling the Machine to destroy itself once it’s complete (default false)
-        :param pulumi.Input['FlyMachineConfigCacheDriveArgs'] cache_drive: A cache drive attached to the Machine
+        :param pulumi.Input['MachineFlyMachineConfigCacheDriveArgs'] cache_drive: Beta: a cache drive attached to the Machine. This field may be removed in the future
         :param pulumi.Input[Mapping[str, pulumi.Input['FlyMachineConfigChecksPropertiesArgs']]] checks: An optional object that defines one or more named top-level checks. The key for each check is the check name.
         :param pulumi.Input[Sequence[pulumi.Input['FlyContainerConfigArgs']]] containers: Containers are a list of containers that will run in the machine, each from its own image.
         :param pulumi.Input[_builtins.bool] disable_machine_autostart: Deprecated: use Service.Autostart instead
-        :param pulumi.Input['FlyMachineConfigDnsArgs'] dns: DNS settings for the Machine
+        :param pulumi.Input['MachineFlyMachineConfigDnsArgs'] dns: DNS settings for the Machine
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] env: An object filled with key/value pairs to be set as environment variables
         :param pulumi.Input[Sequence[pulumi.Input['FlyFileArgs']]] files: Files to write into the Machine, from either a raw value or an app secret
-        :param pulumi.Input['FlyMachineConfigGuestArgs'] guest: The resources (CPUs, memory, etc.) allocated to the Machine
+        :param pulumi.Input['MachineFlyMachineConfigGuestArgs'] guest: The resources (CPUs, memory, etc.) allocated to the Machine
         :param pulumi.Input[_builtins.str] image: The docker image to run
-        :param pulumi.Input['FlyMachineConfigInitArgs'] init: Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
+        :param pulumi.Input['MachineFlyMachineConfigInitArgs'] init: Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] metadata: Key/value pairs of Machine metadata. Fly.io uses metadata internally for routing, process groups, and clusters
-        :param pulumi.Input['FlyMachineConfigMetricsArgs'] metrics: An optional metrics endpoint for Prometheus on Fly.io to scrape
+        :param pulumi.Input['MachineFlyMachineConfigMetricsArgs'] metrics: An optional metrics endpoint for Prometheus on Fly.io to scrape
         :param pulumi.Input[Sequence[pulumi.Input['FlyMachineMountArgs']]] mounts: Persistent volumes to mount in the Machine. A Machine can mount at most one volume, which must be on
                the same host. The mounted volume cannot be changed by updating the Machine
         :param pulumi.Input[Sequence[pulumi.Input['FlyMachineProcessArgs']]] processes: Multiple processes to run within this one Machine, all from the Machine's image. Unrelated to the
                process groups in fly.toml, which run on separate Machines. To run processes from different
                images, use containers instead
-        :param pulumi.Input['FlyMachineConfigRestartArgs'] restart: Whether and how the Machine is restarted after its main process exits
-        :param pulumi.Input['FlyMachineConfigRootfsArgs'] rootfs: The size of the Machine's root filesystem and whether it persists
+        :param pulumi.Input['MachineFlyMachineConfigRestartArgs'] restart: Whether and how the Machine is restarted after its main process exits
+        :param pulumi.Input['MachineFlyMachineConfigRootfsArgs'] rootfs: Beta: the size of the Machine's root filesystem and whether it persists. This field may be
+               removed in the future
         :param pulumi.Input[_builtins.str] schedule: Run the Machine at an interval: one of hourly, daily, weekly or monthly. The interval starts when
                the Machine is created
         :param pulumi.Input[Sequence[pulumi.Input['FlyMachineServiceArgs']]] services: Network services that Fly Proxy routes traffic to
         :param pulumi.Input[_builtins.str] size: Deprecated: use Guest instead
-        :param pulumi.Input['FlyMachineConfigSpotArgs'] spot: Spot pricing settings for the Machine
+        :param pulumi.Input['MachineFlyMachineConfigSpotArgs'] spot: Spot pricing settings for the Machine
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] standbys: Standbys enable a machine to be a standby for another. In the event of a hardware failure,
                the standby machine will be started.
         :param pulumi.Input[Sequence[pulumi.Input['FlyStaticArgs']]] statics: Static files to serve under a URL prefix. Fly Proxy routes matching requests to a file server
                inside the Machine, bypassing your application's own process; the Machine must be running. The
                files are read either from a path inside the Machine or from a Tigris bucket that belongs to the
                app; no bucket is created for you
-        :param pulumi.Input['FlyMachineConfigStopConfigArgs'] stop_config: How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
+        :param pulumi.Input['MachineFlyMachineConfigStopConfigArgs'] stop_config: How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
         """
         if auto_destroy is not None:
             pulumi.set(__self__, "auto_destroy", auto_destroy)
@@ -1221,14 +1468,14 @@ class ConfigArgs:
 
     @_builtins.property
     @pulumi.getter(name="cacheDrive")
-    def cache_drive(self) -> pulumi.Input[Optional['FlyMachineConfigCacheDriveArgs']]:
+    def cache_drive(self) -> pulumi.Input[Optional['MachineFlyMachineConfigCacheDriveArgs']]:
         """
-        A cache drive attached to the Machine
+        Beta: a cache drive attached to the Machine. This field may be removed in the future
         """
         return pulumi.get(self, "cache_drive")
 
     @cache_drive.setter
-    def cache_drive(self, value: pulumi.Input[Optional['FlyMachineConfigCacheDriveArgs']]):
+    def cache_drive(self, value: pulumi.Input[Optional['MachineFlyMachineConfigCacheDriveArgs']]):
         pulumi.set(self, "cache_drive", value)
 
     @_builtins.property
@@ -1269,14 +1516,14 @@ class ConfigArgs:
 
     @_builtins.property
     @pulumi.getter
-    def dns(self) -> pulumi.Input[Optional['FlyMachineConfigDnsArgs']]:
+    def dns(self) -> pulumi.Input[Optional['MachineFlyMachineConfigDnsArgs']]:
         """
         DNS settings for the Machine
         """
         return pulumi.get(self, "dns")
 
     @dns.setter
-    def dns(self, value: pulumi.Input[Optional['FlyMachineConfigDnsArgs']]):
+    def dns(self, value: pulumi.Input[Optional['MachineFlyMachineConfigDnsArgs']]):
         pulumi.set(self, "dns", value)
 
     @_builtins.property
@@ -1305,14 +1552,14 @@ class ConfigArgs:
 
     @_builtins.property
     @pulumi.getter
-    def guest(self) -> pulumi.Input[Optional['FlyMachineConfigGuestArgs']]:
+    def guest(self) -> pulumi.Input[Optional['MachineFlyMachineConfigGuestArgs']]:
         """
         The resources (CPUs, memory, etc.) allocated to the Machine
         """
         return pulumi.get(self, "guest")
 
     @guest.setter
-    def guest(self, value: pulumi.Input[Optional['FlyMachineConfigGuestArgs']]):
+    def guest(self, value: pulumi.Input[Optional['MachineFlyMachineConfigGuestArgs']]):
         pulumi.set(self, "guest", value)
 
     @_builtins.property
@@ -1329,14 +1576,14 @@ class ConfigArgs:
 
     @_builtins.property
     @pulumi.getter
-    def init(self) -> pulumi.Input[Optional['FlyMachineConfigInitArgs']]:
+    def init(self) -> pulumi.Input[Optional['MachineFlyMachineConfigInitArgs']]:
         """
         Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
         """
         return pulumi.get(self, "init")
 
     @init.setter
-    def init(self, value: pulumi.Input[Optional['FlyMachineConfigInitArgs']]):
+    def init(self, value: pulumi.Input[Optional['MachineFlyMachineConfigInitArgs']]):
         pulumi.set(self, "init", value)
 
     @_builtins.property
@@ -1353,14 +1600,14 @@ class ConfigArgs:
 
     @_builtins.property
     @pulumi.getter
-    def metrics(self) -> pulumi.Input[Optional['FlyMachineConfigMetricsArgs']]:
+    def metrics(self) -> pulumi.Input[Optional['MachineFlyMachineConfigMetricsArgs']]:
         """
         An optional metrics endpoint for Prometheus on Fly.io to scrape
         """
         return pulumi.get(self, "metrics")
 
     @metrics.setter
-    def metrics(self, value: pulumi.Input[Optional['FlyMachineConfigMetricsArgs']]):
+    def metrics(self, value: pulumi.Input[Optional['MachineFlyMachineConfigMetricsArgs']]):
         pulumi.set(self, "metrics", value)
 
     @_builtins.property
@@ -1392,26 +1639,27 @@ class ConfigArgs:
 
     @_builtins.property
     @pulumi.getter
-    def restart(self) -> pulumi.Input[Optional['FlyMachineConfigRestartArgs']]:
+    def restart(self) -> pulumi.Input[Optional['MachineFlyMachineConfigRestartArgs']]:
         """
         Whether and how the Machine is restarted after its main process exits
         """
         return pulumi.get(self, "restart")
 
     @restart.setter
-    def restart(self, value: pulumi.Input[Optional['FlyMachineConfigRestartArgs']]):
+    def restart(self, value: pulumi.Input[Optional['MachineFlyMachineConfigRestartArgs']]):
         pulumi.set(self, "restart", value)
 
     @_builtins.property
     @pulumi.getter
-    def rootfs(self) -> pulumi.Input[Optional['FlyMachineConfigRootfsArgs']]:
+    def rootfs(self) -> pulumi.Input[Optional['MachineFlyMachineConfigRootfsArgs']]:
         """
-        The size of the Machine's root filesystem and whether it persists
+        Beta: the size of the Machine's root filesystem and whether it persists. This field may be
+        removed in the future
         """
         return pulumi.get(self, "rootfs")
 
     @rootfs.setter
-    def rootfs(self, value: pulumi.Input[Optional['FlyMachineConfigRootfsArgs']]):
+    def rootfs(self, value: pulumi.Input[Optional['MachineFlyMachineConfigRootfsArgs']]):
         pulumi.set(self, "rootfs", value)
 
     @_builtins.property
@@ -1453,14 +1701,14 @@ class ConfigArgs:
 
     @_builtins.property
     @pulumi.getter
-    def spot(self) -> pulumi.Input[Optional['FlyMachineConfigSpotArgs']]:
+    def spot(self) -> pulumi.Input[Optional['MachineFlyMachineConfigSpotArgs']]:
         """
         Spot pricing settings for the Machine
         """
         return pulumi.get(self, "spot")
 
     @spot.setter
-    def spot(self, value: pulumi.Input[Optional['FlyMachineConfigSpotArgs']]):
+    def spot(self, value: pulumi.Input[Optional['MachineFlyMachineConfigSpotArgs']]):
         pulumi.set(self, "spot", value)
 
     @_builtins.property
@@ -1493,14 +1741,14 @@ class ConfigArgs:
 
     @_builtins.property
     @pulumi.getter(name="stopConfig")
-    def stop_config(self) -> pulumi.Input[Optional['FlyMachineConfigStopConfigArgs']]:
+    def stop_config(self) -> pulumi.Input[Optional['MachineFlyMachineConfigStopConfigArgs']]:
         """
         How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
         """
         return pulumi.get(self, "stop_config")
 
     @stop_config.setter
-    def stop_config(self, value: pulumi.Input[Optional['FlyMachineConfigStopConfigArgs']]):
+    def stop_config(self, value: pulumi.Input[Optional['MachineFlyMachineConfigStopConfigArgs']]):
         pulumi.set(self, "stop_config", value)
 
 
@@ -1870,7 +2118,14 @@ class FlyContainerConfigStopArgsDict(TypedDict):
     Stop is used to define the signal and timeout for stopping the container.
     """
     signal: NotRequired[pulumi.Input[Optional['FlyStopConfigSignal']]]
+    """
+    Signal to send to the Machine's processes. Defaults to SIGINT
+    """
     timeout: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    How long to wait for the Machine to exit after sending the signal, before killing it. At most
+    5 minutes (1 minute for spot Machines). Defaults to 5s (60s for spot Machines)
+    """
 
 @pulumi.input_type
 class FlyContainerConfigStopArgs:
@@ -1879,6 +2134,10 @@ class FlyContainerConfigStopArgs:
                  timeout: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Stop is used to define the signal and timeout for stopping the container.
+
+        :param pulumi.Input['FlyStopConfigSignal'] signal: Signal to send to the Machine's processes. Defaults to SIGINT
+        :param pulumi.Input[_builtins.str] timeout: How long to wait for the Machine to exit after sending the signal, before killing it. At most
+               5 minutes (1 minute for spot Machines). Defaults to 5s (60s for spot Machines)
         """
         if signal is not None:
             pulumi.set(__self__, "signal", signal)
@@ -1888,6 +2147,9 @@ class FlyContainerConfigStopArgs:
     @_builtins.property
     @pulumi.getter
     def signal(self) -> pulumi.Input[Optional['FlyStopConfigSignal']]:
+        """
+        Signal to send to the Machine's processes. Defaults to SIGINT
+        """
         return pulumi.get(self, "signal")
 
     @signal.setter
@@ -1897,6 +2159,10 @@ class FlyContainerConfigStopArgs:
     @_builtins.property
     @pulumi.getter
     def timeout(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        How long to wait for the Machine to exit after sending the signal, before killing it. At most
+        5 minutes (1 minute for spot Machines). Defaults to 5s (60s for spot Machines)
+        """
         return pulumi.get(self, "timeout")
 
     @timeout.setter
@@ -1906,13 +2172,25 @@ class FlyContainerConfigStopArgs:
 
 class FlyContainerDependencyArgsDict(TypedDict):
     condition: NotRequired[pulumi.Input[Optional['FlyContainerDependencyCondition']]]
+    """
+    When the container can start: once the dependency has `started`, is `healthy`, or has
+    `exited_successfully`
+    """
     name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Name of the container this one depends on
+    """
 
 @pulumi.input_type
 class FlyContainerDependencyArgs:
     def __init__(__self__, *,
                  condition: pulumi.Input[Optional['FlyContainerDependencyCondition']] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        :param pulumi.Input['FlyContainerDependencyCondition'] condition: When the container can start: once the dependency has `started`, is `healthy`, or has
+               `exited_successfully`
+        :param pulumi.Input[_builtins.str] name: Name of the container this one depends on
+        """
         if condition is not None:
             pulumi.set(__self__, "condition", condition)
         if name is not None:
@@ -1921,6 +2199,10 @@ class FlyContainerDependencyArgs:
     @_builtins.property
     @pulumi.getter
     def condition(self) -> pulumi.Input[Optional['FlyContainerDependencyCondition']]:
+        """
+        When the container can start: once the dependency has `started`, is `healthy`, or has
+        `exited_successfully`
+        """
         return pulumi.get(self, "condition")
 
     @condition.setter
@@ -1930,6 +2212,9 @@ class FlyContainerDependencyArgs:
     @_builtins.property
     @pulumi.getter
     def name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Name of the container this one depends on
+        """
         return pulumi.get(self, "name")
 
     @name.setter
@@ -1938,7 +2223,10 @@ class FlyContainerDependencyArgs:
 
 
 class FlyContainerHealthcheckArgsDict(TypedDict):
-    exec_: NotRequired[pulumi.Input[Optional['FlyExecHealthcheckArgsDict']]]
+    exec_: NotRequired[pulumi.Input[Optional['FlyContainerHealthcheckExecArgsDict']]]
+    """
+    Check that a command run in the container exits with status 0
+    """
     failure_threshold: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     The number of times the check must fail before considering the container unhealthy.
@@ -1947,7 +2235,10 @@ class FlyContainerHealthcheckArgsDict(TypedDict):
     """
     The time in seconds to wait after a container starts before checking its health.
     """
-    http: NotRequired[pulumi.Input[Optional['FlyHTTPHealthcheckArgsDict']]]
+    http: NotRequired[pulumi.Input[Optional['FlyContainerHealthcheckHttpArgsDict']]]
+    """
+    Check that an HTTP request succeeds
+    """
     interval: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     The time in seconds between executing the defined check.
@@ -1964,7 +2255,10 @@ class FlyContainerHealthcheckArgsDict(TypedDict):
     """
     The number of times the check must succeeed before considering the container healthy.
     """
-    tcp: NotRequired[pulumi.Input[Optional['FlyTCPHealthcheckArgsDict']]]
+    tcp: NotRequired[pulumi.Input[Optional['FlyContainerHealthcheckTcpArgsDict']]]
+    """
+    Check that a TCP connection can be opened
+    """
     timeout: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     The time in seconds to wait for the check to complete.
@@ -1977,24 +2271,27 @@ class FlyContainerHealthcheckArgsDict(TypedDict):
 @pulumi.input_type
 class FlyContainerHealthcheckArgs:
     def __init__(__self__, *,
-                 exec_: pulumi.Input[Optional['FlyExecHealthcheckArgs']] = None,
+                 exec_: pulumi.Input[Optional['FlyContainerHealthcheckExecArgs']] = None,
                  failure_threshold: pulumi.Input[Optional[_builtins.int]] = None,
                  grace_period: pulumi.Input[Optional[_builtins.int]] = None,
-                 http: pulumi.Input[Optional['FlyHTTPHealthcheckArgs']] = None,
+                 http: pulumi.Input[Optional['FlyContainerHealthcheckHttpArgs']] = None,
                  interval: pulumi.Input[Optional[_builtins.int]] = None,
                  kind: pulumi.Input[Optional['FlyContainerHealthcheckKind']] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
                  success_threshold: pulumi.Input[Optional[_builtins.int]] = None,
-                 tcp: pulumi.Input[Optional['FlyTCPHealthcheckArgs']] = None,
+                 tcp: pulumi.Input[Optional['FlyContainerHealthcheckTcpArgs']] = None,
                  timeout: pulumi.Input[Optional[_builtins.int]] = None,
                  unhealthy: pulumi.Input[Optional['FlyContainerHealthcheckUnhealthy']] = None):
         """
+        :param pulumi.Input['FlyContainerHealthcheckExecArgs'] exec_: Check that a command run in the container exits with status 0
         :param pulumi.Input[_builtins.int] failure_threshold: The number of times the check must fail before considering the container unhealthy.
         :param pulumi.Input[_builtins.int] grace_period: The time in seconds to wait after a container starts before checking its health.
+        :param pulumi.Input['FlyContainerHealthcheckHttpArgs'] http: Check that an HTTP request succeeds
         :param pulumi.Input[_builtins.int] interval: The time in seconds between executing the defined check.
         :param pulumi.Input['FlyContainerHealthcheckKind'] kind: Kind of healthcheck (readiness, liveness)
         :param pulumi.Input[_builtins.str] name: The name of the check. Must be unique within the container.
         :param pulumi.Input[_builtins.int] success_threshold: The number of times the check must succeeed before considering the container healthy.
+        :param pulumi.Input['FlyContainerHealthcheckTcpArgs'] tcp: Check that a TCP connection can be opened
         :param pulumi.Input[_builtins.int] timeout: The time in seconds to wait for the check to complete.
         :param pulumi.Input['FlyContainerHealthcheckUnhealthy'] unhealthy: Unhealthy policy that determines what action to take if a container is deemed unhealthy
         """
@@ -2023,11 +2320,14 @@ class FlyContainerHealthcheckArgs:
 
     @_builtins.property
     @pulumi.getter(name="exec")
-    def exec_(self) -> pulumi.Input[Optional['FlyExecHealthcheckArgs']]:
+    def exec_(self) -> pulumi.Input[Optional['FlyContainerHealthcheckExecArgs']]:
+        """
+        Check that a command run in the container exits with status 0
+        """
         return pulumi.get(self, "exec_")
 
     @exec_.setter
-    def exec_(self, value: pulumi.Input[Optional['FlyExecHealthcheckArgs']]):
+    def exec_(self, value: pulumi.Input[Optional['FlyContainerHealthcheckExecArgs']]):
         pulumi.set(self, "exec_", value)
 
     @_builtins.property
@@ -2056,11 +2356,14 @@ class FlyContainerHealthcheckArgs:
 
     @_builtins.property
     @pulumi.getter
-    def http(self) -> pulumi.Input[Optional['FlyHTTPHealthcheckArgs']]:
+    def http(self) -> pulumi.Input[Optional['FlyContainerHealthcheckHttpArgs']]:
+        """
+        Check that an HTTP request succeeds
+        """
         return pulumi.get(self, "http")
 
     @http.setter
-    def http(self, value: pulumi.Input[Optional['FlyHTTPHealthcheckArgs']]):
+    def http(self, value: pulumi.Input[Optional['FlyContainerHealthcheckHttpArgs']]):
         pulumi.set(self, "http", value)
 
     @_builtins.property
@@ -2113,11 +2416,14 @@ class FlyContainerHealthcheckArgs:
 
     @_builtins.property
     @pulumi.getter
-    def tcp(self) -> pulumi.Input[Optional['FlyTCPHealthcheckArgs']]:
+    def tcp(self) -> pulumi.Input[Optional['FlyContainerHealthcheckTcpArgs']]:
+        """
+        Check that a TCP connection can be opened
+        """
         return pulumi.get(self, "tcp")
 
     @tcp.setter
-    def tcp(self, value: pulumi.Input[Optional['FlyTCPHealthcheckArgs']]):
+    def tcp(self, value: pulumi.Input[Optional['FlyContainerHealthcheckTcpArgs']]):
         pulumi.set(self, "tcp", value)
 
     @_builtins.property
@@ -2145,15 +2451,247 @@ class FlyContainerHealthcheckArgs:
         pulumi.set(self, "unhealthy", value)
 
 
+class FlyContainerHealthcheckExecArgsDict(TypedDict):
+    """
+    Check that a command run in the container exits with status 0
+    """
+    command: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    The command to run to check the health of the container (e.g. ["cat", "/tmp/healthy"])
+    """
+
+@pulumi.input_type
+class FlyContainerHealthcheckExecArgs:
+    def __init__(__self__, *,
+                 command: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
+        """
+        Check that a command run in the container exits with status 0
+
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] command: The command to run to check the health of the container (e.g. ["cat", "/tmp/healthy"])
+        """
+        if command is not None:
+            pulumi.set(__self__, "command", command)
+
+    @_builtins.property
+    @pulumi.getter
+    def command(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        The command to run to check the health of the container (e.g. ["cat", "/tmp/healthy"])
+        """
+        return pulumi.get(self, "command")
+
+    @command.setter
+    def command(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "command", value)
+
+
+class FlyContainerHealthcheckHttpArgsDict(TypedDict):
+    """
+    Check that an HTTP request succeeds
+    """
+    headers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['FlyMachineHTTPHeaderArgsDict']]]]]
+    """
+    Additional headers to send with the request
+    """
+    method: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    The HTTP method to use to when making the request
+    """
+    path: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    The path to send the request to
+    """
+    port: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    The port to connect to, often the same as internal_port
+    """
+    scheme: NotRequired[pulumi.Input[Optional['FlyHTTPHealthcheckScheme']]]
+    """
+    Whether to use http or https
+    """
+    tls_server_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    If the protocol is https, the hostname to use for TLS certificate validation
+    """
+    tls_skip_verify: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    If the protocol is https, whether or not to verify the TLS certificate
+    """
+
+@pulumi.input_type
+class FlyContainerHealthcheckHttpArgs:
+    def __init__(__self__, *,
+                 headers: pulumi.Input[Optional[Sequence[pulumi.Input['FlyMachineHTTPHeaderArgs']]]] = None,
+                 method: pulumi.Input[Optional[_builtins.str]] = None,
+                 path: pulumi.Input[Optional[_builtins.str]] = None,
+                 port: pulumi.Input[Optional[_builtins.int]] = None,
+                 scheme: pulumi.Input[Optional['FlyHTTPHealthcheckScheme']] = None,
+                 tls_server_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 tls_skip_verify: pulumi.Input[Optional[_builtins.bool]] = None):
+        """
+        Check that an HTTP request succeeds
+
+        :param pulumi.Input[Sequence[pulumi.Input['FlyMachineHTTPHeaderArgs']]] headers: Additional headers to send with the request
+        :param pulumi.Input[_builtins.str] method: The HTTP method to use to when making the request
+        :param pulumi.Input[_builtins.str] path: The path to send the request to
+        :param pulumi.Input[_builtins.int] port: The port to connect to, often the same as internal_port
+        :param pulumi.Input['FlyHTTPHealthcheckScheme'] scheme: Whether to use http or https
+        :param pulumi.Input[_builtins.str] tls_server_name: If the protocol is https, the hostname to use for TLS certificate validation
+        :param pulumi.Input[_builtins.bool] tls_skip_verify: If the protocol is https, whether or not to verify the TLS certificate
+        """
+        if headers is not None:
+            pulumi.set(__self__, "headers", headers)
+        if method is not None:
+            pulumi.set(__self__, "method", method)
+        if path is not None:
+            pulumi.set(__self__, "path", path)
+        if port is not None:
+            pulumi.set(__self__, "port", port)
+        if scheme is not None:
+            pulumi.set(__self__, "scheme", scheme)
+        if tls_server_name is not None:
+            pulumi.set(__self__, "tls_server_name", tls_server_name)
+        if tls_skip_verify is not None:
+            pulumi.set(__self__, "tls_skip_verify", tls_skip_verify)
+
+    @_builtins.property
+    @pulumi.getter
+    def headers(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['FlyMachineHTTPHeaderArgs']]]]:
+        """
+        Additional headers to send with the request
+        """
+        return pulumi.get(self, "headers")
+
+    @headers.setter
+    def headers(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['FlyMachineHTTPHeaderArgs']]]]):
+        pulumi.set(self, "headers", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def method(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        The HTTP method to use to when making the request
+        """
+        return pulumi.get(self, "method")
+
+    @method.setter
+    def method(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "method", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def path(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        The path to send the request to
+        """
+        return pulumi.get(self, "path")
+
+    @path.setter
+    def path(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "path", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def port(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        The port to connect to, often the same as internal_port
+        """
+        return pulumi.get(self, "port")
+
+    @port.setter
+    def port(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "port", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def scheme(self) -> pulumi.Input[Optional['FlyHTTPHealthcheckScheme']]:
+        """
+        Whether to use http or https
+        """
+        return pulumi.get(self, "scheme")
+
+    @scheme.setter
+    def scheme(self, value: pulumi.Input[Optional['FlyHTTPHealthcheckScheme']]):
+        pulumi.set(self, "scheme", value)
+
+    @_builtins.property
+    @pulumi.getter(name="tlsServerName")
+    def tls_server_name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        If the protocol is https, the hostname to use for TLS certificate validation
+        """
+        return pulumi.get(self, "tls_server_name")
+
+    @tls_server_name.setter
+    def tls_server_name(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "tls_server_name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="tlsSkipVerify")
+    def tls_skip_verify(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        If the protocol is https, whether or not to verify the TLS certificate
+        """
+        return pulumi.get(self, "tls_skip_verify")
+
+    @tls_skip_verify.setter
+    def tls_skip_verify(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "tls_skip_verify", value)
+
+
+class FlyContainerHealthcheckTcpArgsDict(TypedDict):
+    """
+    Check that a TCP connection can be opened
+    """
+    port: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    The port to connect to, often the same as internal_port
+    """
+
+@pulumi.input_type
+class FlyContainerHealthcheckTcpArgs:
+    def __init__(__self__, *,
+                 port: pulumi.Input[Optional[_builtins.int]] = None):
+        """
+        Check that a TCP connection can be opened
+
+        :param pulumi.Input[_builtins.int] port: The port to connect to, often the same as internal_port
+        """
+        if port is not None:
+            pulumi.set(__self__, "port", port)
+
+    @_builtins.property
+    @pulumi.getter
+    def port(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        The port to connect to, often the same as internal_port
+        """
+        return pulumi.get(self, "port")
+
+    @port.setter
+    def port(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "port", value)
+
+
 class FlyDnsForwardRuleArgsDict(TypedDict):
     addr: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Address and port of the DNS server to forward queries to over TCP, e.g. `10.0.0.1:53`
+    """
     basename: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Domain to forward queries for, including subdomains. Must end in a dot, e.g. `example.com.`
+    """
 
 @pulumi.input_type
 class FlyDnsForwardRuleArgs:
     def __init__(__self__, *,
                  addr: pulumi.Input[Optional[_builtins.str]] = None,
                  basename: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] addr: Address and port of the DNS server to forward queries to over TCP, e.g. `10.0.0.1:53`
+        :param pulumi.Input[_builtins.str] basename: Domain to forward queries for, including subdomains. Must end in a dot, e.g. `example.com.`
+        """
         if addr is not None:
             pulumi.set(__self__, "addr", addr)
         if basename is not None:
@@ -2162,6 +2700,9 @@ class FlyDnsForwardRuleArgs:
     @_builtins.property
     @pulumi.getter
     def addr(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Address and port of the DNS server to forward queries to over TCP, e.g. `10.0.0.1:53`
+        """
         return pulumi.get(self, "addr")
 
     @addr.setter
@@ -2171,6 +2712,9 @@ class FlyDnsForwardRuleArgs:
     @_builtins.property
     @pulumi.getter
     def basename(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Domain to forward queries for, including subdomains. Must end in a dot, e.g. `example.com.`
+        """
         return pulumi.get(self, "basename")
 
     @basename.setter
@@ -2180,13 +2724,23 @@ class FlyDnsForwardRuleArgs:
 
 class FlyDnsOptionArgsDict(TypedDict):
     name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Option name, e.g. `ndots`
+    """
     value: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Option value, e.g. `5`
+    """
 
 @pulumi.input_type
 class FlyDnsOptionArgs:
     def __init__(__self__, *,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
                  value: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] name: Option name, e.g. `ndots`
+        :param pulumi.Input[_builtins.str] value: Option value, e.g. `5`
+        """
         if name is not None:
             pulumi.set(__self__, "name", name)
         if value is not None:
@@ -2195,6 +2749,9 @@ class FlyDnsOptionArgs:
     @_builtins.property
     @pulumi.getter
     def name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Option name, e.g. `ndots`
+        """
         return pulumi.get(self, "name")
 
     @name.setter
@@ -2204,6 +2761,9 @@ class FlyDnsOptionArgs:
     @_builtins.property
     @pulumi.getter
     def value(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Option value, e.g. `5`
+        """
         return pulumi.get(self, "value")
 
     @value.setter
@@ -2266,35 +2826,6 @@ class FlyEnvFromArgs:
     @field_ref.setter
     def field_ref(self, value: pulumi.Input[Optional['FlyEnvFromFieldRef']]):
         pulumi.set(self, "field_ref", value)
-
-
-class FlyExecHealthcheckArgsDict(TypedDict):
-    command: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
-    """
-    The command to run to check the health of the container (e.g. ["cat", "/tmp/healthy"])
-    """
-
-@pulumi.input_type
-class FlyExecHealthcheckArgs:
-    def __init__(__self__, *,
-                 command: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
-        """
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] command: The command to run to check the health of the container (e.g. ["cat", "/tmp/healthy"])
-        """
-        if command is not None:
-            pulumi.set(__self__, "command", command)
-
-    @_builtins.property
-    @pulumi.getter
-    def command(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
-        """
-        The command to run to check the health of the container (e.g. ["cat", "/tmp/healthy"])
-        """
-        return pulumi.get(self, "command")
-
-    @command.setter
-    def command(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
-        pulumi.set(self, "command", value)
 
 
 class FlyFileArgsDict(TypedDict):
@@ -2414,249 +2945,32 @@ class FlyFileArgs:
         pulumi.set(self, "secret_name", value)
 
 
-class FlyHTTPHealthcheckArgsDict(TypedDict):
-    headers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['FlyMachineHTTPHeaderArgsDict']]]]]
+class FlyHTTPOptionsResponseArgsDict(TypedDict):
     """
-    Additional headers to send with the request
+    Changes Fly Proxy makes to responses
     """
-    method: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    The HTTP method to use to when making the request
-    """
-    path: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    The path to send the request to
-    """
-    port: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    """
-    The port to connect to, often the same as internal_port
-    """
-    scheme: NotRequired[pulumi.Input[Optional['FlyHTTPHealthcheckScheme']]]
-    """
-    Whether to use http or https
-    """
-    tls_server_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    If the protocol is https, the hostname to use for TLS certificate validation
-    """
-    tls_skip_verify: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
-    """
-    If the protocol is https, whether or not to verify the TLS certificate
-    """
-
-@pulumi.input_type
-class FlyHTTPHealthcheckArgs:
-    def __init__(__self__, *,
-                 headers: pulumi.Input[Optional[Sequence[pulumi.Input['FlyMachineHTTPHeaderArgs']]]] = None,
-                 method: pulumi.Input[Optional[_builtins.str]] = None,
-                 path: pulumi.Input[Optional[_builtins.str]] = None,
-                 port: pulumi.Input[Optional[_builtins.int]] = None,
-                 scheme: pulumi.Input[Optional['FlyHTTPHealthcheckScheme']] = None,
-                 tls_server_name: pulumi.Input[Optional[_builtins.str]] = None,
-                 tls_skip_verify: pulumi.Input[Optional[_builtins.bool]] = None):
-        """
-        :param pulumi.Input[Sequence[pulumi.Input['FlyMachineHTTPHeaderArgs']]] headers: Additional headers to send with the request
-        :param pulumi.Input[_builtins.str] method: The HTTP method to use to when making the request
-        :param pulumi.Input[_builtins.str] path: The path to send the request to
-        :param pulumi.Input[_builtins.int] port: The port to connect to, often the same as internal_port
-        :param pulumi.Input['FlyHTTPHealthcheckScheme'] scheme: Whether to use http or https
-        :param pulumi.Input[_builtins.str] tls_server_name: If the protocol is https, the hostname to use for TLS certificate validation
-        :param pulumi.Input[_builtins.bool] tls_skip_verify: If the protocol is https, whether or not to verify the TLS certificate
-        """
-        if headers is not None:
-            pulumi.set(__self__, "headers", headers)
-        if method is not None:
-            pulumi.set(__self__, "method", method)
-        if path is not None:
-            pulumi.set(__self__, "path", path)
-        if port is not None:
-            pulumi.set(__self__, "port", port)
-        if scheme is not None:
-            pulumi.set(__self__, "scheme", scheme)
-        if tls_server_name is not None:
-            pulumi.set(__self__, "tls_server_name", tls_server_name)
-        if tls_skip_verify is not None:
-            pulumi.set(__self__, "tls_skip_verify", tls_skip_verify)
-
-    @_builtins.property
-    @pulumi.getter
-    def headers(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['FlyMachineHTTPHeaderArgs']]]]:
-        """
-        Additional headers to send with the request
-        """
-        return pulumi.get(self, "headers")
-
-    @headers.setter
-    def headers(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['FlyMachineHTTPHeaderArgs']]]]):
-        pulumi.set(self, "headers", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def method(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        The HTTP method to use to when making the request
-        """
-        return pulumi.get(self, "method")
-
-    @method.setter
-    def method(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "method", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def path(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        The path to send the request to
-        """
-        return pulumi.get(self, "path")
-
-    @path.setter
-    def path(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "path", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def port(self) -> pulumi.Input[Optional[_builtins.int]]:
-        """
-        The port to connect to, often the same as internal_port
-        """
-        return pulumi.get(self, "port")
-
-    @port.setter
-    def port(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "port", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def scheme(self) -> pulumi.Input[Optional['FlyHTTPHealthcheckScheme']]:
-        """
-        Whether to use http or https
-        """
-        return pulumi.get(self, "scheme")
-
-    @scheme.setter
-    def scheme(self, value: pulumi.Input[Optional['FlyHTTPHealthcheckScheme']]):
-        pulumi.set(self, "scheme", value)
-
-    @_builtins.property
-    @pulumi.getter(name="tlsServerName")
-    def tls_server_name(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        If the protocol is https, the hostname to use for TLS certificate validation
-        """
-        return pulumi.get(self, "tls_server_name")
-
-    @tls_server_name.setter
-    def tls_server_name(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "tls_server_name", value)
-
-    @_builtins.property
-    @pulumi.getter(name="tlsSkipVerify")
-    def tls_skip_verify(self) -> pulumi.Input[Optional[_builtins.bool]]:
-        """
-        If the protocol is https, whether or not to verify the TLS certificate
-        """
-        return pulumi.get(self, "tls_skip_verify")
-
-    @tls_skip_verify.setter
-    def tls_skip_verify(self, value: pulumi.Input[Optional[_builtins.bool]]):
-        pulumi.set(self, "tls_skip_verify", value)
-
-
-class FlyHTTPOptionsArgsDict(TypedDict):
-    compress: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
-    h2_backend: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
-    headers_read_timeout: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    idle_timeout: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    replay_cache: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['FlyReplayCacheArgsDict']]]]]
-    response: NotRequired[pulumi.Input[Optional['FlyHTTPResponseOptionsArgsDict']]]
-
-@pulumi.input_type
-class FlyHTTPOptionsArgs:
-    def __init__(__self__, *,
-                 compress: pulumi.Input[Optional[_builtins.bool]] = None,
-                 h2_backend: pulumi.Input[Optional[_builtins.bool]] = None,
-                 headers_read_timeout: pulumi.Input[Optional[_builtins.int]] = None,
-                 idle_timeout: pulumi.Input[Optional[_builtins.int]] = None,
-                 replay_cache: pulumi.Input[Optional[Sequence[pulumi.Input['FlyReplayCacheArgs']]]] = None,
-                 response: pulumi.Input[Optional['FlyHTTPResponseOptionsArgs']] = None):
-        if compress is not None:
-            pulumi.set(__self__, "compress", compress)
-        if h2_backend is not None:
-            pulumi.set(__self__, "h2_backend", h2_backend)
-        if headers_read_timeout is not None:
-            pulumi.set(__self__, "headers_read_timeout", headers_read_timeout)
-        if idle_timeout is not None:
-            pulumi.set(__self__, "idle_timeout", idle_timeout)
-        if replay_cache is not None:
-            pulumi.set(__self__, "replay_cache", replay_cache)
-        if response is not None:
-            pulumi.set(__self__, "response", response)
-
-    @_builtins.property
-    @pulumi.getter
-    def compress(self) -> pulumi.Input[Optional[_builtins.bool]]:
-        return pulumi.get(self, "compress")
-
-    @compress.setter
-    def compress(self, value: pulumi.Input[Optional[_builtins.bool]]):
-        pulumi.set(self, "compress", value)
-
-    @_builtins.property
-    @pulumi.getter(name="h2Backend")
-    def h2_backend(self) -> pulumi.Input[Optional[_builtins.bool]]:
-        return pulumi.get(self, "h2_backend")
-
-    @h2_backend.setter
-    def h2_backend(self, value: pulumi.Input[Optional[_builtins.bool]]):
-        pulumi.set(self, "h2_backend", value)
-
-    @_builtins.property
-    @pulumi.getter(name="headersReadTimeout")
-    def headers_read_timeout(self) -> pulumi.Input[Optional[_builtins.int]]:
-        return pulumi.get(self, "headers_read_timeout")
-
-    @headers_read_timeout.setter
-    def headers_read_timeout(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "headers_read_timeout", value)
-
-    @_builtins.property
-    @pulumi.getter(name="idleTimeout")
-    def idle_timeout(self) -> pulumi.Input[Optional[_builtins.int]]:
-        return pulumi.get(self, "idle_timeout")
-
-    @idle_timeout.setter
-    def idle_timeout(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "idle_timeout", value)
-
-    @_builtins.property
-    @pulumi.getter(name="replayCache")
-    def replay_cache(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['FlyReplayCacheArgs']]]]:
-        return pulumi.get(self, "replay_cache")
-
-    @replay_cache.setter
-    def replay_cache(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['FlyReplayCacheArgs']]]]):
-        pulumi.set(self, "replay_cache", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def response(self) -> pulumi.Input[Optional['FlyHTTPResponseOptionsArgs']]:
-        return pulumi.get(self, "response")
-
-    @response.setter
-    def response(self, value: pulumi.Input[Optional['FlyHTTPResponseOptionsArgs']]):
-        pulumi.set(self, "response", value)
-
-
-class FlyHTTPResponseOptionsArgsDict(TypedDict):
     headers: NotRequired[pulumi.Input[Optional[Mapping[str, Any]]]]
+    """
+    Response headers to set. A string sets the header, a list of strings sets it to multiple
+    values, and false removes it
+    """
     pristine: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    Don't let Fly Proxy add or change any response headers
+    """
 
 @pulumi.input_type
-class FlyHTTPResponseOptionsArgs:
+class FlyHTTPOptionsResponseArgs:
     def __init__(__self__, *,
                  headers: pulumi.Input[Optional[Mapping[str, Any]]] = None,
                  pristine: pulumi.Input[Optional[_builtins.bool]] = None):
+        """
+        Changes Fly Proxy makes to responses
+
+        :param pulumi.Input[Mapping[str, Any]] headers: Response headers to set. A string sets the header, a list of strings sets it to multiple
+               values, and false removes it
+        :param pulumi.Input[_builtins.bool] pristine: Don't let Fly Proxy add or change any response headers
+        """
         if headers is not None:
             pulumi.set(__self__, "headers", headers)
         if pristine is not None:
@@ -2665,6 +2979,10 @@ class FlyHTTPResponseOptionsArgs:
     @_builtins.property
     @pulumi.getter
     def headers(self) -> pulumi.Input[Optional[Mapping[str, Any]]]:
+        """
+        Response headers to set. A string sets the header, a list of strings sets it to multiple
+        values, and false removes it
+        """
         return pulumi.get(self, "headers")
 
     @headers.setter
@@ -2674,37 +2992,14 @@ class FlyHTTPResponseOptionsArgs:
     @_builtins.property
     @pulumi.getter
     def pristine(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Don't let Fly Proxy add or change any response headers
+        """
         return pulumi.get(self, "pristine")
 
     @pristine.setter
     def pristine(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "pristine", value)
-
-
-class FlyMachineConfigCacheDriveArgsDict(TypedDict):
-    """
-    A cache drive attached to the Machine
-    """
-    size_mb: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-
-@pulumi.input_type
-class FlyMachineConfigCacheDriveArgs:
-    def __init__(__self__, *,
-                 size_mb: pulumi.Input[Optional[_builtins.int]] = None):
-        """
-        A cache drive attached to the Machine
-        """
-        if size_mb is not None:
-            pulumi.set(__self__, "size_mb", size_mb)
-
-    @_builtins.property
-    @pulumi.getter(name="sizeMb")
-    def size_mb(self) -> pulumi.Input[Optional[_builtins.int]]:
-        return pulumi.get(self, "size_mb")
-
-    @size_mb.setter
-    def size_mb(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "size_mb", value)
 
 
 class FlyMachineConfigChecksPropertiesArgsDict(TypedDict):
@@ -2716,6 +3011,9 @@ class FlyMachineConfigChecksPropertiesArgsDict(TypedDict):
     The time to wait after a VM starts before checking its health
     """
     headers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['FlyMachineHTTPHeaderArgsDict']]]]]
+    """
+    For http checks, headers to send with the request
+    """
     interval: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     The time between connectivity checks
@@ -2776,6 +3074,7 @@ class FlyMachineConfigChecksPropertiesArgs:
         An optional object that defines one or more named top-level checks. The key for each check is the check name.
 
         :param pulumi.Input[_builtins.str] grace_period: The time to wait after a VM starts before checking its health
+        :param pulumi.Input[Sequence[pulumi.Input['FlyMachineHTTPHeaderArgs']]] headers: For http checks, headers to send with the request
         :param pulumi.Input[_builtins.str] interval: The time between connectivity checks
         :param pulumi.Input['ChecksKind'] kind: Kind of the check (informational, readiness)
         :param pulumi.Input[_builtins.str] method: For http checks, the HTTP method to use to when making the request
@@ -2827,6 +3126,9 @@ class FlyMachineConfigChecksPropertiesArgs:
     @_builtins.property
     @pulumi.getter
     def headers(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['FlyMachineHTTPHeaderArgs']]]]:
+        """
+        For http checks, headers to send with the request
+        """
         return pulumi.get(self, "headers")
 
     @headers.setter
@@ -2954,722 +3256,6 @@ class FlyMachineConfigChecksPropertiesArgs:
         pulumi.set(self, "type", value)
 
 
-class FlyMachineConfigDnsArgsDict(TypedDict):
-    """
-    DNS settings for the Machine
-    """
-    dns_forward_rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['FlyDnsForwardRuleArgsDict']]]]]
-    hostname: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    hostname_fqdn: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    nameservers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
-    options: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['FlyDnsOptionArgsDict']]]]]
-    searches: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
-    skip_registration: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
-
-@pulumi.input_type
-class FlyMachineConfigDnsArgs:
-    def __init__(__self__, *,
-                 dns_forward_rules: pulumi.Input[Optional[Sequence[pulumi.Input['FlyDnsForwardRuleArgs']]]] = None,
-                 hostname: pulumi.Input[Optional[_builtins.str]] = None,
-                 hostname_fqdn: pulumi.Input[Optional[_builtins.str]] = None,
-                 nameservers: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 options: pulumi.Input[Optional[Sequence[pulumi.Input['FlyDnsOptionArgs']]]] = None,
-                 searches: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 skip_registration: pulumi.Input[Optional[_builtins.bool]] = None):
-        """
-        DNS settings for the Machine
-        """
-        if dns_forward_rules is not None:
-            pulumi.set(__self__, "dns_forward_rules", dns_forward_rules)
-        if hostname is not None:
-            pulumi.set(__self__, "hostname", hostname)
-        if hostname_fqdn is not None:
-            pulumi.set(__self__, "hostname_fqdn", hostname_fqdn)
-        if nameservers is not None:
-            pulumi.set(__self__, "nameservers", nameservers)
-        if options is not None:
-            pulumi.set(__self__, "options", options)
-        if searches is not None:
-            pulumi.set(__self__, "searches", searches)
-        if skip_registration is not None:
-            pulumi.set(__self__, "skip_registration", skip_registration)
-
-    @_builtins.property
-    @pulumi.getter(name="dnsForwardRules")
-    def dns_forward_rules(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['FlyDnsForwardRuleArgs']]]]:
-        return pulumi.get(self, "dns_forward_rules")
-
-    @dns_forward_rules.setter
-    def dns_forward_rules(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['FlyDnsForwardRuleArgs']]]]):
-        pulumi.set(self, "dns_forward_rules", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def hostname(self) -> pulumi.Input[Optional[_builtins.str]]:
-        return pulumi.get(self, "hostname")
-
-    @hostname.setter
-    def hostname(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "hostname", value)
-
-    @_builtins.property
-    @pulumi.getter(name="hostnameFqdn")
-    def hostname_fqdn(self) -> pulumi.Input[Optional[_builtins.str]]:
-        return pulumi.get(self, "hostname_fqdn")
-
-    @hostname_fqdn.setter
-    def hostname_fqdn(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "hostname_fqdn", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def nameservers(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
-        return pulumi.get(self, "nameservers")
-
-    @nameservers.setter
-    def nameservers(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
-        pulumi.set(self, "nameservers", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def options(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['FlyDnsOptionArgs']]]]:
-        return pulumi.get(self, "options")
-
-    @options.setter
-    def options(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['FlyDnsOptionArgs']]]]):
-        pulumi.set(self, "options", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def searches(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
-        return pulumi.get(self, "searches")
-
-    @searches.setter
-    def searches(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
-        pulumi.set(self, "searches", value)
-
-    @_builtins.property
-    @pulumi.getter(name="skipRegistration")
-    def skip_registration(self) -> pulumi.Input[Optional[_builtins.bool]]:
-        return pulumi.get(self, "skip_registration")
-
-    @skip_registration.setter
-    def skip_registration(self, value: pulumi.Input[Optional[_builtins.bool]]):
-        pulumi.set(self, "skip_registration", value)
-
-
-class FlyMachineConfigGuestArgsDict(TypedDict):
-    """
-    The resources (CPUs, memory, etc.) allocated to the Machine
-    """
-    cpu_kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    cpus: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    gpu_kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    gpus: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    host_dedication_id: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    kernel_args: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
-    max_memory_mb: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    memory_mb: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    persist_rootfs: NotRequired[pulumi.Input[Optional['FlyMachineGuestPersistRootfs']]]
-    """
-    Deprecated: use MachineConfig.Rootfs instead
-    """
-    required_host_features: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
-
-@pulumi.input_type
-class FlyMachineConfigGuestArgs:
-    def __init__(__self__, *,
-                 cpu_kind: pulumi.Input[Optional[_builtins.str]] = None,
-                 cpus: pulumi.Input[Optional[_builtins.int]] = None,
-                 gpu_kind: pulumi.Input[Optional[_builtins.str]] = None,
-                 gpus: pulumi.Input[Optional[_builtins.int]] = None,
-                 host_dedication_id: pulumi.Input[Optional[_builtins.str]] = None,
-                 kernel_args: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 max_memory_mb: pulumi.Input[Optional[_builtins.int]] = None,
-                 memory_mb: pulumi.Input[Optional[_builtins.int]] = None,
-                 persist_rootfs: pulumi.Input[Optional['FlyMachineGuestPersistRootfs']] = None,
-                 required_host_features: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
-        """
-        The resources (CPUs, memory, etc.) allocated to the Machine
-
-        :param pulumi.Input['FlyMachineGuestPersistRootfs'] persist_rootfs: Deprecated: use MachineConfig.Rootfs instead
-        """
-        if cpu_kind is not None:
-            pulumi.set(__self__, "cpu_kind", cpu_kind)
-        if cpus is not None:
-            pulumi.set(__self__, "cpus", cpus)
-        if gpu_kind is not None:
-            pulumi.set(__self__, "gpu_kind", gpu_kind)
-        if gpus is not None:
-            pulumi.set(__self__, "gpus", gpus)
-        if host_dedication_id is not None:
-            pulumi.set(__self__, "host_dedication_id", host_dedication_id)
-        if kernel_args is not None:
-            pulumi.set(__self__, "kernel_args", kernel_args)
-        if max_memory_mb is not None:
-            pulumi.set(__self__, "max_memory_mb", max_memory_mb)
-        if memory_mb is not None:
-            pulumi.set(__self__, "memory_mb", memory_mb)
-        if persist_rootfs is not None:
-            pulumi.set(__self__, "persist_rootfs", persist_rootfs)
-        if required_host_features is not None:
-            pulumi.set(__self__, "required_host_features", required_host_features)
-
-    @_builtins.property
-    @pulumi.getter(name="cpuKind")
-    def cpu_kind(self) -> pulumi.Input[Optional[_builtins.str]]:
-        return pulumi.get(self, "cpu_kind")
-
-    @cpu_kind.setter
-    def cpu_kind(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "cpu_kind", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def cpus(self) -> pulumi.Input[Optional[_builtins.int]]:
-        return pulumi.get(self, "cpus")
-
-    @cpus.setter
-    def cpus(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "cpus", value)
-
-    @_builtins.property
-    @pulumi.getter(name="gpuKind")
-    def gpu_kind(self) -> pulumi.Input[Optional[_builtins.str]]:
-        return pulumi.get(self, "gpu_kind")
-
-    @gpu_kind.setter
-    def gpu_kind(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "gpu_kind", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def gpus(self) -> pulumi.Input[Optional[_builtins.int]]:
-        return pulumi.get(self, "gpus")
-
-    @gpus.setter
-    def gpus(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "gpus", value)
-
-    @_builtins.property
-    @pulumi.getter(name="hostDedicationId")
-    def host_dedication_id(self) -> pulumi.Input[Optional[_builtins.str]]:
-        return pulumi.get(self, "host_dedication_id")
-
-    @host_dedication_id.setter
-    def host_dedication_id(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "host_dedication_id", value)
-
-    @_builtins.property
-    @pulumi.getter(name="kernelArgs")
-    def kernel_args(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
-        return pulumi.get(self, "kernel_args")
-
-    @kernel_args.setter
-    def kernel_args(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
-        pulumi.set(self, "kernel_args", value)
-
-    @_builtins.property
-    @pulumi.getter(name="maxMemoryMb")
-    def max_memory_mb(self) -> pulumi.Input[Optional[_builtins.int]]:
-        return pulumi.get(self, "max_memory_mb")
-
-    @max_memory_mb.setter
-    def max_memory_mb(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "max_memory_mb", value)
-
-    @_builtins.property
-    @pulumi.getter(name="memoryMb")
-    def memory_mb(self) -> pulumi.Input[Optional[_builtins.int]]:
-        return pulumi.get(self, "memory_mb")
-
-    @memory_mb.setter
-    def memory_mb(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "memory_mb", value)
-
-    @_builtins.property
-    @pulumi.getter(name="persistRootfs")
-    def persist_rootfs(self) -> pulumi.Input[Optional['FlyMachineGuestPersistRootfs']]:
-        """
-        Deprecated: use MachineConfig.Rootfs instead
-        """
-        return pulumi.get(self, "persist_rootfs")
-
-    @persist_rootfs.setter
-    def persist_rootfs(self, value: pulumi.Input[Optional['FlyMachineGuestPersistRootfs']]):
-        pulumi.set(self, "persist_rootfs", value)
-
-    @_builtins.property
-    @pulumi.getter(name="requiredHostFeatures")
-    def required_host_features(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
-        return pulumi.get(self, "required_host_features")
-
-    @required_host_features.setter
-    def required_host_features(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
-        pulumi.set(self, "required_host_features", value)
-
-
-class FlyMachineConfigInitArgsDict(TypedDict):
-    """
-    Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
-    """
-    cmd: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
-    entrypoint: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
-    exec_: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
-    kernel_args: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
-    swap_size_mb: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    tty: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
-
-@pulumi.input_type
-class FlyMachineConfigInitArgs:
-    def __init__(__self__, *,
-                 cmd: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 entrypoint: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 exec_: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 kernel_args: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 swap_size_mb: pulumi.Input[Optional[_builtins.int]] = None,
-                 tty: pulumi.Input[Optional[_builtins.bool]] = None):
-        """
-        Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
-        """
-        if cmd is not None:
-            pulumi.set(__self__, "cmd", cmd)
-        if entrypoint is not None:
-            pulumi.set(__self__, "entrypoint", entrypoint)
-        if exec_ is not None:
-            pulumi.set(__self__, "exec_", exec_)
-        if kernel_args is not None:
-            pulumi.set(__self__, "kernel_args", kernel_args)
-        if swap_size_mb is not None:
-            pulumi.set(__self__, "swap_size_mb", swap_size_mb)
-        if tty is not None:
-            pulumi.set(__self__, "tty", tty)
-
-    @_builtins.property
-    @pulumi.getter
-    def cmd(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
-        return pulumi.get(self, "cmd")
-
-    @cmd.setter
-    def cmd(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
-        pulumi.set(self, "cmd", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def entrypoint(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
-        return pulumi.get(self, "entrypoint")
-
-    @entrypoint.setter
-    def entrypoint(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
-        pulumi.set(self, "entrypoint", value)
-
-    @_builtins.property
-    @pulumi.getter(name="exec")
-    def exec_(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
-        return pulumi.get(self, "exec_")
-
-    @exec_.setter
-    def exec_(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
-        pulumi.set(self, "exec_", value)
-
-    @_builtins.property
-    @pulumi.getter(name="kernelArgs")
-    def kernel_args(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
-        return pulumi.get(self, "kernel_args")
-
-    @kernel_args.setter
-    def kernel_args(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
-        pulumi.set(self, "kernel_args", value)
-
-    @_builtins.property
-    @pulumi.getter(name="swapSizeMb")
-    def swap_size_mb(self) -> pulumi.Input[Optional[_builtins.int]]:
-        return pulumi.get(self, "swap_size_mb")
-
-    @swap_size_mb.setter
-    def swap_size_mb(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "swap_size_mb", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def tty(self) -> pulumi.Input[Optional[_builtins.bool]]:
-        return pulumi.get(self, "tty")
-
-    @tty.setter
-    def tty(self, value: pulumi.Input[Optional[_builtins.bool]]):
-        pulumi.set(self, "tty", value)
-
-
-class FlyMachineConfigMetricsArgsDict(TypedDict):
-    """
-    An optional metrics endpoint for Prometheus on Fly.io to scrape
-    """
-    https: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
-    path: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    port: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-
-@pulumi.input_type
-class FlyMachineConfigMetricsArgs:
-    def __init__(__self__, *,
-                 https: pulumi.Input[Optional[_builtins.bool]] = None,
-                 path: pulumi.Input[Optional[_builtins.str]] = None,
-                 port: pulumi.Input[Optional[_builtins.int]] = None):
-        """
-        An optional metrics endpoint for Prometheus on Fly.io to scrape
-        """
-        if https is not None:
-            pulumi.set(__self__, "https", https)
-        if path is not None:
-            pulumi.set(__self__, "path", path)
-        if port is not None:
-            pulumi.set(__self__, "port", port)
-
-    @_builtins.property
-    @pulumi.getter
-    def https(self) -> pulumi.Input[Optional[_builtins.bool]]:
-        return pulumi.get(self, "https")
-
-    @https.setter
-    def https(self, value: pulumi.Input[Optional[_builtins.bool]]):
-        pulumi.set(self, "https", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def path(self) -> pulumi.Input[Optional[_builtins.str]]:
-        return pulumi.get(self, "path")
-
-    @path.setter
-    def path(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "path", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def port(self) -> pulumi.Input[Optional[_builtins.int]]:
-        return pulumi.get(self, "port")
-
-    @port.setter
-    def port(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "port", value)
-
-
-class FlyMachineConfigRestartArgsDict(TypedDict):
-    """
-    Whether and how the Machine is restarted after its main process exits
-    """
-    max_retries: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    """
-    When policy is on-failure, the maximum number of times to attempt to restart the Machine before letting it stop.
-    """
-    policy: NotRequired[pulumi.Input[Optional['FlyMachineRestartPolicy']]]
-    """
-    * no - Never try to restart a Machine automatically when its main process exits, whether that’s on purpose or on a crash.
-    * always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.
-    * on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules.
-    """
-
-@pulumi.input_type
-class FlyMachineConfigRestartArgs:
-    def __init__(__self__, *,
-                 max_retries: pulumi.Input[Optional[_builtins.int]] = None,
-                 policy: pulumi.Input[Optional['FlyMachineRestartPolicy']] = None):
-        """
-        Whether and how the Machine is restarted after its main process exits
-
-        :param pulumi.Input[_builtins.int] max_retries: When policy is on-failure, the maximum number of times to attempt to restart the Machine before letting it stop.
-        :param pulumi.Input['FlyMachineRestartPolicy'] policy: * no - Never try to restart a Machine automatically when its main process exits, whether that’s on purpose or on a crash.
-               * always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.
-               * on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules.
-        """
-        if max_retries is not None:
-            pulumi.set(__self__, "max_retries", max_retries)
-        if policy is not None:
-            pulumi.set(__self__, "policy", policy)
-
-    @_builtins.property
-    @pulumi.getter(name="maxRetries")
-    def max_retries(self) -> pulumi.Input[Optional[_builtins.int]]:
-        """
-        When policy is on-failure, the maximum number of times to attempt to restart the Machine before letting it stop.
-        """
-        return pulumi.get(self, "max_retries")
-
-    @max_retries.setter
-    def max_retries(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "max_retries", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def policy(self) -> pulumi.Input[Optional['FlyMachineRestartPolicy']]:
-        """
-        * no - Never try to restart a Machine automatically when its main process exits, whether that’s on purpose or on a crash.
-        * always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.
-        * on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules.
-        """
-        return pulumi.get(self, "policy")
-
-    @policy.setter
-    def policy(self, value: pulumi.Input[Optional['FlyMachineRestartPolicy']]):
-        pulumi.set(self, "policy", value)
-
-
-class FlyMachineConfigRootfsArgsDict(TypedDict):
-    """
-    The size of the Machine's root filesystem and whether it persists
-    """
-    persist: NotRequired[pulumi.Input[Optional['FlyMachineRootfsPersist']]]
-    size_gb: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-
-@pulumi.input_type
-class FlyMachineConfigRootfsArgs:
-    def __init__(__self__, *,
-                 persist: pulumi.Input[Optional['FlyMachineRootfsPersist']] = None,
-                 size_gb: pulumi.Input[Optional[_builtins.int]] = None):
-        """
-        The size of the Machine's root filesystem and whether it persists
-        """
-        if persist is not None:
-            pulumi.set(__self__, "persist", persist)
-        if size_gb is not None:
-            pulumi.set(__self__, "size_gb", size_gb)
-
-    @_builtins.property
-    @pulumi.getter
-    def persist(self) -> pulumi.Input[Optional['FlyMachineRootfsPersist']]:
-        return pulumi.get(self, "persist")
-
-    @persist.setter
-    def persist(self, value: pulumi.Input[Optional['FlyMachineRootfsPersist']]):
-        pulumi.set(self, "persist", value)
-
-    @_builtins.property
-    @pulumi.getter(name="sizeGb")
-    def size_gb(self) -> pulumi.Input[Optional[_builtins.int]]:
-        return pulumi.get(self, "size_gb")
-
-    @size_gb.setter
-    def size_gb(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "size_gb", value)
-
-
-class FlyMachineConfigSpotArgsDict(TypedDict):
-    """
-    Spot pricing settings for the Machine
-    """
-    max_price_fraction: NotRequired[pulumi.Input[Optional[_builtins.float]]]
-    """
-    MaxPriceFraction is the maximum fraction of the full Machine price you will pay for this Machine. Range: (0, 1.0]
-    """
-
-@pulumi.input_type
-class FlyMachineConfigSpotArgs:
-    def __init__(__self__, *,
-                 max_price_fraction: pulumi.Input[Optional[_builtins.float]] = None):
-        """
-        Spot pricing settings for the Machine
-
-        :param pulumi.Input[_builtins.float] max_price_fraction: MaxPriceFraction is the maximum fraction of the full Machine price you will pay for this Machine. Range: (0, 1.0]
-        """
-        if max_price_fraction is not None:
-            pulumi.set(__self__, "max_price_fraction", max_price_fraction)
-
-    @_builtins.property
-    @pulumi.getter(name="maxPriceFraction")
-    def max_price_fraction(self) -> pulumi.Input[Optional[_builtins.float]]:
-        """
-        MaxPriceFraction is the maximum fraction of the full Machine price you will pay for this Machine. Range: (0, 1.0]
-        """
-        return pulumi.get(self, "max_price_fraction")
-
-    @max_price_fraction.setter
-    def max_price_fraction(self, value: pulumi.Input[Optional[_builtins.float]]):
-        pulumi.set(self, "max_price_fraction", value)
-
-
-class FlyMachineConfigStopConfigArgsDict(TypedDict):
-    """
-    How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
-    """
-    signal: NotRequired[pulumi.Input[Optional['FlyStopConfigSignal']]]
-    timeout: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-
-@pulumi.input_type
-class FlyMachineConfigStopConfigArgs:
-    def __init__(__self__, *,
-                 signal: pulumi.Input[Optional['FlyStopConfigSignal']] = None,
-                 timeout: pulumi.Input[Optional[_builtins.str]] = None):
-        """
-        How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
-        """
-        if signal is not None:
-            pulumi.set(__self__, "signal", signal)
-        if timeout is not None:
-            pulumi.set(__self__, "timeout", timeout)
-
-    @_builtins.property
-    @pulumi.getter
-    def signal(self) -> pulumi.Input[Optional['FlyStopConfigSignal']]:
-        return pulumi.get(self, "signal")
-
-    @signal.setter
-    def signal(self, value: pulumi.Input[Optional['FlyStopConfigSignal']]):
-        pulumi.set(self, "signal", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def timeout(self) -> pulumi.Input[Optional[_builtins.str]]:
-        return pulumi.get(self, "timeout")
-
-    @timeout.setter
-    def timeout(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "timeout", value)
-
-
-class FlyMachineGuestArgsDict(TypedDict):
-    cpu_kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    cpus: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    gpu_kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    gpus: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    host_dedication_id: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    kernel_args: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
-    max_memory_mb: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    memory_mb: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    persist_rootfs: NotRequired[pulumi.Input[Optional['FlyMachineGuestPersistRootfs']]]
-    """
-    Deprecated: use MachineConfig.Rootfs instead
-    """
-    required_host_features: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
-
-@pulumi.input_type
-class FlyMachineGuestArgs:
-    def __init__(__self__, *,
-                 cpu_kind: pulumi.Input[Optional[_builtins.str]] = None,
-                 cpus: pulumi.Input[Optional[_builtins.int]] = None,
-                 gpu_kind: pulumi.Input[Optional[_builtins.str]] = None,
-                 gpus: pulumi.Input[Optional[_builtins.int]] = None,
-                 host_dedication_id: pulumi.Input[Optional[_builtins.str]] = None,
-                 kernel_args: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 max_memory_mb: pulumi.Input[Optional[_builtins.int]] = None,
-                 memory_mb: pulumi.Input[Optional[_builtins.int]] = None,
-                 persist_rootfs: pulumi.Input[Optional['FlyMachineGuestPersistRootfs']] = None,
-                 required_host_features: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
-        """
-        :param pulumi.Input['FlyMachineGuestPersistRootfs'] persist_rootfs: Deprecated: use MachineConfig.Rootfs instead
-        """
-        if cpu_kind is not None:
-            pulumi.set(__self__, "cpu_kind", cpu_kind)
-        if cpus is not None:
-            pulumi.set(__self__, "cpus", cpus)
-        if gpu_kind is not None:
-            pulumi.set(__self__, "gpu_kind", gpu_kind)
-        if gpus is not None:
-            pulumi.set(__self__, "gpus", gpus)
-        if host_dedication_id is not None:
-            pulumi.set(__self__, "host_dedication_id", host_dedication_id)
-        if kernel_args is not None:
-            pulumi.set(__self__, "kernel_args", kernel_args)
-        if max_memory_mb is not None:
-            pulumi.set(__self__, "max_memory_mb", max_memory_mb)
-        if memory_mb is not None:
-            pulumi.set(__self__, "memory_mb", memory_mb)
-        if persist_rootfs is not None:
-            pulumi.set(__self__, "persist_rootfs", persist_rootfs)
-        if required_host_features is not None:
-            pulumi.set(__self__, "required_host_features", required_host_features)
-
-    @_builtins.property
-    @pulumi.getter(name="cpuKind")
-    def cpu_kind(self) -> pulumi.Input[Optional[_builtins.str]]:
-        return pulumi.get(self, "cpu_kind")
-
-    @cpu_kind.setter
-    def cpu_kind(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "cpu_kind", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def cpus(self) -> pulumi.Input[Optional[_builtins.int]]:
-        return pulumi.get(self, "cpus")
-
-    @cpus.setter
-    def cpus(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "cpus", value)
-
-    @_builtins.property
-    @pulumi.getter(name="gpuKind")
-    def gpu_kind(self) -> pulumi.Input[Optional[_builtins.str]]:
-        return pulumi.get(self, "gpu_kind")
-
-    @gpu_kind.setter
-    def gpu_kind(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "gpu_kind", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def gpus(self) -> pulumi.Input[Optional[_builtins.int]]:
-        return pulumi.get(self, "gpus")
-
-    @gpus.setter
-    def gpus(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "gpus", value)
-
-    @_builtins.property
-    @pulumi.getter(name="hostDedicationId")
-    def host_dedication_id(self) -> pulumi.Input[Optional[_builtins.str]]:
-        return pulumi.get(self, "host_dedication_id")
-
-    @host_dedication_id.setter
-    def host_dedication_id(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "host_dedication_id", value)
-
-    @_builtins.property
-    @pulumi.getter(name="kernelArgs")
-    def kernel_args(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
-        return pulumi.get(self, "kernel_args")
-
-    @kernel_args.setter
-    def kernel_args(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
-        pulumi.set(self, "kernel_args", value)
-
-    @_builtins.property
-    @pulumi.getter(name="maxMemoryMb")
-    def max_memory_mb(self) -> pulumi.Input[Optional[_builtins.int]]:
-        return pulumi.get(self, "max_memory_mb")
-
-    @max_memory_mb.setter
-    def max_memory_mb(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "max_memory_mb", value)
-
-    @_builtins.property
-    @pulumi.getter(name="memoryMb")
-    def memory_mb(self) -> pulumi.Input[Optional[_builtins.int]]:
-        return pulumi.get(self, "memory_mb")
-
-    @memory_mb.setter
-    def memory_mb(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "memory_mb", value)
-
-    @_builtins.property
-    @pulumi.getter(name="persistRootfs")
-    def persist_rootfs(self) -> pulumi.Input[Optional['FlyMachineGuestPersistRootfs']]:
-        """
-        Deprecated: use MachineConfig.Rootfs instead
-        """
-        return pulumi.get(self, "persist_rootfs")
-
-    @persist_rootfs.setter
-    def persist_rootfs(self, value: pulumi.Input[Optional['FlyMachineGuestPersistRootfs']]):
-        pulumi.set(self, "persist_rootfs", value)
-
-    @_builtins.property
-    @pulumi.getter(name="requiredHostFeatures")
-    def required_host_features(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
-        return pulumi.get(self, "required_host_features")
-
-    @required_host_features.setter
-    def required_host_features(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
-        pulumi.set(self, "required_host_features", value)
-
-
 class FlyMachineHTTPHeaderArgsDict(TypedDict):
     """
     For http checks, an array of objects with string field Name and array of strings field Values. The key/value pairs specify header and header values that will get passed with the check call.
@@ -3726,22 +3312,50 @@ class FlyMachineHTTPHeaderArgs:
 
 class FlyMachineMountArgsDict(TypedDict):
     add_size_gb: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    With automatic extension, grow the volume by this many GB at a time. Between 1 and 100.
+    Mutually exclusive with add_size_percent
+    """
     add_size_percent: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     AddSizePercent grows by a percentage of the current size, rounded up to GiB.
     It is mutually exclusive with AddSizeGb.
     """
     encrypted: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    Whether the volume is encrypted. Set by Fly.io; ignored in requests
+    """
     extend_threshold_percent: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Enable automatic volume extension: grow the volume when its usage exceeds this percentage.
+    Between 50 and 99; 0 disables it
+    """
     min_add_size_gb: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     MinAddSizeGb is the minimum proportional growth in GiB (default 1).
     """
     name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Name of the volume. Set by Fly.io; ignored in requests
+    """
     path: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Absolute path in the Machine to mount the volume at. Required
+    """
     size_gb: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Size of the volume in GB. Set by Fly.io; ignored in requests
+    """
     size_gb_limit: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    With automatic extension, never grow the volume beyond this size in GB. At most the
+    organization's maximum volume size
+    """
     volume: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    ID (`vol_...`) or name of the volume to mount. Required. With a name, any unattached volume
+    of the app with that name in the Machine's region is used
+    """
 
 @pulumi.input_type
 class FlyMachineMountArgs:
@@ -3757,9 +3371,21 @@ class FlyMachineMountArgs:
                  size_gb_limit: pulumi.Input[Optional[_builtins.int]] = None,
                  volume: pulumi.Input[Optional[_builtins.str]] = None):
         """
+        :param pulumi.Input[_builtins.int] add_size_gb: With automatic extension, grow the volume by this many GB at a time. Between 1 and 100.
+               Mutually exclusive with add_size_percent
         :param pulumi.Input[_builtins.int] add_size_percent: AddSizePercent grows by a percentage of the current size, rounded up to GiB.
                It is mutually exclusive with AddSizeGb.
+        :param pulumi.Input[_builtins.bool] encrypted: Whether the volume is encrypted. Set by Fly.io; ignored in requests
+        :param pulumi.Input[_builtins.int] extend_threshold_percent: Enable automatic volume extension: grow the volume when its usage exceeds this percentage.
+               Between 50 and 99; 0 disables it
         :param pulumi.Input[_builtins.int] min_add_size_gb: MinAddSizeGb is the minimum proportional growth in GiB (default 1).
+        :param pulumi.Input[_builtins.str] name: Name of the volume. Set by Fly.io; ignored in requests
+        :param pulumi.Input[_builtins.str] path: Absolute path in the Machine to mount the volume at. Required
+        :param pulumi.Input[_builtins.int] size_gb: Size of the volume in GB. Set by Fly.io; ignored in requests
+        :param pulumi.Input[_builtins.int] size_gb_limit: With automatic extension, never grow the volume beyond this size in GB. At most the
+               organization's maximum volume size
+        :param pulumi.Input[_builtins.str] volume: ID (`vol_...`) or name of the volume to mount. Required. With a name, any unattached volume
+               of the app with that name in the Machine's region is used
         """
         if add_size_gb is not None:
             pulumi.set(__self__, "add_size_gb", add_size_gb)
@@ -3785,6 +3411,10 @@ class FlyMachineMountArgs:
     @_builtins.property
     @pulumi.getter(name="addSizeGb")
     def add_size_gb(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        With automatic extension, grow the volume by this many GB at a time. Between 1 and 100.
+        Mutually exclusive with add_size_percent
+        """
         return pulumi.get(self, "add_size_gb")
 
     @add_size_gb.setter
@@ -3807,6 +3437,9 @@ class FlyMachineMountArgs:
     @_builtins.property
     @pulumi.getter
     def encrypted(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Whether the volume is encrypted. Set by Fly.io; ignored in requests
+        """
         return pulumi.get(self, "encrypted")
 
     @encrypted.setter
@@ -3816,6 +3449,10 @@ class FlyMachineMountArgs:
     @_builtins.property
     @pulumi.getter(name="extendThresholdPercent")
     def extend_threshold_percent(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Enable automatic volume extension: grow the volume when its usage exceeds this percentage.
+        Between 50 and 99; 0 disables it
+        """
         return pulumi.get(self, "extend_threshold_percent")
 
     @extend_threshold_percent.setter
@@ -3837,6 +3474,9 @@ class FlyMachineMountArgs:
     @_builtins.property
     @pulumi.getter
     def name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Name of the volume. Set by Fly.io; ignored in requests
+        """
         return pulumi.get(self, "name")
 
     @name.setter
@@ -3846,6 +3486,9 @@ class FlyMachineMountArgs:
     @_builtins.property
     @pulumi.getter
     def path(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Absolute path in the Machine to mount the volume at. Required
+        """
         return pulumi.get(self, "path")
 
     @path.setter
@@ -3855,6 +3498,9 @@ class FlyMachineMountArgs:
     @_builtins.property
     @pulumi.getter(name="sizeGb")
     def size_gb(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Size of the volume in GB. Set by Fly.io; ignored in requests
+        """
         return pulumi.get(self, "size_gb")
 
     @size_gb.setter
@@ -3864,6 +3510,10 @@ class FlyMachineMountArgs:
     @_builtins.property
     @pulumi.getter(name="sizeGbLimit")
     def size_gb_limit(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        With automatic extension, never grow the volume beyond this size in GB. At most the
+        organization's maximum volume size
+        """
         return pulumi.get(self, "size_gb_limit")
 
     @size_gb_limit.setter
@@ -3873,6 +3523,10 @@ class FlyMachineMountArgs:
     @_builtins.property
     @pulumi.getter
     def volume(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        ID (`vol_...`) or name of the volume to mount. Required. With a name, any unattached volume
+        of the app with that name in the Machine's region is used
+        """
         return pulumi.get(self, "volume")
 
     @volume.setter
@@ -3882,13 +3536,39 @@ class FlyMachineMountArgs:
 
 class FlyMachinePortArgsDict(TypedDict):
     end_port: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Last public port of a range
+    """
     force_https: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    Redirect plain HTTP requests to HTTPS
+    """
     handlers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
-    http_options: NotRequired[pulumi.Input[Optional['FlyHTTPOptionsArgsDict']]]
+    """
+    How Fly Proxy handles connections before forwarding them: `tls` terminates TLS, `pg_tls`
+    terminates PostgreSQL TLS, `http` handles HTTP, `proxy_proto` adds a PROXY protocol header.
+    Without handlers, raw TCP is forwarded
+    """
+    http_options: NotRequired[pulumi.Input[Optional['FlyMachinePortHttpOptionsArgsDict']]]
+    """
+    Options for the `http` handler
+    """
     port: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    proxy_proto_options: NotRequired[pulumi.Input[Optional['FlyProxyProtoOptionsArgsDict']]]
+    """
+    Public port. Use either port, or start_port and end_port
+    """
+    proxy_proto_options: NotRequired[pulumi.Input[Optional['FlyMachinePortProxyProtoOptionsArgsDict']]]
+    """
+    Options for the `proxy_proto` handler
+    """
     start_port: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    tls_options: NotRequired[pulumi.Input[Optional['FlyTLSOptionsArgsDict']]]
+    """
+    First public port of a range
+    """
+    tls_options: NotRequired[pulumi.Input[Optional['FlyMachinePortTlsOptionsArgsDict']]]
+    """
+    Options for the `tls` handler
+    """
 
 @pulumi.input_type
 class FlyMachinePortArgs:
@@ -3896,11 +3576,23 @@ class FlyMachinePortArgs:
                  end_port: pulumi.Input[Optional[_builtins.int]] = None,
                  force_https: pulumi.Input[Optional[_builtins.bool]] = None,
                  handlers: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 http_options: pulumi.Input[Optional['FlyHTTPOptionsArgs']] = None,
+                 http_options: pulumi.Input[Optional['FlyMachinePortHttpOptionsArgs']] = None,
                  port: pulumi.Input[Optional[_builtins.int]] = None,
-                 proxy_proto_options: pulumi.Input[Optional['FlyProxyProtoOptionsArgs']] = None,
+                 proxy_proto_options: pulumi.Input[Optional['FlyMachinePortProxyProtoOptionsArgs']] = None,
                  start_port: pulumi.Input[Optional[_builtins.int]] = None,
-                 tls_options: pulumi.Input[Optional['FlyTLSOptionsArgs']] = None):
+                 tls_options: pulumi.Input[Optional['FlyMachinePortTlsOptionsArgs']] = None):
+        """
+        :param pulumi.Input[_builtins.int] end_port: Last public port of a range
+        :param pulumi.Input[_builtins.bool] force_https: Redirect plain HTTP requests to HTTPS
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] handlers: How Fly Proxy handles connections before forwarding them: `tls` terminates TLS, `pg_tls`
+               terminates PostgreSQL TLS, `http` handles HTTP, `proxy_proto` adds a PROXY protocol header.
+               Without handlers, raw TCP is forwarded
+        :param pulumi.Input['FlyMachinePortHttpOptionsArgs'] http_options: Options for the `http` handler
+        :param pulumi.Input[_builtins.int] port: Public port. Use either port, or start_port and end_port
+        :param pulumi.Input['FlyMachinePortProxyProtoOptionsArgs'] proxy_proto_options: Options for the `proxy_proto` handler
+        :param pulumi.Input[_builtins.int] start_port: First public port of a range
+        :param pulumi.Input['FlyMachinePortTlsOptionsArgs'] tls_options: Options for the `tls` handler
+        """
         if end_port is not None:
             pulumi.set(__self__, "end_port", end_port)
         if force_https is not None:
@@ -3921,6 +3613,9 @@ class FlyMachinePortArgs:
     @_builtins.property
     @pulumi.getter(name="endPort")
     def end_port(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Last public port of a range
+        """
         return pulumi.get(self, "end_port")
 
     @end_port.setter
@@ -3930,6 +3625,9 @@ class FlyMachinePortArgs:
     @_builtins.property
     @pulumi.getter(name="forceHttps")
     def force_https(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Redirect plain HTTP requests to HTTPS
+        """
         return pulumi.get(self, "force_https")
 
     @force_https.setter
@@ -3939,6 +3637,11 @@ class FlyMachinePortArgs:
     @_builtins.property
     @pulumi.getter
     def handlers(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        How Fly Proxy handles connections before forwarding them: `tls` terminates TLS, `pg_tls`
+        terminates PostgreSQL TLS, `http` handles HTTP, `proxy_proto` adds a PROXY protocol header.
+        Without handlers, raw TCP is forwarded
+        """
         return pulumi.get(self, "handlers")
 
     @handlers.setter
@@ -3947,16 +3650,22 @@ class FlyMachinePortArgs:
 
     @_builtins.property
     @pulumi.getter(name="httpOptions")
-    def http_options(self) -> pulumi.Input[Optional['FlyHTTPOptionsArgs']]:
+    def http_options(self) -> pulumi.Input[Optional['FlyMachinePortHttpOptionsArgs']]:
+        """
+        Options for the `http` handler
+        """
         return pulumi.get(self, "http_options")
 
     @http_options.setter
-    def http_options(self, value: pulumi.Input[Optional['FlyHTTPOptionsArgs']]):
+    def http_options(self, value: pulumi.Input[Optional['FlyMachinePortHttpOptionsArgs']]):
         pulumi.set(self, "http_options", value)
 
     @_builtins.property
     @pulumi.getter
     def port(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Public port. Use either port, or start_port and end_port
+        """
         return pulumi.get(self, "port")
 
     @port.setter
@@ -3965,16 +3674,22 @@ class FlyMachinePortArgs:
 
     @_builtins.property
     @pulumi.getter(name="proxyProtoOptions")
-    def proxy_proto_options(self) -> pulumi.Input[Optional['FlyProxyProtoOptionsArgs']]:
+    def proxy_proto_options(self) -> pulumi.Input[Optional['FlyMachinePortProxyProtoOptionsArgs']]:
+        """
+        Options for the `proxy_proto` handler
+        """
         return pulumi.get(self, "proxy_proto_options")
 
     @proxy_proto_options.setter
-    def proxy_proto_options(self, value: pulumi.Input[Optional['FlyProxyProtoOptionsArgs']]):
+    def proxy_proto_options(self, value: pulumi.Input[Optional['FlyMachinePortProxyProtoOptionsArgs']]):
         pulumi.set(self, "proxy_proto_options", value)
 
     @_builtins.property
     @pulumi.getter(name="startPort")
     def start_port(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        First public port of a range
+        """
         return pulumi.get(self, "start_port")
 
     @start_port.setter
@@ -3983,23 +3698,304 @@ class FlyMachinePortArgs:
 
     @_builtins.property
     @pulumi.getter(name="tlsOptions")
-    def tls_options(self) -> pulumi.Input[Optional['FlyTLSOptionsArgs']]:
+    def tls_options(self) -> pulumi.Input[Optional['FlyMachinePortTlsOptionsArgs']]:
+        """
+        Options for the `tls` handler
+        """
         return pulumi.get(self, "tls_options")
 
     @tls_options.setter
-    def tls_options(self, value: pulumi.Input[Optional['FlyTLSOptionsArgs']]):
+    def tls_options(self, value: pulumi.Input[Optional['FlyMachinePortTlsOptionsArgs']]):
         pulumi.set(self, "tls_options", value)
+
+
+class FlyMachinePortHttpOptionsArgsDict(TypedDict):
+    """
+    Options for the `http` handler
+    """
+    compress: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    Compress response bodies. Defaults to true
+    """
+    h2_backend: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    Use HTTP/2 to talk to the Machine
+    """
+    headers_read_timeout: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Seconds Fly Proxy waits for a client to send request headers. Defaults to 5
+    """
+    idle_timeout: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Seconds a client connection can be idle between requests before it's closed. Defaults to 300
+    """
+    replay_cache: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['FlyReplayCacheArgsDict']]]]]
+    """
+    Cache `fly-replay` responses from the Machine: once a client is replayed, its further
+    requests are replayed directly, keyed on a cookie or header, without asking the Machine again
+    """
+    response: NotRequired[pulumi.Input[Optional['FlyHTTPOptionsResponseArgsDict']]]
+    """
+    Changes Fly Proxy makes to responses
+    """
+
+@pulumi.input_type
+class FlyMachinePortHttpOptionsArgs:
+    def __init__(__self__, *,
+                 compress: pulumi.Input[Optional[_builtins.bool]] = None,
+                 h2_backend: pulumi.Input[Optional[_builtins.bool]] = None,
+                 headers_read_timeout: pulumi.Input[Optional[_builtins.int]] = None,
+                 idle_timeout: pulumi.Input[Optional[_builtins.int]] = None,
+                 replay_cache: pulumi.Input[Optional[Sequence[pulumi.Input['FlyReplayCacheArgs']]]] = None,
+                 response: pulumi.Input[Optional['FlyHTTPOptionsResponseArgs']] = None):
+        """
+        Options for the `http` handler
+
+        :param pulumi.Input[_builtins.bool] compress: Compress response bodies. Defaults to true
+        :param pulumi.Input[_builtins.bool] h2_backend: Use HTTP/2 to talk to the Machine
+        :param pulumi.Input[_builtins.int] headers_read_timeout: Seconds Fly Proxy waits for a client to send request headers. Defaults to 5
+        :param pulumi.Input[_builtins.int] idle_timeout: Seconds a client connection can be idle between requests before it's closed. Defaults to 300
+        :param pulumi.Input[Sequence[pulumi.Input['FlyReplayCacheArgs']]] replay_cache: Cache `fly-replay` responses from the Machine: once a client is replayed, its further
+               requests are replayed directly, keyed on a cookie or header, without asking the Machine again
+        :param pulumi.Input['FlyHTTPOptionsResponseArgs'] response: Changes Fly Proxy makes to responses
+        """
+        if compress is not None:
+            pulumi.set(__self__, "compress", compress)
+        if h2_backend is not None:
+            pulumi.set(__self__, "h2_backend", h2_backend)
+        if headers_read_timeout is not None:
+            pulumi.set(__self__, "headers_read_timeout", headers_read_timeout)
+        if idle_timeout is not None:
+            pulumi.set(__self__, "idle_timeout", idle_timeout)
+        if replay_cache is not None:
+            pulumi.set(__self__, "replay_cache", replay_cache)
+        if response is not None:
+            pulumi.set(__self__, "response", response)
+
+    @_builtins.property
+    @pulumi.getter
+    def compress(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Compress response bodies. Defaults to true
+        """
+        return pulumi.get(self, "compress")
+
+    @compress.setter
+    def compress(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "compress", value)
+
+    @_builtins.property
+    @pulumi.getter(name="h2Backend")
+    def h2_backend(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Use HTTP/2 to talk to the Machine
+        """
+        return pulumi.get(self, "h2_backend")
+
+    @h2_backend.setter
+    def h2_backend(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "h2_backend", value)
+
+    @_builtins.property
+    @pulumi.getter(name="headersReadTimeout")
+    def headers_read_timeout(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Seconds Fly Proxy waits for a client to send request headers. Defaults to 5
+        """
+        return pulumi.get(self, "headers_read_timeout")
+
+    @headers_read_timeout.setter
+    def headers_read_timeout(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "headers_read_timeout", value)
+
+    @_builtins.property
+    @pulumi.getter(name="idleTimeout")
+    def idle_timeout(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Seconds a client connection can be idle between requests before it's closed. Defaults to 300
+        """
+        return pulumi.get(self, "idle_timeout")
+
+    @idle_timeout.setter
+    def idle_timeout(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "idle_timeout", value)
+
+    @_builtins.property
+    @pulumi.getter(name="replayCache")
+    def replay_cache(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['FlyReplayCacheArgs']]]]:
+        """
+        Cache `fly-replay` responses from the Machine: once a client is replayed, its further
+        requests are replayed directly, keyed on a cookie or header, without asking the Machine again
+        """
+        return pulumi.get(self, "replay_cache")
+
+    @replay_cache.setter
+    def replay_cache(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['FlyReplayCacheArgs']]]]):
+        pulumi.set(self, "replay_cache", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def response(self) -> pulumi.Input[Optional['FlyHTTPOptionsResponseArgs']]:
+        """
+        Changes Fly Proxy makes to responses
+        """
+        return pulumi.get(self, "response")
+
+    @response.setter
+    def response(self, value: pulumi.Input[Optional['FlyHTTPOptionsResponseArgs']]):
+        pulumi.set(self, "response", value)
+
+
+class FlyMachinePortProxyProtoOptionsArgsDict(TypedDict):
+    """
+    Options for the `proxy_proto` handler
+    """
+    fly_src: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    With version v2, add the Fly-Src header and its signature to the PROXY protocol header
+    """
+    version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    PROXY protocol version: v1 (default) or v2
+    """
+
+@pulumi.input_type
+class FlyMachinePortProxyProtoOptionsArgs:
+    def __init__(__self__, *,
+                 fly_src: pulumi.Input[Optional[_builtins.bool]] = None,
+                 version: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        Options for the `proxy_proto` handler
+
+        :param pulumi.Input[_builtins.bool] fly_src: With version v2, add the Fly-Src header and its signature to the PROXY protocol header
+        :param pulumi.Input[_builtins.str] version: PROXY protocol version: v1 (default) or v2
+        """
+        if fly_src is not None:
+            pulumi.set(__self__, "fly_src", fly_src)
+        if version is not None:
+            pulumi.set(__self__, "version", version)
+
+    @_builtins.property
+    @pulumi.getter(name="flySrc")
+    def fly_src(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        With version v2, add the Fly-Src header and its signature to the PROXY protocol header
+        """
+        return pulumi.get(self, "fly_src")
+
+    @fly_src.setter
+    def fly_src(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "fly_src", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def version(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        PROXY protocol version: v1 (default) or v2
+        """
+        return pulumi.get(self, "version")
+
+    @version.setter
+    def version(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "version", value)
+
+
+class FlyMachinePortTlsOptionsArgsDict(TypedDict):
+    """
+    Options for the `tls` handler
+    """
+    alpn: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    ALPN protocols to offer, e.g. `h2`, `http/1.1`. Defaults to `h2` and `http/1.1`
+    """
+    default_self_signed: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    Use a self-signed certificate when there is no certificate for the requested hostname
+    """
+    versions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    TLS versions to accept: `TLSv1.2`, `TLSv1.3`. Defaults to both
+    """
+
+@pulumi.input_type
+class FlyMachinePortTlsOptionsArgs:
+    def __init__(__self__, *,
+                 alpn: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 default_self_signed: pulumi.Input[Optional[_builtins.bool]] = None,
+                 versions: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
+        """
+        Options for the `tls` handler
+
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] alpn: ALPN protocols to offer, e.g. `h2`, `http/1.1`. Defaults to `h2` and `http/1.1`
+        :param pulumi.Input[_builtins.bool] default_self_signed: Use a self-signed certificate when there is no certificate for the requested hostname
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] versions: TLS versions to accept: `TLSv1.2`, `TLSv1.3`. Defaults to both
+        """
+        if alpn is not None:
+            pulumi.set(__self__, "alpn", alpn)
+        if default_self_signed is not None:
+            pulumi.set(__self__, "default_self_signed", default_self_signed)
+        if versions is not None:
+            pulumi.set(__self__, "versions", versions)
+
+    @_builtins.property
+    @pulumi.getter
+    def alpn(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        ALPN protocols to offer, e.g. `h2`, `http/1.1`. Defaults to `h2` and `http/1.1`
+        """
+        return pulumi.get(self, "alpn")
+
+    @alpn.setter
+    def alpn(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "alpn", value)
+
+    @_builtins.property
+    @pulumi.getter(name="defaultSelfSigned")
+    def default_self_signed(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Use a self-signed certificate when there is no certificate for the requested hostname
+        """
+        return pulumi.get(self, "default_self_signed")
+
+    @default_self_signed.setter
+    def default_self_signed(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "default_self_signed", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def versions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        TLS versions to accept: `TLSv1.2`, `TLSv1.3`. Defaults to both
+        """
+        return pulumi.get(self, "versions")
+
+    @versions.setter
+    def versions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "versions", value)
 
 
 class FlyMachineProcessArgsDict(TypedDict):
     cmd: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    Replaces the image's CMD for this process. It's appended to the entrypoint
+    """
     entrypoint: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    Replaces the image's ENTRYPOINT for this process
+    """
     env: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Environment variables for this process, in addition to the Machine's `env`
+    """
     env_from: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['FlyEnvFromArgsDict']]]]]
     """
     EnvFrom can be provided to set environment variables from machine fields.
     """
     exec_: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    Command to run instead of the image's ENTRYPOINT and CMD. Takes precedence over entrypoint
+    and cmd
+    """
     ignore_app_secrets: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     IgnoreAppSecrets can be set to true to ignore the secrets for the App the Machine belongs to
@@ -4012,6 +4008,9 @@ class FlyMachineProcessArgsDict(TypedDict):
     used for the process. If not provided, the secrets provided at the machine level will be used.
     """
     user: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    User to run the process as, instead of the image's USER
+    """
 
 @pulumi.input_type
 class FlyMachineProcessArgs:
@@ -4025,12 +4024,18 @@ class FlyMachineProcessArgs:
                  secrets: pulumi.Input[Optional[Sequence[pulumi.Input['FlyMachineSecretArgs']]]] = None,
                  user: pulumi.Input[Optional[_builtins.str]] = None):
         """
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] cmd: Replaces the image's CMD for this process. It's appended to the entrypoint
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] entrypoint: Replaces the image's ENTRYPOINT for this process
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] env: Environment variables for this process, in addition to the Machine's `env`
         :param pulumi.Input[Sequence[pulumi.Input['FlyEnvFromArgs']]] env_from: EnvFrom can be provided to set environment variables from machine fields.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] exec_: Command to run instead of the image's ENTRYPOINT and CMD. Takes precedence over entrypoint
+               and cmd
         :param pulumi.Input[_builtins.bool] ignore_app_secrets: IgnoreAppSecrets can be set to true to ignore the secrets for the App the Machine belongs to
                and only use the secrets provided at the process level. The default/legacy behavior is to use
                the secrets provided at the App level.
         :param pulumi.Input[Sequence[pulumi.Input['FlyMachineSecretArgs']]] secrets: Secrets can be provided at the process level to explicitly indicate which secrets should be
                used for the process. If not provided, the secrets provided at the machine level will be used.
+        :param pulumi.Input[_builtins.str] user: User to run the process as, instead of the image's USER
         """
         if cmd is not None:
             pulumi.set(__self__, "cmd", cmd)
@@ -4052,6 +4057,9 @@ class FlyMachineProcessArgs:
     @_builtins.property
     @pulumi.getter
     def cmd(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        Replaces the image's CMD for this process. It's appended to the entrypoint
+        """
         return pulumi.get(self, "cmd")
 
     @cmd.setter
@@ -4061,6 +4069,9 @@ class FlyMachineProcessArgs:
     @_builtins.property
     @pulumi.getter
     def entrypoint(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        Replaces the image's ENTRYPOINT for this process
+        """
         return pulumi.get(self, "entrypoint")
 
     @entrypoint.setter
@@ -4070,6 +4081,9 @@ class FlyMachineProcessArgs:
     @_builtins.property
     @pulumi.getter
     def env(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Environment variables for this process, in addition to the Machine's `env`
+        """
         return pulumi.get(self, "env")
 
     @env.setter
@@ -4091,6 +4105,10 @@ class FlyMachineProcessArgs:
     @_builtins.property
     @pulumi.getter(name="exec")
     def exec_(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        Command to run instead of the image's ENTRYPOINT and CMD. Takes precedence over entrypoint
+        and cmd
+        """
         return pulumi.get(self, "exec_")
 
     @exec_.setter
@@ -4127,6 +4145,9 @@ class FlyMachineProcessArgs:
     @_builtins.property
     @pulumi.getter
     def user(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        User to run the process as, instead of the image's USER
+        """
         return pulumi.get(self, "user")
 
     @user.setter
@@ -4196,6 +4217,9 @@ class FlyMachineSecretArgs:
 
 class FlyMachineServiceArgsDict(TypedDict):
     autostart: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    Whether Fly Proxy starts stopped or suspended Machines when requests arrive. Defaults to true
+    """
     autostop: NotRequired[pulumi.Input[Optional['FlyMachineServiceAutostop']]]
     """
     Accepts a string (new format) or a boolean (old format). For backward compatibility with older clients, the API continues to use booleans for "off" and "stop" in responses.
@@ -4208,12 +4232,34 @@ class FlyMachineServiceArgsDict(TypedDict):
     An optional list of service checks
     """
     concurrency: NotRequired[pulumi.Input[Optional['FlyMachineServiceConcurrencyArgsDict']]]
+    """
+    Load limits Fly Proxy uses to balance traffic across Machines
+    """
     force_instance_description: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Currently has no effect
+    """
     force_instance_key: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Currently has no effect
+    """
     internal_port: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Port in the Machine that Fly Proxy forwards traffic to. Defaults to 8080
+    """
     min_machines_running: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    When autostop is on, the number of Machines Fly Proxy keeps running in the app's primary
+    region (`PRIMARY_REGION` env var). Machines in other regions can all be stopped
+    """
     ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['FlyMachinePortArgsDict']]]]]
+    """
+    Public ports that Fly Proxy accepts traffic on
+    """
     protocol: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Protocol: tcp or udp. Defaults to tcp
+    """
 
 @pulumi.input_type
 class FlyMachineServiceArgs:
@@ -4229,11 +4275,20 @@ class FlyMachineServiceArgs:
                  ports: pulumi.Input[Optional[Sequence[pulumi.Input['FlyMachinePortArgs']]]] = None,
                  protocol: pulumi.Input[Optional[_builtins.str]] = None):
         """
+        :param pulumi.Input[_builtins.bool] autostart: Whether Fly Proxy starts stopped or suspended Machines when requests arrive. Defaults to true
         :param pulumi.Input['FlyMachineServiceAutostop'] autostop: Accepts a string (new format) or a boolean (old format). For backward compatibility with older clients, the API continues to use booleans for "off" and "stop" in responses.
                * "off" or false - Do not autostop the Machine.
                * "stop" or true - Automatically stop the Machine.
                * "suspend" - Automatically suspend the Machine, falling back to a full stop if this is not possible.
         :param pulumi.Input[Sequence[pulumi.Input['FlyMachineServiceCheckArgs']]] checks: An optional list of service checks
+        :param pulumi.Input['FlyMachineServiceConcurrencyArgs'] concurrency: Load limits Fly Proxy uses to balance traffic across Machines
+        :param pulumi.Input[_builtins.str] force_instance_description: Currently has no effect
+        :param pulumi.Input[_builtins.str] force_instance_key: Currently has no effect
+        :param pulumi.Input[_builtins.int] internal_port: Port in the Machine that Fly Proxy forwards traffic to. Defaults to 8080
+        :param pulumi.Input[_builtins.int] min_machines_running: When autostop is on, the number of Machines Fly Proxy keeps running in the app's primary
+               region (`PRIMARY_REGION` env var). Machines in other regions can all be stopped
+        :param pulumi.Input[Sequence[pulumi.Input['FlyMachinePortArgs']]] ports: Public ports that Fly Proxy accepts traffic on
+        :param pulumi.Input[_builtins.str] protocol: Protocol: tcp or udp. Defaults to tcp
         """
         if autostart is not None:
             pulumi.set(__self__, "autostart", autostart)
@@ -4259,6 +4314,9 @@ class FlyMachineServiceArgs:
     @_builtins.property
     @pulumi.getter
     def autostart(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Whether Fly Proxy starts stopped or suspended Machines when requests arrive. Defaults to true
+        """
         return pulumi.get(self, "autostart")
 
     @autostart.setter
@@ -4295,6 +4353,9 @@ class FlyMachineServiceArgs:
     @_builtins.property
     @pulumi.getter
     def concurrency(self) -> pulumi.Input[Optional['FlyMachineServiceConcurrencyArgs']]:
+        """
+        Load limits Fly Proxy uses to balance traffic across Machines
+        """
         return pulumi.get(self, "concurrency")
 
     @concurrency.setter
@@ -4304,6 +4365,9 @@ class FlyMachineServiceArgs:
     @_builtins.property
     @pulumi.getter(name="forceInstanceDescription")
     def force_instance_description(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Currently has no effect
+        """
         return pulumi.get(self, "force_instance_description")
 
     @force_instance_description.setter
@@ -4313,6 +4377,9 @@ class FlyMachineServiceArgs:
     @_builtins.property
     @pulumi.getter(name="forceInstanceKey")
     def force_instance_key(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Currently has no effect
+        """
         return pulumi.get(self, "force_instance_key")
 
     @force_instance_key.setter
@@ -4322,6 +4389,9 @@ class FlyMachineServiceArgs:
     @_builtins.property
     @pulumi.getter(name="internalPort")
     def internal_port(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Port in the Machine that Fly Proxy forwards traffic to. Defaults to 8080
+        """
         return pulumi.get(self, "internal_port")
 
     @internal_port.setter
@@ -4331,6 +4401,10 @@ class FlyMachineServiceArgs:
     @_builtins.property
     @pulumi.getter(name="minMachinesRunning")
     def min_machines_running(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        When autostop is on, the number of Machines Fly Proxy keeps running in the app's primary
+        region (`PRIMARY_REGION` env var). Machines in other regions can all be stopped
+        """
         return pulumi.get(self, "min_machines_running")
 
     @min_machines_running.setter
@@ -4340,6 +4414,9 @@ class FlyMachineServiceArgs:
     @_builtins.property
     @pulumi.getter
     def ports(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['FlyMachinePortArgs']]]]:
+        """
+        Public ports that Fly Proxy accepts traffic on
+        """
         return pulumi.get(self, "ports")
 
     @ports.setter
@@ -4349,6 +4426,9 @@ class FlyMachineServiceArgs:
     @_builtins.property
     @pulumi.getter
     def protocol(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Protocol: tcp or udp. Defaults to tcp
+        """
         return pulumi.get(self, "protocol")
 
     @protocol.setter
@@ -4362,6 +4442,9 @@ class FlyMachineServiceCheckArgsDict(TypedDict):
     The time to wait after a VM starts before checking its health
     """
     headers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['FlyMachineHTTPHeaderArgsDict']]]]]
+    """
+    For http checks, headers to send with the request
+    """
     interval: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     The time between connectivity checks
@@ -4415,6 +4498,7 @@ class FlyMachineServiceCheckArgs:
                  type: pulumi.Input[Optional[_builtins.str]] = None):
         """
         :param pulumi.Input[_builtins.str] grace_period: The time to wait after a VM starts before checking its health
+        :param pulumi.Input[Sequence[pulumi.Input['FlyMachineHTTPHeaderArgs']]] headers: For http checks, headers to send with the request
         :param pulumi.Input[_builtins.str] interval: The time between connectivity checks
         :param pulumi.Input[_builtins.str] method: For http checks, the HTTP method to use to when making the request
         :param pulumi.Input[_builtins.str] path: For http checks, the path to send the request to
@@ -4463,6 +4547,9 @@ class FlyMachineServiceCheckArgs:
     @_builtins.property
     @pulumi.getter
     def headers(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['FlyMachineHTTPHeaderArgs']]]]:
+        """
+        For http checks, headers to send with the request
+        """
         return pulumi.get(self, "headers")
 
     @headers.setter
@@ -4579,9 +4666,23 @@ class FlyMachineServiceCheckArgs:
 
 
 class FlyMachineServiceConcurrencyArgsDict(TypedDict):
+    """
+    Load limits Fly Proxy uses to balance traffic across Machines
+    """
     hard_limit: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Fly Proxy sends no more than this many connections or requests to a Machine at once. 0 means
+    no hard limit
+    """
     soft_limit: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Above this many connections or requests, Fly Proxy prefers other Machines. Defaults to 20,
+    and is lowered to hard_limit if higher
+    """
     type: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    What to count: `connections` (default) or `requests`
+    """
 
 @pulumi.input_type
 class FlyMachineServiceConcurrencyArgs:
@@ -4589,6 +4690,15 @@ class FlyMachineServiceConcurrencyArgs:
                  hard_limit: pulumi.Input[Optional[_builtins.int]] = None,
                  soft_limit: pulumi.Input[Optional[_builtins.int]] = None,
                  type: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        Load limits Fly Proxy uses to balance traffic across Machines
+
+        :param pulumi.Input[_builtins.int] hard_limit: Fly Proxy sends no more than this many connections or requests to a Machine at once. 0 means
+               no hard limit
+        :param pulumi.Input[_builtins.int] soft_limit: Above this many connections or requests, Fly Proxy prefers other Machines. Defaults to 20,
+               and is lowered to hard_limit if higher
+        :param pulumi.Input[_builtins.str] type: What to count: `connections` (default) or `requests`
+        """
         if hard_limit is not None:
             pulumi.set(__self__, "hard_limit", hard_limit)
         if soft_limit is not None:
@@ -4599,6 +4709,10 @@ class FlyMachineServiceConcurrencyArgs:
     @_builtins.property
     @pulumi.getter(name="hardLimit")
     def hard_limit(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Fly Proxy sends no more than this many connections or requests to a Machine at once. 0 means
+        no hard limit
+        """
         return pulumi.get(self, "hard_limit")
 
     @hard_limit.setter
@@ -4608,6 +4722,10 @@ class FlyMachineServiceConcurrencyArgs:
     @_builtins.property
     @pulumi.getter(name="softLimit")
     def soft_limit(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Above this many connections or requests, Fly Proxy prefers other Machines. Defaults to 20,
+        and is lowered to hard_limit if higher
+        """
         return pulumi.get(self, "soft_limit")
 
     @soft_limit.setter
@@ -4617,6 +4735,9 @@ class FlyMachineServiceConcurrencyArgs:
     @_builtins.property
     @pulumi.getter
     def type(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        What to count: `connections` (default) or `requests`
+        """
         return pulumi.get(self, "type")
 
     @type.setter
@@ -4624,47 +4745,24 @@ class FlyMachineServiceConcurrencyArgs:
         pulumi.set(self, "type", value)
 
 
-class FlyProxyProtoOptionsArgsDict(TypedDict):
-    fly_src: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
-    version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-
-@pulumi.input_type
-class FlyProxyProtoOptionsArgs:
-    def __init__(__self__, *,
-                 fly_src: pulumi.Input[Optional[_builtins.bool]] = None,
-                 version: pulumi.Input[Optional[_builtins.str]] = None):
-        if fly_src is not None:
-            pulumi.set(__self__, "fly_src", fly_src)
-        if version is not None:
-            pulumi.set(__self__, "version", version)
-
-    @_builtins.property
-    @pulumi.getter(name="flySrc")
-    def fly_src(self) -> pulumi.Input[Optional[_builtins.bool]]:
-        return pulumi.get(self, "fly_src")
-
-    @fly_src.setter
-    def fly_src(self, value: pulumi.Input[Optional[_builtins.bool]]):
-        pulumi.set(self, "fly_src", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def version(self) -> pulumi.Input[Optional[_builtins.str]]:
-        return pulumi.get(self, "version")
-
-    @version.setter
-    def version(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "version", value)
-
-
 class FlyReplayCacheArgsDict(TypedDict):
     allow_bypass: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    Let clients skip the cache by sending the `fly-replay-cache-control: skip` header
+    """
     name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Name of the cookie or header to key the cache on
     """
     path_prefix: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Requests whose path starts with this prefix use the rule. May start with a hostname, e.g.
+    `example.com/api/*`
+    """
     ttl_seconds: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    How long a cached replay is used, in seconds
+    """
     type: NotRequired[pulumi.Input[Optional['FlyReplayCacheType']]]
     """
     Currently either "cookie" or "header"
@@ -4679,7 +4777,11 @@ class FlyReplayCacheArgs:
                  ttl_seconds: pulumi.Input[Optional[_builtins.int]] = None,
                  type: pulumi.Input[Optional['FlyReplayCacheType']] = None):
         """
+        :param pulumi.Input[_builtins.bool] allow_bypass: Let clients skip the cache by sending the `fly-replay-cache-control: skip` header
         :param pulumi.Input[_builtins.str] name: Name of the cookie or header to key the cache on
+        :param pulumi.Input[_builtins.str] path_prefix: Requests whose path starts with this prefix use the rule. May start with a hostname, e.g.
+               `example.com/api/*`
+        :param pulumi.Input[_builtins.int] ttl_seconds: How long a cached replay is used, in seconds
         :param pulumi.Input['FlyReplayCacheType'] type: Currently either "cookie" or "header"
         """
         if allow_bypass is not None:
@@ -4696,6 +4798,9 @@ class FlyReplayCacheArgs:
     @_builtins.property
     @pulumi.getter(name="allowBypass")
     def allow_bypass(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Let clients skip the cache by sending the `fly-replay-cache-control: skip` header
+        """
         return pulumi.get(self, "allow_bypass")
 
     @allow_bypass.setter
@@ -4717,6 +4822,10 @@ class FlyReplayCacheArgs:
     @_builtins.property
     @pulumi.getter(name="pathPrefix")
     def path_prefix(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Requests whose path starts with this prefix use the rule. May start with a hostname, e.g.
+        `example.com/api/*`
+        """
         return pulumi.get(self, "path_prefix")
 
     @path_prefix.setter
@@ -4726,6 +4835,9 @@ class FlyReplayCacheArgs:
     @_builtins.property
     @pulumi.getter(name="ttlSeconds")
     def ttl_seconds(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        How long a cached replay is used, in seconds
+        """
         return pulumi.get(self, "ttl_seconds")
 
     @ttl_seconds.setter
@@ -4833,81 +4945,6 @@ class FlyStaticArgs:
     @tigris_bucket.setter
     def tigris_bucket(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "tigris_bucket", value)
-
-
-class FlyTCPHealthcheckArgsDict(TypedDict):
-    port: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    """
-    The port to connect to, often the same as internal_port
-    """
-
-@pulumi.input_type
-class FlyTCPHealthcheckArgs:
-    def __init__(__self__, *,
-                 port: pulumi.Input[Optional[_builtins.int]] = None):
-        """
-        :param pulumi.Input[_builtins.int] port: The port to connect to, often the same as internal_port
-        """
-        if port is not None:
-            pulumi.set(__self__, "port", port)
-
-    @_builtins.property
-    @pulumi.getter
-    def port(self) -> pulumi.Input[Optional[_builtins.int]]:
-        """
-        The port to connect to, often the same as internal_port
-        """
-        return pulumi.get(self, "port")
-
-    @port.setter
-    def port(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "port", value)
-
-
-class FlyTLSOptionsArgsDict(TypedDict):
-    alpn: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
-    default_self_signed: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
-    versions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
-
-@pulumi.input_type
-class FlyTLSOptionsArgs:
-    def __init__(__self__, *,
-                 alpn: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 default_self_signed: pulumi.Input[Optional[_builtins.bool]] = None,
-                 versions: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
-        if alpn is not None:
-            pulumi.set(__self__, "alpn", alpn)
-        if default_self_signed is not None:
-            pulumi.set(__self__, "default_self_signed", default_self_signed)
-        if versions is not None:
-            pulumi.set(__self__, "versions", versions)
-
-    @_builtins.property
-    @pulumi.getter
-    def alpn(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
-        return pulumi.get(self, "alpn")
-
-    @alpn.setter
-    def alpn(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
-        pulumi.set(self, "alpn", value)
-
-    @_builtins.property
-    @pulumi.getter(name="defaultSelfSigned")
-    def default_self_signed(self) -> pulumi.Input[Optional[_builtins.bool]]:
-        return pulumi.get(self, "default_self_signed")
-
-    @default_self_signed.setter
-    def default_self_signed(self, value: pulumi.Input[Optional[_builtins.bool]]):
-        pulumi.set(self, "default_self_signed", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def versions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
-        return pulumi.get(self, "versions")
-
-    @versions.setter
-    def versions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
-        pulumi.set(self, "versions", value)
 
 
 class GetAppCertificateQueryParamsDict(TypedDict):
@@ -5206,11 +5243,11 @@ class GetMachinesWaitQueryParamsDict(TypedDict):
     """
     state: NotRequired['GetMachinesWaitQueryParamsState']
     """
-    desired state(s), supports repeated or comma-separated values
+    Desired state(s). Supports repeated or comma-separated values. settled matches any of started, stopped, suspended, failed, destroyed, or archived. Defaults to started.
     """
     timeout: NotRequired[_builtins.int]
     """
-    wait timeout. default 60s
+    Wait timeout in seconds. Defaults to 60.
     """
     version: NotRequired[_builtins.str]
     """
@@ -5232,8 +5269,8 @@ class GetMachinesWaitQueryParams:
         :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
         :param _builtins.str from_event_id: 26-character Machine event ID to start waiting after
         :param _builtins.str instance_id: 26-character Machine version ID (deprecated; use version)
-        :param 'GetMachinesWaitQueryParamsState' state: desired state(s), supports repeated or comma-separated values
-        :param _builtins.int timeout: wait timeout. default 60s
+        :param 'GetMachinesWaitQueryParamsState' state: Desired state(s). Supports repeated or comma-separated values. settled matches any of started, stopped, suspended, failed, destroyed, or archived. Defaults to started.
+        :param _builtins.int timeout: Wait timeout in seconds. Defaults to 60.
         :param _builtins.str version: 26-character Machine version ID
         """
         if additional_params is not None:
@@ -5289,7 +5326,7 @@ class GetMachinesWaitQueryParams:
     @pulumi.getter
     def state(self) -> Optional['GetMachinesWaitQueryParamsState']:
         """
-        desired state(s), supports repeated or comma-separated values
+        Desired state(s). Supports repeated or comma-separated values. settled matches any of started, stopped, suspended, failed, destroyed, or archived. Defaults to started.
         """
         return pulumi.get(self, "state")
 
@@ -5301,7 +5338,7 @@ class GetMachinesWaitQueryParams:
     @pulumi.getter
     def timeout(self) -> Optional[_builtins.int]:
         """
-        wait timeout. default 60s
+        Wait timeout in seconds. Defaults to 60.
         """
         return pulumi.get(self, "timeout")
 
@@ -5332,11 +5369,11 @@ class GetSecretQueryParamsDict(TypedDict):
     """
     min_version: NotRequired[_builtins.str]
     """
-    Minimum secrets version to return. Returned when setting a new secret
+    Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
     """
     show_secrets: NotRequired[_builtins.bool]
     """
-    Show the secret value.
+    Include the secret value. Only allowed when the request comes from a Machine of the app; otherwise the request fails with 403.
     """
 
 @pulumi.input_type
@@ -5349,8 +5386,8 @@ class GetSecretQueryParams:
         Query params for the API request.
 
         :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
-        :param _builtins.str min_version: Minimum secrets version to return. Returned when setting a new secret
-        :param _builtins.bool show_secrets: Show the secret value.
+        :param _builtins.str min_version: Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
+        :param _builtins.bool show_secrets: Include the secret value. Only allowed when the request comes from a Machine of the app; otherwise the request fails with 403.
         """
         if additional_params is not None:
             pulumi.set(__self__, "additional_params", additional_params)
@@ -5375,7 +5412,7 @@ class GetSecretQueryParams:
     @pulumi.getter(name="minVersion")
     def min_version(self) -> Optional[_builtins.str]:
         """
-        Minimum secrets version to return. Returned when setting a new secret
+        Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
         """
         return pulumi.get(self, "min_version")
 
@@ -5387,7 +5424,7 @@ class GetSecretQueryParams:
     @pulumi.getter(name="showSecrets")
     def show_secrets(self) -> Optional[_builtins.bool]:
         """
-        Show the secret value.
+        Include the secret value. Only allowed when the request comes from a Machine of the app; otherwise the request fails with 403.
         """
         return pulumi.get(self, "show_secrets")
 
@@ -5406,7 +5443,7 @@ class GetSecretkeyQueryParamsDict(TypedDict):
     """
     min_version: NotRequired[_builtins.str]
     """
-    Minimum secrets version to return. Returned when setting a new secret
+    Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
     """
 
 @pulumi.input_type
@@ -5418,7 +5455,7 @@ class GetSecretkeyQueryParams:
         Query params for the API request.
 
         :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
-        :param _builtins.str min_version: Minimum secrets version to return. Returned when setting a new secret
+        :param _builtins.str min_version: Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
         """
         if additional_params is not None:
             pulumi.set(__self__, "additional_params", additional_params)
@@ -5441,7 +5478,7 @@ class GetSecretkeyQueryParams:
     @pulumi.getter(name="minVersion")
     def min_version(self) -> Optional[_builtins.str]:
         """
-        Minimum secrets version to return. Returned when setting a new secret
+        Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
         """
         return pulumi.get(self, "min_version")
 
@@ -5787,27 +5824,27 @@ class ListMachinesProcessesQueryParamsDict(TypedDict):
     """
     Additional query params to send with the request that are not defined in the API spec.
     """
-    order: NotRequired[_builtins.str]
+    order: NotRequired['ListMachinesProcessesQueryParamsOrder']
     """
-    Order
+    Sort order. Requires sort_by. Defaults to asc.
     """
-    sort_by: NotRequired[_builtins.str]
+    sort_by: NotRequired['ListMachinesProcessesQueryParamsSortBy']
     """
-    Sort by
+    Field to sort processes by
     """
 
 @pulumi.input_type
 class ListMachinesProcessesQueryParams:
     def __init__(__self__, *,
                  additional_params: Optional[Mapping[str, _builtins.str]] = None,
-                 order: Optional[_builtins.str] = None,
-                 sort_by: Optional[_builtins.str] = None):
+                 order: Optional['ListMachinesProcessesQueryParamsOrder'] = None,
+                 sort_by: Optional['ListMachinesProcessesQueryParamsSortBy'] = None):
         """
         Query params for the API request.
 
         :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
-        :param _builtins.str order: Order
-        :param _builtins.str sort_by: Sort by
+        :param 'ListMachinesProcessesQueryParamsOrder' order: Sort order. Requires sort_by. Defaults to asc.
+        :param 'ListMachinesProcessesQueryParamsSortBy' sort_by: Field to sort processes by
         """
         if additional_params is not None:
             pulumi.set(__self__, "additional_params", additional_params)
@@ -5830,26 +5867,26 @@ class ListMachinesProcessesQueryParams:
 
     @_builtins.property
     @pulumi.getter
-    def order(self) -> Optional[_builtins.str]:
+    def order(self) -> Optional['ListMachinesProcessesQueryParamsOrder']:
         """
-        Order
+        Sort order. Requires sort_by. Defaults to asc.
         """
         return pulumi.get(self, "order")
 
     @order.setter
-    def order(self, value: Optional[_builtins.str]):
+    def order(self, value: Optional['ListMachinesProcessesQueryParamsOrder']):
         pulumi.set(self, "order", value)
 
     @_builtins.property
     @pulumi.getter(name="sortBy")
-    def sort_by(self) -> Optional[_builtins.str]:
+    def sort_by(self) -> Optional['ListMachinesProcessesQueryParamsSortBy']:
         """
-        Sort by
+        Field to sort processes by
         """
         return pulumi.get(self, "sort_by")
 
     @sort_by.setter
-    def sort_by(self, value: Optional[_builtins.str]):
+    def sort_by(self, value: Optional['ListMachinesProcessesQueryParamsSortBy']):
         pulumi.set(self, "sort_by", value)
 
 
@@ -6091,11 +6128,11 @@ class ListSecretkeysQueryParamsDict(TypedDict):
     """
     min_version: NotRequired[_builtins.str]
     """
-    Minimum secrets version to return. Returned when setting a new secret
+    Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
     """
     types: NotRequired[_builtins.str]
     """
-    Comma-seperated list of secret keys to list
+    Comma-separated list of key types to list, such as hs256,es256. Defaults to all types.
     """
 
 @pulumi.input_type
@@ -6108,8 +6145,8 @@ class ListSecretkeysQueryParams:
         Query params for the API request.
 
         :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
-        :param _builtins.str min_version: Minimum secrets version to return. Returned when setting a new secret
-        :param _builtins.str types: Comma-seperated list of secret keys to list
+        :param _builtins.str min_version: Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
+        :param _builtins.str types: Comma-separated list of key types to list, such as hs256,es256. Defaults to all types.
         """
         if additional_params is not None:
             pulumi.set(__self__, "additional_params", additional_params)
@@ -6134,7 +6171,7 @@ class ListSecretkeysQueryParams:
     @pulumi.getter(name="minVersion")
     def min_version(self) -> Optional[_builtins.str]:
         """
-        Minimum secrets version to return. Returned when setting a new secret
+        Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
         """
         return pulumi.get(self, "min_version")
 
@@ -6146,7 +6183,7 @@ class ListSecretkeysQueryParams:
     @pulumi.getter
     def types(self) -> Optional[_builtins.str]:
         """
-        Comma-seperated list of secret keys to list
+        Comma-separated list of key types to list, such as hs256,es256. Defaults to all types.
         """
         return pulumi.get(self, "types")
 
@@ -6165,11 +6202,11 @@ class ListSecretsQueryParamsDict(TypedDict):
     """
     min_version: NotRequired[_builtins.str]
     """
-    Minimum secrets version to return. Returned when setting a new secret
+    Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
     """
     show_secrets: NotRequired[_builtins.bool]
     """
-    Show the secret values.
+    Include secret values. Only allowed when the request comes from a Machine of the app; otherwise the request fails with 403.
     """
 
 @pulumi.input_type
@@ -6182,8 +6219,8 @@ class ListSecretsQueryParams:
         Query params for the API request.
 
         :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
-        :param _builtins.str min_version: Minimum secrets version to return. Returned when setting a new secret
-        :param _builtins.bool show_secrets: Show the secret values.
+        :param _builtins.str min_version: Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
+        :param _builtins.bool show_secrets: Include secret values. Only allowed when the request comes from a Machine of the app; otherwise the request fails with 403.
         """
         if additional_params is not None:
             pulumi.set(__self__, "additional_params", additional_params)
@@ -6208,7 +6245,7 @@ class ListSecretsQueryParams:
     @pulumi.getter(name="minVersion")
     def min_version(self) -> Optional[_builtins.str]:
         """
-        Minimum secrets version to return. Returned when setting a new secret
+        Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
         """
         return pulumi.get(self, "min_version")
 
@@ -6220,7 +6257,7 @@ class ListSecretsQueryParams:
     @pulumi.getter(name="showSecrets")
     def show_secrets(self) -> Optional[_builtins.bool]:
         """
-        Show the secret values.
+        Include secret values. Only allowed when the request comes from a Machine of the app; otherwise the request fails with 403.
         """
         return pulumi.get(self, "show_secrets")
 
@@ -6443,6 +6480,894 @@ class MachineDeleteQueryParamsArgs:
     @force.setter
     def force(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "force", value)
+
+
+class MachineFlyMachineConfigCacheDriveArgsDict(TypedDict):
+    """
+    Beta: a cache drive attached to the Machine. This field may be removed in the future
+    """
+    path: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Optional absolute guest mount path. When set, the device is formatted as ext4.
+    Without a path, the device retains legacy raw block behavior. Contents survive
+    same-host restarts and path changes, but are discarded on size or mode changes,
+    relocation, recovery on another host, and cloning.
+    """
+    size_mb: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Fixed size of the Machine-owned cache drive in MiB. At most 51200.
+    With a path, at least 16 MiB is required; without a path, 0 disables the device.
+    """
+
+@pulumi.input_type
+class MachineFlyMachineConfigCacheDriveArgs:
+    def __init__(__self__, *,
+                 path: pulumi.Input[Optional[_builtins.str]] = None,
+                 size_mb: pulumi.Input[Optional[_builtins.int]] = None):
+        """
+        Beta: a cache drive attached to the Machine. This field may be removed in the future
+
+        :param pulumi.Input[_builtins.str] path: Optional absolute guest mount path. When set, the device is formatted as ext4.
+               Without a path, the device retains legacy raw block behavior. Contents survive
+               same-host restarts and path changes, but are discarded on size or mode changes,
+               relocation, recovery on another host, and cloning.
+        :param pulumi.Input[_builtins.int] size_mb: Fixed size of the Machine-owned cache drive in MiB. At most 51200.
+               With a path, at least 16 MiB is required; without a path, 0 disables the device.
+        """
+        if path is not None:
+            pulumi.set(__self__, "path", path)
+        if size_mb is not None:
+            pulumi.set(__self__, "size_mb", size_mb)
+
+    @_builtins.property
+    @pulumi.getter
+    def path(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Optional absolute guest mount path. When set, the device is formatted as ext4.
+        Without a path, the device retains legacy raw block behavior. Contents survive
+        same-host restarts and path changes, but are discarded on size or mode changes,
+        relocation, recovery on another host, and cloning.
+        """
+        return pulumi.get(self, "path")
+
+    @path.setter
+    def path(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "path", value)
+
+    @_builtins.property
+    @pulumi.getter(name="sizeMb")
+    def size_mb(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Fixed size of the Machine-owned cache drive in MiB. At most 51200.
+        With a path, at least 16 MiB is required; without a path, 0 disables the device.
+        """
+        return pulumi.get(self, "size_mb")
+
+    @size_mb.setter
+    def size_mb(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "size_mb", value)
+
+
+class MachineFlyMachineConfigDnsArgsDict(TypedDict):
+    """
+    DNS settings for the Machine
+    """
+    dns_forward_rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['FlyDnsForwardRuleArgsDict']]]]]
+    """
+    Forward DNS queries for some domains to other DNS servers
+    """
+    hostname: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Hostname of the Machine. Defaults to the Machine ID. Also added to /etc/hosts with the
+    Machine's 6PN address
+    """
+    hostname_fqdn: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Fully qualified domain name added to /etc/hosts for `hostname`
+    """
+    nameservers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    Nameservers to use instead of the default, Fly.io's private DNS server `fdaa::3`
+    """
+    options: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['FlyDnsOptionArgsDict']]]]]
+    """
+    Options for /etc/resolv.conf
+    """
+    searches: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    Search domains for /etc/resolv.conf
+    """
+    skip_registration: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    Currently has no effect
+    """
+
+@pulumi.input_type
+class MachineFlyMachineConfigDnsArgs:
+    def __init__(__self__, *,
+                 dns_forward_rules: pulumi.Input[Optional[Sequence[pulumi.Input['FlyDnsForwardRuleArgs']]]] = None,
+                 hostname: pulumi.Input[Optional[_builtins.str]] = None,
+                 hostname_fqdn: pulumi.Input[Optional[_builtins.str]] = None,
+                 nameservers: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 options: pulumi.Input[Optional[Sequence[pulumi.Input['FlyDnsOptionArgs']]]] = None,
+                 searches: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 skip_registration: pulumi.Input[Optional[_builtins.bool]] = None):
+        """
+        DNS settings for the Machine
+
+        :param pulumi.Input[Sequence[pulumi.Input['FlyDnsForwardRuleArgs']]] dns_forward_rules: Forward DNS queries for some domains to other DNS servers
+        :param pulumi.Input[_builtins.str] hostname: Hostname of the Machine. Defaults to the Machine ID. Also added to /etc/hosts with the
+               Machine's 6PN address
+        :param pulumi.Input[_builtins.str] hostname_fqdn: Fully qualified domain name added to /etc/hosts for `hostname`
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] nameservers: Nameservers to use instead of the default, Fly.io's private DNS server `fdaa::3`
+        :param pulumi.Input[Sequence[pulumi.Input['FlyDnsOptionArgs']]] options: Options for /etc/resolv.conf
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] searches: Search domains for /etc/resolv.conf
+        :param pulumi.Input[_builtins.bool] skip_registration: Currently has no effect
+        """
+        if dns_forward_rules is not None:
+            pulumi.set(__self__, "dns_forward_rules", dns_forward_rules)
+        if hostname is not None:
+            pulumi.set(__self__, "hostname", hostname)
+        if hostname_fqdn is not None:
+            pulumi.set(__self__, "hostname_fqdn", hostname_fqdn)
+        if nameservers is not None:
+            pulumi.set(__self__, "nameservers", nameservers)
+        if options is not None:
+            pulumi.set(__self__, "options", options)
+        if searches is not None:
+            pulumi.set(__self__, "searches", searches)
+        if skip_registration is not None:
+            pulumi.set(__self__, "skip_registration", skip_registration)
+
+    @_builtins.property
+    @pulumi.getter(name="dnsForwardRules")
+    def dns_forward_rules(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['FlyDnsForwardRuleArgs']]]]:
+        """
+        Forward DNS queries for some domains to other DNS servers
+        """
+        return pulumi.get(self, "dns_forward_rules")
+
+    @dns_forward_rules.setter
+    def dns_forward_rules(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['FlyDnsForwardRuleArgs']]]]):
+        pulumi.set(self, "dns_forward_rules", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def hostname(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Hostname of the Machine. Defaults to the Machine ID. Also added to /etc/hosts with the
+        Machine's 6PN address
+        """
+        return pulumi.get(self, "hostname")
+
+    @hostname.setter
+    def hostname(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "hostname", value)
+
+    @_builtins.property
+    @pulumi.getter(name="hostnameFqdn")
+    def hostname_fqdn(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Fully qualified domain name added to /etc/hosts for `hostname`
+        """
+        return pulumi.get(self, "hostname_fqdn")
+
+    @hostname_fqdn.setter
+    def hostname_fqdn(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "hostname_fqdn", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def nameservers(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        Nameservers to use instead of the default, Fly.io's private DNS server `fdaa::3`
+        """
+        return pulumi.get(self, "nameservers")
+
+    @nameservers.setter
+    def nameservers(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "nameservers", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def options(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['FlyDnsOptionArgs']]]]:
+        """
+        Options for /etc/resolv.conf
+        """
+        return pulumi.get(self, "options")
+
+    @options.setter
+    def options(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['FlyDnsOptionArgs']]]]):
+        pulumi.set(self, "options", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def searches(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        Search domains for /etc/resolv.conf
+        """
+        return pulumi.get(self, "searches")
+
+    @searches.setter
+    def searches(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "searches", value)
+
+    @_builtins.property
+    @pulumi.getter(name="skipRegistration")
+    def skip_registration(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Currently has no effect
+        """
+        return pulumi.get(self, "skip_registration")
+
+    @skip_registration.setter
+    def skip_registration(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "skip_registration", value)
+
+
+class MachineFlyMachineConfigGuestArgsDict(TypedDict):
+    """
+    The resources (CPUs, memory, etc.) allocated to the Machine
+    """
+    cpu_kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
+    Defaults to shared when `guest` is omitted
+    """
+    cpus: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
+    performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
+    omitted
+    """
+    gpu_kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    No longer supported. Requests that set it are rejected
+    """
+    gpus: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    No longer supported. Requests that set it are rejected
+    """
+    host_dedication_id: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Place the Machine on hosts dedicated to the organization under this ID. Only available to
+    organizations with dedicated hosts
+    """
+    kernel_args: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    Extra arguments appended to the guest kernel command line
+    """
+    max_memory_mb: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
+    the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
+    starts with a limit of memory_mb
+    """
+    memory_mb: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
+    between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
+    `guest` is omitted
+    """
+    persist_rootfs: NotRequired[pulumi.Input[Optional['FlyMachineGuestPersistRootfs']]]
+    """
+    Deprecated: use MachineConfig.Rootfs instead
+    """
+    required_host_features: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
+    of lowercase letters, digits and dashes. Each feature must be enabled for the organization
+    """
+
+@pulumi.input_type
+class MachineFlyMachineConfigGuestArgs:
+    def __init__(__self__, *,
+                 cpu_kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 cpus: pulumi.Input[Optional[_builtins.int]] = None,
+                 gpu_kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 gpus: pulumi.Input[Optional[_builtins.int]] = None,
+                 host_dedication_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 kernel_args: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 max_memory_mb: pulumi.Input[Optional[_builtins.int]] = None,
+                 memory_mb: pulumi.Input[Optional[_builtins.int]] = None,
+                 persist_rootfs: pulumi.Input[Optional['FlyMachineGuestPersistRootfs']] = None,
+                 required_host_features: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
+        """
+        The resources (CPUs, memory, etc.) allocated to the Machine
+
+        :param pulumi.Input[_builtins.str] cpu_kind: Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
+               Defaults to shared when `guest` is omitted
+        :param pulumi.Input[_builtins.int] cpus: Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
+               performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
+               omitted
+        :param pulumi.Input[_builtins.str] gpu_kind: No longer supported. Requests that set it are rejected
+        :param pulumi.Input[_builtins.int] gpus: No longer supported. Requests that set it are rejected
+        :param pulumi.Input[_builtins.str] host_dedication_id: Place the Machine on hosts dedicated to the organization under this ID. Only available to
+               organizations with dedicated hosts
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] kernel_args: Extra arguments appended to the guest kernel command line
+        :param pulumi.Input[_builtins.int] max_memory_mb: Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
+               the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
+               starts with a limit of memory_mb
+        :param pulumi.Input[_builtins.int] memory_mb: Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
+               between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
+               `guest` is omitted
+        :param pulumi.Input['FlyMachineGuestPersistRootfs'] persist_rootfs: Deprecated: use MachineConfig.Rootfs instead
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] required_host_features: Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
+               of lowercase letters, digits and dashes. Each feature must be enabled for the organization
+        """
+        if cpu_kind is not None:
+            pulumi.set(__self__, "cpu_kind", cpu_kind)
+        if cpus is not None:
+            pulumi.set(__self__, "cpus", cpus)
+        if gpu_kind is not None:
+            pulumi.set(__self__, "gpu_kind", gpu_kind)
+        if gpus is not None:
+            pulumi.set(__self__, "gpus", gpus)
+        if host_dedication_id is not None:
+            pulumi.set(__self__, "host_dedication_id", host_dedication_id)
+        if kernel_args is not None:
+            pulumi.set(__self__, "kernel_args", kernel_args)
+        if max_memory_mb is not None:
+            pulumi.set(__self__, "max_memory_mb", max_memory_mb)
+        if memory_mb is not None:
+            pulumi.set(__self__, "memory_mb", memory_mb)
+        if persist_rootfs is not None:
+            pulumi.set(__self__, "persist_rootfs", persist_rootfs)
+        if required_host_features is not None:
+            pulumi.set(__self__, "required_host_features", required_host_features)
+
+    @_builtins.property
+    @pulumi.getter(name="cpuKind")
+    def cpu_kind(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
+        Defaults to shared when `guest` is omitted
+        """
+        return pulumi.get(self, "cpu_kind")
+
+    @cpu_kind.setter
+    def cpu_kind(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "cpu_kind", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def cpus(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
+        performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
+        omitted
+        """
+        return pulumi.get(self, "cpus")
+
+    @cpus.setter
+    def cpus(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "cpus", value)
+
+    @_builtins.property
+    @pulumi.getter(name="gpuKind")
+    def gpu_kind(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        No longer supported. Requests that set it are rejected
+        """
+        return pulumi.get(self, "gpu_kind")
+
+    @gpu_kind.setter
+    def gpu_kind(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "gpu_kind", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def gpus(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        No longer supported. Requests that set it are rejected
+        """
+        return pulumi.get(self, "gpus")
+
+    @gpus.setter
+    def gpus(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "gpus", value)
+
+    @_builtins.property
+    @pulumi.getter(name="hostDedicationId")
+    def host_dedication_id(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Place the Machine on hosts dedicated to the organization under this ID. Only available to
+        organizations with dedicated hosts
+        """
+        return pulumi.get(self, "host_dedication_id")
+
+    @host_dedication_id.setter
+    def host_dedication_id(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "host_dedication_id", value)
+
+    @_builtins.property
+    @pulumi.getter(name="kernelArgs")
+    def kernel_args(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        Extra arguments appended to the guest kernel command line
+        """
+        return pulumi.get(self, "kernel_args")
+
+    @kernel_args.setter
+    def kernel_args(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "kernel_args", value)
+
+    @_builtins.property
+    @pulumi.getter(name="maxMemoryMb")
+    def max_memory_mb(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
+        the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
+        starts with a limit of memory_mb
+        """
+        return pulumi.get(self, "max_memory_mb")
+
+    @max_memory_mb.setter
+    def max_memory_mb(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "max_memory_mb", value)
+
+    @_builtins.property
+    @pulumi.getter(name="memoryMb")
+    def memory_mb(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
+        between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
+        `guest` is omitted
+        """
+        return pulumi.get(self, "memory_mb")
+
+    @memory_mb.setter
+    def memory_mb(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "memory_mb", value)
+
+    @_builtins.property
+    @pulumi.getter(name="persistRootfs")
+    def persist_rootfs(self) -> pulumi.Input[Optional['FlyMachineGuestPersistRootfs']]:
+        """
+        Deprecated: use MachineConfig.Rootfs instead
+        """
+        return pulumi.get(self, "persist_rootfs")
+
+    @persist_rootfs.setter
+    def persist_rootfs(self, value: pulumi.Input[Optional['FlyMachineGuestPersistRootfs']]):
+        pulumi.set(self, "persist_rootfs", value)
+
+    @_builtins.property
+    @pulumi.getter(name="requiredHostFeatures")
+    def required_host_features(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
+        of lowercase letters, digits and dashes. Each feature must be enabled for the organization
+        """
+        return pulumi.get(self, "required_host_features")
+
+    @required_host_features.setter
+    def required_host_features(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "required_host_features", value)
+
+
+class MachineFlyMachineConfigInitArgsDict(TypedDict):
+    """
+    Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
+    """
+    cmd: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    Replaces the image's CMD. It's appended to the entrypoint
+    """
+    entrypoint: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    Replaces the image's ENTRYPOINT
+    """
+    exec_: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    Command to run instead of the image's ENTRYPOINT and CMD. Takes precedence over entrypoint
+    and cmd
+    """
+    kernel_args: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    Currently has no effect. Use `guest.kernel_args` instead
+    """
+    swap_size_mb: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Size in MiB of a swap device to give the Machine. Machines with swap cannot be suspended
+    """
+    tty: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    Currently has no effect
+    """
+
+@pulumi.input_type
+class MachineFlyMachineConfigInitArgs:
+    def __init__(__self__, *,
+                 cmd: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 entrypoint: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 exec_: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 kernel_args: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 swap_size_mb: pulumi.Input[Optional[_builtins.int]] = None,
+                 tty: pulumi.Input[Optional[_builtins.bool]] = None):
+        """
+        Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
+
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] cmd: Replaces the image's CMD. It's appended to the entrypoint
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] entrypoint: Replaces the image's ENTRYPOINT
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] exec_: Command to run instead of the image's ENTRYPOINT and CMD. Takes precedence over entrypoint
+               and cmd
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] kernel_args: Currently has no effect. Use `guest.kernel_args` instead
+        :param pulumi.Input[_builtins.int] swap_size_mb: Size in MiB of a swap device to give the Machine. Machines with swap cannot be suspended
+        :param pulumi.Input[_builtins.bool] tty: Currently has no effect
+        """
+        if cmd is not None:
+            pulumi.set(__self__, "cmd", cmd)
+        if entrypoint is not None:
+            pulumi.set(__self__, "entrypoint", entrypoint)
+        if exec_ is not None:
+            pulumi.set(__self__, "exec_", exec_)
+        if kernel_args is not None:
+            pulumi.set(__self__, "kernel_args", kernel_args)
+        if swap_size_mb is not None:
+            pulumi.set(__self__, "swap_size_mb", swap_size_mb)
+        if tty is not None:
+            pulumi.set(__self__, "tty", tty)
+
+    @_builtins.property
+    @pulumi.getter
+    def cmd(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        Replaces the image's CMD. It's appended to the entrypoint
+        """
+        return pulumi.get(self, "cmd")
+
+    @cmd.setter
+    def cmd(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "cmd", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def entrypoint(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        Replaces the image's ENTRYPOINT
+        """
+        return pulumi.get(self, "entrypoint")
+
+    @entrypoint.setter
+    def entrypoint(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "entrypoint", value)
+
+    @_builtins.property
+    @pulumi.getter(name="exec")
+    def exec_(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        Command to run instead of the image's ENTRYPOINT and CMD. Takes precedence over entrypoint
+        and cmd
+        """
+        return pulumi.get(self, "exec_")
+
+    @exec_.setter
+    def exec_(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "exec_", value)
+
+    @_builtins.property
+    @pulumi.getter(name="kernelArgs")
+    def kernel_args(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        Currently has no effect. Use `guest.kernel_args` instead
+        """
+        return pulumi.get(self, "kernel_args")
+
+    @kernel_args.setter
+    def kernel_args(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "kernel_args", value)
+
+    @_builtins.property
+    @pulumi.getter(name="swapSizeMb")
+    def swap_size_mb(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Size in MiB of a swap device to give the Machine. Machines with swap cannot be suspended
+        """
+        return pulumi.get(self, "swap_size_mb")
+
+    @swap_size_mb.setter
+    def swap_size_mb(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "swap_size_mb", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def tty(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Currently has no effect
+        """
+        return pulumi.get(self, "tty")
+
+    @tty.setter
+    def tty(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "tty", value)
+
+
+class MachineFlyMachineConfigMetricsArgsDict(TypedDict):
+    """
+    An optional metrics endpoint for Prometheus on Fly.io to scrape
+    """
+    https: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    Scrape over HTTPS instead of HTTP
+    """
+    path: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    HTTP path to scrape. Defaults to `/`
+    """
+    port: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Port in the Machine to scrape metrics from
+    """
+
+@pulumi.input_type
+class MachineFlyMachineConfigMetricsArgs:
+    def __init__(__self__, *,
+                 https: pulumi.Input[Optional[_builtins.bool]] = None,
+                 path: pulumi.Input[Optional[_builtins.str]] = None,
+                 port: pulumi.Input[Optional[_builtins.int]] = None):
+        """
+        An optional metrics endpoint for Prometheus on Fly.io to scrape
+
+        :param pulumi.Input[_builtins.bool] https: Scrape over HTTPS instead of HTTP
+        :param pulumi.Input[_builtins.str] path: HTTP path to scrape. Defaults to `/`
+        :param pulumi.Input[_builtins.int] port: Port in the Machine to scrape metrics from
+        """
+        if https is not None:
+            pulumi.set(__self__, "https", https)
+        if path is not None:
+            pulumi.set(__self__, "path", path)
+        if port is not None:
+            pulumi.set(__self__, "port", port)
+
+    @_builtins.property
+    @pulumi.getter
+    def https(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Scrape over HTTPS instead of HTTP
+        """
+        return pulumi.get(self, "https")
+
+    @https.setter
+    def https(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "https", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def path(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        HTTP path to scrape. Defaults to `/`
+        """
+        return pulumi.get(self, "path")
+
+    @path.setter
+    def path(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "path", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def port(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Port in the Machine to scrape metrics from
+        """
+        return pulumi.get(self, "port")
+
+    @port.setter
+    def port(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "port", value)
+
+
+class MachineFlyMachineConfigRestartArgsDict(TypedDict):
+    """
+    Whether and how the Machine is restarted after its main process exits
+    """
+    max_retries: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    When policy is on-failure, the maximum number of times to attempt to restart the Machine before letting it stop.
+    """
+    policy: NotRequired[pulumi.Input[Optional['FlyMachineRestartPolicy']]]
+    """
+    * no - Never try to restart a Machine automatically when its main process exits, whether that’s on purpose or on a crash.
+    * always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.
+    * on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules.
+    """
+
+@pulumi.input_type
+class MachineFlyMachineConfigRestartArgs:
+    def __init__(__self__, *,
+                 max_retries: pulumi.Input[Optional[_builtins.int]] = None,
+                 policy: pulumi.Input[Optional['FlyMachineRestartPolicy']] = None):
+        """
+        Whether and how the Machine is restarted after its main process exits
+
+        :param pulumi.Input[_builtins.int] max_retries: When policy is on-failure, the maximum number of times to attempt to restart the Machine before letting it stop.
+        :param pulumi.Input['FlyMachineRestartPolicy'] policy: * no - Never try to restart a Machine automatically when its main process exits, whether that’s on purpose or on a crash.
+               * always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.
+               * on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules.
+        """
+        if max_retries is not None:
+            pulumi.set(__self__, "max_retries", max_retries)
+        if policy is not None:
+            pulumi.set(__self__, "policy", policy)
+
+    @_builtins.property
+    @pulumi.getter(name="maxRetries")
+    def max_retries(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        When policy is on-failure, the maximum number of times to attempt to restart the Machine before letting it stop.
+        """
+        return pulumi.get(self, "max_retries")
+
+    @max_retries.setter
+    def max_retries(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "max_retries", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def policy(self) -> pulumi.Input[Optional['FlyMachineRestartPolicy']]:
+        """
+        * no - Never try to restart a Machine automatically when its main process exits, whether that’s on purpose or on a crash.
+        * always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.
+        * on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules.
+        """
+        return pulumi.get(self, "policy")
+
+    @policy.setter
+    def policy(self, value: pulumi.Input[Optional['FlyMachineRestartPolicy']]):
+        pulumi.set(self, "policy", value)
+
+
+class MachineFlyMachineConfigRootfsArgsDict(TypedDict):
+    """
+    Beta: the size of the Machine's root filesystem and whether it persists. This field may be
+    removed in the future
+    """
+    persist: NotRequired[pulumi.Input[Optional['FlyMachineRootfsPersist']]]
+    """
+    Whether changes to the root filesystem are kept. `never` (default): reset on every start.
+    `restart`: kept across stops and restarts, reset when the Machine is updated. `always`: also
+    kept across updates
+    """
+    size_gb: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Size of the root filesystem in GB. At most 50; 0 uses the default
+    """
+
+@pulumi.input_type
+class MachineFlyMachineConfigRootfsArgs:
+    def __init__(__self__, *,
+                 persist: pulumi.Input[Optional['FlyMachineRootfsPersist']] = None,
+                 size_gb: pulumi.Input[Optional[_builtins.int]] = None):
+        """
+        Beta: the size of the Machine's root filesystem and whether it persists. This field may be
+        removed in the future
+
+        :param pulumi.Input['FlyMachineRootfsPersist'] persist: Whether changes to the root filesystem are kept. `never` (default): reset on every start.
+               `restart`: kept across stops and restarts, reset when the Machine is updated. `always`: also
+               kept across updates
+        :param pulumi.Input[_builtins.int] size_gb: Size of the root filesystem in GB. At most 50; 0 uses the default
+        """
+        if persist is not None:
+            pulumi.set(__self__, "persist", persist)
+        if size_gb is not None:
+            pulumi.set(__self__, "size_gb", size_gb)
+
+    @_builtins.property
+    @pulumi.getter
+    def persist(self) -> pulumi.Input[Optional['FlyMachineRootfsPersist']]:
+        """
+        Whether changes to the root filesystem are kept. `never` (default): reset on every start.
+        `restart`: kept across stops and restarts, reset when the Machine is updated. `always`: also
+        kept across updates
+        """
+        return pulumi.get(self, "persist")
+
+    @persist.setter
+    def persist(self, value: pulumi.Input[Optional['FlyMachineRootfsPersist']]):
+        pulumi.set(self, "persist", value)
+
+    @_builtins.property
+    @pulumi.getter(name="sizeGb")
+    def size_gb(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Size of the root filesystem in GB. At most 50; 0 uses the default
+        """
+        return pulumi.get(self, "size_gb")
+
+    @size_gb.setter
+    def size_gb(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "size_gb", value)
+
+
+class MachineFlyMachineConfigSpotArgsDict(TypedDict):
+    """
+    Spot pricing settings for the Machine
+    """
+    max_price_fraction: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    """
+    MaxPriceFraction is the maximum fraction of the full Machine price you will pay for this Machine. Range: (0, 1.0]
+    """
+
+@pulumi.input_type
+class MachineFlyMachineConfigSpotArgs:
+    def __init__(__self__, *,
+                 max_price_fraction: pulumi.Input[Optional[_builtins.float]] = None):
+        """
+        Spot pricing settings for the Machine
+
+        :param pulumi.Input[_builtins.float] max_price_fraction: MaxPriceFraction is the maximum fraction of the full Machine price you will pay for this Machine. Range: (0, 1.0]
+        """
+        if max_price_fraction is not None:
+            pulumi.set(__self__, "max_price_fraction", max_price_fraction)
+
+    @_builtins.property
+    @pulumi.getter(name="maxPriceFraction")
+    def max_price_fraction(self) -> pulumi.Input[Optional[_builtins.float]]:
+        """
+        MaxPriceFraction is the maximum fraction of the full Machine price you will pay for this Machine. Range: (0, 1.0]
+        """
+        return pulumi.get(self, "max_price_fraction")
+
+    @max_price_fraction.setter
+    def max_price_fraction(self, value: pulumi.Input[Optional[_builtins.float]]):
+        pulumi.set(self, "max_price_fraction", value)
+
+
+class MachineFlyMachineConfigStopConfigArgsDict(TypedDict):
+    """
+    How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
+    """
+    signal: NotRequired[pulumi.Input[Optional['FlyStopConfigSignal']]]
+    """
+    Signal to send to the Machine's processes. Defaults to SIGINT
+    """
+    timeout: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    How long to wait for the Machine to exit after sending the signal, before killing it. At most
+    5 minutes (1 minute for spot Machines). Defaults to 5s (60s for spot Machines)
+    """
+
+@pulumi.input_type
+class MachineFlyMachineConfigStopConfigArgs:
+    def __init__(__self__, *,
+                 signal: pulumi.Input[Optional['FlyStopConfigSignal']] = None,
+                 timeout: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
+
+        :param pulumi.Input['FlyStopConfigSignal'] signal: Signal to send to the Machine's processes. Defaults to SIGINT
+        :param pulumi.Input[_builtins.str] timeout: How long to wait for the Machine to exit after sending the signal, before killing it. At most
+               5 minutes (1 minute for spot Machines). Defaults to 5s (60s for spot Machines)
+        """
+        if signal is not None:
+            pulumi.set(__self__, "signal", signal)
+        if timeout is not None:
+            pulumi.set(__self__, "timeout", timeout)
+
+    @_builtins.property
+    @pulumi.getter
+    def signal(self) -> pulumi.Input[Optional['FlyStopConfigSignal']]:
+        """
+        Signal to send to the Machine's processes. Defaults to SIGINT
+        """
+        return pulumi.get(self, "signal")
+
+    @signal.setter
+    def signal(self, value: pulumi.Input[Optional['FlyStopConfigSignal']]):
+        pulumi.set(self, "signal", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def timeout(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        How long to wait for the Machine to exit after sending the signal, before killing it. At most
+        5 minutes (1 minute for spot Machines). Defaults to 5s (60s for spot Machines)
+        """
+        return pulumi.get(self, "timeout")
+
+    @timeout.setter
+    def timeout(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "timeout", value)
 
 
 class MachinePutQueryParamsArgsDict(TypedDict):
@@ -6791,18 +7716,26 @@ class MachinesLeaseCreateQueryParamsArgsDict(TypedDict):
     """
     Additional query params to send with the request that are not defined in the API spec.
     """
+    ttl: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    How long the lease is valid, in seconds. Overridden by ttl in the request body.
+    """
 
 @pulumi.input_type
 class MachinesLeaseCreateQueryParamsArgs:
     def __init__(__self__, *,
-                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 ttl: pulumi.Input[Optional[_builtins.int]] = None):
         """
         Query params for the API request.
 
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        :param pulumi.Input[_builtins.int] ttl: How long the lease is valid, in seconds. Overridden by ttl in the request body.
         """
         if additional_params is not None:
             pulumi.set(__self__, "additional_params", additional_params)
+        if ttl is not None:
+            pulumi.set(__self__, "ttl", ttl)
 
     @_builtins.property
     @pulumi.getter(name="additionalParams")
@@ -6815,6 +7748,18 @@ class MachinesLeaseCreateQueryParamsArgs:
     @additional_params.setter
     def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "additional_params", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def ttl(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        How long the lease is valid, in seconds. Overridden by ttl in the request body.
+        """
+        return pulumi.get(self, "ttl")
+
+    @ttl.setter
+    def ttl(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "ttl", value)
 
 
 class MachinesLeaseQueryParamsArgsDict(TypedDict):
@@ -8047,11 +8992,11 @@ class SecretReadQueryParamsArgsDict(TypedDict):
     """
     min_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    Minimum secrets version to return. Returned when setting a new secret
+    Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
     """
     show_secrets: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
-    Show the secret value.
+    Include the secret value. Only allowed when the request comes from a Machine of the app; otherwise the request fails with 403.
     """
 
 @pulumi.input_type
@@ -8064,8 +9009,8 @@ class SecretReadQueryParamsArgs:
         Query params for the API request.
 
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
-        :param pulumi.Input[_builtins.str] min_version: Minimum secrets version to return. Returned when setting a new secret
-        :param pulumi.Input[_builtins.bool] show_secrets: Show the secret value.
+        :param pulumi.Input[_builtins.str] min_version: Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
+        :param pulumi.Input[_builtins.bool] show_secrets: Include the secret value. Only allowed when the request comes from a Machine of the app; otherwise the request fails with 403.
         """
         if additional_params is not None:
             pulumi.set(__self__, "additional_params", additional_params)
@@ -8090,7 +9035,7 @@ class SecretReadQueryParamsArgs:
     @pulumi.getter(name="minVersion")
     def min_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        Minimum secrets version to return. Returned when setting a new secret
+        Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
         """
         return pulumi.get(self, "min_version")
 
@@ -8102,7 +9047,7 @@ class SecretReadQueryParamsArgs:
     @pulumi.getter(name="showSecrets")
     def show_secrets(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Show the secret value.
+        Include the secret value. Only allowed when the request comes from a Machine of the app; otherwise the request fails with 403.
         """
         return pulumi.get(self, "show_secrets")
 
@@ -8155,7 +9100,7 @@ class SecretkeyDecryptCreateQueryParamsArgsDict(TypedDict):
     """
     min_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    Minimum secrets version to return. Returned when setting a new secret
+    Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
     """
 
 @pulumi.input_type
@@ -8167,7 +9112,7 @@ class SecretkeyDecryptCreateQueryParamsArgs:
         Query params for the API request.
 
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
-        :param pulumi.Input[_builtins.str] min_version: Minimum secrets version to return. Returned when setting a new secret
+        :param pulumi.Input[_builtins.str] min_version: Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
         """
         if additional_params is not None:
             pulumi.set(__self__, "additional_params", additional_params)
@@ -8190,7 +9135,7 @@ class SecretkeyDecryptCreateQueryParamsArgs:
     @pulumi.getter(name="minVersion")
     def min_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        Minimum secrets version to return. Returned when setting a new secret
+        Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
         """
         return pulumi.get(self, "min_version")
 
@@ -8277,7 +9222,7 @@ class SecretkeyEncryptCreateQueryParamsArgsDict(TypedDict):
     """
     min_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    Minimum secrets version to return. Returned when setting a new secret
+    Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
     """
 
 @pulumi.input_type
@@ -8289,7 +9234,7 @@ class SecretkeyEncryptCreateQueryParamsArgs:
         Query params for the API request.
 
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
-        :param pulumi.Input[_builtins.str] min_version: Minimum secrets version to return. Returned when setting a new secret
+        :param pulumi.Input[_builtins.str] min_version: Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
         """
         if additional_params is not None:
             pulumi.set(__self__, "additional_params", additional_params)
@@ -8312,7 +9257,7 @@ class SecretkeyEncryptCreateQueryParamsArgs:
     @pulumi.getter(name="minVersion")
     def min_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        Minimum secrets version to return. Returned when setting a new secret
+        Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
         """
         return pulumi.get(self, "min_version")
 
@@ -8507,7 +9452,7 @@ class SecretkeyReadQueryParamsArgsDict(TypedDict):
     """
     min_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    Minimum secrets version to return. Returned when setting a new secret
+    Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
     """
 
 @pulumi.input_type
@@ -8519,7 +9464,7 @@ class SecretkeyReadQueryParamsArgs:
         Query params for the API request.
 
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
-        :param pulumi.Input[_builtins.str] min_version: Minimum secrets version to return. Returned when setting a new secret
+        :param pulumi.Input[_builtins.str] min_version: Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
         """
         if additional_params is not None:
             pulumi.set(__self__, "additional_params", additional_params)
@@ -8542,7 +9487,7 @@ class SecretkeyReadQueryParamsArgs:
     @pulumi.getter(name="minVersion")
     def min_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        Minimum secrets version to return. Returned when setting a new secret
+        Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
         """
         return pulumi.get(self, "min_version")
 
@@ -8561,7 +9506,7 @@ class SecretkeySignCreateQueryParamsArgsDict(TypedDict):
     """
     min_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    Minimum secrets version to return. Returned when setting a new secret
+    Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
     """
 
 @pulumi.input_type
@@ -8573,7 +9518,7 @@ class SecretkeySignCreateQueryParamsArgs:
         Query params for the API request.
 
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
-        :param pulumi.Input[_builtins.str] min_version: Minimum secrets version to return. Returned when setting a new secret
+        :param pulumi.Input[_builtins.str] min_version: Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
         """
         if additional_params is not None:
             pulumi.set(__self__, "additional_params", additional_params)
@@ -8596,7 +9541,7 @@ class SecretkeySignCreateQueryParamsArgs:
     @pulumi.getter(name="minVersion")
     def min_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        Minimum secrets version to return. Returned when setting a new secret
+        Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
         """
         return pulumi.get(self, "min_version")
 
@@ -8649,7 +9594,7 @@ class SecretkeyVerifyCreateQueryParamsArgsDict(TypedDict):
     """
     min_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    Minimum secrets version to return. Returned when setting a new secret
+    Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
     """
 
 @pulumi.input_type
@@ -8661,7 +9606,7 @@ class SecretkeyVerifyCreateQueryParamsArgs:
         Query params for the API request.
 
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
-        :param pulumi.Input[_builtins.str] min_version: Minimum secrets version to return. Returned when setting a new secret
+        :param pulumi.Input[_builtins.str] min_version: Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
         """
         if additional_params is not None:
             pulumi.set(__self__, "additional_params", additional_params)
@@ -8684,7 +9629,7 @@ class SecretkeyVerifyCreateQueryParamsArgs:
     @pulumi.getter(name="minVersion")
     def min_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        Minimum secrets version to return. Returned when setting a new secret
+        Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
         """
         return pulumi.get(self, "min_version")
 

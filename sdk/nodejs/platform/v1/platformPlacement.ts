@@ -45,6 +45,11 @@ export class PlatformPlacement extends pulumi.CustomResource {
     }
 
     /**
+     * The regions Machines would be placed in. With `count` 0, every requested region with the
+     * organization's Machine limit in it.
+     */
+    declare public /*out*/ readonly Regions: pulumi.Output<outputs.platform.v1.PlacementRegionPlacement[] | undefined>;
+    /**
      * Resource requirements for the Machine to simulate. Defaults to a performance-1x machine
      */
     declare public readonly compute: pulumi.Output<outputs.platform.v1.Compute | undefined>;
@@ -53,6 +58,9 @@ export class PlatformPlacement extends pulumi.CustomResource {
      * Defaults to 0, which returns the org-specific limit for each region.
      */
     declare public readonly count: pulumi.Output<number | undefined>;
+    /**
+     * Slug of the organization to place Machines for, or `personal`. Required.
+     */
     declare public readonly orgSlug: pulumi.Output<string>;
     /**
      * Query params to send with the API requests for this resource.
@@ -60,11 +68,18 @@ export class PlatformPlacement extends pulumi.CustomResource {
     declare public readonly queryParams: pulumi.Output<outputs.platform.v1.PlatformPlacementQueryParams | undefined>;
     /**
      * Region expression for placement as a comma-delimited set of regions or aliases.
-     * Defaults to "[region],any", to prefer the API endpoint's local region with any other region as fallback.
+     * Defaults to the API endpoint's local region. When `count` is greater than 0, `any` is
+     * added as a fallback.
      */
     declare public readonly region: pulumi.Output<string | undefined>;
-    declare public /*out*/ readonly regions: pulumi.Output<outputs.platform.v1.PlacementRegionPlacement[] | undefined>;
+    /**
+     * Currently unused.
+     */
     declare public readonly volumeName: pulumi.Output<string | undefined>;
+    /**
+     * Size of a volume each Machine will need, in bytes. Only hosts with room for it are
+     * considered.
+     */
     declare public readonly volumeSizeBytes: pulumi.Output<number | undefined>;
     /**
      * Optional weights to override default placement preferences.
@@ -93,14 +108,14 @@ export class PlatformPlacement extends pulumi.CustomResource {
             resourceInputs["volumeName"] = args?.volumeName;
             resourceInputs["volumeSizeBytes"] = args?.volumeSizeBytes;
             resourceInputs["weights"] = args?.weights;
-            resourceInputs["regions"] = undefined /*out*/;
+            resourceInputs["Regions"] = undefined /*out*/;
         } else {
+            resourceInputs["Regions"] = undefined /*out*/;
             resourceInputs["compute"] = undefined /*out*/;
             resourceInputs["count"] = undefined /*out*/;
             resourceInputs["orgSlug"] = undefined /*out*/;
             resourceInputs["queryParams"] = undefined /*out*/;
             resourceInputs["region"] = undefined /*out*/;
-            resourceInputs["regions"] = undefined /*out*/;
             resourceInputs["volumeName"] = undefined /*out*/;
             resourceInputs["volumeSizeBytes"] = undefined /*out*/;
             resourceInputs["weights"] = undefined /*out*/;
@@ -123,6 +138,9 @@ export interface PlatformPlacementArgs {
      * Defaults to 0, which returns the org-specific limit for each region.
      */
     count?: pulumi.Input<number | undefined>;
+    /**
+     * Slug of the organization to place Machines for, or `personal`. Required.
+     */
     orgSlug: pulumi.Input<string>;
     /**
      * Query params to send with the API requests for this resource.
@@ -130,10 +148,18 @@ export interface PlatformPlacementArgs {
     queryParams?: pulumi.Input<inputs.platform.v1.PlatformPlacementQueryParamsArgs | undefined>;
     /**
      * Region expression for placement as a comma-delimited set of regions or aliases.
-     * Defaults to "[region],any", to prefer the API endpoint's local region with any other region as fallback.
+     * Defaults to the API endpoint's local region. When `count` is greater than 0, `any` is
+     * added as a fallback.
      */
     region?: pulumi.Input<string | undefined>;
+    /**
+     * Currently unused.
+     */
     volumeName?: pulumi.Input<string | undefined>;
+    /**
+     * Size of a volume each Machine will need, in bytes. Only hosts with room for it are
+     * considered.
+     */
     volumeSizeBytes?: pulumi.Input<number | undefined>;
     /**
      * Optional weights to override default placement preferences.

@@ -29,16 +29,16 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         }
 
         /// <summary>
-        /// Order
+        /// Sort order. Requires sort_by. Defaults to asc.
         /// </summary>
         [Input("order")]
-        public string? Order { get; set; }
+        public CloudySkySoftware.Pulumi.FlyMachines.AppsV1.ListMachinesProcessesQueryParamsOrder? Order { get; set; }
 
         /// <summary>
-        /// Sort by
+        /// Field to sort processes by
         /// </summary>
         [Input("sortBy")]
-        public string? SortBy { get; set; }
+        public CloudySkySoftware.Pulumi.FlyMachines.AppsV1.ListMachinesProcessesQueryParamsSortBy? SortBy { get; set; }
 
         public ListMachinesProcessesQueryParams()
         {

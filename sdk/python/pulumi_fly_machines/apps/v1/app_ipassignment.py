@@ -33,8 +33,17 @@ class AppIPAssignmentArgs:
         The set of arguments for constructing a AppIPAssignment resource.
 
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
+        :param pulumi.Input[_builtins.str] network: Only for `private_v6`: name of the private network to allocate the Flycast address in.
+               Defaults to the organization's default network.
+        :param pulumi.Input[_builtins.str] org_slug: Only for `private_v6`: slug of the organization whose private network the Flycast address
+               is allocated in, to make the app reachable from that organization. Defaults to the app's
+               organization.
         :param pulumi.Input['AppIPAssignmentQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
-        :param pulumi.Input['AppIPAssignmentType'] type: Type of IP address to allocate. "egress-pair" allocates both v4 and v6 egress IP addresses (recommended when using egress IPs).
+        :param pulumi.Input[_builtins.str] region: Region to scope the address to. Required for egress types. Optional for `v4` and `v6`,
+               which default to `global` (announced in all regions). Must be empty or `global` for
+               `shared_v4` and `private_v6`.
+        :param pulumi.Input[_builtins.str] service_name: Scope the address to a single service of the app. Not supported for egress types.
+        :param pulumi.Input['AppIPAssignmentType'] type: Type of IP address to allocate. Required.
         """
         if app_name is not None:
             pulumi.set(__self__, "app_name", app_name)
@@ -66,6 +75,10 @@ class AppIPAssignmentArgs:
     @_builtins.property
     @pulumi.getter
     def network(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Only for `private_v6`: name of the private network to allocate the Flycast address in.
+        Defaults to the organization's default network.
+        """
         return pulumi.get(self, "network")
 
     @network.setter
@@ -75,6 +88,11 @@ class AppIPAssignmentArgs:
     @_builtins.property
     @pulumi.getter(name="orgSlug")
     def org_slug(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Only for `private_v6`: slug of the organization whose private network the Flycast address
+        is allocated in, to make the app reachable from that organization. Defaults to the app's
+        organization.
+        """
         return pulumi.get(self, "org_slug")
 
     @org_slug.setter
@@ -96,6 +114,11 @@ class AppIPAssignmentArgs:
     @_builtins.property
     @pulumi.getter
     def region(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Region to scope the address to. Required for egress types. Optional for `v4` and `v6`,
+        which default to `global` (announced in all regions). Must be empty or `global` for
+        `shared_v4` and `private_v6`.
+        """
         return pulumi.get(self, "region")
 
     @region.setter
@@ -105,6 +128,9 @@ class AppIPAssignmentArgs:
     @_builtins.property
     @pulumi.getter(name="serviceName")
     def service_name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Scope the address to a single service of the app. Not supported for egress types.
+        """
         return pulumi.get(self, "service_name")
 
     @service_name.setter
@@ -115,7 +141,7 @@ class AppIPAssignmentArgs:
     @pulumi.getter
     def type(self) -> pulumi.Input[Optional['AppIPAssignmentType']]:
         """
-        Type of IP address to allocate. "egress-pair" allocates both v4 and v6 egress IP addresses (recommended when using egress IPs).
+        Type of IP address to allocate. Required.
         """
         return pulumi.get(self, "type")
 
@@ -144,8 +170,17 @@ class AppIPAssignment(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
+        :param pulumi.Input[_builtins.str] network: Only for `private_v6`: name of the private network to allocate the Flycast address in.
+               Defaults to the organization's default network.
+        :param pulumi.Input[_builtins.str] org_slug: Only for `private_v6`: slug of the organization whose private network the Flycast address
+               is allocated in, to make the app reachable from that organization. Defaults to the app's
+               organization.
         :param pulumi.Input[Union['AppIPAssignmentQueryParamsArgs', 'AppIPAssignmentQueryParamsArgsDict', 'outputs.AppIPAssignmentQueryParams']] query_params: Query params to send with the API requests for this resource.
-        :param pulumi.Input['AppIPAssignmentType'] type: Type of IP address to allocate. "egress-pair" allocates both v4 and v6 egress IP addresses (recommended when using egress IPs).
+        :param pulumi.Input[_builtins.str] region: Region to scope the address to. Required for egress types. Optional for `v4` and `v6`,
+               which default to `global` (announced in all regions). Must be empty or `global` for
+               `shared_v4` and `private_v6`.
+        :param pulumi.Input[_builtins.str] service_name: Scope the address to a single service of the app. Not supported for egress types.
+        :param pulumi.Input['AppIPAssignmentType'] type: Type of IP address to allocate. Required.
         """
         ...
     @overload
@@ -243,23 +278,33 @@ class AppIPAssignment(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter(name="createdAt")
     def created_at(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        When the address was assigned to the app, in RFC 3339 format.
+        """
         return pulumi.get(self, "created_at")
 
     @_builtins.property
     @pulumi.getter
     def egress(self) -> pulumi.Output[Optional[_builtins.bool]]:
+        """
+        Whether this is an egress address.
+        """
         return pulumi.get(self, "egress")
 
     @_builtins.property
     @pulumi.getter
     def ip(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        The allocated IP address. Null for `egress_pair`; see `ip_pair`.
+        """
         return pulumi.get(self, "ip")
 
     @_builtins.property
     @pulumi.getter(name="ipPair")
     def ip_pair(self) -> pulumi.Output[Optional['outputs.IpPair']]:
         """
-        ip_pair is returned when "egress-pair" IP type is requested; in this case, ip is null.
+        The allocated IPv4 and IPv6 addresses when the `egress_pair` type was requested; null
+        otherwise.
         """
         return pulumi.get(self, "ip_pair")
 
@@ -274,6 +319,11 @@ class AppIPAssignment(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter(name="orgSlug")
     def org_slug(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Only for `private_v6`: slug of the organization whose private network the Flycast address
+        is allocated in, to make the app reachable from that organization. Defaults to the app's
+        organization.
+        """
         return pulumi.get(self, "org_slug")
 
     @_builtins.property
@@ -287,23 +337,32 @@ class AppIPAssignment(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter
     def region(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Region the address is scoped to, or `global` for addresses announced in all regions.
+        """
         return pulumi.get(self, "region")
 
     @_builtins.property
     @pulumi.getter(name="serviceName")
     def service_name(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Name of the service the address is scoped to, if any.
+        """
         return pulumi.get(self, "service_name")
 
     @_builtins.property
     @pulumi.getter
     def shared(self) -> pulumi.Output[Optional[_builtins.bool]]:
+        """
+        Whether this is the app's shared IPv4 address.
+        """
         return pulumi.get(self, "shared")
 
     @_builtins.property
     @pulumi.getter
     def type(self) -> pulumi.Output[Optional['AppIPAssignmentType']]:
         """
-        Type of IP address to allocate. "egress-pair" allocates both v4 and v6 egress IP addresses (recommended when using egress IPs).
+        Type of IP address to allocate. Required.
         """
         return pulumi.get(self, "type")
 

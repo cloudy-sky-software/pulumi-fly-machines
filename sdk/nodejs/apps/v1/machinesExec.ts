@@ -45,25 +45,53 @@ export class MachinesExec extends pulumi.CustomResource {
     }
 
     /**
-     * Deprecated: use Command instead
+     * Command line to run, split into arguments like a shell would. Takes precedence over
+     * `command`.
+     *
+     * Deprecated: use `command`.
      */
     declare public readonly cmd: pulumi.Output<string | undefined>;
+    /**
+     * Command to run, as the program followed by its arguments. It is run directly, not by a
+     * shell.
+     */
     declare public readonly command: pulumi.Output<string[] | undefined>;
+    /**
+     * Name of the container to run the command in, for Machines with containers.
+     */
     declare public readonly container: pulumi.Output<string | undefined>;
+    /**
+     * The command's exit code.
+     */
     declare public /*out*/ readonly exitCode: pulumi.Output<number | undefined>;
+    /**
+     * The signal that terminated the command, or 0 if it exited normally.
+     */
     declare public /*out*/ readonly exitSignal: pulumi.Output<number | undefined>;
     /**
-     * Machine runs the command in the machine's own namespace instead of in a
-     * container. It is mutually exclusive with Container.
+     * Run the command in the Machine's own namespace instead of in a container. Mutually
+     * exclusive with `container`.
      */
     declare public readonly machine: pulumi.Output<boolean | undefined>;
     /**
      * Query params to send with the API requests for this resource.
      */
     declare public readonly queryParams: pulumi.Output<outputs.apps.v1.MachinesExecQueryParams | undefined>;
+    /**
+     * The command's standard error.
+     */
     declare public /*out*/ readonly stderr: pulumi.Output<string | undefined>;
+    /**
+     * Data to write to the command's standard input.
+     */
     declare public readonly stdin: pulumi.Output<string | undefined>;
+    /**
+     * The command's standard output.
+     */
     declare public /*out*/ readonly stdout: pulumi.Output<string | undefined>;
+    /**
+     * How long to let the command run, in seconds. Defaults to 10; at most 600.
+     */
     declare public readonly timeout: pulumi.Output<number | undefined>;
 
     /**
@@ -117,14 +145,24 @@ export interface MachinesExecArgs {
      */
     appName?: pulumi.Input<string | undefined>;
     /**
-     * Deprecated: use Command instead
+     * Command line to run, split into arguments like a shell would. Takes precedence over
+     * `command`.
+     *
+     * Deprecated: use `command`.
      */
     cmd?: pulumi.Input<string | undefined>;
+    /**
+     * Command to run, as the program followed by its arguments. It is run directly, not by a
+     * shell.
+     */
     command?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * Name of the container to run the command in, for Machines with containers.
+     */
     container?: pulumi.Input<string | undefined>;
     /**
-     * Machine runs the command in the machine's own namespace instead of in a
-     * container. It is mutually exclusive with Container.
+     * Run the command in the Machine's own namespace instead of in a container. Mutually
+     * exclusive with `container`.
      */
     machine?: pulumi.Input<boolean | undefined>;
     /**
@@ -135,6 +173,12 @@ export interface MachinesExecArgs {
      * Query params to send with the API requests for this resource.
      */
     queryParams?: pulumi.Input<inputs.apps.v1.MachinesExecQueryParamsArgs | undefined>;
+    /**
+     * Data to write to the command's standard input.
+     */
     stdin?: pulumi.Input<string | undefined>;
+    /**
+     * How long to let the command run, in seconds. Defaults to 10; at most 600.
+     */
     timeout?: pulumi.Input<number | undefined>;
 }

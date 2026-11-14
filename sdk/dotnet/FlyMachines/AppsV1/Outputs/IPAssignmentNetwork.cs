@@ -21,6 +21,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         /// Network name; empty for the organization's default network.
         /// </summary>
         public readonly string? Name;
+        /// <summary>
+        /// Slug of the organization the network belongs to.
+        /// </summary>
         public readonly string? OrgSlug;
 
         [OutputConstructor]

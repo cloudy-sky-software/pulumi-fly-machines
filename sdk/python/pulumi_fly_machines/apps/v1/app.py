@@ -249,6 +249,9 @@ class App(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter(name="createdAt")
     def created_at(self) -> pulumi.Output[Optional[_builtins.int]]:
+        """
+        When the app was created, in Unix milliseconds.
+        """
         return pulumi.get(self, "created_at")
 
     @_builtins.property

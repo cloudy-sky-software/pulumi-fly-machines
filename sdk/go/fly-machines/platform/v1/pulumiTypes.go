@@ -15,17 +15,35 @@ var _ = internal.GetEnvOrDefault
 
 // Resource requirements for the Machine to simulate. Defaults to a performance-1x machine
 type Compute struct {
-	CpuKind          *string  `pulumi:"cpuKind"`
-	Cpus             *int     `pulumi:"cpus"`
-	GpuKind          *string  `pulumi:"gpuKind"`
-	Gpus             *int     `pulumi:"gpus"`
-	HostDedicationId *string  `pulumi:"hostDedicationId"`
-	KernelArgs       []string `pulumi:"kernelArgs"`
-	MaxMemoryMb      *int     `pulumi:"maxMemoryMb"`
-	MemoryMb         *int     `pulumi:"memoryMb"`
+	// Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
+	// Defaults to shared when `guest` is omitted
+	CpuKind *string `pulumi:"cpuKind"`
+	// Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
+	// performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
+	// omitted
+	Cpus *int `pulumi:"cpus"`
+	// No longer supported. Requests that set it are rejected
+	GpuKind *string `pulumi:"gpuKind"`
+	// No longer supported. Requests that set it are rejected
+	Gpus *int `pulumi:"gpus"`
+	// Place the Machine on hosts dedicated to the organization under this ID. Only available to
+	// organizations with dedicated hosts
+	HostDedicationId *string `pulumi:"hostDedicationId"`
+	// Extra arguments appended to the guest kernel command line
+	KernelArgs []string `pulumi:"kernelArgs"`
+	// Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
+	// the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
+	// starts with a limit of memory_mb
+	MaxMemoryMb *int `pulumi:"maxMemoryMb"`
+	// Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
+	// between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
+	// `guest` is omitted
+	MemoryMb *int `pulumi:"memoryMb"`
 	// Deprecated: use MachineConfig.Rootfs instead
-	PersistRootfs        *FlyMachineGuestPersistRootfs `pulumi:"persistRootfs"`
-	RequiredHostFeatures []string                      `pulumi:"requiredHostFeatures"`
+	PersistRootfs *FlyMachineGuestPersistRootfs `pulumi:"persistRootfs"`
+	// Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
+	// of lowercase letters, digits and dashes. Each feature must be enabled for the organization
+	RequiredHostFeatures []string `pulumi:"requiredHostFeatures"`
 }
 
 // ComputeInput is an input type that accepts ComputeArgs and ComputeOutput values.
@@ -41,17 +59,35 @@ type ComputeInput interface {
 
 // Resource requirements for the Machine to simulate. Defaults to a performance-1x machine
 type ComputeArgs struct {
-	CpuKind          pulumi.StringPtrInput   `pulumi:"cpuKind"`
-	Cpus             pulumi.IntPtrInput      `pulumi:"cpus"`
-	GpuKind          pulumi.StringPtrInput   `pulumi:"gpuKind"`
-	Gpus             pulumi.IntPtrInput      `pulumi:"gpus"`
-	HostDedicationId pulumi.StringPtrInput   `pulumi:"hostDedicationId"`
-	KernelArgs       pulumi.StringArrayInput `pulumi:"kernelArgs"`
-	MaxMemoryMb      pulumi.IntPtrInput      `pulumi:"maxMemoryMb"`
-	MemoryMb         pulumi.IntPtrInput      `pulumi:"memoryMb"`
+	// Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
+	// Defaults to shared when `guest` is omitted
+	CpuKind pulumi.StringPtrInput `pulumi:"cpuKind"`
+	// Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
+	// performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
+	// omitted
+	Cpus pulumi.IntPtrInput `pulumi:"cpus"`
+	// No longer supported. Requests that set it are rejected
+	GpuKind pulumi.StringPtrInput `pulumi:"gpuKind"`
+	// No longer supported. Requests that set it are rejected
+	Gpus pulumi.IntPtrInput `pulumi:"gpus"`
+	// Place the Machine on hosts dedicated to the organization under this ID. Only available to
+	// organizations with dedicated hosts
+	HostDedicationId pulumi.StringPtrInput `pulumi:"hostDedicationId"`
+	// Extra arguments appended to the guest kernel command line
+	KernelArgs pulumi.StringArrayInput `pulumi:"kernelArgs"`
+	// Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
+	// the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
+	// starts with a limit of memory_mb
+	MaxMemoryMb pulumi.IntPtrInput `pulumi:"maxMemoryMb"`
+	// Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
+	// between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
+	// `guest` is omitted
+	MemoryMb pulumi.IntPtrInput `pulumi:"memoryMb"`
 	// Deprecated: use MachineConfig.Rootfs instead
-	PersistRootfs        FlyMachineGuestPersistRootfsPtrInput `pulumi:"persistRootfs"`
-	RequiredHostFeatures pulumi.StringArrayInput              `pulumi:"requiredHostFeatures"`
+	PersistRootfs FlyMachineGuestPersistRootfsPtrInput `pulumi:"persistRootfs"`
+	// Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
+	// of lowercase letters, digits and dashes. Each feature must be enabled for the organization
+	RequiredHostFeatures pulumi.StringArrayInput `pulumi:"requiredHostFeatures"`
 }
 
 func (ComputeArgs) ElementType() reflect.Type {
@@ -132,34 +168,50 @@ func (o ComputeOutput) ToComputePtrOutputWithContext(ctx context.Context) Comput
 	}).(ComputePtrOutput)
 }
 
+// Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
+// Defaults to shared when `guest` is omitted
 func (o ComputeOutput) CpuKind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Compute) *string { return v.CpuKind }).(pulumi.StringPtrOutput)
 }
 
+// Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
+// performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
+// omitted
 func (o ComputeOutput) Cpus() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v Compute) *int { return v.Cpus }).(pulumi.IntPtrOutput)
 }
 
+// No longer supported. Requests that set it are rejected
 func (o ComputeOutput) GpuKind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Compute) *string { return v.GpuKind }).(pulumi.StringPtrOutput)
 }
 
+// No longer supported. Requests that set it are rejected
 func (o ComputeOutput) Gpus() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v Compute) *int { return v.Gpus }).(pulumi.IntPtrOutput)
 }
 
+// Place the Machine on hosts dedicated to the organization under this ID. Only available to
+// organizations with dedicated hosts
 func (o ComputeOutput) HostDedicationId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Compute) *string { return v.HostDedicationId }).(pulumi.StringPtrOutput)
 }
 
+// Extra arguments appended to the guest kernel command line
 func (o ComputeOutput) KernelArgs() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v Compute) []string { return v.KernelArgs }).(pulumi.StringArrayOutput)
 }
 
+// Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
+// the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
+// starts with a limit of memory_mb
 func (o ComputeOutput) MaxMemoryMb() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v Compute) *int { return v.MaxMemoryMb }).(pulumi.IntPtrOutput)
 }
 
+// Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
+// between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
+// `guest` is omitted
 func (o ComputeOutput) MemoryMb() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v Compute) *int { return v.MemoryMb }).(pulumi.IntPtrOutput)
 }
@@ -169,6 +221,8 @@ func (o ComputeOutput) PersistRootfs() FlyMachineGuestPersistRootfsPtrOutput {
 	return o.ApplyT(func(v Compute) *FlyMachineGuestPersistRootfs { return v.PersistRootfs }).(FlyMachineGuestPersistRootfsPtrOutput)
 }
 
+// Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
+// of lowercase letters, digits and dashes. Each feature must be enabled for the organization
 func (o ComputeOutput) RequiredHostFeatures() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v Compute) []string { return v.RequiredHostFeatures }).(pulumi.StringArrayOutput)
 }
@@ -197,6 +251,8 @@ func (o ComputePtrOutput) Elem() ComputeOutput {
 	}).(ComputeOutput)
 }
 
+// Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
+// Defaults to shared when `guest` is omitted
 func (o ComputePtrOutput) CpuKind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Compute) *string {
 		if v == nil {
@@ -206,6 +262,9 @@ func (o ComputePtrOutput) CpuKind() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
+// performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
+// omitted
 func (o ComputePtrOutput) Cpus() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Compute) *int {
 		if v == nil {
@@ -215,6 +274,7 @@ func (o ComputePtrOutput) Cpus() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
+// No longer supported. Requests that set it are rejected
 func (o ComputePtrOutput) GpuKind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Compute) *string {
 		if v == nil {
@@ -224,6 +284,7 @@ func (o ComputePtrOutput) GpuKind() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// No longer supported. Requests that set it are rejected
 func (o ComputePtrOutput) Gpus() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Compute) *int {
 		if v == nil {
@@ -233,6 +294,8 @@ func (o ComputePtrOutput) Gpus() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
+// Place the Machine on hosts dedicated to the organization under this ID. Only available to
+// organizations with dedicated hosts
 func (o ComputePtrOutput) HostDedicationId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Compute) *string {
 		if v == nil {
@@ -242,6 +305,7 @@ func (o ComputePtrOutput) HostDedicationId() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// Extra arguments appended to the guest kernel command line
 func (o ComputePtrOutput) KernelArgs() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Compute) []string {
 		if v == nil {
@@ -251,6 +315,9 @@ func (o ComputePtrOutput) KernelArgs() pulumi.StringArrayOutput {
 	}).(pulumi.StringArrayOutput)
 }
 
+// Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
+// the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
+// starts with a limit of memory_mb
 func (o ComputePtrOutput) MaxMemoryMb() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Compute) *int {
 		if v == nil {
@@ -260,6 +327,9 @@ func (o ComputePtrOutput) MaxMemoryMb() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
+// Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
+// between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
+// `guest` is omitted
 func (o ComputePtrOutput) MemoryMb() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Compute) *int {
 		if v == nil {
@@ -279,6 +349,8 @@ func (o ComputePtrOutput) PersistRootfs() FlyMachineGuestPersistRootfsPtrOutput 
 	}).(FlyMachineGuestPersistRootfsPtrOutput)
 }
 
+// Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
+// of lowercase letters, digits and dashes. Each feature must be enabled for the organization
 func (o ComputePtrOutput) RequiredHostFeatures() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Compute) []string {
 		if v == nil {
@@ -429,20 +501,32 @@ func (o GetPlatformRegionQueryParamsPtrOutput) AdditionalParams() pulumi.StringM
 }
 
 type MainRegionResponse struct {
-	Nearest *string         `pulumi:"nearest"`
-	Regions []MainRegionRow `pulumi:"regions"`
+	// The regions available to the caller.
+	Regions []MainRegionRow `pulumi:"Regions"`
+	// Code of the region of the Fly.io edge that received the request, usually the one
+	// closest to the caller.
+	Nearest *string `pulumi:"nearest"`
 }
 
 type MainRegionRow struct {
-	Code             *string  `pulumi:"code"`
-	Deprecated       *bool    `pulumi:"deprecated"`
-	GatewayAvailable *bool    `pulumi:"gatewayAvailable"`
-	GeoRegion        *string  `pulumi:"geoRegion"`
-	Latitude         *float64 `pulumi:"latitude"`
-	Longitude        *float64 `pulumi:"longitude"`
-	MpgAvailable     *bool    `pulumi:"mpgAvailable"`
-	Name             *string  `pulumi:"name"`
-	RequiresPaidPlan *bool    `pulumi:"requiresPaidPlan"`
+	// Region code, such as `iad`, used to select the region in other requests.
+	Code *string `pulumi:"code"`
+	// Whether the region is deprecated. Avoid creating new resources in it.
+	Deprecated *bool `pulumi:"deprecated"`
+	// Whether the region has a WireGuard gateway that private network peers can connect to.
+	GatewayAvailable *bool `pulumi:"gatewayAvailable"`
+	// Geographic area the region belongs to.
+	GeoRegion *MainRegionRowGeoRegion `pulumi:"geoRegion"`
+	// Latitude of the region's location.
+	Latitude *float64 `pulumi:"latitude"`
+	// Longitude of the region's location.
+	Longitude *float64 `pulumi:"longitude"`
+	// Whether Managed Postgres clusters can be created in the region.
+	MpgAvailable *bool `pulumi:"mpgAvailable"`
+	// Human-readable name of the region, such as `Ashburn, Virginia (US)`.
+	Name *string `pulumi:"name"`
+	// Whether only organizations on a paid plan can use the region.
+	RequiresPaidPlan *bool `pulumi:"requiresPaidPlan"`
 }
 
 type MainRegionRowOutput struct{ *pulumi.OutputState }
@@ -459,38 +543,47 @@ func (o MainRegionRowOutput) ToMainRegionRowOutputWithContext(ctx context.Contex
 	return o
 }
 
+// Region code, such as `iad`, used to select the region in other requests.
 func (o MainRegionRowOutput) Code() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v MainRegionRow) *string { return v.Code }).(pulumi.StringPtrOutput)
 }
 
+// Whether the region is deprecated. Avoid creating new resources in it.
 func (o MainRegionRowOutput) Deprecated() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v MainRegionRow) *bool { return v.Deprecated }).(pulumi.BoolPtrOutput)
 }
 
+// Whether the region has a WireGuard gateway that private network peers can connect to.
 func (o MainRegionRowOutput) GatewayAvailable() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v MainRegionRow) *bool { return v.GatewayAvailable }).(pulumi.BoolPtrOutput)
 }
 
-func (o MainRegionRowOutput) GeoRegion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v MainRegionRow) *string { return v.GeoRegion }).(pulumi.StringPtrOutput)
+// Geographic area the region belongs to.
+func (o MainRegionRowOutput) GeoRegion() MainRegionRowGeoRegionPtrOutput {
+	return o.ApplyT(func(v MainRegionRow) *MainRegionRowGeoRegion { return v.GeoRegion }).(MainRegionRowGeoRegionPtrOutput)
 }
 
+// Latitude of the region's location.
 func (o MainRegionRowOutput) Latitude() pulumi.Float64PtrOutput {
 	return o.ApplyT(func(v MainRegionRow) *float64 { return v.Latitude }).(pulumi.Float64PtrOutput)
 }
 
+// Longitude of the region's location.
 func (o MainRegionRowOutput) Longitude() pulumi.Float64PtrOutput {
 	return o.ApplyT(func(v MainRegionRow) *float64 { return v.Longitude }).(pulumi.Float64PtrOutput)
 }
 
+// Whether Managed Postgres clusters can be created in the region.
 func (o MainRegionRowOutput) MpgAvailable() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v MainRegionRow) *bool { return v.MpgAvailable }).(pulumi.BoolPtrOutput)
 }
 
+// Human-readable name of the region, such as `Ashburn, Virginia (US)`.
 func (o MainRegionRowOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v MainRegionRow) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
+// Whether only organizations on a paid plan can use the region.
 func (o MainRegionRowOutput) RequiresPaidPlan() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v MainRegionRow) *bool { return v.RequiresPaidPlan }).(pulumi.BoolPtrOutput)
 }
@@ -516,9 +609,14 @@ func (o MainRegionRowArrayOutput) Index(i pulumi.IntInput) MainRegionRowOutput {
 }
 
 type PlacementRegionPlacement struct {
-	Concurrency *int    `pulumi:"concurrency"`
-	Count       *int    `pulumi:"count"`
-	Region      *string `pulumi:"region"`
+	// Number of distinct hosts those Machines would be spread over. 0 when the request's count
+	// is 0.
+	Concurrency *int `pulumi:"Concurrency"`
+	// Number of Machines that would be placed in the region. When the request's count is 0, the
+	// organization's Machine limit for the region instead.
+	Count *int `pulumi:"Count"`
+	// Code of the region.
+	Region *string `pulumi:"Region"`
 }
 
 type PlacementRegionPlacementOutput struct{ *pulumi.OutputState }
@@ -535,14 +633,19 @@ func (o PlacementRegionPlacementOutput) ToPlacementRegionPlacementOutputWithCont
 	return o
 }
 
+// Number of distinct hosts those Machines would be spread over. 0 when the request's count
+// is 0.
 func (o PlacementRegionPlacementOutput) Concurrency() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v PlacementRegionPlacement) *int { return v.Concurrency }).(pulumi.IntPtrOutput)
 }
 
+// Number of Machines that would be placed in the region. When the request's count is 0, the
+// organization's Machine limit for the region instead.
 func (o PlacementRegionPlacementOutput) Count() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v PlacementRegionPlacement) *int { return v.Count }).(pulumi.IntPtrOutput)
 }
 
+// Code of the region.
 func (o PlacementRegionPlacementOutput) Region() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PlacementRegionPlacement) *string { return v.Region }).(pulumi.StringPtrOutput)
 }

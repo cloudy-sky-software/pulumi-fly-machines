@@ -46,26 +46,42 @@ class ListMachinesOrgResult:
     @_builtins.property
     @pulumi.getter(name="errorRegions")
     def error_regions(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        Regions that could not be queried. Their Machines are missing from the response.
+        """
         return pulumi.get(self, "error_regions")
 
     @_builtins.property
     @pulumi.getter(name="lastMachineId")
     def last_machine_id(self) -> Optional[_builtins.str]:
+        """
+        ID of the last Machine on this page.
+        """
         return pulumi.get(self, "last_machine_id")
 
     @_builtins.property
     @pulumi.getter(name="lastUpdatedAt")
     def last_updated_at(self) -> Optional[_builtins.str]:
+        """
+        `updated_at` of the last Machine on this page.
+        """
         return pulumi.get(self, "last_updated_at")
 
     @_builtins.property
     @pulumi.getter
     def machines(self) -> Optional[Sequence['outputs.OrgMachine']]:
+        """
+        The Machines on this page.
+        """
         return pulumi.get(self, "machines")
 
     @_builtins.property
     @pulumi.getter(name="nextCursor")
     def next_cursor(self) -> Optional[_builtins.str]:
+        """
+        Pagination cursor for the next page. Absent when no more Machines remain. Cursors expire
+        30 minutes after the first page was requested.
+        """
         return pulumi.get(self, "next_cursor")
 
 

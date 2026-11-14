@@ -27,10 +27,26 @@ export interface ListMachinesOrgArgs {
 }
 
 export interface ListMachinesOrgResult {
+    /**
+     * Regions that could not be queried. Their Machines are missing from the response.
+     */
     readonly errorRegions?: string[];
+    /**
+     * ID of the last Machine on this page.
+     */
     readonly lastMachineId?: string;
+    /**
+     * `updated_at` of the last Machine on this page.
+     */
     readonly lastUpdatedAt?: string;
+    /**
+     * The Machines on this page.
+     */
     readonly machines?: outputs.orgs.v1.OrgMachine[];
+    /**
+     * Pagination cursor for the next page. Absent when no more Machines remain. Cursors expire
+     * 30 minutes after the first page was requested.
+     */
     readonly nextCursor?: string;
 }
 export function listMachinesOrgOutput(args: ListMachinesOrgOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<ListMachinesOrgResult> {

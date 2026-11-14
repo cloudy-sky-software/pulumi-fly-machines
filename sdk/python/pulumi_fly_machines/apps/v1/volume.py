@@ -24,10 +24,10 @@ class VolumeArgs:
     def __init__(__self__, *,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  auto_backup_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 compute: pulumi.Input[Optional['FlyMachineGuestArgs']] = None,
+                 compute: pulumi.Input[Optional['ComputeArgs']] = None,
                  compute_image: pulumi.Input[Optional[_builtins.str]] = None,
                  encrypted: pulumi.Input[Optional[_builtins.bool]] = None,
-                 fstype: pulumi.Input[Optional[_builtins.str]] = None,
+                 fstype: pulumi.Input[Optional['Fstype']] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
                  query_params: pulumi.Input[Optional['VolumeQueryParamsArgs']] = None,
                  region: pulumi.Input[Optional[_builtins.str]] = None,
@@ -41,10 +41,32 @@ class VolumeArgs:
         The set of arguments for constructing a Volume resource.
 
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
-        :param pulumi.Input[_builtins.bool] auto_backup_enabled: enable scheduled automatic snapshots. Defaults to `true`
+        :param pulumi.Input[_builtins.bool] auto_backup_enabled: Take daily automatic snapshots of the volume. Defaults to `true`.
+        :param pulumi.Input['ComputeArgs'] compute: Requirements of the Machine that will use the volume, so that the volume is placed on a
+               host that can run it. Uses `cpus`, `memory_mb`, `cpu_kind`, `host_dedication_id`, and
+               `required_host_features`.
+        :param pulumi.Input[_builtins.str] compute_image: Ignored.
+        :param pulumi.Input[_builtins.bool] encrypted: Encrypt the volume at rest. Defaults to true. When forking, the source volume's setting
+               is used.
+        :param pulumi.Input['Fstype'] fstype: Filesystem to format the volume with: `ext4`, or `raw` for an unformatted block device.
+        :param pulumi.Input[_builtins.str] name: Name of the volume: at most 30 lowercase letters, digits, and underscores. Required.
         :param pulumi.Input['VolumeQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
-        :param pulumi.Input[_builtins.str] snapshot_id: restore from snapshot
-        :param pulumi.Input[_builtins.str] source_volume_id: fork from remote volume
+        :param pulumi.Input[_builtins.str] region: Region to create the volume in. Accepts the same values as the `region` of Create
+               Machine. When forking, defaults to the source volume's region; otherwise defaults to the
+               region of the API server handling the request.
+        :param pulumi.Input[_builtins.bool] require_unique_zone: Place the volume on a host that has no other volume of the app with the same name in the
+               region, so that Machines using these volumes don't share a host. Fails with 400 if no
+               such host is available.
+        :param pulumi.Input[_builtins.int] size_gb: Size of the volume in GiB, from 1 to the organization's maximum (500 by default).
+               Required unless forking, in which case it must be omitted and the source volume's size
+               is used.
+        :param pulumi.Input[_builtins.str] snapshot_id: ID of a snapshot to restore into the new volume. Mutually exclusive with
+               `source_volume_id`.
+        :param pulumi.Input[_builtins.int] snapshot_retention: Number of days to keep snapshots of the volume, from 1 to 60. Defaults to 5.
+        :param pulumi.Input[_builtins.str] source_volume_id: ID of a volume to fork: the new volume starts as a copy of it. The volume must belong to
+               an app in the same organization.
+        :param pulumi.Input[_builtins.bool] unique_zone_app_wide: With `require_unique_zone`, avoid hosts with any volume of the app in the region, not
+               just volumes with the same name.
         """
         if app_name is not None:
             pulumi.set(__self__, "app_name", app_name)
@@ -93,7 +115,7 @@ class VolumeArgs:
     @pulumi.getter(name="autoBackupEnabled")
     def auto_backup_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        enable scheduled automatic snapshots. Defaults to `true`
+        Take daily automatic snapshots of the volume. Defaults to `true`.
         """
         return pulumi.get(self, "auto_backup_enabled")
 
@@ -103,16 +125,24 @@ class VolumeArgs:
 
     @_builtins.property
     @pulumi.getter
-    def compute(self) -> pulumi.Input[Optional['FlyMachineGuestArgs']]:
+    def compute(self) -> pulumi.Input[Optional['ComputeArgs']]:
+        """
+        Requirements of the Machine that will use the volume, so that the volume is placed on a
+        host that can run it. Uses `cpus`, `memory_mb`, `cpu_kind`, `host_dedication_id`, and
+        `required_host_features`.
+        """
         return pulumi.get(self, "compute")
 
     @compute.setter
-    def compute(self, value: pulumi.Input[Optional['FlyMachineGuestArgs']]):
+    def compute(self, value: pulumi.Input[Optional['ComputeArgs']]):
         pulumi.set(self, "compute", value)
 
     @_builtins.property
     @pulumi.getter(name="computeImage")
     def compute_image(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Ignored.
+        """
         return pulumi.get(self, "compute_image")
 
     @compute_image.setter
@@ -122,6 +152,10 @@ class VolumeArgs:
     @_builtins.property
     @pulumi.getter
     def encrypted(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Encrypt the volume at rest. Defaults to true. When forking, the source volume's setting
+        is used.
+        """
         return pulumi.get(self, "encrypted")
 
     @encrypted.setter
@@ -130,16 +164,22 @@ class VolumeArgs:
 
     @_builtins.property
     @pulumi.getter
-    def fstype(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def fstype(self) -> pulumi.Input[Optional['Fstype']]:
+        """
+        Filesystem to format the volume with: `ext4`, or `raw` for an unformatted block device.
+        """
         return pulumi.get(self, "fstype")
 
     @fstype.setter
-    def fstype(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def fstype(self, value: pulumi.Input[Optional['Fstype']]):
         pulumi.set(self, "fstype", value)
 
     @_builtins.property
     @pulumi.getter
     def name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Name of the volume: at most 30 lowercase letters, digits, and underscores. Required.
+        """
         return pulumi.get(self, "name")
 
     @name.setter
@@ -161,6 +201,11 @@ class VolumeArgs:
     @_builtins.property
     @pulumi.getter
     def region(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Region to create the volume in. Accepts the same values as the `region` of Create
+        Machine. When forking, defaults to the source volume's region; otherwise defaults to the
+        region of the API server handling the request.
+        """
         return pulumi.get(self, "region")
 
     @region.setter
@@ -170,6 +215,11 @@ class VolumeArgs:
     @_builtins.property
     @pulumi.getter(name="requireUniqueZone")
     def require_unique_zone(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Place the volume on a host that has no other volume of the app with the same name in the
+        region, so that Machines using these volumes don't share a host. Fails with 400 if no
+        such host is available.
+        """
         return pulumi.get(self, "require_unique_zone")
 
     @require_unique_zone.setter
@@ -179,6 +229,11 @@ class VolumeArgs:
     @_builtins.property
     @pulumi.getter(name="sizeGb")
     def size_gb(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Size of the volume in GiB, from 1 to the organization's maximum (500 by default).
+        Required unless forking, in which case it must be omitted and the source volume's size
+        is used.
+        """
         return pulumi.get(self, "size_gb")
 
     @size_gb.setter
@@ -189,7 +244,8 @@ class VolumeArgs:
     @pulumi.getter(name="snapshotId")
     def snapshot_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        restore from snapshot
+        ID of a snapshot to restore into the new volume. Mutually exclusive with
+        `source_volume_id`.
         """
         return pulumi.get(self, "snapshot_id")
 
@@ -200,6 +256,9 @@ class VolumeArgs:
     @_builtins.property
     @pulumi.getter(name="snapshotRetention")
     def snapshot_retention(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Number of days to keep snapshots of the volume, from 1 to 60. Defaults to 5.
+        """
         return pulumi.get(self, "snapshot_retention")
 
     @snapshot_retention.setter
@@ -210,7 +269,8 @@ class VolumeArgs:
     @pulumi.getter(name="sourceVolumeId")
     def source_volume_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        fork from remote volume
+        ID of a volume to fork: the new volume starts as a copy of it. The volume must belong to
+        an app in the same organization.
         """
         return pulumi.get(self, "source_volume_id")
 
@@ -221,6 +281,10 @@ class VolumeArgs:
     @_builtins.property
     @pulumi.getter(name="uniqueZoneAppWide")
     def unique_zone_app_wide(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        With `require_unique_zone`, avoid hosts with any volume of the app in the region, not
+        just volumes with the same name.
+        """
         return pulumi.get(self, "unique_zone_app_wide")
 
     @unique_zone_app_wide.setter
@@ -236,10 +300,10 @@ class Volume(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  auto_backup_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 compute: pulumi.Input[Optional[Union['FlyMachineGuestArgs', 'FlyMachineGuestArgsDict', 'outputs.FlyMachineGuest']]] = None,
+                 compute: pulumi.Input[Optional[Union['ComputeArgs', 'ComputeArgsDict', 'outputs.Compute']]] = None,
                  compute_image: pulumi.Input[Optional[_builtins.str]] = None,
                  encrypted: pulumi.Input[Optional[_builtins.bool]] = None,
-                 fstype: pulumi.Input[Optional[_builtins.str]] = None,
+                 fstype: pulumi.Input[Optional['Fstype']] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
                  query_params: pulumi.Input[Optional[Union['VolumeQueryParamsArgs', 'VolumeQueryParamsArgsDict', 'outputs.VolumeQueryParams']]] = None,
                  region: pulumi.Input[Optional[_builtins.str]] = None,
@@ -256,10 +320,32 @@ class Volume(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
-        :param pulumi.Input[_builtins.bool] auto_backup_enabled: enable scheduled automatic snapshots. Defaults to `true`
+        :param pulumi.Input[_builtins.bool] auto_backup_enabled: Take daily automatic snapshots of the volume. Defaults to `true`.
+        :param pulumi.Input[Union['ComputeArgs', 'ComputeArgsDict', 'outputs.Compute']] compute: Requirements of the Machine that will use the volume, so that the volume is placed on a
+               host that can run it. Uses `cpus`, `memory_mb`, `cpu_kind`, `host_dedication_id`, and
+               `required_host_features`.
+        :param pulumi.Input[_builtins.str] compute_image: Ignored.
+        :param pulumi.Input[_builtins.bool] encrypted: Encrypt the volume at rest. Defaults to true. When forking, the source volume's setting
+               is used.
+        :param pulumi.Input['Fstype'] fstype: Filesystem to format the volume with: `ext4`, or `raw` for an unformatted block device.
+        :param pulumi.Input[_builtins.str] name: Name of the volume: at most 30 lowercase letters, digits, and underscores. Required.
         :param pulumi.Input[Union['VolumeQueryParamsArgs', 'VolumeQueryParamsArgsDict', 'outputs.VolumeQueryParams']] query_params: Query params to send with the API requests for this resource.
-        :param pulumi.Input[_builtins.str] snapshot_id: restore from snapshot
-        :param pulumi.Input[_builtins.str] source_volume_id: fork from remote volume
+        :param pulumi.Input[_builtins.str] region: Region to create the volume in. Accepts the same values as the `region` of Create
+               Machine. When forking, defaults to the source volume's region; otherwise defaults to the
+               region of the API server handling the request.
+        :param pulumi.Input[_builtins.bool] require_unique_zone: Place the volume on a host that has no other volume of the app with the same name in the
+               region, so that Machines using these volumes don't share a host. Fails with 400 if no
+               such host is available.
+        :param pulumi.Input[_builtins.int] size_gb: Size of the volume in GiB, from 1 to the organization's maximum (500 by default).
+               Required unless forking, in which case it must be omitted and the source volume's size
+               is used.
+        :param pulumi.Input[_builtins.str] snapshot_id: ID of a snapshot to restore into the new volume. Mutually exclusive with
+               `source_volume_id`.
+        :param pulumi.Input[_builtins.int] snapshot_retention: Number of days to keep snapshots of the volume, from 1 to 60. Defaults to 5.
+        :param pulumi.Input[_builtins.str] source_volume_id: ID of a volume to fork: the new volume starts as a copy of it. The volume must belong to
+               an app in the same organization.
+        :param pulumi.Input[_builtins.bool] unique_zone_app_wide: With `require_unique_zone`, avoid hosts with any volume of the app in the region, not
+               just volumes with the same name.
         """
         ...
     @overload
@@ -287,10 +373,10 @@ class Volume(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
                  auto_backup_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 compute: pulumi.Input[Optional[Union['FlyMachineGuestArgs', 'FlyMachineGuestArgsDict', 'outputs.FlyMachineGuest']]] = None,
+                 compute: pulumi.Input[Optional[Union['ComputeArgs', 'ComputeArgsDict', 'outputs.Compute']]] = None,
                  compute_image: pulumi.Input[Optional[_builtins.str]] = None,
                  encrypted: pulumi.Input[Optional[_builtins.bool]] = None,
-                 fstype: pulumi.Input[Optional[_builtins.str]] = None,
+                 fstype: pulumi.Input[Optional['Fstype']] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
                  query_params: pulumi.Input[Optional[Union['VolumeQueryParamsArgs', 'VolumeQueryParamsArgsDict', 'outputs.VolumeQueryParams']]] = None,
                  region: pulumi.Input[Optional[_builtins.str]] = None,
@@ -401,86 +487,150 @@ class Volume(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter(name="attachedAllocId")
     def attached_alloc_id(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Always null.
+
+        Deprecated: volumes are no longer attached to Nomad allocations.
+        """
         return pulumi.get(self, "attached_alloc_id")
 
     @_builtins.property
     @pulumi.getter(name="attachedMachineId")
     def attached_machine_id(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        ID of the Machine the volume is attached to, or null if it is not attached.
+        """
         return pulumi.get(self, "attached_machine_id")
 
     @_builtins.property
     @pulumi.getter(name="autoBackupEnabled")
     def auto_backup_enabled(self) -> pulumi.Output[Optional[_builtins.bool]]:
+        """
+        Whether daily automatic snapshots are taken.
+        """
         return pulumi.get(self, "auto_backup_enabled")
 
     @_builtins.property
     @pulumi.getter(name="blockSize")
     def block_size(self) -> pulumi.Output[Optional[_builtins.int]]:
+        """
+        Size of a filesystem block, in bytes. See `blocks`.
+        """
         return pulumi.get(self, "block_size")
 
     @_builtins.property
     @pulumi.getter
     def blocks(self) -> pulumi.Output[Optional[_builtins.int]]:
+        """
+        Size of the volume's filesystem, in blocks of `block_size` bytes, as last reported by a
+        Machine that mounted the volume. 0 if never reported, if the host could not be reached,
+        or with `summary=true`.
+        """
         return pulumi.get(self, "blocks")
 
     @_builtins.property
     @pulumi.getter(name="blocksAvail")
     def blocks_avail(self) -> pulumi.Output[Optional[_builtins.int]]:
+        """
+        Number of filesystem blocks available to unprivileged users. See `blocks`.
+        """
         return pulumi.get(self, "blocks_avail")
 
     @_builtins.property
     @pulumi.getter(name="blocksFree")
     def blocks_free(self) -> pulumi.Output[Optional[_builtins.int]]:
+        """
+        Number of free filesystem blocks, including blocks reserved for the root user. See
+        `blocks`.
+        """
         return pulumi.get(self, "blocks_free")
 
     @_builtins.property
     @pulumi.getter(name="bytesTotal")
     def bytes_total(self) -> pulumi.Output[Optional[_builtins.int]]:
+        """
+        Size of the volume, in bytes. 0 if the host could not be reached or with `summary=true`.
+        """
         return pulumi.get(self, "bytes_total")
 
     @_builtins.property
     @pulumi.getter(name="bytesUsed")
     def bytes_used(self) -> pulumi.Output[Optional[_builtins.int]]:
+        """
+        Bytes of storage the volume occupies on its host. Volumes are thinly provisioned, so this
+        grows as blocks are written and does not shrink when files are deleted. It is not the
+        filesystem's usage; use `blocks` and `blocks_free` for that. 0 if the host could not be
+        reached or with `summary=true`.
+        """
         return pulumi.get(self, "bytes_used")
 
     @_builtins.property
     @pulumi.getter
-    def compute(self) -> pulumi.Output[Optional['outputs.FlyMachineGuest']]:
+    def compute(self) -> pulumi.Output[Optional['outputs.Compute']]:
+        """
+        Requirements of the Machine that will use the volume, so that the volume is placed on a
+        host that can run it. Uses `cpus`, `memory_mb`, `cpu_kind`, `host_dedication_id`, and
+        `required_host_features`.
+        """
         return pulumi.get(self, "compute")
 
     @_builtins.property
     @pulumi.getter(name="computeImage")
     def compute_image(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Ignored.
+        """
         return pulumi.get(self, "compute_image")
 
     @_builtins.property
     @pulumi.getter(name="createdAt")
     def created_at(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        When the volume was created.
+        """
         return pulumi.get(self, "created_at")
 
     @_builtins.property
     @pulumi.getter
     def encrypted(self) -> pulumi.Output[Optional[_builtins.bool]]:
+        """
+        Whether the volume is encrypted at rest.
+        """
         return pulumi.get(self, "encrypted")
 
     @_builtins.property
     @pulumi.getter
     def fstype(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Filesystem the volume was formatted with: `ext4`, or `raw` for an unformatted block
+        device.
+        """
         return pulumi.get(self, "fstype")
 
     @_builtins.property
     @pulumi.getter(name="hostFeatures")
     def host_features(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
+        """
+        Features of the volume's host. Only returned when the request sets the
+        `fly-include-host-features: true` header.
+        """
         return pulumi.get(self, "host_features")
 
     @_builtins.property
     @pulumi.getter(name="hostStatus")
     def host_status(self) -> pulumi.Output[Optional['HostStatus']]:
+        """
+        Whether Fly.io could reach the volume's host: `ok` if it could, `unreachable` or
+        `unknown` if it could not, in which case host-reported fields are missing.
+        """
         return pulumi.get(self, "host_status")
 
     @_builtins.property
     @pulumi.getter
     def name(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Name of the volume. Several volumes of an app can share a name.
+        """
         return pulumi.get(self, "name")
 
     @_builtins.property
@@ -494,61 +644,98 @@ class Volume(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter
     def region(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Code of the region the volume is in.
+        """
         return pulumi.get(self, "region")
 
     @_builtins.property
     @pulumi.getter(name="requireUniqueZone")
     def require_unique_zone(self) -> pulumi.Output[Optional[_builtins.bool]]:
+        """
+        Place the volume on a host that has no other volume of the app with the same name in the
+        region, so that Machines using these volumes don't share a host. Fails with 400 if no
+        such host is available.
+        """
         return pulumi.get(self, "require_unique_zone")
 
     @_builtins.property
     @pulumi.getter(name="requiredHostFeatures")
     def required_host_features(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
+        """
+        Host features the volume's host was required to have; see `compute.required_host_features`
+        in the create request.
+        """
         return pulumi.get(self, "required_host_features")
 
     @_builtins.property
     @pulumi.getter(name="sizeGb")
     def size_gb(self) -> pulumi.Output[Optional[_builtins.int]]:
+        """
+        Size of the volume, in GiB.
+        """
         return pulumi.get(self, "size_gb")
 
     @_builtins.property
     @pulumi.getter(name="snapshotId")
     def snapshot_id(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        restore from snapshot
+        ID of a snapshot to restore into the new volume. Mutually exclusive with
+        `source_volume_id`.
         """
         return pulumi.get(self, "snapshot_id")
 
     @_builtins.property
     @pulumi.getter(name="snapshotRetention")
     def snapshot_retention(self) -> pulumi.Output[Optional[_builtins.int]]:
+        """
+        Number of days snapshots of the volume are kept.
+        """
         return pulumi.get(self, "snapshot_retention")
 
     @_builtins.property
     @pulumi.getter(name="sourceVolumeId")
     def source_volume_id(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        fork from remote volume
+        ID of a volume to fork: the new volume starts as a copy of it. The volume must belong to
+        an app in the same organization.
         """
         return pulumi.get(self, "source_volume_id")
 
     @_builtins.property
     @pulumi.getter
     def state(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        State of the volume, such as `creating`, `created`, `extending`, `restoring`,
+        `hydrating`, `scheduling_destroy`, `pending_destroy`, `destroying`, `destroyed`, or
+        `failed`.
+        """
         return pulumi.get(self, "state")
 
     @_builtins.property
     @pulumi.getter
     def type(self) -> pulumi.Output[Optional['Type']]:
+        """
+        Kind of volume: `local` for regular volumes, or `cache` for volumes that hold
+        disposable data and support neither snapshots nor restores.
+        """
         return pulumi.get(self, "type")
 
     @_builtins.property
     @pulumi.getter(name="uniqueZoneAppWide")
     def unique_zone_app_wide(self) -> pulumi.Output[Optional[_builtins.bool]]:
+        """
+        With `require_unique_zone`, avoid hosts with any volume of the app in the region, not
+        just volumes with the same name.
+        """
         return pulumi.get(self, "unique_zone_app_wide")
 
     @_builtins.property
     @pulumi.getter
     def zone(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Identifies the host the volume is on. Volumes with different zones are on different
+        hosts.
+        """
         return pulumi.get(self, "zone")
 

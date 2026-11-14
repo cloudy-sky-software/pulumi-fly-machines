@@ -13,6 +13,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
 
     public sealed class FlyMachineServiceArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Whether Fly Proxy starts stopped or suspended Machines when requests arrive. Defaults to true
+        /// </summary>
         [Input("autostart")]
         public Input<bool>? Autostart { get; set; }
 
@@ -37,29 +40,52 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
             set => _checks = value;
         }
 
+        /// <summary>
+        /// Load limits Fly Proxy uses to balance traffic across Machines
+        /// </summary>
         [Input("concurrency")]
         public Input<Inputs.FlyMachineServiceConcurrencyArgs>? Concurrency { get; set; }
 
+        /// <summary>
+        /// Currently has no effect
+        /// </summary>
         [Input("forceInstanceDescription")]
         public Input<string>? ForceInstanceDescription { get; set; }
 
+        /// <summary>
+        /// Currently has no effect
+        /// </summary>
         [Input("forceInstanceKey")]
         public Input<string>? ForceInstanceKey { get; set; }
 
+        /// <summary>
+        /// Port in the Machine that Fly Proxy forwards traffic to. Defaults to 8080
+        /// </summary>
         [Input("internalPort")]
         public Input<int>? InternalPort { get; set; }
 
+        /// <summary>
+        /// When autostop is on, the number of Machines Fly Proxy keeps running in the app's primary
+        /// region (`PRIMARY_REGION` env var). Machines in other regions can all be stopped
+        /// </summary>
         [Input("minMachinesRunning")]
         public Input<int>? MinMachinesRunning { get; set; }
 
         [Input("ports")]
         private InputList<Inputs.FlyMachinePortArgs>? _ports;
+
+        /// <summary>
+        /// Public ports that Fly Proxy accepts traffic on
+        /// </summary>
         public InputList<Inputs.FlyMachinePortArgs> Ports
         {
             get => _ports ?? (_ports = new InputList<Inputs.FlyMachinePortArgs>());
             set => _ports = value;
         }
 
+        /// <summary>
+        /// Protocol: tcp or udp. Defaults to tcp
+        /// </summary>
         [Input("protocol")]
         public Input<string>? Protocol { get; set; }
 

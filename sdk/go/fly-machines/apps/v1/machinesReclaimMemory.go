@@ -14,7 +14,10 @@ import (
 type MachinesReclaimMemory struct {
 	pulumi.CustomResourceState
 
+	// Memory, in MiB, that the guest actually gave up. Can be less than requested.
 	ActualMb pulumi.IntPtrOutput `pulumi:"actualMb"`
+	// Memory to reclaim, in MiB. Must be positive and at most the Machine's memory limit minus
+	// 128 MiB.
 	AmountMb pulumi.IntPtrOutput `pulumi:"amountMb"`
 	// Query params to send with the API requests for this resource.
 	QueryParams MachinesReclaimMemoryQueryParamsPtrOutput `pulumi:"queryParams"`
@@ -66,6 +69,8 @@ func MachinesReclaimMemoryExists(ctx *pulumi.Context,
 }
 
 type machinesReclaimMemoryArgs struct {
+	// Memory to reclaim, in MiB. Must be positive and at most the Machine's memory limit minus
+	// 128 MiB.
 	AmountMb *int `pulumi:"amountMb"`
 	// Fly App Name
 	AppName *string `pulumi:"appName"`
@@ -77,6 +82,8 @@ type machinesReclaimMemoryArgs struct {
 
 // The set of arguments for constructing a MachinesReclaimMemory resource.
 type MachinesReclaimMemoryArgs struct {
+	// Memory to reclaim, in MiB. Must be positive and at most the Machine's memory limit minus
+	// 128 MiB.
 	AmountMb pulumi.IntPtrInput
 	// Fly App Name
 	AppName pulumi.StringPtrInput
@@ -123,10 +130,13 @@ func (o MachinesReclaimMemoryOutput) ToMachinesReclaimMemoryOutputWithContext(ct
 	return o
 }
 
+// Memory, in MiB, that the guest actually gave up. Can be less than requested.
 func (o MachinesReclaimMemoryOutput) ActualMb() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *MachinesReclaimMemory) pulumi.IntPtrOutput { return v.ActualMb }).(pulumi.IntPtrOutput)
 }
 
+// Memory to reclaim, in MiB. Must be positive and at most the Machine's memory limit minus
+// 128 MiB.
 func (o MachinesReclaimMemoryOutput) AmountMb() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *MachinesReclaimMemory) pulumi.IntPtrOutput { return v.AmountMb }).(pulumi.IntPtrOutput)
 }

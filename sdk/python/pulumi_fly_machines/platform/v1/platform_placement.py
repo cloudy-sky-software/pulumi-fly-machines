@@ -33,12 +33,17 @@ class PlatformPlacementArgs:
         """
         The set of arguments for constructing a PlatformPlacement resource.
 
+        :param pulumi.Input[_builtins.str] org_slug: Slug of the organization to place Machines for, or `personal`. Required.
         :param pulumi.Input['ComputeArgs'] compute: Resource requirements for the Machine to simulate. Defaults to a performance-1x machine
         :param pulumi.Input[_builtins.int] count: Number of machines to simulate placement.
                Defaults to 0, which returns the org-specific limit for each region.
         :param pulumi.Input['PlatformPlacementQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input[_builtins.str] region: Region expression for placement as a comma-delimited set of regions or aliases.
-               Defaults to "[region],any", to prefer the API endpoint's local region with any other region as fallback.
+               Defaults to the API endpoint's local region. When `count` is greater than 0, `any` is
+               added as a fallback.
+        :param pulumi.Input[_builtins.str] volume_name: Currently unused.
+        :param pulumi.Input[_builtins.int] volume_size_bytes: Size of a volume each Machine will need, in bytes. Only hosts with room for it are
+               considered.
         :param pulumi.Input['WeightsArgs'] weights: Optional weights to override default placement preferences.
         """
         pulumi.set(__self__, "org_slug", org_slug)
@@ -60,6 +65,9 @@ class PlatformPlacementArgs:
     @_builtins.property
     @pulumi.getter(name="orgSlug")
     def org_slug(self) -> pulumi.Input[_builtins.str]:
+        """
+        Slug of the organization to place Machines for, or `personal`. Required.
+        """
         return pulumi.get(self, "org_slug")
 
     @org_slug.setter
@@ -108,7 +116,8 @@ class PlatformPlacementArgs:
     def region(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Region expression for placement as a comma-delimited set of regions or aliases.
-        Defaults to "[region],any", to prefer the API endpoint's local region with any other region as fallback.
+        Defaults to the API endpoint's local region. When `count` is greater than 0, `any` is
+        added as a fallback.
         """
         return pulumi.get(self, "region")
 
@@ -119,6 +128,9 @@ class PlatformPlacementArgs:
     @_builtins.property
     @pulumi.getter(name="volumeName")
     def volume_name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Currently unused.
+        """
         return pulumi.get(self, "volume_name")
 
     @volume_name.setter
@@ -128,6 +140,10 @@ class PlatformPlacementArgs:
     @_builtins.property
     @pulumi.getter(name="volumeSizeBytes")
     def volume_size_bytes(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Size of a volume each Machine will need, in bytes. Only hosts with room for it are
+        considered.
+        """
         return pulumi.get(self, "volume_size_bytes")
 
     @volume_size_bytes.setter
@@ -170,9 +186,14 @@ class PlatformPlacement(pulumi.CustomResource):
         :param pulumi.Input[Union['ComputeArgs', 'ComputeArgsDict', 'outputs.Compute']] compute: Resource requirements for the Machine to simulate. Defaults to a performance-1x machine
         :param pulumi.Input[_builtins.int] count: Number of machines to simulate placement.
                Defaults to 0, which returns the org-specific limit for each region.
+        :param pulumi.Input[_builtins.str] org_slug: Slug of the organization to place Machines for, or `personal`. Required.
         :param pulumi.Input[Union['PlatformPlacementQueryParamsArgs', 'PlatformPlacementQueryParamsArgsDict', 'outputs.PlatformPlacementQueryParams']] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input[_builtins.str] region: Region expression for placement as a comma-delimited set of regions or aliases.
-               Defaults to "[region],any", to prefer the API endpoint's local region with any other region as fallback.
+               Defaults to the API endpoint's local region. When `count` is greater than 0, `any` is
+               added as a fallback.
+        :param pulumi.Input[_builtins.str] volume_name: Currently unused.
+        :param pulumi.Input[_builtins.int] volume_size_bytes: Size of a volume each Machine will need, in bytes. Only hosts with room for it are
+               considered.
         :param pulumi.Input[Union['WeightsArgs', 'WeightsArgsDict', 'outputs.Weights']] weights: Optional weights to override default placement preferences.
         """
         ...
@@ -249,12 +270,12 @@ class PlatformPlacement(pulumi.CustomResource):
 
         __props__ = PlatformPlacementArgs.__new__(PlatformPlacementArgs)
 
+        __props__.__dict__["regions"] = None
         __props__.__dict__["compute"] = None
         __props__.__dict__["count"] = None
         __props__.__dict__["org_slug"] = None
         __props__.__dict__["query_params"] = None
         __props__.__dict__["region"] = None
-        __props__.__dict__["regions"] = None
         __props__.__dict__["volume_name"] = None
         __props__.__dict__["volume_size_bytes"] = None
         __props__.__dict__["weights"] = None
@@ -265,6 +286,15 @@ class PlatformPlacement(pulumi.CustomResource):
             opts: Optional[pulumi.ResourceOptions] = None) -> pulumi.Output[bool]:
         __props__: dict = {}
         return pulumi.runtime.exists_resource(None, 'fly-machines:platform/v1:PlatformPlacement', id, __props__, opts or pulumi.ResourceOptions())
+
+    @_builtins.property
+    @pulumi.getter(name="Regions")
+    def regions(self) -> pulumi.Output[Optional[Sequence['outputs.PlacementRegionPlacement']]]:
+        """
+        The regions Machines would be placed in. With `count` 0, every requested region with the
+        organization's Machine limit in it.
+        """
+        return pulumi.get(self, "regions")
 
     @_builtins.property
     @pulumi.getter
@@ -286,6 +316,9 @@ class PlatformPlacement(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter(name="orgSlug")
     def org_slug(self) -> pulumi.Output[_builtins.str]:
+        """
+        Slug of the organization to place Machines for, or `personal`. Required.
+        """
         return pulumi.get(self, "org_slug")
 
     @_builtins.property
@@ -301,23 +334,26 @@ class PlatformPlacement(pulumi.CustomResource):
     def region(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
         Region expression for placement as a comma-delimited set of regions or aliases.
-        Defaults to "[region],any", to prefer the API endpoint's local region with any other region as fallback.
+        Defaults to the API endpoint's local region. When `count` is greater than 0, `any` is
+        added as a fallback.
         """
         return pulumi.get(self, "region")
 
     @_builtins.property
-    @pulumi.getter
-    def regions(self) -> pulumi.Output[Optional[Sequence['outputs.PlacementRegionPlacement']]]:
-        return pulumi.get(self, "regions")
-
-    @_builtins.property
     @pulumi.getter(name="volumeName")
     def volume_name(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Currently unused.
+        """
         return pulumi.get(self, "volume_name")
 
     @_builtins.property
     @pulumi.getter(name="volumeSizeBytes")
     def volume_size_bytes(self) -> pulumi.Output[Optional[_builtins.int]]:
+        """
+        Size of a volume each Machine will need, in bytes. Only hosts with room for it are
+        considered.
+        """
         return pulumi.get(self, "volume_size_bytes")
 
     @_builtins.property

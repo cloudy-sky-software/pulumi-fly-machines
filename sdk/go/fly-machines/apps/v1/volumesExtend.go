@@ -14,11 +14,16 @@ import (
 type VolumesExtend struct {
 	pulumi.CustomResourceState
 
+	// Whether the volume is attached to a running Machine that could not resize its filesystem
+	// while running. If true, restart the Machine for the filesystem to use the new size.
 	NeedsRestart pulumi.BoolPtrOutput `pulumi:"needsRestart"`
 	// Query params to send with the API requests for this resource.
 	QueryParams VolumesExtendQueryParamsPtrOutput `pulumi:"queryParams"`
-	SizeGb      pulumi.IntPtrOutput               `pulumi:"sizeGb"`
-	Volume      VolumeTypePtrOutput               `pulumi:"volume"`
+	// New size of the volume in GiB. Must be larger than the current size and at most the
+	// organization's maximum (500 by default).
+	SizeGb pulumi.IntPtrOutput `pulumi:"sizeGb"`
+	// The extended volume.
+	Volume VolumesExtendVolumePtrOutput `pulumi:"volume"`
 }
 
 // NewVolumesExtend registers a new resource with the given unique name, arguments, and options.
@@ -71,7 +76,9 @@ type volumesExtendArgs struct {
 	AppName *string `pulumi:"appName"`
 	// Query params to send with the API requests for this resource.
 	QueryParams *VolumesExtendQueryParams `pulumi:"queryParams"`
-	SizeGb      *int                      `pulumi:"sizeGb"`
+	// New size of the volume in GiB. Must be larger than the current size and at most the
+	// organization's maximum (500 by default).
+	SizeGb *int `pulumi:"sizeGb"`
 	// Volume ID
 	VolumeId *string `pulumi:"volumeId"`
 }
@@ -82,7 +89,9 @@ type VolumesExtendArgs struct {
 	AppName pulumi.StringPtrInput
 	// Query params to send with the API requests for this resource.
 	QueryParams VolumesExtendQueryParamsPtrInput
-	SizeGb      pulumi.IntPtrInput
+	// New size of the volume in GiB. Must be larger than the current size and at most the
+	// organization's maximum (500 by default).
+	SizeGb pulumi.IntPtrInput
 	// Volume ID
 	VolumeId pulumi.StringPtrInput
 }
@@ -124,6 +133,8 @@ func (o VolumesExtendOutput) ToVolumesExtendOutputWithContext(ctx context.Contex
 	return o
 }
 
+// Whether the volume is attached to a running Machine that could not resize its filesystem
+// while running. If true, restart the Machine for the filesystem to use the new size.
 func (o VolumesExtendOutput) NeedsRestart() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *VolumesExtend) pulumi.BoolPtrOutput { return v.NeedsRestart }).(pulumi.BoolPtrOutput)
 }
@@ -133,12 +144,15 @@ func (o VolumesExtendOutput) QueryParams() VolumesExtendQueryParamsPtrOutput {
 	return o.ApplyT(func(v *VolumesExtend) VolumesExtendQueryParamsPtrOutput { return v.QueryParams }).(VolumesExtendQueryParamsPtrOutput)
 }
 
+// New size of the volume in GiB. Must be larger than the current size and at most the
+// organization's maximum (500 by default).
 func (o VolumesExtendOutput) SizeGb() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *VolumesExtend) pulumi.IntPtrOutput { return v.SizeGb }).(pulumi.IntPtrOutput)
 }
 
-func (o VolumesExtendOutput) Volume() VolumeTypePtrOutput {
-	return o.ApplyT(func(v *VolumesExtend) VolumeTypePtrOutput { return v.Volume }).(VolumeTypePtrOutput)
+// The extended volume.
+func (o VolumesExtendOutput) Volume() VolumesExtendVolumePtrOutput {
+	return o.ApplyT(func(v *VolumesExtend) VolumesExtendVolumePtrOutput { return v.Volume }).(VolumesExtendVolumePtrOutput)
 }
 
 func init() {

@@ -41,13 +41,13 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         public Input<string>? InstanceId { get; set; }
 
         /// <summary>
-        /// desired state(s), supports repeated or comma-separated values
+        /// Desired state(s). Supports repeated or comma-separated values. settled matches any of started, stopped, suspended, failed, destroyed, or archived. Defaults to started.
         /// </summary>
         [Input("state")]
         public Input<CloudySkySoftware.Pulumi.FlyMachines.AppsV1.GetMachinesWaitQueryParamsState>? State { get; set; }
 
         /// <summary>
-        /// wait timeout. default 60s
+        /// Wait timeout in seconds. Defaults to 60.
         /// </summary>
         [Input("timeout")]
         public Input<int>? Timeout { get; set; }

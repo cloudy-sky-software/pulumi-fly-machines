@@ -13,34 +13,61 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
 
     public sealed class FlyMachinePortArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Last public port of a range
+        /// </summary>
         [Input("endPort")]
         public Input<int>? EndPort { get; set; }
 
+        /// <summary>
+        /// Redirect plain HTTP requests to HTTPS
+        /// </summary>
         [Input("forceHttps")]
         public Input<bool>? ForceHttps { get; set; }
 
         [Input("handlers")]
         private InputList<string>? _handlers;
+
+        /// <summary>
+        /// How Fly Proxy handles connections before forwarding them: `tls` terminates TLS, `pg_tls`
+        /// terminates PostgreSQL TLS, `http` handles HTTP, `proxy_proto` adds a PROXY protocol header.
+        /// Without handlers, raw TCP is forwarded
+        /// </summary>
         public InputList<string> Handlers
         {
             get => _handlers ?? (_handlers = new InputList<string>());
             set => _handlers = value;
         }
 
+        /// <summary>
+        /// Options for the `http` handler
+        /// </summary>
         [Input("httpOptions")]
-        public Input<Inputs.FlyHTTPOptionsArgs>? HttpOptions { get; set; }
+        public Input<Inputs.FlyMachinePortHttpOptionsArgs>? HttpOptions { get; set; }
 
+        /// <summary>
+        /// Public port. Use either port, or start_port and end_port
+        /// </summary>
         [Input("port")]
         public Input<int>? Port { get; set; }
 
+        /// <summary>
+        /// Options for the `proxy_proto` handler
+        /// </summary>
         [Input("proxyProtoOptions")]
-        public Input<Inputs.FlyProxyProtoOptionsArgs>? ProxyProtoOptions { get; set; }
+        public Input<Inputs.FlyMachinePortProxyProtoOptionsArgs>? ProxyProtoOptions { get; set; }
 
+        /// <summary>
+        /// First public port of a range
+        /// </summary>
         [Input("startPort")]
         public Input<int>? StartPort { get; set; }
 
+        /// <summary>
+        /// Options for the `tls` handler
+        /// </summary>
         [Input("tlsOptions")]
-        public Input<Inputs.FlyTLSOptionsArgs>? TlsOptions { get; set; }
+        public Input<Inputs.FlyMachinePortTlsOptionsArgs>? TlsOptions { get; set; }
 
         public FlyMachinePortArgs()
         {

@@ -22,7 +22,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         /// </summary>
         public readonly ImmutableDictionary<string, string>? AdditionalParams;
         /// <summary>
-        /// Minimum secrets version to return. Returned when setting a new secret
+        /// Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
         /// </summary>
         public readonly string? MinVersion;
 

@@ -54,6 +54,10 @@ __all__ = [
     'PostgresDatabaseDeleteQueryParamsArgsDict',
     'PostgresDatabaseQueryParamsArgs',
     'PostgresDatabaseQueryParamsArgsDict',
+    'PostgresDatabasesQueryCreateQueryParamsArgs',
+    'PostgresDatabasesQueryCreateQueryParamsArgsDict',
+    'PostgresDatabasesQueryQueryParamsArgs',
+    'PostgresDatabasesQueryQueryParamsArgsDict',
     'PostgresDeleteQueryParamsArgs',
     'PostgresDeleteQueryParamsArgsDict',
     'PostgresExtensionCreateQueryParamsArgs',
@@ -869,6 +873,74 @@ class PostgresDatabaseQueryParamsArgs:
     @delete.setter
     def delete(self, value: pulumi.Input[Optional['PostgresDatabaseDeleteQueryParamsArgs']]):
         pulumi.set(self, "delete", value)
+
+
+class PostgresDatabasesQueryCreateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class PostgresDatabasesQueryCreateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class PostgresDatabasesQueryQueryParamsArgsDict(TypedDict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    create: NotRequired[pulumi.Input[Optional['PostgresDatabasesQueryCreateQueryParamsArgsDict']]]
+    """
+    Query params for the create operation.
+    """
+
+@pulumi.input_type
+class PostgresDatabasesQueryQueryParamsArgs:
+    def __init__(__self__, *,
+                 create: pulumi.Input[Optional['PostgresDatabasesQueryCreateQueryParamsArgs']] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param pulumi.Input['PostgresDatabasesQueryCreateQueryParamsArgs'] create: Query params for the create operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> pulumi.Input[Optional['PostgresDatabasesQueryCreateQueryParamsArgs']]:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @create.setter
+    def create(self, value: pulumi.Input[Optional['PostgresDatabasesQueryCreateQueryParamsArgs']]):
+        pulumi.set(self, "create", value)
 
 
 class PostgresDeleteQueryParamsArgsDict(TypedDict):

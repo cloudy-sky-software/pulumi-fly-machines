@@ -37,13 +37,28 @@ class MachineArgs:
 
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input['ConfigArgs'] config: An object defining the Machine configuration
+        :param pulumi.Input[_builtins.int] lease_ttl: Acquire a lease on the new Machine that lasts this many seconds. The response's `nonce`
+               field holds the lease nonce.
         :param pulumi.Input[_builtins.int] min_secrets_version: The minimum version of the app's secrets the Machine must run with. Set it to the `version`
                returned by the endpoints that set or delete app secrets, so that the Machine is guaranteed
                to see those changes. This field belongs at the top level of the request body, not in
                `config`. If omitted, the app's current secrets version is looked up for you.
-        :param pulumi.Input[_builtins.str] name: Unique name for this Machine. If omitted, one is generated for you
+        :param pulumi.Input[_builtins.str] name: Name for this Machine. If omitted, one is generated for you. Names are not required to be
+               unique.
         :param pulumi.Input['MachineQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
-        :param pulumi.Input[_builtins.str] region: The target region. Omitting this param launches in the same region as your WireGuard peer connection (somewhere near you).
+        :param pulumi.Input[_builtins.str] region: The region to create the Machine in, such as `iad`. Also accepts a comma-separated list
+               of regions and region groups (`any`, `us`, `na`, `sa`, `eu`, `apac`, `africa`,
+               `asia_pacific`, `europe`, `north_america`, `south_america`), in which case Fly.io picks one
+               with capacity. If the Machine mounts a volume, defaults to the volume's region; the region
+               must include it. Otherwise defaults to the region of the API server handling the request,
+               which is usually the one closest to you.
+        :param pulumi.Input[_builtins.bool] skip_launch: Create the Machine without starting it. It ends up `stopped`; start it with the Start
+               Machine endpoint. Not allowed for spot Machines.
+        :param pulumi.Input[_builtins.bool] skip_secrets: Don't look up the app's current secrets version. The Machine still gets the app's
+               secrets, but may not see recent changes to them. Takes precedence over
+               `min_secrets_version`.
+        :param pulumi.Input[_builtins.bool] skip_service_registration: Create the Machine cordoned, so Fly Proxy doesn't route requests to it until it is
+               uncordoned. Its services are still registered.
         """
         if app_name is not None:
             pulumi.set(__self__, "app_name", app_name)
@@ -93,6 +108,10 @@ class MachineArgs:
     @_builtins.property
     @pulumi.getter(name="leaseTtl")
     def lease_ttl(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Acquire a lease on the new Machine that lasts this many seconds. The response's `nonce`
+        field holds the lease nonce.
+        """
         return pulumi.get(self, "lease_ttl")
 
     @lease_ttl.setter
@@ -118,7 +137,8 @@ class MachineArgs:
     @pulumi.getter
     def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        Unique name for this Machine. If omitted, one is generated for you
+        Name for this Machine. If omitted, one is generated for you. Names are not required to be
+        unique.
         """
         return pulumi.get(self, "name")
 
@@ -142,7 +162,12 @@ class MachineArgs:
     @pulumi.getter
     def region(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        The target region. Omitting this param launches in the same region as your WireGuard peer connection (somewhere near you).
+        The region to create the Machine in, such as `iad`. Also accepts a comma-separated list
+        of regions and region groups (`any`, `us`, `na`, `sa`, `eu`, `apac`, `africa`,
+        `asia_pacific`, `europe`, `north_america`, `south_america`), in which case Fly.io picks one
+        with capacity. If the Machine mounts a volume, defaults to the volume's region; the region
+        must include it. Otherwise defaults to the region of the API server handling the request,
+        which is usually the one closest to you.
         """
         return pulumi.get(self, "region")
 
@@ -153,6 +178,10 @@ class MachineArgs:
     @_builtins.property
     @pulumi.getter(name="skipLaunch")
     def skip_launch(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Create the Machine without starting it. It ends up `stopped`; start it with the Start
+        Machine endpoint. Not allowed for spot Machines.
+        """
         return pulumi.get(self, "skip_launch")
 
     @skip_launch.setter
@@ -162,6 +191,11 @@ class MachineArgs:
     @_builtins.property
     @pulumi.getter(name="skipSecrets")
     def skip_secrets(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Don't look up the app's current secrets version. The Machine still gets the app's
+        secrets, but may not see recent changes to them. Takes precedence over
+        `min_secrets_version`.
+        """
         return pulumi.get(self, "skip_secrets")
 
     @skip_secrets.setter
@@ -171,6 +205,10 @@ class MachineArgs:
     @_builtins.property
     @pulumi.getter(name="skipServiceRegistration")
     def skip_service_registration(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Create the Machine cordoned, so Fly Proxy doesn't route requests to it until it is
+        uncordoned. Its services are still registered.
+        """
         return pulumi.get(self, "skip_service_registration")
 
     @skip_service_registration.setter
@@ -202,13 +240,28 @@ class Machine(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input[Union['ConfigArgs', 'ConfigArgsDict']] config: An object defining the Machine configuration
+        :param pulumi.Input[_builtins.int] lease_ttl: Acquire a lease on the new Machine that lasts this many seconds. The response's `nonce`
+               field holds the lease nonce.
         :param pulumi.Input[_builtins.int] min_secrets_version: The minimum version of the app's secrets the Machine must run with. Set it to the `version`
                returned by the endpoints that set or delete app secrets, so that the Machine is guaranteed
                to see those changes. This field belongs at the top level of the request body, not in
                `config`. If omitted, the app's current secrets version is looked up for you.
-        :param pulumi.Input[_builtins.str] name: Unique name for this Machine. If omitted, one is generated for you
+        :param pulumi.Input[_builtins.str] name: Name for this Machine. If omitted, one is generated for you. Names are not required to be
+               unique.
         :param pulumi.Input[Union['MachineQueryParamsArgs', 'MachineQueryParamsArgsDict', 'outputs.MachineQueryParams']] query_params: Query params to send with the API requests for this resource.
-        :param pulumi.Input[_builtins.str] region: The target region. Omitting this param launches in the same region as your WireGuard peer connection (somewhere near you).
+        :param pulumi.Input[_builtins.str] region: The region to create the Machine in, such as `iad`. Also accepts a comma-separated list
+               of regions and region groups (`any`, `us`, `na`, `sa`, `eu`, `apac`, `africa`,
+               `asia_pacific`, `europe`, `north_america`, `south_america`), in which case Fly.io picks one
+               with capacity. If the Machine mounts a volume, defaults to the volume's region; the region
+               must include it. Otherwise defaults to the region of the API server handling the request,
+               which is usually the one closest to you.
+        :param pulumi.Input[_builtins.bool] skip_launch: Create the Machine without starting it. It ends up `stopped`; start it with the Start
+               Machine endpoint. Not allowed for spot Machines.
+        :param pulumi.Input[_builtins.bool] skip_secrets: Don't look up the app's current secrets version. The Machine still gets the app's
+               secrets, but may not see recent changes to them. Takes precedence over
+               `min_secrets_version`.
+        :param pulumi.Input[_builtins.bool] skip_service_registration: Create the Machine cordoned, so Fly Proxy doesn't route requests to it until it is
+               uncordoned. Its services are still registered.
         """
         ...
     @overload
@@ -335,53 +388,92 @@ class Machine(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter
     def checks(self) -> pulumi.Output[Optional[Sequence['outputs.CheckStatus']]]:
+        """
+        Status of each health check: the Machine's top-level `checks` and its services'
+        checks.
+        """
         return pulumi.get(self, "checks")
 
     @_builtins.property
     @pulumi.getter
-    def config(self) -> pulumi.Output[Optional['outputs.FlyMachineConfig']]:
+    def config(self) -> pulumi.Output[Optional['outputs.MachineConfig']]:
+        """
+        The Machine's configuration, as provided when it was created or last updated, with
+        `metadata` and `mounts` reflecting their current values. Null when the host is not
+        reachable (`host_status` is not `ok`) or `summary=true` was requested; see
+        `incomplete_config`.
+        """
         return pulumi.get(self, "config")
 
     @_builtins.property
     @pulumi.getter
     def cordoned(self) -> pulumi.Output[Optional[_builtins.bool]]:
+        """
+        Whether the Machine is cordoned, meaning Fly Proxy does not route requests to it. See
+        the Cordon Machine endpoint.
+        """
         return pulumi.get(self, "cordoned")
 
     @_builtins.property
     @pulumi.getter(name="createdAt")
     def created_at(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        When the Machine was created.
+        """
         return pulumi.get(self, "created_at")
 
     @_builtins.property
     @pulumi.getter
     def events(self) -> pulumi.Output[Optional[Sequence['outputs.MachineEvent']]]:
+        """
+        Up to 5 of the most recent events of the current Machine version, newest first. Use
+        the List Events endpoint for more.
+        """
         return pulumi.get(self, "events")
 
     @_builtins.property
     @pulumi.getter(name="hostFeatures")
     def host_features(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
+        """
+        Features of the Machine's host, for comparison with `config.guest.required_host_features`.
+        Only returned when the request sets the `fly-include-host-features: true` header.
+        """
         return pulumi.get(self, "host_features")
 
     @_builtins.property
     @pulumi.getter(name="hostStatus")
     def host_status(self) -> pulumi.Output[Optional['HostStatus']]:
+        """
+        Whether Fly.io could reach the Machine's host: `ok` if it could, `unreachable` if it
+        could not, in which case the response is built from last known state. `unknown` if the
+        host's status was not reported.
+        """
         return pulumi.get(self, "host_status")
 
     @_builtins.property
     @pulumi.getter(name="imageRef")
     def image_ref(self) -> pulumi.Output[Optional['outputs.ImageRef']]:
+        """
+        The image the Machine runs, as resolved when it was last created or updated.
+        """
         return pulumi.get(self, "image_ref")
 
     @_builtins.property
     @pulumi.getter(name="incompleteConfig")
-    def incomplete_config(self) -> pulumi.Output[Optional['outputs.FlyMachineConfig']]:
+    def incomplete_config(self) -> pulumi.Output[Optional['outputs.IncompleteConfig']]:
+        """
+        Last known configuration, returned in place of `config` when the host could not be
+        reached (`host_status` is not `ok`) or when listing Machines with `summary=true`. It
+        comes from Fly.io's replicated state rather than the host, so it may be stale or lack
+        fields.
+        """
         return pulumi.get(self, "incomplete_config")
 
     @_builtins.property
     @pulumi.getter(name="instanceId")
     def instance_id(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        InstanceID is the same value as `version`.
+        Same value as `version`.
 
         Deprecated: use `version`.
         """
@@ -389,12 +481,20 @@ class Machine(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter
-    def lease(self) -> pulumi.Output[Optional['outputs.StrippedLease']]:
+    def lease(self) -> pulumi.Output[Optional['outputs.Lease']]:
+        """
+        The lease currently held on the Machine. Only returned when `include_leases=true`
+        was requested and a lease is held.
+        """
         return pulumi.get(self, "lease")
 
     @_builtins.property
     @pulumi.getter(name="leaseTtl")
     def lease_ttl(self) -> pulumi.Output[Optional[_builtins.int]]:
+        """
+        Acquire a lease on the new Machine that lasts this many seconds. The response's `nonce`
+        field holds the lease nonce.
+        """
         return pulumi.get(self, "lease_ttl")
 
     @_builtins.property
@@ -411,13 +511,19 @@ class Machine(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter
     def name(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Name of the Machine. Generated when not provided at creation. Names are not required
+        to be unique.
+        """
         return pulumi.get(self, "name")
 
     @_builtins.property
     @pulumi.getter
     def nonce(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        Nonce is only every returned on machine creation if a lease_duration was provided.
+        Nonce of the lease acquired on the Machine at creation. Only returned when creating a
+        Machine with `lease_ttl` set. Pass it in the `fly-machine-lease-nonce` header to act on
+        the Machine while the lease is held.
         """
         return pulumi.get(self, "nonce")
 
@@ -425,7 +531,7 @@ class Machine(pulumi.CustomResource):
     @pulumi.getter(name="privateIp")
     def private_ip(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        PrivateIP is the internal 6PN address of the machine.
+        The Machine's address on the organization's private (6PN) IPv6 network.
         """
         return pulumi.get(self, "private_ip")
 
@@ -440,40 +546,67 @@ class Machine(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter
     def region(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Code of the region the Machine runs in, such as `iad`.
+        """
         return pulumi.get(self, "region")
 
     @_builtins.property
     @pulumi.getter(name="skipLaunch")
     def skip_launch(self) -> pulumi.Output[Optional[_builtins.bool]]:
+        """
+        Create the Machine without starting it. It ends up `stopped`; start it with the Start
+        Machine endpoint. Not allowed for spot Machines.
+        """
         return pulumi.get(self, "skip_launch")
 
     @_builtins.property
     @pulumi.getter(name="skipSecrets")
     def skip_secrets(self) -> pulumi.Output[Optional[_builtins.bool]]:
+        """
+        Don't look up the app's current secrets version. The Machine still gets the app's
+        secrets, but may not see recent changes to them. Takes precedence over
+        `min_secrets_version`.
+        """
         return pulumi.get(self, "skip_secrets")
 
     @_builtins.property
     @pulumi.getter(name="skipServiceRegistration")
     def skip_service_registration(self) -> pulumi.Output[Optional[_builtins.bool]]:
+        """
+        Create the Machine cordoned, so Fly Proxy doesn't route requests to it until it is
+        uncordoned. Its services are still registered.
+        """
         return pulumi.get(self, "skip_service_registration")
 
     @_builtins.property
     @pulumi.getter
     def state(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Current state of the Machine, taken from the status of its most recent event. One of
+        `created`, `starting`, `started`, `stopping`, `stopped`, `suspending`, `suspended`,
+        `replacing`, `replaced`, `destroying`, `destroyed`, `failed`, `migrating`, `migrated`,
+        `archived`, or `pending`. See https://fly.io/docs/machines/machine-states/.
+        """
         return pulumi.get(self, "state")
 
     @_builtins.property
     @pulumi.getter(name="updatedAt")
     def updated_at(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Time of the Machine's most recent event, truncated to whole seconds. The zero time
+        (0001-01-01T00:00:00Z) if the host could not be reached. With `summary=true`, the time
+        Fly.io last recorded a change to the Machine.
+        """
         return pulumi.get(self, "updated_at")
 
     @_builtins.property
     @pulumi.getter
     def version(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        Version is unique for each version of the machine. Pass it as
-        `current_version` when updating the Machine to reject the update if the
-        Machine has changed since this version.
+        Unique ID of this version of the Machine. Every update creates a new version. Pass it
+        as `current_version` when updating the Machine to reject the update if the Machine has
+        changed since this version.
         """
         return pulumi.get(self, "version")
 

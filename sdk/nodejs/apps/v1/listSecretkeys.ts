@@ -27,6 +27,9 @@ export interface ListSecretkeysArgs {
 }
 
 export interface ListSecretkeysResult {
+    /**
+     * The app's secret keys. Key material is never returned.
+     */
     readonly secretKeys?: outputs.apps.v1.SecretKey[];
 }
 export function listSecretkeysOutput(args: ListSecretkeysOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<ListSecretkeysResult> {

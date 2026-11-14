@@ -29,6 +29,7 @@ type ListSecretsArgs struct {
 }
 
 type ListSecretsResult struct {
+	// The app's secrets.
 	Secrets []AppSecret `pulumi:"secrets"`
 }
 
@@ -62,6 +63,7 @@ func (o ListSecretsResultOutput) ToListSecretsResultOutputWithContext(ctx contex
 	return o
 }
 
+// The app's secrets.
 func (o ListSecretsResultOutput) Secrets() AppSecretArrayOutput {
 	return o.ApplyT(func(v ListSecretsResult) []AppSecret { return v.Secrets }).(AppSecretArrayOutput)
 }

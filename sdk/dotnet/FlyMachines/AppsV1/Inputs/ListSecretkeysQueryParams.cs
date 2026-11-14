@@ -29,13 +29,13 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         }
 
         /// <summary>
-        /// Minimum secrets version to return. Returned when setting a new secret
+        /// Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
         /// </summary>
         [Input("minVersion")]
         public string? MinVersion { get; set; }
 
         /// <summary>
-        /// Comma-seperated list of secret keys to list
+        /// Comma-separated list of key types to list, such as hs256,es256. Defaults to all types.
         /// </summary>
         [Input("types")]
         public string? Types { get; set; }

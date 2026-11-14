@@ -28,6 +28,8 @@ class AppDeployTokenArgs:
         The set of arguments for constructing a AppDeployToken resource.
 
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
+        :param pulumi.Input[_builtins.str] expiry: How long the token is valid, as a Go duration string such as `720h`. If omitted, the
+               token is valid for as long as the token used to make this request.
         :param pulumi.Input['AppDeployTokenQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         """
         if app_name is not None:
@@ -52,6 +54,10 @@ class AppDeployTokenArgs:
     @_builtins.property
     @pulumi.getter
     def expiry(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        How long the token is valid, as a Go duration string such as `720h`. If omitted, the
+        token is valid for as long as the token used to make this request.
+        """
         return pulumi.get(self, "expiry")
 
     @expiry.setter
@@ -87,6 +93,8 @@ class AppDeployToken(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
+        :param pulumi.Input[_builtins.str] expiry: How long the token is valid, as a Go duration string such as `720h`. If omitted, the
+               token is valid for as long as the token used to make this request.
         :param pulumi.Input[Union['AppDeployTokenQueryParamsArgs', 'AppDeployTokenQueryParamsArgsDict', 'outputs.AppDeployTokenQueryParams']] query_params: Query params to send with the API requests for this resource.
         """
         ...
@@ -165,6 +173,10 @@ class AppDeployToken(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter
     def expiry(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        How long the token is valid, as a Go duration string such as `720h`. If omitted, the
+        token is valid for as long as the token used to make this request.
+        """
         return pulumi.get(self, "expiry")
 
     @_builtins.property
@@ -178,5 +190,10 @@ class AppDeployToken(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter
     def token(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        The deploy token, including its ` FlyV1  ` scheme prefix, ready to be used as an
+        `Authorization` header value. It is derived from the token used to make this request
+        and limited to the app, plus the organization's WireGuard and remote builder features.
+        """
         return pulumi.get(self, "token")
 

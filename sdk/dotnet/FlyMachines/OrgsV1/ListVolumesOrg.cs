@@ -67,9 +67,21 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.OrgsV1
     [OutputType]
     public sealed class ListVolumesOrgResult
     {
+        /// <summary>
+        /// `updated_at` of the last volume on this page.
+        /// </summary>
         public readonly string? LastUpdatedAt;
+        /// <summary>
+        /// ID of the last volume on this page.
+        /// </summary>
         public readonly string? LastVolumeId;
+        /// <summary>
+        /// Pagination cursor for the next page. Absent when no more volumes remain.
+        /// </summary>
         public readonly string? NextCursor;
+        /// <summary>
+        /// The volumes on this page.
+        /// </summary>
         public readonly ImmutableArray<Outputs.OrgVolume> Volumes;
 
         [OutputConstructor]

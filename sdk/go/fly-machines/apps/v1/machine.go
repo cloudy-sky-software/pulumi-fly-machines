@@ -14,42 +14,86 @@ import (
 type Machine struct {
 	pulumi.CustomResourceState
 
-	Checks           CheckStatusArrayOutput    `pulumi:"checks"`
-	Config           FlyMachineConfigPtrOutput `pulumi:"config"`
-	Cordoned         pulumi.BoolPtrOutput      `pulumi:"cordoned"`
-	CreatedAt        pulumi.StringPtrOutput    `pulumi:"createdAt"`
-	Events           MachineEventArrayOutput   `pulumi:"events"`
-	HostFeatures     pulumi.StringArrayOutput  `pulumi:"hostFeatures"`
-	HostStatus       HostStatusPtrOutput       `pulumi:"hostStatus"`
-	ImageRef         ImageRefPtrOutput         `pulumi:"imageRef"`
-	IncompleteConfig FlyMachineConfigPtrOutput `pulumi:"incompleteConfig"`
-	// InstanceID is the same value as `version`.
+	// Status of each health check: the Machine's top-level `checks` and its services'
+	// checks.
+	Checks CheckStatusArrayOutput `pulumi:"checks"`
+	// The Machine's configuration, as provided when it was created or last updated, with
+	// `metadata` and `mounts` reflecting their current values. Null when the host is not
+	// reachable (`host_status` is not `ok`) or `summary=true` was requested; see
+	// `incomplete_config`.
+	Config MachineConfigPtrOutput `pulumi:"config"`
+	// Whether the Machine is cordoned, meaning Fly Proxy does not route requests to it. See
+	// the Cordon Machine endpoint.
+	Cordoned pulumi.BoolPtrOutput `pulumi:"cordoned"`
+	// When the Machine was created.
+	CreatedAt pulumi.StringPtrOutput `pulumi:"createdAt"`
+	// Up to 5 of the most recent events of the current Machine version, newest first. Use
+	// the List Events endpoint for more.
+	Events MachineEventArrayOutput `pulumi:"events"`
+	// Features of the Machine's host, for comparison with `config.guest.required_host_features`.
+	// Only returned when the request sets the `fly-include-host-features: true` header.
+	HostFeatures pulumi.StringArrayOutput `pulumi:"hostFeatures"`
+	// Whether Fly.io could reach the Machine's host: `ok` if it could, `unreachable` if it
+	// could not, in which case the response is built from last known state. `unknown` if the
+	// host's status was not reported.
+	HostStatus HostStatusPtrOutput `pulumi:"hostStatus"`
+	// The image the Machine runs, as resolved when it was last created or updated.
+	ImageRef ImageRefPtrOutput `pulumi:"imageRef"`
+	// Last known configuration, returned in place of `config` when the host could not be
+	// reached (`host_status` is not `ok`) or when listing Machines with `summary=true`. It
+	// comes from Fly.io's replicated state rather than the host, so it may be stale or lack
+	// fields.
+	IncompleteConfig IncompleteConfigPtrOutput `pulumi:"incompleteConfig"`
+	// Same value as `version`.
 	//
 	// Deprecated: use `version`.
 	InstanceId pulumi.StringPtrOutput `pulumi:"instanceId"`
-	Lease      StrippedLeasePtrOutput `pulumi:"lease"`
-	LeaseTtl   pulumi.IntPtrOutput    `pulumi:"leaseTtl"`
+	// The lease currently held on the Machine. Only returned when `include_leases=true`
+	// was requested and a lease is held.
+	Lease LeasePtrOutput `pulumi:"lease"`
+	// Acquire a lease on the new Machine that lasts this many seconds. The response's `nonce`
+	// field holds the lease nonce.
+	LeaseTtl pulumi.IntPtrOutput `pulumi:"leaseTtl"`
 	// The minimum version of the app's secrets the Machine must run with. Set it to the `version`
 	// returned by the endpoints that set or delete app secrets, so that the Machine is guaranteed
 	// to see those changes. This field belongs at the top level of the request body, not in
 	// `config`. If omitted, the app's current secrets version is looked up for you.
-	MinSecretsVersion pulumi.IntPtrOutput    `pulumi:"minSecretsVersion"`
-	Name              pulumi.StringPtrOutput `pulumi:"name"`
-	// Nonce is only every returned on machine creation if a lease_duration was provided.
+	MinSecretsVersion pulumi.IntPtrOutput `pulumi:"minSecretsVersion"`
+	// Name of the Machine. Generated when not provided at creation. Names are not required
+	// to be unique.
+	Name pulumi.StringPtrOutput `pulumi:"name"`
+	// Nonce of the lease acquired on the Machine at creation. Only returned when creating a
+	// Machine with `lease_ttl` set. Pass it in the `fly-machine-lease-nonce` header to act on
+	// the Machine while the lease is held.
 	Nonce pulumi.StringPtrOutput `pulumi:"nonce"`
-	// PrivateIP is the internal 6PN address of the machine.
+	// The Machine's address on the organization's private (6PN) IPv6 network.
 	PrivateIp pulumi.StringPtrOutput `pulumi:"privateIp"`
 	// Query params to send with the API requests for this resource.
-	QueryParams             MachineQueryParamsPtrOutput `pulumi:"queryParams"`
-	Region                  pulumi.StringPtrOutput      `pulumi:"region"`
-	SkipLaunch              pulumi.BoolPtrOutput        `pulumi:"skipLaunch"`
-	SkipSecrets             pulumi.BoolPtrOutput        `pulumi:"skipSecrets"`
-	SkipServiceRegistration pulumi.BoolPtrOutput        `pulumi:"skipServiceRegistration"`
-	State                   pulumi.StringPtrOutput      `pulumi:"state"`
-	UpdatedAt               pulumi.StringPtrOutput      `pulumi:"updatedAt"`
-	// Version is unique for each version of the machine. Pass it as
-	// `current_version` when updating the Machine to reject the update if the
-	// Machine has changed since this version.
+	QueryParams MachineQueryParamsPtrOutput `pulumi:"queryParams"`
+	// Code of the region the Machine runs in, such as `iad`.
+	Region pulumi.StringPtrOutput `pulumi:"region"`
+	// Create the Machine without starting it. It ends up `stopped`; start it with the Start
+	// Machine endpoint. Not allowed for spot Machines.
+	SkipLaunch pulumi.BoolPtrOutput `pulumi:"skipLaunch"`
+	// Don't look up the app's current secrets version. The Machine still gets the app's
+	// secrets, but may not see recent changes to them. Takes precedence over
+	// `min_secrets_version`.
+	SkipSecrets pulumi.BoolPtrOutput `pulumi:"skipSecrets"`
+	// Create the Machine cordoned, so Fly Proxy doesn't route requests to it until it is
+	// uncordoned. Its services are still registered.
+	SkipServiceRegistration pulumi.BoolPtrOutput `pulumi:"skipServiceRegistration"`
+	// Current state of the Machine, taken from the status of its most recent event. One of
+	// `created`, `starting`, `started`, `stopping`, `stopped`, `suspending`, `suspended`,
+	// `replacing`, `replaced`, `destroying`, `destroyed`, `failed`, `migrating`, `migrated`,
+	// `archived`, or `pending`. See https://fly.io/docs/machines/machine-states/.
+	State pulumi.StringPtrOutput `pulumi:"state"`
+	// Time of the Machine's most recent event, truncated to whole seconds. The zero time
+	// (0001-01-01T00:00:00Z) if the host could not be reached. With `summary=true`, the time
+	// Fly.io last recorded a change to the Machine.
+	UpdatedAt pulumi.StringPtrOutput `pulumi:"updatedAt"`
+	// Unique ID of this version of the Machine. Every update creates a new version. Pass it
+	// as `current_version` when updating the Machine to reject the update if the Machine has
+	// changed since this version.
 	Version pulumi.StringPtrOutput `pulumi:"version"`
 }
 
@@ -102,22 +146,37 @@ type machineArgs struct {
 	// Fly App Name
 	AppName *string `pulumi:"appName"`
 	// An object defining the Machine configuration
-	Config   *Config `pulumi:"config"`
-	LeaseTtl *int    `pulumi:"leaseTtl"`
+	Config *Config `pulumi:"config"`
+	// Acquire a lease on the new Machine that lasts this many seconds. The response's `nonce`
+	// field holds the lease nonce.
+	LeaseTtl *int `pulumi:"leaseTtl"`
 	// The minimum version of the app's secrets the Machine must run with. Set it to the `version`
 	// returned by the endpoints that set or delete app secrets, so that the Machine is guaranteed
 	// to see those changes. This field belongs at the top level of the request body, not in
 	// `config`. If omitted, the app's current secrets version is looked up for you.
 	MinSecretsVersion *int `pulumi:"minSecretsVersion"`
-	// Unique name for this Machine. If omitted, one is generated for you
+	// Name for this Machine. If omitted, one is generated for you. Names are not required to be
+	// unique.
 	Name *string `pulumi:"name"`
 	// Query params to send with the API requests for this resource.
 	QueryParams *MachineQueryParams `pulumi:"queryParams"`
-	// The target region. Omitting this param launches in the same region as your WireGuard peer connection (somewhere near you).
-	Region                  *string `pulumi:"region"`
-	SkipLaunch              *bool   `pulumi:"skipLaunch"`
-	SkipSecrets             *bool   `pulumi:"skipSecrets"`
-	SkipServiceRegistration *bool   `pulumi:"skipServiceRegistration"`
+	// The region to create the Machine in, such as `iad`. Also accepts a comma-separated list
+	// of regions and region groups (`any`, `us`, `na`, `sa`, `eu`, `apac`, `africa`,
+	// `asia_pacific`, `europe`, `north_america`, `south_america`), in which case Fly.io picks one
+	// with capacity. If the Machine mounts a volume, defaults to the volume's region; the region
+	// must include it. Otherwise defaults to the region of the API server handling the request,
+	// which is usually the one closest to you.
+	Region *string `pulumi:"region"`
+	// Create the Machine without starting it. It ends up `stopped`; start it with the Start
+	// Machine endpoint. Not allowed for spot Machines.
+	SkipLaunch *bool `pulumi:"skipLaunch"`
+	// Don't look up the app's current secrets version. The Machine still gets the app's
+	// secrets, but may not see recent changes to them. Takes precedence over
+	// `min_secrets_version`.
+	SkipSecrets *bool `pulumi:"skipSecrets"`
+	// Create the Machine cordoned, so Fly Proxy doesn't route requests to it until it is
+	// uncordoned. Its services are still registered.
+	SkipServiceRegistration *bool `pulumi:"skipServiceRegistration"`
 }
 
 // The set of arguments for constructing a Machine resource.
@@ -125,21 +184,36 @@ type MachineArgs struct {
 	// Fly App Name
 	AppName pulumi.StringPtrInput
 	// An object defining the Machine configuration
-	Config   ConfigPtrInput
+	Config ConfigPtrInput
+	// Acquire a lease on the new Machine that lasts this many seconds. The response's `nonce`
+	// field holds the lease nonce.
 	LeaseTtl pulumi.IntPtrInput
 	// The minimum version of the app's secrets the Machine must run with. Set it to the `version`
 	// returned by the endpoints that set or delete app secrets, so that the Machine is guaranteed
 	// to see those changes. This field belongs at the top level of the request body, not in
 	// `config`. If omitted, the app's current secrets version is looked up for you.
 	MinSecretsVersion pulumi.IntPtrInput
-	// Unique name for this Machine. If omitted, one is generated for you
+	// Name for this Machine. If omitted, one is generated for you. Names are not required to be
+	// unique.
 	Name pulumi.StringPtrInput
 	// Query params to send with the API requests for this resource.
 	QueryParams MachineQueryParamsPtrInput
-	// The target region. Omitting this param launches in the same region as your WireGuard peer connection (somewhere near you).
-	Region                  pulumi.StringPtrInput
-	SkipLaunch              pulumi.BoolPtrInput
-	SkipSecrets             pulumi.BoolPtrInput
+	// The region to create the Machine in, such as `iad`. Also accepts a comma-separated list
+	// of regions and region groups (`any`, `us`, `na`, `sa`, `eu`, `apac`, `africa`,
+	// `asia_pacific`, `europe`, `north_america`, `south_america`), in which case Fly.io picks one
+	// with capacity. If the Machine mounts a volume, defaults to the volume's region; the region
+	// must include it. Otherwise defaults to the region of the API server handling the request,
+	// which is usually the one closest to you.
+	Region pulumi.StringPtrInput
+	// Create the Machine without starting it. It ends up `stopped`; start it with the Start
+	// Machine endpoint. Not allowed for spot Machines.
+	SkipLaunch pulumi.BoolPtrInput
+	// Don't look up the app's current secrets version. The Machine still gets the app's
+	// secrets, but may not see recent changes to them. Takes precedence over
+	// `min_secrets_version`.
+	SkipSecrets pulumi.BoolPtrInput
+	// Create the Machine cordoned, so Fly Proxy doesn't route requests to it until it is
+	// uncordoned. Its services are still registered.
 	SkipServiceRegistration pulumi.BoolPtrInput
 }
 
@@ -180,53 +254,78 @@ func (o MachineOutput) ToMachineOutputWithContext(ctx context.Context) MachineOu
 	return o
 }
 
+// Status of each health check: the Machine's top-level `checks` and its services'
+// checks.
 func (o MachineOutput) Checks() CheckStatusArrayOutput {
 	return o.ApplyT(func(v *Machine) CheckStatusArrayOutput { return v.Checks }).(CheckStatusArrayOutput)
 }
 
-func (o MachineOutput) Config() FlyMachineConfigPtrOutput {
-	return o.ApplyT(func(v *Machine) FlyMachineConfigPtrOutput { return v.Config }).(FlyMachineConfigPtrOutput)
+// The Machine's configuration, as provided when it was created or last updated, with
+// `metadata` and `mounts` reflecting their current values. Null when the host is not
+// reachable (`host_status` is not `ok`) or `summary=true` was requested; see
+// `incomplete_config`.
+func (o MachineOutput) Config() MachineConfigPtrOutput {
+	return o.ApplyT(func(v *Machine) MachineConfigPtrOutput { return v.Config }).(MachineConfigPtrOutput)
 }
 
+// Whether the Machine is cordoned, meaning Fly Proxy does not route requests to it. See
+// the Cordon Machine endpoint.
 func (o MachineOutput) Cordoned() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Machine) pulumi.BoolPtrOutput { return v.Cordoned }).(pulumi.BoolPtrOutput)
 }
 
+// When the Machine was created.
 func (o MachineOutput) CreatedAt() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Machine) pulumi.StringPtrOutput { return v.CreatedAt }).(pulumi.StringPtrOutput)
 }
 
+// Up to 5 of the most recent events of the current Machine version, newest first. Use
+// the List Events endpoint for more.
 func (o MachineOutput) Events() MachineEventArrayOutput {
 	return o.ApplyT(func(v *Machine) MachineEventArrayOutput { return v.Events }).(MachineEventArrayOutput)
 }
 
+// Features of the Machine's host, for comparison with `config.guest.required_host_features`.
+// Only returned when the request sets the `fly-include-host-features: true` header.
 func (o MachineOutput) HostFeatures() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Machine) pulumi.StringArrayOutput { return v.HostFeatures }).(pulumi.StringArrayOutput)
 }
 
+// Whether Fly.io could reach the Machine's host: `ok` if it could, `unreachable` if it
+// could not, in which case the response is built from last known state. `unknown` if the
+// host's status was not reported.
 func (o MachineOutput) HostStatus() HostStatusPtrOutput {
 	return o.ApplyT(func(v *Machine) HostStatusPtrOutput { return v.HostStatus }).(HostStatusPtrOutput)
 }
 
+// The image the Machine runs, as resolved when it was last created or updated.
 func (o MachineOutput) ImageRef() ImageRefPtrOutput {
 	return o.ApplyT(func(v *Machine) ImageRefPtrOutput { return v.ImageRef }).(ImageRefPtrOutput)
 }
 
-func (o MachineOutput) IncompleteConfig() FlyMachineConfigPtrOutput {
-	return o.ApplyT(func(v *Machine) FlyMachineConfigPtrOutput { return v.IncompleteConfig }).(FlyMachineConfigPtrOutput)
+// Last known configuration, returned in place of `config` when the host could not be
+// reached (`host_status` is not `ok`) or when listing Machines with `summary=true`. It
+// comes from Fly.io's replicated state rather than the host, so it may be stale or lack
+// fields.
+func (o MachineOutput) IncompleteConfig() IncompleteConfigPtrOutput {
+	return o.ApplyT(func(v *Machine) IncompleteConfigPtrOutput { return v.IncompleteConfig }).(IncompleteConfigPtrOutput)
 }
 
-// InstanceID is the same value as `version`.
+// Same value as `version`.
 //
 // Deprecated: use `version`.
 func (o MachineOutput) InstanceId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Machine) pulumi.StringPtrOutput { return v.InstanceId }).(pulumi.StringPtrOutput)
 }
 
-func (o MachineOutput) Lease() StrippedLeasePtrOutput {
-	return o.ApplyT(func(v *Machine) StrippedLeasePtrOutput { return v.Lease }).(StrippedLeasePtrOutput)
+// The lease currently held on the Machine. Only returned when `include_leases=true`
+// was requested and a lease is held.
+func (o MachineOutput) Lease() LeasePtrOutput {
+	return o.ApplyT(func(v *Machine) LeasePtrOutput { return v.Lease }).(LeasePtrOutput)
 }
 
+// Acquire a lease on the new Machine that lasts this many seconds. The response's `nonce`
+// field holds the lease nonce.
 func (o MachineOutput) LeaseTtl() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Machine) pulumi.IntPtrOutput { return v.LeaseTtl }).(pulumi.IntPtrOutput)
 }
@@ -239,16 +338,20 @@ func (o MachineOutput) MinSecretsVersion() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Machine) pulumi.IntPtrOutput { return v.MinSecretsVersion }).(pulumi.IntPtrOutput)
 }
 
+// Name of the Machine. Generated when not provided at creation. Names are not required
+// to be unique.
 func (o MachineOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Machine) pulumi.StringPtrOutput { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-// Nonce is only every returned on machine creation if a lease_duration was provided.
+// Nonce of the lease acquired on the Machine at creation. Only returned when creating a
+// Machine with `lease_ttl` set. Pass it in the `fly-machine-lease-nonce` header to act on
+// the Machine while the lease is held.
 func (o MachineOutput) Nonce() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Machine) pulumi.StringPtrOutput { return v.Nonce }).(pulumi.StringPtrOutput)
 }
 
-// PrivateIP is the internal 6PN address of the machine.
+// The Machine's address on the organization's private (6PN) IPv6 network.
 func (o MachineOutput) PrivateIp() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Machine) pulumi.StringPtrOutput { return v.PrivateIp }).(pulumi.StringPtrOutput)
 }
@@ -258,33 +361,48 @@ func (o MachineOutput) QueryParams() MachineQueryParamsPtrOutput {
 	return o.ApplyT(func(v *Machine) MachineQueryParamsPtrOutput { return v.QueryParams }).(MachineQueryParamsPtrOutput)
 }
 
+// Code of the region the Machine runs in, such as `iad`.
 func (o MachineOutput) Region() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Machine) pulumi.StringPtrOutput { return v.Region }).(pulumi.StringPtrOutput)
 }
 
+// Create the Machine without starting it. It ends up `stopped`; start it with the Start
+// Machine endpoint. Not allowed for spot Machines.
 func (o MachineOutput) SkipLaunch() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Machine) pulumi.BoolPtrOutput { return v.SkipLaunch }).(pulumi.BoolPtrOutput)
 }
 
+// Don't look up the app's current secrets version. The Machine still gets the app's
+// secrets, but may not see recent changes to them. Takes precedence over
+// `min_secrets_version`.
 func (o MachineOutput) SkipSecrets() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Machine) pulumi.BoolPtrOutput { return v.SkipSecrets }).(pulumi.BoolPtrOutput)
 }
 
+// Create the Machine cordoned, so Fly Proxy doesn't route requests to it until it is
+// uncordoned. Its services are still registered.
 func (o MachineOutput) SkipServiceRegistration() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Machine) pulumi.BoolPtrOutput { return v.SkipServiceRegistration }).(pulumi.BoolPtrOutput)
 }
 
+// Current state of the Machine, taken from the status of its most recent event. One of
+// `created`, `starting`, `started`, `stopping`, `stopped`, `suspending`, `suspended`,
+// `replacing`, `replaced`, `destroying`, `destroyed`, `failed`, `migrating`, `migrated`,
+// `archived`, or `pending`. See https://fly.io/docs/machines/machine-states/.
 func (o MachineOutput) State() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Machine) pulumi.StringPtrOutput { return v.State }).(pulumi.StringPtrOutput)
 }
 
+// Time of the Machine's most recent event, truncated to whole seconds. The zero time
+// (0001-01-01T00:00:00Z) if the host could not be reached. With `summary=true`, the time
+// Fly.io last recorded a change to the Machine.
 func (o MachineOutput) UpdatedAt() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Machine) pulumi.StringPtrOutput { return v.UpdatedAt }).(pulumi.StringPtrOutput)
 }
 
-// Version is unique for each version of the machine. Pass it as
-// `current_version` when updating the Machine to reject the update if the
-// Machine has changed since this version.
+// Unique ID of this version of the Machine. Every update creates a new version. Pass it
+// as `current_version` when updating the Machine to reject the update if the Machine has
+// changed since this version.
 func (o MachineOutput) Version() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Machine) pulumi.StringPtrOutput { return v.Version }).(pulumi.StringPtrOutput)
 }

@@ -17,12 +17,34 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     [OutputType]
     public sealed class FlyMachineConfigDns
     {
+        /// <summary>
+        /// Forward DNS queries for some domains to other DNS servers
+        /// </summary>
         public readonly ImmutableArray<Outputs.FlyDnsForwardRule> DnsForwardRules;
+        /// <summary>
+        /// Hostname of the Machine. Defaults to the Machine ID. Also added to /etc/hosts with the
+        /// Machine's 6PN address
+        /// </summary>
         public readonly string? Hostname;
+        /// <summary>
+        /// Fully qualified domain name added to /etc/hosts for `hostname`
+        /// </summary>
         public readonly string? HostnameFqdn;
+        /// <summary>
+        /// Nameservers to use instead of the default, Fly.io's private DNS server `fdaa::3`
+        /// </summary>
         public readonly ImmutableArray<string> Nameservers;
+        /// <summary>
+        /// Options for /etc/resolv.conf
+        /// </summary>
         public readonly ImmutableArray<Outputs.FlyDnsOption> Options;
+        /// <summary>
+        /// Search domains for /etc/resolv.conf
+        /// </summary>
         public readonly ImmutableArray<string> Searches;
+        /// <summary>
+        /// Currently has no effect
+        /// </summary>
         public readonly bool? SkipRegistration;
 
         [OutputConstructor]

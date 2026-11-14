@@ -44,43 +44,144 @@ export class Volume extends pulumi.CustomResource {
         return obj['__pulumiType'] === Volume.__pulumiType;
     }
 
+    /**
+     * Always null.
+     *
+     * Deprecated: volumes are no longer attached to Nomad allocations.
+     */
     declare public /*out*/ readonly attachedAllocId: pulumi.Output<string | undefined>;
+    /**
+     * ID of the Machine the volume is attached to, or null if it is not attached.
+     */
     declare public /*out*/ readonly attachedMachineId: pulumi.Output<string | undefined>;
+    /**
+     * Whether daily automatic snapshots are taken.
+     */
     declare public readonly autoBackupEnabled: pulumi.Output<boolean | undefined>;
+    /**
+     * Size of a filesystem block, in bytes. See `blocks`.
+     */
     declare public /*out*/ readonly blockSize: pulumi.Output<number | undefined>;
+    /**
+     * Size of the volume's filesystem, in blocks of `block_size` bytes, as last reported by a
+     * Machine that mounted the volume. 0 if never reported, if the host could not be reached,
+     * or with `summary=true`.
+     */
     declare public /*out*/ readonly blocks: pulumi.Output<number | undefined>;
+    /**
+     * Number of filesystem blocks available to unprivileged users. See `blocks`.
+     */
     declare public /*out*/ readonly blocksAvail: pulumi.Output<number | undefined>;
+    /**
+     * Number of free filesystem blocks, including blocks reserved for the root user. See
+     * `blocks`.
+     */
     declare public /*out*/ readonly blocksFree: pulumi.Output<number | undefined>;
+    /**
+     * Size of the volume, in bytes. 0 if the host could not be reached or with `summary=true`.
+     */
     declare public /*out*/ readonly bytesTotal: pulumi.Output<number | undefined>;
+    /**
+     * Bytes of storage the volume occupies on its host. Volumes are thinly provisioned, so this
+     * grows as blocks are written and does not shrink when files are deleted. It is not the
+     * filesystem's usage; use `blocks` and `blocks_free` for that. 0 if the host could not be
+     * reached or with `summary=true`.
+     */
     declare public /*out*/ readonly bytesUsed: pulumi.Output<number | undefined>;
-    declare public readonly compute: pulumi.Output<outputs.apps.v1.FlyMachineGuest | undefined>;
+    /**
+     * Requirements of the Machine that will use the volume, so that the volume is placed on a
+     * host that can run it. Uses `cpus`, `memory_mb`, `cpu_kind`, `host_dedication_id`, and
+     * `required_host_features`.
+     */
+    declare public readonly compute: pulumi.Output<outputs.apps.v1.Compute | undefined>;
+    /**
+     * Ignored.
+     */
     declare public readonly computeImage: pulumi.Output<string | undefined>;
+    /**
+     * When the volume was created.
+     */
     declare public /*out*/ readonly createdAt: pulumi.Output<string | undefined>;
+    /**
+     * Whether the volume is encrypted at rest.
+     */
     declare public readonly encrypted: pulumi.Output<boolean | undefined>;
+    /**
+     * Filesystem the volume was formatted with: `ext4`, or `raw` for an unformatted block
+     * device.
+     */
     declare public readonly fstype: pulumi.Output<string | undefined>;
+    /**
+     * Features of the volume's host. Only returned when the request sets the
+     * `fly-include-host-features: true` header.
+     */
     declare public /*out*/ readonly hostFeatures: pulumi.Output<string[] | undefined>;
+    /**
+     * Whether Fly.io could reach the volume's host: `ok` if it could, `unreachable` or
+     * `unknown` if it could not, in which case host-reported fields are missing.
+     */
     declare public /*out*/ readonly hostStatus: pulumi.Output<enums.apps.v1.HostStatus | undefined>;
+    /**
+     * Name of the volume. Several volumes of an app can share a name.
+     */
     declare public readonly name: pulumi.Output<string | undefined>;
     /**
      * Query params to send with the API requests for this resource.
      */
     declare public readonly queryParams: pulumi.Output<outputs.apps.v1.VolumeQueryParams | undefined>;
+    /**
+     * Code of the region the volume is in.
+     */
     declare public readonly region: pulumi.Output<string | undefined>;
+    /**
+     * Place the volume on a host that has no other volume of the app with the same name in the
+     * region, so that Machines using these volumes don't share a host. Fails with 400 if no
+     * such host is available.
+     */
     declare public readonly requireUniqueZone: pulumi.Output<boolean | undefined>;
+    /**
+     * Host features the volume's host was required to have; see `compute.required_host_features`
+     * in the create request.
+     */
     declare public /*out*/ readonly requiredHostFeatures: pulumi.Output<string[] | undefined>;
+    /**
+     * Size of the volume, in GiB.
+     */
     declare public readonly sizeGb: pulumi.Output<number | undefined>;
     /**
-     * restore from snapshot
+     * ID of a snapshot to restore into the new volume. Mutually exclusive with
+     * `source_volume_id`.
      */
     declare public readonly snapshotId: pulumi.Output<string | undefined>;
+    /**
+     * Number of days snapshots of the volume are kept.
+     */
     declare public readonly snapshotRetention: pulumi.Output<number | undefined>;
     /**
-     * fork from remote volume
+     * ID of a volume to fork: the new volume starts as a copy of it. The volume must belong to
+     * an app in the same organization.
      */
     declare public readonly sourceVolumeId: pulumi.Output<string | undefined>;
+    /**
+     * State of the volume, such as `creating`, `created`, `extending`, `restoring`,
+     * `hydrating`, `scheduling_destroy`, `pending_destroy`, `destroying`, `destroyed`, or
+     * `failed`.
+     */
     declare public /*out*/ readonly state: pulumi.Output<string | undefined>;
+    /**
+     * Kind of volume: `local` for regular volumes, or `cache` for volumes that hold
+     * disposable data and support neither snapshots nor restores.
+     */
     declare public /*out*/ readonly type: pulumi.Output<enums.apps.v1.Type | undefined>;
+    /**
+     * With `require_unique_zone`, avoid hosts with any volume of the app in the region, not
+     * just volumes with the same name.
+     */
     declare public readonly uniqueZoneAppWide: pulumi.Output<boolean | undefined>;
+    /**
+     * Identifies the host the volume is on. Volumes with different zones are on different
+     * hosts.
+     */
     declare public /*out*/ readonly zone: pulumi.Output<string | undefined>;
 
     /**
@@ -169,29 +270,71 @@ export interface VolumeArgs {
      */
     appName?: pulumi.Input<string | undefined>;
     /**
-     * enable scheduled automatic snapshots. Defaults to `true`
+     * Take daily automatic snapshots of the volume. Defaults to `true`.
      */
     autoBackupEnabled?: pulumi.Input<boolean | undefined>;
-    compute?: pulumi.Input<inputs.apps.v1.FlyMachineGuestArgs | undefined>;
+    /**
+     * Requirements of the Machine that will use the volume, so that the volume is placed on a
+     * host that can run it. Uses `cpus`, `memory_mb`, `cpu_kind`, `host_dedication_id`, and
+     * `required_host_features`.
+     */
+    compute?: pulumi.Input<inputs.apps.v1.ComputeArgs | undefined>;
+    /**
+     * Ignored.
+     */
     computeImage?: pulumi.Input<string | undefined>;
+    /**
+     * Encrypt the volume at rest. Defaults to true. When forking, the source volume's setting
+     * is used.
+     */
     encrypted?: pulumi.Input<boolean | undefined>;
-    fstype?: pulumi.Input<string | undefined>;
+    /**
+     * Filesystem to format the volume with: `ext4`, or `raw` for an unformatted block device.
+     */
+    fstype?: pulumi.Input<enums.apps.v1.Fstype | undefined>;
+    /**
+     * Name of the volume: at most 30 lowercase letters, digits, and underscores. Required.
+     */
     name?: pulumi.Input<string | undefined>;
     /**
      * Query params to send with the API requests for this resource.
      */
     queryParams?: pulumi.Input<inputs.apps.v1.VolumeQueryParamsArgs | undefined>;
+    /**
+     * Region to create the volume in. Accepts the same values as the `region` of Create
+     * Machine. When forking, defaults to the source volume's region; otherwise defaults to the
+     * region of the API server handling the request.
+     */
     region?: pulumi.Input<string | undefined>;
+    /**
+     * Place the volume on a host that has no other volume of the app with the same name in the
+     * region, so that Machines using these volumes don't share a host. Fails with 400 if no
+     * such host is available.
+     */
     requireUniqueZone?: pulumi.Input<boolean | undefined>;
+    /**
+     * Size of the volume in GiB, from 1 to the organization's maximum (500 by default).
+     * Required unless forking, in which case it must be omitted and the source volume's size
+     * is used.
+     */
     sizeGb?: pulumi.Input<number | undefined>;
     /**
-     * restore from snapshot
+     * ID of a snapshot to restore into the new volume. Mutually exclusive with
+     * `source_volume_id`.
      */
     snapshotId?: pulumi.Input<string | undefined>;
+    /**
+     * Number of days to keep snapshots of the volume, from 1 to 60. Defaults to 5.
+     */
     snapshotRetention?: pulumi.Input<number | undefined>;
     /**
-     * fork from remote volume
+     * ID of a volume to fork: the new volume starts as a copy of it. The volume must belong to
+     * an app in the same organization.
      */
     sourceVolumeId?: pulumi.Input<string | undefined>;
+    /**
+     * With `require_unique_zone`, avoid hosts with any volume of the app in the region, not
+     * just volumes with the same name.
+     */
     uniqueZoneAppWide?: pulumi.Input<boolean | undefined>;
 }

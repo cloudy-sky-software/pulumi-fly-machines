@@ -55,6 +55,11 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.TokensV1
     [OutputType]
     public sealed class GetCurrentTokenResult
     {
+        /// <summary>
+        /// One entry per token in the Authorization header that could be verified, in no particular
+        /// order; use `token_id` to tell them apart. Tokens that fail verification or are not scoped
+        /// to an organization are left out.
+        /// </summary>
         public readonly ImmutableArray<Outputs.MainTokenInfo> Tokens;
 
         [OutputConstructor]

@@ -8,7 +8,7 @@ using Pulumi;
 namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
 {
     /// <summary>
-    /// Type of IP address to allocate. "egress-pair" allocates both v4 and v6 egress IP addresses (recommended when using egress IPs).
+    /// Type of IP address to allocate. Required.
     /// </summary>
     [EnumType]
     public readonly struct AppIPAssignmentType : IEquatable<AppIPAssignmentType>
@@ -43,6 +43,43 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         public override string ToString() => _value;
     }
 
+    /// <summary>
+    /// State of the app. `pending` until one of its Machines changes state. After that, updated
+    /// asynchronously whenever a Machine changes state: `deployed` if at least one Machine is
+    /// started, and `suspended` otherwise.
+    /// </summary>
+    [EnumType]
+    public readonly struct AppStatus : IEquatable<AppStatus>
+    {
+        private readonly string _value;
+
+        private AppStatus(string value)
+        {
+            _value = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        public static AppStatus Pending { get; } = new AppStatus("pending");
+        public static AppStatus Deployed { get; } = new AppStatus("deployed");
+        public static AppStatus Suspended { get; } = new AppStatus("suspended");
+
+        public static bool operator ==(AppStatus left, AppStatus right) => left.Equals(right);
+        public static bool operator !=(AppStatus left, AppStatus right) => !left.Equals(right);
+
+        public static explicit operator string(AppStatus value) => value._value;
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object? obj) => obj is AppStatus other && Equals(other);
+        public bool Equals(AppStatus other) => string.Equals(_value, other._value, StringComparison.Ordinal);
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode() => _value?.GetHashCode() ?? 0;
+
+        public override string ToString() => _value;
+    }
+
+    /// <summary>
+    /// `custom` for an uploaded certificate, `fly` for certificates issued by Fly.io.
+    /// </summary>
     [EnumType]
     public readonly struct CertificateEntrySource : IEquatable<CertificateEntrySource>
     {
@@ -71,6 +108,10 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         public override string ToString() => _value;
     }
 
+    /// <summary>
+    /// `active` once ownership of the hostname is verified. Until then, `pending_ownership` for
+    /// custom certificates and `pending_validation` for Fly.io-issued certificates.
+    /// </summary>
     [EnumType]
     public readonly struct CertificateEntryStatus : IEquatable<CertificateEntryStatus>
     {
@@ -93,6 +134,38 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object? obj) => obj is CertificateEntryStatus other && Equals(other);
         public bool Equals(CertificateEntryStatus other) => string.Equals(_value, other._value, StringComparison.Ordinal);
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode() => _value?.GetHashCode() ?? 0;
+
+        public override string ToString() => _value;
+    }
+
+    /// <summary>
+    /// Result of the check: `passing`, `warning`, or `critical`.
+    /// </summary>
+    [EnumType]
+    public readonly struct CheckStatusStatus : IEquatable<CheckStatusStatus>
+    {
+        private readonly string _value;
+
+        private CheckStatusStatus(string value)
+        {
+            _value = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        public static CheckStatusStatus Passing { get; } = new CheckStatusStatus("passing");
+        public static CheckStatusStatus Warning { get; } = new CheckStatusStatus("warning");
+        public static CheckStatusStatus Critical { get; } = new CheckStatusStatus("critical");
+
+        public static bool operator ==(CheckStatusStatus left, CheckStatusStatus right) => left.Equals(right);
+        public static bool operator !=(CheckStatusStatus left, CheckStatusStatus right) => !left.Equals(right);
+
+        public static explicit operator string(CheckStatusStatus value) => value._value;
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object? obj) => obj is CheckStatusStatus other && Equals(other);
+        public bool Equals(CheckStatusStatus other) => string.Equals(_value, other._value, StringComparison.Ordinal);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override int GetHashCode() => _value?.GetHashCode() ?? 0;
@@ -131,6 +204,10 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         public override string ToString() => _value;
     }
 
+    /// <summary>
+    /// When the container can start: once the dependency has `started`, is `healthy`, or has
+    /// `exited_successfully`
+    /// </summary>
     [EnumType]
     public readonly struct FlyContainerDependencyCondition : IEquatable<FlyContainerDependencyCondition>
     {
@@ -353,6 +430,11 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         public override string ToString() => _value;
     }
 
+    /// <summary>
+    /// Whether changes to the root filesystem are kept. `never` (default): reset on every start.
+    /// `restart`: kept across stops and restarts, reset when the Machine is updated. `always`: also
+    /// kept across updates
+    /// </summary>
     [EnumType]
     public readonly struct FlyMachineRootfsPersist : IEquatable<FlyMachineRootfsPersist>
     {
@@ -448,6 +530,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         public override string ToString() => _value;
     }
 
+    /// <summary>
+    /// Signal to send to the Machine's processes. Defaults to SIGINT
+    /// </summary>
     [EnumType]
     public readonly struct FlyStopConfigSignal : IEquatable<FlyStopConfigSignal>
     {
@@ -481,6 +566,37 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         public override string ToString() => _value;
     }
 
+    /// <summary>
+    /// Filesystem to format the volume with: `ext4`, or `raw` for an unformatted block device.
+    /// </summary>
+    [EnumType]
+    public readonly struct Fstype : IEquatable<Fstype>
+    {
+        private readonly string _value;
+
+        private Fstype(string value)
+        {
+            _value = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        public static Fstype Ext4 { get; } = new Fstype("ext4");
+        public static Fstype Raw { get; } = new Fstype("raw");
+
+        public static bool operator ==(Fstype left, Fstype right) => left.Equals(right);
+        public static bool operator !=(Fstype left, Fstype right) => !left.Equals(right);
+
+        public static explicit operator string(Fstype value) => value._value;
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object? obj) => obj is Fstype other && Equals(other);
+        public bool Equals(Fstype other) => string.Equals(_value, other._value, StringComparison.Ordinal);
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode() => _value?.GetHashCode() ?? 0;
+
+        public override string ToString() => _value;
+    }
+
     [EnumType]
     public readonly struct GetMachinesWaitQueryParamsState : IEquatable<GetMachinesWaitQueryParamsState>
     {
@@ -496,6 +612,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         public static GetMachinesWaitQueryParamsState Suspended { get; } = new GetMachinesWaitQueryParamsState("suspended");
         public static GetMachinesWaitQueryParamsState Destroyed { get; } = new GetMachinesWaitQueryParamsState("destroyed");
         public static GetMachinesWaitQueryParamsState Failed { get; } = new GetMachinesWaitQueryParamsState("failed");
+        public static GetMachinesWaitQueryParamsState Archived { get; } = new GetMachinesWaitQueryParamsState("archived");
         public static GetMachinesWaitQueryParamsState Settled { get; } = new GetMachinesWaitQueryParamsState("settled");
 
         public static bool operator ==(GetMachinesWaitQueryParamsState left, GetMachinesWaitQueryParamsState right) => left.Equals(right);
@@ -513,6 +630,10 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         public override string ToString() => _value;
     }
 
+    /// <summary>
+    /// Whether Fly.io could reach the volume's host: `ok` if it could, `unreachable` or
+    /// `unknown` if it could not, in which case host-reported fields are missing.
+    /// </summary>
     [EnumType]
     public readonly struct HostStatus : IEquatable<HostStatus>
     {
@@ -542,6 +663,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         public override string ToString() => _value;
     }
 
+    /// <summary>
+    /// Key type of the certificate.
+    /// </summary>
     [EnumType]
     public readonly struct IssuedCertificateType : IEquatable<IssuedCertificateType>
     {
@@ -570,6 +694,99 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         public override string ToString() => _value;
     }
 
+    /// <summary>
+    /// Always `success`.
+    /// </summary>
+    [EnumType]
+    public readonly struct LeaseResponseStatus : IEquatable<LeaseResponseStatus>
+    {
+        private readonly string _value;
+
+        private LeaseResponseStatus(string value)
+        {
+            _value = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        public static LeaseResponseStatus Success { get; } = new LeaseResponseStatus("success");
+
+        public static bool operator ==(LeaseResponseStatus left, LeaseResponseStatus right) => left.Equals(right);
+        public static bool operator !=(LeaseResponseStatus left, LeaseResponseStatus right) => !left.Equals(right);
+
+        public static explicit operator string(LeaseResponseStatus value) => value._value;
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object? obj) => obj is LeaseResponseStatus other && Equals(other);
+        public bool Equals(LeaseResponseStatus other) => string.Equals(_value, other._value, StringComparison.Ordinal);
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode() => _value?.GetHashCode() ?? 0;
+
+        public override string ToString() => _value;
+    }
+
+    [EnumType]
+    public readonly struct ListMachinesProcessesQueryParamsOrder : IEquatable<ListMachinesProcessesQueryParamsOrder>
+    {
+        private readonly string _value;
+
+        private ListMachinesProcessesQueryParamsOrder(string value)
+        {
+            _value = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        public static ListMachinesProcessesQueryParamsOrder Asc { get; } = new ListMachinesProcessesQueryParamsOrder("asc");
+        public static ListMachinesProcessesQueryParamsOrder Desc { get; } = new ListMachinesProcessesQueryParamsOrder("desc");
+
+        public static bool operator ==(ListMachinesProcessesQueryParamsOrder left, ListMachinesProcessesQueryParamsOrder right) => left.Equals(right);
+        public static bool operator !=(ListMachinesProcessesQueryParamsOrder left, ListMachinesProcessesQueryParamsOrder right) => !left.Equals(right);
+
+        public static explicit operator string(ListMachinesProcessesQueryParamsOrder value) => value._value;
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object? obj) => obj is ListMachinesProcessesQueryParamsOrder other && Equals(other);
+        public bool Equals(ListMachinesProcessesQueryParamsOrder other) => string.Equals(_value, other._value, StringComparison.Ordinal);
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode() => _value?.GetHashCode() ?? 0;
+
+        public override string ToString() => _value;
+    }
+
+    [EnumType]
+    public readonly struct ListMachinesProcessesQueryParamsSortBy : IEquatable<ListMachinesProcessesQueryParamsSortBy>
+    {
+        private readonly string _value;
+
+        private ListMachinesProcessesQueryParamsSortBy(string value)
+        {
+            _value = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        public static ListMachinesProcessesQueryParamsSortBy Cpu { get; } = new ListMachinesProcessesQueryParamsSortBy("cpu");
+        public static ListMachinesProcessesQueryParamsSortBy Pid { get; } = new ListMachinesProcessesQueryParamsSortBy("pid");
+        public static ListMachinesProcessesQueryParamsSortBy Stime { get; } = new ListMachinesProcessesQueryParamsSortBy("stime");
+        public static ListMachinesProcessesQueryParamsSortBy Rtime { get; } = new ListMachinesProcessesQueryParamsSortBy("rtime");
+
+        public static bool operator ==(ListMachinesProcessesQueryParamsSortBy left, ListMachinesProcessesQueryParamsSortBy right) => left.Equals(right);
+        public static bool operator !=(ListMachinesProcessesQueryParamsSortBy left, ListMachinesProcessesQueryParamsSortBy right) => !left.Equals(right);
+
+        public static explicit operator string(ListMachinesProcessesQueryParamsSortBy value) => value._value;
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object? obj) => obj is ListMachinesProcessesQueryParamsSortBy other && Equals(other);
+        public bool Equals(ListMachinesProcessesQueryParamsSortBy other) => string.Equals(_value, other._value, StringComparison.Ordinal);
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode() => _value?.GetHashCode() ?? 0;
+
+        public override string ToString() => _value;
+    }
+
+    /// <summary>
+    /// Whether Fly.io could reach the Machine's host: `ok` if it could, `unreachable` if it
+    /// could not, in which case the response is built from last known state. `unknown` if the
+    /// host's status was not reported.
+    /// </summary>
     [EnumType]
     public readonly struct MachineHostStatus : IEquatable<MachineHostStatus>
     {
@@ -632,6 +849,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         public override string ToString() => _value;
     }
 
+    /// <summary>
+    /// Signal to send to the Machine's main process.
+    /// </summary>
     [EnumType]
     public readonly struct MachinesSignalSignal : IEquatable<MachinesSignalSignal>
     {
@@ -672,6 +892,10 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         public override string ToString() => _value;
     }
 
+    /// <summary>
+    /// Signal to send to the Machine's main process. Defaults to `config.stop_config.signal`, or
+    /// SIGINT.
+    /// </summary>
     [EnumType]
     public readonly struct Signal : IEquatable<Signal>
     {
@@ -705,6 +929,40 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         public override string ToString() => _value;
     }
 
+    /// <summary>
+    /// Always `success`.
+    /// </summary>
+    [EnumType]
+    public readonly struct Status : IEquatable<Status>
+    {
+        private readonly string _value;
+
+        private Status(string value)
+        {
+            _value = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        public static Status Success { get; } = new Status("success");
+
+        public static bool operator ==(Status left, Status right) => left.Equals(right);
+        public static bool operator !=(Status left, Status right) => !left.Equals(right);
+
+        public static explicit operator string(Status value) => value._value;
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object? obj) => obj is Status other && Equals(other);
+        public bool Equals(Status other) => string.Equals(_value, other._value, StringComparison.Ordinal);
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode() => _value?.GetHashCode() ?? 0;
+
+        public override string ToString() => _value;
+    }
+
+    /// <summary>
+    /// Kind of volume: `local` for regular volumes, or `cache` for volumes that hold
+    /// disposable data and support neither snapshots nor restores.
+    /// </summary>
     [EnumType]
     public readonly struct Type : IEquatable<Type>
     {
@@ -733,6 +991,10 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         public override string ToString() => _value;
     }
 
+    /// <summary>
+    /// Whether Fly.io could reach the volume's host: `ok` if it could, `unreachable` or
+    /// `unknown` if it could not, in which case host-reported fields are missing.
+    /// </summary>
     [EnumType]
     public readonly struct VolumeHostStatus : IEquatable<VolumeHostStatus>
     {
@@ -762,6 +1024,10 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         public override string ToString() => _value;
     }
 
+    /// <summary>
+    /// Kind of volume: `local` for regular volumes, or `cache` for volumes that hold
+    /// disposable data and support neither snapshots nor restores.
+    /// </summary>
     [EnumType]
     public readonly struct VolumeType : IEquatable<VolumeType>
     {

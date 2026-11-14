@@ -23,6 +23,11 @@ export interface GetCurrentTokenArgs {
 }
 
 export interface GetCurrentTokenResult {
+    /**
+     * One entry per token in the Authorization header that could be verified, in no particular
+     * order; use `token_id` to tell them apart. Tokens that fail verification or are not scoped
+     * to an organization are left out.
+     */
     readonly tokens?: outputs.tokens.v1.MainTokenInfo[];
 }
 export function getCurrentTokenOutput(args?: GetCurrentTokenOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetCurrentTokenResult> {

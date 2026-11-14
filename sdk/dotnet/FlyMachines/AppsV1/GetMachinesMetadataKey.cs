@@ -91,6 +91,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
     [OutputType]
     public sealed class GetMachinesMetadataKeyResult
     {
+        /// <summary>
+        /// Value of the metadata key.
+        /// </summary>
         public readonly string? Value;
 
         [OutputConstructor]

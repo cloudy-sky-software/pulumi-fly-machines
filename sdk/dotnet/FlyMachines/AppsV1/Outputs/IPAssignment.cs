@@ -14,15 +14,36 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     [OutputType]
     public sealed class IPAssignment
     {
+        /// <summary>
+        /// When the address was assigned to the app, in RFC 3339 format. Null for the app's shared
+        /// IPv4 address.
+        /// </summary>
         public readonly string? CreatedAt;
+        /// <summary>
+        /// Whether this is an egress address, used for the app's outbound traffic rather than for
+        /// receiving requests.
+        /// </summary>
         public readonly bool? Egress;
+        /// <summary>
+        /// The IP address.
+        /// </summary>
         public readonly string? Ip;
         /// <summary>
         /// The 6PN network a Flycast (private_v6) address belongs to. Null for all other IP types.
         /// </summary>
         public readonly Outputs.IPAssignmentNetwork? Network;
+        /// <summary>
+        /// Region the address is scoped to, or `global` for addresses announced in all regions.
+        /// Empty for the app's shared IPv4 address.
+        /// </summary>
         public readonly string? Region;
+        /// <summary>
+        /// Name of the service the address is scoped to, if any.
+        /// </summary>
         public readonly string? ServiceName;
+        /// <summary>
+        /// Whether this is the app's shared IPv4 address, which other apps use too.
+        /// </summary>
         public readonly bool? Shared;
 
         [OutputConstructor]

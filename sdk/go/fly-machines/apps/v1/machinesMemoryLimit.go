@@ -14,8 +14,12 @@ import (
 type MachinesMemoryLimit struct {
 	pulumi.CustomResourceState
 
+	// Highest limit, in MiB, that the Machine could currently be raised to: its configured
+	// memory (`guest.max_memory_mb` if set, else `guest.memory_mb`), capped by the host's free
+	// memory.
 	AvailableMb pulumi.IntPtrOutput `pulumi:"availableMb"`
-	LimitMb     pulumi.IntPtrOutput `pulumi:"limitMb"`
+	// Memory, in MiB, the guest can currently use.
+	LimitMb pulumi.IntPtrOutput `pulumi:"limitMb"`
 	// Query params to send with the API requests for this resource.
 	QueryParams MachinesMemoryLimitQueryParamsPtrOutput `pulumi:"queryParams"`
 }
@@ -68,7 +72,9 @@ func MachinesMemoryLimitExists(ctx *pulumi.Context,
 type machinesMemoryLimitArgs struct {
 	// Fly App Name
 	AppName *string `pulumi:"appName"`
-	LimitMb *int    `pulumi:"limitMb"`
+	// New limit in MiB. Must be at least 128 and at most the Machine's configured memory
+	// (`guest.max_memory_mb` if set, else `guest.memory_mb`).
+	LimitMb *int `pulumi:"limitMb"`
 	// Machine ID
 	MachineId *string `pulumi:"machineId"`
 	// Query params to send with the API requests for this resource.
@@ -79,6 +85,8 @@ type machinesMemoryLimitArgs struct {
 type MachinesMemoryLimitArgs struct {
 	// Fly App Name
 	AppName pulumi.StringPtrInput
+	// New limit in MiB. Must be at least 128 and at most the Machine's configured memory
+	// (`guest.max_memory_mb` if set, else `guest.memory_mb`).
 	LimitMb pulumi.IntPtrInput
 	// Machine ID
 	MachineId pulumi.StringPtrInput
@@ -123,10 +131,14 @@ func (o MachinesMemoryLimitOutput) ToMachinesMemoryLimitOutputWithContext(ctx co
 	return o
 }
 
+// Highest limit, in MiB, that the Machine could currently be raised to: its configured
+// memory (`guest.max_memory_mb` if set, else `guest.memory_mb`), capped by the host's free
+// memory.
 func (o MachinesMemoryLimitOutput) AvailableMb() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *MachinesMemoryLimit) pulumi.IntPtrOutput { return v.AvailableMb }).(pulumi.IntPtrOutput)
 }
 
+// Memory, in MiB, the guest can currently use.
 func (o MachinesMemoryLimitOutput) LimitMb() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *MachinesMemoryLimit) pulumi.IntPtrOutput { return v.LimitMb }).(pulumi.IntPtrOutput)
 }

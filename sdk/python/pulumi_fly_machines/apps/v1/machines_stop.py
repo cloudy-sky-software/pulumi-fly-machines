@@ -33,6 +33,10 @@ class MachinesStopArgs:
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input[_builtins.str] machine_id: Machine ID
         :param pulumi.Input['MachinesStopQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
+        :param pulumi.Input['Signal'] signal: Signal to send to the Machine's main process. Defaults to `config.stop_config.signal`, or
+               SIGINT.
+        :param pulumi.Input[_builtins.str] timeout: How long to wait for the Machine to exit after sending `signal` before killing it, as a
+               Go duration string. Defaults to `config.stop_config.timeout`, or 5s.
         """
         if app_name is not None:
             pulumi.set(__self__, "app_name", app_name)
@@ -84,6 +88,10 @@ class MachinesStopArgs:
     @_builtins.property
     @pulumi.getter
     def signal(self) -> pulumi.Input[Optional['Signal']]:
+        """
+        Signal to send to the Machine's main process. Defaults to `config.stop_config.signal`, or
+        SIGINT.
+        """
         return pulumi.get(self, "signal")
 
     @signal.setter
@@ -93,6 +101,10 @@ class MachinesStopArgs:
     @_builtins.property
     @pulumi.getter
     def timeout(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        How long to wait for the Machine to exit after sending `signal` before killing it, as a
+        Go duration string. Defaults to `config.stop_config.timeout`, or 5s.
+        """
         return pulumi.get(self, "timeout")
 
     @timeout.setter
@@ -120,6 +132,10 @@ class MachinesStop(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input[_builtins.str] machine_id: Machine ID
         :param pulumi.Input[Union['MachinesStopQueryParamsArgs', 'MachinesStopQueryParamsArgsDict', 'outputs.MachinesStopQueryParams']] query_params: Query params to send with the API requests for this resource.
+        :param pulumi.Input['Signal'] signal: Signal to send to the Machine's main process. Defaults to `config.stop_config.signal`, or
+               SIGINT.
+        :param pulumi.Input[_builtins.str] timeout: How long to wait for the Machine to exit after sending `signal` before killing it, as a
+               Go duration string. Defaults to `config.stop_config.timeout`, or 5s.
         """
         ...
     @overload
@@ -202,6 +218,9 @@ class MachinesStop(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter
     def ok(self) -> pulumi.Output[Optional[_builtins.bool]]:
+        """
+        Always true.
+        """
         return pulumi.get(self, "ok")
 
     @_builtins.property
@@ -215,10 +234,18 @@ class MachinesStop(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter
     def signal(self) -> pulumi.Output[Optional['Signal']]:
+        """
+        Signal to send to the Machine's main process. Defaults to `config.stop_config.signal`, or
+        SIGINT.
+        """
         return pulumi.get(self, "signal")
 
     @_builtins.property
     @pulumi.getter
     def timeout(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        How long to wait for the Machine to exit after sending `signal` before killing it, as a
+        Go duration string. Defaults to `config.stop_config.timeout`, or 5s.
+        """
         return pulumi.get(self, "timeout")
 

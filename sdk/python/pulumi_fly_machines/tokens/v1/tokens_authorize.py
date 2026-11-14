@@ -22,12 +22,14 @@ __all__ = ['TokensAuthorizeArgs', 'TokensAuthorize']
 @pulumi.input_type
 class TokensAuthorizeArgs:
     def __init__(__self__, *,
-                 access: pulumi.Input[Optional['MainTokenAccessArgs']] = None,
+                 access: pulumi.Input[Optional['AccessArgs']] = None,
                  header: pulumi.Input[Optional[_builtins.str]] = None,
                  query_params: pulumi.Input[Optional['TokensAuthorizeQueryParamsArgs']] = None):
         """
         The set of arguments for constructing a TokensAuthorize resource.
 
+        :param pulumi.Input['AccessArgs'] access: Access to check the token against.
+        :param pulumi.Input[_builtins.str] header: Value of the Authorization header to verify, e.g. `FlyV1 fm2_...`.
         :param pulumi.Input['TokensAuthorizeQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         """
         if access is not None:
@@ -39,16 +41,22 @@ class TokensAuthorizeArgs:
 
     @_builtins.property
     @pulumi.getter
-    def access(self) -> pulumi.Input[Optional['MainTokenAccessArgs']]:
+    def access(self) -> pulumi.Input[Optional['AccessArgs']]:
+        """
+        Access to check the token against.
+        """
         return pulumi.get(self, "access")
 
     @access.setter
-    def access(self, value: pulumi.Input[Optional['MainTokenAccessArgs']]):
+    def access(self, value: pulumi.Input[Optional['AccessArgs']]):
         pulumi.set(self, "access", value)
 
     @_builtins.property
     @pulumi.getter
     def header(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Value of the Authorization header to verify, e.g. `FlyV1 fm2_...`.
+        """
         return pulumi.get(self, "header")
 
     @header.setter
@@ -74,7 +82,7 @@ class TokensAuthorize(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 access: pulumi.Input[Optional[Union['MainTokenAccessArgs', 'MainTokenAccessArgsDict']]] = None,
+                 access: pulumi.Input[Optional[Union['AccessArgs', 'AccessArgsDict']]] = None,
                  header: pulumi.Input[Optional[_builtins.str]] = None,
                  query_params: pulumi.Input[Optional[Union['TokensAuthorizeQueryParamsArgs', 'TokensAuthorizeQueryParamsArgsDict', 'outputs.TokensAuthorizeQueryParams']]] = None,
                  __props__=None):
@@ -83,6 +91,8 @@ class TokensAuthorize(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[Union['AccessArgs', 'AccessArgsDict']] access: Access to check the token against.
+        :param pulumi.Input[_builtins.str] header: Value of the Authorization header to verify, e.g. `FlyV1 fm2_...`.
         :param pulumi.Input[Union['TokensAuthorizeQueryParamsArgs', 'TokensAuthorizeQueryParamsArgsDict', 'outputs.TokensAuthorizeQueryParams']] query_params: Query params to send with the API requests for this resource.
         """
         ...
@@ -109,7 +119,7 @@ class TokensAuthorize(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 access: pulumi.Input[Optional[Union['MainTokenAccessArgs', 'MainTokenAccessArgsDict']]] = None,
+                 access: pulumi.Input[Optional[Union['AccessArgs', 'AccessArgsDict']]] = None,
                  header: pulumi.Input[Optional[_builtins.str]] = None,
                  query_params: pulumi.Input[Optional[Union['TokensAuthorizeQueryParamsArgs', 'TokensAuthorizeQueryParamsArgsDict', 'outputs.TokensAuthorizeQueryParams']]] = None,
                  __props__=None):
@@ -161,12 +171,18 @@ class TokensAuthorize(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter
-    def access(self) -> pulumi.Output[Optional['outputs.FlyioAccess']]:
+    def access(self) -> pulumi.Output[Optional['outputs.TokensAuthorizeAccess']]:
+        """
+        The requested access, with names resolved to IDs.
+        """
         return pulumi.get(self, "access")
 
     @_builtins.property
     @pulumi.getter
     def header(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Value of the Authorization header to verify, e.g. `FlyV1 fm2_...`.
+        """
         return pulumi.get(self, "header")
 
     @_builtins.property
@@ -179,6 +195,9 @@ class TokensAuthorize(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="verifiedToken")
-    def verified_token(self) -> pulumi.Output[Optional['outputs.RootVerifiedToken']]:
+    def verified_token(self) -> pulumi.Output[Optional['outputs.VerifiedToken']]:
+        """
+        The token that grants the requested access.
+        """
         return pulumi.get(self, "verified_token")
 

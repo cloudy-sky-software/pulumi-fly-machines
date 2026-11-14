@@ -17,11 +17,30 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     [OutputType]
     public sealed class FlyMachineConfigInit
     {
+        /// <summary>
+        /// Replaces the image's CMD. It's appended to the entrypoint
+        /// </summary>
         public readonly ImmutableArray<string> Cmd;
+        /// <summary>
+        /// Replaces the image's ENTRYPOINT
+        /// </summary>
         public readonly ImmutableArray<string> Entrypoint;
+        /// <summary>
+        /// Command to run instead of the image's ENTRYPOINT and CMD. Takes precedence over entrypoint
+        /// and cmd
+        /// </summary>
         public readonly ImmutableArray<string> Exec;
+        /// <summary>
+        /// Currently has no effect. Use `guest.kernel_args` instead
+        /// </summary>
         public readonly ImmutableArray<string> KernelArgs;
+        /// <summary>
+        /// Size in MiB of a swap device to give the Machine. Machines with swap cannot be suspended
+        /// </summary>
         public readonly int? SwapSizeMb;
+        /// <summary>
+        /// Currently has no effect
+        /// </summary>
         public readonly bool? Tty;
 
         [OutputConstructor]

@@ -44,11 +44,20 @@ export class AppDeployToken extends pulumi.CustomResource {
         return obj['__pulumiType'] === AppDeployToken.__pulumiType;
     }
 
+    /**
+     * How long the token is valid, as a Go duration string such as `720h`. If omitted, the
+     * token is valid for as long as the token used to make this request.
+     */
     declare public readonly expiry: pulumi.Output<string | undefined>;
     /**
      * Query params to send with the API requests for this resource.
      */
     declare public readonly queryParams: pulumi.Output<outputs.apps.v1.AppDeployTokenQueryParams | undefined>;
+    /**
+     * The deploy token, including its ` FlyV1  ` scheme prefix, ready to be used as an
+     * `Authorization` header value. It is derived from the token used to make this request
+     * and limited to the app, plus the organization's WireGuard and remote builder features.
+     */
     declare public /*out*/ readonly token: pulumi.Output<string | undefined>;
 
     /**
@@ -84,6 +93,10 @@ export interface AppDeployTokenArgs {
      * Fly App Name
      */
     appName?: pulumi.Input<string | undefined>;
+    /**
+     * How long the token is valid, as a Go duration string such as `720h`. If omitted, the
+     * token is valid for as long as the token used to make this request.
+     */
     expiry?: pulumi.Input<string | undefined>;
     /**
      * Query params to send with the API requests for this resource.

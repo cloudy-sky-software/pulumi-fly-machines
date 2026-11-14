@@ -13,14 +13,23 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
     [FlyMachinesResourceType("fly-machines:apps/v1:SecretkeyDecrypt")]
     public partial class SecretkeyDecrypt : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// Additional data passed when encrypting, base64-encoded.
+        /// </summary>
         [Output("associatedData")]
-        public Output<ImmutableArray<int>> AssociatedData { get; private set; } = null!;
+        public Output<string?> AssociatedData { get; private set; } = null!;
 
+        /// <summary>
+        /// Data to decrypt, as returned by the encrypt endpoint, base64-encoded.
+        /// </summary>
         [Output("ciphertext")]
-        public Output<ImmutableArray<int>> Ciphertext { get; private set; } = null!;
+        public Output<string?> Ciphertext { get; private set; } = null!;
 
+        /// <summary>
+        /// Decrypted data, base64-encoded.
+        /// </summary>
         [Output("plaintext")]
-        public Output<ImmutableArray<int>> Plaintext { get; private set; } = null!;
+        public Output<string?> Plaintext { get; private set; } = null!;
 
         /// <summary>
         /// Query params to send with the API requests for this resource.
@@ -80,21 +89,17 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Input("appName")]
         public Input<string>? AppName { get; set; }
 
+        /// <summary>
+        /// Additional data passed when encrypting, base64-encoded.
+        /// </summary>
         [Input("associatedData")]
-        private InputList<int>? _associatedData;
-        public InputList<int> AssociatedData
-        {
-            get => _associatedData ?? (_associatedData = new InputList<int>());
-            set => _associatedData = value;
-        }
+        public Input<string>? AssociatedData { get; set; }
 
+        /// <summary>
+        /// Data to decrypt, as returned by the encrypt endpoint, base64-encoded.
+        /// </summary>
         [Input("ciphertext")]
-        private InputList<int>? _ciphertext;
-        public InputList<int> Ciphertext
-        {
-            get => _ciphertext ?? (_ciphertext = new InputList<int>());
-            set => _ciphertext = value;
-        }
+        public Input<string>? Ciphertext { get; set; }
 
         /// <summary>
         /// Query params to send with the API requests for this resource.

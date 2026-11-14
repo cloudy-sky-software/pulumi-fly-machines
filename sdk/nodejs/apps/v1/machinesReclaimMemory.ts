@@ -44,7 +44,14 @@ export class MachinesReclaimMemory extends pulumi.CustomResource {
         return obj['__pulumiType'] === MachinesReclaimMemory.__pulumiType;
     }
 
+    /**
+     * Memory, in MiB, that the guest actually gave up. Can be less than requested.
+     */
     declare public /*out*/ readonly actualMb: pulumi.Output<number | undefined>;
+    /**
+     * Memory to reclaim, in MiB. Must be positive and at most the Machine's memory limit minus
+     * 128 MiB.
+     */
     declare public readonly amountMb: pulumi.Output<number | undefined>;
     /**
      * Query params to send with the API requests for this resource.
@@ -81,6 +88,10 @@ export class MachinesReclaimMemory extends pulumi.CustomResource {
  * The set of arguments for constructing a MachinesReclaimMemory resource.
  */
 export interface MachinesReclaimMemoryArgs {
+    /**
+     * Memory to reclaim, in MiB. Must be positive and at most the Machine's memory limit minus
+     * 128 MiB.
+     */
     amountMb?: pulumi.Input<number | undefined>;
     /**
      * Fly App Name

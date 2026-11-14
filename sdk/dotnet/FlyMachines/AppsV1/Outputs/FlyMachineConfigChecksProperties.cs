@@ -21,6 +21,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         /// The time to wait after a VM starts before checking its health
         /// </summary>
         public readonly string? GracePeriod;
+        /// <summary>
+        /// For http checks, headers to send with the request
+        /// </summary>
         public readonly ImmutableArray<Outputs.FlyMachineHTTPHeader> Headers;
         /// <summary>
         /// The time between connectivity checks

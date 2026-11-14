@@ -14,39 +14,105 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     [OutputType]
     public sealed class Machine
     {
-        public readonly ImmutableArray<Outputs.CheckStatus> Checks;
-        public readonly Outputs.FlyMachineConfig? Config;
-        public readonly bool? Cordoned;
-        public readonly string? CreatedAt;
-        public readonly ImmutableArray<Outputs.MachineEvent> Events;
-        public readonly ImmutableArray<string> HostFeatures;
-        public readonly CloudySkySoftware.Pulumi.FlyMachines.AppsV1.MachineHostStatus? HostStatus;
-        public readonly string? Id;
-        public readonly Outputs.ImageRef? ImageRef;
-        public readonly Outputs.FlyMachineConfig? IncompleteConfig;
         /// <summary>
-        /// InstanceID is the same value as `version`.
+        /// Status of each health check: the Machine's top-level `checks` and its services'
+        /// checks.
+        /// </summary>
+        public readonly ImmutableArray<Outputs.CheckStatus> Checks;
+        /// <summary>
+        /// The Machine's configuration, as provided when it was created or last updated, with
+        /// `metadata` and `mounts` reflecting their current values. Null when the host is not
+        /// reachable (`host_status` is not `ok`) or `summary=true` was requested; see
+        /// `incomplete_config`.
+        /// </summary>
+        public readonly Outputs.MachineConfig? Config;
+        /// <summary>
+        /// Whether the Machine is cordoned, meaning Fly Proxy does not route requests to it. See
+        /// the Cordon Machine endpoint.
+        /// </summary>
+        public readonly bool? Cordoned;
+        /// <summary>
+        /// When the Machine was created.
+        /// </summary>
+        public readonly string? CreatedAt;
+        /// <summary>
+        /// Up to 5 of the most recent events of the current Machine version, newest first. Use
+        /// the List Events endpoint for more.
+        /// </summary>
+        public readonly ImmutableArray<Outputs.MachineEvent> Events;
+        /// <summary>
+        /// Features of the Machine's host, for comparison with `config.guest.required_host_features`.
+        /// Only returned when the request sets the `fly-include-host-features: true` header.
+        /// </summary>
+        public readonly ImmutableArray<string> HostFeatures;
+        /// <summary>
+        /// Whether Fly.io could reach the Machine's host: `ok` if it could, `unreachable` if it
+        /// could not, in which case the response is built from last known state. `unknown` if the
+        /// host's status was not reported.
+        /// </summary>
+        public readonly CloudySkySoftware.Pulumi.FlyMachines.AppsV1.MachineHostStatus? HostStatus;
+        /// <summary>
+        /// Unique ID of the Machine.
+        /// </summary>
+        public readonly string? Id;
+        /// <summary>
+        /// The image the Machine runs, as resolved when it was last created or updated.
+        /// </summary>
+        public readonly Outputs.MachineImageRef? ImageRef;
+        /// <summary>
+        /// Last known configuration, returned in place of `config` when the host could not be
+        /// reached (`host_status` is not `ok`) or when listing Machines with `summary=true`. It
+        /// comes from Fly.io's replicated state rather than the host, so it may be stale or lack
+        /// fields.
+        /// </summary>
+        public readonly Outputs.MachineIncompleteConfig? IncompleteConfig;
+        /// <summary>
+        /// Same value as `version`.
         /// 
         /// Deprecated: use `version`.
         /// </summary>
         public readonly string? InstanceId;
-        public readonly Outputs.StrippedLease? Lease;
+        /// <summary>
+        /// The lease currently held on the Machine. Only returned when `include_leases=true`
+        /// was requested and a lease is held.
+        /// </summary>
+        public readonly Outputs.MachineLease? Lease;
+        /// <summary>
+        /// Name of the Machine. Generated when not provided at creation. Names are not required
+        /// to be unique.
+        /// </summary>
         public readonly string? Name;
         /// <summary>
-        /// Nonce is only every returned on machine creation if a lease_duration was provided.
+        /// Nonce of the lease acquired on the Machine at creation. Only returned when creating a
+        /// Machine with `lease_ttl` set. Pass it in the `fly-machine-lease-nonce` header to act on
+        /// the Machine while the lease is held.
         /// </summary>
         public readonly string? Nonce;
         /// <summary>
-        /// PrivateIP is the internal 6PN address of the machine.
+        /// The Machine's address on the organization's private (6PN) IPv6 network.
         /// </summary>
         public readonly string? PrivateIp;
+        /// <summary>
+        /// Code of the region the Machine runs in, such as `iad`.
+        /// </summary>
         public readonly string? Region;
+        /// <summary>
+        /// Current state of the Machine, taken from the status of its most recent event. One of
+        /// `created`, `starting`, `started`, `stopping`, `stopped`, `suspending`, `suspended`,
+        /// `replacing`, `replaced`, `destroying`, `destroyed`, `failed`, `migrating`, `migrated`,
+        /// `archived`, or `pending`. See https://fly.io/docs/machines/machine-states/.
+        /// </summary>
         public readonly string? State;
+        /// <summary>
+        /// Time of the Machine's most recent event, truncated to whole seconds. The zero time
+        /// (0001-01-01T00:00:00Z) if the host could not be reached. With `summary=true`, the time
+        /// Fly.io last recorded a change to the Machine.
+        /// </summary>
         public readonly string? UpdatedAt;
         /// <summary>
-        /// Version is unique for each version of the machine. Pass it as
-        /// `current_version` when updating the Machine to reject the update if the
-        /// Machine has changed since this version.
+        /// Unique ID of this version of the Machine. Every update creates a new version. Pass it
+        /// as `current_version` when updating the Machine to reject the update if the Machine has
+        /// changed since this version.
         /// </summary>
         public readonly string? Version;
 
@@ -54,7 +120,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         private Machine(
             ImmutableArray<Outputs.CheckStatus> checks,
 
-            Outputs.FlyMachineConfig? config,
+            Outputs.MachineConfig? config,
 
             bool? cordoned,
 
@@ -68,13 +134,13 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
 
             string? id,
 
-            Outputs.ImageRef? imageRef,
+            Outputs.MachineImageRef? imageRef,
 
-            Outputs.FlyMachineConfig? incompleteConfig,
+            Outputs.MachineIncompleteConfig? incompleteConfig,
 
             string? instanceId,
 
-            Outputs.StrippedLease? lease,
+            Outputs.MachineLease? lease,
 
             string? name,
 

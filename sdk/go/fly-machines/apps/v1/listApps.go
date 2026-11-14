@@ -27,6 +27,7 @@ type ListAppsArgs struct {
 }
 
 type ListAppsResult struct {
+	// The apps on this page, or all apps if `limit` was not provided.
 	Apps []AppType `pulumi:"apps"`
 	// Pagination cursor for the next page. Absent when no more apps remain.
 	// Cursors expire 30 minutes after the first page was requested.
@@ -68,6 +69,7 @@ func (o ListAppsResultOutput) ToListAppsResultOutputWithContext(ctx context.Cont
 	return o
 }
 
+// The apps on this page, or all apps if `limit` was not provided.
 func (o ListAppsResultOutput) Apps() AppTypeArrayOutput {
 	return o.ApplyT(func(v ListAppsResult) []AppType { return v.Apps }).(AppTypeArrayOutput)
 }

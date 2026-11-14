@@ -13,54 +13,118 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
     [FlyMachinesResourceType("fly-machines:apps/v1:Volume")]
     public partial class Volume : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// Always null.
+        /// 
+        /// Deprecated: volumes are no longer attached to Nomad allocations.
+        /// </summary>
         [Output("attachedAllocId")]
         public Output<string?> AttachedAllocId { get; private set; } = null!;
 
+        /// <summary>
+        /// ID of the Machine the volume is attached to, or null if it is not attached.
+        /// </summary>
         [Output("attachedMachineId")]
         public Output<string?> AttachedMachineId { get; private set; } = null!;
 
+        /// <summary>
+        /// Whether daily automatic snapshots are taken.
+        /// </summary>
         [Output("autoBackupEnabled")]
         public Output<bool?> AutoBackupEnabled { get; private set; } = null!;
 
+        /// <summary>
+        /// Size of a filesystem block, in bytes. See `blocks`.
+        /// </summary>
         [Output("blockSize")]
         public Output<int?> BlockSize { get; private set; } = null!;
 
+        /// <summary>
+        /// Size of the volume's filesystem, in blocks of `block_size` bytes, as last reported by a
+        /// Machine that mounted the volume. 0 if never reported, if the host could not be reached,
+        /// or with `summary=true`.
+        /// </summary>
         [Output("blocks")]
         public Output<int?> Blocks { get; private set; } = null!;
 
+        /// <summary>
+        /// Number of filesystem blocks available to unprivileged users. See `blocks`.
+        /// </summary>
         [Output("blocksAvail")]
         public Output<int?> BlocksAvail { get; private set; } = null!;
 
+        /// <summary>
+        /// Number of free filesystem blocks, including blocks reserved for the root user. See
+        /// `blocks`.
+        /// </summary>
         [Output("blocksFree")]
         public Output<int?> BlocksFree { get; private set; } = null!;
 
+        /// <summary>
+        /// Size of the volume, in bytes. 0 if the host could not be reached or with `summary=true`.
+        /// </summary>
         [Output("bytesTotal")]
         public Output<int?> BytesTotal { get; private set; } = null!;
 
+        /// <summary>
+        /// Bytes of storage the volume occupies on its host. Volumes are thinly provisioned, so this
+        /// grows as blocks are written and does not shrink when files are deleted. It is not the
+        /// filesystem's usage; use `blocks` and `blocks_free` for that. 0 if the host could not be
+        /// reached or with `summary=true`.
+        /// </summary>
         [Output("bytesUsed")]
         public Output<int?> BytesUsed { get; private set; } = null!;
 
+        /// <summary>
+        /// Requirements of the Machine that will use the volume, so that the volume is placed on a
+        /// host that can run it. Uses `cpus`, `memory_mb`, `cpu_kind`, `host_dedication_id`, and
+        /// `required_host_features`.
+        /// </summary>
         [Output("compute")]
-        public Output<Outputs.FlyMachineGuest?> Compute { get; private set; } = null!;
+        public Output<Outputs.Compute?> Compute { get; private set; } = null!;
 
+        /// <summary>
+        /// Ignored.
+        /// </summary>
         [Output("computeImage")]
         public Output<string?> ComputeImage { get; private set; } = null!;
 
+        /// <summary>
+        /// When the volume was created.
+        /// </summary>
         [Output("createdAt")]
         public Output<string?> CreatedAt { get; private set; } = null!;
 
+        /// <summary>
+        /// Whether the volume is encrypted at rest.
+        /// </summary>
         [Output("encrypted")]
         public Output<bool?> Encrypted { get; private set; } = null!;
 
+        /// <summary>
+        /// Filesystem the volume was formatted with: `ext4`, or `raw` for an unformatted block
+        /// device.
+        /// </summary>
         [Output("fstype")]
         public Output<string?> Fstype { get; private set; } = null!;
 
+        /// <summary>
+        /// Features of the volume's host. Only returned when the request sets the
+        /// `fly-include-host-features: true` header.
+        /// </summary>
         [Output("hostFeatures")]
         public Output<ImmutableArray<string>> HostFeatures { get; private set; } = null!;
 
+        /// <summary>
+        /// Whether Fly.io could reach the volume's host: `ok` if it could, `unreachable` or
+        /// `unknown` if it could not, in which case host-reported fields are missing.
+        /// </summary>
         [Output("hostStatus")]
         public Output<CloudySkySoftware.Pulumi.FlyMachines.AppsV1.HostStatus?> HostStatus { get; private set; } = null!;
 
+        /// <summary>
+        /// Name of the volume. Several volumes of an app can share a name.
+        /// </summary>
         [Output("name")]
         public Output<string?> Name { get; private set; } = null!;
 
@@ -70,42 +134,79 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Output("queryParams")]
         public Output<Outputs.VolumeQueryParams?> QueryParams { get; private set; } = null!;
 
+        /// <summary>
+        /// Code of the region the volume is in.
+        /// </summary>
         [Output("region")]
         public Output<string?> Region { get; private set; } = null!;
 
+        /// <summary>
+        /// Place the volume on a host that has no other volume of the app with the same name in the
+        /// region, so that Machines using these volumes don't share a host. Fails with 400 if no
+        /// such host is available.
+        /// </summary>
         [Output("requireUniqueZone")]
         public Output<bool?> RequireUniqueZone { get; private set; } = null!;
 
+        /// <summary>
+        /// Host features the volume's host was required to have; see `compute.required_host_features`
+        /// in the create request.
+        /// </summary>
         [Output("requiredHostFeatures")]
         public Output<ImmutableArray<string>> RequiredHostFeatures { get; private set; } = null!;
 
+        /// <summary>
+        /// Size of the volume, in GiB.
+        /// </summary>
         [Output("sizeGb")]
         public Output<int?> SizeGb { get; private set; } = null!;
 
         /// <summary>
-        /// restore from snapshot
+        /// ID of a snapshot to restore into the new volume. Mutually exclusive with
+        /// `source_volume_id`.
         /// </summary>
         [Output("snapshotId")]
         public Output<string?> SnapshotId { get; private set; } = null!;
 
+        /// <summary>
+        /// Number of days snapshots of the volume are kept.
+        /// </summary>
         [Output("snapshotRetention")]
         public Output<int?> SnapshotRetention { get; private set; } = null!;
 
         /// <summary>
-        /// fork from remote volume
+        /// ID of a volume to fork: the new volume starts as a copy of it. The volume must belong to
+        /// an app in the same organization.
         /// </summary>
         [Output("sourceVolumeId")]
         public Output<string?> SourceVolumeId { get; private set; } = null!;
 
+        /// <summary>
+        /// State of the volume, such as `creating`, `created`, `extending`, `restoring`,
+        /// `hydrating`, `scheduling_destroy`, `pending_destroy`, `destroying`, `destroyed`, or
+        /// `failed`.
+        /// </summary>
         [Output("state")]
         public Output<string?> State { get; private set; } = null!;
 
+        /// <summary>
+        /// Kind of volume: `local` for regular volumes, or `cache` for volumes that hold
+        /// disposable data and support neither snapshots nor restores.
+        /// </summary>
         [Output("type")]
         public Output<CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Type?> Type { get; private set; } = null!;
 
+        /// <summary>
+        /// With `require_unique_zone`, avoid hosts with any volume of the app in the region, not
+        /// just volumes with the same name.
+        /// </summary>
         [Output("uniqueZoneAppWide")]
         public Output<bool?> UniqueZoneAppWide { get; private set; } = null!;
 
+        /// <summary>
+        /// Identifies the host the volume is on. Volumes with different zones are on different
+        /// hosts.
+        /// </summary>
         [Output("zone")]
         public Output<string?> Zone { get; private set; } = null!;
 
@@ -162,23 +263,41 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         public Input<string>? AppName { get; set; }
 
         /// <summary>
-        /// enable scheduled automatic snapshots. Defaults to `true`
+        /// Take daily automatic snapshots of the volume. Defaults to `true`.
         /// </summary>
         [Input("autoBackupEnabled")]
         public Input<bool>? AutoBackupEnabled { get; set; }
 
+        /// <summary>
+        /// Requirements of the Machine that will use the volume, so that the volume is placed on a
+        /// host that can run it. Uses `cpus`, `memory_mb`, `cpu_kind`, `host_dedication_id`, and
+        /// `required_host_features`.
+        /// </summary>
         [Input("compute")]
-        public Input<Inputs.FlyMachineGuestArgs>? Compute { get; set; }
+        public Input<Inputs.ComputeArgs>? Compute { get; set; }
 
+        /// <summary>
+        /// Ignored.
+        /// </summary>
         [Input("computeImage")]
         public Input<string>? ComputeImage { get; set; }
 
+        /// <summary>
+        /// Encrypt the volume at rest. Defaults to true. When forking, the source volume's setting
+        /// is used.
+        /// </summary>
         [Input("encrypted")]
         public Input<bool>? Encrypted { get; set; }
 
+        /// <summary>
+        /// Filesystem to format the volume with: `ext4`, or `raw` for an unformatted block device.
+        /// </summary>
         [Input("fstype")]
-        public Input<string>? Fstype { get; set; }
+        public Input<CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Fstype>? Fstype { get; set; }
 
+        /// <summary>
+        /// Name of the volume: at most 30 lowercase letters, digits, and underscores. Required.
+        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
@@ -188,30 +307,54 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Input("queryParams")]
         public Input<Inputs.VolumeQueryParamsArgs>? QueryParams { get; set; }
 
+        /// <summary>
+        /// Region to create the volume in. Accepts the same values as the `region` of Create
+        /// Machine. When forking, defaults to the source volume's region; otherwise defaults to the
+        /// region of the API server handling the request.
+        /// </summary>
         [Input("region")]
         public Input<string>? Region { get; set; }
 
+        /// <summary>
+        /// Place the volume on a host that has no other volume of the app with the same name in the
+        /// region, so that Machines using these volumes don't share a host. Fails with 400 if no
+        /// such host is available.
+        /// </summary>
         [Input("requireUniqueZone")]
         public Input<bool>? RequireUniqueZone { get; set; }
 
+        /// <summary>
+        /// Size of the volume in GiB, from 1 to the organization's maximum (500 by default).
+        /// Required unless forking, in which case it must be omitted and the source volume's size
+        /// is used.
+        /// </summary>
         [Input("sizeGb")]
         public Input<int>? SizeGb { get; set; }
 
         /// <summary>
-        /// restore from snapshot
+        /// ID of a snapshot to restore into the new volume. Mutually exclusive with
+        /// `source_volume_id`.
         /// </summary>
         [Input("snapshotId")]
         public Input<string>? SnapshotId { get; set; }
 
+        /// <summary>
+        /// Number of days to keep snapshots of the volume, from 1 to 60. Defaults to 5.
+        /// </summary>
         [Input("snapshotRetention")]
         public Input<int>? SnapshotRetention { get; set; }
 
         /// <summary>
-        /// fork from remote volume
+        /// ID of a volume to fork: the new volume starts as a copy of it. The volume must belong to
+        /// an app in the same organization.
         /// </summary>
         [Input("sourceVolumeId")]
         public Input<string>? SourceVolumeId { get; set; }
 
+        /// <summary>
+        /// With `require_unique_zone`, avoid hosts with any volume of the app in the region, not
+        /// just volumes with the same name.
+        /// </summary>
         [Input("uniqueZoneAppWide")]
         public Input<bool>? UniqueZoneAppWide { get; set; }
 

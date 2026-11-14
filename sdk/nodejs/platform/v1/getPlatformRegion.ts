@@ -23,8 +23,15 @@ export interface GetPlatformRegionArgs {
 }
 
 export interface GetPlatformRegionResult {
+    /**
+     * The regions available to the caller.
+     */
+    readonly Regions?: outputs.platform.v1.MainRegionRow[];
+    /**
+     * Code of the region of the Fly.io edge that received the request, usually the one
+     * closest to the caller.
+     */
     readonly nearest?: string;
-    readonly regions?: outputs.platform.v1.MainRegionRow[];
 }
 export function getPlatformRegionOutput(args?: GetPlatformRegionOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetPlatformRegionResult> {
     args = args || {};

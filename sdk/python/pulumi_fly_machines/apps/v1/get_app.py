@@ -14,6 +14,7 @@ else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
 from . import outputs
+from ._enums import *
 from ._inputs import *
 
 __all__ = [
@@ -57,46 +58,77 @@ class GetAppResult:
     @_builtins.property
     @pulumi.getter
     def id(self) -> Optional[_builtins.str]:
+        """
+        Unique ID of the app, as used by Fly.io's GraphQL API.
+        """
         return pulumi.get(self, "id")
 
     @_builtins.property
     @pulumi.getter(name="internalNumericId")
     def internal_numeric_id(self) -> Optional[_builtins.int]:
+        """
+        Fly.io's internal numeric ID of the app.
+        """
         return pulumi.get(self, "internal_numeric_id")
 
     @_builtins.property
     @pulumi.getter(name="machineCount")
     def machine_count(self) -> Optional[_builtins.int]:
+        """
+        Number of the app's Machines that have not been destroyed.
+        """
         return pulumi.get(self, "machine_count")
 
     @_builtins.property
     @pulumi.getter
     def name(self) -> Optional[_builtins.str]:
+        """
+        Globally unique name of the app.
+        """
         return pulumi.get(self, "name")
 
     @_builtins.property
     @pulumi.getter
     def network(self) -> Optional[_builtins.str]:
+        """
+        Name of the private network the app is attached to: `default` for the organization's
+        default network, or the name given when the app was created.
+        """
         return pulumi.get(self, "network")
 
     @_builtins.property
     @pulumi.getter(name="networkCidr")
     def network_cidr(self) -> Optional[_builtins.str]:
+        """
+        The /48 IPv6 prefix of the private (6PN) network the app is attached to, such as
+        `fdaa:0:1234::/48`. Apps on the same network share it.
+        """
         return pulumi.get(self, "network_cidr")
 
     @_builtins.property
     @pulumi.getter
-    def organization(self) -> Optional['outputs.AppOrganizationInfo']:
+    def organization(self) -> Optional['outputs.AppOrganization']:
+        """
+        The organization that owns the app.
+        """
         return pulumi.get(self, "organization")
 
     @_builtins.property
     @pulumi.getter
-    def status(self) -> Optional[_builtins.str]:
+    def status(self) -> Optional['AppStatus']:
+        """
+        State of the app. `pending` until one of its Machines changes state. After that, updated
+        asynchronously whenever a Machine changes state: `deployed` if at least one Machine is
+        started, and `suspended` otherwise.
+        """
         return pulumi.get(self, "status")
 
     @_builtins.property
     @pulumi.getter(name="volumeCount")
     def volume_count(self) -> Optional[_builtins.int]:
+        """
+        Number of the app's volumes that have not been destroyed or scheduled for destruction.
+        """
         return pulumi.get(self, "volume_count")
 
 

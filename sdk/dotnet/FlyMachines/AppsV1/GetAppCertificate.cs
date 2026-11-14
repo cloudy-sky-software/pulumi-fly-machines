@@ -79,15 +79,46 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
     [OutputType]
     public sealed class GetAppCertificateResult
     {
+        /// <summary>
+        /// Whether Fly.io-issued (ACME) certificates were requested for the hostname.
+        /// </summary>
         public readonly bool? AcmeRequested;
+        /// <summary>
+        /// The hostname's certificates: at most one custom entry and one Fly.io entry.
+        /// </summary>
         public readonly ImmutableArray<Outputs.CertificateEntry> Certificates;
+        /// <summary>
+        /// Whether ownership of the hostname has been verified.
+        /// </summary>
         public readonly bool? Configured;
+        /// <summary>
+        /// DNS provider detected for the hostname, if known.
+        /// </summary>
         public readonly string? DnsProvider;
-        public readonly Outputs.DNSRequirements? DnsRequirements;
+        /// <summary>
+        /// DNS records to create to point the hostname at the app and validate it.
+        /// </summary>
+        public readonly Outputs.CertificateDetailDnsRequirements? DnsRequirements;
+        /// <summary>
+        /// The hostname the certificate is for. May start with `*.` for a wildcard certificate.
+        /// </summary>
         public readonly string? Hostname;
+        /// <summary>
+        /// If Let's Encrypt is rate-limiting certificate requests for the hostname, when that ends.
+        /// </summary>
         public readonly string? RateLimitedUntil;
+        /// <summary>
+        /// Human-readable status: `Ready`, `Awaiting certificates`, `Awaiting configuration`, or a
+        /// hint about what is misconfigured.
+        /// </summary>
         public readonly string? Status;
-        public readonly Outputs.CertificateValidation? Validation;
+        /// <summary>
+        /// Which validation methods are currently possible.
+        /// </summary>
+        public readonly Outputs.CertificateDetailValidation? Validation;
+        /// <summary>
+        /// Problems found by the most recent validation.
+        /// </summary>
         public readonly ImmutableArray<Outputs.CertificateValidationError> ValidationErrors;
 
         [OutputConstructor]
@@ -100,7 +131,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
 
             string? dnsProvider,
 
-            Outputs.DNSRequirements? dnsRequirements,
+            Outputs.CertificateDetailDnsRequirements? dnsRequirements,
 
             string? hostname,
 
@@ -108,7 +139,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
 
             string? status,
 
-            Outputs.CertificateValidation? validation,
+            Outputs.CertificateDetailValidation? validation,
 
             ImmutableArray<Outputs.CertificateValidationError> validationErrors)
         {

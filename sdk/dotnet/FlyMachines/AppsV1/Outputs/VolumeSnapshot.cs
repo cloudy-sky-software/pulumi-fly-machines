@@ -14,12 +14,35 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     [OutputType]
     public sealed class VolumeSnapshot
     {
+        /// <summary>
+        /// When the snapshot finished, in RFC 3339 format. The zero time
+        /// (0001-01-01T00:00:00Z) while the snapshot is in progress.
+        /// </summary>
         public readonly string? CreatedAt;
+        /// <summary>
+        /// Content digest of the snapshot. Empty while the snapshot is in progress.
+        /// </summary>
         public readonly string? Digest;
+        /// <summary>
+        /// Unique ID of the snapshot. Pass it as `snapshot_id` when creating a volume to restore it.
+        /// </summary>
         public readonly string? Id;
+        /// <summary>
+        /// Number of days the snapshot is kept after it was created. Omitted while the snapshot is
+        /// in progress.
+        /// </summary>
         public readonly int? RetentionDays;
+        /// <summary>
+        /// Size of the stored snapshot, in bytes. 0 while the snapshot is in progress.
+        /// </summary>
         public readonly int? Size;
+        /// <summary>
+        /// `created` for completed snapshots; other values while the snapshot is in progress.
+        /// </summary>
         public readonly string? Status;
+        /// <summary>
+        /// Size of the volume the snapshot was taken of, in bytes.
+        /// </summary>
         public readonly int? VolumeSize;
 
         [OutputConstructor]

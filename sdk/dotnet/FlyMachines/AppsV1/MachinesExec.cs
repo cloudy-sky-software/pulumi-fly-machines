@@ -14,26 +14,42 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
     public partial class MachinesExec : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// Deprecated: use Command instead
+        /// Command line to run, split into arguments like a shell would. Takes precedence over
+        /// `command`.
+        /// 
+        /// Deprecated: use `command`.
         /// </summary>
         [Output("cmd")]
         public Output<string?> Cmd { get; private set; } = null!;
 
+        /// <summary>
+        /// Command to run, as the program followed by its arguments. It is run directly, not by a
+        /// shell.
+        /// </summary>
         [Output("command")]
         public Output<ImmutableArray<string>> Command { get; private set; } = null!;
 
+        /// <summary>
+        /// Name of the container to run the command in, for Machines with containers.
+        /// </summary>
         [Output("container")]
         public Output<string?> Container { get; private set; } = null!;
 
+        /// <summary>
+        /// The command's exit code.
+        /// </summary>
         [Output("exitCode")]
         public Output<int?> ExitCode { get; private set; } = null!;
 
+        /// <summary>
+        /// The signal that terminated the command, or 0 if it exited normally.
+        /// </summary>
         [Output("exitSignal")]
         public Output<int?> ExitSignal { get; private set; } = null!;
 
         /// <summary>
-        /// Machine runs the command in the machine's own namespace instead of in a
-        /// container. It is mutually exclusive with Container.
+        /// Run the command in the Machine's own namespace instead of in a container. Mutually
+        /// exclusive with `container`.
         /// </summary>
         [Output("machine")]
         public Output<bool?> Machine { get; private set; } = null!;
@@ -44,15 +60,27 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Output("queryParams")]
         public Output<Outputs.MachinesExecQueryParams?> QueryParams { get; private set; } = null!;
 
+        /// <summary>
+        /// The command's standard error.
+        /// </summary>
         [Output("stderr")]
         public Output<string?> Stderr { get; private set; } = null!;
 
+        /// <summary>
+        /// Data to write to the command's standard input.
+        /// </summary>
         [Output("stdin")]
         public Output<string?> Stdin { get; private set; } = null!;
 
+        /// <summary>
+        /// The command's standard output.
+        /// </summary>
         [Output("stdout")]
         public Output<string?> Stdout { get; private set; } = null!;
 
+        /// <summary>
+        /// How long to let the command run, in seconds. Defaults to 10; at most 600.
+        /// </summary>
         [Output("timeout")]
         public Output<int?> Timeout { get; private set; } = null!;
 
@@ -109,25 +137,36 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         public Input<string>? AppName { get; set; }
 
         /// <summary>
-        /// Deprecated: use Command instead
+        /// Command line to run, split into arguments like a shell would. Takes precedence over
+        /// `command`.
+        /// 
+        /// Deprecated: use `command`.
         /// </summary>
         [Input("cmd")]
         public Input<string>? Cmd { get; set; }
 
         [Input("command")]
         private InputList<string>? _command;
+
+        /// <summary>
+        /// Command to run, as the program followed by its arguments. It is run directly, not by a
+        /// shell.
+        /// </summary>
         public InputList<string> Command
         {
             get => _command ?? (_command = new InputList<string>());
             set => _command = value;
         }
 
+        /// <summary>
+        /// Name of the container to run the command in, for Machines with containers.
+        /// </summary>
         [Input("container")]
         public Input<string>? Container { get; set; }
 
         /// <summary>
-        /// Machine runs the command in the machine's own namespace instead of in a
-        /// container. It is mutually exclusive with Container.
+        /// Run the command in the Machine's own namespace instead of in a container. Mutually
+        /// exclusive with `container`.
         /// </summary>
         [Input("machine")]
         public Input<bool>? Machine { get; set; }
@@ -144,9 +183,15 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Input("queryParams")]
         public Input<Inputs.MachinesExecQueryParamsArgs>? QueryParams { get; set; }
 
+        /// <summary>
+        /// Data to write to the command's standard input.
+        /// </summary>
         [Input("stdin")]
         public Input<string>? Stdin { get; set; }
 
+        /// <summary>
+        /// How long to let the command run, in seconds. Defaults to 10; at most 600.
+        /// </summary>
         [Input("timeout")]
         public Input<int>? Timeout { get; set; }
 

@@ -44,12 +44,19 @@ export class MachinesMetadata extends pulumi.CustomResource {
         return obj['__pulumiType'] === MachinesMetadata.__pulumiType;
     }
 
+    /**
+     * Only apply the change if this is still the Machine's current version; otherwise fail
+     * with 412. Defaults to the current version.
+     */
     declare public readonly machineVersion: pulumi.Output<string | undefined>;
     declare public readonly metadata: pulumi.Output<{[key: string]: string} | undefined>;
     /**
      * Query params to send with the API requests for this resource.
      */
     declare public readonly queryParams: pulumi.Output<outputs.apps.v1.MachinesMetadataQueryParams | undefined>;
+    /**
+     * Time to record for the change in the Machine's `metadata_update` event. Defaults to now.
+     */
     declare public readonly updatedAt: pulumi.Output<string | undefined>;
 
     /**
@@ -92,11 +99,18 @@ export interface MachinesMetadataArgs {
      * Machine ID
      */
     machineId?: pulumi.Input<string | undefined>;
+    /**
+     * Only apply the change if this is still the Machine's current version; otherwise fail
+     * with 412. Defaults to the current version.
+     */
     machineVersion?: pulumi.Input<string | undefined>;
     metadata?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
     /**
      * Query params to send with the API requests for this resource.
      */
     queryParams?: pulumi.Input<inputs.apps.v1.MachinesMetadataQueryParamsArgs | undefined>;
+    /**
+     * Time to record for the change in the Machine's `metadata_update` event. Defaults to now.
+     */
     updatedAt?: pulumi.Input<string | undefined>;
 }

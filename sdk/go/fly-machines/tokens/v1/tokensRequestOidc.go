@@ -15,8 +15,11 @@ import (
 type TokensRequestOidc struct {
 	pulumi.CustomResourceState
 
-	Aud              pulumi.StringPtrOutput `pulumi:"aud"`
-	AwsPrincipalTags pulumi.BoolPtrOutput   `pulumi:"awsPrincipalTags"`
+	// Value of the token's `aud` claim. Defaults to `https://fly.io/<org-slug>`.
+	Aud pulumi.StringPtrOutput `pulumi:"aud"`
+	// Add AWS principal tag claims (`https://aws.amazon.com/tags/principal_tags/<tag>`) for use
+	// with AWS IAM: FlyAppName, FlyOrgSlug, FlyOrgId, FlyMachineName and FlyRegion.
+	AwsPrincipalTags pulumi.BoolPtrOutput `pulumi:"awsPrincipalTags"`
 	// Query params to send with the API requests for this resource.
 	QueryParams TokensRequestOidcQueryParamsPtrOutput `pulumi:"queryParams"`
 }
@@ -67,15 +70,21 @@ func TokensRequestOidcExists(ctx *pulumi.Context,
 }
 
 type tokensRequestOidcArgs struct {
-	Aud              *string `pulumi:"aud"`
-	AwsPrincipalTags *bool   `pulumi:"awsPrincipalTags"`
+	// Value of the token's `aud` claim. Defaults to `https://fly.io/<org-slug>`.
+	Aud *string `pulumi:"aud"`
+	// Add AWS principal tag claims (`https://aws.amazon.com/tags/principal_tags/<tag>`) for use
+	// with AWS IAM: FlyAppName, FlyOrgSlug, FlyOrgId, FlyMachineName and FlyRegion.
+	AwsPrincipalTags *bool `pulumi:"awsPrincipalTags"`
 	// Query params to send with the API requests for this resource.
 	QueryParams *TokensRequestOidcQueryParams `pulumi:"queryParams"`
 }
 
 // The set of arguments for constructing a TokensRequestOidc resource.
 type TokensRequestOidcArgs struct {
-	Aud              pulumi.StringPtrInput
+	// Value of the token's `aud` claim. Defaults to `https://fly.io/<org-slug>`.
+	Aud pulumi.StringPtrInput
+	// Add AWS principal tag claims (`https://aws.amazon.com/tags/principal_tags/<tag>`) for use
+	// with AWS IAM: FlyAppName, FlyOrgSlug, FlyOrgId, FlyMachineName and FlyRegion.
 	AwsPrincipalTags pulumi.BoolPtrInput
 	// Query params to send with the API requests for this resource.
 	QueryParams TokensRequestOidcQueryParamsPtrInput
@@ -118,10 +127,13 @@ func (o TokensRequestOidcOutput) ToTokensRequestOidcOutputWithContext(ctx contex
 	return o
 }
 
+// Value of the token's `aud` claim. Defaults to `https://fly.io/<org-slug>`.
 func (o TokensRequestOidcOutput) Aud() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *TokensRequestOidc) pulumi.StringPtrOutput { return v.Aud }).(pulumi.StringPtrOutput)
 }
 
+// Add AWS principal tag claims (`https://aws.amazon.com/tags/principal_tags/<tag>`) for use
+// with AWS IAM: FlyAppName, FlyOrgSlug, FlyOrgId, FlyMachineName and FlyRegion.
 func (o TokensRequestOidcOutput) AwsPrincipalTags() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *TokensRequestOidc) pulumi.BoolPtrOutput { return v.AwsPrincipalTags }).(pulumi.BoolPtrOutput)
 }

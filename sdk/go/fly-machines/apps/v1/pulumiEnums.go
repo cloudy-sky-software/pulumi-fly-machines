@@ -10,7 +10,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// Type of IP address to allocate. "egress-pair" allocates both v4 and v6 egress IP addresses (recommended when using egress IPs).
+// Type of IP address to allocate. Required.
 type AppIPAssignmentType string
 
 const (
@@ -186,6 +186,101 @@ func (in *appIPAssignmentTypePtr) ToAppIPAssignmentTypePtrOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, in).(AppIPAssignmentTypePtrOutput)
 }
 
+// State of the app. `pending` until one of its Machines changes state. After that, updated
+// asynchronously whenever a Machine changes state: `deployed` if at least one Machine is
+// started, and `suspended` otherwise.
+type AppStatus string
+
+const (
+	AppStatusPending   = AppStatus("pending")
+	AppStatusDeployed  = AppStatus("deployed")
+	AppStatusSuspended = AppStatus("suspended")
+)
+
+type AppStatusOutput struct{ *pulumi.OutputState }
+
+func (AppStatusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AppStatus)(nil)).Elem()
+}
+
+func (o AppStatusOutput) ToAppStatusOutput() AppStatusOutput {
+	return o
+}
+
+func (o AppStatusOutput) ToAppStatusOutputWithContext(ctx context.Context) AppStatusOutput {
+	return o
+}
+
+func (o AppStatusOutput) ToAppStatusPtrOutput() AppStatusPtrOutput {
+	return o.ToAppStatusPtrOutputWithContext(context.Background())
+}
+
+func (o AppStatusOutput) ToAppStatusPtrOutputWithContext(ctx context.Context) AppStatusPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AppStatus) *AppStatus {
+		return &v
+	}).(AppStatusPtrOutput)
+}
+
+func (o AppStatusOutput) ToStringOutput() pulumi.StringOutput {
+	return o.ToStringOutputWithContext(context.Background())
+}
+
+func (o AppStatusOutput) ToStringOutputWithContext(ctx context.Context) pulumi.StringOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e AppStatus) string {
+		return string(e)
+	}).(pulumi.StringOutput)
+}
+
+func (o AppStatusOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o AppStatusOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e AppStatus) *string {
+		v := string(e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+type AppStatusPtrOutput struct{ *pulumi.OutputState }
+
+func (AppStatusPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**AppStatus)(nil)).Elem()
+}
+
+func (o AppStatusPtrOutput) ToAppStatusPtrOutput() AppStatusPtrOutput {
+	return o
+}
+
+func (o AppStatusPtrOutput) ToAppStatusPtrOutputWithContext(ctx context.Context) AppStatusPtrOutput {
+	return o
+}
+
+func (o AppStatusPtrOutput) Elem() AppStatusOutput {
+	return o.ApplyT(func(v *AppStatus) AppStatus {
+		if v != nil {
+			return *v
+		}
+		var ret AppStatus
+		return ret
+	}).(AppStatusOutput)
+}
+
+func (o AppStatusPtrOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o AppStatusPtrOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e *AppStatus) *string {
+		if e == nil {
+			return nil
+		}
+		v := string(*e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+// `custom` for an uploaded certificate, `fly` for certificates issued by Fly.io.
 type CertificateEntrySource string
 
 const (
@@ -276,6 +371,8 @@ func (o CertificateEntrySourcePtrOutput) ToStringPtrOutputWithContext(ctx contex
 	}).(pulumi.StringPtrOutput)
 }
 
+// `active` once ownership of the hostname is verified. Until then, `pending_ownership` for
+// custom certificates and `pending_validation` for Fly.io-issued certificates.
 type CertificateEntryStatus string
 
 const (
@@ -359,6 +456,98 @@ func (o CertificateEntryStatusPtrOutput) ToStringPtrOutput() pulumi.StringPtrOut
 
 func (o CertificateEntryStatusPtrOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
 	return o.ApplyTWithContext(ctx, func(_ context.Context, e *CertificateEntryStatus) *string {
+		if e == nil {
+			return nil
+		}
+		v := string(*e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+// Result of the check: `passing`, `warning`, or `critical`.
+type CheckStatusStatus string
+
+const (
+	CheckStatusStatusPassing  = CheckStatusStatus("passing")
+	CheckStatusStatusWarning  = CheckStatusStatus("warning")
+	CheckStatusStatusCritical = CheckStatusStatus("critical")
+)
+
+type CheckStatusStatusOutput struct{ *pulumi.OutputState }
+
+func (CheckStatusStatusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckStatusStatus)(nil)).Elem()
+}
+
+func (o CheckStatusStatusOutput) ToCheckStatusStatusOutput() CheckStatusStatusOutput {
+	return o
+}
+
+func (o CheckStatusStatusOutput) ToCheckStatusStatusOutputWithContext(ctx context.Context) CheckStatusStatusOutput {
+	return o
+}
+
+func (o CheckStatusStatusOutput) ToCheckStatusStatusPtrOutput() CheckStatusStatusPtrOutput {
+	return o.ToCheckStatusStatusPtrOutputWithContext(context.Background())
+}
+
+func (o CheckStatusStatusOutput) ToCheckStatusStatusPtrOutputWithContext(ctx context.Context) CheckStatusStatusPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CheckStatusStatus) *CheckStatusStatus {
+		return &v
+	}).(CheckStatusStatusPtrOutput)
+}
+
+func (o CheckStatusStatusOutput) ToStringOutput() pulumi.StringOutput {
+	return o.ToStringOutputWithContext(context.Background())
+}
+
+func (o CheckStatusStatusOutput) ToStringOutputWithContext(ctx context.Context) pulumi.StringOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e CheckStatusStatus) string {
+		return string(e)
+	}).(pulumi.StringOutput)
+}
+
+func (o CheckStatusStatusOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o CheckStatusStatusOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e CheckStatusStatus) *string {
+		v := string(e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+type CheckStatusStatusPtrOutput struct{ *pulumi.OutputState }
+
+func (CheckStatusStatusPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CheckStatusStatus)(nil)).Elem()
+}
+
+func (o CheckStatusStatusPtrOutput) ToCheckStatusStatusPtrOutput() CheckStatusStatusPtrOutput {
+	return o
+}
+
+func (o CheckStatusStatusPtrOutput) ToCheckStatusStatusPtrOutputWithContext(ctx context.Context) CheckStatusStatusPtrOutput {
+	return o
+}
+
+func (o CheckStatusStatusPtrOutput) Elem() CheckStatusStatusOutput {
+	return o.ApplyT(func(v *CheckStatusStatus) CheckStatusStatus {
+		if v != nil {
+			return *v
+		}
+		var ret CheckStatusStatus
+		return ret
+	}).(CheckStatusStatusOutput)
+}
+
+func (o CheckStatusStatusPtrOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o CheckStatusStatusPtrOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e *CheckStatusStatus) *string {
 		if e == nil {
 			return nil
 		}
@@ -533,6 +722,8 @@ func (in *checksKindPtr) ToChecksKindPtrOutputWithContext(ctx context.Context) C
 	return pulumi.ToOutputWithContext(ctx, in).(ChecksKindPtrOutput)
 }
 
+// When the container can start: once the dependency has `started`, is `healthy`, or has
+// `exited_successfully`
 type FlyContainerDependencyCondition string
 
 const (
@@ -1708,6 +1899,9 @@ func (in *flyMachineRestartPolicyPtr) ToFlyMachineRestartPolicyPtrOutputWithCont
 	return pulumi.ToOutputWithContext(ctx, in).(FlyMachineRestartPolicyPtrOutput)
 }
 
+// Whether changes to the root filesystem are kept. `never` (default): reset on every start.
+// `restart`: kept across stops and restarts, reset when the Machine is updated. `always`: also
+// kept across updates
 type FlyMachineRootfsPersist string
 
 const (
@@ -2212,6 +2406,7 @@ func (in *flyReplayCacheTypePtr) ToFlyReplayCacheTypePtrOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, in).(FlyReplayCacheTypePtrOutput)
 }
 
+// Signal to send to the Machine's processes. Defaults to SIGINT
 type FlyStopConfigSignal string
 
 const (
@@ -2387,6 +2582,172 @@ func (in *flyStopConfigSignalPtr) ToFlyStopConfigSignalPtrOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, in).(FlyStopConfigSignalPtrOutput)
 }
 
+// Filesystem to format the volume with: `ext4`, or `raw` for an unformatted block device.
+type Fstype string
+
+const (
+	FstypeExt4 = Fstype("ext4")
+	FstypeRaw  = Fstype("raw")
+)
+
+func (Fstype) ElementType() reflect.Type {
+	return reflect.TypeOf((*Fstype)(nil)).Elem()
+}
+
+func (e Fstype) ToFstypeOutput() FstypeOutput {
+	return pulumi.ToOutput(e).(FstypeOutput)
+}
+
+func (e Fstype) ToFstypeOutputWithContext(ctx context.Context) FstypeOutput {
+	return pulumi.ToOutputWithContext(ctx, e).(FstypeOutput)
+}
+
+func (e Fstype) ToFstypePtrOutput() FstypePtrOutput {
+	return e.ToFstypePtrOutputWithContext(context.Background())
+}
+
+func (e Fstype) ToFstypePtrOutputWithContext(ctx context.Context) FstypePtrOutput {
+	return Fstype(e).ToFstypeOutputWithContext(ctx).ToFstypePtrOutputWithContext(ctx)
+}
+
+func (e Fstype) ToStringOutput() pulumi.StringOutput {
+	return pulumi.ToOutput(pulumi.String(e)).(pulumi.StringOutput)
+}
+
+func (e Fstype) ToStringOutputWithContext(ctx context.Context) pulumi.StringOutput {
+	return pulumi.ToOutputWithContext(ctx, pulumi.String(e)).(pulumi.StringOutput)
+}
+
+func (e Fstype) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return pulumi.String(e).ToStringPtrOutputWithContext(context.Background())
+}
+
+func (e Fstype) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return pulumi.String(e).ToStringOutputWithContext(ctx).ToStringPtrOutputWithContext(ctx)
+}
+
+type FstypeOutput struct{ *pulumi.OutputState }
+
+func (FstypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*Fstype)(nil)).Elem()
+}
+
+func (o FstypeOutput) ToFstypeOutput() FstypeOutput {
+	return o
+}
+
+func (o FstypeOutput) ToFstypeOutputWithContext(ctx context.Context) FstypeOutput {
+	return o
+}
+
+func (o FstypeOutput) ToFstypePtrOutput() FstypePtrOutput {
+	return o.ToFstypePtrOutputWithContext(context.Background())
+}
+
+func (o FstypeOutput) ToFstypePtrOutputWithContext(ctx context.Context) FstypePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Fstype) *Fstype {
+		return &v
+	}).(FstypePtrOutput)
+}
+
+func (o FstypeOutput) ToStringOutput() pulumi.StringOutput {
+	return o.ToStringOutputWithContext(context.Background())
+}
+
+func (o FstypeOutput) ToStringOutputWithContext(ctx context.Context) pulumi.StringOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e Fstype) string {
+		return string(e)
+	}).(pulumi.StringOutput)
+}
+
+func (o FstypeOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o FstypeOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e Fstype) *string {
+		v := string(e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+type FstypePtrOutput struct{ *pulumi.OutputState }
+
+func (FstypePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**Fstype)(nil)).Elem()
+}
+
+func (o FstypePtrOutput) ToFstypePtrOutput() FstypePtrOutput {
+	return o
+}
+
+func (o FstypePtrOutput) ToFstypePtrOutputWithContext(ctx context.Context) FstypePtrOutput {
+	return o
+}
+
+func (o FstypePtrOutput) Elem() FstypeOutput {
+	return o.ApplyT(func(v *Fstype) Fstype {
+		if v != nil {
+			return *v
+		}
+		var ret Fstype
+		return ret
+	}).(FstypeOutput)
+}
+
+func (o FstypePtrOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o FstypePtrOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e *Fstype) *string {
+		if e == nil {
+			return nil
+		}
+		v := string(*e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+// FstypeInput is an input type that accepts values of the Fstype enum
+// A concrete instance of `FstypeInput` can be one of the following:
+//
+//	FstypeExt4
+//	FstypeRaw
+type FstypeInput interface {
+	pulumi.Input
+
+	ToFstypeOutput() FstypeOutput
+	ToFstypeOutputWithContext(context.Context) FstypeOutput
+}
+
+var fstypePtrType = reflect.TypeOf((**Fstype)(nil)).Elem()
+
+type FstypePtrInput interface {
+	pulumi.Input
+
+	ToFstypePtrOutput() FstypePtrOutput
+	ToFstypePtrOutputWithContext(context.Context) FstypePtrOutput
+}
+
+type fstypePtr string
+
+func FstypePtr(v string) FstypePtrInput {
+	return (*fstypePtr)(&v)
+}
+
+func (*fstypePtr) ElementType() reflect.Type {
+	return fstypePtrType
+}
+
+func (in *fstypePtr) ToFstypePtrOutput() FstypePtrOutput {
+	return pulumi.ToOutput(in).(FstypePtrOutput)
+}
+
+func (in *fstypePtr) ToFstypePtrOutputWithContext(ctx context.Context) FstypePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, in).(FstypePtrOutput)
+}
+
 type GetMachinesWaitQueryParamsState string
 
 const (
@@ -2395,6 +2756,7 @@ const (
 	GetMachinesWaitQueryParamsStateSuspended = GetMachinesWaitQueryParamsState("suspended")
 	GetMachinesWaitQueryParamsStateDestroyed = GetMachinesWaitQueryParamsState("destroyed")
 	GetMachinesWaitQueryParamsStateFailed    = GetMachinesWaitQueryParamsState("failed")
+	GetMachinesWaitQueryParamsStateArchived  = GetMachinesWaitQueryParamsState("archived")
 	GetMachinesWaitQueryParamsStateSettled   = GetMachinesWaitQueryParamsState("settled")
 )
 
@@ -2525,6 +2887,7 @@ func (o GetMachinesWaitQueryParamsStatePtrOutput) ToStringPtrOutputWithContext(c
 //	GetMachinesWaitQueryParamsStateSuspended
 //	GetMachinesWaitQueryParamsStateDestroyed
 //	GetMachinesWaitQueryParamsStateFailed
+//	GetMachinesWaitQueryParamsStateArchived
 //	GetMachinesWaitQueryParamsStateSettled
 type GetMachinesWaitQueryParamsStateInput interface {
 	pulumi.Input
@@ -2560,6 +2923,8 @@ func (in *getMachinesWaitQueryParamsStatePtr) ToGetMachinesWaitQueryParamsStateP
 	return pulumi.ToOutputWithContext(ctx, in).(GetMachinesWaitQueryParamsStatePtrOutput)
 }
 
+// Whether Fly.io could reach the volume's host: `ok` if it could, `unreachable` or
+// `unknown` if it could not, in which case host-reported fields are missing.
 type HostStatus string
 
 const (
@@ -2651,6 +3016,7 @@ func (o HostStatusPtrOutput) ToStringPtrOutputWithContext(ctx context.Context) p
 	}).(pulumi.StringPtrOutput)
 }
 
+// Key type of the certificate.
 type IssuedCertificateType string
 
 const (
@@ -2741,6 +3107,433 @@ func (o IssuedCertificateTypePtrOutput) ToStringPtrOutputWithContext(ctx context
 	}).(pulumi.StringPtrOutput)
 }
 
+// Always `success`.
+type LeaseResponseStatus string
+
+const (
+	LeaseResponseStatusSuccess = LeaseResponseStatus("success")
+)
+
+type LeaseResponseStatusOutput struct{ *pulumi.OutputState }
+
+func (LeaseResponseStatusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*LeaseResponseStatus)(nil)).Elem()
+}
+
+func (o LeaseResponseStatusOutput) ToLeaseResponseStatusOutput() LeaseResponseStatusOutput {
+	return o
+}
+
+func (o LeaseResponseStatusOutput) ToLeaseResponseStatusOutputWithContext(ctx context.Context) LeaseResponseStatusOutput {
+	return o
+}
+
+func (o LeaseResponseStatusOutput) ToLeaseResponseStatusPtrOutput() LeaseResponseStatusPtrOutput {
+	return o.ToLeaseResponseStatusPtrOutputWithContext(context.Background())
+}
+
+func (o LeaseResponseStatusOutput) ToLeaseResponseStatusPtrOutputWithContext(ctx context.Context) LeaseResponseStatusPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v LeaseResponseStatus) *LeaseResponseStatus {
+		return &v
+	}).(LeaseResponseStatusPtrOutput)
+}
+
+func (o LeaseResponseStatusOutput) ToStringOutput() pulumi.StringOutput {
+	return o.ToStringOutputWithContext(context.Background())
+}
+
+func (o LeaseResponseStatusOutput) ToStringOutputWithContext(ctx context.Context) pulumi.StringOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e LeaseResponseStatus) string {
+		return string(e)
+	}).(pulumi.StringOutput)
+}
+
+func (o LeaseResponseStatusOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o LeaseResponseStatusOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e LeaseResponseStatus) *string {
+		v := string(e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+type LeaseResponseStatusPtrOutput struct{ *pulumi.OutputState }
+
+func (LeaseResponseStatusPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**LeaseResponseStatus)(nil)).Elem()
+}
+
+func (o LeaseResponseStatusPtrOutput) ToLeaseResponseStatusPtrOutput() LeaseResponseStatusPtrOutput {
+	return o
+}
+
+func (o LeaseResponseStatusPtrOutput) ToLeaseResponseStatusPtrOutputWithContext(ctx context.Context) LeaseResponseStatusPtrOutput {
+	return o
+}
+
+func (o LeaseResponseStatusPtrOutput) Elem() LeaseResponseStatusOutput {
+	return o.ApplyT(func(v *LeaseResponseStatus) LeaseResponseStatus {
+		if v != nil {
+			return *v
+		}
+		var ret LeaseResponseStatus
+		return ret
+	}).(LeaseResponseStatusOutput)
+}
+
+func (o LeaseResponseStatusPtrOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o LeaseResponseStatusPtrOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e *LeaseResponseStatus) *string {
+		if e == nil {
+			return nil
+		}
+		v := string(*e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+type ListMachinesProcessesQueryParamsOrder string
+
+const (
+	ListMachinesProcessesQueryParamsOrderAsc  = ListMachinesProcessesQueryParamsOrder("asc")
+	ListMachinesProcessesQueryParamsOrderDesc = ListMachinesProcessesQueryParamsOrder("desc")
+)
+
+func (ListMachinesProcessesQueryParamsOrder) ElementType() reflect.Type {
+	return reflect.TypeOf((*ListMachinesProcessesQueryParamsOrder)(nil)).Elem()
+}
+
+func (e ListMachinesProcessesQueryParamsOrder) ToListMachinesProcessesQueryParamsOrderOutput() ListMachinesProcessesQueryParamsOrderOutput {
+	return pulumi.ToOutput(e).(ListMachinesProcessesQueryParamsOrderOutput)
+}
+
+func (e ListMachinesProcessesQueryParamsOrder) ToListMachinesProcessesQueryParamsOrderOutputWithContext(ctx context.Context) ListMachinesProcessesQueryParamsOrderOutput {
+	return pulumi.ToOutputWithContext(ctx, e).(ListMachinesProcessesQueryParamsOrderOutput)
+}
+
+func (e ListMachinesProcessesQueryParamsOrder) ToListMachinesProcessesQueryParamsOrderPtrOutput() ListMachinesProcessesQueryParamsOrderPtrOutput {
+	return e.ToListMachinesProcessesQueryParamsOrderPtrOutputWithContext(context.Background())
+}
+
+func (e ListMachinesProcessesQueryParamsOrder) ToListMachinesProcessesQueryParamsOrderPtrOutputWithContext(ctx context.Context) ListMachinesProcessesQueryParamsOrderPtrOutput {
+	return ListMachinesProcessesQueryParamsOrder(e).ToListMachinesProcessesQueryParamsOrderOutputWithContext(ctx).ToListMachinesProcessesQueryParamsOrderPtrOutputWithContext(ctx)
+}
+
+func (e ListMachinesProcessesQueryParamsOrder) ToStringOutput() pulumi.StringOutput {
+	return pulumi.ToOutput(pulumi.String(e)).(pulumi.StringOutput)
+}
+
+func (e ListMachinesProcessesQueryParamsOrder) ToStringOutputWithContext(ctx context.Context) pulumi.StringOutput {
+	return pulumi.ToOutputWithContext(ctx, pulumi.String(e)).(pulumi.StringOutput)
+}
+
+func (e ListMachinesProcessesQueryParamsOrder) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return pulumi.String(e).ToStringPtrOutputWithContext(context.Background())
+}
+
+func (e ListMachinesProcessesQueryParamsOrder) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return pulumi.String(e).ToStringOutputWithContext(ctx).ToStringPtrOutputWithContext(ctx)
+}
+
+type ListMachinesProcessesQueryParamsOrderOutput struct{ *pulumi.OutputState }
+
+func (ListMachinesProcessesQueryParamsOrderOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ListMachinesProcessesQueryParamsOrder)(nil)).Elem()
+}
+
+func (o ListMachinesProcessesQueryParamsOrderOutput) ToListMachinesProcessesQueryParamsOrderOutput() ListMachinesProcessesQueryParamsOrderOutput {
+	return o
+}
+
+func (o ListMachinesProcessesQueryParamsOrderOutput) ToListMachinesProcessesQueryParamsOrderOutputWithContext(ctx context.Context) ListMachinesProcessesQueryParamsOrderOutput {
+	return o
+}
+
+func (o ListMachinesProcessesQueryParamsOrderOutput) ToListMachinesProcessesQueryParamsOrderPtrOutput() ListMachinesProcessesQueryParamsOrderPtrOutput {
+	return o.ToListMachinesProcessesQueryParamsOrderPtrOutputWithContext(context.Background())
+}
+
+func (o ListMachinesProcessesQueryParamsOrderOutput) ToListMachinesProcessesQueryParamsOrderPtrOutputWithContext(ctx context.Context) ListMachinesProcessesQueryParamsOrderPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ListMachinesProcessesQueryParamsOrder) *ListMachinesProcessesQueryParamsOrder {
+		return &v
+	}).(ListMachinesProcessesQueryParamsOrderPtrOutput)
+}
+
+func (o ListMachinesProcessesQueryParamsOrderOutput) ToStringOutput() pulumi.StringOutput {
+	return o.ToStringOutputWithContext(context.Background())
+}
+
+func (o ListMachinesProcessesQueryParamsOrderOutput) ToStringOutputWithContext(ctx context.Context) pulumi.StringOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e ListMachinesProcessesQueryParamsOrder) string {
+		return string(e)
+	}).(pulumi.StringOutput)
+}
+
+func (o ListMachinesProcessesQueryParamsOrderOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o ListMachinesProcessesQueryParamsOrderOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e ListMachinesProcessesQueryParamsOrder) *string {
+		v := string(e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+type ListMachinesProcessesQueryParamsOrderPtrOutput struct{ *pulumi.OutputState }
+
+func (ListMachinesProcessesQueryParamsOrderPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ListMachinesProcessesQueryParamsOrder)(nil)).Elem()
+}
+
+func (o ListMachinesProcessesQueryParamsOrderPtrOutput) ToListMachinesProcessesQueryParamsOrderPtrOutput() ListMachinesProcessesQueryParamsOrderPtrOutput {
+	return o
+}
+
+func (o ListMachinesProcessesQueryParamsOrderPtrOutput) ToListMachinesProcessesQueryParamsOrderPtrOutputWithContext(ctx context.Context) ListMachinesProcessesQueryParamsOrderPtrOutput {
+	return o
+}
+
+func (o ListMachinesProcessesQueryParamsOrderPtrOutput) Elem() ListMachinesProcessesQueryParamsOrderOutput {
+	return o.ApplyT(func(v *ListMachinesProcessesQueryParamsOrder) ListMachinesProcessesQueryParamsOrder {
+		if v != nil {
+			return *v
+		}
+		var ret ListMachinesProcessesQueryParamsOrder
+		return ret
+	}).(ListMachinesProcessesQueryParamsOrderOutput)
+}
+
+func (o ListMachinesProcessesQueryParamsOrderPtrOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o ListMachinesProcessesQueryParamsOrderPtrOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e *ListMachinesProcessesQueryParamsOrder) *string {
+		if e == nil {
+			return nil
+		}
+		v := string(*e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+// ListMachinesProcessesQueryParamsOrderInput is an input type that accepts values of the ListMachinesProcessesQueryParamsOrder enum
+// A concrete instance of `ListMachinesProcessesQueryParamsOrderInput` can be one of the following:
+//
+//	ListMachinesProcessesQueryParamsOrderAsc
+//	ListMachinesProcessesQueryParamsOrderDesc
+type ListMachinesProcessesQueryParamsOrderInput interface {
+	pulumi.Input
+
+	ToListMachinesProcessesQueryParamsOrderOutput() ListMachinesProcessesQueryParamsOrderOutput
+	ToListMachinesProcessesQueryParamsOrderOutputWithContext(context.Context) ListMachinesProcessesQueryParamsOrderOutput
+}
+
+var listMachinesProcessesQueryParamsOrderPtrType = reflect.TypeOf((**ListMachinesProcessesQueryParamsOrder)(nil)).Elem()
+
+type ListMachinesProcessesQueryParamsOrderPtrInput interface {
+	pulumi.Input
+
+	ToListMachinesProcessesQueryParamsOrderPtrOutput() ListMachinesProcessesQueryParamsOrderPtrOutput
+	ToListMachinesProcessesQueryParamsOrderPtrOutputWithContext(context.Context) ListMachinesProcessesQueryParamsOrderPtrOutput
+}
+
+type listMachinesProcessesQueryParamsOrderPtr string
+
+func ListMachinesProcessesQueryParamsOrderPtr(v string) ListMachinesProcessesQueryParamsOrderPtrInput {
+	return (*listMachinesProcessesQueryParamsOrderPtr)(&v)
+}
+
+func (*listMachinesProcessesQueryParamsOrderPtr) ElementType() reflect.Type {
+	return listMachinesProcessesQueryParamsOrderPtrType
+}
+
+func (in *listMachinesProcessesQueryParamsOrderPtr) ToListMachinesProcessesQueryParamsOrderPtrOutput() ListMachinesProcessesQueryParamsOrderPtrOutput {
+	return pulumi.ToOutput(in).(ListMachinesProcessesQueryParamsOrderPtrOutput)
+}
+
+func (in *listMachinesProcessesQueryParamsOrderPtr) ToListMachinesProcessesQueryParamsOrderPtrOutputWithContext(ctx context.Context) ListMachinesProcessesQueryParamsOrderPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, in).(ListMachinesProcessesQueryParamsOrderPtrOutput)
+}
+
+type ListMachinesProcessesQueryParamsSortBy string
+
+const (
+	ListMachinesProcessesQueryParamsSortByCpu   = ListMachinesProcessesQueryParamsSortBy("cpu")
+	ListMachinesProcessesQueryParamsSortByPid   = ListMachinesProcessesQueryParamsSortBy("pid")
+	ListMachinesProcessesQueryParamsSortByStime = ListMachinesProcessesQueryParamsSortBy("stime")
+	ListMachinesProcessesQueryParamsSortByRtime = ListMachinesProcessesQueryParamsSortBy("rtime")
+)
+
+func (ListMachinesProcessesQueryParamsSortBy) ElementType() reflect.Type {
+	return reflect.TypeOf((*ListMachinesProcessesQueryParamsSortBy)(nil)).Elem()
+}
+
+func (e ListMachinesProcessesQueryParamsSortBy) ToListMachinesProcessesQueryParamsSortByOutput() ListMachinesProcessesQueryParamsSortByOutput {
+	return pulumi.ToOutput(e).(ListMachinesProcessesQueryParamsSortByOutput)
+}
+
+func (e ListMachinesProcessesQueryParamsSortBy) ToListMachinesProcessesQueryParamsSortByOutputWithContext(ctx context.Context) ListMachinesProcessesQueryParamsSortByOutput {
+	return pulumi.ToOutputWithContext(ctx, e).(ListMachinesProcessesQueryParamsSortByOutput)
+}
+
+func (e ListMachinesProcessesQueryParamsSortBy) ToListMachinesProcessesQueryParamsSortByPtrOutput() ListMachinesProcessesQueryParamsSortByPtrOutput {
+	return e.ToListMachinesProcessesQueryParamsSortByPtrOutputWithContext(context.Background())
+}
+
+func (e ListMachinesProcessesQueryParamsSortBy) ToListMachinesProcessesQueryParamsSortByPtrOutputWithContext(ctx context.Context) ListMachinesProcessesQueryParamsSortByPtrOutput {
+	return ListMachinesProcessesQueryParamsSortBy(e).ToListMachinesProcessesQueryParamsSortByOutputWithContext(ctx).ToListMachinesProcessesQueryParamsSortByPtrOutputWithContext(ctx)
+}
+
+func (e ListMachinesProcessesQueryParamsSortBy) ToStringOutput() pulumi.StringOutput {
+	return pulumi.ToOutput(pulumi.String(e)).(pulumi.StringOutput)
+}
+
+func (e ListMachinesProcessesQueryParamsSortBy) ToStringOutputWithContext(ctx context.Context) pulumi.StringOutput {
+	return pulumi.ToOutputWithContext(ctx, pulumi.String(e)).(pulumi.StringOutput)
+}
+
+func (e ListMachinesProcessesQueryParamsSortBy) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return pulumi.String(e).ToStringPtrOutputWithContext(context.Background())
+}
+
+func (e ListMachinesProcessesQueryParamsSortBy) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return pulumi.String(e).ToStringOutputWithContext(ctx).ToStringPtrOutputWithContext(ctx)
+}
+
+type ListMachinesProcessesQueryParamsSortByOutput struct{ *pulumi.OutputState }
+
+func (ListMachinesProcessesQueryParamsSortByOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ListMachinesProcessesQueryParamsSortBy)(nil)).Elem()
+}
+
+func (o ListMachinesProcessesQueryParamsSortByOutput) ToListMachinesProcessesQueryParamsSortByOutput() ListMachinesProcessesQueryParamsSortByOutput {
+	return o
+}
+
+func (o ListMachinesProcessesQueryParamsSortByOutput) ToListMachinesProcessesQueryParamsSortByOutputWithContext(ctx context.Context) ListMachinesProcessesQueryParamsSortByOutput {
+	return o
+}
+
+func (o ListMachinesProcessesQueryParamsSortByOutput) ToListMachinesProcessesQueryParamsSortByPtrOutput() ListMachinesProcessesQueryParamsSortByPtrOutput {
+	return o.ToListMachinesProcessesQueryParamsSortByPtrOutputWithContext(context.Background())
+}
+
+func (o ListMachinesProcessesQueryParamsSortByOutput) ToListMachinesProcessesQueryParamsSortByPtrOutputWithContext(ctx context.Context) ListMachinesProcessesQueryParamsSortByPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ListMachinesProcessesQueryParamsSortBy) *ListMachinesProcessesQueryParamsSortBy {
+		return &v
+	}).(ListMachinesProcessesQueryParamsSortByPtrOutput)
+}
+
+func (o ListMachinesProcessesQueryParamsSortByOutput) ToStringOutput() pulumi.StringOutput {
+	return o.ToStringOutputWithContext(context.Background())
+}
+
+func (o ListMachinesProcessesQueryParamsSortByOutput) ToStringOutputWithContext(ctx context.Context) pulumi.StringOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e ListMachinesProcessesQueryParamsSortBy) string {
+		return string(e)
+	}).(pulumi.StringOutput)
+}
+
+func (o ListMachinesProcessesQueryParamsSortByOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o ListMachinesProcessesQueryParamsSortByOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e ListMachinesProcessesQueryParamsSortBy) *string {
+		v := string(e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+type ListMachinesProcessesQueryParamsSortByPtrOutput struct{ *pulumi.OutputState }
+
+func (ListMachinesProcessesQueryParamsSortByPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ListMachinesProcessesQueryParamsSortBy)(nil)).Elem()
+}
+
+func (o ListMachinesProcessesQueryParamsSortByPtrOutput) ToListMachinesProcessesQueryParamsSortByPtrOutput() ListMachinesProcessesQueryParamsSortByPtrOutput {
+	return o
+}
+
+func (o ListMachinesProcessesQueryParamsSortByPtrOutput) ToListMachinesProcessesQueryParamsSortByPtrOutputWithContext(ctx context.Context) ListMachinesProcessesQueryParamsSortByPtrOutput {
+	return o
+}
+
+func (o ListMachinesProcessesQueryParamsSortByPtrOutput) Elem() ListMachinesProcessesQueryParamsSortByOutput {
+	return o.ApplyT(func(v *ListMachinesProcessesQueryParamsSortBy) ListMachinesProcessesQueryParamsSortBy {
+		if v != nil {
+			return *v
+		}
+		var ret ListMachinesProcessesQueryParamsSortBy
+		return ret
+	}).(ListMachinesProcessesQueryParamsSortByOutput)
+}
+
+func (o ListMachinesProcessesQueryParamsSortByPtrOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o ListMachinesProcessesQueryParamsSortByPtrOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e *ListMachinesProcessesQueryParamsSortBy) *string {
+		if e == nil {
+			return nil
+		}
+		v := string(*e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+// ListMachinesProcessesQueryParamsSortByInput is an input type that accepts values of the ListMachinesProcessesQueryParamsSortBy enum
+// A concrete instance of `ListMachinesProcessesQueryParamsSortByInput` can be one of the following:
+//
+//	ListMachinesProcessesQueryParamsSortByCpu
+//	ListMachinesProcessesQueryParamsSortByPid
+//	ListMachinesProcessesQueryParamsSortByStime
+//	ListMachinesProcessesQueryParamsSortByRtime
+type ListMachinesProcessesQueryParamsSortByInput interface {
+	pulumi.Input
+
+	ToListMachinesProcessesQueryParamsSortByOutput() ListMachinesProcessesQueryParamsSortByOutput
+	ToListMachinesProcessesQueryParamsSortByOutputWithContext(context.Context) ListMachinesProcessesQueryParamsSortByOutput
+}
+
+var listMachinesProcessesQueryParamsSortByPtrType = reflect.TypeOf((**ListMachinesProcessesQueryParamsSortBy)(nil)).Elem()
+
+type ListMachinesProcessesQueryParamsSortByPtrInput interface {
+	pulumi.Input
+
+	ToListMachinesProcessesQueryParamsSortByPtrOutput() ListMachinesProcessesQueryParamsSortByPtrOutput
+	ToListMachinesProcessesQueryParamsSortByPtrOutputWithContext(context.Context) ListMachinesProcessesQueryParamsSortByPtrOutput
+}
+
+type listMachinesProcessesQueryParamsSortByPtr string
+
+func ListMachinesProcessesQueryParamsSortByPtr(v string) ListMachinesProcessesQueryParamsSortByPtrInput {
+	return (*listMachinesProcessesQueryParamsSortByPtr)(&v)
+}
+
+func (*listMachinesProcessesQueryParamsSortByPtr) ElementType() reflect.Type {
+	return listMachinesProcessesQueryParamsSortByPtrType
+}
+
+func (in *listMachinesProcessesQueryParamsSortByPtr) ToListMachinesProcessesQueryParamsSortByPtrOutput() ListMachinesProcessesQueryParamsSortByPtrOutput {
+	return pulumi.ToOutput(in).(ListMachinesProcessesQueryParamsSortByPtrOutput)
+}
+
+func (in *listMachinesProcessesQueryParamsSortByPtr) ToListMachinesProcessesQueryParamsSortByPtrOutputWithContext(ctx context.Context) ListMachinesProcessesQueryParamsSortByPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, in).(ListMachinesProcessesQueryParamsSortByPtrOutput)
+}
+
+// Whether Fly.io could reach the Machine's host: `ok` if it could, `unreachable` if it
+// could not, in which case the response is built from last known state. `unknown` if the
+// host's status was not reported.
 type MachineHostStatus string
 
 const (
@@ -3007,6 +3800,7 @@ func (in *machinesRestartCreateQueryParamsSignalPtr) ToMachinesRestartCreateQuer
 	return pulumi.ToOutputWithContext(ctx, in).(MachinesRestartCreateQueryParamsSignalPtrOutput)
 }
 
+// Signal to send to the Machine's main process.
 type MachinesSignalSignal string
 
 const (
@@ -3196,6 +3990,8 @@ func (in *machinesSignalSignalPtr) ToMachinesSignalSignalPtrOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, in).(MachinesSignalSignalPtrOutput)
 }
 
+// Signal to send to the Machine's main process. Defaults to `config.stop_config.signal`, or
+// SIGINT.
 type Signal string
 
 const (
@@ -3371,6 +4167,98 @@ func (in *signalPtr) ToSignalPtrOutputWithContext(ctx context.Context) SignalPtr
 	return pulumi.ToOutputWithContext(ctx, in).(SignalPtrOutput)
 }
 
+// Always `success`.
+type Status string
+
+const (
+	StatusSuccess = Status("success")
+)
+
+type StatusOutput struct{ *pulumi.OutputState }
+
+func (StatusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*Status)(nil)).Elem()
+}
+
+func (o StatusOutput) ToStatusOutput() StatusOutput {
+	return o
+}
+
+func (o StatusOutput) ToStatusOutputWithContext(ctx context.Context) StatusOutput {
+	return o
+}
+
+func (o StatusOutput) ToStatusPtrOutput() StatusPtrOutput {
+	return o.ToStatusPtrOutputWithContext(context.Background())
+}
+
+func (o StatusOutput) ToStatusPtrOutputWithContext(ctx context.Context) StatusPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Status) *Status {
+		return &v
+	}).(StatusPtrOutput)
+}
+
+func (o StatusOutput) ToStringOutput() pulumi.StringOutput {
+	return o.ToStringOutputWithContext(context.Background())
+}
+
+func (o StatusOutput) ToStringOutputWithContext(ctx context.Context) pulumi.StringOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e Status) string {
+		return string(e)
+	}).(pulumi.StringOutput)
+}
+
+func (o StatusOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o StatusOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e Status) *string {
+		v := string(e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+type StatusPtrOutput struct{ *pulumi.OutputState }
+
+func (StatusPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**Status)(nil)).Elem()
+}
+
+func (o StatusPtrOutput) ToStatusPtrOutput() StatusPtrOutput {
+	return o
+}
+
+func (o StatusPtrOutput) ToStatusPtrOutputWithContext(ctx context.Context) StatusPtrOutput {
+	return o
+}
+
+func (o StatusPtrOutput) Elem() StatusOutput {
+	return o.ApplyT(func(v *Status) Status {
+		if v != nil {
+			return *v
+		}
+		var ret Status
+		return ret
+	}).(StatusOutput)
+}
+
+func (o StatusPtrOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o StatusPtrOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e *Status) *string {
+		if e == nil {
+			return nil
+		}
+		v := string(*e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+// Kind of volume: `local` for regular volumes, or `cache` for volumes that hold
+// disposable data and support neither snapshots nor restores.
 type Type string
 
 const (
@@ -3461,6 +4349,8 @@ func (o TypePtrOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.
 	}).(pulumi.StringPtrOutput)
 }
 
+// Whether Fly.io could reach the volume's host: `ok` if it could, `unreachable` or
+// `unknown` if it could not, in which case host-reported fields are missing.
 type VolumeHostStatus string
 
 const (
@@ -3552,6 +4442,8 @@ func (o VolumeHostStatusPtrOutput) ToStringPtrOutputWithContext(ctx context.Cont
 	}).(pulumi.StringPtrOutput)
 }
 
+// Kind of volume: `local` for regular volumes, or `cache` for volumes that hold
+// disposable data and support neither snapshots nor restores.
 type VolumeTypeEnum string
 
 const (
@@ -3669,8 +4561,14 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyReplayCacheTypePtrInput)(nil)).Elem(), FlyReplayCacheType("cookie"))
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyStopConfigSignalInput)(nil)).Elem(), FlyStopConfigSignal("SIGHUP"))
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyStopConfigSignalPtrInput)(nil)).Elem(), FlyStopConfigSignal("SIGHUP"))
+	pulumi.RegisterInputType(reflect.TypeOf((*FstypeInput)(nil)).Elem(), Fstype("ext4"))
+	pulumi.RegisterInputType(reflect.TypeOf((*FstypePtrInput)(nil)).Elem(), Fstype("ext4"))
 	pulumi.RegisterInputType(reflect.TypeOf((*GetMachinesWaitQueryParamsStateInput)(nil)).Elem(), GetMachinesWaitQueryParamsState("started"))
 	pulumi.RegisterInputType(reflect.TypeOf((*GetMachinesWaitQueryParamsStatePtrInput)(nil)).Elem(), GetMachinesWaitQueryParamsState("started"))
+	pulumi.RegisterInputType(reflect.TypeOf((*ListMachinesProcessesQueryParamsOrderInput)(nil)).Elem(), ListMachinesProcessesQueryParamsOrder("asc"))
+	pulumi.RegisterInputType(reflect.TypeOf((*ListMachinesProcessesQueryParamsOrderPtrInput)(nil)).Elem(), ListMachinesProcessesQueryParamsOrder("asc"))
+	pulumi.RegisterInputType(reflect.TypeOf((*ListMachinesProcessesQueryParamsSortByInput)(nil)).Elem(), ListMachinesProcessesQueryParamsSortBy("cpu"))
+	pulumi.RegisterInputType(reflect.TypeOf((*ListMachinesProcessesQueryParamsSortByPtrInput)(nil)).Elem(), ListMachinesProcessesQueryParamsSortBy("cpu"))
 	pulumi.RegisterInputType(reflect.TypeOf((*MachinesRestartCreateQueryParamsSignalInput)(nil)).Elem(), MachinesRestartCreateQueryParamsSignal("SIGHUP"))
 	pulumi.RegisterInputType(reflect.TypeOf((*MachinesRestartCreateQueryParamsSignalPtrInput)(nil)).Elem(), MachinesRestartCreateQueryParamsSignal("SIGHUP"))
 	pulumi.RegisterInputType(reflect.TypeOf((*MachinesSignalSignalInput)(nil)).Elem(), MachinesSignalSignal("SIGABRT"))
@@ -3679,10 +4577,14 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*SignalPtrInput)(nil)).Elem(), Signal("SIGHUP"))
 	pulumi.RegisterOutputType(AppIPAssignmentTypeOutput{})
 	pulumi.RegisterOutputType(AppIPAssignmentTypePtrOutput{})
+	pulumi.RegisterOutputType(AppStatusOutput{})
+	pulumi.RegisterOutputType(AppStatusPtrOutput{})
 	pulumi.RegisterOutputType(CertificateEntrySourceOutput{})
 	pulumi.RegisterOutputType(CertificateEntrySourcePtrOutput{})
 	pulumi.RegisterOutputType(CertificateEntryStatusOutput{})
 	pulumi.RegisterOutputType(CertificateEntryStatusPtrOutput{})
+	pulumi.RegisterOutputType(CheckStatusStatusOutput{})
+	pulumi.RegisterOutputType(CheckStatusStatusPtrOutput{})
 	pulumi.RegisterOutputType(ChecksKindOutput{})
 	pulumi.RegisterOutputType(ChecksKindPtrOutput{})
 	pulumi.RegisterOutputType(FlyContainerDependencyConditionOutput{})
@@ -3707,12 +4609,20 @@ func init() {
 	pulumi.RegisterOutputType(FlyReplayCacheTypePtrOutput{})
 	pulumi.RegisterOutputType(FlyStopConfigSignalOutput{})
 	pulumi.RegisterOutputType(FlyStopConfigSignalPtrOutput{})
+	pulumi.RegisterOutputType(FstypeOutput{})
+	pulumi.RegisterOutputType(FstypePtrOutput{})
 	pulumi.RegisterOutputType(GetMachinesWaitQueryParamsStateOutput{})
 	pulumi.RegisterOutputType(GetMachinesWaitQueryParamsStatePtrOutput{})
 	pulumi.RegisterOutputType(HostStatusOutput{})
 	pulumi.RegisterOutputType(HostStatusPtrOutput{})
 	pulumi.RegisterOutputType(IssuedCertificateTypeOutput{})
 	pulumi.RegisterOutputType(IssuedCertificateTypePtrOutput{})
+	pulumi.RegisterOutputType(LeaseResponseStatusOutput{})
+	pulumi.RegisterOutputType(LeaseResponseStatusPtrOutput{})
+	pulumi.RegisterOutputType(ListMachinesProcessesQueryParamsOrderOutput{})
+	pulumi.RegisterOutputType(ListMachinesProcessesQueryParamsOrderPtrOutput{})
+	pulumi.RegisterOutputType(ListMachinesProcessesQueryParamsSortByOutput{})
+	pulumi.RegisterOutputType(ListMachinesProcessesQueryParamsSortByPtrOutput{})
 	pulumi.RegisterOutputType(MachineHostStatusOutput{})
 	pulumi.RegisterOutputType(MachineHostStatusPtrOutput{})
 	pulumi.RegisterOutputType(MachinesRestartCreateQueryParamsSignalOutput{})
@@ -3721,6 +4631,8 @@ func init() {
 	pulumi.RegisterOutputType(MachinesSignalSignalPtrOutput{})
 	pulumi.RegisterOutputType(SignalOutput{})
 	pulumi.RegisterOutputType(SignalPtrOutput{})
+	pulumi.RegisterOutputType(StatusOutput{})
+	pulumi.RegisterOutputType(StatusPtrOutput{})
 	pulumi.RegisterOutputType(TypeOutput{})
 	pulumi.RegisterOutputType(TypePtrOutput{})
 	pulumi.RegisterOutputType(VolumeHostStatusOutput{})

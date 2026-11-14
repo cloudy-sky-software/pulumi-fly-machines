@@ -14,10 +14,12 @@ import (
 type MachinesSignal struct {
 	pulumi.CustomResourceState
 
+	// Always true.
 	Ok pulumi.BoolPtrOutput `pulumi:"ok"`
 	// Query params to send with the API requests for this resource.
 	QueryParams MachinesSignalQueryParamsPtrOutput `pulumi:"queryParams"`
-	Signal      MachinesSignalSignalPtrOutput      `pulumi:"signal"`
+	// Signal to send to the Machine's main process.
+	Signal MachinesSignalSignalPtrOutput `pulumi:"signal"`
 }
 
 // NewMachinesSignal registers a new resource with the given unique name, arguments, and options.
@@ -72,7 +74,8 @@ type machinesSignalArgs struct {
 	MachineId *string `pulumi:"machineId"`
 	// Query params to send with the API requests for this resource.
 	QueryParams *MachinesSignalQueryParams `pulumi:"queryParams"`
-	Signal      *MachinesSignalSignal      `pulumi:"signal"`
+	// Signal to send to the Machine's main process.
+	Signal *MachinesSignalSignal `pulumi:"signal"`
 }
 
 // The set of arguments for constructing a MachinesSignal resource.
@@ -83,7 +86,8 @@ type MachinesSignalArgs struct {
 	MachineId pulumi.StringPtrInput
 	// Query params to send with the API requests for this resource.
 	QueryParams MachinesSignalQueryParamsPtrInput
-	Signal      MachinesSignalSignalPtrInput
+	// Signal to send to the Machine's main process.
+	Signal MachinesSignalSignalPtrInput
 }
 
 func (MachinesSignalArgs) ElementType() reflect.Type {
@@ -123,6 +127,7 @@ func (o MachinesSignalOutput) ToMachinesSignalOutputWithContext(ctx context.Cont
 	return o
 }
 
+// Always true.
 func (o MachinesSignalOutput) Ok() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *MachinesSignal) pulumi.BoolPtrOutput { return v.Ok }).(pulumi.BoolPtrOutput)
 }
@@ -132,6 +137,7 @@ func (o MachinesSignalOutput) QueryParams() MachinesSignalQueryParamsPtrOutput {
 	return o.ApplyT(func(v *MachinesSignal) MachinesSignalQueryParamsPtrOutput { return v.QueryParams }).(MachinesSignalQueryParamsPtrOutput)
 }
 
+// Signal to send to the Machine's main process.
 func (o MachinesSignalOutput) Signal() MachinesSignalSignalPtrOutput {
 	return o.ApplyT(func(v *MachinesSignal) MachinesSignalSignalPtrOutput { return v.Signal }).(MachinesSignalSignalPtrOutput)
 }
