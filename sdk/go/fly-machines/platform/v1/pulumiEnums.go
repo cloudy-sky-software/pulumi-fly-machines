@@ -178,9 +178,105 @@ func (in *flyMachineGuestPersistRootfsPtr) ToFlyMachineGuestPersistRootfsPtrOutp
 	return pulumi.ToOutputWithContext(ctx, in).(FlyMachineGuestPersistRootfsPtrOutput)
 }
 
+// Geographic area the region belongs to.
+type MainRegionRowGeoRegion string
+
+const (
+	MainRegionRowGeoRegionAfrica       = MainRegionRowGeoRegion("africa")
+	MainRegionRowGeoRegionAsiaPacific  = MainRegionRowGeoRegion("asia_pacific")
+	MainRegionRowGeoRegionEurope       = MainRegionRowGeoRegion("europe")
+	MainRegionRowGeoRegionNorthAmerica = MainRegionRowGeoRegion("north_america")
+	MainRegionRowGeoRegionSouthAmerica = MainRegionRowGeoRegion("south_america")
+)
+
+type MainRegionRowGeoRegionOutput struct{ *pulumi.OutputState }
+
+func (MainRegionRowGeoRegionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MainRegionRowGeoRegion)(nil)).Elem()
+}
+
+func (o MainRegionRowGeoRegionOutput) ToMainRegionRowGeoRegionOutput() MainRegionRowGeoRegionOutput {
+	return o
+}
+
+func (o MainRegionRowGeoRegionOutput) ToMainRegionRowGeoRegionOutputWithContext(ctx context.Context) MainRegionRowGeoRegionOutput {
+	return o
+}
+
+func (o MainRegionRowGeoRegionOutput) ToMainRegionRowGeoRegionPtrOutput() MainRegionRowGeoRegionPtrOutput {
+	return o.ToMainRegionRowGeoRegionPtrOutputWithContext(context.Background())
+}
+
+func (o MainRegionRowGeoRegionOutput) ToMainRegionRowGeoRegionPtrOutputWithContext(ctx context.Context) MainRegionRowGeoRegionPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v MainRegionRowGeoRegion) *MainRegionRowGeoRegion {
+		return &v
+	}).(MainRegionRowGeoRegionPtrOutput)
+}
+
+func (o MainRegionRowGeoRegionOutput) ToStringOutput() pulumi.StringOutput {
+	return o.ToStringOutputWithContext(context.Background())
+}
+
+func (o MainRegionRowGeoRegionOutput) ToStringOutputWithContext(ctx context.Context) pulumi.StringOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e MainRegionRowGeoRegion) string {
+		return string(e)
+	}).(pulumi.StringOutput)
+}
+
+func (o MainRegionRowGeoRegionOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o MainRegionRowGeoRegionOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e MainRegionRowGeoRegion) *string {
+		v := string(e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+type MainRegionRowGeoRegionPtrOutput struct{ *pulumi.OutputState }
+
+func (MainRegionRowGeoRegionPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**MainRegionRowGeoRegion)(nil)).Elem()
+}
+
+func (o MainRegionRowGeoRegionPtrOutput) ToMainRegionRowGeoRegionPtrOutput() MainRegionRowGeoRegionPtrOutput {
+	return o
+}
+
+func (o MainRegionRowGeoRegionPtrOutput) ToMainRegionRowGeoRegionPtrOutputWithContext(ctx context.Context) MainRegionRowGeoRegionPtrOutput {
+	return o
+}
+
+func (o MainRegionRowGeoRegionPtrOutput) Elem() MainRegionRowGeoRegionOutput {
+	return o.ApplyT(func(v *MainRegionRowGeoRegion) MainRegionRowGeoRegion {
+		if v != nil {
+			return *v
+		}
+		var ret MainRegionRowGeoRegion
+		return ret
+	}).(MainRegionRowGeoRegionOutput)
+}
+
+func (o MainRegionRowGeoRegionPtrOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o MainRegionRowGeoRegionPtrOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e *MainRegionRowGeoRegion) *string {
+		if e == nil {
+			return nil
+		}
+		v := string(*e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineGuestPersistRootfsInput)(nil)).Elem(), FlyMachineGuestPersistRootfs("never"))
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineGuestPersistRootfsPtrInput)(nil)).Elem(), FlyMachineGuestPersistRootfs("never"))
 	pulumi.RegisterOutputType(FlyMachineGuestPersistRootfsOutput{})
 	pulumi.RegisterOutputType(FlyMachineGuestPersistRootfsPtrOutput{})
+	pulumi.RegisterOutputType(MainRegionRowGeoRegionOutput{})
+	pulumi.RegisterOutputType(MainRegionRowGeoRegionPtrOutput{})
 }

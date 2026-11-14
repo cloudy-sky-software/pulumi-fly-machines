@@ -27,8 +27,17 @@ export interface ListAppCertificatesArgs {
 }
 
 export interface ListAppCertificatesResult {
+    /**
+     * The certificates on this page, ordered by when they were added.
+     */
     readonly certificates?: outputs.apps.v1.CertificateSummary[];
+    /**
+     * Pagination cursor for the next page. Absent when no more certificates remain.
+     */
     readonly nextCursor?: string;
+    /**
+     * Number of certificates matching `filter` (and after `cursor`, if given), across all pages.
+     */
     readonly totalCount?: number;
 }
 export function listAppCertificatesOutput(args: ListAppCertificatesOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<ListAppCertificatesResult> {

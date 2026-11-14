@@ -13,6 +13,10 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
     [FlyMachinesResourceType("fly-machines:apps/v1:VolumesExtend")]
     public partial class VolumesExtend : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// Whether the volume is attached to a running Machine that could not resize its filesystem
+        /// while running. If true, restart the Machine for the filesystem to use the new size.
+        /// </summary>
         [Output("needsRestart")]
         public Output<bool?> NeedsRestart { get; private set; } = null!;
 
@@ -22,11 +26,18 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Output("queryParams")]
         public Output<Outputs.VolumesExtendQueryParams?> QueryParams { get; private set; } = null!;
 
+        /// <summary>
+        /// New size of the volume in GiB. Must be larger than the current size and at most the
+        /// organization's maximum (500 by default).
+        /// </summary>
         [Output("sizeGb")]
         public Output<int?> SizeGb { get; private set; } = null!;
 
+        /// <summary>
+        /// The extended volume.
+        /// </summary>
         [Output("volume")]
-        public Output<Outputs.Volume?> Volume { get; private set; } = null!;
+        public Output<Outputs.VolumesExtendVolume?> Volume { get; private set; } = null!;
 
 
         /// <summary>
@@ -86,6 +97,10 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Input("queryParams")]
         public Input<Inputs.VolumesExtendQueryParamsArgs>? QueryParams { get; set; }
 
+        /// <summary>
+        /// New size of the volume in GiB. Must be larger than the current size and at most the
+        /// organization's maximum (500 by default).
+        /// </summary>
         [Input("sizeGb")]
         public Input<int>? SizeGb { get; set; }
 

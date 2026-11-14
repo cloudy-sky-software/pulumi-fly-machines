@@ -13,6 +13,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.TokensV1
     [FlyMachinesResourceType("fly-machines:tokens/v1:TokensAuthenticate")]
     public partial class TokensAuthenticate : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// Value of the Authorization header to verify, e.g. `FlyV1 fm2_...`.
+        /// </summary>
         [Output("header")]
         public Output<string?> Header { get; private set; } = null!;
 
@@ -68,6 +71,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.TokensV1
 
     public sealed class TokensAuthenticateArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Value of the Authorization header to verify, e.g. `FlyV1 fm2_...`.
+        /// </summary>
         [Input("header")]
         public Input<string>? Header { get; set; }
 

@@ -14,14 +14,40 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     [OutputType]
     public sealed class FlyMachinePort
     {
+        /// <summary>
+        /// Last public port of a range
+        /// </summary>
         public readonly int? EndPort;
+        /// <summary>
+        /// Redirect plain HTTP requests to HTTPS
+        /// </summary>
         public readonly bool? ForceHttps;
+        /// <summary>
+        /// How Fly Proxy handles connections before forwarding them: `tls` terminates TLS, `pg_tls`
+        /// terminates PostgreSQL TLS, `http` handles HTTP, `proxy_proto` adds a PROXY protocol header.
+        /// Without handlers, raw TCP is forwarded
+        /// </summary>
         public readonly ImmutableArray<string> Handlers;
-        public readonly Outputs.FlyHTTPOptions? HttpOptions;
+        /// <summary>
+        /// Options for the `http` handler
+        /// </summary>
+        public readonly Outputs.FlyMachinePortHttpOptions? HttpOptions;
+        /// <summary>
+        /// Public port. Use either port, or start_port and end_port
+        /// </summary>
         public readonly int? Port;
-        public readonly Outputs.FlyProxyProtoOptions? ProxyProtoOptions;
+        /// <summary>
+        /// Options for the `proxy_proto` handler
+        /// </summary>
+        public readonly Outputs.FlyMachinePortProxyProtoOptions? ProxyProtoOptions;
+        /// <summary>
+        /// First public port of a range
+        /// </summary>
         public readonly int? StartPort;
-        public readonly Outputs.FlyTLSOptions? TlsOptions;
+        /// <summary>
+        /// Options for the `tls` handler
+        /// </summary>
+        public readonly Outputs.FlyMachinePortTlsOptions? TlsOptions;
 
         [OutputConstructor]
         private FlyMachinePort(
@@ -31,15 +57,15 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
 
             ImmutableArray<string> handlers,
 
-            Outputs.FlyHTTPOptions? httpOptions,
+            Outputs.FlyMachinePortHttpOptions? httpOptions,
 
             int? port,
 
-            Outputs.FlyProxyProtoOptions? proxyProtoOptions,
+            Outputs.FlyMachinePortProxyProtoOptions? proxyProtoOptions,
 
             int? startPort,
 
-            Outputs.FlyTLSOptions? tlsOptions)
+            Outputs.FlyMachinePortTlsOptions? tlsOptions)
         {
             EndPort = endPort;
             ForceHttps = forceHttps;

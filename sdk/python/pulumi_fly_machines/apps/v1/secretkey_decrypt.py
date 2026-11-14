@@ -22,14 +22,16 @@ __all__ = ['SecretkeyDecryptArgs', 'SecretkeyDecrypt']
 class SecretkeyDecryptArgs:
     def __init__(__self__, *,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
-                 associated_data: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]] = None,
-                 ciphertext: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]] = None,
+                 associated_data: pulumi.Input[Optional[_builtins.str]] = None,
+                 ciphertext: pulumi.Input[Optional[_builtins.str]] = None,
                  query_params: pulumi.Input[Optional['SecretkeyDecryptQueryParamsArgs']] = None,
                  secret_name: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a SecretkeyDecrypt resource.
 
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
+        :param pulumi.Input[_builtins.str] associated_data: Additional data passed when encrypting, base64-encoded.
+        :param pulumi.Input[_builtins.str] ciphertext: Data to decrypt, as returned by the encrypt endpoint, base64-encoded.
         :param pulumi.Input['SecretkeyDecryptQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input[_builtins.str] secret_name: Secret key name
         """
@@ -58,20 +60,26 @@ class SecretkeyDecryptArgs:
 
     @_builtins.property
     @pulumi.getter(name="associatedData")
-    def associated_data(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]]:
+    def associated_data(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Additional data passed when encrypting, base64-encoded.
+        """
         return pulumi.get(self, "associated_data")
 
     @associated_data.setter
-    def associated_data(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]]):
+    def associated_data(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "associated_data", value)
 
     @_builtins.property
     @pulumi.getter
-    def ciphertext(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]]:
+    def ciphertext(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Data to decrypt, as returned by the encrypt endpoint, base64-encoded.
+        """
         return pulumi.get(self, "ciphertext")
 
     @ciphertext.setter
-    def ciphertext(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]]):
+    def ciphertext(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ciphertext", value)
 
     @_builtins.property
@@ -106,8 +114,8 @@ class SecretkeyDecrypt(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
-                 associated_data: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]] = None,
-                 ciphertext: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]] = None,
+                 associated_data: pulumi.Input[Optional[_builtins.str]] = None,
+                 ciphertext: pulumi.Input[Optional[_builtins.str]] = None,
                  query_params: pulumi.Input[Optional[Union['SecretkeyDecryptQueryParamsArgs', 'SecretkeyDecryptQueryParamsArgsDict', 'outputs.SecretkeyDecryptQueryParams']]] = None,
                  secret_name: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
@@ -117,6 +125,8 @@ class SecretkeyDecrypt(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
+        :param pulumi.Input[_builtins.str] associated_data: Additional data passed when encrypting, base64-encoded.
+        :param pulumi.Input[_builtins.str] ciphertext: Data to decrypt, as returned by the encrypt endpoint, base64-encoded.
         :param pulumi.Input[Union['SecretkeyDecryptQueryParamsArgs', 'SecretkeyDecryptQueryParamsArgsDict', 'outputs.SecretkeyDecryptQueryParams']] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input[_builtins.str] secret_name: Secret key name
         """
@@ -145,8 +155,8 @@ class SecretkeyDecrypt(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
-                 associated_data: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]] = None,
-                 ciphertext: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]] = None,
+                 associated_data: pulumi.Input[Optional[_builtins.str]] = None,
+                 ciphertext: pulumi.Input[Optional[_builtins.str]] = None,
                  query_params: pulumi.Input[Optional[Union['SecretkeyDecryptQueryParamsArgs', 'SecretkeyDecryptQueryParamsArgsDict', 'outputs.SecretkeyDecryptQueryParams']]] = None,
                  secret_name: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
@@ -200,17 +210,26 @@ class SecretkeyDecrypt(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="associatedData")
-    def associated_data(self) -> pulumi.Output[Optional[Sequence[_builtins.int]]]:
+    def associated_data(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Additional data passed when encrypting, base64-encoded.
+        """
         return pulumi.get(self, "associated_data")
 
     @_builtins.property
     @pulumi.getter
-    def ciphertext(self) -> pulumi.Output[Optional[Sequence[_builtins.int]]]:
+    def ciphertext(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Data to decrypt, as returned by the encrypt endpoint, base64-encoded.
+        """
         return pulumi.get(self, "ciphertext")
 
     @_builtins.property
     @pulumi.getter
-    def plaintext(self) -> pulumi.Output[Optional[Sequence[_builtins.int]]]:
+    def plaintext(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Decrypted data, base64-encoded.
+        """
         return pulumi.get(self, "plaintext")
 
     @_builtins.property

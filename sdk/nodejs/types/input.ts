@@ -201,7 +201,67 @@ export namespace apps {
         }
 
         /**
-         * An object defining the Machine configuration
+         * Requirements of the Machine that will use the volume, so that the volume is placed on a
+         * host that can run it. Uses `cpus`, `memory_mb`, `cpu_kind`, `host_dedication_id`, and
+         * `required_host_features`.
+         */
+        export interface ComputeArgs {
+            /**
+             * Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
+             * Defaults to shared when `guest` is omitted
+             */
+            cpuKind?: pulumi.Input<string | undefined>;
+            /**
+             * Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
+             * performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
+             * omitted
+             */
+            cpus?: pulumi.Input<number | undefined>;
+            /**
+             * No longer supported. Requests that set it are rejected
+             */
+            gpuKind?: pulumi.Input<string | undefined>;
+            /**
+             * No longer supported. Requests that set it are rejected
+             */
+            gpus?: pulumi.Input<number | undefined>;
+            /**
+             * Place the Machine on hosts dedicated to the organization under this ID. Only available to
+             * organizations with dedicated hosts
+             */
+            hostDedicationId?: pulumi.Input<string | undefined>;
+            /**
+             * Extra arguments appended to the guest kernel command line
+             */
+            kernelArgs?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+            /**
+             * Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
+             * the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
+             * starts with a limit of memory_mb
+             */
+            maxMemoryMb?: pulumi.Input<number | undefined>;
+            /**
+             * Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
+             * between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
+             * `guest` is omitted
+             */
+            memoryMb?: pulumi.Input<number | undefined>;
+            /**
+             * Deprecated: use MachineConfig.Rootfs instead
+             */
+            persistRootfs?: pulumi.Input<enums.apps.v1.FlyMachineGuestPersistRootfs | undefined>;
+            /**
+             * Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
+             * of lowercase letters, digits and dashes. Each feature must be enabled for the organization
+             */
+            requiredHostFeatures?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+        }
+
+        /**
+         * The Machine's configuration, as provided when it was created or last updated, with
+         * `metadata` and `mounts` reflecting their current values. Null when the host is not
+         * reachable (`host_status` is not `ok`) or `summary=true` was requested; see
+         * `incomplete_config`.
          */
         export interface ConfigArgs {
             /**
@@ -209,7 +269,7 @@ export namespace apps {
              */
             autoDestroy?: pulumi.Input<boolean | undefined>;
             /**
-             * A cache drive attached to the Machine
+             * Beta: a cache drive attached to the Machine. This field may be removed in the future
              */
             cacheDrive?: pulumi.Input<inputs.apps.v1.FlyMachineConfigCacheDriveArgs | undefined>;
             /**
@@ -272,7 +332,8 @@ export namespace apps {
              */
             restart?: pulumi.Input<inputs.apps.v1.FlyMachineConfigRestartArgs | undefined>;
             /**
-             * The size of the Machine's root filesystem and whether it persists
+             * Beta: the size of the Machine's root filesystem and whether it persists. This field may be
+             * removed in the future
              */
             rootfs?: pulumi.Input<inputs.apps.v1.FlyMachineConfigRootfsArgs | undefined>;
             /**
@@ -393,17 +454,34 @@ export namespace apps {
          * Stop is used to define the signal and timeout for stopping the container.
          */
         export interface FlyContainerConfigStopArgs {
+            /**
+             * Signal to send to the Machine's processes. Defaults to SIGINT
+             */
             signal?: pulumi.Input<enums.apps.v1.FlyStopConfigSignal | undefined>;
+            /**
+             * How long to wait for the Machine to exit after sending the signal, before killing it. At most
+             * 5 minutes (1 minute for spot Machines). Defaults to 5s (60s for spot Machines)
+             */
             timeout?: pulumi.Input<string | undefined>;
         }
 
         export interface FlyContainerDependencyArgs {
+            /**
+             * When the container can start: once the dependency has `started`, is `healthy`, or has
+             * `exited_successfully`
+             */
             condition?: pulumi.Input<enums.apps.v1.FlyContainerDependencyCondition | undefined>;
+            /**
+             * Name of the container this one depends on
+             */
             name?: pulumi.Input<string | undefined>;
         }
 
         export interface FlyContainerHealthcheckArgs {
-            exec?: pulumi.Input<inputs.apps.v1.FlyExecHealthcheckArgs | undefined>;
+            /**
+             * Check that a command run in the container exits with status 0
+             */
+            exec?: pulumi.Input<inputs.apps.v1.FlyContainerHealthcheckExecArgs | undefined>;
             /**
              * The number of times the check must fail before considering the container unhealthy.
              */
@@ -412,7 +490,10 @@ export namespace apps {
              * The time in seconds to wait after a container starts before checking its health.
              */
             gracePeriod?: pulumi.Input<number | undefined>;
-            http?: pulumi.Input<inputs.apps.v1.FlyHTTPHealthcheckArgs | undefined>;
+            /**
+             * Check that an HTTP request succeeds
+             */
+            http?: pulumi.Input<inputs.apps.v1.FlyContainerHealthcheckHttpArgs | undefined>;
             /**
              * The time in seconds between executing the defined check.
              */
@@ -429,7 +510,10 @@ export namespace apps {
              * The number of times the check must succeeed before considering the container healthy.
              */
             successThreshold?: pulumi.Input<number | undefined>;
-            tcp?: pulumi.Input<inputs.apps.v1.FlyTCPHealthcheckArgs | undefined>;
+            /**
+             * Check that a TCP connection can be opened
+             */
+            tcp?: pulumi.Input<inputs.apps.v1.FlyContainerHealthcheckTcpArgs | undefined>;
             /**
              * The time in seconds to wait for the check to complete.
              */
@@ -440,32 +524,10 @@ export namespace apps {
             unhealthy?: pulumi.Input<enums.apps.v1.FlyContainerHealthcheckUnhealthy | undefined>;
         }
 
-        export interface FlyDnsForwardRuleArgs {
-            addr?: pulumi.Input<string | undefined>;
-            basename?: pulumi.Input<string | undefined>;
-        }
-
-        export interface FlyDnsOptionArgs {
-            name?: pulumi.Input<string | undefined>;
-            value?: pulumi.Input<string | undefined>;
-        }
-
         /**
-         * EnvVar defines an environment variable to be populated from a machine field, env_var
+         * Check that a command run in the container exits with status 0
          */
-        export interface FlyEnvFromArgs {
-            /**
-             * EnvVar is required and is the name of the environment variable that will be set from the
-             * secret. It must be a valid environment variable name.
-             */
-            envVar?: pulumi.Input<string | undefined>;
-            /**
-             * FieldRef selects a field of the Machine: supports id, version, app_name, private_ip, region, image.
-             */
-            fieldRef?: pulumi.Input<enums.apps.v1.FlyEnvFromFieldRef | undefined>;
-        }
-
-        export interface FlyExecHealthcheckArgs {
+        export interface FlyContainerHealthcheckExecArgs {
             /**
              * The command to run to check the health of the container (e.g. ["cat", "/tmp/healthy"])
              */
@@ -473,33 +535,9 @@ export namespace apps {
         }
 
         /**
-         * A file that will be written to the Machine. One of RawValue or SecretName must be set.
+         * Check that an HTTP request succeeds
          */
-        export interface FlyFileArgs {
-            /**
-             * GuestPath is the path on the machine where the file will be written and must be an absolute path.
-             * For example: /full/path/to/file.json
-             */
-            guestPath?: pulumi.Input<string | undefined>;
-            /**
-             * The name of an image to use the OCI image config as the file contents.
-             */
-            imageConfig?: pulumi.Input<string | undefined>;
-            /**
-             * Mode bits used to set permissions on this file as accepted by chmod(2).
-             */
-            mode?: pulumi.Input<number | undefined>;
-            /**
-             * The base64 encoded string of the file contents.
-             */
-            rawValue?: pulumi.Input<string | undefined>;
-            /**
-             * The name of the secret that contains the base64 encoded file contents.
-             */
-            secretName?: pulumi.Input<string | undefined>;
-        }
-
-        export interface FlyHTTPHealthcheckArgs {
+        export interface FlyContainerHealthcheckHttpArgs {
             /**
              * Additional headers to send with the request
              */
@@ -530,24 +568,110 @@ export namespace apps {
             tlsSkipVerify?: pulumi.Input<boolean | undefined>;
         }
 
-        export interface FlyHTTPOptionsArgs {
-            compress?: pulumi.Input<boolean | undefined>;
-            h2Backend?: pulumi.Input<boolean | undefined>;
-            headersReadTimeout?: pulumi.Input<number | undefined>;
-            idleTimeout?: pulumi.Input<number | undefined>;
-            replayCache?: pulumi.Input<pulumi.Input<inputs.apps.v1.FlyReplayCacheArgs>[] | undefined>;
-            response?: pulumi.Input<inputs.apps.v1.FlyHTTPResponseOptionsArgs | undefined>;
+        /**
+         * Check that a TCP connection can be opened
+         */
+        export interface FlyContainerHealthcheckTcpArgs {
+            /**
+             * The port to connect to, often the same as internal_port
+             */
+            port?: pulumi.Input<number | undefined>;
         }
 
-        export interface FlyHTTPResponseOptionsArgs {
+        export interface FlyDnsForwardRuleArgs {
+            /**
+             * Address and port of the DNS server to forward queries to over TCP, e.g. `10.0.0.1:53`
+             */
+            addr?: pulumi.Input<string | undefined>;
+            /**
+             * Domain to forward queries for, including subdomains. Must end in a dot, e.g. `example.com.`
+             */
+            basename?: pulumi.Input<string | undefined>;
+        }
+
+        export interface FlyDnsOptionArgs {
+            /**
+             * Option name, e.g. `ndots`
+             */
+            name?: pulumi.Input<string | undefined>;
+            /**
+             * Option value, e.g. `5`
+             */
+            value?: pulumi.Input<string | undefined>;
+        }
+
+        /**
+         * EnvVar defines an environment variable to be populated from a machine field, env_var
+         */
+        export interface FlyEnvFromArgs {
+            /**
+             * EnvVar is required and is the name of the environment variable that will be set from the
+             * secret. It must be a valid environment variable name.
+             */
+            envVar?: pulumi.Input<string | undefined>;
+            /**
+             * FieldRef selects a field of the Machine: supports id, version, app_name, private_ip, region, image.
+             */
+            fieldRef?: pulumi.Input<enums.apps.v1.FlyEnvFromFieldRef | undefined>;
+        }
+
+        /**
+         * A file that will be written to the Machine. One of RawValue or SecretName must be set.
+         */
+        export interface FlyFileArgs {
+            /**
+             * GuestPath is the path on the machine where the file will be written and must be an absolute path.
+             * For example: /full/path/to/file.json
+             */
+            guestPath?: pulumi.Input<string | undefined>;
+            /**
+             * The name of an image to use the OCI image config as the file contents.
+             */
+            imageConfig?: pulumi.Input<string | undefined>;
+            /**
+             * Mode bits used to set permissions on this file as accepted by chmod(2).
+             */
+            mode?: pulumi.Input<number | undefined>;
+            /**
+             * The base64 encoded string of the file contents.
+             */
+            rawValue?: pulumi.Input<string | undefined>;
+            /**
+             * The name of the secret that contains the base64 encoded file contents.
+             */
+            secretName?: pulumi.Input<string | undefined>;
+        }
+
+        /**
+         * Changes Fly Proxy makes to responses
+         */
+        export interface FlyHTTPOptionsResponseArgs {
+            /**
+             * Response headers to set. A string sets the header, a list of strings sets it to multiple
+             * values, and false removes it
+             */
             headers?: pulumi.Input<{[key: string]: any} | undefined>;
+            /**
+             * Don't let Fly Proxy add or change any response headers
+             */
             pristine?: pulumi.Input<boolean | undefined>;
         }
 
         /**
-         * A cache drive attached to the Machine
+         * Beta: a cache drive attached to the Machine. This field may be removed in the future
          */
         export interface FlyMachineConfigCacheDriveArgs {
+            /**
+             * Optional absolute guest mount path. When set, the device is formatted as ext4.
+             * Without a path, the device retains legacy raw block behavior. Contents survive
+             * same-host restarts and path changes, but are discarded on size or mode changes,
+             * relocation, recovery on another host, and cloning.
+             */
+            path?: pulumi.Input<string | undefined>;
+            /**
+             * Fixed size of the Machine-owned cache drive in MiB. At most 51200.
+             * With a path, at least 16 MiB is required; without a path, 0 disables the device.
+             */
             sizeMb?: pulumi.Input<number | undefined>;
         }
 
@@ -559,6 +683,9 @@ export namespace apps {
              * The time to wait after a VM starts before checking its health
              */
             gracePeriod?: pulumi.Input<string | undefined>;
+            /**
+             * For http checks, headers to send with the request
+             */
             headers?: pulumi.Input<pulumi.Input<inputs.apps.v1.FlyMachineHTTPHeaderArgs>[] | undefined>;
             /**
              * The time between connectivity checks
@@ -606,12 +733,34 @@ export namespace apps {
          * DNS settings for the Machine
          */
         export interface FlyMachineConfigDnsArgs {
+            /**
+             * Forward DNS queries for some domains to other DNS servers
+             */
             dnsForwardRules?: pulumi.Input<pulumi.Input<inputs.apps.v1.FlyDnsForwardRuleArgs>[] | undefined>;
+            /**
+             * Hostname of the Machine. Defaults to the Machine ID. Also added to /etc/hosts with the
+             * Machine's 6PN address
+             */
             hostname?: pulumi.Input<string | undefined>;
+            /**
+             * Fully qualified domain name added to /etc/hosts for `hostname`
+             */
             hostnameFqdn?: pulumi.Input<string | undefined>;
+            /**
+             * Nameservers to use instead of the default, Fly.io's private DNS server `fdaa::3`
+             */
             nameservers?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+            /**
+             * Options for /etc/resolv.conf
+             */
             options?: pulumi.Input<pulumi.Input<inputs.apps.v1.FlyDnsOptionArgs>[] | undefined>;
+            /**
+             * Search domains for /etc/resolv.conf
+             */
             searches?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+            /**
+             * Currently has no effect
+             */
             skipRegistration?: pulumi.Input<boolean | undefined>;
         }
 
@@ -619,18 +768,54 @@ export namespace apps {
          * The resources (CPUs, memory, etc.) allocated to the Machine
          */
         export interface FlyMachineConfigGuestArgs {
+            /**
+             * Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
+             * Defaults to shared when `guest` is omitted
+             */
             cpuKind?: pulumi.Input<string | undefined>;
+            /**
+             * Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
+             * performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
+             * omitted
+             */
             cpus?: pulumi.Input<number | undefined>;
+            /**
+             * No longer supported. Requests that set it are rejected
+             */
             gpuKind?: pulumi.Input<string | undefined>;
+            /**
+             * No longer supported. Requests that set it are rejected
+             */
             gpus?: pulumi.Input<number | undefined>;
+            /**
+             * Place the Machine on hosts dedicated to the organization under this ID. Only available to
+             * organizations with dedicated hosts
+             */
             hostDedicationId?: pulumi.Input<string | undefined>;
+            /**
+             * Extra arguments appended to the guest kernel command line
+             */
             kernelArgs?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+            /**
+             * Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
+             * the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
+             * starts with a limit of memory_mb
+             */
             maxMemoryMb?: pulumi.Input<number | undefined>;
+            /**
+             * Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
+             * between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
+             * `guest` is omitted
+             */
             memoryMb?: pulumi.Input<number | undefined>;
             /**
              * Deprecated: use MachineConfig.Rootfs instead
              */
             persistRootfs?: pulumi.Input<enums.apps.v1.FlyMachineGuestPersistRootfs | undefined>;
+            /**
+             * Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
+             * of lowercase letters, digits and dashes. Each feature must be enabled for the organization
+             */
             requiredHostFeatures?: pulumi.Input<pulumi.Input<string>[] | undefined>;
         }
 
@@ -638,11 +823,30 @@ export namespace apps {
          * Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run
          */
         export interface FlyMachineConfigInitArgs {
+            /**
+             * Replaces the image's CMD. It's appended to the entrypoint
+             */
             cmd?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+            /**
+             * Replaces the image's ENTRYPOINT
+             */
             entrypoint?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+            /**
+             * Command to run instead of the image's ENTRYPOINT and CMD. Takes precedence over entrypoint
+             * and cmd
+             */
             exec?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+            /**
+             * Currently has no effect. Use `guest.kernel_args` instead
+             */
             kernelArgs?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+            /**
+             * Size in MiB of a swap device to give the Machine. Machines with swap cannot be suspended
+             */
             swapSizeMb?: pulumi.Input<number | undefined>;
+            /**
+             * Currently has no effect
+             */
             tty?: pulumi.Input<boolean | undefined>;
         }
 
@@ -650,8 +854,17 @@ export namespace apps {
          * An optional metrics endpoint for Prometheus on Fly.io to scrape
          */
         export interface FlyMachineConfigMetricsArgs {
+            /**
+             * Scrape over HTTPS instead of HTTP
+             */
             https?: pulumi.Input<boolean | undefined>;
+            /**
+             * HTTP path to scrape. Defaults to `/`
+             */
             path?: pulumi.Input<string | undefined>;
+            /**
+             * Port in the Machine to scrape metrics from
+             */
             port?: pulumi.Input<number | undefined>;
         }
 
@@ -672,10 +885,19 @@ export namespace apps {
         }
 
         /**
-         * The size of the Machine's root filesystem and whether it persists
+         * Beta: the size of the Machine's root filesystem and whether it persists. This field may be
+         * removed in the future
          */
         export interface FlyMachineConfigRootfsArgs {
+            /**
+             * Whether changes to the root filesystem are kept. `never` (default): reset on every start.
+             * `restart`: kept across stops and restarts, reset when the Machine is updated. `always`: also
+             * kept across updates
+             */
             persist?: pulumi.Input<enums.apps.v1.FlyMachineRootfsPersist | undefined>;
+            /**
+             * Size of the root filesystem in GB. At most 50; 0 uses the default
+             */
             sizeGb?: pulumi.Input<number | undefined>;
         }
 
@@ -693,24 +915,15 @@ export namespace apps {
          * How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown
          */
         export interface FlyMachineConfigStopConfigArgs {
-            signal?: pulumi.Input<enums.apps.v1.FlyStopConfigSignal | undefined>;
-            timeout?: pulumi.Input<string | undefined>;
-        }
-
-        export interface FlyMachineGuestArgs {
-            cpuKind?: pulumi.Input<string | undefined>;
-            cpus?: pulumi.Input<number | undefined>;
-            gpuKind?: pulumi.Input<string | undefined>;
-            gpus?: pulumi.Input<number | undefined>;
-            hostDedicationId?: pulumi.Input<string | undefined>;
-            kernelArgs?: pulumi.Input<pulumi.Input<string>[] | undefined>;
-            maxMemoryMb?: pulumi.Input<number | undefined>;
-            memoryMb?: pulumi.Input<number | undefined>;
             /**
-             * Deprecated: use MachineConfig.Rootfs instead
+             * Signal to send to the Machine's processes. Defaults to SIGINT
              */
-            persistRootfs?: pulumi.Input<enums.apps.v1.FlyMachineGuestPersistRootfs | undefined>;
-            requiredHostFeatures?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+            signal?: pulumi.Input<enums.apps.v1.FlyStopConfigSignal | undefined>;
+            /**
+             * How long to wait for the Machine to exit after sending the signal, before killing it. At most
+             * 5 minutes (1 minute for spot Machines). Defaults to 5s (60s for spot Machines)
+             */
+            timeout?: pulumi.Input<string | undefined>;
         }
 
         /**
@@ -728,44 +941,174 @@ export namespace apps {
         }
 
         export interface FlyMachineMountArgs {
+            /**
+             * With automatic extension, grow the volume by this many GB at a time. Between 1 and 100.
+             * Mutually exclusive with add_size_percent
+             */
             addSizeGb?: pulumi.Input<number | undefined>;
             /**
              * AddSizePercent grows by a percentage of the current size, rounded up to GiB.
              * It is mutually exclusive with AddSizeGb.
              */
             addSizePercent?: pulumi.Input<number | undefined>;
+            /**
+             * Whether the volume is encrypted. Set by Fly.io; ignored in requests
+             */
             encrypted?: pulumi.Input<boolean | undefined>;
+            /**
+             * Enable automatic volume extension: grow the volume when its usage exceeds this percentage.
+             * Between 50 and 99; 0 disables it
+             */
             extendThresholdPercent?: pulumi.Input<number | undefined>;
             /**
              * MinAddSizeGb is the minimum proportional growth in GiB (default 1).
              */
             minAddSizeGb?: pulumi.Input<number | undefined>;
+            /**
+             * Name of the volume. Set by Fly.io; ignored in requests
+             */
             name?: pulumi.Input<string | undefined>;
+            /**
+             * Absolute path in the Machine to mount the volume at. Required
+             */
             path?: pulumi.Input<string | undefined>;
+            /**
+             * Size of the volume in GB. Set by Fly.io; ignored in requests
+             */
             sizeGb?: pulumi.Input<number | undefined>;
+            /**
+             * With automatic extension, never grow the volume beyond this size in GB. At most the
+             * organization's maximum volume size
+             */
             sizeGbLimit?: pulumi.Input<number | undefined>;
+            /**
+             * ID (`vol_...`) or name of the volume to mount. Required. With a name, any unattached volume
+             * of the app with that name in the Machine's region is used
+             */
             volume?: pulumi.Input<string | undefined>;
         }
 
         export interface FlyMachinePortArgs {
+            /**
+             * Last public port of a range
+             */
             endPort?: pulumi.Input<number | undefined>;
+            /**
+             * Redirect plain HTTP requests to HTTPS
+             */
             forceHttps?: pulumi.Input<boolean | undefined>;
+            /**
+             * How Fly Proxy handles connections before forwarding them: `tls` terminates TLS, `pg_tls`
+             * terminates PostgreSQL TLS, `http` handles HTTP, `proxy_proto` adds a PROXY protocol header.
+             * Without handlers, raw TCP is forwarded
+             */
             handlers?: pulumi.Input<pulumi.Input<string>[] | undefined>;
-            httpOptions?: pulumi.Input<inputs.apps.v1.FlyHTTPOptionsArgs | undefined>;
+            /**
+             * Options for the `http` handler
+             */
+            httpOptions?: pulumi.Input<inputs.apps.v1.FlyMachinePortHttpOptionsArgs | undefined>;
+            /**
+             * Public port. Use either port, or start_port and end_port
+             */
             port?: pulumi.Input<number | undefined>;
-            proxyProtoOptions?: pulumi.Input<inputs.apps.v1.FlyProxyProtoOptionsArgs | undefined>;
+            /**
+             * Options for the `proxy_proto` handler
+             */
+            proxyProtoOptions?: pulumi.Input<inputs.apps.v1.FlyMachinePortProxyProtoOptionsArgs | undefined>;
+            /**
+             * First public port of a range
+             */
             startPort?: pulumi.Input<number | undefined>;
-            tlsOptions?: pulumi.Input<inputs.apps.v1.FlyTLSOptionsArgs | undefined>;
+            /**
+             * Options for the `tls` handler
+             */
+            tlsOptions?: pulumi.Input<inputs.apps.v1.FlyMachinePortTlsOptionsArgs | undefined>;
+        }
+
+        /**
+         * Options for the `http` handler
+         */
+        export interface FlyMachinePortHttpOptionsArgs {
+            /**
+             * Compress response bodies. Defaults to true
+             */
+            compress?: pulumi.Input<boolean | undefined>;
+            /**
+             * Use HTTP/2 to talk to the Machine
+             */
+            h2Backend?: pulumi.Input<boolean | undefined>;
+            /**
+             * Seconds Fly Proxy waits for a client to send request headers. Defaults to 5
+             */
+            headersReadTimeout?: pulumi.Input<number | undefined>;
+            /**
+             * Seconds a client connection can be idle between requests before it's closed. Defaults to 300
+             */
+            idleTimeout?: pulumi.Input<number | undefined>;
+            /**
+             * Cache `fly-replay` responses from the Machine: once a client is replayed, its further
+             * requests are replayed directly, keyed on a cookie or header, without asking the Machine again
+             */
+            replayCache?: pulumi.Input<pulumi.Input<inputs.apps.v1.FlyReplayCacheArgs>[] | undefined>;
+            /**
+             * Changes Fly Proxy makes to responses
+             */
+            response?: pulumi.Input<inputs.apps.v1.FlyHTTPOptionsResponseArgs | undefined>;
+        }
+
+        /**
+         * Options for the `proxy_proto` handler
+         */
+        export interface FlyMachinePortProxyProtoOptionsArgs {
+            /**
+             * With version v2, add the Fly-Src header and its signature to the PROXY protocol header
+             */
+            flySrc?: pulumi.Input<boolean | undefined>;
+            /**
+             * PROXY protocol version: v1 (default) or v2
+             */
+            version?: pulumi.Input<string | undefined>;
+        }
+
+        /**
+         * Options for the `tls` handler
+         */
+        export interface FlyMachinePortTlsOptionsArgs {
+            /**
+             * ALPN protocols to offer, e.g. `h2`, `http/1.1`. Defaults to `h2` and `http/1.1`
+             */
+            alpn?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+            /**
+             * Use a self-signed certificate when there is no certificate for the requested hostname
+             */
+            defaultSelfSigned?: pulumi.Input<boolean | undefined>;
+            /**
+             * TLS versions to accept: `TLSv1.2`, `TLSv1.3`. Defaults to both
+             */
+            versions?: pulumi.Input<pulumi.Input<string>[] | undefined>;
         }
 
         export interface FlyMachineProcessArgs {
+            /**
+             * Replaces the image's CMD for this process. It's appended to the entrypoint
+             */
             cmd?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+            /**
+             * Replaces the image's ENTRYPOINT for this process
+             */
             entrypoint?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+            /**
+             * Environment variables for this process, in addition to the Machine's `env`
+             */
             env?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
             /**
              * EnvFrom can be provided to set environment variables from machine fields.
              */
             envFrom?: pulumi.Input<pulumi.Input<inputs.apps.v1.FlyEnvFromArgs>[] | undefined>;
+            /**
+             * Command to run instead of the image's ENTRYPOINT and CMD. Takes precedence over entrypoint
+             * and cmd
+             */
             exec?: pulumi.Input<pulumi.Input<string>[] | undefined>;
             /**
              * IgnoreAppSecrets can be set to true to ignore the secrets for the App the Machine belongs to
@@ -778,6 +1121,9 @@ export namespace apps {
              * used for the process. If not provided, the secrets provided at the machine level will be used.
              */
             secrets?: pulumi.Input<pulumi.Input<inputs.apps.v1.FlyMachineSecretArgs>[] | undefined>;
+            /**
+             * User to run the process as, instead of the image's USER
+             */
             user?: pulumi.Input<string | undefined>;
         }
 
@@ -798,6 +1144,9 @@ export namespace apps {
         }
 
         export interface FlyMachineServiceArgs {
+            /**
+             * Whether Fly Proxy starts stopped or suspended Machines when requests arrive. Defaults to true
+             */
             autostart?: pulumi.Input<boolean | undefined>;
             /**
              * Accepts a string (new format) or a boolean (old format). For backward compatibility with older clients, the API continues to use booleans for "off" and "stop" in responses.
@@ -810,12 +1159,34 @@ export namespace apps {
              * An optional list of service checks
              */
             checks?: pulumi.Input<pulumi.Input<inputs.apps.v1.FlyMachineServiceCheckArgs>[] | undefined>;
-            concurrency?: pulumi.Input<inputs.apps.v1.FlyMachineServiceConcurrencyArgs | undefined>;
+            /**
+             * Load limits Fly Proxy uses to balance traffic across Machines
+             */
+            concurrency?: pulumi.Input<inputs.apps.v1.MachinesFlyMachineServiceConcurrencyArgs | undefined>;
+            /**
+             * Currently has no effect
+             */
             forceInstanceDescription?: pulumi.Input<string | undefined>;
+            /**
+             * Currently has no effect
+             */
             forceInstanceKey?: pulumi.Input<string | undefined>;
+            /**
+             * Port in the Machine that Fly Proxy forwards traffic to. Defaults to 8080
+             */
             internalPort?: pulumi.Input<number | undefined>;
+            /**
+             * When autostop is on, the number of Machines Fly Proxy keeps running in the app's primary
+             * region (`PRIMARY_REGION` env var). Machines in other regions can all be stopped
+             */
             minMachinesRunning?: pulumi.Input<number | undefined>;
+            /**
+             * Public ports that Fly Proxy accepts traffic on
+             */
             ports?: pulumi.Input<pulumi.Input<inputs.apps.v1.FlyMachinePortArgs>[] | undefined>;
+            /**
+             * Protocol: tcp or udp. Defaults to tcp
+             */
             protocol?: pulumi.Input<string | undefined>;
         }
 
@@ -824,6 +1195,9 @@ export namespace apps {
              * The time to wait after a VM starts before checking its health
              */
             gracePeriod?: pulumi.Input<string | undefined>;
+            /**
+             * For http checks, headers to send with the request
+             */
             headers?: pulumi.Input<pulumi.Input<inputs.apps.v1.FlyMachineHTTPHeaderArgs>[] | undefined>;
             /**
              * The time between connectivity checks
@@ -863,24 +1237,23 @@ export namespace apps {
             type?: pulumi.Input<string | undefined>;
         }
 
-        export interface FlyMachineServiceConcurrencyArgs {
-            hardLimit?: pulumi.Input<number | undefined>;
-            softLimit?: pulumi.Input<number | undefined>;
-            type?: pulumi.Input<string | undefined>;
-        }
-
-        export interface FlyProxyProtoOptionsArgs {
-            flySrc?: pulumi.Input<boolean | undefined>;
-            version?: pulumi.Input<string | undefined>;
-        }
-
         export interface FlyReplayCacheArgs {
+            /**
+             * Let clients skip the cache by sending the `fly-replay-cache-control: skip` header
+             */
             allowBypass?: pulumi.Input<boolean | undefined>;
             /**
              * Name of the cookie or header to key the cache on
              */
             name?: pulumi.Input<string | undefined>;
+            /**
+             * Requests whose path starts with this prefix use the rule. May start with a hostname, e.g.
+             * `example.com/api/*`
+             */
             pathPrefix?: pulumi.Input<string | undefined>;
+            /**
+             * How long a cached replay is used, in seconds
+             */
             ttlSeconds?: pulumi.Input<number | undefined>;
             /**
              * Currently either "cookie" or "header"
@@ -906,19 +1279,6 @@ export namespace apps {
              * The URL prefix under which the files are served
              */
             urlPrefix: pulumi.Input<string>;
-        }
-
-        export interface FlyTCPHealthcheckArgs {
-            /**
-             * The port to connect to, often the same as internal_port
-             */
-            port?: pulumi.Input<number | undefined>;
-        }
-
-        export interface FlyTLSOptionsArgs {
-            alpn?: pulumi.Input<pulumi.Input<string>[] | undefined>;
-            defaultSelfSigned?: pulumi.Input<boolean | undefined>;
-            versions?: pulumi.Input<pulumi.Input<string>[] | undefined>;
         }
 
         /**
@@ -1094,11 +1454,11 @@ export namespace apps {
              */
             instanceId?: string;
             /**
-             * desired state(s), supports repeated or comma-separated values
+             * Desired state(s). Supports repeated or comma-separated values. settled matches any of started, stopped, suspended, failed, destroyed, or archived. Defaults to started.
              */
             state?: enums.apps.v1.GetMachinesWaitQueryParamsState;
             /**
-             * wait timeout. default 60s
+             * Wait timeout in seconds. Defaults to 60.
              */
             timeout?: number;
             /**
@@ -1124,11 +1484,11 @@ export namespace apps {
              */
             instanceId?: pulumi.Input<string | undefined>;
             /**
-             * desired state(s), supports repeated or comma-separated values
+             * Desired state(s). Supports repeated or comma-separated values. settled matches any of started, stopped, suspended, failed, destroyed, or archived. Defaults to started.
              */
             state?: pulumi.Input<enums.apps.v1.GetMachinesWaitQueryParamsState | undefined>;
             /**
-             * wait timeout. default 60s
+             * Wait timeout in seconds. Defaults to 60.
              */
             timeout?: pulumi.Input<number | undefined>;
             /**
@@ -1146,11 +1506,11 @@ export namespace apps {
              */
             additionalParams?: {[key: string]: string};
             /**
-             * Minimum secrets version to return. Returned when setting a new secret
+             * Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
              */
             minVersion?: string;
             /**
-             * Show the secret value.
+             * Include the secret value. Only allowed when the request comes from a Machine of the app; otherwise the request fails with 403.
              */
             showSecrets?: boolean;
         }
@@ -1164,11 +1524,11 @@ export namespace apps {
              */
             additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
             /**
-             * Minimum secrets version to return. Returned when setting a new secret
+             * Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
              */
             minVersion?: pulumi.Input<string | undefined>;
             /**
-             * Show the secret value.
+             * Include the secret value. Only allowed when the request comes from a Machine of the app; otherwise the request fails with 403.
              */
             showSecrets?: pulumi.Input<boolean | undefined>;
         }
@@ -1182,7 +1542,7 @@ export namespace apps {
              */
             additionalParams?: {[key: string]: string};
             /**
-             * Minimum secrets version to return. Returned when setting a new secret
+             * Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
              */
             minVersion?: string;
         }
@@ -1196,7 +1556,7 @@ export namespace apps {
              */
             additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
             /**
-             * Minimum secrets version to return. Returned when setting a new secret
+             * Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
              */
             minVersion?: pulumi.Input<string | undefined>;
         }
@@ -1374,13 +1734,13 @@ export namespace apps {
              */
             additionalParams?: {[key: string]: string};
             /**
-             * Order
+             * Sort order. Requires sort_by. Defaults to asc.
              */
-            order?: string;
+            order?: enums.apps.v1.ListMachinesProcessesQueryParamsOrder;
             /**
-             * Sort by
+             * Field to sort processes by
              */
-            sortBy?: string;
+            sortBy?: enums.apps.v1.ListMachinesProcessesQueryParamsSortBy;
         }
 
         /**
@@ -1392,13 +1752,13 @@ export namespace apps {
              */
             additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
             /**
-             * Order
+             * Sort order. Requires sort_by. Defaults to asc.
              */
-            order?: pulumi.Input<string | undefined>;
+            order?: pulumi.Input<enums.apps.v1.ListMachinesProcessesQueryParamsOrder | undefined>;
             /**
-             * Sort by
+             * Field to sort processes by
              */
-            sortBy?: pulumi.Input<string | undefined>;
+            sortBy?: pulumi.Input<enums.apps.v1.ListMachinesProcessesQueryParamsSortBy | undefined>;
         }
 
         /**
@@ -1514,11 +1874,11 @@ export namespace apps {
              */
             additionalParams?: {[key: string]: string};
             /**
-             * Minimum secrets version to return. Returned when setting a new secret
+             * Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
              */
             minVersion?: string;
             /**
-             * Comma-seperated list of secret keys to list
+             * Comma-separated list of key types to list, such as hs256,es256. Defaults to all types.
              */
             types?: string;
         }
@@ -1532,11 +1892,11 @@ export namespace apps {
              */
             additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
             /**
-             * Minimum secrets version to return. Returned when setting a new secret
+             * Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
              */
             minVersion?: pulumi.Input<string | undefined>;
             /**
-             * Comma-seperated list of secret keys to list
+             * Comma-separated list of key types to list, such as hs256,es256. Defaults to all types.
              */
             types?: pulumi.Input<string | undefined>;
         }
@@ -1550,11 +1910,11 @@ export namespace apps {
              */
             additionalParams?: {[key: string]: string};
             /**
-             * Minimum secrets version to return. Returned when setting a new secret
+             * Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
              */
             minVersion?: string;
             /**
-             * Show the secret values.
+             * Include secret values. Only allowed when the request comes from a Machine of the app; otherwise the request fails with 403.
              */
             showSecrets?: boolean;
         }
@@ -1568,11 +1928,11 @@ export namespace apps {
              */
             additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
             /**
-             * Minimum secrets version to return. Returned when setting a new secret
+             * Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
              */
             minVersion?: pulumi.Input<string | undefined>;
             /**
-             * Show the secret values.
+             * Include secret values. Only allowed when the request comes from a Machine of the app; otherwise the request fails with 403.
              */
             showSecrets?: pulumi.Input<boolean | undefined>;
         }
@@ -1756,6 +2116,26 @@ export namespace apps {
         }
 
         /**
+         * Load limits Fly Proxy uses to balance traffic across Machines
+         */
+        export interface MachinesFlyMachineServiceConcurrencyArgs {
+            /**
+             * Fly Proxy sends no more than this many connections or requests to a Machine at once. 0 means
+             * no hard limit
+             */
+            hardLimit?: pulumi.Input<number | undefined>;
+            /**
+             * Above this many connections or requests, Fly Proxy prefers other Machines. Defaults to 20,
+             * and is lowered to hard_limit if higher
+             */
+            softLimit?: pulumi.Input<number | undefined>;
+            /**
+             * What to count: `connections` (default) or `requests`
+             */
+            type?: pulumi.Input<string | undefined>;
+        }
+
+        /**
          * Query params for the API request.
          */
         export interface MachinesLeaseCreateQueryParamsArgs {
@@ -1763,6 +2143,10 @@ export namespace apps {
              * Additional query params to send with the request that are not defined in the API spec.
              */
             additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+            /**
+             * How long the lease is valid, in seconds. Overridden by ttl in the request body.
+             */
+            ttl?: pulumi.Input<number | undefined>;
         }
 
         /**
@@ -2114,11 +2498,11 @@ export namespace apps {
              */
             additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
             /**
-             * Minimum secrets version to return. Returned when setting a new secret
+             * Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
              */
             minVersion?: pulumi.Input<string | undefined>;
             /**
-             * Show the secret value.
+             * Include the secret value. Only allowed when the request comes from a Machine of the app; otherwise the request fails with 403.
              */
             showSecrets?: pulumi.Input<boolean | undefined>;
         }
@@ -2142,7 +2526,7 @@ export namespace apps {
              */
             additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
             /**
-             * Minimum secrets version to return. Returned when setting a new secret
+             * Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
              */
             minVersion?: pulumi.Input<string | undefined>;
         }
@@ -2176,7 +2560,7 @@ export namespace apps {
              */
             additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
             /**
-             * Minimum secrets version to return. Returned when setting a new secret
+             * Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
              */
             minVersion?: pulumi.Input<string | undefined>;
         }
@@ -2238,7 +2622,7 @@ export namespace apps {
              */
             additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
             /**
-             * Minimum secrets version to return. Returned when setting a new secret
+             * Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
              */
             minVersion?: pulumi.Input<string | undefined>;
         }
@@ -2252,7 +2636,7 @@ export namespace apps {
              */
             additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
             /**
-             * Minimum secrets version to return. Returned when setting a new secret
+             * Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
              */
             minVersion?: pulumi.Input<string | undefined>;
         }
@@ -2276,7 +2660,7 @@ export namespace apps {
              */
             additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
             /**
-             * Minimum secrets version to return. Returned when setting a new secret
+             * Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
              */
             minVersion?: pulumi.Input<string | undefined>;
         }
@@ -2607,18 +2991,54 @@ export namespace platform {
          * Resource requirements for the Machine to simulate. Defaults to a performance-1x machine
          */
         export interface ComputeArgs {
+            /**
+             * Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
+             * Defaults to shared when `guest` is omitted
+             */
             cpuKind?: pulumi.Input<string | undefined>;
+            /**
+             * Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
+             * performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
+             * omitted
+             */
             cpus?: pulumi.Input<number | undefined>;
+            /**
+             * No longer supported. Requests that set it are rejected
+             */
             gpuKind?: pulumi.Input<string | undefined>;
+            /**
+             * No longer supported. Requests that set it are rejected
+             */
             gpus?: pulumi.Input<number | undefined>;
+            /**
+             * Place the Machine on hosts dedicated to the organization under this ID. Only available to
+             * organizations with dedicated hosts
+             */
             hostDedicationId?: pulumi.Input<string | undefined>;
+            /**
+             * Extra arguments appended to the guest kernel command line
+             */
             kernelArgs?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+            /**
+             * Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
+             * the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
+             * starts with a limit of memory_mb
+             */
             maxMemoryMb?: pulumi.Input<number | undefined>;
+            /**
+             * Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
+             * between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
+             * `guest` is omitted
+             */
             memoryMb?: pulumi.Input<number | undefined>;
             /**
              * Deprecated: use MachineConfig.Rootfs instead
              */
             persistRootfs?: pulumi.Input<enums.platform.v1.FlyMachineGuestPersistRootfs | undefined>;
+            /**
+             * Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
+             * of lowercase letters, digits and dashes. Each feature must be enabled for the organization
+             */
             requiredHostFeatures?: pulumi.Input<pulumi.Input<string>[] | undefined>;
         }
 
@@ -3031,6 +3451,26 @@ export namespace postgres {
         /**
          * Query params for the API request.
          */
+        export interface PostgresDatabasesQueryCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface PostgresDatabasesQueryQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.postgres.v1.PostgresDatabasesQueryCreateQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
         export interface PostgresDeleteQueryParamsArgs {
             /**
              * Additional query params to send with the request that are not defined in the API spec.
@@ -3204,6 +3644,27 @@ export namespace postgres {
 export namespace tokens {
     export namespace v1 {
         /**
+         * The requested access, with names resolved to IDs.
+         */
+        export interface AccessArgs {
+            action?: pulumi.Input<enums.tokens.v1.FlyioAccessAction | undefined>;
+            appFeature?: pulumi.Input<string | undefined>;
+            appid?: pulumi.Input<number | undefined>;
+            cluster?: pulumi.Input<string | undefined>;
+            command?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+            feature?: pulumi.Input<string | undefined>;
+            machine?: pulumi.Input<string | undefined>;
+            machineFeature?: pulumi.Input<string | undefined>;
+            mutation?: pulumi.Input<string | undefined>;
+            orgid?: pulumi.Input<number | undefined>;
+            sourceApp?: pulumi.Input<string | undefined>;
+            sourceMachine?: pulumi.Input<string | undefined>;
+            sourceOrganization?: pulumi.Input<string | undefined>;
+            storageObject?: pulumi.Input<string | undefined>;
+            volume?: pulumi.Input<string | undefined>;
+        }
+
+        /**
          * Query params for the API request.
          */
         export interface GetCurrentTokenQueryParams {
@@ -3221,80 +3682,6 @@ export namespace tokens {
              * Additional query params to send with the request that are not defined in the API spec.
              */
             additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
-        }
-
-        export interface MainTokenAccessArgs {
-            /**
-             * Action is the action being taken on the specified resource. This is the
-             * combination of individual action characters (e.g "rw")
-             *   - r: read
-             *   - w: write
-             *   - c: create
-             *   - d: delete
-             *   - C: control
-             */
-            action?: pulumi.Input<enums.tokens.v1.MainTokenAccessAction | undefined>;
-            /**
-             * AppFeature is a named set of functionality associated with the app. If
-             * this is specified, the AppName field must be set.
-             *   - images: images in the fly.io registry
-             */
-            appFeature?: pulumi.Input<string | undefined>;
-            /**
-             * AppName is the name of the app being accessed.
-             */
-            appName?: pulumi.Input<string | undefined>;
-            /**
-             * Command is the command being executed on a machine. If this is specified,
-             * the Machine must be set.
-             */
-            command?: pulumi.Input<pulumi.Input<string>[] | undefined>;
-            /**
-             * MachineFeature is a named set of functionality associated with the
-             * machine. If this is specified, the Machine field must be set.
-             *   - metadata: machine metadata service
-             *   - oidc: OIDC tokens
-             *   - kmstoken: Petsem tokens for KMS access
-             */
-            machineFeature?: pulumi.Input<string | undefined>;
-            /**
-             * MachineID is the ID of the machine being accessed (e.g. 7811701f564258).
-             */
-            machineId?: pulumi.Input<string | undefined>;
-            /**
-             * Mutation is the GraphQL mutation being performed.
-             */
-            mutation?: pulumi.Input<string | undefined>;
-            /**
-             * OrgFeature is a named set of functionality associated with the
-             * organization. If this is specified, the OrgSlug field must be set.
-             *   - wg: WireGuard peers
-             *   - builder: remote builders
-             *   - addon: addons
-             *   - membership: organization membership
-             *   - billing: billing
-             *   - litefs-cloud: LiteFS Cloud
-             *   - authentication: authentication settings
-             */
-            orgFeature?: pulumi.Input<string | undefined>;
-            /**
-             * OrgSlug is the slug of the organization being accessed.
-             */
-            orgSlug?: pulumi.Input<string | undefined>;
-            /**
-             * SourceMachine is the machine ID of the actor attempting access.
-             */
-            sourceMachine?: pulumi.Input<string | undefined>;
-            /**
-             * StorageObject is the storage object being accessed. If this is specified,
-             * the OrgSlug must be set.
-             */
-            storageObject?: pulumi.Input<string | undefined>;
-            /**
-             * VolumeID is the encoded ID of the volume being accessed (e.g.
-             * vol_r1p6pln1k9m9j7zr).
-             */
-            volumeId?: pulumi.Input<string | undefined>;
         }
 
         /**
@@ -3376,5 +3763,6 @@ export namespace tokens {
              */
             create?: pulumi.Input<inputs.tokens.v1.TokensRequestOidcCreateQueryParamsArgs | undefined>;
         }
+
     }
 }

@@ -33,6 +33,11 @@ class GetCurrentTokenResult:
     @_builtins.property
     @pulumi.getter
     def tokens(self) -> Optional[Sequence['outputs.MainTokenInfo']]:
+        """
+        One entry per token in the Authorization header that could be verified, in no particular
+        order; use `token_id` to tell them apart. Tokens that fail verification or are not scoped
+        to an organization are left out.
+        """
         return pulumi.get(self, "tokens")
 
 

@@ -33,18 +33,54 @@ class ComputeArgsDict(TypedDict):
     Resource requirements for the Machine to simulate. Defaults to a performance-1x machine
     """
     cpu_kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
+    Defaults to shared when `guest` is omitted
+    """
     cpus: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
+    performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
+    omitted
+    """
     gpu_kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    No longer supported. Requests that set it are rejected
+    """
     gpus: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    No longer supported. Requests that set it are rejected
+    """
     host_dedication_id: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Place the Machine on hosts dedicated to the organization under this ID. Only available to
+    organizations with dedicated hosts
+    """
     kernel_args: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    Extra arguments appended to the guest kernel command line
+    """
     max_memory_mb: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
+    the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
+    starts with a limit of memory_mb
+    """
     memory_mb: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
+    between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
+    `guest` is omitted
+    """
     persist_rootfs: NotRequired[pulumi.Input[Optional['FlyMachineGuestPersistRootfs']]]
     """
     Deprecated: use MachineConfig.Rootfs instead
     """
     required_host_features: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
+    of lowercase letters, digits and dashes. Each feature must be enabled for the organization
+    """
 
 @pulumi.input_type
 class ComputeArgs:
@@ -62,7 +98,25 @@ class ComputeArgs:
         """
         Resource requirements for the Machine to simulate. Defaults to a performance-1x machine
 
+        :param pulumi.Input[_builtins.str] cpu_kind: Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
+               Defaults to shared when `guest` is omitted
+        :param pulumi.Input[_builtins.int] cpus: Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
+               performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
+               omitted
+        :param pulumi.Input[_builtins.str] gpu_kind: No longer supported. Requests that set it are rejected
+        :param pulumi.Input[_builtins.int] gpus: No longer supported. Requests that set it are rejected
+        :param pulumi.Input[_builtins.str] host_dedication_id: Place the Machine on hosts dedicated to the organization under this ID. Only available to
+               organizations with dedicated hosts
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] kernel_args: Extra arguments appended to the guest kernel command line
+        :param pulumi.Input[_builtins.int] max_memory_mb: Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
+               the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
+               starts with a limit of memory_mb
+        :param pulumi.Input[_builtins.int] memory_mb: Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
+               between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
+               `guest` is omitted
         :param pulumi.Input['FlyMachineGuestPersistRootfs'] persist_rootfs: Deprecated: use MachineConfig.Rootfs instead
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] required_host_features: Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
+               of lowercase letters, digits and dashes. Each feature must be enabled for the organization
         """
         if cpu_kind is not None:
             pulumi.set(__self__, "cpu_kind", cpu_kind)
@@ -88,6 +142,10 @@ class ComputeArgs:
     @_builtins.property
     @pulumi.getter(name="cpuKind")
     def cpu_kind(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
+        Defaults to shared when `guest` is omitted
+        """
         return pulumi.get(self, "cpu_kind")
 
     @cpu_kind.setter
@@ -97,6 +155,11 @@ class ComputeArgs:
     @_builtins.property
     @pulumi.getter
     def cpus(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
+        performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
+        omitted
+        """
         return pulumi.get(self, "cpus")
 
     @cpus.setter
@@ -106,6 +169,9 @@ class ComputeArgs:
     @_builtins.property
     @pulumi.getter(name="gpuKind")
     def gpu_kind(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        No longer supported. Requests that set it are rejected
+        """
         return pulumi.get(self, "gpu_kind")
 
     @gpu_kind.setter
@@ -115,6 +181,9 @@ class ComputeArgs:
     @_builtins.property
     @pulumi.getter
     def gpus(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        No longer supported. Requests that set it are rejected
+        """
         return pulumi.get(self, "gpus")
 
     @gpus.setter
@@ -124,6 +193,10 @@ class ComputeArgs:
     @_builtins.property
     @pulumi.getter(name="hostDedicationId")
     def host_dedication_id(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Place the Machine on hosts dedicated to the organization under this ID. Only available to
+        organizations with dedicated hosts
+        """
         return pulumi.get(self, "host_dedication_id")
 
     @host_dedication_id.setter
@@ -133,6 +206,9 @@ class ComputeArgs:
     @_builtins.property
     @pulumi.getter(name="kernelArgs")
     def kernel_args(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        Extra arguments appended to the guest kernel command line
+        """
         return pulumi.get(self, "kernel_args")
 
     @kernel_args.setter
@@ -142,6 +218,11 @@ class ComputeArgs:
     @_builtins.property
     @pulumi.getter(name="maxMemoryMb")
     def max_memory_mb(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
+        the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
+        starts with a limit of memory_mb
+        """
         return pulumi.get(self, "max_memory_mb")
 
     @max_memory_mb.setter
@@ -151,6 +232,11 @@ class ComputeArgs:
     @_builtins.property
     @pulumi.getter(name="memoryMb")
     def memory_mb(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
+        between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
+        `guest` is omitted
+        """
         return pulumi.get(self, "memory_mb")
 
     @memory_mb.setter
@@ -172,6 +258,10 @@ class ComputeArgs:
     @_builtins.property
     @pulumi.getter(name="requiredHostFeatures")
     def required_host_features(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
+        of lowercase letters, digits and dashes. Each feature must be enabled for the organization
+        """
         return pulumi.get(self, "required_host_features")
 
     @required_host_features.setter

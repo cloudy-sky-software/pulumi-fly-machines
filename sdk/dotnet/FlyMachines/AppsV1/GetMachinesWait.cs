@@ -79,9 +79,22 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
     [OutputType]
     public sealed class GetMachinesWaitResult
     {
+        /// <summary>
+        /// ID of the event that moved the Machine into `state`. Pass it as `from_event_id` to wait
+        /// for a later state change.
+        /// </summary>
         public readonly string? EventId;
+        /// <summary>
+        /// Always true.
+        /// </summary>
         public readonly bool? Ok;
+        /// <summary>
+        /// The state the Machine reached, one of the requested states.
+        /// </summary>
         public readonly string? State;
+        /// <summary>
+        /// ID of the Machine version that reached `state`.
+        /// </summary>
         public readonly string? Version;
 
         [OutputConstructor]

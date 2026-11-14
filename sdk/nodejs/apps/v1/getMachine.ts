@@ -32,39 +32,105 @@ export interface GetMachineArgs {
 }
 
 export interface GetMachineResult {
-    readonly checks?: outputs.apps.v1.CheckStatus[];
-    readonly config?: outputs.apps.v1.FlyMachineConfig;
-    readonly cordoned?: boolean;
-    readonly createdAt?: string;
-    readonly events?: outputs.apps.v1.MachineEvent[];
-    readonly hostFeatures?: string[];
-    readonly hostStatus?: enums.apps.v1.MachineHostStatus;
-    readonly id?: string;
-    readonly imageRef?: outputs.apps.v1.ImageRef;
-    readonly incompleteConfig?: outputs.apps.v1.FlyMachineConfig;
     /**
-     * InstanceID is the same value as `version`.
+     * Status of each health check: the Machine's top-level `checks` and its services'
+     * checks.
+     */
+    readonly checks?: outputs.apps.v1.CheckStatus[];
+    /**
+     * The Machine's configuration, as provided when it was created or last updated, with
+     * `metadata` and `mounts` reflecting their current values. Null when the host is not
+     * reachable (`host_status` is not `ok`) or `summary=true` was requested; see
+     * `incomplete_config`.
+     */
+    readonly config?: outputs.apps.v1.MachineConfig;
+    /**
+     * Whether the Machine is cordoned, meaning Fly Proxy does not route requests to it. See
+     * the Cordon Machine endpoint.
+     */
+    readonly cordoned?: boolean;
+    /**
+     * When the Machine was created.
+     */
+    readonly createdAt?: string;
+    /**
+     * Up to 5 of the most recent events of the current Machine version, newest first. Use
+     * the List Events endpoint for more.
+     */
+    readonly events?: outputs.apps.v1.MachineEvent[];
+    /**
+     * Features of the Machine's host, for comparison with `config.guest.required_host_features`.
+     * Only returned when the request sets the `fly-include-host-features: true` header.
+     */
+    readonly hostFeatures?: string[];
+    /**
+     * Whether Fly.io could reach the Machine's host: `ok` if it could, `unreachable` if it
+     * could not, in which case the response is built from last known state. `unknown` if the
+     * host's status was not reported.
+     */
+    readonly hostStatus?: enums.apps.v1.MachineHostStatus;
+    /**
+     * Unique ID of the Machine.
+     */
+    readonly id?: string;
+    /**
+     * The image the Machine runs, as resolved when it was last created or updated.
+     */
+    readonly imageRef?: outputs.apps.v1.MachineImageRef;
+    /**
+     * Last known configuration, returned in place of `config` when the host could not be
+     * reached (`host_status` is not `ok`) or when listing Machines with `summary=true`. It
+     * comes from Fly.io's replicated state rather than the host, so it may be stale or lack
+     * fields.
+     */
+    readonly incompleteConfig?: outputs.apps.v1.MachineIncompleteConfig;
+    /**
+     * Same value as `version`.
      *
      * Deprecated: use `version`.
      */
     readonly instanceId?: string;
-    readonly lease?: outputs.apps.v1.StrippedLease;
+    /**
+     * The lease currently held on the Machine. Only returned when `include_leases=true`
+     * was requested and a lease is held.
+     */
+    readonly lease?: outputs.apps.v1.MachineLease;
+    /**
+     * Name of the Machine. Generated when not provided at creation. Names are not required
+     * to be unique.
+     */
     readonly name?: string;
     /**
-     * Nonce is only every returned on machine creation if a lease_duration was provided.
+     * Nonce of the lease acquired on the Machine at creation. Only returned when creating a
+     * Machine with `lease_ttl` set. Pass it in the `fly-machine-lease-nonce` header to act on
+     * the Machine while the lease is held.
      */
     readonly nonce?: string;
     /**
-     * PrivateIP is the internal 6PN address of the machine.
+     * The Machine's address on the organization's private (6PN) IPv6 network.
      */
     readonly privateIp?: string;
+    /**
+     * Code of the region the Machine runs in, such as `iad`.
+     */
     readonly region?: string;
+    /**
+     * Current state of the Machine, taken from the status of its most recent event. One of
+     * `created`, `starting`, `started`, `stopping`, `stopped`, `suspending`, `suspended`,
+     * `replacing`, `replaced`, `destroying`, `destroyed`, `failed`, `migrating`, `migrated`,
+     * `archived`, or `pending`. See https://fly.io/docs/machines/machine-states/.
+     */
     readonly state?: string;
+    /**
+     * Time of the Machine's most recent event, truncated to whole seconds. The zero time
+     * (0001-01-01T00:00:00Z) if the host could not be reached. With `summary=true`, the time
+     * Fly.io last recorded a change to the Machine.
+     */
     readonly updatedAt?: string;
     /**
-     * Version is unique for each version of the machine. Pass it as
-     * `current_version` when updating the Machine to reject the update if the
-     * Machine has changed since this version.
+     * Unique ID of this version of the Machine. Every update creates a new version. Pass it
+     * as `current_version` when updating the Machine to reject the update if the Machine has
+     * changed since this version.
      */
     readonly version?: string;
 }

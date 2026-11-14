@@ -13,6 +13,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
     [FlyMachinesResourceType("fly-machines:apps/v1:MachinesStop")]
     public partial class MachinesStop : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// Always true.
+        /// </summary>
         [Output("ok")]
         public Output<bool?> Ok { get; private set; } = null!;
 
@@ -22,9 +25,17 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Output("queryParams")]
         public Output<Outputs.MachinesStopQueryParams?> QueryParams { get; private set; } = null!;
 
+        /// <summary>
+        /// Signal to send to the Machine's main process. Defaults to `config.stop_config.signal`, or
+        /// SIGINT.
+        /// </summary>
         [Output("signal")]
         public Output<CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Signal?> Signal { get; private set; } = null!;
 
+        /// <summary>
+        /// How long to wait for the Machine to exit after sending `signal` before killing it, as a
+        /// Go duration string. Defaults to `config.stop_config.timeout`, or 5s.
+        /// </summary>
         [Output("timeout")]
         public Output<string?> Timeout { get; private set; } = null!;
 
@@ -92,9 +103,17 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Input("queryParams")]
         public Input<Inputs.MachinesStopQueryParamsArgs>? QueryParams { get; set; }
 
+        /// <summary>
+        /// Signal to send to the Machine's main process. Defaults to `config.stop_config.signal`, or
+        /// SIGINT.
+        /// </summary>
         [Input("signal")]
         public Input<CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Signal>? Signal { get; set; }
 
+        /// <summary>
+        /// How long to wait for the Machine to exit after sending `signal` before killing it, as a
+        /// Go duration string. Defaults to `config.stop_config.timeout`, or 5s.
+        /// </summary>
         [Input("timeout")]
         public Input<string>? Timeout { get; set; }
 

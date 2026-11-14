@@ -31,6 +31,9 @@ class AppCertificatesCustomArgs:
         The set of arguments for constructing a AppCertificatesCustom resource.
 
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
+        :param pulumi.Input[_builtins.str] fullchain: PEM-encoded certificate, followed by any intermediate certificates. Required.
+        :param pulumi.Input[_builtins.str] hostname: Hostname the certificate is for. Required. Hostnames under `fly.dev` are not allowed.
+        :param pulumi.Input[_builtins.str] private_key: PEM-encoded private key of the certificate. Required.
         :param pulumi.Input['AppCertificatesCustomQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         """
         if app_name is not None:
@@ -59,6 +62,9 @@ class AppCertificatesCustomArgs:
     @_builtins.property
     @pulumi.getter
     def fullchain(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        PEM-encoded certificate, followed by any intermediate certificates. Required.
+        """
         return pulumi.get(self, "fullchain")
 
     @fullchain.setter
@@ -68,6 +74,9 @@ class AppCertificatesCustomArgs:
     @_builtins.property
     @pulumi.getter
     def hostname(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Hostname the certificate is for. Required. Hostnames under `fly.dev` are not allowed.
+        """
         return pulumi.get(self, "hostname")
 
     @hostname.setter
@@ -77,6 +86,9 @@ class AppCertificatesCustomArgs:
     @_builtins.property
     @pulumi.getter(name="privateKey")
     def private_key(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        PEM-encoded private key of the certificate. Required.
+        """
         return pulumi.get(self, "private_key")
 
     @private_key.setter
@@ -114,6 +126,9 @@ class AppCertificatesCustom(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
+        :param pulumi.Input[_builtins.str] fullchain: PEM-encoded certificate, followed by any intermediate certificates. Required.
+        :param pulumi.Input[_builtins.str] hostname: Hostname the certificate is for. Required. Hostnames under `fly.dev` are not allowed.
+        :param pulumi.Input[_builtins.str] private_key: PEM-encoded private key of the certificate. Required.
         :param pulumi.Input[Union['AppCertificatesCustomQueryParamsArgs', 'AppCertificatesCustomQueryParamsArgsDict', 'outputs.AppCertificatesCustomQueryParams']] query_params: Query params to send with the API requests for this resource.
         """
         ...
@@ -214,41 +229,65 @@ class AppCertificatesCustom(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter(name="acmeRequested")
     def acme_requested(self) -> pulumi.Output[Optional[_builtins.bool]]:
+        """
+        Whether Fly.io-issued (ACME) certificates were requested for the hostname.
+        """
         return pulumi.get(self, "acme_requested")
 
     @_builtins.property
     @pulumi.getter
     def certificates(self) -> pulumi.Output[Optional[Sequence['outputs.CertificateEntry']]]:
+        """
+        The hostname's certificates: at most one custom entry and one Fly.io entry.
+        """
         return pulumi.get(self, "certificates")
 
     @_builtins.property
     @pulumi.getter
     def configured(self) -> pulumi.Output[Optional[_builtins.bool]]:
+        """
+        Whether ownership of the hostname has been verified.
+        """
         return pulumi.get(self, "configured")
 
     @_builtins.property
     @pulumi.getter(name="dnsProvider")
     def dns_provider(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        DNS provider detected for the hostname, if known.
+        """
         return pulumi.get(self, "dns_provider")
 
     @_builtins.property
     @pulumi.getter(name="dnsRequirements")
-    def dns_requirements(self) -> pulumi.Output[Optional['outputs.DNSRequirements']]:
+    def dns_requirements(self) -> pulumi.Output[Optional['outputs.DnsRequirements']]:
+        """
+        DNS records to create to point the hostname at the app and validate it.
+        """
         return pulumi.get(self, "dns_requirements")
 
     @_builtins.property
     @pulumi.getter
     def fullchain(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        PEM-encoded certificate, followed by any intermediate certificates. Required.
+        """
         return pulumi.get(self, "fullchain")
 
     @_builtins.property
     @pulumi.getter
     def hostname(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        The hostname the certificate is for. May start with `*.` for a wildcard certificate.
+        """
         return pulumi.get(self, "hostname")
 
     @_builtins.property
     @pulumi.getter(name="privateKey")
     def private_key(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        PEM-encoded private key of the certificate. Required.
+        """
         return pulumi.get(self, "private_key")
 
     @_builtins.property
@@ -262,20 +301,33 @@ class AppCertificatesCustom(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter(name="rateLimitedUntil")
     def rate_limited_until(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        If Let's Encrypt is rate-limiting certificate requests for the hostname, when that ends.
+        """
         return pulumi.get(self, "rate_limited_until")
 
     @_builtins.property
     @pulumi.getter
     def status(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Human-readable status: `Ready`, `Awaiting certificates`, `Awaiting configuration`, or a
+        hint about what is misconfigured.
+        """
         return pulumi.get(self, "status")
 
     @_builtins.property
     @pulumi.getter
-    def validation(self) -> pulumi.Output[Optional['outputs.CertificateValidation']]:
+    def validation(self) -> pulumi.Output[Optional['outputs.Validation']]:
+        """
+        Which validation methods are currently possible.
+        """
         return pulumi.get(self, "validation")
 
     @_builtins.property
     @pulumi.getter(name="validationErrors")
     def validation_errors(self) -> pulumi.Output[Optional[Sequence['outputs.CertificateValidationError']]]:
+        """
+        Problems found by the most recent validation.
+        """
         return pulumi.get(self, "validation_errors")
 

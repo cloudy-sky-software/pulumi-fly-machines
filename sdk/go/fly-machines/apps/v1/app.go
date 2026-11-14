@@ -14,6 +14,7 @@ import (
 type App struct {
 	pulumi.CustomResourceState
 
+	// When the app was created, in Unix milliseconds.
 	CreatedAt pulumi.IntPtrOutput `pulumi:"createdAt"`
 	// Request a wildcard TLS certificate for *.svc.<app-name>.fly.dev. Defaults to false. Certificate provisioning is asynchronous; this does not create services or configure their routing.
 	EnableSubdomains pulumi.BoolPtrOutput `pulumi:"enableSubdomains"`
@@ -157,6 +158,7 @@ func (o AppOutput) ToAppOutputWithContext(ctx context.Context) AppOutput {
 	return o
 }
 
+// When the app was created, in Unix milliseconds.
 func (o AppOutput) CreatedAt() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *App) pulumi.IntPtrOutput { return v.CreatedAt }).(pulumi.IntPtrOutput)
 }

@@ -15,20 +15,27 @@ import (
 type PlatformPlacement struct {
 	pulumi.CustomResourceState
 
+	// The regions Machines would be placed in. With `count` 0, every requested region with the
+	// organization's Machine limit in it.
+	Regions PlacementRegionPlacementArrayOutput `pulumi:"Regions"`
 	// Resource requirements for the Machine to simulate. Defaults to a performance-1x machine
 	Compute ComputePtrOutput `pulumi:"compute"`
 	// Number of machines to simulate placement.
 	// Defaults to 0, which returns the org-specific limit for each region.
-	Count   pulumi.IntPtrOutput `pulumi:"count"`
+	Count pulumi.IntPtrOutput `pulumi:"count"`
+	// Slug of the organization to place Machines for, or `personal`. Required.
 	OrgSlug pulumi.StringOutput `pulumi:"orgSlug"`
 	// Query params to send with the API requests for this resource.
 	QueryParams PlatformPlacementQueryParamsPtrOutput `pulumi:"queryParams"`
 	// Region expression for placement as a comma-delimited set of regions or aliases.
-	// Defaults to "[region],any", to prefer the API endpoint's local region with any other region as fallback.
-	Region          pulumi.StringPtrOutput              `pulumi:"region"`
-	Regions         PlacementRegionPlacementArrayOutput `pulumi:"regions"`
-	VolumeName      pulumi.StringPtrOutput              `pulumi:"volumeName"`
-	VolumeSizeBytes pulumi.IntPtrOutput                 `pulumi:"volumeSizeBytes"`
+	// Defaults to the API endpoint's local region. When `count` is greater than 0, `any` is
+	// added as a fallback.
+	Region pulumi.StringPtrOutput `pulumi:"region"`
+	// Currently unused.
+	VolumeName pulumi.StringPtrOutput `pulumi:"volumeName"`
+	// Size of a volume each Machine will need, in bytes. Only hosts with room for it are
+	// considered.
+	VolumeSizeBytes pulumi.IntPtrOutput `pulumi:"volumeSizeBytes"`
 	// Optional weights to override default placement preferences.
 	Weights WeightsPtrOutput `pulumi:"weights"`
 }
@@ -86,15 +93,20 @@ type platformPlacementArgs struct {
 	Compute *Compute `pulumi:"compute"`
 	// Number of machines to simulate placement.
 	// Defaults to 0, which returns the org-specific limit for each region.
-	Count   *int   `pulumi:"count"`
+	Count *int `pulumi:"count"`
+	// Slug of the organization to place Machines for, or `personal`. Required.
 	OrgSlug string `pulumi:"orgSlug"`
 	// Query params to send with the API requests for this resource.
 	QueryParams *PlatformPlacementQueryParams `pulumi:"queryParams"`
 	// Region expression for placement as a comma-delimited set of regions or aliases.
-	// Defaults to "[region],any", to prefer the API endpoint's local region with any other region as fallback.
-	Region          *string `pulumi:"region"`
-	VolumeName      *string `pulumi:"volumeName"`
-	VolumeSizeBytes *int    `pulumi:"volumeSizeBytes"`
+	// Defaults to the API endpoint's local region. When `count` is greater than 0, `any` is
+	// added as a fallback.
+	Region *string `pulumi:"region"`
+	// Currently unused.
+	VolumeName *string `pulumi:"volumeName"`
+	// Size of a volume each Machine will need, in bytes. Only hosts with room for it are
+	// considered.
+	VolumeSizeBytes *int `pulumi:"volumeSizeBytes"`
 	// Optional weights to override default placement preferences.
 	Weights *Weights `pulumi:"weights"`
 }
@@ -105,14 +117,19 @@ type PlatformPlacementArgs struct {
 	Compute ComputePtrInput
 	// Number of machines to simulate placement.
 	// Defaults to 0, which returns the org-specific limit for each region.
-	Count   pulumi.IntPtrInput
+	Count pulumi.IntPtrInput
+	// Slug of the organization to place Machines for, or `personal`. Required.
 	OrgSlug pulumi.StringInput
 	// Query params to send with the API requests for this resource.
 	QueryParams PlatformPlacementQueryParamsPtrInput
 	// Region expression for placement as a comma-delimited set of regions or aliases.
-	// Defaults to "[region],any", to prefer the API endpoint's local region with any other region as fallback.
-	Region          pulumi.StringPtrInput
-	VolumeName      pulumi.StringPtrInput
+	// Defaults to the API endpoint's local region. When `count` is greater than 0, `any` is
+	// added as a fallback.
+	Region pulumi.StringPtrInput
+	// Currently unused.
+	VolumeName pulumi.StringPtrInput
+	// Size of a volume each Machine will need, in bytes. Only hosts with room for it are
+	// considered.
 	VolumeSizeBytes pulumi.IntPtrInput
 	// Optional weights to override default placement preferences.
 	Weights WeightsPtrInput
@@ -155,6 +172,12 @@ func (o PlatformPlacementOutput) ToPlatformPlacementOutputWithContext(ctx contex
 	return o
 }
 
+// The regions Machines would be placed in. With `count` 0, every requested region with the
+// organization's Machine limit in it.
+func (o PlatformPlacementOutput) Regions() PlacementRegionPlacementArrayOutput {
+	return o.ApplyT(func(v *PlatformPlacement) PlacementRegionPlacementArrayOutput { return v.Regions }).(PlacementRegionPlacementArrayOutput)
+}
+
 // Resource requirements for the Machine to simulate. Defaults to a performance-1x machine
 func (o PlatformPlacementOutput) Compute() ComputePtrOutput {
 	return o.ApplyT(func(v *PlatformPlacement) ComputePtrOutput { return v.Compute }).(ComputePtrOutput)
@@ -166,6 +189,7 @@ func (o PlatformPlacementOutput) Count() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *PlatformPlacement) pulumi.IntPtrOutput { return v.Count }).(pulumi.IntPtrOutput)
 }
 
+// Slug of the organization to place Machines for, or `personal`. Required.
 func (o PlatformPlacementOutput) OrgSlug() pulumi.StringOutput {
 	return o.ApplyT(func(v *PlatformPlacement) pulumi.StringOutput { return v.OrgSlug }).(pulumi.StringOutput)
 }
@@ -176,19 +200,19 @@ func (o PlatformPlacementOutput) QueryParams() PlatformPlacementQueryParamsPtrOu
 }
 
 // Region expression for placement as a comma-delimited set of regions or aliases.
-// Defaults to "[region],any", to prefer the API endpoint's local region with any other region as fallback.
+// Defaults to the API endpoint's local region. When `count` is greater than 0, `any` is
+// added as a fallback.
 func (o PlatformPlacementOutput) Region() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PlatformPlacement) pulumi.StringPtrOutput { return v.Region }).(pulumi.StringPtrOutput)
 }
 
-func (o PlatformPlacementOutput) Regions() PlacementRegionPlacementArrayOutput {
-	return o.ApplyT(func(v *PlatformPlacement) PlacementRegionPlacementArrayOutput { return v.Regions }).(PlacementRegionPlacementArrayOutput)
-}
-
+// Currently unused.
 func (o PlatformPlacementOutput) VolumeName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PlatformPlacement) pulumi.StringPtrOutput { return v.VolumeName }).(pulumi.StringPtrOutput)
 }
 
+// Size of a volume each Machine will need, in bytes. Only hosts with room for it are
+// considered.
 func (o PlatformPlacementOutput) VolumeSizeBytes() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *PlatformPlacement) pulumi.IntPtrOutput { return v.VolumeSizeBytes }).(pulumi.IntPtrOutput)
 }

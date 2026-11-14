@@ -31,32 +31,68 @@ type LookupMachineArgs struct {
 }
 
 type LookupMachineResult struct {
-	Checks           []CheckStatus      `pulumi:"checks"`
-	Config           *FlyMachineConfig  `pulumi:"config"`
-	Cordoned         *bool              `pulumi:"cordoned"`
-	CreatedAt        *string            `pulumi:"createdAt"`
-	Events           []MachineEvent     `pulumi:"events"`
-	HostFeatures     []string           `pulumi:"hostFeatures"`
-	HostStatus       *MachineHostStatus `pulumi:"hostStatus"`
-	Id               *string            `pulumi:"id"`
-	ImageRef         *ImageRef          `pulumi:"imageRef"`
-	IncompleteConfig *FlyMachineConfig  `pulumi:"incompleteConfig"`
-	// InstanceID is the same value as `version`.
+	// Status of each health check: the Machine's top-level `checks` and its services'
+	// checks.
+	Checks []CheckStatus `pulumi:"checks"`
+	// The Machine's configuration, as provided when it was created or last updated, with
+	// `metadata` and `mounts` reflecting their current values. Null when the host is not
+	// reachable (`host_status` is not `ok`) or `summary=true` was requested; see
+	// `incomplete_config`.
+	Config *MachineConfig `pulumi:"config"`
+	// Whether the Machine is cordoned, meaning Fly Proxy does not route requests to it. See
+	// the Cordon Machine endpoint.
+	Cordoned *bool `pulumi:"cordoned"`
+	// When the Machine was created.
+	CreatedAt *string `pulumi:"createdAt"`
+	// Up to 5 of the most recent events of the current Machine version, newest first. Use
+	// the List Events endpoint for more.
+	Events []MachineEvent `pulumi:"events"`
+	// Features of the Machine's host, for comparison with `config.guest.required_host_features`.
+	// Only returned when the request sets the `fly-include-host-features: true` header.
+	HostFeatures []string `pulumi:"hostFeatures"`
+	// Whether Fly.io could reach the Machine's host: `ok` if it could, `unreachable` if it
+	// could not, in which case the response is built from last known state. `unknown` if the
+	// host's status was not reported.
+	HostStatus *MachineHostStatus `pulumi:"hostStatus"`
+	// Unique ID of the Machine.
+	Id *string `pulumi:"id"`
+	// The image the Machine runs, as resolved when it was last created or updated.
+	ImageRef *MachineImageRef `pulumi:"imageRef"`
+	// Last known configuration, returned in place of `config` when the host could not be
+	// reached (`host_status` is not `ok`) or when listing Machines with `summary=true`. It
+	// comes from Fly.io's replicated state rather than the host, so it may be stale or lack
+	// fields.
+	IncompleteConfig *MachineIncompleteConfig `pulumi:"incompleteConfig"`
+	// Same value as `version`.
 	//
 	// Deprecated: use `version`.
-	InstanceId *string        `pulumi:"instanceId"`
-	Lease      *StrippedLease `pulumi:"lease"`
-	Name       *string        `pulumi:"name"`
-	// Nonce is only every returned on machine creation if a lease_duration was provided.
+	InstanceId *string `pulumi:"instanceId"`
+	// The lease currently held on the Machine. Only returned when `include_leases=true`
+	// was requested and a lease is held.
+	Lease *MachineLease `pulumi:"lease"`
+	// Name of the Machine. Generated when not provided at creation. Names are not required
+	// to be unique.
+	Name *string `pulumi:"name"`
+	// Nonce of the lease acquired on the Machine at creation. Only returned when creating a
+	// Machine with `lease_ttl` set. Pass it in the `fly-machine-lease-nonce` header to act on
+	// the Machine while the lease is held.
 	Nonce *string `pulumi:"nonce"`
-	// PrivateIP is the internal 6PN address of the machine.
+	// The Machine's address on the organization's private (6PN) IPv6 network.
 	PrivateIp *string `pulumi:"privateIp"`
-	Region    *string `pulumi:"region"`
-	State     *string `pulumi:"state"`
+	// Code of the region the Machine runs in, such as `iad`.
+	Region *string `pulumi:"region"`
+	// Current state of the Machine, taken from the status of its most recent event. One of
+	// `created`, `starting`, `started`, `stopping`, `stopped`, `suspending`, `suspended`,
+	// `replacing`, `replaced`, `destroying`, `destroyed`, `failed`, `migrating`, `migrated`,
+	// `archived`, or `pending`. See https://fly.io/docs/machines/machine-states/.
+	State *string `pulumi:"state"`
+	// Time of the Machine's most recent event, truncated to whole seconds. The zero time
+	// (0001-01-01T00:00:00Z) if the host could not be reached. With `summary=true`, the time
+	// Fly.io last recorded a change to the Machine.
 	UpdatedAt *string `pulumi:"updatedAt"`
-	// Version is unique for each version of the machine. Pass it as
-	// `current_version` when updating the Machine to reject the update if the
-	// Machine has changed since this version.
+	// Unique ID of this version of the Machine. Every update creates a new version. Pass it
+	// as `current_version` when updating the Machine to reject the update if the Machine has
+	// changed since this version.
 	Version *string `pulumi:"version"`
 }
 
@@ -92,86 +128,122 @@ func (o LookupMachineResultOutput) ToLookupMachineResultOutputWithContext(ctx co
 	return o
 }
 
+// Status of each health check: the Machine's top-level `checks` and its services'
+// checks.
 func (o LookupMachineResultOutput) Checks() CheckStatusArrayOutput {
 	return o.ApplyT(func(v LookupMachineResult) []CheckStatus { return v.Checks }).(CheckStatusArrayOutput)
 }
 
-func (o LookupMachineResultOutput) Config() FlyMachineConfigPtrOutput {
-	return o.ApplyT(func(v LookupMachineResult) *FlyMachineConfig { return v.Config }).(FlyMachineConfigPtrOutput)
+// The Machine's configuration, as provided when it was created or last updated, with
+// `metadata` and `mounts` reflecting their current values. Null when the host is not
+// reachable (`host_status` is not `ok`) or `summary=true` was requested; see
+// `incomplete_config`.
+func (o LookupMachineResultOutput) Config() MachineConfigPtrOutput {
+	return o.ApplyT(func(v LookupMachineResult) *MachineConfig { return v.Config }).(MachineConfigPtrOutput)
 }
 
+// Whether the Machine is cordoned, meaning Fly Proxy does not route requests to it. See
+// the Cordon Machine endpoint.
 func (o LookupMachineResultOutput) Cordoned() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v LookupMachineResult) *bool { return v.Cordoned }).(pulumi.BoolPtrOutput)
 }
 
+// When the Machine was created.
 func (o LookupMachineResultOutput) CreatedAt() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LookupMachineResult) *string { return v.CreatedAt }).(pulumi.StringPtrOutput)
 }
 
+// Up to 5 of the most recent events of the current Machine version, newest first. Use
+// the List Events endpoint for more.
 func (o LookupMachineResultOutput) Events() MachineEventArrayOutput {
 	return o.ApplyT(func(v LookupMachineResult) []MachineEvent { return v.Events }).(MachineEventArrayOutput)
 }
 
+// Features of the Machine's host, for comparison with `config.guest.required_host_features`.
+// Only returned when the request sets the `fly-include-host-features: true` header.
 func (o LookupMachineResultOutput) HostFeatures() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v LookupMachineResult) []string { return v.HostFeatures }).(pulumi.StringArrayOutput)
 }
 
+// Whether Fly.io could reach the Machine's host: `ok` if it could, `unreachable` if it
+// could not, in which case the response is built from last known state. `unknown` if the
+// host's status was not reported.
 func (o LookupMachineResultOutput) HostStatus() MachineHostStatusPtrOutput {
 	return o.ApplyT(func(v LookupMachineResult) *MachineHostStatus { return v.HostStatus }).(MachineHostStatusPtrOutput)
 }
 
+// Unique ID of the Machine.
 func (o LookupMachineResultOutput) Id() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LookupMachineResult) *string { return v.Id }).(pulumi.StringPtrOutput)
 }
 
-func (o LookupMachineResultOutput) ImageRef() ImageRefPtrOutput {
-	return o.ApplyT(func(v LookupMachineResult) *ImageRef { return v.ImageRef }).(ImageRefPtrOutput)
+// The image the Machine runs, as resolved when it was last created or updated.
+func (o LookupMachineResultOutput) ImageRef() MachineImageRefPtrOutput {
+	return o.ApplyT(func(v LookupMachineResult) *MachineImageRef { return v.ImageRef }).(MachineImageRefPtrOutput)
 }
 
-func (o LookupMachineResultOutput) IncompleteConfig() FlyMachineConfigPtrOutput {
-	return o.ApplyT(func(v LookupMachineResult) *FlyMachineConfig { return v.IncompleteConfig }).(FlyMachineConfigPtrOutput)
+// Last known configuration, returned in place of `config` when the host could not be
+// reached (`host_status` is not `ok`) or when listing Machines with `summary=true`. It
+// comes from Fly.io's replicated state rather than the host, so it may be stale or lack
+// fields.
+func (o LookupMachineResultOutput) IncompleteConfig() MachineIncompleteConfigPtrOutput {
+	return o.ApplyT(func(v LookupMachineResult) *MachineIncompleteConfig { return v.IncompleteConfig }).(MachineIncompleteConfigPtrOutput)
 }
 
-// InstanceID is the same value as `version`.
+// Same value as `version`.
 //
 // Deprecated: use `version`.
 func (o LookupMachineResultOutput) InstanceId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LookupMachineResult) *string { return v.InstanceId }).(pulumi.StringPtrOutput)
 }
 
-func (o LookupMachineResultOutput) Lease() StrippedLeasePtrOutput {
-	return o.ApplyT(func(v LookupMachineResult) *StrippedLease { return v.Lease }).(StrippedLeasePtrOutput)
+// The lease currently held on the Machine. Only returned when `include_leases=true`
+// was requested and a lease is held.
+func (o LookupMachineResultOutput) Lease() MachineLeasePtrOutput {
+	return o.ApplyT(func(v LookupMachineResult) *MachineLease { return v.Lease }).(MachineLeasePtrOutput)
 }
 
+// Name of the Machine. Generated when not provided at creation. Names are not required
+// to be unique.
 func (o LookupMachineResultOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LookupMachineResult) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-// Nonce is only every returned on machine creation if a lease_duration was provided.
+// Nonce of the lease acquired on the Machine at creation. Only returned when creating a
+// Machine with `lease_ttl` set. Pass it in the `fly-machine-lease-nonce` header to act on
+// the Machine while the lease is held.
 func (o LookupMachineResultOutput) Nonce() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LookupMachineResult) *string { return v.Nonce }).(pulumi.StringPtrOutput)
 }
 
-// PrivateIP is the internal 6PN address of the machine.
+// The Machine's address on the organization's private (6PN) IPv6 network.
 func (o LookupMachineResultOutput) PrivateIp() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LookupMachineResult) *string { return v.PrivateIp }).(pulumi.StringPtrOutput)
 }
 
+// Code of the region the Machine runs in, such as `iad`.
 func (o LookupMachineResultOutput) Region() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LookupMachineResult) *string { return v.Region }).(pulumi.StringPtrOutput)
 }
 
+// Current state of the Machine, taken from the status of its most recent event. One of
+// `created`, `starting`, `started`, `stopping`, `stopped`, `suspending`, `suspended`,
+// `replacing`, `replaced`, `destroying`, `destroyed`, `failed`, `migrating`, `migrated`,
+// `archived`, or `pending`. See https://fly.io/docs/machines/machine-states/.
 func (o LookupMachineResultOutput) State() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LookupMachineResult) *string { return v.State }).(pulumi.StringPtrOutput)
 }
 
+// Time of the Machine's most recent event, truncated to whole seconds. The zero time
+// (0001-01-01T00:00:00Z) if the host could not be reached. With `summary=true`, the time
+// Fly.io last recorded a change to the Machine.
 func (o LookupMachineResultOutput) UpdatedAt() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LookupMachineResult) *string { return v.UpdatedAt }).(pulumi.StringPtrOutput)
 }
 
-// Version is unique for each version of the machine. Pass it as
-// `current_version` when updating the Machine to reject the update if the
-// Machine has changed since this version.
+// Unique ID of this version of the Machine. Every update creates a new version. Pass it
+// as `current_version` when updating the Machine to reject the update if the Machine has
+// changed since this version.
 func (o LookupMachineResultOutput) Version() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LookupMachineResult) *string { return v.Version }).(pulumi.StringPtrOutput)
 }

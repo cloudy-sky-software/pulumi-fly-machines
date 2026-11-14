@@ -13,9 +13,16 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
 
     public sealed class FlyContainerDependencyArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// When the container can start: once the dependency has `started`, is `healthy`, or has
+        /// `exited_successfully`
+        /// </summary>
         [Input("condition")]
         public Input<CloudySkySoftware.Pulumi.FlyMachines.AppsV1.FlyContainerDependencyCondition>? Condition { get; set; }
 
+        /// <summary>
+        /// Name of the container this one depends on
+        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 

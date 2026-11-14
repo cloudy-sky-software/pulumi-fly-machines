@@ -44,27 +44,51 @@ export class AppIPAssignment extends pulumi.CustomResource {
         return obj['__pulumiType'] === AppIPAssignment.__pulumiType;
     }
 
+    /**
+     * When the address was assigned to the app, in RFC 3339 format.
+     */
     declare public /*out*/ readonly createdAt: pulumi.Output<string | undefined>;
+    /**
+     * Whether this is an egress address.
+     */
     declare public /*out*/ readonly egress: pulumi.Output<boolean | undefined>;
+    /**
+     * The allocated IP address. Null for `egress_pair`; see `ip_pair`.
+     */
     declare public /*out*/ readonly ip: pulumi.Output<string | undefined>;
     /**
-     * ip_pair is returned when "egress-pair" IP type is requested; in this case, ip is null.
+     * The allocated IPv4 and IPv6 addresses when the `egress_pair` type was requested; null
+     * otherwise.
      */
     declare public /*out*/ readonly ipPair: pulumi.Output<outputs.apps.v1.IpPair | undefined>;
     /**
      * The 6PN network a Flycast (private_v6) address belongs to. Null for all other IP types.
      */
     declare public readonly network: pulumi.Output<outputs.apps.v1.IPAssignmentNetwork | undefined>;
+    /**
+     * Only for `private_v6`: slug of the organization whose private network the Flycast address
+     * is allocated in, to make the app reachable from that organization. Defaults to the app's
+     * organization.
+     */
     declare public readonly orgSlug: pulumi.Output<string | undefined>;
     /**
      * Query params to send with the API requests for this resource.
      */
     declare public readonly queryParams: pulumi.Output<outputs.apps.v1.AppIPAssignmentQueryParams | undefined>;
+    /**
+     * Region the address is scoped to, or `global` for addresses announced in all regions.
+     */
     declare public readonly region: pulumi.Output<string | undefined>;
+    /**
+     * Name of the service the address is scoped to, if any.
+     */
     declare public readonly serviceName: pulumi.Output<string | undefined>;
+    /**
+     * Whether this is the app's shared IPv4 address.
+     */
     declare public /*out*/ readonly shared: pulumi.Output<boolean | undefined>;
     /**
-     * Type of IP address to allocate. "egress-pair" allocates both v4 and v6 egress IP addresses (recommended when using egress IPs).
+     * Type of IP address to allocate. Required.
      */
     declare public readonly type: pulumi.Output<enums.apps.v1.AppIPAssignmentType | undefined>;
 
@@ -117,16 +141,33 @@ export interface AppIPAssignmentArgs {
      * Fly App Name
      */
     appName?: pulumi.Input<string | undefined>;
+    /**
+     * Only for `private_v6`: name of the private network to allocate the Flycast address in.
+     * Defaults to the organization's default network.
+     */
     network?: pulumi.Input<string | undefined>;
+    /**
+     * Only for `private_v6`: slug of the organization whose private network the Flycast address
+     * is allocated in, to make the app reachable from that organization. Defaults to the app's
+     * organization.
+     */
     orgSlug?: pulumi.Input<string | undefined>;
     /**
      * Query params to send with the API requests for this resource.
      */
     queryParams?: pulumi.Input<inputs.apps.v1.AppIPAssignmentQueryParamsArgs | undefined>;
+    /**
+     * Region to scope the address to. Required for egress types. Optional for `v4` and `v6`,
+     * which default to `global` (announced in all regions). Must be empty or `global` for
+     * `shared_v4` and `private_v6`.
+     */
     region?: pulumi.Input<string | undefined>;
+    /**
+     * Scope the address to a single service of the app. Not supported for egress types.
+     */
     serviceName?: pulumi.Input<string | undefined>;
     /**
-     * Type of IP address to allocate. "egress-pair" allocates both v4 and v6 egress IP addresses (recommended when using egress IPs).
+     * Type of IP address to allocate. Required.
      */
     type?: pulumi.Input<enums.apps.v1.AppIPAssignmentType | undefined>;
 }

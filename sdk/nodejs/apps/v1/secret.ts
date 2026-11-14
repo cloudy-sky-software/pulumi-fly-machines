@@ -44,14 +44,30 @@ export class Secret extends pulumi.CustomResource {
         return obj['__pulumiType'] === Secret.__pulumiType;
     }
 
+    /**
+     * When the secret was first set. Only returned when reading secrets.
+     */
     declare public /*out*/ readonly createdAt: pulumi.Output<string | undefined>;
+    /**
+     * Short fingerprint of the value, to tell whether it changed without revealing it. Omitted
+     * for deleted secrets.
+     */
     declare public /*out*/ readonly digest: pulumi.Output<string | undefined>;
+    /**
+     * Name of the secret.
+     */
     declare public /*out*/ readonly name: pulumi.Output<string | undefined>;
     /**
      * Query params to send with the API requests for this resource.
      */
     declare public readonly queryParams: pulumi.Output<outputs.apps.v1.SecretQueryParams | undefined>;
+    /**
+     * When the secret's value last changed. Only returned when reading secrets.
+     */
     declare public /*out*/ readonly updatedAt: pulumi.Output<string | undefined>;
+    /**
+     * Value of the secret. Only returned with `show_secrets=true`, and when setting secrets.
+     */
     declare public readonly value: pulumi.Output<string | undefined>;
     /**
      * The app's secrets version after this change. Pass it as `min_secrets_version` when creating or
@@ -109,5 +125,8 @@ export interface SecretArgs {
      * App secret name
      */
     secretName?: pulumi.Input<string | undefined>;
+    /**
+     * New value of the secret.
+     */
     value?: pulumi.Input<string | undefined>;
 }

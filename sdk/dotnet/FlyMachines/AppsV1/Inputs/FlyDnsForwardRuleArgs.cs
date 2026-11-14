@@ -13,9 +13,15 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
 
     public sealed class FlyDnsForwardRuleArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Address and port of the DNS server to forward queries to over TCP, e.g. `10.0.0.1:53`
+        /// </summary>
         [Input("addr")]
         public Input<string>? Addr { get; set; }
 
+        /// <summary>
+        /// Domain to forward queries for, including subdomains. Must end in a dot, e.g. `example.com.`
+        /// </summary>
         [Input("basename")]
         public Input<string>? Basename { get; set; }
 

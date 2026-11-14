@@ -19,6 +19,10 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Output("queryParams")]
         public Output<Outputs.SecretsQueryParams?> QueryParams { get; private set; } = null!;
 
+        /// <summary>
+        /// The secrets from the request, with their new values and digests; deleted secrets only
+        /// have a name.
+        /// </summary>
         [Output("secrets")]
         public Output<ImmutableArray<Outputs.AppSecret>> SecretsValue { get; private set; } = null!;
 

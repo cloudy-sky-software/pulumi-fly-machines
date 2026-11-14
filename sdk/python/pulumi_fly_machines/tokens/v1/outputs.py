@@ -17,11 +17,10 @@ from . import outputs
 from ._enums import *
 
 __all__ = [
-    'FlyioAccess',
+    'Access',
     'MacaroonCaveatSet',
     'MacaroonNonce',
     'MainTokenInfo',
-    'RootVerifiedToken',
     'TokensAuthenticateCreateQueryParams',
     'TokensAuthenticateQueryParams',
     'TokensAuthorizeCreateQueryParams',
@@ -30,10 +29,14 @@ __all__ = [
     'TokensRequestKmQueryParams',
     'TokensRequestOidcCreateQueryParams',
     'TokensRequestOidcQueryParams',
+    'VerifiedToken',
 ]
 
 @pulumi.output_type
-class FlyioAccess(dict):
+class Access(dict):
+    """
+    The requested access, with names resolved to IDs.
+    """
     @staticmethod
     def __key_warning(key: str):
         suggest = None
@@ -51,14 +54,14 @@ class FlyioAccess(dict):
             suggest = "storage_object"
 
         if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in FlyioAccess. Access the value via the '{suggest}' property getter instead.")
+            pulumi.log.warn(f"Key '{key}' not found in Access. Access the value via the '{suggest}' property getter instead.")
 
     def __getitem__(self, key: str) -> Any:
-        FlyioAccess.__key_warning(key)
+        Access.__key_warning(key)
         return super().__getitem__(key)
 
     def get(self, key: str, default = None) -> Any:
-        FlyioAccess.__key_warning(key)
+        Access.__key_warning(key)
         return super().get(key, default)
 
     def __init__(__self__, *,
@@ -77,6 +80,9 @@ class FlyioAccess(dict):
                  source_organization: Optional[_builtins.str] = None,
                  storage_object: Optional[_builtins.str] = None,
                  volume: Optional[_builtins.str] = None):
+        """
+        The requested access, with names resolved to IDs.
+        """
         if action is not None:
             pulumi.set(__self__, "action", action)
         if app_feature is not None:
@@ -237,9 +243,16 @@ class MainTokenInfo(dict):
                  token_id: Optional[_builtins.str] = None,
                  user: Optional[_builtins.str] = None):
         """
-        :param _builtins.str restricted_to_machine: Machine the token is restricted to (FromMachine caveat)
-        :param _builtins.str source_machine_id: Machine making the request
-        :param _builtins.str user: User identifier if token is for a user
+        :param Sequence[_builtins.str] apps: Names of the apps the token is restricted to. Omitted if the token is not restricted to
+               specific apps.
+        :param _builtins.str org_slug: Slug of the organization the token is scoped to.
+        :param _builtins.str organization: Name of the organization the token is scoped to.
+        :param _builtins.str restricted_to_machine: ID of the Machine the token may only be used from. Omitted if the token is not restricted
+               to a Machine.
+        :param _builtins.str source_machine_id: Never set.
+        :param _builtins.str token_id: ID of the token.
+        :param _builtins.str user: Opaque identifier of the user the token belongs to: the first 7 hex characters of a hash of
+               the user's ID. Omitted for tokens that do not belong to a user.
         """
         if apps is not None:
             pulumi.set(__self__, "apps", apps)
@@ -259,23 +272,34 @@ class MainTokenInfo(dict):
     @_builtins.property
     @pulumi.getter
     def apps(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        Names of the apps the token is restricted to. Omitted if the token is not restricted to
+        specific apps.
+        """
         return pulumi.get(self, "apps")
 
     @_builtins.property
     @pulumi.getter(name="orgSlug")
     def org_slug(self) -> Optional[_builtins.str]:
+        """
+        Slug of the organization the token is scoped to.
+        """
         return pulumi.get(self, "org_slug")
 
     @_builtins.property
     @pulumi.getter
     def organization(self) -> Optional[_builtins.str]:
+        """
+        Name of the organization the token is scoped to.
+        """
         return pulumi.get(self, "organization")
 
     @_builtins.property
     @pulumi.getter(name="restrictedToMachine")
     def restricted_to_machine(self) -> Optional[_builtins.str]:
         """
-        Machine the token is restricted to (FromMachine caveat)
+        ID of the Machine the token may only be used from. Omitted if the token is not restricted
+        to a Machine.
         """
         return pulumi.get(self, "restricted_to_machine")
 
@@ -283,76 +307,26 @@ class MainTokenInfo(dict):
     @pulumi.getter(name="sourceMachineId")
     def source_machine_id(self) -> Optional[_builtins.str]:
         """
-        Machine making the request
+        Never set.
         """
         return pulumi.get(self, "source_machine_id")
 
     @_builtins.property
     @pulumi.getter(name="tokenId")
     def token_id(self) -> Optional[_builtins.str]:
+        """
+        ID of the token.
+        """
         return pulumi.get(self, "token_id")
 
     @_builtins.property
     @pulumi.getter
     def user(self) -> Optional[_builtins.str]:
         """
-        User identifier if token is for a user
+        Opaque identifier of the user the token belongs to: the first 7 hex characters of a hash of
+        the user's ID. Omitted for tokens that do not belong to a user.
         """
         return pulumi.get(self, "user")
-
-
-@pulumi.output_type
-class RootVerifiedToken(dict):
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "permissionToken":
-            suggest = "permission_token"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in RootVerifiedToken. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        RootVerifiedToken.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        RootVerifiedToken.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 caveats: Optional['outputs.MacaroonCaveatSet'] = None,
-                 header: Optional[_builtins.str] = None,
-                 nonce: Optional['outputs.MacaroonNonce'] = None,
-                 permission_token: Optional[Sequence[_builtins.int]] = None):
-        if caveats is not None:
-            pulumi.set(__self__, "caveats", caveats)
-        if header is not None:
-            pulumi.set(__self__, "header", header)
-        if nonce is not None:
-            pulumi.set(__self__, "nonce", nonce)
-        if permission_token is not None:
-            pulumi.set(__self__, "permission_token", permission_token)
-
-    @_builtins.property
-    @pulumi.getter
-    def caveats(self) -> Optional['outputs.MacaroonCaveatSet']:
-        return pulumi.get(self, "caveats")
-
-    @_builtins.property
-    @pulumi.getter
-    def header(self) -> Optional[_builtins.str]:
-        return pulumi.get(self, "header")
-
-    @_builtins.property
-    @pulumi.getter
-    def nonce(self) -> Optional['outputs.MacaroonNonce']:
-        return pulumi.get(self, "nonce")
-
-    @_builtins.property
-    @pulumi.getter(name="permissionToken")
-    def permission_token(self) -> Optional[Sequence[_builtins.int]]:
-        return pulumi.get(self, "permission_token")
 
 
 @pulumi.output_type
@@ -613,5 +587,65 @@ class TokensRequestOidcQueryParams(dict):
         Query params for the create operation.
         """
         return pulumi.get(self, "create")
+
+
+@pulumi.output_type
+class VerifiedToken(dict):
+    """
+    The token that grants the requested access.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "permissionToken":
+            suggest = "permission_token"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in VerifiedToken. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        VerifiedToken.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        VerifiedToken.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 caveats: Optional['outputs.MacaroonCaveatSet'] = None,
+                 header: Optional[_builtins.str] = None,
+                 nonce: Optional['outputs.MacaroonNonce'] = None,
+                 permission_token: Optional[Sequence[_builtins.int]] = None):
+        """
+        The token that grants the requested access.
+        """
+        if caveats is not None:
+            pulumi.set(__self__, "caveats", caveats)
+        if header is not None:
+            pulumi.set(__self__, "header", header)
+        if nonce is not None:
+            pulumi.set(__self__, "nonce", nonce)
+        if permission_token is not None:
+            pulumi.set(__self__, "permission_token", permission_token)
+
+    @_builtins.property
+    @pulumi.getter
+    def caveats(self) -> Optional['outputs.MacaroonCaveatSet']:
+        return pulumi.get(self, "caveats")
+
+    @_builtins.property
+    @pulumi.getter
+    def header(self) -> Optional[_builtins.str]:
+        return pulumi.get(self, "header")
+
+    @_builtins.property
+    @pulumi.getter
+    def nonce(self) -> Optional['outputs.MacaroonNonce']:
+        return pulumi.get(self, "nonce")
+
+    @_builtins.property
+    @pulumi.getter(name="permissionToken")
+    def permission_token(self) -> Optional[Sequence[_builtins.int]]:
+        return pulumi.get(self, "permission_token")
 
 

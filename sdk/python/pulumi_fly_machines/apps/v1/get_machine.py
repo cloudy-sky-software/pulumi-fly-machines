@@ -88,58 +88,100 @@ class GetMachineResult:
     @_builtins.property
     @pulumi.getter
     def checks(self) -> Optional[Sequence['outputs.CheckStatus']]:
+        """
+        Status of each health check: the Machine's top-level `checks` and its services'
+        checks.
+        """
         return pulumi.get(self, "checks")
 
     @_builtins.property
     @pulumi.getter
-    def config(self) -> Optional['outputs.FlyMachineConfig']:
+    def config(self) -> Optional['outputs.MachineConfig']:
+        """
+        The Machine's configuration, as provided when it was created or last updated, with
+        `metadata` and `mounts` reflecting their current values. Null when the host is not
+        reachable (`host_status` is not `ok`) or `summary=true` was requested; see
+        `incomplete_config`.
+        """
         return pulumi.get(self, "config")
 
     @_builtins.property
     @pulumi.getter
     def cordoned(self) -> Optional[_builtins.bool]:
+        """
+        Whether the Machine is cordoned, meaning Fly Proxy does not route requests to it. See
+        the Cordon Machine endpoint.
+        """
         return pulumi.get(self, "cordoned")
 
     @_builtins.property
     @pulumi.getter(name="createdAt")
     def created_at(self) -> Optional[_builtins.str]:
+        """
+        When the Machine was created.
+        """
         return pulumi.get(self, "created_at")
 
     @_builtins.property
     @pulumi.getter
     def events(self) -> Optional[Sequence['outputs.MachineEvent']]:
+        """
+        Up to 5 of the most recent events of the current Machine version, newest first. Use
+        the List Events endpoint for more.
+        """
         return pulumi.get(self, "events")
 
     @_builtins.property
     @pulumi.getter(name="hostFeatures")
     def host_features(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        Features of the Machine's host, for comparison with `config.guest.required_host_features`.
+        Only returned when the request sets the `fly-include-host-features: true` header.
+        """
         return pulumi.get(self, "host_features")
 
     @_builtins.property
     @pulumi.getter(name="hostStatus")
     def host_status(self) -> Optional['MachineHostStatus']:
+        """
+        Whether Fly.io could reach the Machine's host: `ok` if it could, `unreachable` if it
+        could not, in which case the response is built from last known state. `unknown` if the
+        host's status was not reported.
+        """
         return pulumi.get(self, "host_status")
 
     @_builtins.property
     @pulumi.getter
     def id(self) -> Optional[_builtins.str]:
+        """
+        Unique ID of the Machine.
+        """
         return pulumi.get(self, "id")
 
     @_builtins.property
     @pulumi.getter(name="imageRef")
-    def image_ref(self) -> Optional['outputs.ImageRef']:
+    def image_ref(self) -> Optional['outputs.MachineImageRef']:
+        """
+        The image the Machine runs, as resolved when it was last created or updated.
+        """
         return pulumi.get(self, "image_ref")
 
     @_builtins.property
     @pulumi.getter(name="incompleteConfig")
-    def incomplete_config(self) -> Optional['outputs.FlyMachineConfig']:
+    def incomplete_config(self) -> Optional['outputs.MachineIncompleteConfig']:
+        """
+        Last known configuration, returned in place of `config` when the host could not be
+        reached (`host_status` is not `ok`) or when listing Machines with `summary=true`. It
+        comes from Fly.io's replicated state rather than the host, so it may be stale or lack
+        fields.
+        """
         return pulumi.get(self, "incomplete_config")
 
     @_builtins.property
     @pulumi.getter(name="instanceId")
     def instance_id(self) -> Optional[_builtins.str]:
         """
-        InstanceID is the same value as `version`.
+        Same value as `version`.
 
         Deprecated: use `version`.
         """
@@ -147,19 +189,29 @@ class GetMachineResult:
 
     @_builtins.property
     @pulumi.getter
-    def lease(self) -> Optional['outputs.StrippedLease']:
+    def lease(self) -> Optional['outputs.MachineLease']:
+        """
+        The lease currently held on the Machine. Only returned when `include_leases=true`
+        was requested and a lease is held.
+        """
         return pulumi.get(self, "lease")
 
     @_builtins.property
     @pulumi.getter
     def name(self) -> Optional[_builtins.str]:
+        """
+        Name of the Machine. Generated when not provided at creation. Names are not required
+        to be unique.
+        """
         return pulumi.get(self, "name")
 
     @_builtins.property
     @pulumi.getter
     def nonce(self) -> Optional[_builtins.str]:
         """
-        Nonce is only every returned on machine creation if a lease_duration was provided.
+        Nonce of the lease acquired on the Machine at creation. Only returned when creating a
+        Machine with `lease_ttl` set. Pass it in the `fly-machine-lease-nonce` header to act on
+        the Machine while the lease is held.
         """
         return pulumi.get(self, "nonce")
 
@@ -167,32 +219,46 @@ class GetMachineResult:
     @pulumi.getter(name="privateIp")
     def private_ip(self) -> Optional[_builtins.str]:
         """
-        PrivateIP is the internal 6PN address of the machine.
+        The Machine's address on the organization's private (6PN) IPv6 network.
         """
         return pulumi.get(self, "private_ip")
 
     @_builtins.property
     @pulumi.getter
     def region(self) -> Optional[_builtins.str]:
+        """
+        Code of the region the Machine runs in, such as `iad`.
+        """
         return pulumi.get(self, "region")
 
     @_builtins.property
     @pulumi.getter
     def state(self) -> Optional[_builtins.str]:
+        """
+        Current state of the Machine, taken from the status of its most recent event. One of
+        `created`, `starting`, `started`, `stopping`, `stopped`, `suspending`, `suspended`,
+        `replacing`, `replaced`, `destroying`, `destroyed`, `failed`, `migrating`, `migrated`,
+        `archived`, or `pending`. See https://fly.io/docs/machines/machine-states/.
+        """
         return pulumi.get(self, "state")
 
     @_builtins.property
     @pulumi.getter(name="updatedAt")
     def updated_at(self) -> Optional[_builtins.str]:
+        """
+        Time of the Machine's most recent event, truncated to whole seconds. The zero time
+        (0001-01-01T00:00:00Z) if the host could not be reached. With `summary=true`, the time
+        Fly.io last recorded a change to the Machine.
+        """
         return pulumi.get(self, "updated_at")
 
     @_builtins.property
     @pulumi.getter
     def version(self) -> Optional[_builtins.str]:
         """
-        Version is unique for each version of the machine. Pass it as
-        `current_version` when updating the Machine to reject the update if the
-        Machine has changed since this version.
+        Unique ID of this version of the Machine. Every update creates a new version. Pass it
+        as `current_version` when updating the Machine to reject the update if the Machine has
+        changed since this version.
         """
         return pulumi.get(self, "version")
 

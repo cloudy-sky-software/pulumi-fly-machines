@@ -75,7 +75,25 @@ class Compute(dict):
         """
         Resource requirements for the Machine to simulate. Defaults to a performance-1x machine
 
+        :param _builtins.str cpu_kind: Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
+               Defaults to shared when `guest` is omitted
+        :param _builtins.int cpus: Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
+               performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
+               omitted
+        :param _builtins.str gpu_kind: No longer supported. Requests that set it are rejected
+        :param _builtins.int gpus: No longer supported. Requests that set it are rejected
+        :param _builtins.str host_dedication_id: Place the Machine on hosts dedicated to the organization under this ID. Only available to
+               organizations with dedicated hosts
+        :param Sequence[_builtins.str] kernel_args: Extra arguments appended to the guest kernel command line
+        :param _builtins.int max_memory_mb: Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
+               the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
+               starts with a limit of memory_mb
+        :param _builtins.int memory_mb: Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
+               between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
+               `guest` is omitted
         :param 'FlyMachineGuestPersistRootfs' persist_rootfs: Deprecated: use MachineConfig.Rootfs instead
+        :param Sequence[_builtins.str] required_host_features: Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
+               of lowercase letters, digits and dashes. Each feature must be enabled for the organization
         """
         if cpu_kind is not None:
             pulumi.set(__self__, "cpu_kind", cpu_kind)
@@ -101,41 +119,73 @@ class Compute(dict):
     @_builtins.property
     @pulumi.getter(name="cpuKind")
     def cpu_kind(self) -> Optional[_builtins.str]:
+        """
+        Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
+        Defaults to shared when `guest` is omitted
+        """
         return pulumi.get(self, "cpu_kind")
 
     @_builtins.property
     @pulumi.getter
     def cpus(self) -> Optional[_builtins.int]:
+        """
+        Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
+        performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
+        omitted
+        """
         return pulumi.get(self, "cpus")
 
     @_builtins.property
     @pulumi.getter(name="gpuKind")
     def gpu_kind(self) -> Optional[_builtins.str]:
+        """
+        No longer supported. Requests that set it are rejected
+        """
         return pulumi.get(self, "gpu_kind")
 
     @_builtins.property
     @pulumi.getter
     def gpus(self) -> Optional[_builtins.int]:
+        """
+        No longer supported. Requests that set it are rejected
+        """
         return pulumi.get(self, "gpus")
 
     @_builtins.property
     @pulumi.getter(name="hostDedicationId")
     def host_dedication_id(self) -> Optional[_builtins.str]:
+        """
+        Place the Machine on hosts dedicated to the organization under this ID. Only available to
+        organizations with dedicated hosts
+        """
         return pulumi.get(self, "host_dedication_id")
 
     @_builtins.property
     @pulumi.getter(name="kernelArgs")
     def kernel_args(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        Extra arguments appended to the guest kernel command line
+        """
         return pulumi.get(self, "kernel_args")
 
     @_builtins.property
     @pulumi.getter(name="maxMemoryMb")
     def max_memory_mb(self) -> Optional[_builtins.int]:
+        """
+        Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
+        the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
+        starts with a limit of memory_mb
+        """
         return pulumi.get(self, "max_memory_mb")
 
     @_builtins.property
     @pulumi.getter(name="memoryMb")
     def memory_mb(self) -> Optional[_builtins.int]:
+        """
+        Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
+        between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
+        `guest` is omitted
+        """
         return pulumi.get(self, "memory_mb")
 
     @_builtins.property
@@ -149,6 +199,10 @@ class Compute(dict):
     @_builtins.property
     @pulumi.getter(name="requiredHostFeatures")
     def required_host_features(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
+        of lowercase letters, digits and dashes. Each feature must be enabled for the organization
+        """
         return pulumi.get(self, "required_host_features")
 
 
@@ -158,12 +212,23 @@ class MainRegionRow(dict):
                  code: Optional[_builtins.str] = None,
                  deprecated: Optional[_builtins.bool] = None,
                  gateway_available: Optional[_builtins.bool] = None,
-                 geo_region: Optional[_builtins.str] = None,
+                 geo_region: Optional['MainRegionRowGeoRegion'] = None,
                  latitude: Optional[_builtins.float] = None,
                  longitude: Optional[_builtins.float] = None,
                  mpg_available: Optional[_builtins.bool] = None,
                  name: Optional[_builtins.str] = None,
                  requires_paid_plan: Optional[_builtins.bool] = None):
+        """
+        :param _builtins.str code: Region code, such as `iad`, used to select the region in other requests.
+        :param _builtins.bool deprecated: Whether the region is deprecated. Avoid creating new resources in it.
+        :param _builtins.bool gateway_available: Whether the region has a WireGuard gateway that private network peers can connect to.
+        :param 'MainRegionRowGeoRegion' geo_region: Geographic area the region belongs to.
+        :param _builtins.float latitude: Latitude of the region's location.
+        :param _builtins.float longitude: Longitude of the region's location.
+        :param _builtins.bool mpg_available: Whether Managed Postgres clusters can be created in the region.
+        :param _builtins.str name: Human-readable name of the region, such as `Ashburn, Virginia (US)`.
+        :param _builtins.bool requires_paid_plan: Whether only organizations on a paid plan can use the region.
+        """
         if code is not None:
             pulumi.set(__self__, "code", code)
         if deprecated is not None:
@@ -186,55 +251,110 @@ class MainRegionRow(dict):
     @_builtins.property
     @pulumi.getter
     def code(self) -> Optional[_builtins.str]:
+        """
+        Region code, such as `iad`, used to select the region in other requests.
+        """
         return pulumi.get(self, "code")
 
     @_builtins.property
     @pulumi.getter
     def deprecated(self) -> Optional[_builtins.bool]:
+        """
+        Whether the region is deprecated. Avoid creating new resources in it.
+        """
         return pulumi.get(self, "deprecated")
 
     @_builtins.property
     @pulumi.getter(name="gatewayAvailable")
     def gateway_available(self) -> Optional[_builtins.bool]:
+        """
+        Whether the region has a WireGuard gateway that private network peers can connect to.
+        """
         return pulumi.get(self, "gateway_available")
 
     @_builtins.property
     @pulumi.getter(name="geoRegion")
-    def geo_region(self) -> Optional[_builtins.str]:
+    def geo_region(self) -> Optional['MainRegionRowGeoRegion']:
+        """
+        Geographic area the region belongs to.
+        """
         return pulumi.get(self, "geo_region")
 
     @_builtins.property
     @pulumi.getter
     def latitude(self) -> Optional[_builtins.float]:
+        """
+        Latitude of the region's location.
+        """
         return pulumi.get(self, "latitude")
 
     @_builtins.property
     @pulumi.getter
     def longitude(self) -> Optional[_builtins.float]:
+        """
+        Longitude of the region's location.
+        """
         return pulumi.get(self, "longitude")
 
     @_builtins.property
     @pulumi.getter(name="mpgAvailable")
     def mpg_available(self) -> Optional[_builtins.bool]:
+        """
+        Whether Managed Postgres clusters can be created in the region.
+        """
         return pulumi.get(self, "mpg_available")
 
     @_builtins.property
     @pulumi.getter
     def name(self) -> Optional[_builtins.str]:
+        """
+        Human-readable name of the region, such as `Ashburn, Virginia (US)`.
+        """
         return pulumi.get(self, "name")
 
     @_builtins.property
     @pulumi.getter(name="requiresPaidPlan")
     def requires_paid_plan(self) -> Optional[_builtins.bool]:
+        """
+        Whether only organizations on a paid plan can use the region.
+        """
         return pulumi.get(self, "requires_paid_plan")
 
 
 @pulumi.output_type
 class PlacementRegionPlacement(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "Concurrency":
+            suggest = "concurrency"
+        elif key == "Count":
+            suggest = "count"
+        elif key == "Region":
+            suggest = "region"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PlacementRegionPlacement. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PlacementRegionPlacement.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PlacementRegionPlacement.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  concurrency: Optional[_builtins.int] = None,
                  count: Optional[_builtins.int] = None,
                  region: Optional[_builtins.str] = None):
+        """
+        :param _builtins.int concurrency: Number of distinct hosts those Machines would be spread over. 0 when the request's count
+               is 0.
+        :param _builtins.int count: Number of Machines that would be placed in the region. When the request's count is 0, the
+               organization's Machine limit for the region instead.
+        :param _builtins.str region: Code of the region.
+        """
         if concurrency is not None:
             pulumi.set(__self__, "concurrency", concurrency)
         if count is not None:
@@ -243,18 +363,29 @@ class PlacementRegionPlacement(dict):
             pulumi.set(__self__, "region", region)
 
     @_builtins.property
-    @pulumi.getter
+    @pulumi.getter(name="Concurrency")
     def concurrency(self) -> Optional[_builtins.int]:
+        """
+        Number of distinct hosts those Machines would be spread over. 0 when the request's count
+        is 0.
+        """
         return pulumi.get(self, "concurrency")
 
     @_builtins.property
-    @pulumi.getter
+    @pulumi.getter(name="Count")
     def count(self) -> Optional[_builtins.int]:
+        """
+        Number of Machines that would be placed in the region. When the request's count is 0, the
+        organization's Machine limit for the region instead.
+        """
         return pulumi.get(self, "count")
 
     @_builtins.property
-    @pulumi.getter
+    @pulumi.getter(name="Region")
     def region(self) -> Optional[_builtins.str]:
+        """
+        Code of the region.
+        """
         return pulumi.get(self, "region")
 
 

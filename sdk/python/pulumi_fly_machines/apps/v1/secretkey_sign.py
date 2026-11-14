@@ -22,13 +22,14 @@ __all__ = ['SecretkeySignArgs', 'SecretkeySign']
 class SecretkeySignArgs:
     def __init__(__self__, *,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
-                 plaintext: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]] = None,
+                 plaintext: pulumi.Input[Optional[_builtins.str]] = None,
                  query_params: pulumi.Input[Optional['SecretkeySignQueryParamsArgs']] = None,
                  secret_name: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a SecretkeySign resource.
 
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
+        :param pulumi.Input[_builtins.str] plaintext: Data to sign, base64-encoded.
         :param pulumi.Input['SecretkeySignQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input[_builtins.str] secret_name: Secret key name
         """
@@ -55,11 +56,14 @@ class SecretkeySignArgs:
 
     @_builtins.property
     @pulumi.getter
-    def plaintext(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]]:
+    def plaintext(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Data to sign, base64-encoded.
+        """
         return pulumi.get(self, "plaintext")
 
     @plaintext.setter
-    def plaintext(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]]):
+    def plaintext(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "plaintext", value)
 
     @_builtins.property
@@ -94,7 +98,7 @@ class SecretkeySign(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
-                 plaintext: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]] = None,
+                 plaintext: pulumi.Input[Optional[_builtins.str]] = None,
                  query_params: pulumi.Input[Optional[Union['SecretkeySignQueryParamsArgs', 'SecretkeySignQueryParamsArgsDict', 'outputs.SecretkeySignQueryParams']]] = None,
                  secret_name: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
@@ -104,6 +108,7 @@ class SecretkeySign(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
+        :param pulumi.Input[_builtins.str] plaintext: Data to sign, base64-encoded.
         :param pulumi.Input[Union['SecretkeySignQueryParamsArgs', 'SecretkeySignQueryParamsArgsDict', 'outputs.SecretkeySignQueryParams']] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input[_builtins.str] secret_name: Secret key name
         """
@@ -132,7 +137,7 @@ class SecretkeySign(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
-                 plaintext: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]] = None,
+                 plaintext: pulumi.Input[Optional[_builtins.str]] = None,
                  query_params: pulumi.Input[Optional[Union['SecretkeySignQueryParamsArgs', 'SecretkeySignQueryParamsArgsDict', 'outputs.SecretkeySignQueryParams']]] = None,
                  secret_name: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
@@ -184,7 +189,10 @@ class SecretkeySign(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter
-    def plaintext(self) -> pulumi.Output[Optional[Sequence[_builtins.int]]]:
+    def plaintext(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Data to sign, base64-encoded.
+        """
         return pulumi.get(self, "plaintext")
 
     @_builtins.property
@@ -197,6 +205,9 @@ class SecretkeySign(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter
-    def signature(self) -> pulumi.Output[Optional[Sequence[_builtins.int]]]:
+    def signature(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Signature or MAC of the data, base64-encoded.
+        """
         return pulumi.get(self, "signature")
 

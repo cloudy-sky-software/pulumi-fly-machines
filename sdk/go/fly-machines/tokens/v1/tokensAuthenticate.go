@@ -14,6 +14,7 @@ import (
 type TokensAuthenticate struct {
 	pulumi.CustomResourceState
 
+	// Value of the Authorization header to verify, e.g. `FlyV1 fm2_...`.
 	Header pulumi.StringPtrOutput `pulumi:"header"`
 	// Query params to send with the API requests for this resource.
 	QueryParams TokensAuthenticateQueryParamsPtrOutput `pulumi:"queryParams"`
@@ -65,6 +66,7 @@ func TokensAuthenticateExists(ctx *pulumi.Context,
 }
 
 type tokensAuthenticateArgs struct {
+	// Value of the Authorization header to verify, e.g. `FlyV1 fm2_...`.
 	Header *string `pulumi:"header"`
 	// Query params to send with the API requests for this resource.
 	QueryParams *TokensAuthenticateQueryParams `pulumi:"queryParams"`
@@ -72,6 +74,7 @@ type tokensAuthenticateArgs struct {
 
 // The set of arguments for constructing a TokensAuthenticate resource.
 type TokensAuthenticateArgs struct {
+	// Value of the Authorization header to verify, e.g. `FlyV1 fm2_...`.
 	Header pulumi.StringPtrInput
 	// Query params to send with the API requests for this resource.
 	QueryParams TokensAuthenticateQueryParamsPtrInput
@@ -114,6 +117,7 @@ func (o TokensAuthenticateOutput) ToTokensAuthenticateOutputWithContext(ctx cont
 	return o
 }
 
+// Value of the Authorization header to verify, e.g. `FlyV1 fm2_...`.
 func (o TokensAuthenticateOutput) Header() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *TokensAuthenticate) pulumi.StringPtrOutput { return v.Header }).(pulumi.StringPtrOutput)
 }

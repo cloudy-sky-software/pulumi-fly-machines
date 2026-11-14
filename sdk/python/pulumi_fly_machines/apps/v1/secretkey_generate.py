@@ -25,13 +25,15 @@ class SecretkeyGenerateArgs:
                  query_params: pulumi.Input[Optional['SecretkeyGenerateQueryParamsArgs']] = None,
                  secret_name: pulumi.Input[Optional[_builtins.str]] = None,
                  type: pulumi.Input[Optional[_builtins.str]] = None,
-                 value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]] = None):
+                 value: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a SecretkeyGenerate resource.
 
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input['SecretkeyGenerateQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input[_builtins.str] secret_name: Secret key name
+        :param pulumi.Input[_builtins.str] type: Type of the key: `hs256`, `hs384`, `hs512`, `xaes256gcm`, `nacl_auth`, `nacl_box`, `nacl_secretbox`, `nacl_sign`, or `es256`. Required.
+        :param pulumi.Input[_builtins.str] value: Key material, base64-encoded. Ignored when generating a key.
         """
         if app_name is not None:
             pulumi.set(__self__, "app_name", app_name)
@@ -83,6 +85,9 @@ class SecretkeyGenerateArgs:
     @_builtins.property
     @pulumi.getter
     def type(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Type of the key: `hs256`, `hs384`, `hs512`, `xaes256gcm`, `nacl_auth`, `nacl_box`, `nacl_secretbox`, `nacl_sign`, or `es256`. Required.
+        """
         return pulumi.get(self, "type")
 
     @type.setter
@@ -91,11 +96,14 @@ class SecretkeyGenerateArgs:
 
     @_builtins.property
     @pulumi.getter
-    def value(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]]:
+    def value(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Key material, base64-encoded. Ignored when generating a key.
+        """
         return pulumi.get(self, "value")
 
     @value.setter
-    def value(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]]):
+    def value(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "value", value)
 
 
@@ -109,7 +117,7 @@ class SecretkeyGenerate(pulumi.CustomResource):
                  query_params: pulumi.Input[Optional[Union['SecretkeyGenerateQueryParamsArgs', 'SecretkeyGenerateQueryParamsArgsDict', 'outputs.SecretkeyGenerateQueryParams']]] = None,
                  secret_name: pulumi.Input[Optional[_builtins.str]] = None,
                  type: pulumi.Input[Optional[_builtins.str]] = None,
-                 value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]] = None,
+                 value: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         Create a SecretkeyGenerate resource with the given unique name, props, and options.
@@ -119,6 +127,8 @@ class SecretkeyGenerate(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input[Union['SecretkeyGenerateQueryParamsArgs', 'SecretkeyGenerateQueryParamsArgsDict', 'outputs.SecretkeyGenerateQueryParams']] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input[_builtins.str] secret_name: Secret key name
+        :param pulumi.Input[_builtins.str] type: Type of the key: `hs256`, `hs384`, `hs512`, `xaes256gcm`, `nacl_auth`, `nacl_box`, `nacl_secretbox`, `nacl_sign`, or `es256`. Required.
+        :param pulumi.Input[_builtins.str] value: Key material, base64-encoded. Ignored when generating a key.
         """
         ...
     @overload
@@ -148,7 +158,7 @@ class SecretkeyGenerate(pulumi.CustomResource):
                  query_params: pulumi.Input[Optional[Union['SecretkeyGenerateQueryParamsArgs', 'SecretkeyGenerateQueryParamsArgsDict', 'outputs.SecretkeyGenerateQueryParams']]] = None,
                  secret_name: pulumi.Input[Optional[_builtins.str]] = None,
                  type: pulumi.Input[Optional[_builtins.str]] = None,
-                 value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]] = None,
+                 value: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -209,16 +219,25 @@ class SecretkeyGenerate(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter(name="createdAt")
     def created_at(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        When the key was first set.
+        """
         return pulumi.get(self, "created_at")
 
     @_builtins.property
     @pulumi.getter
     def name(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Name of the secret key.
+        """
         return pulumi.get(self, "name")
 
     @_builtins.property
     @pulumi.getter(name="publicKey")
-    def public_key(self) -> pulumi.Output[Optional[Sequence[_builtins.int]]]:
+    def public_key(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Public key of asymmetric keys (`nacl_box`, `nacl_sign`, `es256`), base64-encoded.
+        """
         return pulumi.get(self, "public_key")
 
     @_builtins.property
@@ -232,20 +251,33 @@ class SecretkeyGenerate(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter
     def type(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Type of the key: `hs256`, `hs384`, `hs512`, `xaes256gcm`, `nacl_auth`, `nacl_box`, `nacl_secretbox`, `nacl_sign`, or `es256`.
+        """
         return pulumi.get(self, "type")
 
     @_builtins.property
     @pulumi.getter(name="updatedAt")
     def updated_at(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        When the key last changed.
+        """
         return pulumi.get(self, "updated_at")
 
     @_builtins.property
     @pulumi.getter
-    def value(self) -> pulumi.Output[Optional[Sequence[_builtins.int]]]:
+    def value(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Key material, base64-encoded. Ignored when generating a key.
+        """
         return pulumi.get(self, "value")
 
     @_builtins.property
     @pulumi.getter
     def version(self) -> pulumi.Output[Optional[_builtins.int]]:
+        """
+        The app's secrets version after this change. Pass it as `min_version` to read the change
+        back.
+        """
         return pulumi.get(self, "version")
 

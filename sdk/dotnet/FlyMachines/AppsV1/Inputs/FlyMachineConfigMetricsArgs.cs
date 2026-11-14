@@ -16,12 +16,21 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
     /// </summary>
     public sealed class FlyMachineConfigMetricsArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Scrape over HTTPS instead of HTTP
+        /// </summary>
         [Input("https")]
         public Input<bool>? Https { get; set; }
 
+        /// <summary>
+        /// HTTP path to scrape. Defaults to `/`
+        /// </summary>
         [Input("path")]
         public Input<string>? Path { get; set; }
 
+        /// <summary>
+        /// Port in the Machine to scrape metrics from
+        /// </summary>
         [Input("port")]
         public Input<int>? Port { get; set; }
 

@@ -14,6 +14,7 @@ else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
 from ... import _utilities
 from . import outputs
+from ._enums import *
 from ._inputs import *
 
 __all__ = [
@@ -25,23 +26,30 @@ __all__ = [
 
 @pulumi.output_type
 class GetPlatformRegionResult:
-    def __init__(__self__, nearest=None, regions=None):
-        if nearest and not isinstance(nearest, str):
-            raise TypeError("Expected argument 'nearest' to be a str")
-        pulumi.set(__self__, "nearest", nearest)
+    def __init__(__self__, regions=None, nearest=None):
         if regions and not isinstance(regions, list):
             raise TypeError("Expected argument 'regions' to be a list")
         pulumi.set(__self__, "regions", regions)
+        if nearest and not isinstance(nearest, str):
+            raise TypeError("Expected argument 'nearest' to be a str")
+        pulumi.set(__self__, "nearest", nearest)
+
+    @_builtins.property
+    @pulumi.getter(name="Regions")
+    def regions(self) -> Optional[Sequence['outputs.MainRegionRow']]:
+        """
+        The regions available to the caller.
+        """
+        return pulumi.get(self, "regions")
 
     @_builtins.property
     @pulumi.getter
     def nearest(self) -> Optional[_builtins.str]:
+        """
+        Code of the region of the Fly.io edge that received the request, usually the one
+        closest to the caller.
+        """
         return pulumi.get(self, "nearest")
-
-    @_builtins.property
-    @pulumi.getter
-    def regions(self) -> Optional[Sequence['outputs.MainRegionRow']]:
-        return pulumi.get(self, "regions")
 
 
 class AwaitableGetPlatformRegionResult(GetPlatformRegionResult):
@@ -50,8 +58,8 @@ class AwaitableGetPlatformRegionResult(GetPlatformRegionResult):
         if False:
             yield self
         return GetPlatformRegionResult(
-            nearest=self.nearest,
-            regions=self.regions)
+            regions=self.regions,
+            nearest=self.nearest)
 
 
 def get_platform_region(query_params: Optional[Union['GetPlatformRegionQueryParams', 'GetPlatformRegionQueryParamsDict']] = None,
@@ -67,8 +75,8 @@ def get_platform_region(query_params: Optional[Union['GetPlatformRegionQueryPara
     __ret__ = pulumi.runtime.invoke('fly-machines:platform/v1:getPlatformRegion', __args__, opts=opts, typ=GetPlatformRegionResult).value
 
     return AwaitableGetPlatformRegionResult(
-        nearest=pulumi.get(__ret__, 'nearest'),
-        regions=pulumi.get(__ret__, 'regions'))
+        regions=pulumi.get(__ret__, 'regions'),
+        nearest=pulumi.get(__ret__, 'nearest'))
 def get_platform_region_output(query_params: pulumi.Input[Optional[Optional[Union['GetPlatformRegionQueryParams', 'GetPlatformRegionQueryParamsDict']]]] = None,
                                opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetPlatformRegionResult]:
     """
@@ -81,5 +89,5 @@ def get_platform_region_output(query_params: pulumi.Input[Optional[Optional[Unio
     opts = pulumi.InvokeOutputOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke_output('fly-machines:platform/v1:getPlatformRegion', __args__, opts=opts, typ=GetPlatformRegionResult)
     return __ret__.apply(lambda __response__: GetPlatformRegionResult(
-        nearest=pulumi.get(__response__, 'nearest'),
-        regions=pulumi.get(__response__, 'regions')))
+        regions=pulumi.get(__response__, 'regions'),
+        nearest=pulumi.get(__response__, 'nearest')))

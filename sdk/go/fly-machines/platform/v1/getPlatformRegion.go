@@ -27,8 +27,11 @@ type GetPlatformRegionArgs struct {
 }
 
 type GetPlatformRegionResult struct {
-	Nearest *string         `pulumi:"nearest"`
-	Regions []MainRegionRow `pulumi:"regions"`
+	// The regions available to the caller.
+	Regions []MainRegionRow `pulumi:"Regions"`
+	// Code of the region of the Fly.io edge that received the request, usually the one
+	// closest to the caller.
+	Nearest *string `pulumi:"nearest"`
 }
 
 func GetPlatformRegionOutput(ctx *pulumi.Context, args GetPlatformRegionOutputArgs, opts ...pulumi.InvokeOption) GetPlatformRegionResultOutput {
@@ -59,12 +62,15 @@ func (o GetPlatformRegionResultOutput) ToGetPlatformRegionResultOutputWithContex
 	return o
 }
 
-func (o GetPlatformRegionResultOutput) Nearest() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v GetPlatformRegionResult) *string { return v.Nearest }).(pulumi.StringPtrOutput)
-}
-
+// The regions available to the caller.
 func (o GetPlatformRegionResultOutput) Regions() MainRegionRowArrayOutput {
 	return o.ApplyT(func(v GetPlatformRegionResult) []MainRegionRow { return v.Regions }).(MainRegionRowArrayOutput)
+}
+
+// Code of the region of the Fly.io edge that received the request, usually the one
+// closest to the caller.
+func (o GetPlatformRegionResultOutput) Nearest() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetPlatformRegionResult) *string { return v.Nearest }).(pulumi.StringPtrOutput)
 }
 
 func init() {

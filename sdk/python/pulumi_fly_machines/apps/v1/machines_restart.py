@@ -170,6 +170,9 @@ class MachinesRestart(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter
     def ok(self) -> pulumi.Output[Optional[_builtins.bool]]:
+        """
+        Always true.
+        """
         return pulumi.get(self, "ok")
 
     @_builtins.property

@@ -32,10 +32,26 @@ export interface GetSecretArgs {
 }
 
 export interface GetSecretResult {
+    /**
+     * When the secret was first set. Only returned when reading secrets.
+     */
     readonly createdAt?: string;
+    /**
+     * Short fingerprint of the value, to tell whether it changed without revealing it. Omitted
+     * for deleted secrets.
+     */
     readonly digest?: string;
+    /**
+     * Name of the secret.
+     */
     readonly name?: string;
+    /**
+     * When the secret's value last changed. Only returned when reading secrets.
+     */
     readonly updatedAt?: string;
+    /**
+     * Value of the secret. Only returned with `show_secrets=true`, and when setting secrets.
+     */
     readonly value?: string;
 }
 export function getSecretOutput(args: GetSecretOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetSecretResult> {

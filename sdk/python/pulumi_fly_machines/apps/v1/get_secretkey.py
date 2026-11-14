@@ -31,8 +31,8 @@ class GetSecretkeyResult:
         if name and not isinstance(name, str):
             raise TypeError("Expected argument 'name' to be a str")
         pulumi.set(__self__, "name", name)
-        if public_key and not isinstance(public_key, list):
-            raise TypeError("Expected argument 'public_key' to be a list")
+        if public_key and not isinstance(public_key, str):
+            raise TypeError("Expected argument 'public_key' to be a str")
         pulumi.set(__self__, "public_key", public_key)
         if type and not isinstance(type, str):
             raise TypeError("Expected argument 'type' to be a str")
@@ -44,26 +44,41 @@ class GetSecretkeyResult:
     @_builtins.property
     @pulumi.getter(name="createdAt")
     def created_at(self) -> Optional[_builtins.str]:
+        """
+        When the key was first set.
+        """
         return pulumi.get(self, "created_at")
 
     @_builtins.property
     @pulumi.getter
     def name(self) -> Optional[_builtins.str]:
+        """
+        Name of the secret key.
+        """
         return pulumi.get(self, "name")
 
     @_builtins.property
     @pulumi.getter(name="publicKey")
-    def public_key(self) -> Optional[Sequence[_builtins.int]]:
+    def public_key(self) -> Optional[_builtins.str]:
+        """
+        Public key of asymmetric keys (`nacl_box`, `nacl_sign`, `es256`), base64-encoded.
+        """
         return pulumi.get(self, "public_key")
 
     @_builtins.property
     @pulumi.getter
     def type(self) -> Optional[_builtins.str]:
+        """
+        Type of the key: `hs256`, `hs384`, `hs512`, `xaes256gcm`, `nacl_auth`, `nacl_box`, `nacl_secretbox`, `nacl_sign`, or `es256`.
+        """
         return pulumi.get(self, "type")
 
     @_builtins.property
     @pulumi.getter(name="updatedAt")
     def updated_at(self) -> Optional[_builtins.str]:
+        """
+        When the key last changed.
+        """
         return pulumi.get(self, "updated_at")
 
 

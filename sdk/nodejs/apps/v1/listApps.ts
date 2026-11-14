@@ -22,6 +22,9 @@ export interface ListAppsArgs {
 }
 
 export interface ListAppsResult {
+    /**
+     * The apps on this page, or all apps if `limit` was not provided.
+     */
     readonly apps?: outputs.apps.v1.App[];
     /**
      * Pagination cursor for the next page. Absent when no more apps remain.

@@ -14,8 +14,17 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     [OutputType]
     public sealed class IssuedCertificate
     {
+        /// <summary>
+        /// The certificate authority that issued the certificate.
+        /// </summary>
         public readonly string? CertificateAuthority;
+        /// <summary>
+        /// When the certificate expires.
+        /// </summary>
         public readonly string? ExpiresAt;
+        /// <summary>
+        /// Key type of the certificate.
+        /// </summary>
         public readonly CloudySkySoftware.Pulumi.FlyMachines.AppsV1.IssuedCertificateType? Type;
 
         [OutputConstructor]

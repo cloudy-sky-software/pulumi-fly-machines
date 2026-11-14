@@ -32,10 +32,25 @@ export interface GetSecretkeyArgs {
 }
 
 export interface GetSecretkeyResult {
+    /**
+     * When the key was first set.
+     */
     readonly createdAt?: string;
+    /**
+     * Name of the secret key.
+     */
     readonly name?: string;
-    readonly publicKey?: number[];
+    /**
+     * Public key of asymmetric keys (`nacl_box`, `nacl_sign`, `es256`), base64-encoded.
+     */
+    readonly publicKey?: string;
+    /**
+     * Type of the key: `hs256`, `hs384`, `hs512`, `xaes256gcm`, `nacl_auth`, `nacl_box`, `nacl_secretbox`, `nacl_sign`, or `es256`.
+     */
     readonly type?: string;
+    /**
+     * When the key last changed.
+     */
     readonly updatedAt?: string;
 }
 export function getSecretkeyOutput(args: GetSecretkeyOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetSecretkeyResult> {

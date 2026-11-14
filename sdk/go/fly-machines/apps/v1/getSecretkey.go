@@ -31,10 +31,15 @@ type LookupSecretkeyArgs struct {
 }
 
 type LookupSecretkeyResult struct {
+	// When the key was first set.
 	CreatedAt *string `pulumi:"createdAt"`
-	Name      *string `pulumi:"name"`
-	PublicKey []int   `pulumi:"publicKey"`
-	Type      *string `pulumi:"type"`
+	// Name of the secret key.
+	Name *string `pulumi:"name"`
+	// Public key of asymmetric keys (`nacl_box`, `nacl_sign`, `es256`), base64-encoded.
+	PublicKey *string `pulumi:"publicKey"`
+	// Type of the key: `hs256`, `hs384`, `hs512`, `xaes256gcm`, `nacl_auth`, `nacl_box`, `nacl_secretbox`, `nacl_sign`, or `es256`.
+	Type *string `pulumi:"type"`
+	// When the key last changed.
 	UpdatedAt *string `pulumi:"updatedAt"`
 }
 
@@ -70,22 +75,27 @@ func (o LookupSecretkeyResultOutput) ToLookupSecretkeyResultOutputWithContext(ct
 	return o
 }
 
+// When the key was first set.
 func (o LookupSecretkeyResultOutput) CreatedAt() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LookupSecretkeyResult) *string { return v.CreatedAt }).(pulumi.StringPtrOutput)
 }
 
+// Name of the secret key.
 func (o LookupSecretkeyResultOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LookupSecretkeyResult) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-func (o LookupSecretkeyResultOutput) PublicKey() pulumi.IntArrayOutput {
-	return o.ApplyT(func(v LookupSecretkeyResult) []int { return v.PublicKey }).(pulumi.IntArrayOutput)
+// Public key of asymmetric keys (`nacl_box`, `nacl_sign`, `es256`), base64-encoded.
+func (o LookupSecretkeyResultOutput) PublicKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LookupSecretkeyResult) *string { return v.PublicKey }).(pulumi.StringPtrOutput)
 }
 
+// Type of the key: `hs256`, `hs384`, `hs512`, `xaes256gcm`, `nacl_auth`, `nacl_box`, `nacl_secretbox`, `nacl_sign`, or `es256`.
 func (o LookupSecretkeyResultOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LookupSecretkeyResult) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
+// When the key last changed.
 func (o LookupSecretkeyResultOutput) UpdatedAt() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LookupSecretkeyResult) *string { return v.UpdatedAt }).(pulumi.StringPtrOutput)
 }

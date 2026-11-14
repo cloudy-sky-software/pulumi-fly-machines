@@ -31,9 +31,14 @@ type GetMachinesWaitArgs struct {
 }
 
 type GetMachinesWaitResult struct {
+	// ID of the event that moved the Machine into `state`. Pass it as `from_event_id` to wait
+	// for a later state change.
 	EventId *string `pulumi:"eventId"`
-	Ok      *bool   `pulumi:"ok"`
-	State   *string `pulumi:"state"`
+	// Always true.
+	Ok *bool `pulumi:"ok"`
+	// The state the Machine reached, one of the requested states.
+	State *string `pulumi:"state"`
+	// ID of the Machine version that reached `state`.
 	Version *string `pulumi:"version"`
 }
 
@@ -69,18 +74,23 @@ func (o GetMachinesWaitResultOutput) ToGetMachinesWaitResultOutputWithContext(ct
 	return o
 }
 
+// ID of the event that moved the Machine into `state`. Pass it as `from_event_id` to wait
+// for a later state change.
 func (o GetMachinesWaitResultOutput) EventId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v GetMachinesWaitResult) *string { return v.EventId }).(pulumi.StringPtrOutput)
 }
 
+// Always true.
 func (o GetMachinesWaitResultOutput) Ok() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v GetMachinesWaitResult) *bool { return v.Ok }).(pulumi.BoolPtrOutput)
 }
 
+// The state the Machine reached, one of the requested states.
 func (o GetMachinesWaitResultOutput) State() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v GetMachinesWaitResult) *string { return v.State }).(pulumi.StringPtrOutput)
 }
 
+// ID of the Machine version that reached `state`.
 func (o GetMachinesWaitResultOutput) Version() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v GetMachinesWaitResult) *string { return v.Version }).(pulumi.StringPtrOutput)
 }

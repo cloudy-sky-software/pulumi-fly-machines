@@ -14,13 +14,38 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     [OutputType]
     public sealed class ProcessStat
     {
+        /// <summary>
+        /// The process's command line, with arguments separated by spaces.
+        /// </summary>
         public readonly string? Command;
+        /// <summary>
+        /// Average CPU usage over the process's lifetime, in percent of one CPU. May exceed 100
+        /// on Machines with more than one CPU.
+        /// </summary>
         public readonly int? Cpu;
+        /// <summary>
+        /// The process's working directory.
+        /// </summary>
         public readonly string? Directory;
+        /// <summary>
+        /// TCP sockets the process is listening on.
+        /// </summary>
         public readonly ImmutableArray<Outputs.ListenSocket> ListenSockets;
+        /// <summary>
+        /// Process ID inside the Machine.
+        /// </summary>
         public readonly int? Pid;
+        /// <summary>
+        /// Resident set size: the physical memory the process uses, in bytes.
+        /// </summary>
         public readonly int? Rss;
+        /// <summary>
+        /// How long the process has been running, in seconds.
+        /// </summary>
         public readonly int? Rtime;
+        /// <summary>
+        /// When the process started, in seconds since the Machine booted.
+        /// </summary>
         public readonly int? Stime;
 
         [OutputConstructor]

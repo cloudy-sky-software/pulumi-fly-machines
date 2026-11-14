@@ -19,9 +19,15 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Output("queryParams")]
         public Output<Outputs.MachinesMetadataKeyQueryParams?> QueryParams { get; private set; } = null!;
 
+        /// <summary>
+        /// Time to record for the change in the Machine's `metadata_update` event. Defaults to now.
+        /// </summary>
         [Output("updatedAt")]
         public Output<string?> UpdatedAt { get; private set; } = null!;
 
+        /// <summary>
+        /// Value to set. Must not be empty or whitespace only.
+        /// </summary>
         [Output("value")]
         public Output<string?> Value { get; private set; } = null!;
 
@@ -95,9 +101,15 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Input("queryParams")]
         public Input<Inputs.MachinesMetadataKeyQueryParamsArgs>? QueryParams { get; set; }
 
+        /// <summary>
+        /// Time to record for the change in the Machine's `metadata_update` event. Defaults to now.
+        /// </summary>
         [Input("updatedAt")]
         public Input<string>? UpdatedAt { get; set; }
 
+        /// <summary>
+        /// Value to set. Must not be empty or whitespace only.
+        /// </summary>
         [Input("value")]
         public Input<string>? Value { get; set; }
 

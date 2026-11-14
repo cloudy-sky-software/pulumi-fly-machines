@@ -43,21 +43,33 @@ class ListVolumesOrgResult:
     @_builtins.property
     @pulumi.getter(name="lastUpdatedAt")
     def last_updated_at(self) -> Optional[_builtins.str]:
+        """
+        `updated_at` of the last volume on this page.
+        """
         return pulumi.get(self, "last_updated_at")
 
     @_builtins.property
     @pulumi.getter(name="lastVolumeId")
     def last_volume_id(self) -> Optional[_builtins.str]:
+        """
+        ID of the last volume on this page.
+        """
         return pulumi.get(self, "last_volume_id")
 
     @_builtins.property
     @pulumi.getter(name="nextCursor")
     def next_cursor(self) -> Optional[_builtins.str]:
+        """
+        Pagination cursor for the next page. Absent when no more volumes remain.
+        """
         return pulumi.get(self, "next_cursor")
 
     @_builtins.property
     @pulumi.getter
     def volumes(self) -> Optional[Sequence['outputs.OrgVolume']]:
+        """
+        The volumes on this page.
+        """
         return pulumi.get(self, "volumes")
 
 

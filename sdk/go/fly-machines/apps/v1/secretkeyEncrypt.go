@@ -14,9 +14,13 @@ import (
 type SecretkeyEncrypt struct {
 	pulumi.CustomResourceState
 
-	AssociatedData pulumi.IntArrayOutput `pulumi:"associatedData"`
-	Ciphertext     pulumi.IntArrayOutput `pulumi:"ciphertext"`
-	Plaintext      pulumi.IntArrayOutput `pulumi:"plaintext"`
+	// Additional data to authenticate but not encrypt, base64-encoded. The same data must be
+	// passed when decrypting.
+	AssociatedData pulumi.StringPtrOutput `pulumi:"associatedData"`
+	// Encrypted data, base64-encoded.
+	Ciphertext pulumi.StringPtrOutput `pulumi:"ciphertext"`
+	// Data to encrypt, base64-encoded.
+	Plaintext pulumi.StringPtrOutput `pulumi:"plaintext"`
 	// Query params to send with the API requests for this resource.
 	QueryParams SecretkeyEncryptQueryParamsPtrOutput `pulumi:"queryParams"`
 }
@@ -68,9 +72,12 @@ func SecretkeyEncryptExists(ctx *pulumi.Context,
 
 type secretkeyEncryptArgs struct {
 	// Fly App Name
-	AppName        *string `pulumi:"appName"`
-	AssociatedData []int   `pulumi:"associatedData"`
-	Plaintext      []int   `pulumi:"plaintext"`
+	AppName *string `pulumi:"appName"`
+	// Additional data to authenticate but not encrypt, base64-encoded. The same data must be
+	// passed when decrypting.
+	AssociatedData *string `pulumi:"associatedData"`
+	// Data to encrypt, base64-encoded.
+	Plaintext *string `pulumi:"plaintext"`
 	// Query params to send with the API requests for this resource.
 	QueryParams *SecretkeyEncryptQueryParams `pulumi:"queryParams"`
 	// Secret key name
@@ -80,9 +87,12 @@ type secretkeyEncryptArgs struct {
 // The set of arguments for constructing a SecretkeyEncrypt resource.
 type SecretkeyEncryptArgs struct {
 	// Fly App Name
-	AppName        pulumi.StringPtrInput
-	AssociatedData pulumi.IntArrayInput
-	Plaintext      pulumi.IntArrayInput
+	AppName pulumi.StringPtrInput
+	// Additional data to authenticate but not encrypt, base64-encoded. The same data must be
+	// passed when decrypting.
+	AssociatedData pulumi.StringPtrInput
+	// Data to encrypt, base64-encoded.
+	Plaintext pulumi.StringPtrInput
 	// Query params to send with the API requests for this resource.
 	QueryParams SecretkeyEncryptQueryParamsPtrInput
 	// Secret key name
@@ -126,16 +136,20 @@ func (o SecretkeyEncryptOutput) ToSecretkeyEncryptOutputWithContext(ctx context.
 	return o
 }
 
-func (o SecretkeyEncryptOutput) AssociatedData() pulumi.IntArrayOutput {
-	return o.ApplyT(func(v *SecretkeyEncrypt) pulumi.IntArrayOutput { return v.AssociatedData }).(pulumi.IntArrayOutput)
+// Additional data to authenticate but not encrypt, base64-encoded. The same data must be
+// passed when decrypting.
+func (o SecretkeyEncryptOutput) AssociatedData() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SecretkeyEncrypt) pulumi.StringPtrOutput { return v.AssociatedData }).(pulumi.StringPtrOutput)
 }
 
-func (o SecretkeyEncryptOutput) Ciphertext() pulumi.IntArrayOutput {
-	return o.ApplyT(func(v *SecretkeyEncrypt) pulumi.IntArrayOutput { return v.Ciphertext }).(pulumi.IntArrayOutput)
+// Encrypted data, base64-encoded.
+func (o SecretkeyEncryptOutput) Ciphertext() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SecretkeyEncrypt) pulumi.StringPtrOutput { return v.Ciphertext }).(pulumi.StringPtrOutput)
 }
 
-func (o SecretkeyEncryptOutput) Plaintext() pulumi.IntArrayOutput {
-	return o.ApplyT(func(v *SecretkeyEncrypt) pulumi.IntArrayOutput { return v.Plaintext }).(pulumi.IntArrayOutput)
+// Data to encrypt, base64-encoded.
+func (o SecretkeyEncryptOutput) Plaintext() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SecretkeyEncrypt) pulumi.StringPtrOutput { return v.Plaintext }).(pulumi.StringPtrOutput)
 }
 
 // Query params to send with the API requests for this resource.

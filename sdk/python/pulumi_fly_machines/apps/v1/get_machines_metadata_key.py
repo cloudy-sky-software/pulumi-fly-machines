@@ -32,6 +32,9 @@ class GetMachinesMetadataKeyResult:
     @_builtins.property
     @pulumi.getter
     def value(self) -> Optional[_builtins.str]:
+        """
+        Value of the metadata key.
+        """
         return pulumi.get(self, "value")
 
 

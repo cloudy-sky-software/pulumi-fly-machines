@@ -27,6 +27,9 @@ class TokensRequestOidcArgs:
         """
         The set of arguments for constructing a TokensRequestOidc resource.
 
+        :param pulumi.Input[_builtins.str] aud: Value of the token's `aud` claim. Defaults to `https://fly.io/<org-slug>`.
+        :param pulumi.Input[_builtins.bool] aws_principal_tags: Add AWS principal tag claims (`https://aws.amazon.com/tags/principal_tags/<tag>`) for use
+               with AWS IAM: FlyAppName, FlyOrgSlug, FlyOrgId, FlyMachineName and FlyRegion.
         :param pulumi.Input['TokensRequestOidcQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         """
         if aud is not None:
@@ -39,6 +42,9 @@ class TokensRequestOidcArgs:
     @_builtins.property
     @pulumi.getter
     def aud(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Value of the token's `aud` claim. Defaults to `https://fly.io/<org-slug>`.
+        """
         return pulumi.get(self, "aud")
 
     @aud.setter
@@ -48,6 +54,10 @@ class TokensRequestOidcArgs:
     @_builtins.property
     @pulumi.getter(name="awsPrincipalTags")
     def aws_principal_tags(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Add AWS principal tag claims (`https://aws.amazon.com/tags/principal_tags/<tag>`) for use
+        with AWS IAM: FlyAppName, FlyOrgSlug, FlyOrgId, FlyMachineName and FlyRegion.
+        """
         return pulumi.get(self, "aws_principal_tags")
 
     @aws_principal_tags.setter
@@ -82,6 +92,9 @@ class TokensRequestOidc(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[_builtins.str] aud: Value of the token's `aud` claim. Defaults to `https://fly.io/<org-slug>`.
+        :param pulumi.Input[_builtins.bool] aws_principal_tags: Add AWS principal tag claims (`https://aws.amazon.com/tags/principal_tags/<tag>`) for use
+               with AWS IAM: FlyAppName, FlyOrgSlug, FlyOrgId, FlyMachineName and FlyRegion.
         :param pulumi.Input[Union['TokensRequestOidcQueryParamsArgs', 'TokensRequestOidcQueryParamsArgsDict', 'outputs.TokensRequestOidcQueryParams']] query_params: Query params to send with the API requests for this resource.
         """
         ...
@@ -159,11 +172,18 @@ class TokensRequestOidc(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter
     def aud(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Value of the token's `aud` claim. Defaults to `https://fly.io/<org-slug>`.
+        """
         return pulumi.get(self, "aud")
 
     @_builtins.property
     @pulumi.getter(name="awsPrincipalTags")
     def aws_principal_tags(self) -> pulumi.Output[Optional[_builtins.bool]]:
+        """
+        Add AWS principal tag claims (`https://aws.amazon.com/tags/principal_tags/<tag>`) for use
+        with AWS IAM: FlyAppName, FlyOrgSlug, FlyOrgId, FlyMachineName and FlyRegion.
+        """
         return pulumi.get(self, "aws_principal_tags")
 
     @_builtins.property

@@ -14,11 +14,36 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     [OutputType]
     public sealed class MachineEvent
     {
+        /// <summary>
+        /// Unique ID of the event (a ULID).
+        /// </summary>
         public readonly string? Id;
+        /// <summary>
+        /// Details that depend on the event type. For example, `exit` events carry the exit
+        /// code and whether the process was killed for running out of memory, and `update`
+        /// events carry the new version.
+        /// </summary>
         public readonly object? Request;
+        /// <summary>
+        /// Who triggered the event: `user` for requests to this API, `flyd` for the host's
+        /// Machine manager acting on its own (for example when a Machine exits or restarts), or
+        /// `proxy` for Fly Proxy starting and stopping Machines.
+        /// </summary>
         public readonly string? Source;
+        /// <summary>
+        /// The state the Machine moved to with this event, such as `created`, `started`, or
+        /// `stopped`. The Machine's `state` is the status of its latest event.
+        /// </summary>
         public readonly string? Status;
+        /// <summary>
+        /// When the event happened, in Unix milliseconds.
+        /// </summary>
         public readonly int? Timestamp;
+        /// <summary>
+        /// What happened, such as `launch`, `start`, `stop`, `exit`, `restart`, `update`,
+        /// `suspension`, `cancel_suspension`, `migration`, `metadata_update`, `archive`, or
+        /// `destroy`.
+        /// </summary>
         public readonly string? Type;
 
         [OutputConstructor]

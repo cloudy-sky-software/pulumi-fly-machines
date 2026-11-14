@@ -29,6 +29,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &PostgresBackup{}
 	case "fly-machines:postgres/v1:PostgresDatabase":
 		r = &PostgresDatabase{}
+	case "fly-machines:postgres/v1:PostgresDatabasesQuery":
+		r = &PostgresDatabasesQuery{}
 	case "fly-machines:postgres/v1:PostgresExtension":
 		r = &PostgresExtension{}
 	case "fly-machines:postgres/v1:PostgresFork":

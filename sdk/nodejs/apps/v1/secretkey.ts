@@ -44,16 +44,38 @@ export class Secretkey extends pulumi.CustomResource {
         return obj['__pulumiType'] === Secretkey.__pulumiType;
     }
 
+    /**
+     * When the key was first set.
+     */
     declare public /*out*/ readonly createdAt: pulumi.Output<string | undefined>;
+    /**
+     * Name of the secret key.
+     */
     declare public /*out*/ readonly name: pulumi.Output<string | undefined>;
-    declare public /*out*/ readonly publicKey: pulumi.Output<number[] | undefined>;
+    /**
+     * Public key of asymmetric keys (`nacl_box`, `nacl_sign`, `es256`), base64-encoded.
+     */
+    declare public /*out*/ readonly publicKey: pulumi.Output<string | undefined>;
     /**
      * Query params to send with the API requests for this resource.
      */
     declare public readonly queryParams: pulumi.Output<outputs.apps.v1.SecretkeyQueryParams | undefined>;
+    /**
+     * Type of the key: `hs256`, `hs384`, `hs512`, `xaes256gcm`, `nacl_auth`, `nacl_box`, `nacl_secretbox`, `nacl_sign`, or `es256`.
+     */
     declare public readonly type: pulumi.Output<string | undefined>;
+    /**
+     * When the key last changed.
+     */
     declare public /*out*/ readonly updatedAt: pulumi.Output<string | undefined>;
-    declare public readonly value: pulumi.Output<number[] | undefined>;
+    /**
+     * Key material, base64-encoded. Ignored when generating a key.
+     */
+    declare public readonly value: pulumi.Output<string | undefined>;
+    /**
+     * The app's secrets version after this change. Pass it as `min_version` to read the change
+     * back.
+     */
     declare public /*out*/ readonly version: pulumi.Output<number | undefined>;
 
     /**
@@ -108,6 +130,12 @@ export interface SecretkeyArgs {
      * Secret key name
      */
     secretName?: pulumi.Input<string | undefined>;
+    /**
+     * Type of the key: `hs256`, `hs384`, `hs512`, `xaes256gcm`, `nacl_auth`, `nacl_box`, `nacl_secretbox`, `nacl_sign`, or `es256`. Required.
+     */
     type?: pulumi.Input<string | undefined>;
-    value?: pulumi.Input<pulumi.Input<number>[] | undefined>;
+    /**
+     * Key material, base64-encoded. Ignored when generating a key.
+     */
+    value?: pulumi.Input<string | undefined>;
 }

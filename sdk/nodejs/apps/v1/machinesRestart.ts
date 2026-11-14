@@ -44,6 +44,9 @@ export class MachinesRestart extends pulumi.CustomResource {
         return obj['__pulumiType'] === MachinesRestart.__pulumiType;
     }
 
+    /**
+     * Always true.
+     */
     declare public /*out*/ readonly ok: pulumi.Output<boolean | undefined>;
     /**
      * Query params to send with the API requests for this resource.

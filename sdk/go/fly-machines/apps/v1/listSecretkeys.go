@@ -29,6 +29,7 @@ type ListSecretkeysArgs struct {
 }
 
 type ListSecretkeysResult struct {
+	// The app's secret keys. Key material is never returned.
 	SecretKeys []SecretKeyType `pulumi:"secretKeys"`
 }
 
@@ -62,6 +63,7 @@ func (o ListSecretkeysResultOutput) ToListSecretkeysResultOutputWithContext(ctx 
 	return o
 }
 
+// The app's secret keys. Key material is never returned.
 func (o ListSecretkeysResultOutput) SecretKeys() SecretKeyTypeArrayOutput {
 	return o.ApplyT(func(v ListSecretkeysResult) []SecretKeyType { return v.SecretKeys }).(SecretKeyTypeArrayOutput)
 }

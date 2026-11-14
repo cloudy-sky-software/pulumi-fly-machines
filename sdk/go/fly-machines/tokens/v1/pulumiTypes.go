@@ -13,11 +13,8 @@ import (
 
 var _ = internal.GetEnvOrDefault
 
-type CurrentTokenResponse struct {
-	Tokens []MainTokenInfo `pulumi:"tokens"`
-}
-
-type FlyioAccess struct {
+// The requested access, with names resolved to IDs.
+type Access struct {
 	Action             *FlyioAccessAction `pulumi:"action"`
 	AppFeature         *string            `pulumi:"appFeature"`
 	Appid              *int               `pulumi:"appid"`
@@ -35,106 +32,200 @@ type FlyioAccess struct {
 	Volume             *string            `pulumi:"volume"`
 }
 
-type FlyioAccessOutput struct{ *pulumi.OutputState }
+// AccessInput is an input type that accepts AccessArgs and AccessOutput values.
+// You can construct a concrete instance of `AccessInput` via:
+//
+//	AccessArgs{...}
+type AccessInput interface {
+	pulumi.Input
 
-func (FlyioAccessOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*FlyioAccess)(nil)).Elem()
+	ToAccessOutput() AccessOutput
+	ToAccessOutputWithContext(context.Context) AccessOutput
 }
 
-func (o FlyioAccessOutput) ToFlyioAccessOutput() FlyioAccessOutput {
+// The requested access, with names resolved to IDs.
+type AccessArgs struct {
+	Action             FlyioAccessActionPtrInput `pulumi:"action"`
+	AppFeature         pulumi.StringPtrInput     `pulumi:"appFeature"`
+	Appid              pulumi.IntPtrInput        `pulumi:"appid"`
+	Cluster            pulumi.StringPtrInput     `pulumi:"cluster"`
+	Command            pulumi.StringArrayInput   `pulumi:"command"`
+	Feature            pulumi.StringPtrInput     `pulumi:"feature"`
+	Machine            pulumi.StringPtrInput     `pulumi:"machine"`
+	MachineFeature     pulumi.StringPtrInput     `pulumi:"machineFeature"`
+	Mutation           pulumi.StringPtrInput     `pulumi:"mutation"`
+	Orgid              pulumi.IntPtrInput        `pulumi:"orgid"`
+	SourceApp          pulumi.StringPtrInput     `pulumi:"sourceApp"`
+	SourceMachine      pulumi.StringPtrInput     `pulumi:"sourceMachine"`
+	SourceOrganization pulumi.StringPtrInput     `pulumi:"sourceOrganization"`
+	StorageObject      pulumi.StringPtrInput     `pulumi:"storageObject"`
+	Volume             pulumi.StringPtrInput     `pulumi:"volume"`
+}
+
+func (AccessArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*Access)(nil)).Elem()
+}
+
+func (i AccessArgs) ToAccessOutput() AccessOutput {
+	return i.ToAccessOutputWithContext(context.Background())
+}
+
+func (i AccessArgs) ToAccessOutputWithContext(ctx context.Context) AccessOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AccessOutput)
+}
+
+func (i AccessArgs) ToAccessPtrOutput() AccessPtrOutput {
+	return i.ToAccessPtrOutputWithContext(context.Background())
+}
+
+func (i AccessArgs) ToAccessPtrOutputWithContext(ctx context.Context) AccessPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AccessOutput).ToAccessPtrOutputWithContext(ctx)
+}
+
+// AccessPtrInput is an input type that accepts AccessArgs, AccessPtr and AccessPtrOutput values.
+// You can construct a concrete instance of `AccessPtrInput` via:
+//
+//	        AccessArgs{...}
+//
+//	or:
+//
+//	        nil
+type AccessPtrInput interface {
+	pulumi.Input
+
+	ToAccessPtrOutput() AccessPtrOutput
+	ToAccessPtrOutputWithContext(context.Context) AccessPtrOutput
+}
+
+type accessPtrType AccessArgs
+
+func AccessPtr(v *AccessArgs) AccessPtrInput {
+	return (*accessPtrType)(v)
+}
+
+func (*accessPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**Access)(nil)).Elem()
+}
+
+func (i *accessPtrType) ToAccessPtrOutput() AccessPtrOutput {
+	return i.ToAccessPtrOutputWithContext(context.Background())
+}
+
+func (i *accessPtrType) ToAccessPtrOutputWithContext(ctx context.Context) AccessPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AccessPtrOutput)
+}
+
+// The requested access, with names resolved to IDs.
+type AccessOutput struct{ *pulumi.OutputState }
+
+func (AccessOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*Access)(nil)).Elem()
+}
+
+func (o AccessOutput) ToAccessOutput() AccessOutput {
 	return o
 }
 
-func (o FlyioAccessOutput) ToFlyioAccessOutputWithContext(ctx context.Context) FlyioAccessOutput {
+func (o AccessOutput) ToAccessOutputWithContext(ctx context.Context) AccessOutput {
 	return o
 }
 
-func (o FlyioAccessOutput) Action() FlyioAccessActionPtrOutput {
-	return o.ApplyT(func(v FlyioAccess) *FlyioAccessAction { return v.Action }).(FlyioAccessActionPtrOutput)
+func (o AccessOutput) ToAccessPtrOutput() AccessPtrOutput {
+	return o.ToAccessPtrOutputWithContext(context.Background())
 }
 
-func (o FlyioAccessOutput) AppFeature() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v FlyioAccess) *string { return v.AppFeature }).(pulumi.StringPtrOutput)
+func (o AccessOutput) ToAccessPtrOutputWithContext(ctx context.Context) AccessPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Access) *Access {
+		return &v
+	}).(AccessPtrOutput)
 }
 
-func (o FlyioAccessOutput) Appid() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v FlyioAccess) *int { return v.Appid }).(pulumi.IntPtrOutput)
+func (o AccessOutput) Action() FlyioAccessActionPtrOutput {
+	return o.ApplyT(func(v Access) *FlyioAccessAction { return v.Action }).(FlyioAccessActionPtrOutput)
 }
 
-func (o FlyioAccessOutput) Cluster() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v FlyioAccess) *string { return v.Cluster }).(pulumi.StringPtrOutput)
+func (o AccessOutput) AppFeature() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Access) *string { return v.AppFeature }).(pulumi.StringPtrOutput)
 }
 
-func (o FlyioAccessOutput) Command() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v FlyioAccess) []string { return v.Command }).(pulumi.StringArrayOutput)
+func (o AccessOutput) Appid() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v Access) *int { return v.Appid }).(pulumi.IntPtrOutput)
 }
 
-func (o FlyioAccessOutput) Feature() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v FlyioAccess) *string { return v.Feature }).(pulumi.StringPtrOutput)
+func (o AccessOutput) Cluster() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Access) *string { return v.Cluster }).(pulumi.StringPtrOutput)
 }
 
-func (o FlyioAccessOutput) Machine() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v FlyioAccess) *string { return v.Machine }).(pulumi.StringPtrOutput)
+func (o AccessOutput) Command() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v Access) []string { return v.Command }).(pulumi.StringArrayOutput)
 }
 
-func (o FlyioAccessOutput) MachineFeature() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v FlyioAccess) *string { return v.MachineFeature }).(pulumi.StringPtrOutput)
+func (o AccessOutput) Feature() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Access) *string { return v.Feature }).(pulumi.StringPtrOutput)
 }
 
-func (o FlyioAccessOutput) Mutation() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v FlyioAccess) *string { return v.Mutation }).(pulumi.StringPtrOutput)
+func (o AccessOutput) Machine() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Access) *string { return v.Machine }).(pulumi.StringPtrOutput)
 }
 
-func (o FlyioAccessOutput) Orgid() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v FlyioAccess) *int { return v.Orgid }).(pulumi.IntPtrOutput)
+func (o AccessOutput) MachineFeature() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Access) *string { return v.MachineFeature }).(pulumi.StringPtrOutput)
 }
 
-func (o FlyioAccessOutput) SourceApp() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v FlyioAccess) *string { return v.SourceApp }).(pulumi.StringPtrOutput)
+func (o AccessOutput) Mutation() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Access) *string { return v.Mutation }).(pulumi.StringPtrOutput)
 }
 
-func (o FlyioAccessOutput) SourceMachine() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v FlyioAccess) *string { return v.SourceMachine }).(pulumi.StringPtrOutput)
+func (o AccessOutput) Orgid() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v Access) *int { return v.Orgid }).(pulumi.IntPtrOutput)
 }
 
-func (o FlyioAccessOutput) SourceOrganization() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v FlyioAccess) *string { return v.SourceOrganization }).(pulumi.StringPtrOutput)
+func (o AccessOutput) SourceApp() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Access) *string { return v.SourceApp }).(pulumi.StringPtrOutput)
 }
 
-func (o FlyioAccessOutput) StorageObject() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v FlyioAccess) *string { return v.StorageObject }).(pulumi.StringPtrOutput)
+func (o AccessOutput) SourceMachine() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Access) *string { return v.SourceMachine }).(pulumi.StringPtrOutput)
 }
 
-func (o FlyioAccessOutput) Volume() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v FlyioAccess) *string { return v.Volume }).(pulumi.StringPtrOutput)
+func (o AccessOutput) SourceOrganization() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Access) *string { return v.SourceOrganization }).(pulumi.StringPtrOutput)
 }
 
-type FlyioAccessPtrOutput struct{ *pulumi.OutputState }
-
-func (FlyioAccessPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**FlyioAccess)(nil)).Elem()
+func (o AccessOutput) StorageObject() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Access) *string { return v.StorageObject }).(pulumi.StringPtrOutput)
 }
 
-func (o FlyioAccessPtrOutput) ToFlyioAccessPtrOutput() FlyioAccessPtrOutput {
+func (o AccessOutput) Volume() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Access) *string { return v.Volume }).(pulumi.StringPtrOutput)
+}
+
+type AccessPtrOutput struct{ *pulumi.OutputState }
+
+func (AccessPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**Access)(nil)).Elem()
+}
+
+func (o AccessPtrOutput) ToAccessPtrOutput() AccessPtrOutput {
 	return o
 }
 
-func (o FlyioAccessPtrOutput) ToFlyioAccessPtrOutputWithContext(ctx context.Context) FlyioAccessPtrOutput {
+func (o AccessPtrOutput) ToAccessPtrOutputWithContext(ctx context.Context) AccessPtrOutput {
 	return o
 }
 
-func (o FlyioAccessPtrOutput) Elem() FlyioAccessOutput {
-	return o.ApplyT(func(v *FlyioAccess) FlyioAccess {
+func (o AccessPtrOutput) Elem() AccessOutput {
+	return o.ApplyT(func(v *Access) Access {
 		if v != nil {
 			return *v
 		}
-		var ret FlyioAccess
+		var ret Access
 		return ret
-	}).(FlyioAccessOutput)
+	}).(AccessOutput)
 }
 
-func (o FlyioAccessPtrOutput) Action() FlyioAccessActionPtrOutput {
-	return o.ApplyT(func(v *FlyioAccess) *FlyioAccessAction {
+func (o AccessPtrOutput) Action() FlyioAccessActionPtrOutput {
+	return o.ApplyT(func(v *Access) *FlyioAccessAction {
 		if v == nil {
 			return nil
 		}
@@ -142,8 +233,8 @@ func (o FlyioAccessPtrOutput) Action() FlyioAccessActionPtrOutput {
 	}).(FlyioAccessActionPtrOutput)
 }
 
-func (o FlyioAccessPtrOutput) AppFeature() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *FlyioAccess) *string {
+func (o AccessPtrOutput) AppFeature() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Access) *string {
 		if v == nil {
 			return nil
 		}
@@ -151,8 +242,8 @@ func (o FlyioAccessPtrOutput) AppFeature() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-func (o FlyioAccessPtrOutput) Appid() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *FlyioAccess) *int {
+func (o AccessPtrOutput) Appid() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *Access) *int {
 		if v == nil {
 			return nil
 		}
@@ -160,8 +251,8 @@ func (o FlyioAccessPtrOutput) Appid() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-func (o FlyioAccessPtrOutput) Cluster() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *FlyioAccess) *string {
+func (o AccessPtrOutput) Cluster() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Access) *string {
 		if v == nil {
 			return nil
 		}
@@ -169,8 +260,8 @@ func (o FlyioAccessPtrOutput) Cluster() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-func (o FlyioAccessPtrOutput) Command() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v *FlyioAccess) []string {
+func (o AccessPtrOutput) Command() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *Access) []string {
 		if v == nil {
 			return nil
 		}
@@ -178,8 +269,8 @@ func (o FlyioAccessPtrOutput) Command() pulumi.StringArrayOutput {
 	}).(pulumi.StringArrayOutput)
 }
 
-func (o FlyioAccessPtrOutput) Feature() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *FlyioAccess) *string {
+func (o AccessPtrOutput) Feature() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Access) *string {
 		if v == nil {
 			return nil
 		}
@@ -187,8 +278,8 @@ func (o FlyioAccessPtrOutput) Feature() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-func (o FlyioAccessPtrOutput) Machine() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *FlyioAccess) *string {
+func (o AccessPtrOutput) Machine() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Access) *string {
 		if v == nil {
 			return nil
 		}
@@ -196,8 +287,8 @@ func (o FlyioAccessPtrOutput) Machine() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-func (o FlyioAccessPtrOutput) MachineFeature() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *FlyioAccess) *string {
+func (o AccessPtrOutput) MachineFeature() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Access) *string {
 		if v == nil {
 			return nil
 		}
@@ -205,8 +296,8 @@ func (o FlyioAccessPtrOutput) MachineFeature() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-func (o FlyioAccessPtrOutput) Mutation() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *FlyioAccess) *string {
+func (o AccessPtrOutput) Mutation() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Access) *string {
 		if v == nil {
 			return nil
 		}
@@ -214,8 +305,8 @@ func (o FlyioAccessPtrOutput) Mutation() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-func (o FlyioAccessPtrOutput) Orgid() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *FlyioAccess) *int {
+func (o AccessPtrOutput) Orgid() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *Access) *int {
 		if v == nil {
 			return nil
 		}
@@ -223,8 +314,8 @@ func (o FlyioAccessPtrOutput) Orgid() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-func (o FlyioAccessPtrOutput) SourceApp() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *FlyioAccess) *string {
+func (o AccessPtrOutput) SourceApp() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Access) *string {
 		if v == nil {
 			return nil
 		}
@@ -232,8 +323,8 @@ func (o FlyioAccessPtrOutput) SourceApp() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-func (o FlyioAccessPtrOutput) SourceMachine() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *FlyioAccess) *string {
+func (o AccessPtrOutput) SourceMachine() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Access) *string {
 		if v == nil {
 			return nil
 		}
@@ -241,8 +332,8 @@ func (o FlyioAccessPtrOutput) SourceMachine() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-func (o FlyioAccessPtrOutput) SourceOrganization() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *FlyioAccess) *string {
+func (o AccessPtrOutput) SourceOrganization() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Access) *string {
 		if v == nil {
 			return nil
 		}
@@ -250,8 +341,8 @@ func (o FlyioAccessPtrOutput) SourceOrganization() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-func (o FlyioAccessPtrOutput) StorageObject() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *FlyioAccess) *string {
+func (o AccessPtrOutput) StorageObject() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Access) *string {
 		if v == nil {
 			return nil
 		}
@@ -259,13 +350,20 @@ func (o FlyioAccessPtrOutput) StorageObject() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-func (o FlyioAccessPtrOutput) Volume() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *FlyioAccess) *string {
+func (o AccessPtrOutput) Volume() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Access) *string {
 		if v == nil {
 			return nil
 		}
 		return v.Volume
 	}).(pulumi.StringPtrOutput)
+}
+
+type CurrentTokenResponse struct {
+	// One entry per token in the Authorization header that could be verified, in no particular
+	// order; use `token_id` to tell them apart. Tokens that fail verification or are not scoped
+	// to an organization are left out.
+	Tokens []MainTokenInfo `pulumi:"tokens"`
 }
 
 // Query params for the API request.
@@ -546,454 +644,23 @@ func (o MacaroonNoncePtrOutput) Rnd() pulumi.IntArrayOutput {
 	}).(pulumi.IntArrayOutput)
 }
 
-type MainTokenAccess struct {
-	// Action is the action being taken on the specified resource. This is the
-	// combination of individual action characters (e.g "rw")
-	//   - r: read
-	//   - w: write
-	//   - c: create
-	//   - d: delete
-	//   - C: control
-	Action *MainTokenAccessAction `pulumi:"action"`
-	// AppFeature is a named set of functionality associated with the app. If
-	// this is specified, the AppName field must be set.
-	//   - images: images in the fly.io registry
-	AppFeature *string `pulumi:"appFeature"`
-	// AppName is the name of the app being accessed.
-	AppName *string `pulumi:"appName"`
-	// Command is the command being executed on a machine. If this is specified,
-	// the Machine must be set.
-	Command []string `pulumi:"command"`
-	// MachineFeature is a named set of functionality associated with the
-	// machine. If this is specified, the Machine field must be set.
-	//   - metadata: machine metadata service
-	//   - oidc: OIDC tokens
-	//   - kmstoken: Petsem tokens for KMS access
-	MachineFeature *string `pulumi:"machineFeature"`
-	// MachineID is the ID of the machine being accessed (e.g. 7811701f564258).
-	MachineId *string `pulumi:"machineId"`
-	// Mutation is the GraphQL mutation being performed.
-	Mutation *string `pulumi:"mutation"`
-	// OrgFeature is a named set of functionality associated with the
-	// organization. If this is specified, the OrgSlug field must be set.
-	//   - wg: WireGuard peers
-	//   - builder: remote builders
-	//   - addon: addons
-	//   - membership: organization membership
-	//   - billing: billing
-	//   - litefs-cloud: LiteFS Cloud
-	//   - authentication: authentication settings
-	OrgFeature *string `pulumi:"orgFeature"`
-	// OrgSlug is the slug of the organization being accessed.
-	OrgSlug *string `pulumi:"orgSlug"`
-	// SourceMachine is the machine ID of the actor attempting access.
-	SourceMachine *string `pulumi:"sourceMachine"`
-	// StorageObject is the storage object being accessed. If this is specified,
-	// the OrgSlug must be set.
-	StorageObject *string `pulumi:"storageObject"`
-	// VolumeID is the encoded ID of the volume being accessed (e.g.
-	// vol_r1p6pln1k9m9j7zr).
-	VolumeId *string `pulumi:"volumeId"`
-}
-
-// MainTokenAccessInput is an input type that accepts MainTokenAccessArgs and MainTokenAccessOutput values.
-// You can construct a concrete instance of `MainTokenAccessInput` via:
-//
-//	MainTokenAccessArgs{...}
-type MainTokenAccessInput interface {
-	pulumi.Input
-
-	ToMainTokenAccessOutput() MainTokenAccessOutput
-	ToMainTokenAccessOutputWithContext(context.Context) MainTokenAccessOutput
-}
-
-type MainTokenAccessArgs struct {
-	// Action is the action being taken on the specified resource. This is the
-	// combination of individual action characters (e.g "rw")
-	//   - r: read
-	//   - w: write
-	//   - c: create
-	//   - d: delete
-	//   - C: control
-	Action MainTokenAccessActionPtrInput `pulumi:"action"`
-	// AppFeature is a named set of functionality associated with the app. If
-	// this is specified, the AppName field must be set.
-	//   - images: images in the fly.io registry
-	AppFeature pulumi.StringPtrInput `pulumi:"appFeature"`
-	// AppName is the name of the app being accessed.
-	AppName pulumi.StringPtrInput `pulumi:"appName"`
-	// Command is the command being executed on a machine. If this is specified,
-	// the Machine must be set.
-	Command pulumi.StringArrayInput `pulumi:"command"`
-	// MachineFeature is a named set of functionality associated with the
-	// machine. If this is specified, the Machine field must be set.
-	//   - metadata: machine metadata service
-	//   - oidc: OIDC tokens
-	//   - kmstoken: Petsem tokens for KMS access
-	MachineFeature pulumi.StringPtrInput `pulumi:"machineFeature"`
-	// MachineID is the ID of the machine being accessed (e.g. 7811701f564258).
-	MachineId pulumi.StringPtrInput `pulumi:"machineId"`
-	// Mutation is the GraphQL mutation being performed.
-	Mutation pulumi.StringPtrInput `pulumi:"mutation"`
-	// OrgFeature is a named set of functionality associated with the
-	// organization. If this is specified, the OrgSlug field must be set.
-	//   - wg: WireGuard peers
-	//   - builder: remote builders
-	//   - addon: addons
-	//   - membership: organization membership
-	//   - billing: billing
-	//   - litefs-cloud: LiteFS Cloud
-	//   - authentication: authentication settings
-	OrgFeature pulumi.StringPtrInput `pulumi:"orgFeature"`
-	// OrgSlug is the slug of the organization being accessed.
-	OrgSlug pulumi.StringPtrInput `pulumi:"orgSlug"`
-	// SourceMachine is the machine ID of the actor attempting access.
-	SourceMachine pulumi.StringPtrInput `pulumi:"sourceMachine"`
-	// StorageObject is the storage object being accessed. If this is specified,
-	// the OrgSlug must be set.
-	StorageObject pulumi.StringPtrInput `pulumi:"storageObject"`
-	// VolumeID is the encoded ID of the volume being accessed (e.g.
-	// vol_r1p6pln1k9m9j7zr).
-	VolumeId pulumi.StringPtrInput `pulumi:"volumeId"`
-}
-
-func (MainTokenAccessArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*MainTokenAccess)(nil)).Elem()
-}
-
-func (i MainTokenAccessArgs) ToMainTokenAccessOutput() MainTokenAccessOutput {
-	return i.ToMainTokenAccessOutputWithContext(context.Background())
-}
-
-func (i MainTokenAccessArgs) ToMainTokenAccessOutputWithContext(ctx context.Context) MainTokenAccessOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MainTokenAccessOutput)
-}
-
-func (i MainTokenAccessArgs) ToMainTokenAccessPtrOutput() MainTokenAccessPtrOutput {
-	return i.ToMainTokenAccessPtrOutputWithContext(context.Background())
-}
-
-func (i MainTokenAccessArgs) ToMainTokenAccessPtrOutputWithContext(ctx context.Context) MainTokenAccessPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MainTokenAccessOutput).ToMainTokenAccessPtrOutputWithContext(ctx)
-}
-
-// MainTokenAccessPtrInput is an input type that accepts MainTokenAccessArgs, MainTokenAccessPtr and MainTokenAccessPtrOutput values.
-// You can construct a concrete instance of `MainTokenAccessPtrInput` via:
-//
-//	        MainTokenAccessArgs{...}
-//
-//	or:
-//
-//	        nil
-type MainTokenAccessPtrInput interface {
-	pulumi.Input
-
-	ToMainTokenAccessPtrOutput() MainTokenAccessPtrOutput
-	ToMainTokenAccessPtrOutputWithContext(context.Context) MainTokenAccessPtrOutput
-}
-
-type mainTokenAccessPtrType MainTokenAccessArgs
-
-func MainTokenAccessPtr(v *MainTokenAccessArgs) MainTokenAccessPtrInput {
-	return (*mainTokenAccessPtrType)(v)
-}
-
-func (*mainTokenAccessPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**MainTokenAccess)(nil)).Elem()
-}
-
-func (i *mainTokenAccessPtrType) ToMainTokenAccessPtrOutput() MainTokenAccessPtrOutput {
-	return i.ToMainTokenAccessPtrOutputWithContext(context.Background())
-}
-
-func (i *mainTokenAccessPtrType) ToMainTokenAccessPtrOutputWithContext(ctx context.Context) MainTokenAccessPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(MainTokenAccessPtrOutput)
-}
-
-type MainTokenAccessOutput struct{ *pulumi.OutputState }
-
-func (MainTokenAccessOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*MainTokenAccess)(nil)).Elem()
-}
-
-func (o MainTokenAccessOutput) ToMainTokenAccessOutput() MainTokenAccessOutput {
-	return o
-}
-
-func (o MainTokenAccessOutput) ToMainTokenAccessOutputWithContext(ctx context.Context) MainTokenAccessOutput {
-	return o
-}
-
-func (o MainTokenAccessOutput) ToMainTokenAccessPtrOutput() MainTokenAccessPtrOutput {
-	return o.ToMainTokenAccessPtrOutputWithContext(context.Background())
-}
-
-func (o MainTokenAccessOutput) ToMainTokenAccessPtrOutputWithContext(ctx context.Context) MainTokenAccessPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v MainTokenAccess) *MainTokenAccess {
-		return &v
-	}).(MainTokenAccessPtrOutput)
-}
-
-// Action is the action being taken on the specified resource. This is the
-// combination of individual action characters (e.g "rw")
-//   - r: read
-//   - w: write
-//   - c: create
-//   - d: delete
-//   - C: control
-func (o MainTokenAccessOutput) Action() MainTokenAccessActionPtrOutput {
-	return o.ApplyT(func(v MainTokenAccess) *MainTokenAccessAction { return v.Action }).(MainTokenAccessActionPtrOutput)
-}
-
-// AppFeature is a named set of functionality associated with the app. If
-// this is specified, the AppName field must be set.
-//   - images: images in the fly.io registry
-func (o MainTokenAccessOutput) AppFeature() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v MainTokenAccess) *string { return v.AppFeature }).(pulumi.StringPtrOutput)
-}
-
-// AppName is the name of the app being accessed.
-func (o MainTokenAccessOutput) AppName() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v MainTokenAccess) *string { return v.AppName }).(pulumi.StringPtrOutput)
-}
-
-// Command is the command being executed on a machine. If this is specified,
-// the Machine must be set.
-func (o MainTokenAccessOutput) Command() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v MainTokenAccess) []string { return v.Command }).(pulumi.StringArrayOutput)
-}
-
-// MachineFeature is a named set of functionality associated with the
-// machine. If this is specified, the Machine field must be set.
-//   - metadata: machine metadata service
-//   - oidc: OIDC tokens
-//   - kmstoken: Petsem tokens for KMS access
-func (o MainTokenAccessOutput) MachineFeature() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v MainTokenAccess) *string { return v.MachineFeature }).(pulumi.StringPtrOutput)
-}
-
-// MachineID is the ID of the machine being accessed (e.g. 7811701f564258).
-func (o MainTokenAccessOutput) MachineId() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v MainTokenAccess) *string { return v.MachineId }).(pulumi.StringPtrOutput)
-}
-
-// Mutation is the GraphQL mutation being performed.
-func (o MainTokenAccessOutput) Mutation() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v MainTokenAccess) *string { return v.Mutation }).(pulumi.StringPtrOutput)
-}
-
-// OrgFeature is a named set of functionality associated with the
-// organization. If this is specified, the OrgSlug field must be set.
-//   - wg: WireGuard peers
-//   - builder: remote builders
-//   - addon: addons
-//   - membership: organization membership
-//   - billing: billing
-//   - litefs-cloud: LiteFS Cloud
-//   - authentication: authentication settings
-func (o MainTokenAccessOutput) OrgFeature() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v MainTokenAccess) *string { return v.OrgFeature }).(pulumi.StringPtrOutput)
-}
-
-// OrgSlug is the slug of the organization being accessed.
-func (o MainTokenAccessOutput) OrgSlug() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v MainTokenAccess) *string { return v.OrgSlug }).(pulumi.StringPtrOutput)
-}
-
-// SourceMachine is the machine ID of the actor attempting access.
-func (o MainTokenAccessOutput) SourceMachine() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v MainTokenAccess) *string { return v.SourceMachine }).(pulumi.StringPtrOutput)
-}
-
-// StorageObject is the storage object being accessed. If this is specified,
-// the OrgSlug must be set.
-func (o MainTokenAccessOutput) StorageObject() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v MainTokenAccess) *string { return v.StorageObject }).(pulumi.StringPtrOutput)
-}
-
-// VolumeID is the encoded ID of the volume being accessed (e.g.
-// vol_r1p6pln1k9m9j7zr).
-func (o MainTokenAccessOutput) VolumeId() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v MainTokenAccess) *string { return v.VolumeId }).(pulumi.StringPtrOutput)
-}
-
-type MainTokenAccessPtrOutput struct{ *pulumi.OutputState }
-
-func (MainTokenAccessPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**MainTokenAccess)(nil)).Elem()
-}
-
-func (o MainTokenAccessPtrOutput) ToMainTokenAccessPtrOutput() MainTokenAccessPtrOutput {
-	return o
-}
-
-func (o MainTokenAccessPtrOutput) ToMainTokenAccessPtrOutputWithContext(ctx context.Context) MainTokenAccessPtrOutput {
-	return o
-}
-
-func (o MainTokenAccessPtrOutput) Elem() MainTokenAccessOutput {
-	return o.ApplyT(func(v *MainTokenAccess) MainTokenAccess {
-		if v != nil {
-			return *v
-		}
-		var ret MainTokenAccess
-		return ret
-	}).(MainTokenAccessOutput)
-}
-
-// Action is the action being taken on the specified resource. This is the
-// combination of individual action characters (e.g "rw")
-//   - r: read
-//   - w: write
-//   - c: create
-//   - d: delete
-//   - C: control
-func (o MainTokenAccessPtrOutput) Action() MainTokenAccessActionPtrOutput {
-	return o.ApplyT(func(v *MainTokenAccess) *MainTokenAccessAction {
-		if v == nil {
-			return nil
-		}
-		return v.Action
-	}).(MainTokenAccessActionPtrOutput)
-}
-
-// AppFeature is a named set of functionality associated with the app. If
-// this is specified, the AppName field must be set.
-//   - images: images in the fly.io registry
-func (o MainTokenAccessPtrOutput) AppFeature() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *MainTokenAccess) *string {
-		if v == nil {
-			return nil
-		}
-		return v.AppFeature
-	}).(pulumi.StringPtrOutput)
-}
-
-// AppName is the name of the app being accessed.
-func (o MainTokenAccessPtrOutput) AppName() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *MainTokenAccess) *string {
-		if v == nil {
-			return nil
-		}
-		return v.AppName
-	}).(pulumi.StringPtrOutput)
-}
-
-// Command is the command being executed on a machine. If this is specified,
-// the Machine must be set.
-func (o MainTokenAccessPtrOutput) Command() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v *MainTokenAccess) []string {
-		if v == nil {
-			return nil
-		}
-		return v.Command
-	}).(pulumi.StringArrayOutput)
-}
-
-// MachineFeature is a named set of functionality associated with the
-// machine. If this is specified, the Machine field must be set.
-//   - metadata: machine metadata service
-//   - oidc: OIDC tokens
-//   - kmstoken: Petsem tokens for KMS access
-func (o MainTokenAccessPtrOutput) MachineFeature() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *MainTokenAccess) *string {
-		if v == nil {
-			return nil
-		}
-		return v.MachineFeature
-	}).(pulumi.StringPtrOutput)
-}
-
-// MachineID is the ID of the machine being accessed (e.g. 7811701f564258).
-func (o MainTokenAccessPtrOutput) MachineId() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *MainTokenAccess) *string {
-		if v == nil {
-			return nil
-		}
-		return v.MachineId
-	}).(pulumi.StringPtrOutput)
-}
-
-// Mutation is the GraphQL mutation being performed.
-func (o MainTokenAccessPtrOutput) Mutation() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *MainTokenAccess) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Mutation
-	}).(pulumi.StringPtrOutput)
-}
-
-// OrgFeature is a named set of functionality associated with the
-// organization. If this is specified, the OrgSlug field must be set.
-//   - wg: WireGuard peers
-//   - builder: remote builders
-//   - addon: addons
-//   - membership: organization membership
-//   - billing: billing
-//   - litefs-cloud: LiteFS Cloud
-//   - authentication: authentication settings
-func (o MainTokenAccessPtrOutput) OrgFeature() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *MainTokenAccess) *string {
-		if v == nil {
-			return nil
-		}
-		return v.OrgFeature
-	}).(pulumi.StringPtrOutput)
-}
-
-// OrgSlug is the slug of the organization being accessed.
-func (o MainTokenAccessPtrOutput) OrgSlug() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *MainTokenAccess) *string {
-		if v == nil {
-			return nil
-		}
-		return v.OrgSlug
-	}).(pulumi.StringPtrOutput)
-}
-
-// SourceMachine is the machine ID of the actor attempting access.
-func (o MainTokenAccessPtrOutput) SourceMachine() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *MainTokenAccess) *string {
-		if v == nil {
-			return nil
-		}
-		return v.SourceMachine
-	}).(pulumi.StringPtrOutput)
-}
-
-// StorageObject is the storage object being accessed. If this is specified,
-// the OrgSlug must be set.
-func (o MainTokenAccessPtrOutput) StorageObject() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *MainTokenAccess) *string {
-		if v == nil {
-			return nil
-		}
-		return v.StorageObject
-	}).(pulumi.StringPtrOutput)
-}
-
-// VolumeID is the encoded ID of the volume being accessed (e.g.
-// vol_r1p6pln1k9m9j7zr).
-func (o MainTokenAccessPtrOutput) VolumeId() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *MainTokenAccess) *string {
-		if v == nil {
-			return nil
-		}
-		return v.VolumeId
-	}).(pulumi.StringPtrOutput)
-}
-
 type MainTokenInfo struct {
-	Apps         []string `pulumi:"apps"`
-	OrgSlug      *string  `pulumi:"orgSlug"`
-	Organization *string  `pulumi:"organization"`
-	// Machine the token is restricted to (FromMachine caveat)
+	// Names of the apps the token is restricted to. Omitted if the token is not restricted to
+	// specific apps.
+	Apps []string `pulumi:"apps"`
+	// Slug of the organization the token is scoped to.
+	OrgSlug *string `pulumi:"orgSlug"`
+	// Name of the organization the token is scoped to.
+	Organization *string `pulumi:"organization"`
+	// ID of the Machine the token may only be used from. Omitted if the token is not restricted
+	// to a Machine.
 	RestrictedToMachine *string `pulumi:"restrictedToMachine"`
-	// Machine making the request
+	// Never set.
 	SourceMachineId *string `pulumi:"sourceMachineId"`
-	TokenId         *string `pulumi:"tokenId"`
-	// User identifier if token is for a user
+	// ID of the token.
+	TokenId *string `pulumi:"tokenId"`
+	// Opaque identifier of the user the token belongs to: the first 7 hex characters of a hash of
+	// the user's ID. Omitted for tokens that do not belong to a user.
 	User *string `pulumi:"user"`
 }
 
@@ -1011,33 +678,40 @@ func (o MainTokenInfoOutput) ToMainTokenInfoOutputWithContext(ctx context.Contex
 	return o
 }
 
+// Names of the apps the token is restricted to. Omitted if the token is not restricted to
+// specific apps.
 func (o MainTokenInfoOutput) Apps() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v MainTokenInfo) []string { return v.Apps }).(pulumi.StringArrayOutput)
 }
 
+// Slug of the organization the token is scoped to.
 func (o MainTokenInfoOutput) OrgSlug() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v MainTokenInfo) *string { return v.OrgSlug }).(pulumi.StringPtrOutput)
 }
 
+// Name of the organization the token is scoped to.
 func (o MainTokenInfoOutput) Organization() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v MainTokenInfo) *string { return v.Organization }).(pulumi.StringPtrOutput)
 }
 
-// Machine the token is restricted to (FromMachine caveat)
+// ID of the Machine the token may only be used from. Omitted if the token is not restricted
+// to a Machine.
 func (o MainTokenInfoOutput) RestrictedToMachine() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v MainTokenInfo) *string { return v.RestrictedToMachine }).(pulumi.StringPtrOutput)
 }
 
-// Machine making the request
+// Never set.
 func (o MainTokenInfoOutput) SourceMachineId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v MainTokenInfo) *string { return v.SourceMachineId }).(pulumi.StringPtrOutput)
 }
 
+// ID of the token.
 func (o MainTokenInfoOutput) TokenId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v MainTokenInfo) *string { return v.TokenId }).(pulumi.StringPtrOutput)
 }
 
-// User identifier if token is for a user
+// Opaque identifier of the user the token belongs to: the first 7 hex characters of a hash of
+// the user's ID. Omitted for tokens that do not belong to a user.
 func (o MainTokenInfoOutput) User() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v MainTokenInfo) *string { return v.User }).(pulumi.StringPtrOutput)
 }
@@ -1060,103 +734,6 @@ func (o MainTokenInfoArrayOutput) Index(i pulumi.IntInput) MainTokenInfoOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) MainTokenInfo {
 		return vs[0].([]MainTokenInfo)[vs[1].(int)]
 	}).(MainTokenInfoOutput)
-}
-
-type RootVerifiedToken struct {
-	Caveats         *MacaroonCaveatSet `pulumi:"caveats"`
-	Header          *string            `pulumi:"header"`
-	Nonce           *MacaroonNonce     `pulumi:"nonce"`
-	PermissionToken []int              `pulumi:"permissionToken"`
-}
-
-type RootVerifiedTokenOutput struct{ *pulumi.OutputState }
-
-func (RootVerifiedTokenOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*RootVerifiedToken)(nil)).Elem()
-}
-
-func (o RootVerifiedTokenOutput) ToRootVerifiedTokenOutput() RootVerifiedTokenOutput {
-	return o
-}
-
-func (o RootVerifiedTokenOutput) ToRootVerifiedTokenOutputWithContext(ctx context.Context) RootVerifiedTokenOutput {
-	return o
-}
-
-func (o RootVerifiedTokenOutput) Caveats() MacaroonCaveatSetPtrOutput {
-	return o.ApplyT(func(v RootVerifiedToken) *MacaroonCaveatSet { return v.Caveats }).(MacaroonCaveatSetPtrOutput)
-}
-
-func (o RootVerifiedTokenOutput) Header() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v RootVerifiedToken) *string { return v.Header }).(pulumi.StringPtrOutput)
-}
-
-func (o RootVerifiedTokenOutput) Nonce() MacaroonNoncePtrOutput {
-	return o.ApplyT(func(v RootVerifiedToken) *MacaroonNonce { return v.Nonce }).(MacaroonNoncePtrOutput)
-}
-
-func (o RootVerifiedTokenOutput) PermissionToken() pulumi.IntArrayOutput {
-	return o.ApplyT(func(v RootVerifiedToken) []int { return v.PermissionToken }).(pulumi.IntArrayOutput)
-}
-
-type RootVerifiedTokenPtrOutput struct{ *pulumi.OutputState }
-
-func (RootVerifiedTokenPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**RootVerifiedToken)(nil)).Elem()
-}
-
-func (o RootVerifiedTokenPtrOutput) ToRootVerifiedTokenPtrOutput() RootVerifiedTokenPtrOutput {
-	return o
-}
-
-func (o RootVerifiedTokenPtrOutput) ToRootVerifiedTokenPtrOutputWithContext(ctx context.Context) RootVerifiedTokenPtrOutput {
-	return o
-}
-
-func (o RootVerifiedTokenPtrOutput) Elem() RootVerifiedTokenOutput {
-	return o.ApplyT(func(v *RootVerifiedToken) RootVerifiedToken {
-		if v != nil {
-			return *v
-		}
-		var ret RootVerifiedToken
-		return ret
-	}).(RootVerifiedTokenOutput)
-}
-
-func (o RootVerifiedTokenPtrOutput) Caveats() MacaroonCaveatSetPtrOutput {
-	return o.ApplyT(func(v *RootVerifiedToken) *MacaroonCaveatSet {
-		if v == nil {
-			return nil
-		}
-		return v.Caveats
-	}).(MacaroonCaveatSetPtrOutput)
-}
-
-func (o RootVerifiedTokenPtrOutput) Header() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *RootVerifiedToken) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Header
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o RootVerifiedTokenPtrOutput) Nonce() MacaroonNoncePtrOutput {
-	return o.ApplyT(func(v *RootVerifiedToken) *MacaroonNonce {
-		if v == nil {
-			return nil
-		}
-		return v.Nonce
-	}).(MacaroonNoncePtrOutput)
-}
-
-func (o RootVerifiedTokenPtrOutput) PermissionToken() pulumi.IntArrayOutput {
-	return o.ApplyT(func(v *RootVerifiedToken) []int {
-		if v == nil {
-			return nil
-		}
-		return v.PermissionToken
-	}).(pulumi.IntArrayOutput)
 }
 
 // Query params for the API request.
@@ -2279,11 +1856,110 @@ func (o TokensRequestOidcQueryParamsPtrOutput) Create() TokensRequestOidcCreateQ
 	}).(TokensRequestOidcCreateQueryParamsPtrOutput)
 }
 
+// The token that grants the requested access.
+type VerifiedToken struct {
+	Caveats         *MacaroonCaveatSet `pulumi:"caveats"`
+	Header          *string            `pulumi:"header"`
+	Nonce           *MacaroonNonce     `pulumi:"nonce"`
+	PermissionToken []int              `pulumi:"permissionToken"`
+}
+
+// The token that grants the requested access.
+type VerifiedTokenOutput struct{ *pulumi.OutputState }
+
+func (VerifiedTokenOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*VerifiedToken)(nil)).Elem()
+}
+
+func (o VerifiedTokenOutput) ToVerifiedTokenOutput() VerifiedTokenOutput {
+	return o
+}
+
+func (o VerifiedTokenOutput) ToVerifiedTokenOutputWithContext(ctx context.Context) VerifiedTokenOutput {
+	return o
+}
+
+func (o VerifiedTokenOutput) Caveats() MacaroonCaveatSetPtrOutput {
+	return o.ApplyT(func(v VerifiedToken) *MacaroonCaveatSet { return v.Caveats }).(MacaroonCaveatSetPtrOutput)
+}
+
+func (o VerifiedTokenOutput) Header() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VerifiedToken) *string { return v.Header }).(pulumi.StringPtrOutput)
+}
+
+func (o VerifiedTokenOutput) Nonce() MacaroonNoncePtrOutput {
+	return o.ApplyT(func(v VerifiedToken) *MacaroonNonce { return v.Nonce }).(MacaroonNoncePtrOutput)
+}
+
+func (o VerifiedTokenOutput) PermissionToken() pulumi.IntArrayOutput {
+	return o.ApplyT(func(v VerifiedToken) []int { return v.PermissionToken }).(pulumi.IntArrayOutput)
+}
+
+type VerifiedTokenPtrOutput struct{ *pulumi.OutputState }
+
+func (VerifiedTokenPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**VerifiedToken)(nil)).Elem()
+}
+
+func (o VerifiedTokenPtrOutput) ToVerifiedTokenPtrOutput() VerifiedTokenPtrOutput {
+	return o
+}
+
+func (o VerifiedTokenPtrOutput) ToVerifiedTokenPtrOutputWithContext(ctx context.Context) VerifiedTokenPtrOutput {
+	return o
+}
+
+func (o VerifiedTokenPtrOutput) Elem() VerifiedTokenOutput {
+	return o.ApplyT(func(v *VerifiedToken) VerifiedToken {
+		if v != nil {
+			return *v
+		}
+		var ret VerifiedToken
+		return ret
+	}).(VerifiedTokenOutput)
+}
+
+func (o VerifiedTokenPtrOutput) Caveats() MacaroonCaveatSetPtrOutput {
+	return o.ApplyT(func(v *VerifiedToken) *MacaroonCaveatSet {
+		if v == nil {
+			return nil
+		}
+		return v.Caveats
+	}).(MacaroonCaveatSetPtrOutput)
+}
+
+func (o VerifiedTokenPtrOutput) Header() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *VerifiedToken) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Header
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o VerifiedTokenPtrOutput) Nonce() MacaroonNoncePtrOutput {
+	return o.ApplyT(func(v *VerifiedToken) *MacaroonNonce {
+		if v == nil {
+			return nil
+		}
+		return v.Nonce
+	}).(MacaroonNoncePtrOutput)
+}
+
+func (o VerifiedTokenPtrOutput) PermissionToken() pulumi.IntArrayOutput {
+	return o.ApplyT(func(v *VerifiedToken) []int {
+		if v == nil {
+			return nil
+		}
+		return v.PermissionToken
+	}).(pulumi.IntArrayOutput)
+}
+
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*AccessInput)(nil)).Elem(), AccessArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AccessPtrInput)(nil)).Elem(), AccessArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetCurrentTokenQueryParamsInput)(nil)).Elem(), GetCurrentTokenQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetCurrentTokenQueryParamsPtrInput)(nil)).Elem(), GetCurrentTokenQueryParamsArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*MainTokenAccessInput)(nil)).Elem(), MainTokenAccessArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*MainTokenAccessPtrInput)(nil)).Elem(), MainTokenAccessArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TokensAuthenticateCreateQueryParamsInput)(nil)).Elem(), TokensAuthenticateCreateQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TokensAuthenticateCreateQueryParamsPtrInput)(nil)).Elem(), TokensAuthenticateCreateQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TokensAuthenticateQueryParamsInput)(nil)).Elem(), TokensAuthenticateQueryParamsArgs{})
@@ -2300,20 +1976,16 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*TokensRequestOidcCreateQueryParamsPtrInput)(nil)).Elem(), TokensRequestOidcCreateQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TokensRequestOidcQueryParamsInput)(nil)).Elem(), TokensRequestOidcQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TokensRequestOidcQueryParamsPtrInput)(nil)).Elem(), TokensRequestOidcQueryParamsArgs{})
-	pulumi.RegisterOutputType(FlyioAccessOutput{})
-	pulumi.RegisterOutputType(FlyioAccessPtrOutput{})
+	pulumi.RegisterOutputType(AccessOutput{})
+	pulumi.RegisterOutputType(AccessPtrOutput{})
 	pulumi.RegisterOutputType(GetCurrentTokenQueryParamsOutput{})
 	pulumi.RegisterOutputType(GetCurrentTokenQueryParamsPtrOutput{})
 	pulumi.RegisterOutputType(MacaroonCaveatSetOutput{})
 	pulumi.RegisterOutputType(MacaroonCaveatSetPtrOutput{})
 	pulumi.RegisterOutputType(MacaroonNonceOutput{})
 	pulumi.RegisterOutputType(MacaroonNoncePtrOutput{})
-	pulumi.RegisterOutputType(MainTokenAccessOutput{})
-	pulumi.RegisterOutputType(MainTokenAccessPtrOutput{})
 	pulumi.RegisterOutputType(MainTokenInfoOutput{})
 	pulumi.RegisterOutputType(MainTokenInfoArrayOutput{})
-	pulumi.RegisterOutputType(RootVerifiedTokenOutput{})
-	pulumi.RegisterOutputType(RootVerifiedTokenPtrOutput{})
 	pulumi.RegisterOutputType(TokensAuthenticateCreateQueryParamsOutput{})
 	pulumi.RegisterOutputType(TokensAuthenticateCreateQueryParamsPtrOutput{})
 	pulumi.RegisterOutputType(TokensAuthenticateQueryParamsOutput{})
@@ -2330,4 +2002,6 @@ func init() {
 	pulumi.RegisterOutputType(TokensRequestOidcCreateQueryParamsPtrOutput{})
 	pulumi.RegisterOutputType(TokensRequestOidcQueryParamsOutput{})
 	pulumi.RegisterOutputType(TokensRequestOidcQueryParamsPtrOutput{})
+	pulumi.RegisterOutputType(VerifiedTokenOutput{})
+	pulumi.RegisterOutputType(VerifiedTokenPtrOutput{})
 }

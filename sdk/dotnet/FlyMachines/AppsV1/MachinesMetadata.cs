@@ -13,6 +13,10 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
     [FlyMachinesResourceType("fly-machines:apps/v1:MachinesMetadata")]
     public partial class MachinesMetadata : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// Only apply the change if this is still the Machine's current version; otherwise fail
+        /// with 412. Defaults to the current version.
+        /// </summary>
         [Output("machineVersion")]
         public Output<string?> MachineVersion { get; private set; } = null!;
 
@@ -25,6 +29,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Output("queryParams")]
         public Output<Outputs.MachinesMetadataQueryParams?> QueryParams { get; private set; } = null!;
 
+        /// <summary>
+        /// Time to record for the change in the Machine's `metadata_update` event. Defaults to now.
+        /// </summary>
         [Output("updatedAt")]
         public Output<string?> UpdatedAt { get; private set; } = null!;
 
@@ -86,6 +93,10 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Input("machineId")]
         public Input<string>? MachineId { get; set; }
 
+        /// <summary>
+        /// Only apply the change if this is still the Machine's current version; otherwise fail
+        /// with 412. Defaults to the current version.
+        /// </summary>
         [Input("machineVersion")]
         public Input<string>? MachineVersion { get; set; }
 
@@ -103,6 +114,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Input("queryParams")]
         public Input<Inputs.MachinesMetadataQueryParamsArgs>? QueryParams { get; set; }
 
+        /// <summary>
+        /// Time to record for the change in the Machine's `metadata_update` event. Defaults to now.
+        /// </summary>
         [Input("updatedAt")]
         public Input<string>? UpdatedAt { get; set; }
 

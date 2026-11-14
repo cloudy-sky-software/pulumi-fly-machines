@@ -55,6 +55,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
     [OutputType]
     public sealed class ListAppsResult
     {
+        /// <summary>
+        /// The apps on this page, or all apps if `limit` was not provided.
+        /// </summary>
         public readonly ImmutableArray<Outputs.App> Apps;
         /// <summary>
         /// Pagination cursor for the next page. Absent when no more apps remain.

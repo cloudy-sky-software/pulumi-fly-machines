@@ -29,6 +29,8 @@ class MachinesMemoryLimitArgs:
         The set of arguments for constructing a MachinesMemoryLimit resource.
 
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
+        :param pulumi.Input[_builtins.int] limit_mb: New limit in MiB. Must be at least 128 and at most the Machine's configured memory
+               (`guest.max_memory_mb` if set, else `guest.memory_mb`).
         :param pulumi.Input[_builtins.str] machine_id: Machine ID
         :param pulumi.Input['MachinesMemoryLimitQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         """
@@ -56,6 +58,10 @@ class MachinesMemoryLimitArgs:
     @_builtins.property
     @pulumi.getter(name="limitMb")
     def limit_mb(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        New limit in MiB. Must be at least 128 and at most the Machine's configured memory
+        (`guest.max_memory_mb` if set, else `guest.memory_mb`).
+        """
         return pulumi.get(self, "limit_mb")
 
     @limit_mb.setter
@@ -104,6 +110,8 @@ class MachinesMemoryLimit(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
+        :param pulumi.Input[_builtins.int] limit_mb: New limit in MiB. Must be at least 128 and at most the Machine's configured memory
+               (`guest.max_memory_mb` if set, else `guest.memory_mb`).
         :param pulumi.Input[_builtins.str] machine_id: Machine ID
         :param pulumi.Input[Union['MachinesMemoryLimitQueryParamsArgs', 'MachinesMemoryLimitQueryParamsArgsDict', 'outputs.MachinesMemoryLimitQueryParams']] query_params: Query params to send with the API requests for this resource.
         """
@@ -185,11 +193,19 @@ class MachinesMemoryLimit(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter(name="availableMb")
     def available_mb(self) -> pulumi.Output[Optional[_builtins.int]]:
+        """
+        Highest limit, in MiB, that the Machine could currently be raised to: its configured
+        memory (`guest.max_memory_mb` if set, else `guest.memory_mb`), capped by the host's free
+        memory.
+        """
         return pulumi.get(self, "available_mb")
 
     @_builtins.property
     @pulumi.getter(name="limitMb")
     def limit_mb(self) -> pulumi.Output[Optional[_builtins.int]]:
+        """
+        Memory, in MiB, the guest can currently use.
+        """
         return pulumi.get(self, "limit_mb")
 
     @_builtins.property

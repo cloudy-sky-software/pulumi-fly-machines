@@ -13,190 +13,6 @@ import (
 
 var _ = internal.GetEnvOrDefault
 
-type FlyMachineGuest struct {
-	CpuKind          *string  `pulumi:"cpuKind"`
-	Cpus             *int     `pulumi:"cpus"`
-	GpuKind          *string  `pulumi:"gpuKind"`
-	Gpus             *int     `pulumi:"gpus"`
-	HostDedicationId *string  `pulumi:"hostDedicationId"`
-	KernelArgs       []string `pulumi:"kernelArgs"`
-	MaxMemoryMb      *int     `pulumi:"maxMemoryMb"`
-	MemoryMb         *int     `pulumi:"memoryMb"`
-	// Deprecated: use MachineConfig.Rootfs instead
-	PersistRootfs        *FlyMachineGuestPersistRootfs `pulumi:"persistRootfs"`
-	RequiredHostFeatures []string                      `pulumi:"requiredHostFeatures"`
-}
-
-type FlyMachineGuestOutput struct{ *pulumi.OutputState }
-
-func (FlyMachineGuestOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*FlyMachineGuest)(nil)).Elem()
-}
-
-func (o FlyMachineGuestOutput) ToFlyMachineGuestOutput() FlyMachineGuestOutput {
-	return o
-}
-
-func (o FlyMachineGuestOutput) ToFlyMachineGuestOutputWithContext(ctx context.Context) FlyMachineGuestOutput {
-	return o
-}
-
-func (o FlyMachineGuestOutput) CpuKind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v FlyMachineGuest) *string { return v.CpuKind }).(pulumi.StringPtrOutput)
-}
-
-func (o FlyMachineGuestOutput) Cpus() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v FlyMachineGuest) *int { return v.Cpus }).(pulumi.IntPtrOutput)
-}
-
-func (o FlyMachineGuestOutput) GpuKind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v FlyMachineGuest) *string { return v.GpuKind }).(pulumi.StringPtrOutput)
-}
-
-func (o FlyMachineGuestOutput) Gpus() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v FlyMachineGuest) *int { return v.Gpus }).(pulumi.IntPtrOutput)
-}
-
-func (o FlyMachineGuestOutput) HostDedicationId() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v FlyMachineGuest) *string { return v.HostDedicationId }).(pulumi.StringPtrOutput)
-}
-
-func (o FlyMachineGuestOutput) KernelArgs() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v FlyMachineGuest) []string { return v.KernelArgs }).(pulumi.StringArrayOutput)
-}
-
-func (o FlyMachineGuestOutput) MaxMemoryMb() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v FlyMachineGuest) *int { return v.MaxMemoryMb }).(pulumi.IntPtrOutput)
-}
-
-func (o FlyMachineGuestOutput) MemoryMb() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v FlyMachineGuest) *int { return v.MemoryMb }).(pulumi.IntPtrOutput)
-}
-
-// Deprecated: use MachineConfig.Rootfs instead
-func (o FlyMachineGuestOutput) PersistRootfs() FlyMachineGuestPersistRootfsPtrOutput {
-	return o.ApplyT(func(v FlyMachineGuest) *FlyMachineGuestPersistRootfs { return v.PersistRootfs }).(FlyMachineGuestPersistRootfsPtrOutput)
-}
-
-func (o FlyMachineGuestOutput) RequiredHostFeatures() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v FlyMachineGuest) []string { return v.RequiredHostFeatures }).(pulumi.StringArrayOutput)
-}
-
-type FlyMachineGuestPtrOutput struct{ *pulumi.OutputState }
-
-func (FlyMachineGuestPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**FlyMachineGuest)(nil)).Elem()
-}
-
-func (o FlyMachineGuestPtrOutput) ToFlyMachineGuestPtrOutput() FlyMachineGuestPtrOutput {
-	return o
-}
-
-func (o FlyMachineGuestPtrOutput) ToFlyMachineGuestPtrOutputWithContext(ctx context.Context) FlyMachineGuestPtrOutput {
-	return o
-}
-
-func (o FlyMachineGuestPtrOutput) Elem() FlyMachineGuestOutput {
-	return o.ApplyT(func(v *FlyMachineGuest) FlyMachineGuest {
-		if v != nil {
-			return *v
-		}
-		var ret FlyMachineGuest
-		return ret
-	}).(FlyMachineGuestOutput)
-}
-
-func (o FlyMachineGuestPtrOutput) CpuKind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *FlyMachineGuest) *string {
-		if v == nil {
-			return nil
-		}
-		return v.CpuKind
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o FlyMachineGuestPtrOutput) Cpus() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *FlyMachineGuest) *int {
-		if v == nil {
-			return nil
-		}
-		return v.Cpus
-	}).(pulumi.IntPtrOutput)
-}
-
-func (o FlyMachineGuestPtrOutput) GpuKind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *FlyMachineGuest) *string {
-		if v == nil {
-			return nil
-		}
-		return v.GpuKind
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o FlyMachineGuestPtrOutput) Gpus() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *FlyMachineGuest) *int {
-		if v == nil {
-			return nil
-		}
-		return v.Gpus
-	}).(pulumi.IntPtrOutput)
-}
-
-func (o FlyMachineGuestPtrOutput) HostDedicationId() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *FlyMachineGuest) *string {
-		if v == nil {
-			return nil
-		}
-		return v.HostDedicationId
-	}).(pulumi.StringPtrOutput)
-}
-
-func (o FlyMachineGuestPtrOutput) KernelArgs() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v *FlyMachineGuest) []string {
-		if v == nil {
-			return nil
-		}
-		return v.KernelArgs
-	}).(pulumi.StringArrayOutput)
-}
-
-func (o FlyMachineGuestPtrOutput) MaxMemoryMb() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *FlyMachineGuest) *int {
-		if v == nil {
-			return nil
-		}
-		return v.MaxMemoryMb
-	}).(pulumi.IntPtrOutput)
-}
-
-func (o FlyMachineGuestPtrOutput) MemoryMb() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *FlyMachineGuest) *int {
-		if v == nil {
-			return nil
-		}
-		return v.MemoryMb
-	}).(pulumi.IntPtrOutput)
-}
-
-// Deprecated: use MachineConfig.Rootfs instead
-func (o FlyMachineGuestPtrOutput) PersistRootfs() FlyMachineGuestPersistRootfsPtrOutput {
-	return o.ApplyT(func(v *FlyMachineGuest) *FlyMachineGuestPersistRootfs {
-		if v == nil {
-			return nil
-		}
-		return v.PersistRootfs
-	}).(FlyMachineGuestPersistRootfsPtrOutput)
-}
-
-func (o FlyMachineGuestPtrOutput) RequiredHostFeatures() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v *FlyMachineGuest) []string {
-		if v == nil {
-			return nil
-		}
-		return v.RequiredHostFeatures
-	}).(pulumi.StringArrayOutput)
-}
-
 // Query params for the API request.
 type ListMachinesOrgQueryParams struct {
 	// Additional query params to send with the request that are not defined in the API spec.
@@ -743,100 +559,267 @@ func (o ListVolumesOrgQueryParamsPtrOutput) UpdatedAfter() pulumi.StringPtrOutpu
 	}).(pulumi.StringPtrOutput)
 }
 
-type MachineOverviewConfig struct {
-	Guest    *FlyMachineGuest  `pulumi:"guest"`
-	Image    *string           `pulumi:"image"`
-	Metadata map[string]string `pulumi:"metadata"`
+// The Machine's CPU, memory, and GPU configuration.
+type MachineOverviewConfigGuest struct {
+	// Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
+	// Defaults to shared when `guest` is omitted
+	CpuKind *string `pulumi:"cpuKind"`
+	// Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
+	// performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
+	// omitted
+	Cpus *int `pulumi:"cpus"`
+	// No longer supported. Requests that set it are rejected
+	GpuKind *string `pulumi:"gpuKind"`
+	// No longer supported. Requests that set it are rejected
+	Gpus *int `pulumi:"gpus"`
+	// Place the Machine on hosts dedicated to the organization under this ID. Only available to
+	// organizations with dedicated hosts
+	HostDedicationId *string `pulumi:"hostDedicationId"`
+	// Extra arguments appended to the guest kernel command line
+	KernelArgs []string `pulumi:"kernelArgs"`
+	// Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
+	// the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
+	// starts with a limit of memory_mb
+	MaxMemoryMb *int `pulumi:"maxMemoryMb"`
+	// Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
+	// between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
+	// `guest` is omitted
+	MemoryMb *int `pulumi:"memoryMb"`
+	// Deprecated: use MachineConfig.Rootfs instead
+	PersistRootfs *FlyMachineGuestPersistRootfs `pulumi:"persistRootfs"`
+	// Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
+	// of lowercase letters, digits and dashes. Each feature must be enabled for the organization
+	RequiredHostFeatures []string `pulumi:"requiredHostFeatures"`
 }
 
-type MachineOverviewConfigOutput struct{ *pulumi.OutputState }
+// The Machine's CPU, memory, and GPU configuration.
+type MachineOverviewConfigGuestOutput struct{ *pulumi.OutputState }
 
-func (MachineOverviewConfigOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*MachineOverviewConfig)(nil)).Elem()
+func (MachineOverviewConfigGuestOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MachineOverviewConfigGuest)(nil)).Elem()
 }
 
-func (o MachineOverviewConfigOutput) ToMachineOverviewConfigOutput() MachineOverviewConfigOutput {
+func (o MachineOverviewConfigGuestOutput) ToMachineOverviewConfigGuestOutput() MachineOverviewConfigGuestOutput {
 	return o
 }
 
-func (o MachineOverviewConfigOutput) ToMachineOverviewConfigOutputWithContext(ctx context.Context) MachineOverviewConfigOutput {
+func (o MachineOverviewConfigGuestOutput) ToMachineOverviewConfigGuestOutputWithContext(ctx context.Context) MachineOverviewConfigGuestOutput {
 	return o
 }
 
-func (o MachineOverviewConfigOutput) Guest() FlyMachineGuestPtrOutput {
-	return o.ApplyT(func(v MachineOverviewConfig) *FlyMachineGuest { return v.Guest }).(FlyMachineGuestPtrOutput)
+// Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
+// Defaults to shared when `guest` is omitted
+func (o MachineOverviewConfigGuestOutput) CpuKind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MachineOverviewConfigGuest) *string { return v.CpuKind }).(pulumi.StringPtrOutput)
 }
 
-func (o MachineOverviewConfigOutput) Image() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v MachineOverviewConfig) *string { return v.Image }).(pulumi.StringPtrOutput)
+// Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
+// performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
+// omitted
+func (o MachineOverviewConfigGuestOutput) Cpus() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v MachineOverviewConfigGuest) *int { return v.Cpus }).(pulumi.IntPtrOutput)
 }
 
-func (o MachineOverviewConfigOutput) Metadata() pulumi.StringMapOutput {
-	return o.ApplyT(func(v MachineOverviewConfig) map[string]string { return v.Metadata }).(pulumi.StringMapOutput)
+// No longer supported. Requests that set it are rejected
+func (o MachineOverviewConfigGuestOutput) GpuKind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MachineOverviewConfigGuest) *string { return v.GpuKind }).(pulumi.StringPtrOutput)
 }
 
-type MachineOverviewConfigPtrOutput struct{ *pulumi.OutputState }
-
-func (MachineOverviewConfigPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**MachineOverviewConfig)(nil)).Elem()
+// No longer supported. Requests that set it are rejected
+func (o MachineOverviewConfigGuestOutput) Gpus() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v MachineOverviewConfigGuest) *int { return v.Gpus }).(pulumi.IntPtrOutput)
 }
 
-func (o MachineOverviewConfigPtrOutput) ToMachineOverviewConfigPtrOutput() MachineOverviewConfigPtrOutput {
+// Place the Machine on hosts dedicated to the organization under this ID. Only available to
+// organizations with dedicated hosts
+func (o MachineOverviewConfigGuestOutput) HostDedicationId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MachineOverviewConfigGuest) *string { return v.HostDedicationId }).(pulumi.StringPtrOutput)
+}
+
+// Extra arguments appended to the guest kernel command line
+func (o MachineOverviewConfigGuestOutput) KernelArgs() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v MachineOverviewConfigGuest) []string { return v.KernelArgs }).(pulumi.StringArrayOutput)
+}
+
+// Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
+// the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
+// starts with a limit of memory_mb
+func (o MachineOverviewConfigGuestOutput) MaxMemoryMb() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v MachineOverviewConfigGuest) *int { return v.MaxMemoryMb }).(pulumi.IntPtrOutput)
+}
+
+// Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
+// between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
+// `guest` is omitted
+func (o MachineOverviewConfigGuestOutput) MemoryMb() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v MachineOverviewConfigGuest) *int { return v.MemoryMb }).(pulumi.IntPtrOutput)
+}
+
+// Deprecated: use MachineConfig.Rootfs instead
+func (o MachineOverviewConfigGuestOutput) PersistRootfs() FlyMachineGuestPersistRootfsPtrOutput {
+	return o.ApplyT(func(v MachineOverviewConfigGuest) *FlyMachineGuestPersistRootfs { return v.PersistRootfs }).(FlyMachineGuestPersistRootfsPtrOutput)
+}
+
+// Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
+// of lowercase letters, digits and dashes. Each feature must be enabled for the organization
+func (o MachineOverviewConfigGuestOutput) RequiredHostFeatures() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v MachineOverviewConfigGuest) []string { return v.RequiredHostFeatures }).(pulumi.StringArrayOutput)
+}
+
+type MachineOverviewConfigGuestPtrOutput struct{ *pulumi.OutputState }
+
+func (MachineOverviewConfigGuestPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**MachineOverviewConfigGuest)(nil)).Elem()
+}
+
+func (o MachineOverviewConfigGuestPtrOutput) ToMachineOverviewConfigGuestPtrOutput() MachineOverviewConfigGuestPtrOutput {
 	return o
 }
 
-func (o MachineOverviewConfigPtrOutput) ToMachineOverviewConfigPtrOutputWithContext(ctx context.Context) MachineOverviewConfigPtrOutput {
+func (o MachineOverviewConfigGuestPtrOutput) ToMachineOverviewConfigGuestPtrOutputWithContext(ctx context.Context) MachineOverviewConfigGuestPtrOutput {
 	return o
 }
 
-func (o MachineOverviewConfigPtrOutput) Elem() MachineOverviewConfigOutput {
-	return o.ApplyT(func(v *MachineOverviewConfig) MachineOverviewConfig {
+func (o MachineOverviewConfigGuestPtrOutput) Elem() MachineOverviewConfigGuestOutput {
+	return o.ApplyT(func(v *MachineOverviewConfigGuest) MachineOverviewConfigGuest {
 		if v != nil {
 			return *v
 		}
-		var ret MachineOverviewConfig
+		var ret MachineOverviewConfigGuest
 		return ret
-	}).(MachineOverviewConfigOutput)
+	}).(MachineOverviewConfigGuestOutput)
 }
 
-func (o MachineOverviewConfigPtrOutput) Guest() FlyMachineGuestPtrOutput {
-	return o.ApplyT(func(v *MachineOverviewConfig) *FlyMachineGuest {
+// Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
+// Defaults to shared when `guest` is omitted
+func (o MachineOverviewConfigGuestPtrOutput) CpuKind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *MachineOverviewConfigGuest) *string {
 		if v == nil {
 			return nil
 		}
-		return v.Guest
-	}).(FlyMachineGuestPtrOutput)
-}
-
-func (o MachineOverviewConfigPtrOutput) Image() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *MachineOverviewConfig) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Image
+		return v.CpuKind
 	}).(pulumi.StringPtrOutput)
 }
 
-func (o MachineOverviewConfigPtrOutput) Metadata() pulumi.StringMapOutput {
-	return o.ApplyT(func(v *MachineOverviewConfig) map[string]string {
+// Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
+// performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
+// omitted
+func (o MachineOverviewConfigGuestPtrOutput) Cpus() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *MachineOverviewConfigGuest) *int {
 		if v == nil {
 			return nil
 		}
-		return v.Metadata
-	}).(pulumi.StringMapOutput)
+		return v.Cpus
+	}).(pulumi.IntPtrOutput)
+}
+
+// No longer supported. Requests that set it are rejected
+func (o MachineOverviewConfigGuestPtrOutput) GpuKind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *MachineOverviewConfigGuest) *string {
+		if v == nil {
+			return nil
+		}
+		return v.GpuKind
+	}).(pulumi.StringPtrOutput)
+}
+
+// No longer supported. Requests that set it are rejected
+func (o MachineOverviewConfigGuestPtrOutput) Gpus() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *MachineOverviewConfigGuest) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Gpus
+	}).(pulumi.IntPtrOutput)
+}
+
+// Place the Machine on hosts dedicated to the organization under this ID. Only available to
+// organizations with dedicated hosts
+func (o MachineOverviewConfigGuestPtrOutput) HostDedicationId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *MachineOverviewConfigGuest) *string {
+		if v == nil {
+			return nil
+		}
+		return v.HostDedicationId
+	}).(pulumi.StringPtrOutput)
+}
+
+// Extra arguments appended to the guest kernel command line
+func (o MachineOverviewConfigGuestPtrOutput) KernelArgs() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *MachineOverviewConfigGuest) []string {
+		if v == nil {
+			return nil
+		}
+		return v.KernelArgs
+	}).(pulumi.StringArrayOutput)
+}
+
+// Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
+// the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
+// starts with a limit of memory_mb
+func (o MachineOverviewConfigGuestPtrOutput) MaxMemoryMb() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *MachineOverviewConfigGuest) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MaxMemoryMb
+	}).(pulumi.IntPtrOutput)
+}
+
+// Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
+// between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
+// `guest` is omitted
+func (o MachineOverviewConfigGuestPtrOutput) MemoryMb() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *MachineOverviewConfigGuest) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MemoryMb
+	}).(pulumi.IntPtrOutput)
+}
+
+// Deprecated: use MachineConfig.Rootfs instead
+func (o MachineOverviewConfigGuestPtrOutput) PersistRootfs() FlyMachineGuestPersistRootfsPtrOutput {
+	return o.ApplyT(func(v *MachineOverviewConfigGuest) *FlyMachineGuestPersistRootfs {
+		if v == nil {
+			return nil
+		}
+		return v.PersistRootfs
+	}).(FlyMachineGuestPersistRootfsPtrOutput)
+}
+
+// Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
+// of lowercase letters, digits and dashes. Each feature must be enabled for the organization
+func (o MachineOverviewConfigGuestPtrOutput) RequiredHostFeatures() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *MachineOverviewConfigGuest) []string {
+		if v == nil {
+			return nil
+		}
+		return v.RequiredHostFeatures
+	}).(pulumi.StringArrayOutput)
 }
 
 type OrgMachine struct {
-	AppName   *string                `pulumi:"appName"`
-	Config    *MachineOverviewConfig `pulumi:"config"`
-	CreatedAt *string                `pulumi:"createdAt"`
-	Id        *string                `pulumi:"id"`
-	Name      *string                `pulumi:"name"`
-	PrivateIp *string                `pulumi:"privateIp"`
-	Region    *string                `pulumi:"region"`
-	State     *string                `pulumi:"state"`
-	UpdatedAt *string                `pulumi:"updatedAt"`
-	Version   *string                `pulumi:"version"`
+	// Name of the app the Machine belongs to.
+	AppName *string `pulumi:"appName"`
+	// Subset of the Machine's configuration. Omitted when `summary=true`.
+	Config *OrgMachineConfig `pulumi:"config"`
+	// When the Machine was created.
+	CreatedAt *string `pulumi:"createdAt"`
+	// Unique ID of the Machine.
+	Id *string `pulumi:"id"`
+	// Name of the Machine.
+	Name *string `pulumi:"name"`
+	// The Machine's address on the organization's private (6PN) IPv6 network.
+	PrivateIp *string `pulumi:"privateIp"`
+	// Code of the region the Machine runs in.
+	Region *string `pulumi:"region"`
+	// Current state of the Machine; see the `state` field of Machine.
+	State *string `pulumi:"state"`
+	// When Fly.io last recorded a change to the Machine.
+	UpdatedAt *string `pulumi:"updatedAt"`
+	// ID of the Machine's current version.
+	Version *string `pulumi:"version"`
 }
 
 type OrgMachineOutput struct{ *pulumi.OutputState }
@@ -853,42 +836,52 @@ func (o OrgMachineOutput) ToOrgMachineOutputWithContext(ctx context.Context) Org
 	return o
 }
 
+// Name of the app the Machine belongs to.
 func (o OrgMachineOutput) AppName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v OrgMachine) *string { return v.AppName }).(pulumi.StringPtrOutput)
 }
 
-func (o OrgMachineOutput) Config() MachineOverviewConfigPtrOutput {
-	return o.ApplyT(func(v OrgMachine) *MachineOverviewConfig { return v.Config }).(MachineOverviewConfigPtrOutput)
+// Subset of the Machine's configuration. Omitted when `summary=true`.
+func (o OrgMachineOutput) Config() OrgMachineConfigPtrOutput {
+	return o.ApplyT(func(v OrgMachine) *OrgMachineConfig { return v.Config }).(OrgMachineConfigPtrOutput)
 }
 
+// When the Machine was created.
 func (o OrgMachineOutput) CreatedAt() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v OrgMachine) *string { return v.CreatedAt }).(pulumi.StringPtrOutput)
 }
 
+// Unique ID of the Machine.
 func (o OrgMachineOutput) Id() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v OrgMachine) *string { return v.Id }).(pulumi.StringPtrOutput)
 }
 
+// Name of the Machine.
 func (o OrgMachineOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v OrgMachine) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
+// The Machine's address on the organization's private (6PN) IPv6 network.
 func (o OrgMachineOutput) PrivateIp() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v OrgMachine) *string { return v.PrivateIp }).(pulumi.StringPtrOutput)
 }
 
+// Code of the region the Machine runs in.
 func (o OrgMachineOutput) Region() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v OrgMachine) *string { return v.Region }).(pulumi.StringPtrOutput)
 }
 
+// Current state of the Machine; see the `state` field of Machine.
 func (o OrgMachineOutput) State() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v OrgMachine) *string { return v.State }).(pulumi.StringPtrOutput)
 }
 
+// When Fly.io last recorded a change to the Machine.
 func (o OrgMachineOutput) UpdatedAt() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v OrgMachine) *string { return v.UpdatedAt }).(pulumi.StringPtrOutput)
 }
 
+// ID of the Machine's current version.
 func (o OrgMachineOutput) Version() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v OrgMachine) *string { return v.Version }).(pulumi.StringPtrOutput)
 }
@@ -913,40 +906,181 @@ func (o OrgMachineArrayOutput) Index(i pulumi.IntInput) OrgMachineOutput {
 	}).(OrgMachineOutput)
 }
 
+// Subset of the Machine's configuration. Omitted when `summary=true`.
+type OrgMachineConfig struct {
+	// The Machine's CPU, memory, and GPU configuration.
+	Guest *MachineOverviewConfigGuest `pulumi:"guest"`
+	// The image reference the Machine was configured with.
+	Image *string `pulumi:"image"`
+	// The Machine's metadata key-value pairs.
+	Metadata map[string]string `pulumi:"metadata"`
+}
+
+// Subset of the Machine's configuration. Omitted when `summary=true`.
+type OrgMachineConfigOutput struct{ *pulumi.OutputState }
+
+func (OrgMachineConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*OrgMachineConfig)(nil)).Elem()
+}
+
+func (o OrgMachineConfigOutput) ToOrgMachineConfigOutput() OrgMachineConfigOutput {
+	return o
+}
+
+func (o OrgMachineConfigOutput) ToOrgMachineConfigOutputWithContext(ctx context.Context) OrgMachineConfigOutput {
+	return o
+}
+
+// The Machine's CPU, memory, and GPU configuration.
+func (o OrgMachineConfigOutput) Guest() MachineOverviewConfigGuestPtrOutput {
+	return o.ApplyT(func(v OrgMachineConfig) *MachineOverviewConfigGuest { return v.Guest }).(MachineOverviewConfigGuestPtrOutput)
+}
+
+// The image reference the Machine was configured with.
+func (o OrgMachineConfigOutput) Image() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v OrgMachineConfig) *string { return v.Image }).(pulumi.StringPtrOutput)
+}
+
+// The Machine's metadata key-value pairs.
+func (o OrgMachineConfigOutput) Metadata() pulumi.StringMapOutput {
+	return o.ApplyT(func(v OrgMachineConfig) map[string]string { return v.Metadata }).(pulumi.StringMapOutput)
+}
+
+type OrgMachineConfigPtrOutput struct{ *pulumi.OutputState }
+
+func (OrgMachineConfigPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**OrgMachineConfig)(nil)).Elem()
+}
+
+func (o OrgMachineConfigPtrOutput) ToOrgMachineConfigPtrOutput() OrgMachineConfigPtrOutput {
+	return o
+}
+
+func (o OrgMachineConfigPtrOutput) ToOrgMachineConfigPtrOutputWithContext(ctx context.Context) OrgMachineConfigPtrOutput {
+	return o
+}
+
+func (o OrgMachineConfigPtrOutput) Elem() OrgMachineConfigOutput {
+	return o.ApplyT(func(v *OrgMachineConfig) OrgMachineConfig {
+		if v != nil {
+			return *v
+		}
+		var ret OrgMachineConfig
+		return ret
+	}).(OrgMachineConfigOutput)
+}
+
+// The Machine's CPU, memory, and GPU configuration.
+func (o OrgMachineConfigPtrOutput) Guest() MachineOverviewConfigGuestPtrOutput {
+	return o.ApplyT(func(v *OrgMachineConfig) *MachineOverviewConfigGuest {
+		if v == nil {
+			return nil
+		}
+		return v.Guest
+	}).(MachineOverviewConfigGuestPtrOutput)
+}
+
+// The image reference the Machine was configured with.
+func (o OrgMachineConfigPtrOutput) Image() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *OrgMachineConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Image
+	}).(pulumi.StringPtrOutput)
+}
+
+// The Machine's metadata key-value pairs.
+func (o OrgMachineConfigPtrOutput) Metadata() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *OrgMachineConfig) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.Metadata
+	}).(pulumi.StringMapOutput)
+}
+
 type OrgMachinesResponse struct {
-	ErrorRegions  []string     `pulumi:"errorRegions"`
-	LastMachineId *string      `pulumi:"lastMachineId"`
-	LastUpdatedAt *string      `pulumi:"lastUpdatedAt"`
-	Machines      []OrgMachine `pulumi:"machines"`
-	NextCursor    *string      `pulumi:"nextCursor"`
+	// Regions that could not be queried. Their Machines are missing from the response.
+	ErrorRegions []string `pulumi:"errorRegions"`
+	// ID of the last Machine on this page.
+	LastMachineId *string `pulumi:"lastMachineId"`
+	// `updated_at` of the last Machine on this page.
+	LastUpdatedAt *string `pulumi:"lastUpdatedAt"`
+	// The Machines on this page.
+	Machines []OrgMachine `pulumi:"machines"`
+	// Pagination cursor for the next page. Absent when no more Machines remain. Cursors expire
+	// 30 minutes after the first page was requested.
+	NextCursor *string `pulumi:"nextCursor"`
 }
 
 type OrgVolume struct {
-	AppName              *string              `pulumi:"appName"`
-	AttachedAllocId      *string              `pulumi:"attachedAllocId"`
-	AttachedMachineId    *string              `pulumi:"attachedMachineId"`
-	AutoBackupEnabled    *bool                `pulumi:"autoBackupEnabled"`
-	BlockSize            *int                 `pulumi:"blockSize"`
-	Blocks               *int                 `pulumi:"blocks"`
-	BlocksAvail          *int                 `pulumi:"blocksAvail"`
-	BlocksFree           *int                 `pulumi:"blocksFree"`
-	BytesTotal           *int                 `pulumi:"bytesTotal"`
-	BytesUsed            *int                 `pulumi:"bytesUsed"`
-	CreatedAt            *string              `pulumi:"createdAt"`
-	Encrypted            *bool                `pulumi:"encrypted"`
-	Fstype               *string              `pulumi:"fstype"`
-	HostFeatures         []string             `pulumi:"hostFeatures"`
-	HostStatus           *OrgVolumeHostStatus `pulumi:"hostStatus"`
-	Id                   *string              `pulumi:"id"`
-	Name                 *string              `pulumi:"name"`
-	Region               *string              `pulumi:"region"`
-	RequiredHostFeatures []string             `pulumi:"requiredHostFeatures"`
-	SizeGb               *int                 `pulumi:"sizeGb"`
-	SnapshotRetention    *int                 `pulumi:"snapshotRetention"`
-	State                *string              `pulumi:"state"`
-	Type                 *OrgVolumeType       `pulumi:"type"`
-	UpdatedAt            *string              `pulumi:"updatedAt"`
-	Zone                 *string              `pulumi:"zone"`
+	// Name of the app the volume belongs to.
+	AppName *string `pulumi:"appName"`
+	// Always null.
+	//
+	// Deprecated: volumes are no longer attached to Nomad allocations.
+	AttachedAllocId *string `pulumi:"attachedAllocId"`
+	// ID of the Machine the volume is attached to, or null if it is not attached.
+	AttachedMachineId *string `pulumi:"attachedMachineId"`
+	// Whether daily automatic snapshots are taken.
+	AutoBackupEnabled *bool `pulumi:"autoBackupEnabled"`
+	// Size of a filesystem block, in bytes. See `blocks`.
+	BlockSize *int `pulumi:"blockSize"`
+	// Size of the volume's filesystem, in blocks of `block_size` bytes, as last reported by a
+	// Machine that mounted the volume. 0 if never reported, if the host could not be reached,
+	// or with `summary=true`.
+	Blocks *int `pulumi:"blocks"`
+	// Number of filesystem blocks available to unprivileged users. See `blocks`.
+	BlocksAvail *int `pulumi:"blocksAvail"`
+	// Number of free filesystem blocks, including blocks reserved for the root user. See
+	// `blocks`.
+	BlocksFree *int `pulumi:"blocksFree"`
+	// Size of the volume, in bytes. 0 if the host could not be reached or with `summary=true`.
+	BytesTotal *int `pulumi:"bytesTotal"`
+	// Bytes of storage the volume occupies on its host. Volumes are thinly provisioned, so this
+	// grows as blocks are written and does not shrink when files are deleted. It is not the
+	// filesystem's usage; use `blocks` and `blocks_free` for that. 0 if the host could not be
+	// reached or with `summary=true`.
+	BytesUsed *int `pulumi:"bytesUsed"`
+	// When the volume was created.
+	CreatedAt *string `pulumi:"createdAt"`
+	// Whether the volume is encrypted at rest.
+	Encrypted *bool `pulumi:"encrypted"`
+	// Filesystem the volume was formatted with: `ext4`, or `raw` for an unformatted block
+	// device.
+	Fstype *string `pulumi:"fstype"`
+	// Features of the volume's host. Only returned when the request sets the
+	// `fly-include-host-features: true` header.
+	HostFeatures []string `pulumi:"hostFeatures"`
+	// Whether Fly.io could reach the volume's host: `ok` if it could, `unreachable` or
+	// `unknown` if it could not, in which case host-reported fields are missing.
+	HostStatus *OrgVolumeHostStatus `pulumi:"hostStatus"`
+	// Unique ID of the volume, such as `vol_1234567890abcdef`.
+	Id *string `pulumi:"id"`
+	// Name of the volume. Several volumes of an app can share a name.
+	Name *string `pulumi:"name"`
+	// Code of the region the volume is in.
+	Region *string `pulumi:"region"`
+	// Host features the volume's host was required to have; see `compute.required_host_features`
+	// in the create request.
+	RequiredHostFeatures []string `pulumi:"requiredHostFeatures"`
+	// Size of the volume, in GiB.
+	SizeGb *int `pulumi:"sizeGb"`
+	// Number of days snapshots of the volume are kept.
+	SnapshotRetention *int `pulumi:"snapshotRetention"`
+	// State of the volume, such as `creating`, `created`, `extending`, `restoring`,
+	// `hydrating`, `scheduling_destroy`, `pending_destroy`, `destroying`, `destroyed`, or
+	// `failed`.
+	State *string `pulumi:"state"`
+	// Kind of volume: `local` for regular volumes, or `cache` for volumes that hold
+	// disposable data and support neither snapshots nor restores.
+	Type *OrgVolumeType `pulumi:"type"`
+	// When Fly.io last recorded a change to the volume.
+	UpdatedAt *string `pulumi:"updatedAt"`
+	// Identifies the host the volume is on. Volumes with different zones are on different
+	// hosts.
+	Zone *string `pulumi:"zone"`
 }
 
 type OrgVolumeOutput struct{ *pulumi.OutputState }
@@ -963,102 +1097,143 @@ func (o OrgVolumeOutput) ToOrgVolumeOutputWithContext(ctx context.Context) OrgVo
 	return o
 }
 
+// Name of the app the volume belongs to.
 func (o OrgVolumeOutput) AppName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v OrgVolume) *string { return v.AppName }).(pulumi.StringPtrOutput)
 }
 
+// Always null.
+//
+// Deprecated: volumes are no longer attached to Nomad allocations.
 func (o OrgVolumeOutput) AttachedAllocId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v OrgVolume) *string { return v.AttachedAllocId }).(pulumi.StringPtrOutput)
 }
 
+// ID of the Machine the volume is attached to, or null if it is not attached.
 func (o OrgVolumeOutput) AttachedMachineId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v OrgVolume) *string { return v.AttachedMachineId }).(pulumi.StringPtrOutput)
 }
 
+// Whether daily automatic snapshots are taken.
 func (o OrgVolumeOutput) AutoBackupEnabled() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v OrgVolume) *bool { return v.AutoBackupEnabled }).(pulumi.BoolPtrOutput)
 }
 
+// Size of a filesystem block, in bytes. See `blocks`.
 func (o OrgVolumeOutput) BlockSize() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v OrgVolume) *int { return v.BlockSize }).(pulumi.IntPtrOutput)
 }
 
+// Size of the volume's filesystem, in blocks of `block_size` bytes, as last reported by a
+// Machine that mounted the volume. 0 if never reported, if the host could not be reached,
+// or with `summary=true`.
 func (o OrgVolumeOutput) Blocks() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v OrgVolume) *int { return v.Blocks }).(pulumi.IntPtrOutput)
 }
 
+// Number of filesystem blocks available to unprivileged users. See `blocks`.
 func (o OrgVolumeOutput) BlocksAvail() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v OrgVolume) *int { return v.BlocksAvail }).(pulumi.IntPtrOutput)
 }
 
+// Number of free filesystem blocks, including blocks reserved for the root user. See
+// `blocks`.
 func (o OrgVolumeOutput) BlocksFree() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v OrgVolume) *int { return v.BlocksFree }).(pulumi.IntPtrOutput)
 }
 
+// Size of the volume, in bytes. 0 if the host could not be reached or with `summary=true`.
 func (o OrgVolumeOutput) BytesTotal() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v OrgVolume) *int { return v.BytesTotal }).(pulumi.IntPtrOutput)
 }
 
+// Bytes of storage the volume occupies on its host. Volumes are thinly provisioned, so this
+// grows as blocks are written and does not shrink when files are deleted. It is not the
+// filesystem's usage; use `blocks` and `blocks_free` for that. 0 if the host could not be
+// reached or with `summary=true`.
 func (o OrgVolumeOutput) BytesUsed() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v OrgVolume) *int { return v.BytesUsed }).(pulumi.IntPtrOutput)
 }
 
+// When the volume was created.
 func (o OrgVolumeOutput) CreatedAt() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v OrgVolume) *string { return v.CreatedAt }).(pulumi.StringPtrOutput)
 }
 
+// Whether the volume is encrypted at rest.
 func (o OrgVolumeOutput) Encrypted() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v OrgVolume) *bool { return v.Encrypted }).(pulumi.BoolPtrOutput)
 }
 
+// Filesystem the volume was formatted with: `ext4`, or `raw` for an unformatted block
+// device.
 func (o OrgVolumeOutput) Fstype() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v OrgVolume) *string { return v.Fstype }).(pulumi.StringPtrOutput)
 }
 
+// Features of the volume's host. Only returned when the request sets the
+// `fly-include-host-features: true` header.
 func (o OrgVolumeOutput) HostFeatures() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v OrgVolume) []string { return v.HostFeatures }).(pulumi.StringArrayOutput)
 }
 
+// Whether Fly.io could reach the volume's host: `ok` if it could, `unreachable` or
+// `unknown` if it could not, in which case host-reported fields are missing.
 func (o OrgVolumeOutput) HostStatus() OrgVolumeHostStatusPtrOutput {
 	return o.ApplyT(func(v OrgVolume) *OrgVolumeHostStatus { return v.HostStatus }).(OrgVolumeHostStatusPtrOutput)
 }
 
+// Unique ID of the volume, such as `vol_1234567890abcdef`.
 func (o OrgVolumeOutput) Id() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v OrgVolume) *string { return v.Id }).(pulumi.StringPtrOutput)
 }
 
+// Name of the volume. Several volumes of an app can share a name.
 func (o OrgVolumeOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v OrgVolume) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
+// Code of the region the volume is in.
 func (o OrgVolumeOutput) Region() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v OrgVolume) *string { return v.Region }).(pulumi.StringPtrOutput)
 }
 
+// Host features the volume's host was required to have; see `compute.required_host_features`
+// in the create request.
 func (o OrgVolumeOutput) RequiredHostFeatures() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v OrgVolume) []string { return v.RequiredHostFeatures }).(pulumi.StringArrayOutput)
 }
 
+// Size of the volume, in GiB.
 func (o OrgVolumeOutput) SizeGb() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v OrgVolume) *int { return v.SizeGb }).(pulumi.IntPtrOutput)
 }
 
+// Number of days snapshots of the volume are kept.
 func (o OrgVolumeOutput) SnapshotRetention() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v OrgVolume) *int { return v.SnapshotRetention }).(pulumi.IntPtrOutput)
 }
 
+// State of the volume, such as `creating`, `created`, `extending`, `restoring`,
+// `hydrating`, `scheduling_destroy`, `pending_destroy`, `destroying`, `destroyed`, or
+// `failed`.
 func (o OrgVolumeOutput) State() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v OrgVolume) *string { return v.State }).(pulumi.StringPtrOutput)
 }
 
+// Kind of volume: `local` for regular volumes, or `cache` for volumes that hold
+// disposable data and support neither snapshots nor restores.
 func (o OrgVolumeOutput) Type() OrgVolumeTypePtrOutput {
 	return o.ApplyT(func(v OrgVolume) *OrgVolumeType { return v.Type }).(OrgVolumeTypePtrOutput)
 }
 
+// When Fly.io last recorded a change to the volume.
 func (o OrgVolumeOutput) UpdatedAt() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v OrgVolume) *string { return v.UpdatedAt }).(pulumi.StringPtrOutput)
 }
 
+// Identifies the host the volume is on. Volumes with different zones are on different
+// hosts.
 func (o OrgVolumeOutput) Zone() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v OrgVolume) *string { return v.Zone }).(pulumi.StringPtrOutput)
 }
@@ -1084,10 +1259,14 @@ func (o OrgVolumeArrayOutput) Index(i pulumi.IntInput) OrgVolumeOutput {
 }
 
 type OrgVolumesResponse struct {
-	LastUpdatedAt *string     `pulumi:"lastUpdatedAt"`
-	LastVolumeId  *string     `pulumi:"lastVolumeId"`
-	NextCursor    *string     `pulumi:"nextCursor"`
-	Volumes       []OrgVolume `pulumi:"volumes"`
+	// `updated_at` of the last volume on this page.
+	LastUpdatedAt *string `pulumi:"lastUpdatedAt"`
+	// ID of the last volume on this page.
+	LastVolumeId *string `pulumi:"lastVolumeId"`
+	// Pagination cursor for the next page. Absent when no more volumes remain.
+	NextCursor *string `pulumi:"nextCursor"`
+	// The volumes on this page.
+	Volumes []OrgVolume `pulumi:"volumes"`
 }
 
 func init() {
@@ -1095,16 +1274,16 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ListMachinesOrgQueryParamsPtrInput)(nil)).Elem(), ListMachinesOrgQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ListVolumesOrgQueryParamsInput)(nil)).Elem(), ListVolumesOrgQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ListVolumesOrgQueryParamsPtrInput)(nil)).Elem(), ListVolumesOrgQueryParamsArgs{})
-	pulumi.RegisterOutputType(FlyMachineGuestOutput{})
-	pulumi.RegisterOutputType(FlyMachineGuestPtrOutput{})
 	pulumi.RegisterOutputType(ListMachinesOrgQueryParamsOutput{})
 	pulumi.RegisterOutputType(ListMachinesOrgQueryParamsPtrOutput{})
 	pulumi.RegisterOutputType(ListVolumesOrgQueryParamsOutput{})
 	pulumi.RegisterOutputType(ListVolumesOrgQueryParamsPtrOutput{})
-	pulumi.RegisterOutputType(MachineOverviewConfigOutput{})
-	pulumi.RegisterOutputType(MachineOverviewConfigPtrOutput{})
+	pulumi.RegisterOutputType(MachineOverviewConfigGuestOutput{})
+	pulumi.RegisterOutputType(MachineOverviewConfigGuestPtrOutput{})
 	pulumi.RegisterOutputType(OrgMachineOutput{})
 	pulumi.RegisterOutputType(OrgMachineArrayOutput{})
+	pulumi.RegisterOutputType(OrgMachineConfigOutput{})
+	pulumi.RegisterOutputType(OrgMachineConfigPtrOutput{})
 	pulumi.RegisterOutputType(OrgVolumeOutput{})
 	pulumi.RegisterOutputType(OrgVolumeArrayOutput{})
 }

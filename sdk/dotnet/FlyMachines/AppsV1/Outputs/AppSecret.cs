@@ -14,10 +14,26 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     [OutputType]
     public sealed class AppSecret
     {
+        /// <summary>
+        /// When the secret was first set. Only returned when reading secrets.
+        /// </summary>
         public readonly string? CreatedAt;
+        /// <summary>
+        /// Short fingerprint of the value, to tell whether it changed without revealing it. Omitted
+        /// for deleted secrets.
+        /// </summary>
         public readonly string? Digest;
+        /// <summary>
+        /// Name of the secret.
+        /// </summary>
         public readonly string? Name;
+        /// <summary>
+        /// When the secret's value last changed. Only returned when reading secrets.
+        /// </summary>
         public readonly string? UpdatedAt;
+        /// <summary>
+        /// Value of the secret. Only returned with `show_secrets=true`, and when setting secrets.
+        /// </summary>
         public readonly string? Value;
 
         [OutputConstructor]

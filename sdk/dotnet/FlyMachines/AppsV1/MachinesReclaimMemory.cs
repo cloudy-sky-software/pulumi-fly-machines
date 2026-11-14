@@ -13,9 +13,16 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
     [FlyMachinesResourceType("fly-machines:apps/v1:MachinesReclaimMemory")]
     public partial class MachinesReclaimMemory : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// Memory, in MiB, that the guest actually gave up. Can be less than requested.
+        /// </summary>
         [Output("actualMb")]
         public Output<int?> ActualMb { get; private set; } = null!;
 
+        /// <summary>
+        /// Memory to reclaim, in MiB. Must be positive and at most the Machine's memory limit minus
+        /// 128 MiB.
+        /// </summary>
         [Output("amountMb")]
         public Output<int?> AmountMb { get; private set; } = null!;
 
@@ -71,6 +78,10 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
 
     public sealed class MachinesReclaimMemoryArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Memory to reclaim, in MiB. Must be positive and at most the Machine's memory limit minus
+        /// 128 MiB.
+        /// </summary>
         [Input("amountMb")]
         public Input<int>? AmountMb { get; set; }
 

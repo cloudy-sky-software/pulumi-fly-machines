@@ -14,7 +14,13 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     [OutputType]
     public sealed class FlyDnsOption
     {
+        /// <summary>
+        /// Option name, e.g. `ndots`
+        /// </summary>
         public readonly string? Name;
+        /// <summary>
+        /// Option value, e.g. `5`
+        /// </summary>
         public readonly string? Value;
 
         [OutputConstructor]

@@ -27,14 +27,45 @@ export interface GetAppArgs {
 }
 
 export interface GetAppResult {
+    /**
+     * Unique ID of the app, as used by Fly.io's GraphQL API.
+     */
     readonly id?: string;
+    /**
+     * Fly.io's internal numeric ID of the app.
+     */
     readonly internalNumericId?: number;
+    /**
+     * Number of the app's Machines that have not been destroyed.
+     */
     readonly machineCount?: number;
+    /**
+     * Globally unique name of the app.
+     */
     readonly name?: string;
+    /**
+     * Name of the private network the app is attached to: `default` for the organization's
+     * default network, or the name given when the app was created.
+     */
     readonly network?: string;
+    /**
+     * The /48 IPv6 prefix of the private (6PN) network the app is attached to, such as
+     * `fdaa:0:1234::/48`. Apps on the same network share it.
+     */
     readonly networkCidr?: string;
-    readonly organization?: outputs.apps.v1.AppOrganizationInfo;
-    readonly status?: string;
+    /**
+     * The organization that owns the app.
+     */
+    readonly organization?: outputs.apps.v1.AppOrganization;
+    /**
+     * State of the app. `pending` until one of its Machines changes state. After that, updated
+     * asynchronously whenever a Machine changes state: `deployed` if at least one Machine is
+     * started, and `suspended` otherwise.
+     */
+    readonly status?: enums.apps.v1.AppStatus;
+    /**
+     * Number of the app's volumes that have not been destroyed or scheduled for destruction.
+     */
     readonly volumeCount?: number;
 }
 export function getAppOutput(args: GetAppOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetAppResult> {

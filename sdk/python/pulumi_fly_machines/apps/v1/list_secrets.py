@@ -33,6 +33,9 @@ class ListSecretsResult:
     @_builtins.property
     @pulumi.getter
     def secrets(self) -> Optional[Sequence['outputs.AppSecret']]:
+        """
+        The app's secrets.
+        """
         return pulumi.get(self, "secrets")
 
 

@@ -37,6 +37,9 @@ export interface GetMachinesMetadataKeyArgs {
 }
 
 export interface GetMachinesMetadataKeyResult {
+    /**
+     * Value of the metadata key.
+     */
     readonly value?: string;
 }
 export function getMachinesMetadataKeyOutput(args: GetMachinesMetadataKeyOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetMachinesMetadataKeyResult> {

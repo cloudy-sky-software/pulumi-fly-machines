@@ -14,10 +14,25 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     [OutputType]
     public sealed class SecretKey
     {
+        /// <summary>
+        /// When the key was first set.
+        /// </summary>
         public readonly string? CreatedAt;
+        /// <summary>
+        /// Name of the secret key.
+        /// </summary>
         public readonly string? Name;
-        public readonly ImmutableArray<int> PublicKey;
+        /// <summary>
+        /// Public key of asymmetric keys (`nacl_box`, `nacl_sign`, `es256`), base64-encoded.
+        /// </summary>
+        public readonly string? PublicKey;
+        /// <summary>
+        /// Type of the key: `hs256`, `hs384`, `hs512`, `xaes256gcm`, `nacl_auth`, `nacl_box`, `nacl_secretbox`, `nacl_sign`, or `es256`.
+        /// </summary>
         public readonly string? Type;
+        /// <summary>
+        /// When the key last changed.
+        /// </summary>
         public readonly string? UpdatedAt;
 
         [OutputConstructor]
@@ -26,7 +41,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
 
             string? name,
 
-            ImmutableArray<int> publicKey,
+            string? publicKey,
 
             string? type,
 

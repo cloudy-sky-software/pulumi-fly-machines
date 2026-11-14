@@ -16,9 +16,16 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.TokensV1
     [FlyMachinesResourceType("fly-machines:tokens/v1:TokensRequestOidc")]
     public partial class TokensRequestOidc : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// Value of the token's `aud` claim. Defaults to `https://fly.io/&lt;org-slug&gt;`.
+        /// </summary>
         [Output("aud")]
         public Output<string?> Aud { get; private set; } = null!;
 
+        /// <summary>
+        /// Add AWS principal tag claims (`https://aws.amazon.com/tags/principal_tags/&lt;tag&gt;`) for use
+        /// with AWS IAM: FlyAppName, FlyOrgSlug, FlyOrgId, FlyMachineName and FlyRegion.
+        /// </summary>
         [Output("awsPrincipalTags")]
         public Output<bool?> AwsPrincipalTags { get; private set; } = null!;
 
@@ -74,9 +81,16 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.TokensV1
 
     public sealed class TokensRequestOidcArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Value of the token's `aud` claim. Defaults to `https://fly.io/&lt;org-slug&gt;`.
+        /// </summary>
         [Input("aud")]
         public Input<string>? Aud { get; set; }
 
+        /// <summary>
+        /// Add AWS principal tag claims (`https://aws.amazon.com/tags/principal_tags/&lt;tag&gt;`) for use
+        /// with AWS IAM: FlyAppName, FlyOrgSlug, FlyOrgId, FlyMachineName and FlyRegion.
+        /// </summary>
         [Input("awsPrincipalTags")]
         public Input<bool>? AwsPrincipalTags { get; set; }
 

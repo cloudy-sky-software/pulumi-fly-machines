@@ -26,6 +26,7 @@ class TokensAuthenticateArgs:
         """
         The set of arguments for constructing a TokensAuthenticate resource.
 
+        :param pulumi.Input[_builtins.str] header: Value of the Authorization header to verify, e.g. `FlyV1 fm2_...`.
         :param pulumi.Input['TokensAuthenticateQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         """
         if header is not None:
@@ -36,6 +37,9 @@ class TokensAuthenticateArgs:
     @_builtins.property
     @pulumi.getter
     def header(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Value of the Authorization header to verify, e.g. `FlyV1 fm2_...`.
+        """
         return pulumi.get(self, "header")
 
     @header.setter
@@ -69,6 +73,7 @@ class TokensAuthenticate(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[_builtins.str] header: Value of the Authorization header to verify, e.g. `FlyV1 fm2_...`.
         :param pulumi.Input[Union['TokensAuthenticateQueryParamsArgs', 'TokensAuthenticateQueryParamsArgsDict', 'outputs.TokensAuthenticateQueryParams']] query_params: Query params to send with the API requests for this resource.
         """
         ...
@@ -143,6 +148,9 @@ class TokensAuthenticate(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter
     def header(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Value of the Authorization header to verify, e.g. `FlyV1 fm2_...`.
+        """
         return pulumi.get(self, "header")
 
     @_builtins.property

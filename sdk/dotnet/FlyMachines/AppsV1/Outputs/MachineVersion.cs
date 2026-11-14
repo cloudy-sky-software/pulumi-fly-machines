@@ -14,12 +14,18 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     [OutputType]
     public sealed class MachineVersion
     {
-        public readonly Outputs.FlyMachineConfig? UserConfig;
+        /// <summary>
+        /// The configuration of that version, as provided by the create or update request.
+        /// </summary>
+        public readonly Outputs.MachineVersionUserConfig? UserConfig;
+        /// <summary>
+        /// ID of the Machine version.
+        /// </summary>
         public readonly string? Version;
 
         [OutputConstructor]
         private MachineVersion(
-            Outputs.FlyMachineConfig? userConfig,
+            Outputs.MachineVersionUserConfig? userConfig,
 
             string? version)
         {

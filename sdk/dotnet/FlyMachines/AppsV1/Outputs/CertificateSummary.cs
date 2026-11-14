@@ -14,18 +14,58 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     [OutputType]
     public sealed class CertificateSummary
     {
+        /// <summary>
+        /// Whether the hostname points at the app, allowing TLS-ALPN-01 validation.
+        /// </summary>
         public readonly bool? AcmeAlpnConfigured;
+        /// <summary>
+        /// Whether the `_acme-challenge` CNAME record is set up, allowing DNS-01 validation.
+        /// </summary>
         public readonly bool? AcmeDnsConfigured;
+        /// <summary>
+        /// Whether the hostname points at the app, allowing HTTP-01 validation.
+        /// </summary>
         public readonly bool? AcmeHttpConfigured;
+        /// <summary>
+        /// Whether Fly.io-issued (ACME) certificates were requested for the hostname.
+        /// </summary>
         public readonly bool? AcmeRequested;
+        /// <summary>
+        /// Whether ownership of the hostname has been verified by any of the methods above.
+        /// </summary>
         public readonly bool? Configured;
+        /// <summary>
+        /// When the hostname was added to the app.
+        /// </summary>
         public readonly string? CreatedAt;
+        /// <summary>
+        /// DNS provider detected for the hostname, if known.
+        /// </summary>
         public readonly string? DnsProvider;
+        /// <summary>
+        /// Whether a custom certificate was uploaded for the hostname.
+        /// </summary>
         public readonly bool? HasCustomCertificate;
+        /// <summary>
+        /// Whether Fly.io has issued certificates for the hostname.
+        /// </summary>
         public readonly bool? HasFlyCertificate;
+        /// <summary>
+        /// The hostname the certificate is for. May start with `*.` for a wildcard certificate.
+        /// </summary>
         public readonly string? Hostname;
+        /// <summary>
+        /// Whether the `_fly-ownership` TXT record is set up.
+        /// </summary>
         public readonly bool? OwnershipTxtConfigured;
+        /// <summary>
+        /// Human-readable status: `Ready`, `Awaiting certificates`, `Awaiting configuration`, or a
+        /// hint about what is misconfigured.
+        /// </summary>
         public readonly string? Status;
+        /// <summary>
+        /// When the hostname's certificate configuration last changed.
+        /// </summary>
         public readonly string? UpdatedAt;
 
         [OutputConstructor]

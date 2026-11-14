@@ -18,20 +18,35 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
     {
         [Input("dnsForwardRules")]
         private InputList<Inputs.FlyDnsForwardRuleArgs>? _dnsForwardRules;
+
+        /// <summary>
+        /// Forward DNS queries for some domains to other DNS servers
+        /// </summary>
         public InputList<Inputs.FlyDnsForwardRuleArgs> DnsForwardRules
         {
             get => _dnsForwardRules ?? (_dnsForwardRules = new InputList<Inputs.FlyDnsForwardRuleArgs>());
             set => _dnsForwardRules = value;
         }
 
+        /// <summary>
+        /// Hostname of the Machine. Defaults to the Machine ID. Also added to /etc/hosts with the
+        /// Machine's 6PN address
+        /// </summary>
         [Input("hostname")]
         public Input<string>? Hostname { get; set; }
 
+        /// <summary>
+        /// Fully qualified domain name added to /etc/hosts for `hostname`
+        /// </summary>
         [Input("hostnameFqdn")]
         public Input<string>? HostnameFqdn { get; set; }
 
         [Input("nameservers")]
         private InputList<string>? _nameservers;
+
+        /// <summary>
+        /// Nameservers to use instead of the default, Fly.io's private DNS server `fdaa::3`
+        /// </summary>
         public InputList<string> Nameservers
         {
             get => _nameservers ?? (_nameservers = new InputList<string>());
@@ -40,6 +55,10 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
 
         [Input("options")]
         private InputList<Inputs.FlyDnsOptionArgs>? _options;
+
+        /// <summary>
+        /// Options for /etc/resolv.conf
+        /// </summary>
         public InputList<Inputs.FlyDnsOptionArgs> Options
         {
             get => _options ?? (_options = new InputList<Inputs.FlyDnsOptionArgs>());
@@ -48,12 +67,19 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
 
         [Input("searches")]
         private InputList<string>? _searches;
+
+        /// <summary>
+        /// Search domains for /etc/resolv.conf
+        /// </summary>
         public InputList<string> Searches
         {
             get => _searches ?? (_searches = new InputList<string>());
             set => _searches = value;
         }
 
+        /// <summary>
+        /// Currently has no effect
+        /// </summary>
         [Input("skipRegistration")]
         public Input<bool>? SkipRegistration { get; set; }
 

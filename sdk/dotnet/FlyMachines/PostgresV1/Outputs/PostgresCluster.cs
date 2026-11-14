@@ -37,7 +37,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.PostgresV1.Outputs
         /// <summary>
         /// Connection endpoints. Populated once the cluster is ready.
         /// </summary>
-        public readonly Outputs.PostgresClusterEndpoints? Endpoints;
+        public readonly Outputs.PostgresPostgresClusterEndpoints? Endpoints;
         /// <summary>
         /// Cluster ID.
         /// </summary>
@@ -98,7 +98,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.PostgresV1.Outputs
 
             int? diskSizeGb,
 
-            Outputs.PostgresClusterEndpoints? endpoints,
+            Outputs.PostgresPostgresClusterEndpoints? endpoints,
 
             string? id,
 

@@ -67,6 +67,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
     [OutputType]
     public sealed class ListSecretkeysResult
     {
+        /// <summary>
+        /// The app's secret keys. Key material is never returned.
+        /// </summary>
         public readonly ImmutableArray<Outputs.SecretKey> SecretKeysValue;
 
         [OutputConstructor]

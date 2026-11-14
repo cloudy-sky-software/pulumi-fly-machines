@@ -44,6 +44,9 @@ export class MachinesUncordon extends pulumi.CustomResource {
         return obj['__pulumiType'] === MachinesUncordon.__pulumiType;
     }
 
+    /**
+     * Always true.
+     */
     declare public /*out*/ readonly ok: pulumi.Output<boolean | undefined>;
     /**
      * Query params to send with the API requests for this resource.

@@ -29,13 +29,13 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         }
 
         /// <summary>
-        /// Minimum secrets version to return. Returned when setting a new secret
+        /// Minimum secrets version to read, as returned by the endpoints that set or delete secrets. Use it to read your own writes.
         /// </summary>
         [Input("minVersion")]
         public string? MinVersion { get; set; }
 
         /// <summary>
-        /// Show the secret value.
+        /// Include the secret value. Only allowed when the request comes from a Machine of the app; otherwise the request fails with 403.
         /// </summary>
         [Input("showSecrets")]
         public bool? ShowSecrets { get; set; }

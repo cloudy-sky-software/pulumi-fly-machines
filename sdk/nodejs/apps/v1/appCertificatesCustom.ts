@@ -44,21 +44,58 @@ export class AppCertificatesCustom extends pulumi.CustomResource {
         return obj['__pulumiType'] === AppCertificatesCustom.__pulumiType;
     }
 
+    /**
+     * Whether Fly.io-issued (ACME) certificates were requested for the hostname.
+     */
     declare public /*out*/ readonly acmeRequested: pulumi.Output<boolean | undefined>;
+    /**
+     * The hostname's certificates: at most one custom entry and one Fly.io entry.
+     */
     declare public /*out*/ readonly certificates: pulumi.Output<outputs.apps.v1.CertificateEntry[] | undefined>;
+    /**
+     * Whether ownership of the hostname has been verified.
+     */
     declare public /*out*/ readonly configured: pulumi.Output<boolean | undefined>;
+    /**
+     * DNS provider detected for the hostname, if known.
+     */
     declare public /*out*/ readonly dnsProvider: pulumi.Output<string | undefined>;
-    declare public /*out*/ readonly dnsRequirements: pulumi.Output<outputs.apps.v1.DNSRequirements | undefined>;
+    /**
+     * DNS records to create to point the hostname at the app and validate it.
+     */
+    declare public /*out*/ readonly dnsRequirements: pulumi.Output<outputs.apps.v1.DnsRequirements | undefined>;
+    /**
+     * PEM-encoded certificate, followed by any intermediate certificates. Required.
+     */
     declare public readonly fullchain: pulumi.Output<string | undefined>;
+    /**
+     * The hostname the certificate is for. May start with `*.` for a wildcard certificate.
+     */
     declare public readonly hostname: pulumi.Output<string | undefined>;
+    /**
+     * PEM-encoded private key of the certificate. Required.
+     */
     declare public readonly privateKey: pulumi.Output<string | undefined>;
     /**
      * Query params to send with the API requests for this resource.
      */
     declare public readonly queryParams: pulumi.Output<outputs.apps.v1.AppCertificatesCustomQueryParams | undefined>;
+    /**
+     * If Let's Encrypt is rate-limiting certificate requests for the hostname, when that ends.
+     */
     declare public /*out*/ readonly rateLimitedUntil: pulumi.Output<string | undefined>;
+    /**
+     * Human-readable status: `Ready`, `Awaiting certificates`, `Awaiting configuration`, or a
+     * hint about what is misconfigured.
+     */
     declare public /*out*/ readonly status: pulumi.Output<string | undefined>;
-    declare public /*out*/ readonly validation: pulumi.Output<outputs.apps.v1.CertificateValidation | undefined>;
+    /**
+     * Which validation methods are currently possible.
+     */
+    declare public /*out*/ readonly validation: pulumi.Output<outputs.apps.v1.Validation | undefined>;
+    /**
+     * Problems found by the most recent validation.
+     */
     declare public /*out*/ readonly validationErrors: pulumi.Output<outputs.apps.v1.CertificateValidationError[] | undefined>;
 
     /**
@@ -114,8 +151,17 @@ export interface AppCertificatesCustomArgs {
      * Fly App Name
      */
     appName?: pulumi.Input<string | undefined>;
+    /**
+     * PEM-encoded certificate, followed by any intermediate certificates. Required.
+     */
     fullchain?: pulumi.Input<string | undefined>;
+    /**
+     * Hostname the certificate is for. Required. Hostnames under `fly.dev` are not allowed.
+     */
     hostname?: pulumi.Input<string | undefined>;
+    /**
+     * PEM-encoded private key of the certificate. Required.
+     */
     privateKey?: pulumi.Input<string | undefined>;
     /**
      * Query params to send with the API requests for this resource.

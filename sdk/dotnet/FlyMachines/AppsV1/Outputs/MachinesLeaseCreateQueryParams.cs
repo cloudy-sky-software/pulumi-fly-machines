@@ -21,11 +21,19 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         /// Additional query params to send with the request that are not defined in the API spec.
         /// </summary>
         public readonly ImmutableDictionary<string, string>? AdditionalParams;
+        /// <summary>
+        /// How long the lease is valid, in seconds. Overridden by ttl in the request body.
+        /// </summary>
+        public readonly int? Ttl;
 
         [OutputConstructor]
-        private MachinesLeaseCreateQueryParams(ImmutableDictionary<string, string>? additionalParams)
+        private MachinesLeaseCreateQueryParams(
+            ImmutableDictionary<string, string>? additionalParams,
+
+            int? ttl)
         {
             AdditionalParams = additionalParams;
+            Ttl = ttl;
         }
     }
 }

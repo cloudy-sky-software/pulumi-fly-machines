@@ -34,11 +34,19 @@ class MachinesExecArgs:
         The set of arguments for constructing a MachinesExec resource.
 
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
-        :param pulumi.Input[_builtins.str] cmd: Deprecated: use Command instead
-        :param pulumi.Input[_builtins.bool] machine: Machine runs the command in the machine's own namespace instead of in a
-               container. It is mutually exclusive with Container.
+        :param pulumi.Input[_builtins.str] cmd: Command line to run, split into arguments like a shell would. Takes precedence over
+               `command`.
+               
+               Deprecated: use `command`.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] command: Command to run, as the program followed by its arguments. It is run directly, not by a
+               shell.
+        :param pulumi.Input[_builtins.str] container: Name of the container to run the command in, for Machines with containers.
+        :param pulumi.Input[_builtins.bool] machine: Run the command in the Machine's own namespace instead of in a container. Mutually
+               exclusive with `container`.
         :param pulumi.Input[_builtins.str] machine_id: Machine ID
         :param pulumi.Input['MachinesExecQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
+        :param pulumi.Input[_builtins.str] stdin: Data to write to the command's standard input.
+        :param pulumi.Input[_builtins.int] timeout: How long to let the command run, in seconds. Defaults to 10; at most 600.
         """
         if app_name is not None:
             pulumi.set(__self__, "app_name", app_name)
@@ -75,7 +83,10 @@ class MachinesExecArgs:
     @pulumi.getter
     def cmd(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        Deprecated: use Command instead
+        Command line to run, split into arguments like a shell would. Takes precedence over
+        `command`.
+
+        Deprecated: use `command`.
         """
         return pulumi.get(self, "cmd")
 
@@ -86,6 +97,10 @@ class MachinesExecArgs:
     @_builtins.property
     @pulumi.getter
     def command(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        Command to run, as the program followed by its arguments. It is run directly, not by a
+        shell.
+        """
         return pulumi.get(self, "command")
 
     @command.setter
@@ -95,6 +110,9 @@ class MachinesExecArgs:
     @_builtins.property
     @pulumi.getter
     def container(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Name of the container to run the command in, for Machines with containers.
+        """
         return pulumi.get(self, "container")
 
     @container.setter
@@ -105,8 +123,8 @@ class MachinesExecArgs:
     @pulumi.getter
     def machine(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Machine runs the command in the machine's own namespace instead of in a
-        container. It is mutually exclusive with Container.
+        Run the command in the Machine's own namespace instead of in a container. Mutually
+        exclusive with `container`.
         """
         return pulumi.get(self, "machine")
 
@@ -141,6 +159,9 @@ class MachinesExecArgs:
     @_builtins.property
     @pulumi.getter
     def stdin(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Data to write to the command's standard input.
+        """
         return pulumi.get(self, "stdin")
 
     @stdin.setter
@@ -150,6 +171,9 @@ class MachinesExecArgs:
     @_builtins.property
     @pulumi.getter
     def timeout(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        How long to let the command run, in seconds. Defaults to 10; at most 600.
+        """
         return pulumi.get(self, "timeout")
 
     @timeout.setter
@@ -179,11 +203,19 @@ class MachinesExec(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
-        :param pulumi.Input[_builtins.str] cmd: Deprecated: use Command instead
-        :param pulumi.Input[_builtins.bool] machine: Machine runs the command in the machine's own namespace instead of in a
-               container. It is mutually exclusive with Container.
+        :param pulumi.Input[_builtins.str] cmd: Command line to run, split into arguments like a shell would. Takes precedence over
+               `command`.
+               
+               Deprecated: use `command`.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] command: Command to run, as the program followed by its arguments. It is run directly, not by a
+               shell.
+        :param pulumi.Input[_builtins.str] container: Name of the container to run the command in, for Machines with containers.
+        :param pulumi.Input[_builtins.bool] machine: Run the command in the Machine's own namespace instead of in a container. Mutually
+               exclusive with `container`.
         :param pulumi.Input[_builtins.str] machine_id: Machine ID
         :param pulumi.Input[Union['MachinesExecQueryParamsArgs', 'MachinesExecQueryParamsArgsDict', 'outputs.MachinesExecQueryParams']] query_params: Query params to send with the API requests for this resource.
+        :param pulumi.Input[_builtins.str] stdin: Data to write to the command's standard input.
+        :param pulumi.Input[_builtins.int] timeout: How long to let the command run, in seconds. Defaults to 10; at most 600.
         """
         ...
     @overload
@@ -285,36 +317,52 @@ class MachinesExec(pulumi.CustomResource):
     @pulumi.getter
     def cmd(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        Deprecated: use Command instead
+        Command line to run, split into arguments like a shell would. Takes precedence over
+        `command`.
+
+        Deprecated: use `command`.
         """
         return pulumi.get(self, "cmd")
 
     @_builtins.property
     @pulumi.getter
     def command(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
+        """
+        Command to run, as the program followed by its arguments. It is run directly, not by a
+        shell.
+        """
         return pulumi.get(self, "command")
 
     @_builtins.property
     @pulumi.getter
     def container(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Name of the container to run the command in, for Machines with containers.
+        """
         return pulumi.get(self, "container")
 
     @_builtins.property
     @pulumi.getter(name="exitCode")
     def exit_code(self) -> pulumi.Output[Optional[_builtins.int]]:
+        """
+        The command's exit code.
+        """
         return pulumi.get(self, "exit_code")
 
     @_builtins.property
     @pulumi.getter(name="exitSignal")
     def exit_signal(self) -> pulumi.Output[Optional[_builtins.int]]:
+        """
+        The signal that terminated the command, or 0 if it exited normally.
+        """
         return pulumi.get(self, "exit_signal")
 
     @_builtins.property
     @pulumi.getter
     def machine(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Machine runs the command in the machine's own namespace instead of in a
-        container. It is mutually exclusive with Container.
+        Run the command in the Machine's own namespace instead of in a container. Mutually
+        exclusive with `container`.
         """
         return pulumi.get(self, "machine")
 
@@ -329,20 +377,32 @@ class MachinesExec(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter
     def stderr(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        The command's standard error.
+        """
         return pulumi.get(self, "stderr")
 
     @_builtins.property
     @pulumi.getter
     def stdin(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Data to write to the command's standard input.
+        """
         return pulumi.get(self, "stdin")
 
     @_builtins.property
     @pulumi.getter
     def stdout(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        The command's standard output.
+        """
         return pulumi.get(self, "stdout")
 
     @_builtins.property
     @pulumi.getter
     def timeout(self) -> pulumi.Output[Optional[_builtins.int]]:
+        """
+        How long to let the command run, in seconds. Defaults to 10; at most 600.
+        """
         return pulumi.get(self, "timeout")
 

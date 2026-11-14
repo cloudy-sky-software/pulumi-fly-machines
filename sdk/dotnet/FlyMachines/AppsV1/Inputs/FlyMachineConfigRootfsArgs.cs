@@ -12,13 +12,22 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
 {
 
     /// <summary>
-    /// The size of the Machine's root filesystem and whether it persists
+    /// Beta: the size of the Machine's root filesystem and whether it persists. This field may be
+    /// removed in the future
     /// </summary>
     public sealed class FlyMachineConfigRootfsArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Whether changes to the root filesystem are kept. `never` (default): reset on every start.
+        /// `restart`: kept across stops and restarts, reset when the Machine is updated. `always`: also
+        /// kept across updates
+        /// </summary>
         [Input("persist")]
         public Input<CloudySkySoftware.Pulumi.FlyMachines.AppsV1.FlyMachineRootfsPersist>? Persist { get; set; }
 
+        /// <summary>
+        /// Size of the root filesystem in GB. At most 50; 0 uses the default
+        /// </summary>
         [Input("sizeGb")]
         public Input<int>? SizeGb { get; set; }
 

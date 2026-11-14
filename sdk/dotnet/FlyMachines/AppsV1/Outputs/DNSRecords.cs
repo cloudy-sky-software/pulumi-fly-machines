@@ -14,12 +14,33 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     [OutputType]
     public sealed class DNSRecords
     {
+        /// <summary>
+        /// A records found for the hostname.
+        /// </summary>
         public readonly ImmutableArray<string> A;
+        /// <summary>
+        /// AAAA records found for the hostname.
+        /// </summary>
         public readonly ImmutableArray<string> Aaaa;
+        /// <summary>
+        /// Target of the `_acme-challenge` CNAME record, if found.
+        /// </summary>
         public readonly string? AcmeChallengeCname;
+        /// <summary>
+        /// CNAME records found for the hostname.
+        /// </summary>
         public readonly ImmutableArray<string> Cname;
+        /// <summary>
+        /// Value of the `_fly-ownership` TXT record, if found.
+        /// </summary>
         public readonly string? OwnershipTxt;
+        /// <summary>
+        /// All addresses the hostname resolved to, after following CNAMEs.
+        /// </summary>
         public readonly ImmutableArray<string> ResolvedAddresses;
+        /// <summary>
+        /// Primary name server from the SOA record of the hostname's zone.
+        /// </summary>
         public readonly string? Soa;
 
         [OutputConstructor]

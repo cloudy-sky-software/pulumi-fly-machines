@@ -14,14 +14,45 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     [OutputType]
     public sealed class App
     {
+        /// <summary>
+        /// Unique ID of the app, as used by Fly.io's GraphQL API.
+        /// </summary>
         public readonly string? Id;
+        /// <summary>
+        /// Fly.io's internal numeric ID of the app.
+        /// </summary>
         public readonly int? InternalNumericId;
+        /// <summary>
+        /// Number of the app's Machines that have not been destroyed.
+        /// </summary>
         public readonly int? MachineCount;
+        /// <summary>
+        /// Globally unique name of the app.
+        /// </summary>
         public readonly string? Name;
+        /// <summary>
+        /// Name of the private network the app is attached to: `default` for the organization's
+        /// default network, or the name given when the app was created.
+        /// </summary>
         public readonly string? Network;
+        /// <summary>
+        /// The /48 IPv6 prefix of the private (6PN) network the app is attached to, such as
+        /// `fdaa:0:1234::/48`. Apps on the same network share it.
+        /// </summary>
         public readonly string? NetworkCidr;
-        public readonly Outputs.AppOrganizationInfo? Organization;
-        public readonly string? Status;
+        /// <summary>
+        /// The organization that owns the app.
+        /// </summary>
+        public readonly Outputs.AppOrganization? Organization;
+        /// <summary>
+        /// State of the app. `pending` until one of its Machines changes state. After that, updated
+        /// asynchronously whenever a Machine changes state: `deployed` if at least one Machine is
+        /// started, and `suspended` otherwise.
+        /// </summary>
+        public readonly CloudySkySoftware.Pulumi.FlyMachines.AppsV1.AppStatus? Status;
+        /// <summary>
+        /// Number of the app's volumes that have not been destroyed or scheduled for destruction.
+        /// </summary>
         public readonly int? VolumeCount;
 
         [OutputConstructor]
@@ -38,9 +69,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
 
             string? networkCidr,
 
-            Outputs.AppOrganizationInfo? organization,
+            Outputs.AppOrganization? organization,
 
-            string? status,
+            CloudySkySoftware.Pulumi.FlyMachines.AppsV1.AppStatus? status,
 
             int? volumeCount)
         {

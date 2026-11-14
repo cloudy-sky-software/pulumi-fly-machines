@@ -44,7 +44,15 @@ export class MachinesMemoryLimit extends pulumi.CustomResource {
         return obj['__pulumiType'] === MachinesMemoryLimit.__pulumiType;
     }
 
+    /**
+     * Highest limit, in MiB, that the Machine could currently be raised to: its configured
+     * memory (`guest.max_memory_mb` if set, else `guest.memory_mb`), capped by the host's free
+     * memory.
+     */
     declare public /*out*/ readonly availableMb: pulumi.Output<number | undefined>;
+    /**
+     * Memory, in MiB, the guest can currently use.
+     */
     declare public readonly limitMb: pulumi.Output<number | undefined>;
     /**
      * Query params to send with the API requests for this resource.
@@ -85,6 +93,10 @@ export interface MachinesMemoryLimitArgs {
      * Fly App Name
      */
     appName?: pulumi.Input<string | undefined>;
+    /**
+     * New limit in MiB. Must be at least 128 and at most the Machine's configured memory
+     * (`guest.max_memory_mb` if set, else `guest.memory_mb`).
+     */
     limitMb?: pulumi.Input<number | undefined>;
     /**
      * Machine ID

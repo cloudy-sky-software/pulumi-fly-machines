@@ -13,17 +13,27 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
     [FlyMachinesResourceType("fly-machines:apps/v1:AppIPAssignment")]
     public partial class AppIPAssignment : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// When the address was assigned to the app, in RFC 3339 format.
+        /// </summary>
         [Output("createdAt")]
         public Output<string?> CreatedAt { get; private set; } = null!;
 
+        /// <summary>
+        /// Whether this is an egress address.
+        /// </summary>
         [Output("egress")]
         public Output<bool?> Egress { get; private set; } = null!;
 
+        /// <summary>
+        /// The allocated IP address. Null for `egress_pair`; see `ip_pair`.
+        /// </summary>
         [Output("ip")]
         public Output<string?> Ip { get; private set; } = null!;
 
         /// <summary>
-        /// ip_pair is returned when "egress-pair" IP type is requested; in this case, ip is null.
+        /// The allocated IPv4 and IPv6 addresses when the `egress_pair` type was requested; null
+        /// otherwise.
         /// </summary>
         [Output("ipPair")]
         public Output<Outputs.IpPair?> IpPair { get; private set; } = null!;
@@ -34,6 +44,11 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Output("network")]
         public Output<Outputs.IPAssignmentNetwork?> Network { get; private set; } = null!;
 
+        /// <summary>
+        /// Only for `private_v6`: slug of the organization whose private network the Flycast address
+        /// is allocated in, to make the app reachable from that organization. Defaults to the app's
+        /// organization.
+        /// </summary>
         [Output("orgSlug")]
         public Output<string?> OrgSlug { get; private set; } = null!;
 
@@ -43,17 +58,26 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Output("queryParams")]
         public Output<Outputs.AppIPAssignmentQueryParams?> QueryParams { get; private set; } = null!;
 
+        /// <summary>
+        /// Region the address is scoped to, or `global` for addresses announced in all regions.
+        /// </summary>
         [Output("region")]
         public Output<string?> Region { get; private set; } = null!;
 
+        /// <summary>
+        /// Name of the service the address is scoped to, if any.
+        /// </summary>
         [Output("serviceName")]
         public Output<string?> ServiceName { get; private set; } = null!;
 
+        /// <summary>
+        /// Whether this is the app's shared IPv4 address.
+        /// </summary>
         [Output("shared")]
         public Output<bool?> Shared { get; private set; } = null!;
 
         /// <summary>
-        /// Type of IP address to allocate. "egress-pair" allocates both v4 and v6 egress IP addresses (recommended when using egress IPs).
+        /// Type of IP address to allocate. Required.
         /// </summary>
         [Output("type")]
         public Output<CloudySkySoftware.Pulumi.FlyMachines.AppsV1.AppIPAssignmentType?> Type { get; private set; } = null!;
@@ -110,9 +134,18 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Input("appName")]
         public Input<string>? AppName { get; set; }
 
+        /// <summary>
+        /// Only for `private_v6`: name of the private network to allocate the Flycast address in.
+        /// Defaults to the organization's default network.
+        /// </summary>
         [Input("network")]
         public Input<string>? Network { get; set; }
 
+        /// <summary>
+        /// Only for `private_v6`: slug of the organization whose private network the Flycast address
+        /// is allocated in, to make the app reachable from that organization. Defaults to the app's
+        /// organization.
+        /// </summary>
         [Input("orgSlug")]
         public Input<string>? OrgSlug { get; set; }
 
@@ -122,14 +155,22 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Input("queryParams")]
         public Input<Inputs.AppIPAssignmentQueryParamsArgs>? QueryParams { get; set; }
 
+        /// <summary>
+        /// Region to scope the address to. Required for egress types. Optional for `v4` and `v6`,
+        /// which default to `global` (announced in all regions). Must be empty or `global` for
+        /// `shared_v4` and `private_v6`.
+        /// </summary>
         [Input("region")]
         public Input<string>? Region { get; set; }
 
+        /// <summary>
+        /// Scope the address to a single service of the app. Not supported for egress types.
+        /// </summary>
         [Input("serviceName")]
         public Input<string>? ServiceName { get; set; }
 
         /// <summary>
-        /// Type of IP address to allocate. "egress-pair" allocates both v4 and v6 egress IP addresses (recommended when using egress IPs).
+        /// Type of IP address to allocate. Required.
         /// </summary>
         [Input("type")]
         public Input<CloudySkySoftware.Pulumi.FlyMachines.AppsV1.AppIPAssignmentType>? Type { get; set; }

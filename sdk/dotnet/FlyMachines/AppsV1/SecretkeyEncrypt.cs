@@ -13,14 +13,24 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
     [FlyMachinesResourceType("fly-machines:apps/v1:SecretkeyEncrypt")]
     public partial class SecretkeyEncrypt : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// Additional data to authenticate but not encrypt, base64-encoded. The same data must be
+        /// passed when decrypting.
+        /// </summary>
         [Output("associatedData")]
-        public Output<ImmutableArray<int>> AssociatedData { get; private set; } = null!;
+        public Output<string?> AssociatedData { get; private set; } = null!;
 
+        /// <summary>
+        /// Encrypted data, base64-encoded.
+        /// </summary>
         [Output("ciphertext")]
-        public Output<ImmutableArray<int>> Ciphertext { get; private set; } = null!;
+        public Output<string?> Ciphertext { get; private set; } = null!;
 
+        /// <summary>
+        /// Data to encrypt, base64-encoded.
+        /// </summary>
         [Output("plaintext")]
-        public Output<ImmutableArray<int>> Plaintext { get; private set; } = null!;
+        public Output<string?> Plaintext { get; private set; } = null!;
 
         /// <summary>
         /// Query params to send with the API requests for this resource.
@@ -80,21 +90,18 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Input("appName")]
         public Input<string>? AppName { get; set; }
 
+        /// <summary>
+        /// Additional data to authenticate but not encrypt, base64-encoded. The same data must be
+        /// passed when decrypting.
+        /// </summary>
         [Input("associatedData")]
-        private InputList<int>? _associatedData;
-        public InputList<int> AssociatedData
-        {
-            get => _associatedData ?? (_associatedData = new InputList<int>());
-            set => _associatedData = value;
-        }
+        public Input<string>? AssociatedData { get; set; }
 
+        /// <summary>
+        /// Data to encrypt, base64-encoded.
+        /// </summary>
         [Input("plaintext")]
-        private InputList<int>? _plaintext;
-        public InputList<int> Plaintext
-        {
-            get => _plaintext ?? (_plaintext = new InputList<int>());
-            set => _plaintext = value;
-        }
+        public Input<string>? Plaintext { get; set; }
 
         /// <summary>
         /// Query params to send with the API requests for this resource.

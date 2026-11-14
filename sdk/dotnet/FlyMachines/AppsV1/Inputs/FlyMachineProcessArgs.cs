@@ -15,6 +15,10 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
     {
         [Input("cmd")]
         private InputList<string>? _cmd;
+
+        /// <summary>
+        /// Replaces the image's CMD for this process. It's appended to the entrypoint
+        /// </summary>
         public InputList<string> Cmd
         {
             get => _cmd ?? (_cmd = new InputList<string>());
@@ -23,6 +27,10 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
 
         [Input("entrypoint")]
         private InputList<string>? _entrypoint;
+
+        /// <summary>
+        /// Replaces the image's ENTRYPOINT for this process
+        /// </summary>
         public InputList<string> Entrypoint
         {
             get => _entrypoint ?? (_entrypoint = new InputList<string>());
@@ -31,6 +39,10 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
 
         [Input("env")]
         private InputMap<string>? _env;
+
+        /// <summary>
+        /// Environment variables for this process, in addition to the Machine's `env`
+        /// </summary>
         public InputMap<string> Env
         {
             get => _env ?? (_env = new InputMap<string>());
@@ -51,6 +63,11 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
 
         [Input("exec")]
         private InputList<string>? _exec;
+
+        /// <summary>
+        /// Command to run instead of the image's ENTRYPOINT and CMD. Takes precedence over entrypoint
+        /// and cmd
+        /// </summary>
         public InputList<string> Exec
         {
             get => _exec ?? (_exec = new InputList<string>());
@@ -78,6 +95,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
             set => _secrets = value;
         }
 
+        /// <summary>
+        /// User to run the process as, instead of the image's USER
+        /// </summary>
         [Input("user")]
         public Input<string>? User { get; set; }
 

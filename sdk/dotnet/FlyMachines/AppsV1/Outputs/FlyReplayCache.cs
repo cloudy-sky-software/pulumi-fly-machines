@@ -14,12 +14,22 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     [OutputType]
     public sealed class FlyReplayCache
     {
+        /// <summary>
+        /// Let clients skip the cache by sending the `fly-replay-cache-control: skip` header
+        /// </summary>
         public readonly bool? AllowBypass;
         /// <summary>
         /// Name of the cookie or header to key the cache on
         /// </summary>
         public readonly string? Name;
+        /// <summary>
+        /// Requests whose path starts with this prefix use the rule. May start with a hostname, e.g.
+        /// `example.com/api/*`
+        /// </summary>
         public readonly string? PathPrefix;
+        /// <summary>
+        /// How long a cached replay is used, in seconds
+        /// </summary>
         public readonly int? TtlSeconds;
         /// <summary>
         /// Currently either "cookie" or "header"

@@ -67,6 +67,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
     [OutputType]
     public sealed class ListAppIPAssignmentsResult
     {
+        /// <summary>
+        /// The app's IP addresses, including its shared IPv4 address and egress addresses.
+        /// </summary>
         public readonly ImmutableArray<Outputs.IPAssignment> Ips;
 
         [OutputConstructor]

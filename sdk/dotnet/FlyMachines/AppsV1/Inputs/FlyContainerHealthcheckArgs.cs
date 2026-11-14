@@ -13,8 +13,11 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
 
     public sealed class FlyContainerHealthcheckArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Check that a command run in the container exits with status 0
+        /// </summary>
         [Input("exec")]
-        public Input<Inputs.FlyExecHealthcheckArgs>? Exec { get; set; }
+        public Input<Inputs.FlyContainerHealthcheckExecArgs>? Exec { get; set; }
 
         /// <summary>
         /// The number of times the check must fail before considering the container unhealthy.
@@ -28,8 +31,11 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         [Input("gracePeriod")]
         public Input<int>? GracePeriod { get; set; }
 
+        /// <summary>
+        /// Check that an HTTP request succeeds
+        /// </summary>
         [Input("http")]
-        public Input<Inputs.FlyHTTPHealthcheckArgs>? Http { get; set; }
+        public Input<Inputs.FlyContainerHealthcheckHttpArgs>? Http { get; set; }
 
         /// <summary>
         /// The time in seconds between executing the defined check.
@@ -55,8 +61,11 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         [Input("successThreshold")]
         public Input<int>? SuccessThreshold { get; set; }
 
+        /// <summary>
+        /// Check that a TCP connection can be opened
+        /// </summary>
         [Input("tcp")]
-        public Input<Inputs.FlyTCPHealthcheckArgs>? Tcp { get; set; }
+        public Input<Inputs.FlyContainerHealthcheckTcpArgs>? Tcp { get; set; }
 
         /// <summary>
         /// The time in seconds to wait for the check to complete.

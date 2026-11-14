@@ -14,21 +14,33 @@ import (
 type MachinesExec struct {
 	pulumi.CustomResourceState
 
-	// Deprecated: use Command instead
-	Cmd        pulumi.StringPtrOutput   `pulumi:"cmd"`
-	Command    pulumi.StringArrayOutput `pulumi:"command"`
-	Container  pulumi.StringPtrOutput   `pulumi:"container"`
-	ExitCode   pulumi.IntPtrOutput      `pulumi:"exitCode"`
-	ExitSignal pulumi.IntPtrOutput      `pulumi:"exitSignal"`
-	// Machine runs the command in the machine's own namespace instead of in a
-	// container. It is mutually exclusive with Container.
+	// Command line to run, split into arguments like a shell would. Takes precedence over
+	// `command`.
+	//
+	// Deprecated: use `command`.
+	Cmd pulumi.StringPtrOutput `pulumi:"cmd"`
+	// Command to run, as the program followed by its arguments. It is run directly, not by a
+	// shell.
+	Command pulumi.StringArrayOutput `pulumi:"command"`
+	// Name of the container to run the command in, for Machines with containers.
+	Container pulumi.StringPtrOutput `pulumi:"container"`
+	// The command's exit code.
+	ExitCode pulumi.IntPtrOutput `pulumi:"exitCode"`
+	// The signal that terminated the command, or 0 if it exited normally.
+	ExitSignal pulumi.IntPtrOutput `pulumi:"exitSignal"`
+	// Run the command in the Machine's own namespace instead of in a container. Mutually
+	// exclusive with `container`.
 	Machine pulumi.BoolPtrOutput `pulumi:"machine"`
 	// Query params to send with the API requests for this resource.
 	QueryParams MachinesExecQueryParamsPtrOutput `pulumi:"queryParams"`
-	Stderr      pulumi.StringPtrOutput           `pulumi:"stderr"`
-	Stdin       pulumi.StringPtrOutput           `pulumi:"stdin"`
-	Stdout      pulumi.StringPtrOutput           `pulumi:"stdout"`
-	Timeout     pulumi.IntPtrOutput              `pulumi:"timeout"`
+	// The command's standard error.
+	Stderr pulumi.StringPtrOutput `pulumi:"stderr"`
+	// Data to write to the command's standard input.
+	Stdin pulumi.StringPtrOutput `pulumi:"stdin"`
+	// The command's standard output.
+	Stdout pulumi.StringPtrOutput `pulumi:"stdout"`
+	// How long to let the command run, in seconds. Defaults to 10; at most 600.
+	Timeout pulumi.IntPtrOutput `pulumi:"timeout"`
 }
 
 // NewMachinesExec registers a new resource with the given unique name, arguments, and options.
@@ -79,38 +91,54 @@ func MachinesExecExists(ctx *pulumi.Context,
 type machinesExecArgs struct {
 	// Fly App Name
 	AppName *string `pulumi:"appName"`
-	// Deprecated: use Command instead
-	Cmd       *string  `pulumi:"cmd"`
-	Command   []string `pulumi:"command"`
-	Container *string  `pulumi:"container"`
-	// Machine runs the command in the machine's own namespace instead of in a
-	// container. It is mutually exclusive with Container.
+	// Command line to run, split into arguments like a shell would. Takes precedence over
+	// `command`.
+	//
+	// Deprecated: use `command`.
+	Cmd *string `pulumi:"cmd"`
+	// Command to run, as the program followed by its arguments. It is run directly, not by a
+	// shell.
+	Command []string `pulumi:"command"`
+	// Name of the container to run the command in, for Machines with containers.
+	Container *string `pulumi:"container"`
+	// Run the command in the Machine's own namespace instead of in a container. Mutually
+	// exclusive with `container`.
 	Machine *bool `pulumi:"machine"`
 	// Machine ID
 	MachineId *string `pulumi:"machineId"`
 	// Query params to send with the API requests for this resource.
 	QueryParams *MachinesExecQueryParams `pulumi:"queryParams"`
-	Stdin       *string                  `pulumi:"stdin"`
-	Timeout     *int                     `pulumi:"timeout"`
+	// Data to write to the command's standard input.
+	Stdin *string `pulumi:"stdin"`
+	// How long to let the command run, in seconds. Defaults to 10; at most 600.
+	Timeout *int `pulumi:"timeout"`
 }
 
 // The set of arguments for constructing a MachinesExec resource.
 type MachinesExecArgs struct {
 	// Fly App Name
 	AppName pulumi.StringPtrInput
-	// Deprecated: use Command instead
-	Cmd       pulumi.StringPtrInput
-	Command   pulumi.StringArrayInput
+	// Command line to run, split into arguments like a shell would. Takes precedence over
+	// `command`.
+	//
+	// Deprecated: use `command`.
+	Cmd pulumi.StringPtrInput
+	// Command to run, as the program followed by its arguments. It is run directly, not by a
+	// shell.
+	Command pulumi.StringArrayInput
+	// Name of the container to run the command in, for Machines with containers.
 	Container pulumi.StringPtrInput
-	// Machine runs the command in the machine's own namespace instead of in a
-	// container. It is mutually exclusive with Container.
+	// Run the command in the Machine's own namespace instead of in a container. Mutually
+	// exclusive with `container`.
 	Machine pulumi.BoolPtrInput
 	// Machine ID
 	MachineId pulumi.StringPtrInput
 	// Query params to send with the API requests for this resource.
 	QueryParams MachinesExecQueryParamsPtrInput
-	Stdin       pulumi.StringPtrInput
-	Timeout     pulumi.IntPtrInput
+	// Data to write to the command's standard input.
+	Stdin pulumi.StringPtrInput
+	// How long to let the command run, in seconds. Defaults to 10; at most 600.
+	Timeout pulumi.IntPtrInput
 }
 
 func (MachinesExecArgs) ElementType() reflect.Type {
@@ -150,29 +178,37 @@ func (o MachinesExecOutput) ToMachinesExecOutputWithContext(ctx context.Context)
 	return o
 }
 
-// Deprecated: use Command instead
+// Command line to run, split into arguments like a shell would. Takes precedence over
+// `command`.
+//
+// Deprecated: use `command`.
 func (o MachinesExecOutput) Cmd() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *MachinesExec) pulumi.StringPtrOutput { return v.Cmd }).(pulumi.StringPtrOutput)
 }
 
+// Command to run, as the program followed by its arguments. It is run directly, not by a
+// shell.
 func (o MachinesExecOutput) Command() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *MachinesExec) pulumi.StringArrayOutput { return v.Command }).(pulumi.StringArrayOutput)
 }
 
+// Name of the container to run the command in, for Machines with containers.
 func (o MachinesExecOutput) Container() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *MachinesExec) pulumi.StringPtrOutput { return v.Container }).(pulumi.StringPtrOutput)
 }
 
+// The command's exit code.
 func (o MachinesExecOutput) ExitCode() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *MachinesExec) pulumi.IntPtrOutput { return v.ExitCode }).(pulumi.IntPtrOutput)
 }
 
+// The signal that terminated the command, or 0 if it exited normally.
 func (o MachinesExecOutput) ExitSignal() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *MachinesExec) pulumi.IntPtrOutput { return v.ExitSignal }).(pulumi.IntPtrOutput)
 }
 
-// Machine runs the command in the machine's own namespace instead of in a
-// container. It is mutually exclusive with Container.
+// Run the command in the Machine's own namespace instead of in a container. Mutually
+// exclusive with `container`.
 func (o MachinesExecOutput) Machine() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *MachinesExec) pulumi.BoolPtrOutput { return v.Machine }).(pulumi.BoolPtrOutput)
 }
@@ -182,18 +218,22 @@ func (o MachinesExecOutput) QueryParams() MachinesExecQueryParamsPtrOutput {
 	return o.ApplyT(func(v *MachinesExec) MachinesExecQueryParamsPtrOutput { return v.QueryParams }).(MachinesExecQueryParamsPtrOutput)
 }
 
+// The command's standard error.
 func (o MachinesExecOutput) Stderr() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *MachinesExec) pulumi.StringPtrOutput { return v.Stderr }).(pulumi.StringPtrOutput)
 }
 
+// Data to write to the command's standard input.
 func (o MachinesExecOutput) Stdin() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *MachinesExec) pulumi.StringPtrOutput { return v.Stdin }).(pulumi.StringPtrOutput)
 }
 
+// The command's standard output.
 func (o MachinesExecOutput) Stdout() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *MachinesExec) pulumi.StringPtrOutput { return v.Stdout }).(pulumi.StringPtrOutput)
 }
 
+// How long to let the command run, in seconds. Defaults to 10; at most 600.
 func (o MachinesExecOutput) Timeout() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *MachinesExec) pulumi.IntPtrOutput { return v.Timeout }).(pulumi.IntPtrOutput)
 }

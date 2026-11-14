@@ -31,6 +31,7 @@ class SecretArgs:
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input['SecretQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input[_builtins.str] secret_name: App secret name
+        :param pulumi.Input[_builtins.str] value: New value of the secret.
         """
         if app_name is not None:
             pulumi.set(__self__, "app_name", app_name)
@@ -80,6 +81,9 @@ class SecretArgs:
     @_builtins.property
     @pulumi.getter
     def value(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        New value of the secret.
+        """
         return pulumi.get(self, "value")
 
     @value.setter
@@ -106,6 +110,7 @@ class Secret(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
         :param pulumi.Input[Union['SecretQueryParamsArgs', 'SecretQueryParamsArgsDict', 'outputs.SecretQueryParams']] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input[_builtins.str] secret_name: App secret name
+        :param pulumi.Input[_builtins.str] value: New value of the secret.
         """
         ...
     @overload
@@ -193,16 +198,26 @@ class Secret(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter(name="createdAt")
     def created_at(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        When the secret was first set. Only returned when reading secrets.
+        """
         return pulumi.get(self, "created_at")
 
     @_builtins.property
     @pulumi.getter
     def digest(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Short fingerprint of the value, to tell whether it changed without revealing it. Omitted
+        for deleted secrets.
+        """
         return pulumi.get(self, "digest")
 
     @_builtins.property
     @pulumi.getter
     def name(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Name of the secret.
+        """
         return pulumi.get(self, "name")
 
     @_builtins.property
@@ -216,11 +231,17 @@ class Secret(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter(name="updatedAt")
     def updated_at(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        When the secret's value last changed. Only returned when reading secrets.
+        """
         return pulumi.get(self, "updated_at")
 
     @_builtins.property
     @pulumi.getter
     def value(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Value of the secret. Only returned with `show_secrets=true`, and when setting secrets.
+        """
         return pulumi.get(self, "value")
 
     @_builtins.property

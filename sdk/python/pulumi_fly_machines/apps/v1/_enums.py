@@ -8,8 +8,10 @@ from enum import Enum
 
 __all__ = [
     'AppIPAssignmentType',
+    'AppStatus',
     'CertificateEntrySource',
     'CertificateEntryStatus',
+    'CheckStatusStatus',
     'ChecksKind',
     'FlyContainerDependencyCondition',
     'FlyContainerHealthcheckKind',
@@ -22,13 +24,18 @@ __all__ = [
     'FlyMachineServiceAutostop',
     'FlyReplayCacheType',
     'FlyStopConfigSignal',
+    'Fstype',
     'GetMachinesWaitQueryParamsState',
     'HostStatus',
     'IssuedCertificateType',
+    'LeaseResponseStatus',
+    'ListMachinesProcessesQueryParamsOrder',
+    'ListMachinesProcessesQueryParamsSortBy',
     'MachineHostStatus',
     'MachinesRestartCreateQueryParamsSignal',
     'MachinesSignalSignal',
     'Signal',
+    'Status',
     'Type',
     'VolumeHostStatus',
     'VolumeType',
@@ -38,7 +45,7 @@ __all__ = [
 @pulumi.type_token("fly-machines:apps/v1:AppIPAssignmentType")
 class AppIPAssignmentType(_builtins.str, Enum):
     """
-    Type of IP address to allocate. "egress-pair" allocates both v4 and v6 egress IP addresses (recommended when using egress IPs).
+    Type of IP address to allocate. Required.
     """
     IPASSIGNMENT_TYPE_V4 = "v4"
     IPASSIGNMENT_TYPE_V6 = "v6"
@@ -49,17 +56,46 @@ class AppIPAssignmentType(_builtins.str, Enum):
     IPASSIGNMENT_TYPE_EGRESS_PAIR = "egress_pair"
 
 
+@pulumi.type_token("fly-machines:apps/v1:AppStatus")
+class AppStatus(_builtins.str, Enum):
+    """
+    State of the app. `pending` until one of its Machines changes state. After that, updated
+    asynchronously whenever a Machine changes state: `deployed` if at least one Machine is
+    started, and `suspended` otherwise.
+    """
+    PENDING = "pending"
+    DEPLOYED = "deployed"
+    SUSPENDED = "suspended"
+
+
 @pulumi.type_token("fly-machines:apps/v1:CertificateEntrySource")
 class CertificateEntrySource(_builtins.str, Enum):
+    """
+    `custom` for an uploaded certificate, `fly` for certificates issued by Fly.io.
+    """
     CUSTOM = "custom"
     FLY = "fly"
 
 
 @pulumi.type_token("fly-machines:apps/v1:CertificateEntryStatus")
 class CertificateEntryStatus(_builtins.str, Enum):
+    """
+    `active` once ownership of the hostname is verified. Until then, `pending_ownership` for
+    custom certificates and `pending_validation` for Fly.io-issued certificates.
+    """
     ACTIVE = "active"
     PENDING_OWNERSHIP = "pending_ownership"
     PENDING_VALIDATION = "pending_validation"
+
+
+@pulumi.type_token("fly-machines:apps/v1:CheckStatusStatus")
+class CheckStatusStatus(_builtins.str, Enum):
+    """
+    Result of the check: `passing`, `warning`, or `critical`.
+    """
+    PASSING = "passing"
+    WARNING = "warning"
+    CRITICAL = "critical"
 
 
 @pulumi.type_token("fly-machines:apps/v1:ChecksKind")
@@ -73,6 +109,10 @@ class ChecksKind(_builtins.str, Enum):
 
 @pulumi.type_token("fly-machines:apps/v1:FlyContainerDependencyCondition")
 class FlyContainerDependencyCondition(_builtins.str, Enum):
+    """
+    When the container can start: once the dependency has `started`, is `healthy`, or has
+    `exited_successfully`
+    """
     EXITED_SUCCESSFULLY = "exited_successfully"
     HEALTHY = "healthy"
     STARTED = "started"
@@ -141,6 +181,11 @@ class FlyMachineRestartPolicy(_builtins.str, Enum):
 
 @pulumi.type_token("fly-machines:apps/v1:FlyMachineRootfsPersist")
 class FlyMachineRootfsPersist(_builtins.str, Enum):
+    """
+    Whether changes to the root filesystem are kept. `never` (default): reset on every start.
+    `restart`: kept across stops and restarts, reset when the Machine is updated. `always`: also
+    kept across updates
+    """
     NEVER = "never"
     ALWAYS = "always"
     RESTART = "restart"
@@ -170,6 +215,9 @@ class FlyReplayCacheType(_builtins.str, Enum):
 
 @pulumi.type_token("fly-machines:apps/v1:FlyStopConfigSignal")
 class FlyStopConfigSignal(_builtins.str, Enum):
+    """
+    Signal to send to the Machine's processes. Defaults to SIGINT
+    """
     SIGHUP = "SIGHUP"
     SIGINT = "SIGINT"
     SIGQUIT = "SIGQUIT"
@@ -179,6 +227,15 @@ class FlyStopConfigSignal(_builtins.str, Enum):
     SIGTERM = "SIGTERM"
 
 
+@pulumi.type_token("fly-machines:apps/v1:Fstype")
+class Fstype(_builtins.str, Enum):
+    """
+    Filesystem to format the volume with: `ext4`, or `raw` for an unformatted block device.
+    """
+    EXT4 = "ext4"
+    RAW = "raw"
+
+
 @pulumi.type_token("fly-machines:apps/v1:GetMachinesWaitQueryParamsState")
 class GetMachinesWaitQueryParamsState(_builtins.str, Enum):
     STARTED = "started"
@@ -186,11 +243,16 @@ class GetMachinesWaitQueryParamsState(_builtins.str, Enum):
     SUSPENDED = "suspended"
     DESTROYED = "destroyed"
     FAILED = "failed"
+    ARCHIVED = "archived"
     SETTLED = "settled"
 
 
 @pulumi.type_token("fly-machines:apps/v1:HostStatus")
 class HostStatus(_builtins.str, Enum):
+    """
+    Whether Fly.io could reach the volume's host: `ok` if it could, `unreachable` or
+    `unknown` if it could not, in which case host-reported fields are missing.
+    """
     OK = "ok"
     UNKNOWN = "unknown"
     UNREACHABLE = "unreachable"
@@ -198,12 +260,42 @@ class HostStatus(_builtins.str, Enum):
 
 @pulumi.type_token("fly-machines:apps/v1:IssuedCertificateType")
 class IssuedCertificateType(_builtins.str, Enum):
+    """
+    Key type of the certificate.
+    """
     RSA = "rsa"
     ECDSA = "ecdsa"
 
 
+@pulumi.type_token("fly-machines:apps/v1:LeaseResponseStatus")
+class LeaseResponseStatus(_builtins.str, Enum):
+    """
+    Always `success`.
+    """
+    SUCCESS = "success"
+
+
+@pulumi.type_token("fly-machines:apps/v1:ListMachinesProcessesQueryParamsOrder")
+class ListMachinesProcessesQueryParamsOrder(_builtins.str, Enum):
+    ASC = "asc"
+    DESC = "desc"
+
+
+@pulumi.type_token("fly-machines:apps/v1:ListMachinesProcessesQueryParamsSortBy")
+class ListMachinesProcessesQueryParamsSortBy(_builtins.str, Enum):
+    CPU = "cpu"
+    PID = "pid"
+    STIME = "stime"
+    RTIME = "rtime"
+
+
 @pulumi.type_token("fly-machines:apps/v1:MachineHostStatus")
 class MachineHostStatus(_builtins.str, Enum):
+    """
+    Whether Fly.io could reach the Machine's host: `ok` if it could, `unreachable` if it
+    could not, in which case the response is built from last known state. `unknown` if the
+    host's status was not reported.
+    """
     OK = "ok"
     UNKNOWN = "unknown"
     UNREACHABLE = "unreachable"
@@ -222,6 +314,9 @@ class MachinesRestartCreateQueryParamsSignal(_builtins.str, Enum):
 
 @pulumi.type_token("fly-machines:apps/v1:MachinesSignalSignal")
 class MachinesSignalSignal(_builtins.str, Enum):
+    """
+    Signal to send to the Machine's main process.
+    """
     SIGABRT = "SIGABRT"
     SIGALRM = "SIGALRM"
     SIGFPE = "SIGFPE"
@@ -240,6 +335,10 @@ class MachinesSignalSignal(_builtins.str, Enum):
 
 @pulumi.type_token("fly-machines:apps/v1:Signal")
 class Signal(_builtins.str, Enum):
+    """
+    Signal to send to the Machine's main process. Defaults to `config.stop_config.signal`, or
+    SIGINT.
+    """
     SIGHUP = "SIGHUP"
     SIGINT = "SIGINT"
     SIGQUIT = "SIGQUIT"
@@ -249,14 +348,30 @@ class Signal(_builtins.str, Enum):
     SIGTERM = "SIGTERM"
 
 
+@pulumi.type_token("fly-machines:apps/v1:Status")
+class Status(_builtins.str, Enum):
+    """
+    Always `success`.
+    """
+    SUCCESS = "success"
+
+
 @pulumi.type_token("fly-machines:apps/v1:Type")
 class Type(_builtins.str, Enum):
+    """
+    Kind of volume: `local` for regular volumes, or `cache` for volumes that hold
+    disposable data and support neither snapshots nor restores.
+    """
     LOCAL = "local"
     CACHE = "cache"
 
 
 @pulumi.type_token("fly-machines:apps/v1:VolumeHostStatus")
 class VolumeHostStatus(_builtins.str, Enum):
+    """
+    Whether Fly.io could reach the volume's host: `ok` if it could, `unreachable` or
+    `unknown` if it could not, in which case host-reported fields are missing.
+    """
     OK = "ok"
     UNKNOWN = "unknown"
     UNREACHABLE = "unreachable"
@@ -264,5 +379,9 @@ class VolumeHostStatus(_builtins.str, Enum):
 
 @pulumi.type_token("fly-machines:apps/v1:VolumeType")
 class VolumeType(_builtins.str, Enum):
+    """
+    Kind of volume: `local` for regular volumes, or `cache` for volumes that hold
+    disposable data and support neither snapshots nor restores.
+    """
     LOCAL = "local"
     CACHE = "cache"

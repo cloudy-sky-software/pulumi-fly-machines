@@ -33,6 +33,9 @@ class ListSecretkeysResult:
     @_builtins.property
     @pulumi.getter(name="secretKeys")
     def secret_keys(self) -> Optional[Sequence['outputs.SecretKey']]:
+        """
+        The app's secret keys. Key material is never returned.
+        """
         return pulumi.get(self, "secret_keys")
 
 

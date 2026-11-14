@@ -31,8 +31,12 @@ type GetMachinesMemoryArgs struct {
 }
 
 type GetMachinesMemoryResult struct {
+	// Highest limit, in MiB, that the Machine could currently be raised to: its configured
+	// memory (`guest.max_memory_mb` if set, else `guest.memory_mb`), capped by the host's free
+	// memory.
 	AvailableMb *int `pulumi:"availableMb"`
-	LimitMb     *int `pulumi:"limitMb"`
+	// Memory, in MiB, the guest can currently use.
+	LimitMb *int `pulumi:"limitMb"`
 }
 
 func GetMachinesMemoryOutput(ctx *pulumi.Context, args GetMachinesMemoryOutputArgs, opts ...pulumi.InvokeOption) GetMachinesMemoryResultOutput {
@@ -67,10 +71,14 @@ func (o GetMachinesMemoryResultOutput) ToGetMachinesMemoryResultOutputWithContex
 	return o
 }
 
+// Highest limit, in MiB, that the Machine could currently be raised to: its configured
+// memory (`guest.max_memory_mb` if set, else `guest.memory_mb`), capped by the host's free
+// memory.
 func (o GetMachinesMemoryResultOutput) AvailableMb() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v GetMachinesMemoryResult) *int { return v.AvailableMb }).(pulumi.IntPtrOutput)
 }
 
+// Memory, in MiB, the guest can currently use.
 func (o GetMachinesMemoryResultOutput) LimitMb() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v GetMachinesMemoryResult) *int { return v.LimitMb }).(pulumi.IntPtrOutput)
 }

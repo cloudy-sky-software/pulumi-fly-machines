@@ -22,16 +22,18 @@ __all__ = ['SecretkeyVerifyArgs', 'SecretkeyVerify']
 class SecretkeyVerifyArgs:
     def __init__(__self__, *,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
-                 plaintext: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]] = None,
+                 plaintext: pulumi.Input[Optional[_builtins.str]] = None,
                  query_params: pulumi.Input[Optional['SecretkeyVerifyQueryParamsArgs']] = None,
                  secret_name: pulumi.Input[Optional[_builtins.str]] = None,
-                 signature: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]] = None):
+                 signature: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a SecretkeyVerify resource.
 
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
+        :param pulumi.Input[_builtins.str] plaintext: Data that was signed, base64-encoded.
         :param pulumi.Input['SecretkeyVerifyQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input[_builtins.str] secret_name: Secret key name
+        :param pulumi.Input[_builtins.str] signature: Signature or MAC to check, base64-encoded.
         """
         if app_name is not None:
             pulumi.set(__self__, "app_name", app_name)
@@ -58,11 +60,14 @@ class SecretkeyVerifyArgs:
 
     @_builtins.property
     @pulumi.getter
-    def plaintext(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]]:
+    def plaintext(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Data that was signed, base64-encoded.
+        """
         return pulumi.get(self, "plaintext")
 
     @plaintext.setter
-    def plaintext(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]]):
+    def plaintext(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "plaintext", value)
 
     @_builtins.property
@@ -91,11 +96,14 @@ class SecretkeyVerifyArgs:
 
     @_builtins.property
     @pulumi.getter
-    def signature(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]]:
+    def signature(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Signature or MAC to check, base64-encoded.
+        """
         return pulumi.get(self, "signature")
 
     @signature.setter
-    def signature(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]]):
+    def signature(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "signature", value)
 
 
@@ -106,10 +114,10 @@ class SecretkeyVerify(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
-                 plaintext: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]] = None,
+                 plaintext: pulumi.Input[Optional[_builtins.str]] = None,
                  query_params: pulumi.Input[Optional[Union['SecretkeyVerifyQueryParamsArgs', 'SecretkeyVerifyQueryParamsArgsDict', 'outputs.SecretkeyVerifyQueryParams']]] = None,
                  secret_name: pulumi.Input[Optional[_builtins.str]] = None,
-                 signature: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]] = None,
+                 signature: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         Create a SecretkeyVerify resource with the given unique name, props, and options.
@@ -117,8 +125,10 @@ class SecretkeyVerify(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] app_name: Fly App Name
+        :param pulumi.Input[_builtins.str] plaintext: Data that was signed, base64-encoded.
         :param pulumi.Input[Union['SecretkeyVerifyQueryParamsArgs', 'SecretkeyVerifyQueryParamsArgsDict', 'outputs.SecretkeyVerifyQueryParams']] query_params: Query params to send with the API requests for this resource.
         :param pulumi.Input[_builtins.str] secret_name: Secret key name
+        :param pulumi.Input[_builtins.str] signature: Signature or MAC to check, base64-encoded.
         """
         ...
     @overload
@@ -145,10 +155,10 @@ class SecretkeyVerify(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  app_name: pulumi.Input[Optional[_builtins.str]] = None,
-                 plaintext: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]] = None,
+                 plaintext: pulumi.Input[Optional[_builtins.str]] = None,
                  query_params: pulumi.Input[Optional[Union['SecretkeyVerifyQueryParamsArgs', 'SecretkeyVerifyQueryParamsArgsDict', 'outputs.SecretkeyVerifyQueryParams']]] = None,
                  secret_name: pulumi.Input[Optional[_builtins.str]] = None,
-                 signature: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]] = None,
+                 signature: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -198,7 +208,10 @@ class SecretkeyVerify(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter
-    def plaintext(self) -> pulumi.Output[Optional[Sequence[_builtins.int]]]:
+    def plaintext(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Data that was signed, base64-encoded.
+        """
         return pulumi.get(self, "plaintext")
 
     @_builtins.property
@@ -211,6 +224,9 @@ class SecretkeyVerify(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter
-    def signature(self) -> pulumi.Output[Optional[Sequence[_builtins.int]]]:
+    def signature(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Signature or MAC to check, base64-encoded.
+        """
         return pulumi.get(self, "signature")
 

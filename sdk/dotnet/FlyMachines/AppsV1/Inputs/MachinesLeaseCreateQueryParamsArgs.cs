@@ -28,6 +28,12 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
             set => _additionalParams = value;
         }
 
+        /// <summary>
+        /// How long the lease is valid, in seconds. Overridden by ttl in the request body.
+        /// </summary>
+        [Input("ttl")]
+        public Input<int>? Ttl { get; set; }
+
         public MachinesLeaseCreateQueryParamsArgs()
         {
         }

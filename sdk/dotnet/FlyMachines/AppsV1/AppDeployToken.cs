@@ -13,6 +13,10 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
     [FlyMachinesResourceType("fly-machines:apps/v1:AppDeployToken")]
     public partial class AppDeployToken : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// How long the token is valid, as a Go duration string such as `720h`. If omitted, the
+        /// token is valid for as long as the token used to make this request.
+        /// </summary>
         [Output("expiry")]
         public Output<string?> Expiry { get; private set; } = null!;
 
@@ -22,6 +26,11 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Output("queryParams")]
         public Output<Outputs.AppDeployTokenQueryParams?> QueryParams { get; private set; } = null!;
 
+        /// <summary>
+        /// The deploy token, including its ` FlyV1  ` scheme prefix, ready to be used as an
+        /// `Authorization` header value. It is derived from the token used to make this request
+        /// and limited to the app, plus the organization's WireGuard and remote builder features.
+        /// </summary>
         [Output("token")]
         public Output<string?> Token { get; private set; } = null!;
 
@@ -77,6 +86,10 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Input("appName")]
         public Input<string>? AppName { get; set; }
 
+        /// <summary>
+        /// How long the token is valid, as a Go duration string such as `720h`. If omitted, the
+        /// token is valid for as long as the token used to make this request.
+        /// </summary>
         [Input("expiry")]
         public Input<string>? Expiry { get; set; }
 

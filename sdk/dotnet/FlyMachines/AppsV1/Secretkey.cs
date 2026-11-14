@@ -13,14 +13,23 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
     [FlyMachinesResourceType("fly-machines:apps/v1:Secretkey")]
     public partial class Secretkey : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// When the key was first set.
+        /// </summary>
         [Output("createdAt")]
         public Output<string?> CreatedAt { get; private set; } = null!;
 
+        /// <summary>
+        /// Name of the secret key.
+        /// </summary>
         [Output("name")]
         public Output<string?> Name { get; private set; } = null!;
 
+        /// <summary>
+        /// Public key of asymmetric keys (`nacl_box`, `nacl_sign`, `es256`), base64-encoded.
+        /// </summary>
         [Output("publicKey")]
-        public Output<ImmutableArray<int>> PublicKey { get; private set; } = null!;
+        public Output<string?> PublicKey { get; private set; } = null!;
 
         /// <summary>
         /// Query params to send with the API requests for this resource.
@@ -28,15 +37,28 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Output("queryParams")]
         public Output<Outputs.SecretkeyQueryParams?> QueryParams { get; private set; } = null!;
 
+        /// <summary>
+        /// Type of the key: `hs256`, `hs384`, `hs512`, `xaes256gcm`, `nacl_auth`, `nacl_box`, `nacl_secretbox`, `nacl_sign`, or `es256`.
+        /// </summary>
         [Output("type")]
         public Output<string?> Type { get; private set; } = null!;
 
+        /// <summary>
+        /// When the key last changed.
+        /// </summary>
         [Output("updatedAt")]
         public Output<string?> UpdatedAt { get; private set; } = null!;
 
+        /// <summary>
+        /// Key material, base64-encoded. Ignored when generating a key.
+        /// </summary>
         [Output("value")]
-        public Output<ImmutableArray<int>> Value { get; private set; } = null!;
+        public Output<string?> Value { get; private set; } = null!;
 
+        /// <summary>
+        /// The app's secrets version after this change. Pass it as `min_version` to read the change
+        /// back.
+        /// </summary>
         [Output("version")]
         public Output<int?> Version { get; private set; } = null!;
 
@@ -104,16 +126,17 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Input("secretName")]
         public Input<string>? SecretName { get; set; }
 
+        /// <summary>
+        /// Type of the key: `hs256`, `hs384`, `hs512`, `xaes256gcm`, `nacl_auth`, `nacl_box`, `nacl_secretbox`, `nacl_sign`, or `es256`. Required.
+        /// </summary>
         [Input("type")]
         public Input<string>? Type { get; set; }
 
+        /// <summary>
+        /// Key material, base64-encoded. Ignored when generating a key.
+        /// </summary>
         [Input("value")]
-        private InputList<int>? _value;
-        public InputList<int> Value
-        {
-            get => _value ?? (_value = new InputList<int>());
-            set => _value = value;
-        }
+        public Input<string>? Value { get; set; }
 
         public SecretkeyArgs()
         {

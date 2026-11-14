@@ -44,9 +44,18 @@ export class SecretkeyDecrypt extends pulumi.CustomResource {
         return obj['__pulumiType'] === SecretkeyDecrypt.__pulumiType;
     }
 
-    declare public readonly associatedData: pulumi.Output<number[] | undefined>;
-    declare public readonly ciphertext: pulumi.Output<number[] | undefined>;
-    declare public /*out*/ readonly plaintext: pulumi.Output<number[] | undefined>;
+    /**
+     * Additional data passed when encrypting, base64-encoded.
+     */
+    declare public readonly associatedData: pulumi.Output<string | undefined>;
+    /**
+     * Data to decrypt, as returned by the encrypt endpoint, base64-encoded.
+     */
+    declare public readonly ciphertext: pulumi.Output<string | undefined>;
+    /**
+     * Decrypted data, base64-encoded.
+     */
+    declare public /*out*/ readonly plaintext: pulumi.Output<string | undefined>;
     /**
      * Query params to send with the API requests for this resource.
      */
@@ -88,8 +97,14 @@ export interface SecretkeyDecryptArgs {
      * Fly App Name
      */
     appName?: pulumi.Input<string | undefined>;
-    associatedData?: pulumi.Input<pulumi.Input<number>[] | undefined>;
-    ciphertext?: pulumi.Input<pulumi.Input<number>[] | undefined>;
+    /**
+     * Additional data passed when encrypting, base64-encoded.
+     */
+    associatedData?: pulumi.Input<string | undefined>;
+    /**
+     * Data to decrypt, as returned by the encrypt endpoint, base64-encoded.
+     */
+    ciphertext?: pulumi.Input<string | undefined>;
     /**
      * Query params to send with the API requests for this resource.
      */

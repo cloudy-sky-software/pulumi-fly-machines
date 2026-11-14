@@ -35,11 +35,19 @@ class GetMachinesMemoryResult:
     @_builtins.property
     @pulumi.getter(name="availableMb")
     def available_mb(self) -> Optional[_builtins.int]:
+        """
+        Highest limit, in MiB, that the Machine could currently be raised to: its configured
+        memory (`guest.max_memory_mb` if set, else `guest.memory_mb`), capped by the host's free
+        memory.
+        """
         return pulumi.get(self, "available_mb")
 
     @_builtins.property
     @pulumi.getter(name="limitMb")
     def limit_mb(self) -> Optional[_builtins.int]:
+        """
+        Memory, in MiB, the guest can currently use.
+        """
         return pulumi.get(self, "limit_mb")
 
 

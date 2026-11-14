@@ -29,11 +29,17 @@ type ListMachinesOrgArgs struct {
 }
 
 type ListMachinesOrgResult struct {
-	ErrorRegions  []string     `pulumi:"errorRegions"`
-	LastMachineId *string      `pulumi:"lastMachineId"`
-	LastUpdatedAt *string      `pulumi:"lastUpdatedAt"`
-	Machines      []OrgMachine `pulumi:"machines"`
-	NextCursor    *string      `pulumi:"nextCursor"`
+	// Regions that could not be queried. Their Machines are missing from the response.
+	ErrorRegions []string `pulumi:"errorRegions"`
+	// ID of the last Machine on this page.
+	LastMachineId *string `pulumi:"lastMachineId"`
+	// `updated_at` of the last Machine on this page.
+	LastUpdatedAt *string `pulumi:"lastUpdatedAt"`
+	// The Machines on this page.
+	Machines []OrgMachine `pulumi:"machines"`
+	// Pagination cursor for the next page. Absent when no more Machines remain. Cursors expire
+	// 30 minutes after the first page was requested.
+	NextCursor *string `pulumi:"nextCursor"`
 }
 
 func ListMachinesOrgOutput(ctx *pulumi.Context, args ListMachinesOrgOutputArgs, opts ...pulumi.InvokeOption) ListMachinesOrgResultOutput {
@@ -66,22 +72,28 @@ func (o ListMachinesOrgResultOutput) ToListMachinesOrgResultOutputWithContext(ct
 	return o
 }
 
+// Regions that could not be queried. Their Machines are missing from the response.
 func (o ListMachinesOrgResultOutput) ErrorRegions() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v ListMachinesOrgResult) []string { return v.ErrorRegions }).(pulumi.StringArrayOutput)
 }
 
+// ID of the last Machine on this page.
 func (o ListMachinesOrgResultOutput) LastMachineId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ListMachinesOrgResult) *string { return v.LastMachineId }).(pulumi.StringPtrOutput)
 }
 
+// `updated_at` of the last Machine on this page.
 func (o ListMachinesOrgResultOutput) LastUpdatedAt() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ListMachinesOrgResult) *string { return v.LastUpdatedAt }).(pulumi.StringPtrOutput)
 }
 
+// The Machines on this page.
 func (o ListMachinesOrgResultOutput) Machines() OrgMachineArrayOutput {
 	return o.ApplyT(func(v ListMachinesOrgResult) []OrgMachine { return v.Machines }).(OrgMachineArrayOutput)
 }
 
+// Pagination cursor for the next page. Absent when no more Machines remain. Cursors expire
+// 30 minutes after the first page was requested.
 func (o ListMachinesOrgResultOutput) NextCursor() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ListMachinesOrgResult) *string { return v.NextCursor }).(pulumi.StringPtrOutput)
 }

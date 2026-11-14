@@ -8,6 +8,7 @@ from enum import Enum
 
 __all__ = [
     'FlyMachineGuestPersistRootfs',
+    'MainRegionRowGeoRegion',
 ]
 
 
@@ -19,3 +20,15 @@ class FlyMachineGuestPersistRootfs(_builtins.str, Enum):
     NEVER = "never"
     ALWAYS = "always"
     RESTART = "restart"
+
+
+@pulumi.type_token("fly-machines:platform/v1:MainRegionRowGeoRegion")
+class MainRegionRowGeoRegion(_builtins.str, Enum):
+    """
+    Geographic area the region belongs to.
+    """
+    AFRICA = "africa"
+    ASIA_PACIFIC = "asia_pacific"
+    EUROPE = "europe"
+    NORTH_AMERICA = "north_america"
+    SOUTH_AMERICA = "south_america"

@@ -39,16 +39,25 @@ class ListAppCertificatesResult:
     @_builtins.property
     @pulumi.getter
     def certificates(self) -> Optional[Sequence['outputs.CertificateSummary']]:
+        """
+        The certificates on this page, ordered by when they were added.
+        """
         return pulumi.get(self, "certificates")
 
     @_builtins.property
     @pulumi.getter(name="nextCursor")
     def next_cursor(self) -> Optional[_builtins.str]:
+        """
+        Pagination cursor for the next page. Absent when no more certificates remain.
+        """
         return pulumi.get(self, "next_cursor")
 
     @_builtins.property
     @pulumi.getter(name="totalCount")
     def total_count(self) -> Optional[_builtins.int]:
+        """
+        Number of certificates matching `filter` (and after `cursor`, if given), across all pages.
+        """
         return pulumi.get(self, "total_count")
 
 

@@ -27,6 +27,9 @@ type GetCurrentTokenArgs struct {
 }
 
 type GetCurrentTokenResult struct {
+	// One entry per token in the Authorization header that could be verified, in no particular
+	// order; use `token_id` to tell them apart. Tokens that fail verification or are not scoped
+	// to an organization are left out.
 	Tokens []MainTokenInfo `pulumi:"tokens"`
 }
 
@@ -58,6 +61,9 @@ func (o GetCurrentTokenResultOutput) ToGetCurrentTokenResultOutputWithContext(ct
 	return o
 }
 
+// One entry per token in the Authorization header that could be verified, in no particular
+// order; use `token_id` to tell them apart. Tokens that fail verification or are not scoped
+// to an organization are left out.
 func (o GetCurrentTokenResultOutput) Tokens() MainTokenInfoArrayOutput {
 	return o.ApplyT(func(v GetCurrentTokenResult) []MainTokenInfo { return v.Tokens }).(MainTokenInfoArrayOutput)
 }

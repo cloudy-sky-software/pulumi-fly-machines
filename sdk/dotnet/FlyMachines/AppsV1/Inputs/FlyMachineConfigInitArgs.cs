@@ -18,6 +18,10 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
     {
         [Input("cmd")]
         private InputList<string>? _cmd;
+
+        /// <summary>
+        /// Replaces the image's CMD. It's appended to the entrypoint
+        /// </summary>
         public InputList<string> Cmd
         {
             get => _cmd ?? (_cmd = new InputList<string>());
@@ -26,6 +30,10 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
 
         [Input("entrypoint")]
         private InputList<string>? _entrypoint;
+
+        /// <summary>
+        /// Replaces the image's ENTRYPOINT
+        /// </summary>
         public InputList<string> Entrypoint
         {
             get => _entrypoint ?? (_entrypoint = new InputList<string>());
@@ -34,6 +42,11 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
 
         [Input("exec")]
         private InputList<string>? _exec;
+
+        /// <summary>
+        /// Command to run instead of the image's ENTRYPOINT and CMD. Takes precedence over entrypoint
+        /// and cmd
+        /// </summary>
         public InputList<string> Exec
         {
             get => _exec ?? (_exec = new InputList<string>());
@@ -42,15 +55,25 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
 
         [Input("kernelArgs")]
         private InputList<string>? _kernelArgs;
+
+        /// <summary>
+        /// Currently has no effect. Use `guest.kernel_args` instead
+        /// </summary>
         public InputList<string> KernelArgs
         {
             get => _kernelArgs ?? (_kernelArgs = new InputList<string>());
             set => _kernelArgs = value;
         }
 
+        /// <summary>
+        /// Size in MiB of a swap device to give the Machine. Machines with swap cannot be suspended
+        /// </summary>
         [Input("swapSizeMb")]
         public Input<int>? SwapSizeMb { get; set; }
 
+        /// <summary>
+        /// Currently has no effect
+        /// </summary>
         [Input("tty")]
         public Input<bool>? Tty { get; set; }
 

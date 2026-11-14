@@ -32,9 +32,22 @@ export interface GetMachinesWaitArgs {
 }
 
 export interface GetMachinesWaitResult {
+    /**
+     * ID of the event that moved the Machine into `state`. Pass it as `from_event_id` to wait
+     * for a later state change.
+     */
     readonly eventId?: string;
+    /**
+     * Always true.
+     */
     readonly ok?: boolean;
+    /**
+     * The state the Machine reached, one of the requested states.
+     */
     readonly state?: string;
+    /**
+     * ID of the Machine version that reached `state`.
+     */
     readonly version?: string;
 }
 export function getMachinesWaitOutput(args: GetMachinesWaitOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetMachinesWaitResult> {

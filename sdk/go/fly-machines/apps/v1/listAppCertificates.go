@@ -29,9 +29,12 @@ type ListAppCertificatesArgs struct {
 }
 
 type ListAppCertificatesResult struct {
+	// The certificates on this page, ordered by when they were added.
 	Certificates []CertificateSummary `pulumi:"certificates"`
-	NextCursor   *string              `pulumi:"nextCursor"`
-	TotalCount   *int                 `pulumi:"totalCount"`
+	// Pagination cursor for the next page. Absent when no more certificates remain.
+	NextCursor *string `pulumi:"nextCursor"`
+	// Number of certificates matching `filter` (and after `cursor`, if given), across all pages.
+	TotalCount *int `pulumi:"totalCount"`
 }
 
 func ListAppCertificatesOutput(ctx *pulumi.Context, args ListAppCertificatesOutputArgs, opts ...pulumi.InvokeOption) ListAppCertificatesResultOutput {
@@ -64,14 +67,17 @@ func (o ListAppCertificatesResultOutput) ToListAppCertificatesResultOutputWithCo
 	return o
 }
 
+// The certificates on this page, ordered by when they were added.
 func (o ListAppCertificatesResultOutput) Certificates() CertificateSummaryArrayOutput {
 	return o.ApplyT(func(v ListAppCertificatesResult) []CertificateSummary { return v.Certificates }).(CertificateSummaryArrayOutput)
 }
 
+// Pagination cursor for the next page. Absent when no more certificates remain.
 func (o ListAppCertificatesResultOutput) NextCursor() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ListAppCertificatesResult) *string { return v.NextCursor }).(pulumi.StringPtrOutput)
 }
 
+// Number of certificates matching `filter` (and after `cursor`, if given), across all pages.
 func (o ListAppCertificatesResultOutput) TotalCount() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ListAppCertificatesResult) *int { return v.TotalCount }).(pulumi.IntPtrOutput)
 }

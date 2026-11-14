@@ -13,9 +13,17 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
     [FlyMachinesResourceType("fly-machines:apps/v1:MachinesMemoryLimit")]
     public partial class MachinesMemoryLimit : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// Highest limit, in MiB, that the Machine could currently be raised to: its configured
+        /// memory (`guest.max_memory_mb` if set, else `guest.memory_mb`), capped by the host's free
+        /// memory.
+        /// </summary>
         [Output("availableMb")]
         public Output<int?> AvailableMb { get; private set; } = null!;
 
+        /// <summary>
+        /// Memory, in MiB, the guest can currently use.
+        /// </summary>
         [Output("limitMb")]
         public Output<int?> LimitMb { get; private set; } = null!;
 
@@ -77,6 +85,10 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Input("appName")]
         public Input<string>? AppName { get; set; }
 
+        /// <summary>
+        /// New limit in MiB. Must be at least 128 and at most the Machine's configured memory
+        /// (`guest.max_memory_mb` if set, else `guest.memory_mb`).
+        /// </summary>
         [Input("limitMb")]
         public Input<int>? LimitMb { get; set; }
 

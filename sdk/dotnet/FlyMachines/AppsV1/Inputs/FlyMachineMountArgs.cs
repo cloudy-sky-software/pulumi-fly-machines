@@ -13,6 +13,10 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
 
     public sealed class FlyMachineMountArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// With automatic extension, grow the volume by this many GB at a time. Between 1 and 100.
+        /// Mutually exclusive with add_size_percent
+        /// </summary>
         [Input("addSizeGb")]
         public Input<int>? AddSizeGb { get; set; }
 
@@ -23,9 +27,16 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         [Input("addSizePercent")]
         public Input<int>? AddSizePercent { get; set; }
 
+        /// <summary>
+        /// Whether the volume is encrypted. Set by Fly.io; ignored in requests
+        /// </summary>
         [Input("encrypted")]
         public Input<bool>? Encrypted { get; set; }
 
+        /// <summary>
+        /// Enable automatic volume extension: grow the volume when its usage exceeds this percentage.
+        /// Between 50 and 99; 0 disables it
+        /// </summary>
         [Input("extendThresholdPercent")]
         public Input<int>? ExtendThresholdPercent { get; set; }
 
@@ -35,18 +46,35 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         [Input("minAddSizeGb")]
         public Input<int>? MinAddSizeGb { get; set; }
 
+        /// <summary>
+        /// Name of the volume. Set by Fly.io; ignored in requests
+        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
+        /// <summary>
+        /// Absolute path in the Machine to mount the volume at. Required
+        /// </summary>
         [Input("path")]
         public Input<string>? Path { get; set; }
 
+        /// <summary>
+        /// Size of the volume in GB. Set by Fly.io; ignored in requests
+        /// </summary>
         [Input("sizeGb")]
         public Input<int>? SizeGb { get; set; }
 
+        /// <summary>
+        /// With automatic extension, never grow the volume beyond this size in GB. At most the
+        /// organization's maximum volume size
+        /// </summary>
         [Input("sizeGbLimit")]
         public Input<int>? SizeGbLimit { get; set; }
 
+        /// <summary>
+        /// ID (`vol_...`) or name of the volume to mount. Required. With a name, any unattached volume
+        /// of the app with that name in the Machine's region is used
+        /// </summary>
         [Input("volume")]
         public Input<string>? Volume { get; set; }
 

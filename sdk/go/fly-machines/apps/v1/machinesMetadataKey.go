@@ -16,8 +16,10 @@ type MachinesMetadataKey struct {
 
 	// Query params to send with the API requests for this resource.
 	QueryParams MachinesMetadataKeyQueryParamsPtrOutput `pulumi:"queryParams"`
-	UpdatedAt   pulumi.StringPtrOutput                  `pulumi:"updatedAt"`
-	Value       pulumi.StringPtrOutput                  `pulumi:"value"`
+	// Time to record for the change in the Machine's `metadata_update` event. Defaults to now.
+	UpdatedAt pulumi.StringPtrOutput `pulumi:"updatedAt"`
+	// Value to set. Must not be empty or whitespace only.
+	Value pulumi.StringPtrOutput `pulumi:"value"`
 }
 
 // NewMachinesMetadataKey registers a new resource with the given unique name, arguments, and options.
@@ -74,8 +76,10 @@ type machinesMetadataKeyArgs struct {
 	MachineId *string `pulumi:"machineId"`
 	// Query params to send with the API requests for this resource.
 	QueryParams *MachinesMetadataKeyQueryParams `pulumi:"queryParams"`
-	UpdatedAt   *string                         `pulumi:"updatedAt"`
-	Value       *string                         `pulumi:"value"`
+	// Time to record for the change in the Machine's `metadata_update` event. Defaults to now.
+	UpdatedAt *string `pulumi:"updatedAt"`
+	// Value to set. Must not be empty or whitespace only.
+	Value *string `pulumi:"value"`
 }
 
 // The set of arguments for constructing a MachinesMetadataKey resource.
@@ -88,8 +92,10 @@ type MachinesMetadataKeyArgs struct {
 	MachineId pulumi.StringPtrInput
 	// Query params to send with the API requests for this resource.
 	QueryParams MachinesMetadataKeyQueryParamsPtrInput
-	UpdatedAt   pulumi.StringPtrInput
-	Value       pulumi.StringPtrInput
+	// Time to record for the change in the Machine's `metadata_update` event. Defaults to now.
+	UpdatedAt pulumi.StringPtrInput
+	// Value to set. Must not be empty or whitespace only.
+	Value pulumi.StringPtrInput
 }
 
 func (MachinesMetadataKeyArgs) ElementType() reflect.Type {
@@ -134,10 +140,12 @@ func (o MachinesMetadataKeyOutput) QueryParams() MachinesMetadataKeyQueryParamsP
 	return o.ApplyT(func(v *MachinesMetadataKey) MachinesMetadataKeyQueryParamsPtrOutput { return v.QueryParams }).(MachinesMetadataKeyQueryParamsPtrOutput)
 }
 
+// Time to record for the change in the Machine's `metadata_update` event. Defaults to now.
 func (o MachinesMetadataKeyOutput) UpdatedAt() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *MachinesMetadataKey) pulumi.StringPtrOutput { return v.UpdatedAt }).(pulumi.StringPtrOutput)
 }
 
+// Value to set. Must not be empty or whitespace only.
 func (o MachinesMetadataKeyOutput) Value() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *MachinesMetadataKey) pulumi.StringPtrOutput { return v.Value }).(pulumi.StringPtrOutput)
 }

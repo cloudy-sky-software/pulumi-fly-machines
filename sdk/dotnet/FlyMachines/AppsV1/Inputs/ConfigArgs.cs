@@ -12,7 +12,10 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
 {
 
     /// <summary>
-    /// An object defining the Machine configuration
+    /// The Machine's configuration, as provided when it was created or last updated, with
+    /// `metadata` and `mounts` reflecting their current values. Null when the host is not
+    /// reachable (`host_status` is not `ok`) or `summary=true` was requested; see
+    /// `incomplete_config`.
     /// </summary>
     public sealed class ConfigArgs : global::Pulumi.ResourceArgs
     {
@@ -23,7 +26,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         public Input<bool>? AutoDestroy { get; set; }
 
         /// <summary>
-        /// A cache drive attached to the Machine
+        /// Beta: a cache drive attached to the Machine. This field may be removed in the future
         /// </summary>
         [Input("cacheDrive")]
         public Input<Inputs.FlyMachineConfigCacheDriveArgs>? CacheDrive { get; set; }
@@ -158,7 +161,8 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         public Input<Inputs.FlyMachineConfigRestartArgs>? Restart { get; set; }
 
         /// <summary>
-        /// The size of the Machine's root filesystem and whether it persists
+        /// Beta: the size of the Machine's root filesystem and whether it persists. This field may be
+        /// removed in the future
         /// </summary>
         [Input("rootfs")]
         public Input<Inputs.FlyMachineConfigRootfsArgs>? Rootfs { get; set; }

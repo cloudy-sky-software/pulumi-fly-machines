@@ -13,6 +13,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
     [FlyMachinesResourceType("fly-machines:apps/v1:App")]
     public partial class App : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// When the app was created, in Unix milliseconds.
+        /// </summary>
         [Output("createdAt")]
         public Output<int?> CreatedAt { get; private set; } = null!;
 

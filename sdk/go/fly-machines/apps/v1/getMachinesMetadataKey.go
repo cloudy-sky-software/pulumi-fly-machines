@@ -33,6 +33,7 @@ type LookupMachinesMetadataKeyArgs struct {
 }
 
 type LookupMachinesMetadataKeyResult struct {
+	// Value of the metadata key.
 	Value *string `pulumi:"value"`
 }
 
@@ -70,6 +71,7 @@ func (o LookupMachinesMetadataKeyResultOutput) ToLookupMachinesMetadataKeyResult
 	return o
 }
 
+// Value of the metadata key.
 func (o LookupMachinesMetadataKeyResultOutput) Value() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LookupMachinesMetadataKeyResult) *string { return v.Value }).(pulumi.StringPtrOutput)
 }

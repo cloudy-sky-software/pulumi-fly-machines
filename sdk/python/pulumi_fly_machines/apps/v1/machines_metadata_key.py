@@ -34,6 +34,8 @@ class MachinesMetadataKeyArgs:
         :param pulumi.Input[_builtins.str] key: Metadata Key
         :param pulumi.Input[_builtins.str] machine_id: Machine ID
         :param pulumi.Input['MachinesMetadataKeyQueryParamsArgs'] query_params: Query params to send with the API requests for this resource.
+        :param pulumi.Input[_builtins.str] updated_at: Time to record for the change in the Machine's `metadata_update` event. Defaults to now.
+        :param pulumi.Input[_builtins.str] value: Value to set. Must not be empty or whitespace only.
         """
         if app_name is not None:
             pulumi.set(__self__, "app_name", app_name)
@@ -99,6 +101,9 @@ class MachinesMetadataKeyArgs:
     @_builtins.property
     @pulumi.getter(name="updatedAt")
     def updated_at(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Time to record for the change in the Machine's `metadata_update` event. Defaults to now.
+        """
         return pulumi.get(self, "updated_at")
 
     @updated_at.setter
@@ -108,6 +113,9 @@ class MachinesMetadataKeyArgs:
     @_builtins.property
     @pulumi.getter
     def value(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Value to set. Must not be empty or whitespace only.
+        """
         return pulumi.get(self, "value")
 
     @value.setter
@@ -137,6 +145,8 @@ class MachinesMetadataKey(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] key: Metadata Key
         :param pulumi.Input[_builtins.str] machine_id: Machine ID
         :param pulumi.Input[Union['MachinesMetadataKeyQueryParamsArgs', 'MachinesMetadataKeyQueryParamsArgsDict', 'outputs.MachinesMetadataKeyQueryParams']] query_params: Query params to send with the API requests for this resource.
+        :param pulumi.Input[_builtins.str] updated_at: Time to record for the change in the Machine's `metadata_update` event. Defaults to now.
+        :param pulumi.Input[_builtins.str] value: Value to set. Must not be empty or whitespace only.
         """
         ...
     @overload
@@ -227,10 +237,16 @@ class MachinesMetadataKey(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter(name="updatedAt")
     def updated_at(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Time to record for the change in the Machine's `metadata_update` event. Defaults to now.
+        """
         return pulumi.get(self, "updated_at")
 
     @_builtins.property
     @pulumi.getter
     def value(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        Value to set. Must not be empty or whitespace only.
+        """
         return pulumi.get(self, "value")
 

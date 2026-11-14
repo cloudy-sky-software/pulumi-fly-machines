@@ -13,6 +13,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
     [FlyMachinesResourceType("fly-machines:apps/v1:MachinesSignal")]
     public partial class MachinesSignal : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// Always true.
+        /// </summary>
         [Output("ok")]
         public Output<bool?> Ok { get; private set; } = null!;
 
@@ -22,6 +25,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Output("queryParams")]
         public Output<Outputs.MachinesSignalQueryParams?> QueryParams { get; private set; } = null!;
 
+        /// <summary>
+        /// Signal to send to the Machine's main process.
+        /// </summary>
         [Output("signal")]
         public Output<CloudySkySoftware.Pulumi.FlyMachines.AppsV1.MachinesSignalSignal?> Signal { get; private set; } = null!;
 
@@ -89,6 +95,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         [Input("queryParams")]
         public Input<Inputs.MachinesSignalQueryParamsArgs>? QueryParams { get; set; }
 
+        /// <summary>
+        /// Signal to send to the Machine's main process.
+        /// </summary>
         [Input("signal")]
         public Input<CloudySkySoftware.Pulumi.FlyMachines.AppsV1.MachinesSignalSignal>? Signal { get; set; }
 

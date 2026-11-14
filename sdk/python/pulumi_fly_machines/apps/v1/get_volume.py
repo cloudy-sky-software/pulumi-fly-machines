@@ -99,116 +99,201 @@ class GetVolumeResult:
     @_builtins.property
     @pulumi.getter(name="attachedAllocId")
     def attached_alloc_id(self) -> Optional[_builtins.str]:
+        """
+        Always null.
+
+        Deprecated: volumes are no longer attached to Nomad allocations.
+        """
         return pulumi.get(self, "attached_alloc_id")
 
     @_builtins.property
     @pulumi.getter(name="attachedMachineId")
     def attached_machine_id(self) -> Optional[_builtins.str]:
+        """
+        ID of the Machine the volume is attached to, or null if it is not attached.
+        """
         return pulumi.get(self, "attached_machine_id")
 
     @_builtins.property
     @pulumi.getter(name="autoBackupEnabled")
     def auto_backup_enabled(self) -> Optional[_builtins.bool]:
+        """
+        Whether daily automatic snapshots are taken.
+        """
         return pulumi.get(self, "auto_backup_enabled")
 
     @_builtins.property
     @pulumi.getter(name="blockSize")
     def block_size(self) -> Optional[_builtins.int]:
+        """
+        Size of a filesystem block, in bytes. See `blocks`.
+        """
         return pulumi.get(self, "block_size")
 
     @_builtins.property
     @pulumi.getter
     def blocks(self) -> Optional[_builtins.int]:
+        """
+        Size of the volume's filesystem, in blocks of `block_size` bytes, as last reported by a
+        Machine that mounted the volume. 0 if never reported, if the host could not be reached,
+        or with `summary=true`.
+        """
         return pulumi.get(self, "blocks")
 
     @_builtins.property
     @pulumi.getter(name="blocksAvail")
     def blocks_avail(self) -> Optional[_builtins.int]:
+        """
+        Number of filesystem blocks available to unprivileged users. See `blocks`.
+        """
         return pulumi.get(self, "blocks_avail")
 
     @_builtins.property
     @pulumi.getter(name="blocksFree")
     def blocks_free(self) -> Optional[_builtins.int]:
+        """
+        Number of free filesystem blocks, including blocks reserved for the root user. See
+        `blocks`.
+        """
         return pulumi.get(self, "blocks_free")
 
     @_builtins.property
     @pulumi.getter(name="bytesTotal")
     def bytes_total(self) -> Optional[_builtins.int]:
+        """
+        Size of the volume, in bytes. 0 if the host could not be reached or with `summary=true`.
+        """
         return pulumi.get(self, "bytes_total")
 
     @_builtins.property
     @pulumi.getter(name="bytesUsed")
     def bytes_used(self) -> Optional[_builtins.int]:
+        """
+        Bytes of storage the volume occupies on its host. Volumes are thinly provisioned, so this
+        grows as blocks are written and does not shrink when files are deleted. It is not the
+        filesystem's usage; use `blocks` and `blocks_free` for that. 0 if the host could not be
+        reached or with `summary=true`.
+        """
         return pulumi.get(self, "bytes_used")
 
     @_builtins.property
     @pulumi.getter(name="createdAt")
     def created_at(self) -> Optional[_builtins.str]:
+        """
+        When the volume was created.
+        """
         return pulumi.get(self, "created_at")
 
     @_builtins.property
     @pulumi.getter
     def encrypted(self) -> Optional[_builtins.bool]:
+        """
+        Whether the volume is encrypted at rest.
+        """
         return pulumi.get(self, "encrypted")
 
     @_builtins.property
     @pulumi.getter
     def fstype(self) -> Optional[_builtins.str]:
+        """
+        Filesystem the volume was formatted with: `ext4`, or `raw` for an unformatted block
+        device.
+        """
         return pulumi.get(self, "fstype")
 
     @_builtins.property
     @pulumi.getter(name="hostFeatures")
     def host_features(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        Features of the volume's host. Only returned when the request sets the
+        `fly-include-host-features: true` header.
+        """
         return pulumi.get(self, "host_features")
 
     @_builtins.property
     @pulumi.getter(name="hostStatus")
     def host_status(self) -> Optional['VolumeHostStatus']:
+        """
+        Whether Fly.io could reach the volume's host: `ok` if it could, `unreachable` or
+        `unknown` if it could not, in which case host-reported fields are missing.
+        """
         return pulumi.get(self, "host_status")
 
     @_builtins.property
     @pulumi.getter
     def id(self) -> Optional[_builtins.str]:
+        """
+        Unique ID of the volume, such as `vol_1234567890abcdef`.
+        """
         return pulumi.get(self, "id")
 
     @_builtins.property
     @pulumi.getter
     def name(self) -> Optional[_builtins.str]:
+        """
+        Name of the volume. Several volumes of an app can share a name.
+        """
         return pulumi.get(self, "name")
 
     @_builtins.property
     @pulumi.getter
     def region(self) -> Optional[_builtins.str]:
+        """
+        Code of the region the volume is in.
+        """
         return pulumi.get(self, "region")
 
     @_builtins.property
     @pulumi.getter(name="requiredHostFeatures")
     def required_host_features(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        Host features the volume's host was required to have; see `compute.required_host_features`
+        in the create request.
+        """
         return pulumi.get(self, "required_host_features")
 
     @_builtins.property
     @pulumi.getter(name="sizeGb")
     def size_gb(self) -> Optional[_builtins.int]:
+        """
+        Size of the volume, in GiB.
+        """
         return pulumi.get(self, "size_gb")
 
     @_builtins.property
     @pulumi.getter(name="snapshotRetention")
     def snapshot_retention(self) -> Optional[_builtins.int]:
+        """
+        Number of days snapshots of the volume are kept.
+        """
         return pulumi.get(self, "snapshot_retention")
 
     @_builtins.property
     @pulumi.getter
     def state(self) -> Optional[_builtins.str]:
+        """
+        State of the volume, such as `creating`, `created`, `extending`, `restoring`,
+        `hydrating`, `scheduling_destroy`, `pending_destroy`, `destroying`, `destroyed`, or
+        `failed`.
+        """
         return pulumi.get(self, "state")
 
     @_builtins.property
     @pulumi.getter
     def type(self) -> Optional['VolumeType']:
+        """
+        Kind of volume: `local` for regular volumes, or `cache` for volumes that hold
+        disposable data and support neither snapshots nor restores.
+        """
         return pulumi.get(self, "type")
 
     @_builtins.property
     @pulumi.getter
     def zone(self) -> Optional[_builtins.str]:
+        """
+        Identifies the host the volume is on. Volumes with different zones are on different
+        hosts.
+        """
         return pulumi.get(self, "zone")
 
 

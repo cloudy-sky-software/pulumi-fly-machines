@@ -14,14 +14,41 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.PlatformV1.Outputs
     [OutputType]
     public sealed class MainRegionRow
     {
+        /// <summary>
+        /// Region code, such as `iad`, used to select the region in other requests.
+        /// </summary>
         public readonly string? Code;
+        /// <summary>
+        /// Whether the region is deprecated. Avoid creating new resources in it.
+        /// </summary>
         public readonly bool? Deprecated;
+        /// <summary>
+        /// Whether the region has a WireGuard gateway that private network peers can connect to.
+        /// </summary>
         public readonly bool? GatewayAvailable;
-        public readonly string? GeoRegion;
+        /// <summary>
+        /// Geographic area the region belongs to.
+        /// </summary>
+        public readonly CloudySkySoftware.Pulumi.FlyMachines.PlatformV1.MainRegionRowGeoRegion? GeoRegion;
+        /// <summary>
+        /// Latitude of the region's location.
+        /// </summary>
         public readonly double? Latitude;
+        /// <summary>
+        /// Longitude of the region's location.
+        /// </summary>
         public readonly double? Longitude;
+        /// <summary>
+        /// Whether Managed Postgres clusters can be created in the region.
+        /// </summary>
         public readonly bool? MpgAvailable;
+        /// <summary>
+        /// Human-readable name of the region, such as `Ashburn, Virginia (US)`.
+        /// </summary>
         public readonly string? Name;
+        /// <summary>
+        /// Whether only organizations on a paid plan can use the region.
+        /// </summary>
         public readonly bool? RequiresPaidPlan;
 
         [OutputConstructor]
@@ -32,7 +59,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.PlatformV1.Outputs
 
             bool? gatewayAvailable,
 
-            string? geoRegion,
+            CloudySkySoftware.Pulumi.FlyMachines.PlatformV1.MainRegionRowGeoRegion? geoRegion,
 
             double? latitude,
 

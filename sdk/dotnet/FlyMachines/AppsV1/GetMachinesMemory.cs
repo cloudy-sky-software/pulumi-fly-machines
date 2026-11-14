@@ -79,7 +79,15 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
     [OutputType]
     public sealed class GetMachinesMemoryResult
     {
+        /// <summary>
+        /// Highest limit, in MiB, that the Machine could currently be raised to: its configured
+        /// memory (`guest.max_memory_mb` if set, else `guest.memory_mb`), capped by the host's free
+        /// memory.
+        /// </summary>
         public readonly int? AvailableMb;
+        /// <summary>
+        /// Memory, in MiB, the guest can currently use.
+        /// </summary>
         public readonly int? LimitMb;
 
         [OutputConstructor]

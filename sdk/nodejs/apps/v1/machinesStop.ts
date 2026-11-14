@@ -44,12 +44,23 @@ export class MachinesStop extends pulumi.CustomResource {
         return obj['__pulumiType'] === MachinesStop.__pulumiType;
     }
 
+    /**
+     * Always true.
+     */
     declare public /*out*/ readonly ok: pulumi.Output<boolean | undefined>;
     /**
      * Query params to send with the API requests for this resource.
      */
     declare public readonly queryParams: pulumi.Output<outputs.apps.v1.MachinesStopQueryParams | undefined>;
+    /**
+     * Signal to send to the Machine's main process. Defaults to `config.stop_config.signal`, or
+     * SIGINT.
+     */
     declare public readonly signal: pulumi.Output<enums.apps.v1.Signal | undefined>;
+    /**
+     * How long to wait for the Machine to exit after sending `signal` before killing it, as a
+     * Go duration string. Defaults to `config.stop_config.timeout`, or 5s.
+     */
     declare public readonly timeout: pulumi.Output<string | undefined>;
 
     /**
@@ -96,6 +107,14 @@ export interface MachinesStopArgs {
      * Query params to send with the API requests for this resource.
      */
     queryParams?: pulumi.Input<inputs.apps.v1.MachinesStopQueryParamsArgs | undefined>;
+    /**
+     * Signal to send to the Machine's main process. Defaults to `config.stop_config.signal`, or
+     * SIGINT.
+     */
     signal?: pulumi.Input<enums.apps.v1.Signal | undefined>;
+    /**
+     * How long to wait for the Machine to exit after sending `signal` before killing it, as a
+     * Go duration string. Defaults to `config.stop_config.timeout`, or 5s.
+     */
     timeout?: pulumi.Input<string | undefined>;
 }

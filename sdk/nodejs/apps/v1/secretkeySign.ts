@@ -44,12 +44,18 @@ export class SecretkeySign extends pulumi.CustomResource {
         return obj['__pulumiType'] === SecretkeySign.__pulumiType;
     }
 
-    declare public readonly plaintext: pulumi.Output<number[] | undefined>;
+    /**
+     * Data to sign, base64-encoded.
+     */
+    declare public readonly plaintext: pulumi.Output<string | undefined>;
     /**
      * Query params to send with the API requests for this resource.
      */
     declare public readonly queryParams: pulumi.Output<outputs.apps.v1.SecretkeySignQueryParams | undefined>;
-    declare public /*out*/ readonly signature: pulumi.Output<number[] | undefined>;
+    /**
+     * Signature or MAC of the data, base64-encoded.
+     */
+    declare public /*out*/ readonly signature: pulumi.Output<string | undefined>;
 
     /**
      * Create a SecretkeySign resource with the given unique name, arguments, and options.
@@ -85,7 +91,10 @@ export interface SecretkeySignArgs {
      * Fly App Name
      */
     appName?: pulumi.Input<string | undefined>;
-    plaintext?: pulumi.Input<pulumi.Input<number>[] | undefined>;
+    /**
+     * Data to sign, base64-encoded.
+     */
+    plaintext?: pulumi.Input<string | undefined>;
     /**
      * Query params to send with the API requests for this resource.
      */

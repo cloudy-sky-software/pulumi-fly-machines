@@ -17,18 +17,54 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
     [OutputType]
     public sealed class FlyMachineConfigGuest
     {
+        /// <summary>
+        /// Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.
+        /// Defaults to shared when `guest` is omitted
+        /// </summary>
         public readonly string? CpuKind;
+        /// <summary>
+        /// Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for
+        /// performance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is
+        /// omitted
+        /// </summary>
         public readonly int? Cpus;
+        /// <summary>
+        /// No longer supported. Requests that set it are rejected
+        /// </summary>
         public readonly string? GpuKind;
+        /// <summary>
+        /// No longer supported. Requests that set it are rejected
+        /// </summary>
         public readonly int? Gpus;
+        /// <summary>
+        /// Place the Machine on hosts dedicated to the organization under this ID. Only available to
+        /// organizations with dedicated hosts
+        /// </summary>
         public readonly string? HostDedicationId;
+        /// <summary>
+        /// Extra arguments appended to the guest kernel command line
+        /// </summary>
         public readonly ImmutableArray<string> KernelArgs;
+        /// <summary>
+        /// Memory in MiB that the Machine's memory limit can later be raised to without a restart, using
+        /// the memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine
+        /// starts with a limit of memory_mb
+        /// </summary>
         public readonly int? MaxMemoryMb;
+        /// <summary>
+        /// Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and
+        /// between 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when
+        /// `guest` is omitted
+        /// </summary>
         public readonly int? MemoryMb;
         /// <summary>
         /// Deprecated: use MachineConfig.Rootfs instead
         /// </summary>
         public readonly CloudySkySoftware.Pulumi.FlyMachines.AppsV1.FlyMachineGuestPersistRootfs? PersistRootfs;
+        /// <summary>
+        /// Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made
+        /// of lowercase letters, digits and dashes. Each feature must be enabled for the organization
+        /// </summary>
         public readonly ImmutableArray<string> RequiredHostFeatures;
 
         [OutputConstructor]

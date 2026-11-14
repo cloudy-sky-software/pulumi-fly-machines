@@ -44,6 +44,9 @@ export class TokensAuthenticate extends pulumi.CustomResource {
         return obj['__pulumiType'] === TokensAuthenticate.__pulumiType;
     }
 
+    /**
+     * Value of the Authorization header to verify, e.g. `FlyV1 fm2_...`.
+     */
     declare public readonly header: pulumi.Output<string | undefined>;
     /**
      * Query params to send with the API requests for this resource.
@@ -76,6 +79,9 @@ export class TokensAuthenticate extends pulumi.CustomResource {
  * The set of arguments for constructing a TokensAuthenticate resource.
  */
 export interface TokensAuthenticateArgs {
+    /**
+     * Value of the Authorization header to verify, e.g. `FlyV1 fm2_...`.
+     */
     header?: pulumi.Input<string | undefined>;
     /**
      * Query params to send with the API requests for this resource.

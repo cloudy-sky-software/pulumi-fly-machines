@@ -27,6 +27,9 @@ export interface ListAppIPAssignmentsArgs {
 }
 
 export interface ListAppIPAssignmentsResult {
+    /**
+     * The app's IP addresses, including its shared IPv4 address and egress addresses.
+     */
     readonly ips?: outputs.apps.v1.IPAssignment[];
 }
 export function listAppIPAssignmentsOutput(args: ListAppIPAssignmentsOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<ListAppIPAssignmentsResult> {

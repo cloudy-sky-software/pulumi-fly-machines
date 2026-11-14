@@ -14,6 +14,7 @@ import (
 type MachinesSuspend struct {
 	pulumi.CustomResourceState
 
+	// Always true.
 	Ok pulumi.BoolPtrOutput `pulumi:"ok"`
 	// Query params to send with the API requests for this resource.
 	QueryParams MachinesSuspendQueryParamsPtrOutput `pulumi:"queryParams"`
@@ -120,6 +121,7 @@ func (o MachinesSuspendOutput) ToMachinesSuspendOutputWithContext(ctx context.Co
 	return o
 }
 
+// Always true.
 func (o MachinesSuspendOutput) Ok() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *MachinesSuspend) pulumi.BoolPtrOutput { return v.Ok }).(pulumi.BoolPtrOutput)
 }

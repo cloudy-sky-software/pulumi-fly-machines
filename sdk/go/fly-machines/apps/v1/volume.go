@@ -14,38 +14,87 @@ import (
 type Volume struct {
 	pulumi.CustomResourceState
 
-	AttachedAllocId   pulumi.StringPtrOutput   `pulumi:"attachedAllocId"`
-	AttachedMachineId pulumi.StringPtrOutput   `pulumi:"attachedMachineId"`
-	AutoBackupEnabled pulumi.BoolPtrOutput     `pulumi:"autoBackupEnabled"`
-	BlockSize         pulumi.IntPtrOutput      `pulumi:"blockSize"`
-	Blocks            pulumi.IntPtrOutput      `pulumi:"blocks"`
-	BlocksAvail       pulumi.IntPtrOutput      `pulumi:"blocksAvail"`
-	BlocksFree        pulumi.IntPtrOutput      `pulumi:"blocksFree"`
-	BytesTotal        pulumi.IntPtrOutput      `pulumi:"bytesTotal"`
-	BytesUsed         pulumi.IntPtrOutput      `pulumi:"bytesUsed"`
-	Compute           FlyMachineGuestPtrOutput `pulumi:"compute"`
-	ComputeImage      pulumi.StringPtrOutput   `pulumi:"computeImage"`
-	CreatedAt         pulumi.StringPtrOutput   `pulumi:"createdAt"`
-	Encrypted         pulumi.BoolPtrOutput     `pulumi:"encrypted"`
-	Fstype            pulumi.StringPtrOutput   `pulumi:"fstype"`
-	HostFeatures      pulumi.StringArrayOutput `pulumi:"hostFeatures"`
-	HostStatus        HostStatusPtrOutput      `pulumi:"hostStatus"`
-	Name              pulumi.StringPtrOutput   `pulumi:"name"`
+	// Always null.
+	//
+	// Deprecated: volumes are no longer attached to Nomad allocations.
+	AttachedAllocId pulumi.StringPtrOutput `pulumi:"attachedAllocId"`
+	// ID of the Machine the volume is attached to, or null if it is not attached.
+	AttachedMachineId pulumi.StringPtrOutput `pulumi:"attachedMachineId"`
+	// Whether daily automatic snapshots are taken.
+	AutoBackupEnabled pulumi.BoolPtrOutput `pulumi:"autoBackupEnabled"`
+	// Size of a filesystem block, in bytes. See `blocks`.
+	BlockSize pulumi.IntPtrOutput `pulumi:"blockSize"`
+	// Size of the volume's filesystem, in blocks of `block_size` bytes, as last reported by a
+	// Machine that mounted the volume. 0 if never reported, if the host could not be reached,
+	// or with `summary=true`.
+	Blocks pulumi.IntPtrOutput `pulumi:"blocks"`
+	// Number of filesystem blocks available to unprivileged users. See `blocks`.
+	BlocksAvail pulumi.IntPtrOutput `pulumi:"blocksAvail"`
+	// Number of free filesystem blocks, including blocks reserved for the root user. See
+	// `blocks`.
+	BlocksFree pulumi.IntPtrOutput `pulumi:"blocksFree"`
+	// Size of the volume, in bytes. 0 if the host could not be reached or with `summary=true`.
+	BytesTotal pulumi.IntPtrOutput `pulumi:"bytesTotal"`
+	// Bytes of storage the volume occupies on its host. Volumes are thinly provisioned, so this
+	// grows as blocks are written and does not shrink when files are deleted. It is not the
+	// filesystem's usage; use `blocks` and `blocks_free` for that. 0 if the host could not be
+	// reached or with `summary=true`.
+	BytesUsed pulumi.IntPtrOutput `pulumi:"bytesUsed"`
+	// Requirements of the Machine that will use the volume, so that the volume is placed on a
+	// host that can run it. Uses `cpus`, `memory_mb`, `cpu_kind`, `host_dedication_id`, and
+	// `required_host_features`.
+	Compute ComputePtrOutput `pulumi:"compute"`
+	// Ignored.
+	ComputeImage pulumi.StringPtrOutput `pulumi:"computeImage"`
+	// When the volume was created.
+	CreatedAt pulumi.StringPtrOutput `pulumi:"createdAt"`
+	// Whether the volume is encrypted at rest.
+	Encrypted pulumi.BoolPtrOutput `pulumi:"encrypted"`
+	// Filesystem the volume was formatted with: `ext4`, or `raw` for an unformatted block
+	// device.
+	Fstype pulumi.StringPtrOutput `pulumi:"fstype"`
+	// Features of the volume's host. Only returned when the request sets the
+	// `fly-include-host-features: true` header.
+	HostFeatures pulumi.StringArrayOutput `pulumi:"hostFeatures"`
+	// Whether Fly.io could reach the volume's host: `ok` if it could, `unreachable` or
+	// `unknown` if it could not, in which case host-reported fields are missing.
+	HostStatus HostStatusPtrOutput `pulumi:"hostStatus"`
+	// Name of the volume. Several volumes of an app can share a name.
+	Name pulumi.StringPtrOutput `pulumi:"name"`
 	// Query params to send with the API requests for this resource.
-	QueryParams          VolumeQueryParamsPtrOutput `pulumi:"queryParams"`
-	Region               pulumi.StringPtrOutput     `pulumi:"region"`
-	RequireUniqueZone    pulumi.BoolPtrOutput       `pulumi:"requireUniqueZone"`
-	RequiredHostFeatures pulumi.StringArrayOutput   `pulumi:"requiredHostFeatures"`
-	SizeGb               pulumi.IntPtrOutput        `pulumi:"sizeGb"`
-	// restore from snapshot
-	SnapshotId        pulumi.StringPtrOutput `pulumi:"snapshotId"`
-	SnapshotRetention pulumi.IntPtrOutput    `pulumi:"snapshotRetention"`
-	// fork from remote volume
-	SourceVolumeId    pulumi.StringPtrOutput `pulumi:"sourceVolumeId"`
-	State             pulumi.StringPtrOutput `pulumi:"state"`
-	Type              TypePtrOutput          `pulumi:"type"`
-	UniqueZoneAppWide pulumi.BoolPtrOutput   `pulumi:"uniqueZoneAppWide"`
-	Zone              pulumi.StringPtrOutput `pulumi:"zone"`
+	QueryParams VolumeQueryParamsPtrOutput `pulumi:"queryParams"`
+	// Code of the region the volume is in.
+	Region pulumi.StringPtrOutput `pulumi:"region"`
+	// Place the volume on a host that has no other volume of the app with the same name in the
+	// region, so that Machines using these volumes don't share a host. Fails with 400 if no
+	// such host is available.
+	RequireUniqueZone pulumi.BoolPtrOutput `pulumi:"requireUniqueZone"`
+	// Host features the volume's host was required to have; see `compute.required_host_features`
+	// in the create request.
+	RequiredHostFeatures pulumi.StringArrayOutput `pulumi:"requiredHostFeatures"`
+	// Size of the volume, in GiB.
+	SizeGb pulumi.IntPtrOutput `pulumi:"sizeGb"`
+	// ID of a snapshot to restore into the new volume. Mutually exclusive with
+	// `source_volume_id`.
+	SnapshotId pulumi.StringPtrOutput `pulumi:"snapshotId"`
+	// Number of days snapshots of the volume are kept.
+	SnapshotRetention pulumi.IntPtrOutput `pulumi:"snapshotRetention"`
+	// ID of a volume to fork: the new volume starts as a copy of it. The volume must belong to
+	// an app in the same organization.
+	SourceVolumeId pulumi.StringPtrOutput `pulumi:"sourceVolumeId"`
+	// State of the volume, such as `creating`, `created`, `extending`, `restoring`,
+	// `hydrating`, `scheduling_destroy`, `pending_destroy`, `destroying`, `destroyed`, or
+	// `failed`.
+	State pulumi.StringPtrOutput `pulumi:"state"`
+	// Kind of volume: `local` for regular volumes, or `cache` for volumes that hold
+	// disposable data and support neither snapshots nor restores.
+	Type TypePtrOutput `pulumi:"type"`
+	// With `require_unique_zone`, avoid hosts with any volume of the app in the region, not
+	// just volumes with the same name.
+	UniqueZoneAppWide pulumi.BoolPtrOutput `pulumi:"uniqueZoneAppWide"`
+	// Identifies the host the volume is on. Volumes with different zones are on different
+	// hosts.
+	Zone pulumi.StringPtrOutput `pulumi:"zone"`
 }
 
 // NewVolume registers a new resource with the given unique name, arguments, and options.
@@ -96,47 +145,91 @@ func VolumeExists(ctx *pulumi.Context,
 type volumeArgs struct {
 	// Fly App Name
 	AppName *string `pulumi:"appName"`
-	// enable scheduled automatic snapshots. Defaults to `true`
-	AutoBackupEnabled *bool            `pulumi:"autoBackupEnabled"`
-	Compute           *FlyMachineGuest `pulumi:"compute"`
-	ComputeImage      *string          `pulumi:"computeImage"`
-	Encrypted         *bool            `pulumi:"encrypted"`
-	Fstype            *string          `pulumi:"fstype"`
-	Name              *string          `pulumi:"name"`
+	// Take daily automatic snapshots of the volume. Defaults to `true`.
+	AutoBackupEnabled *bool `pulumi:"autoBackupEnabled"`
+	// Requirements of the Machine that will use the volume, so that the volume is placed on a
+	// host that can run it. Uses `cpus`, `memory_mb`, `cpu_kind`, `host_dedication_id`, and
+	// `required_host_features`.
+	Compute *Compute `pulumi:"compute"`
+	// Ignored.
+	ComputeImage *string `pulumi:"computeImage"`
+	// Encrypt the volume at rest. Defaults to true. When forking, the source volume's setting
+	// is used.
+	Encrypted *bool `pulumi:"encrypted"`
+	// Filesystem to format the volume with: `ext4`, or `raw` for an unformatted block device.
+	Fstype *Fstype `pulumi:"fstype"`
+	// Name of the volume: at most 30 lowercase letters, digits, and underscores. Required.
+	Name *string `pulumi:"name"`
 	// Query params to send with the API requests for this resource.
-	QueryParams       *VolumeQueryParams `pulumi:"queryParams"`
-	Region            *string            `pulumi:"region"`
-	RequireUniqueZone *bool              `pulumi:"requireUniqueZone"`
-	SizeGb            *int               `pulumi:"sizeGb"`
-	// restore from snapshot
-	SnapshotId        *string `pulumi:"snapshotId"`
-	SnapshotRetention *int    `pulumi:"snapshotRetention"`
-	// fork from remote volume
-	SourceVolumeId    *string `pulumi:"sourceVolumeId"`
-	UniqueZoneAppWide *bool   `pulumi:"uniqueZoneAppWide"`
+	QueryParams *VolumeQueryParams `pulumi:"queryParams"`
+	// Region to create the volume in. Accepts the same values as the `region` of Create
+	// Machine. When forking, defaults to the source volume's region; otherwise defaults to the
+	// region of the API server handling the request.
+	Region *string `pulumi:"region"`
+	// Place the volume on a host that has no other volume of the app with the same name in the
+	// region, so that Machines using these volumes don't share a host. Fails with 400 if no
+	// such host is available.
+	RequireUniqueZone *bool `pulumi:"requireUniqueZone"`
+	// Size of the volume in GiB, from 1 to the organization's maximum (500 by default).
+	// Required unless forking, in which case it must be omitted and the source volume's size
+	// is used.
+	SizeGb *int `pulumi:"sizeGb"`
+	// ID of a snapshot to restore into the new volume. Mutually exclusive with
+	// `source_volume_id`.
+	SnapshotId *string `pulumi:"snapshotId"`
+	// Number of days to keep snapshots of the volume, from 1 to 60. Defaults to 5.
+	SnapshotRetention *int `pulumi:"snapshotRetention"`
+	// ID of a volume to fork: the new volume starts as a copy of it. The volume must belong to
+	// an app in the same organization.
+	SourceVolumeId *string `pulumi:"sourceVolumeId"`
+	// With `require_unique_zone`, avoid hosts with any volume of the app in the region, not
+	// just volumes with the same name.
+	UniqueZoneAppWide *bool `pulumi:"uniqueZoneAppWide"`
 }
 
 // The set of arguments for constructing a Volume resource.
 type VolumeArgs struct {
 	// Fly App Name
 	AppName pulumi.StringPtrInput
-	// enable scheduled automatic snapshots. Defaults to `true`
+	// Take daily automatic snapshots of the volume. Defaults to `true`.
 	AutoBackupEnabled pulumi.BoolPtrInput
-	Compute           FlyMachineGuestPtrInput
-	ComputeImage      pulumi.StringPtrInput
-	Encrypted         pulumi.BoolPtrInput
-	Fstype            pulumi.StringPtrInput
-	Name              pulumi.StringPtrInput
+	// Requirements of the Machine that will use the volume, so that the volume is placed on a
+	// host that can run it. Uses `cpus`, `memory_mb`, `cpu_kind`, `host_dedication_id`, and
+	// `required_host_features`.
+	Compute ComputePtrInput
+	// Ignored.
+	ComputeImage pulumi.StringPtrInput
+	// Encrypt the volume at rest. Defaults to true. When forking, the source volume's setting
+	// is used.
+	Encrypted pulumi.BoolPtrInput
+	// Filesystem to format the volume with: `ext4`, or `raw` for an unformatted block device.
+	Fstype FstypePtrInput
+	// Name of the volume: at most 30 lowercase letters, digits, and underscores. Required.
+	Name pulumi.StringPtrInput
 	// Query params to send with the API requests for this resource.
-	QueryParams       VolumeQueryParamsPtrInput
-	Region            pulumi.StringPtrInput
+	QueryParams VolumeQueryParamsPtrInput
+	// Region to create the volume in. Accepts the same values as the `region` of Create
+	// Machine. When forking, defaults to the source volume's region; otherwise defaults to the
+	// region of the API server handling the request.
+	Region pulumi.StringPtrInput
+	// Place the volume on a host that has no other volume of the app with the same name in the
+	// region, so that Machines using these volumes don't share a host. Fails with 400 if no
+	// such host is available.
 	RequireUniqueZone pulumi.BoolPtrInput
-	SizeGb            pulumi.IntPtrInput
-	// restore from snapshot
-	SnapshotId        pulumi.StringPtrInput
+	// Size of the volume in GiB, from 1 to the organization's maximum (500 by default).
+	// Required unless forking, in which case it must be omitted and the source volume's size
+	// is used.
+	SizeGb pulumi.IntPtrInput
+	// ID of a snapshot to restore into the new volume. Mutually exclusive with
+	// `source_volume_id`.
+	SnapshotId pulumi.StringPtrInput
+	// Number of days to keep snapshots of the volume, from 1 to 60. Defaults to 5.
 	SnapshotRetention pulumi.IntPtrInput
-	// fork from remote volume
-	SourceVolumeId    pulumi.StringPtrInput
+	// ID of a volume to fork: the new volume starts as a copy of it. The volume must belong to
+	// an app in the same organization.
+	SourceVolumeId pulumi.StringPtrInput
+	// With `require_unique_zone`, avoid hosts with any volume of the app in the region, not
+	// just volumes with the same name.
 	UniqueZoneAppWide pulumi.BoolPtrInput
 }
 
@@ -177,70 +270,100 @@ func (o VolumeOutput) ToVolumeOutputWithContext(ctx context.Context) VolumeOutpu
 	return o
 }
 
+// Always null.
+//
+// Deprecated: volumes are no longer attached to Nomad allocations.
 func (o VolumeOutput) AttachedAllocId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Volume) pulumi.StringPtrOutput { return v.AttachedAllocId }).(pulumi.StringPtrOutput)
 }
 
+// ID of the Machine the volume is attached to, or null if it is not attached.
 func (o VolumeOutput) AttachedMachineId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Volume) pulumi.StringPtrOutput { return v.AttachedMachineId }).(pulumi.StringPtrOutput)
 }
 
+// Whether daily automatic snapshots are taken.
 func (o VolumeOutput) AutoBackupEnabled() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Volume) pulumi.BoolPtrOutput { return v.AutoBackupEnabled }).(pulumi.BoolPtrOutput)
 }
 
+// Size of a filesystem block, in bytes. See `blocks`.
 func (o VolumeOutput) BlockSize() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Volume) pulumi.IntPtrOutput { return v.BlockSize }).(pulumi.IntPtrOutput)
 }
 
+// Size of the volume's filesystem, in blocks of `block_size` bytes, as last reported by a
+// Machine that mounted the volume. 0 if never reported, if the host could not be reached,
+// or with `summary=true`.
 func (o VolumeOutput) Blocks() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Volume) pulumi.IntPtrOutput { return v.Blocks }).(pulumi.IntPtrOutput)
 }
 
+// Number of filesystem blocks available to unprivileged users. See `blocks`.
 func (o VolumeOutput) BlocksAvail() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Volume) pulumi.IntPtrOutput { return v.BlocksAvail }).(pulumi.IntPtrOutput)
 }
 
+// Number of free filesystem blocks, including blocks reserved for the root user. See
+// `blocks`.
 func (o VolumeOutput) BlocksFree() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Volume) pulumi.IntPtrOutput { return v.BlocksFree }).(pulumi.IntPtrOutput)
 }
 
+// Size of the volume, in bytes. 0 if the host could not be reached or with `summary=true`.
 func (o VolumeOutput) BytesTotal() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Volume) pulumi.IntPtrOutput { return v.BytesTotal }).(pulumi.IntPtrOutput)
 }
 
+// Bytes of storage the volume occupies on its host. Volumes are thinly provisioned, so this
+// grows as blocks are written and does not shrink when files are deleted. It is not the
+// filesystem's usage; use `blocks` and `blocks_free` for that. 0 if the host could not be
+// reached or with `summary=true`.
 func (o VolumeOutput) BytesUsed() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Volume) pulumi.IntPtrOutput { return v.BytesUsed }).(pulumi.IntPtrOutput)
 }
 
-func (o VolumeOutput) Compute() FlyMachineGuestPtrOutput {
-	return o.ApplyT(func(v *Volume) FlyMachineGuestPtrOutput { return v.Compute }).(FlyMachineGuestPtrOutput)
+// Requirements of the Machine that will use the volume, so that the volume is placed on a
+// host that can run it. Uses `cpus`, `memory_mb`, `cpu_kind`, `host_dedication_id`, and
+// `required_host_features`.
+func (o VolumeOutput) Compute() ComputePtrOutput {
+	return o.ApplyT(func(v *Volume) ComputePtrOutput { return v.Compute }).(ComputePtrOutput)
 }
 
+// Ignored.
 func (o VolumeOutput) ComputeImage() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Volume) pulumi.StringPtrOutput { return v.ComputeImage }).(pulumi.StringPtrOutput)
 }
 
+// When the volume was created.
 func (o VolumeOutput) CreatedAt() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Volume) pulumi.StringPtrOutput { return v.CreatedAt }).(pulumi.StringPtrOutput)
 }
 
+// Whether the volume is encrypted at rest.
 func (o VolumeOutput) Encrypted() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Volume) pulumi.BoolPtrOutput { return v.Encrypted }).(pulumi.BoolPtrOutput)
 }
 
+// Filesystem the volume was formatted with: `ext4`, or `raw` for an unformatted block
+// device.
 func (o VolumeOutput) Fstype() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Volume) pulumi.StringPtrOutput { return v.Fstype }).(pulumi.StringPtrOutput)
 }
 
+// Features of the volume's host. Only returned when the request sets the
+// `fly-include-host-features: true` header.
 func (o VolumeOutput) HostFeatures() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Volume) pulumi.StringArrayOutput { return v.HostFeatures }).(pulumi.StringArrayOutput)
 }
 
+// Whether Fly.io could reach the volume's host: `ok` if it could, `unreachable` or
+// `unknown` if it could not, in which case host-reported fields are missing.
 func (o VolumeOutput) HostStatus() HostStatusPtrOutput {
 	return o.ApplyT(func(v *Volume) HostStatusPtrOutput { return v.HostStatus }).(HostStatusPtrOutput)
 }
 
+// Name of the volume. Several volumes of an app can share a name.
 func (o VolumeOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Volume) pulumi.StringPtrOutput { return v.Name }).(pulumi.StringPtrOutput)
 }
@@ -250,48 +373,67 @@ func (o VolumeOutput) QueryParams() VolumeQueryParamsPtrOutput {
 	return o.ApplyT(func(v *Volume) VolumeQueryParamsPtrOutput { return v.QueryParams }).(VolumeQueryParamsPtrOutput)
 }
 
+// Code of the region the volume is in.
 func (o VolumeOutput) Region() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Volume) pulumi.StringPtrOutput { return v.Region }).(pulumi.StringPtrOutput)
 }
 
+// Place the volume on a host that has no other volume of the app with the same name in the
+// region, so that Machines using these volumes don't share a host. Fails with 400 if no
+// such host is available.
 func (o VolumeOutput) RequireUniqueZone() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Volume) pulumi.BoolPtrOutput { return v.RequireUniqueZone }).(pulumi.BoolPtrOutput)
 }
 
+// Host features the volume's host was required to have; see `compute.required_host_features`
+// in the create request.
 func (o VolumeOutput) RequiredHostFeatures() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Volume) pulumi.StringArrayOutput { return v.RequiredHostFeatures }).(pulumi.StringArrayOutput)
 }
 
+// Size of the volume, in GiB.
 func (o VolumeOutput) SizeGb() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Volume) pulumi.IntPtrOutput { return v.SizeGb }).(pulumi.IntPtrOutput)
 }
 
-// restore from snapshot
+// ID of a snapshot to restore into the new volume. Mutually exclusive with
+// `source_volume_id`.
 func (o VolumeOutput) SnapshotId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Volume) pulumi.StringPtrOutput { return v.SnapshotId }).(pulumi.StringPtrOutput)
 }
 
+// Number of days snapshots of the volume are kept.
 func (o VolumeOutput) SnapshotRetention() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Volume) pulumi.IntPtrOutput { return v.SnapshotRetention }).(pulumi.IntPtrOutput)
 }
 
-// fork from remote volume
+// ID of a volume to fork: the new volume starts as a copy of it. The volume must belong to
+// an app in the same organization.
 func (o VolumeOutput) SourceVolumeId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Volume) pulumi.StringPtrOutput { return v.SourceVolumeId }).(pulumi.StringPtrOutput)
 }
 
+// State of the volume, such as `creating`, `created`, `extending`, `restoring`,
+// `hydrating`, `scheduling_destroy`, `pending_destroy`, `destroying`, `destroyed`, or
+// `failed`.
 func (o VolumeOutput) State() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Volume) pulumi.StringPtrOutput { return v.State }).(pulumi.StringPtrOutput)
 }
 
+// Kind of volume: `local` for regular volumes, or `cache` for volumes that hold
+// disposable data and support neither snapshots nor restores.
 func (o VolumeOutput) Type() TypePtrOutput {
 	return o.ApplyT(func(v *Volume) TypePtrOutput { return v.Type }).(TypePtrOutput)
 }
 
+// With `require_unique_zone`, avoid hosts with any volume of the app in the region, not
+// just volumes with the same name.
 func (o VolumeOutput) UniqueZoneAppWide() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Volume) pulumi.BoolPtrOutput { return v.UniqueZoneAppWide }).(pulumi.BoolPtrOutput)
 }
 
+// Identifies the host the volume is on. Volumes with different zones are on different
+// hosts.
 func (o VolumeOutput) Zone() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Volume) pulumi.StringPtrOutput { return v.Zone }).(pulumi.StringPtrOutput)
 }

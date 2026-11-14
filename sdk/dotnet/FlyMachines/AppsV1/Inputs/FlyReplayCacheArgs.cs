@@ -13,6 +13,9 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
 
     public sealed class FlyReplayCacheArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Let clients skip the cache by sending the `fly-replay-cache-control: skip` header
+        /// </summary>
         [Input("allowBypass")]
         public Input<bool>? AllowBypass { get; set; }
 
@@ -22,9 +25,16 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         [Input("name")]
         public Input<string>? Name { get; set; }
 
+        /// <summary>
+        /// Requests whose path starts with this prefix use the rule. May start with a hostname, e.g.
+        /// `example.com/api/*`
+        /// </summary>
         [Input("pathPrefix")]
         public Input<string>? PathPrefix { get; set; }
 
+        /// <summary>
+        /// How long a cached replay is used, in seconds
+        /// </summary>
         [Input("ttlSeconds")]
         public Input<int>? TtlSeconds { get; set; }
 
