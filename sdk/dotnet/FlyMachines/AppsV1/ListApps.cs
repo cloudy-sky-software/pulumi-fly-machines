@@ -65,12 +65,10 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1
         /// </summary>
         public readonly string? NextCursor;
         /// <summary>
-        /// The number of apps matching the request, across all pages. When
-        /// paginating, it is counted once when the first page is requested and not
-        /// updated afterwards, so it may differ slightly from the number of apps
-        /// returned: it excludes apps created later and includes apps deleted while
-        /// paginating. Apps created in the seconds before the first page may also be
-        /// counted but missing from the pages.
+        /// The number of matching apps across all pages. Organization-wide listings
+        /// retain the first page's count; scoped listings recount using the current
+        /// token's permissions. Snapshot bounds exclude newer apps, and replication
+        /// lag or deletion during traversal can make totals differ from rows seen.
         /// </summary>
         public readonly int? TotalApps;
 

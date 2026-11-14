@@ -2859,7 +2859,7 @@
                 },
                 "totalApps": {
                     "type": "integer",
-                    "description": "The number of apps matching the request, across all pages. When\npaginating, it is counted once when the first page is requested and not\nupdated afterwards, so it may differ slightly from the number of apps\nreturned: it excludes apps created later and includes apps deleted while\npaginating. Apps created in the seconds before the first page may also be\ncounted but missing from the pages."
+                    "description": "The number of matching apps across all pages. Organization-wide listings\nretain the first page's count; scoped listings recount using the current\ntoken's permissions. Snapshot bounds exclude newer apps, and replication\nlag or deletion during traversal can make totals differ from rows seen."
                 }
             },
             "type": "object"
