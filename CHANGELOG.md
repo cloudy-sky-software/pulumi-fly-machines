@@ -1,3 +1,10 @@
+## 0.0.19
+
+- Updated OpenAPI spec to the latest which brings
+  better description for resources and their properties.
+- New resource `PostgresDatabasesQuery` allows users
+  to execute a read-only query in their DB cluster.
+
 ## 0.0.18
 
 - Fixes read failure for resources that don't have
