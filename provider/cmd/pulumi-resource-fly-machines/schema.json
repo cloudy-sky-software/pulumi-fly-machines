@@ -114,6 +114,38 @@
             },
             "type": "object"
         },
+        "fly-machines:apps/v1:AppCertificatesAcmeDNSRequirementsAcmeChallenge": {
+            "description": "Record for DNS-01 validation.",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "Name of the CNAME record to create, such as `_acme-challenge.example.com`."
+                },
+                "target": {
+                    "type": "string",
+                    "description": "Value the CNAME record must point to."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:AppCertificatesAcmeDNSRequirementsOwnership": {
+            "description": "Record for proving ownership of the hostname.",
+            "properties": {
+                "appValue": {
+                    "type": "string",
+                    "description": "TXT record value that proves ownership for this app."
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the TXT record to create, such as `_fly-ownership.example.com`."
+                },
+                "orgValue": {
+                    "type": "string",
+                    "description": "TXT record value that proves ownership for every app in the organization."
+                }
+            },
+            "type": "object"
+        },
         "fly-machines:apps/v1:AppCertificatesAcmeDeleteQueryParams": {
             "description": "Query params for the API request.",
             "properties": {
@@ -123,6 +155,38 @@
                         "type": "string"
                     },
                     "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:AppCertificatesAcmeDnsRequirements": {
+            "description": "DNS records to create to point the hostname at the app and validate it.",
+            "properties": {
+                "a": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "IPv4 addresses the hostname's A records can point to: the app's global IPv4 addresses\nand its shared IPv4 address."
+                },
+                "aaaa": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "IPv6 addresses the hostname's AAAA records can point to: the app's global IPv6\naddresses."
+                },
+                "acmeChallenge": {
+                    "$ref": "#/types/fly-machines:apps/v1:AppCertificatesAcmeDNSRequirementsAcmeChallenge",
+                    "description": "Record for DNS-01 validation."
+                },
+                "cname": {
+                    "type": "string",
+                    "description": "Target the hostname can CNAME to instead of using A and AAAA records."
+                },
+                "ownership": {
+                    "$ref": "#/types/fly-machines:apps/v1:AppCertificatesAcmeDNSRequirementsOwnership",
+                    "description": "Record for proving ownership of the hostname."
                 }
             },
             "type": "object"
@@ -141,6 +205,28 @@
             },
             "type": "object"
         },
+        "fly-machines:apps/v1:AppCertificatesAcmeValidation": {
+            "description": "Which validation methods are currently possible.",
+            "properties": {
+                "alpnConfigured": {
+                    "type": "boolean",
+                    "description": "Whether the hostname points at the app, allowing TLS-ALPN-01 validation."
+                },
+                "dnsConfigured": {
+                    "type": "boolean",
+                    "description": "Whether the `_acme-challenge` CNAME record is set up, allowing DNS-01 validation."
+                },
+                "httpConfigured": {
+                    "type": "boolean",
+                    "description": "Whether the hostname points at the app, allowing HTTP-01 validation."
+                },
+                "ownershipTxtConfigured": {
+                    "type": "boolean",
+                    "description": "Whether the `_fly-ownership` TXT record is set up."
+                }
+            },
+            "type": "object"
+        },
         "fly-machines:apps/v1:AppCertificatesCheckCreateQueryParams": {
             "description": "Query params for the API request.",
             "properties": {
@@ -154,12 +240,98 @@
             },
             "type": "object"
         },
+        "fly-machines:apps/v1:AppCertificatesCheckDNSRequirementsAcmeChallenge": {
+            "description": "Record for DNS-01 validation.",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "Name of the CNAME record to create, such as `_acme-challenge.example.com`."
+                },
+                "target": {
+                    "type": "string",
+                    "description": "Value the CNAME record must point to."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:AppCertificatesCheckDNSRequirementsOwnership": {
+            "description": "Record for proving ownership of the hostname.",
+            "properties": {
+                "appValue": {
+                    "type": "string",
+                    "description": "TXT record value that proves ownership for this app."
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the TXT record to create, such as `_fly-ownership.example.com`."
+                },
+                "orgValue": {
+                    "type": "string",
+                    "description": "TXT record value that proves ownership for every app in the organization."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:AppCertificatesCheckDnsRequirements": {
+            "description": "DNS records to create to point the hostname at the app and validate it.",
+            "properties": {
+                "a": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "IPv4 addresses the hostname's A records can point to: the app's global IPv4 addresses\nand its shared IPv4 address."
+                },
+                "aaaa": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "IPv6 addresses the hostname's AAAA records can point to: the app's global IPv6\naddresses."
+                },
+                "acmeChallenge": {
+                    "$ref": "#/types/fly-machines:apps/v1:AppCertificatesCheckDNSRequirementsAcmeChallenge",
+                    "description": "Record for DNS-01 validation."
+                },
+                "cname": {
+                    "type": "string",
+                    "description": "Target the hostname can CNAME to instead of using A and AAAA records."
+                },
+                "ownership": {
+                    "$ref": "#/types/fly-machines:apps/v1:AppCertificatesCheckDNSRequirementsOwnership",
+                    "description": "Record for proving ownership of the hostname."
+                }
+            },
+            "type": "object"
+        },
         "fly-machines:apps/v1:AppCertificatesCheckQueryParams": {
             "description": "Query params for each of the operations of the resource.",
             "properties": {
                 "create": {
                     "$ref": "#/types/fly-machines:apps/v1:AppCertificatesCheckCreateQueryParams",
                     "description": "Query params for the create operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:AppCertificatesCheckValidation": {
+            "description": "Which validation methods are currently possible.",
+            "properties": {
+                "alpnConfigured": {
+                    "type": "boolean",
+                    "description": "Whether the hostname points at the app, allowing TLS-ALPN-01 validation."
+                },
+                "dnsConfigured": {
+                    "type": "boolean",
+                    "description": "Whether the `_acme-challenge` CNAME record is set up, allowing DNS-01 validation."
+                },
+                "httpConfigured": {
+                    "type": "boolean",
+                    "description": "Whether the hostname points at the app, allowing HTTP-01 validation."
+                },
+                "ownershipTxtConfigured": {
+                    "type": "boolean",
+                    "description": "Whether the `_fly-ownership` TXT record is set up."
                 }
             },
             "type": "object"
@@ -784,14 +956,14 @@
             "type": "object"
         },
         "fly-machines:apps/v1:Config": {
-            "description": "The Machine's configuration, as provided when it was created or last updated, with\n`metadata` and `mounts` reflecting their current values. Null when the host is not\nreachable (`host_status` is not `ok`) or `summary=true` was requested; see\n`incomplete_config`.",
+            "description": "An object defining the Machine configuration",
             "properties": {
                 "autoDestroy": {
                     "type": "boolean",
                     "description": "Optional boolean telling the Machine to destroy itself once it’s complete (default false)"
                 },
                 "cacheDrive": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigCacheDrive",
+                    "$ref": "#/types/fly-machines:apps/v1:MachineFlyMachineConfigCacheDrive",
                     "description": "Beta: a cache drive attached to the Machine. This field may be removed in the future"
                 },
                 "checks": {
@@ -813,7 +985,7 @@
                     "description": "Deprecated: use Service.Autostart instead"
                 },
                 "dns": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigDns",
+                    "$ref": "#/types/fly-machines:apps/v1:MachineFlyMachineConfigDns",
                     "description": "DNS settings for the Machine"
                 },
                 "env": {
@@ -831,7 +1003,7 @@
                     "description": "Files to write into the Machine, from either a raw value or an app secret"
                 },
                 "guest": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigGuest",
+                    "$ref": "#/types/fly-machines:apps/v1:MachineFlyMachineConfigGuest",
                     "description": "The resources (CPUs, memory, etc.) allocated to the Machine"
                 },
                 "image": {
@@ -839,7 +1011,7 @@
                     "description": "The docker image to run"
                 },
                 "init": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigInit",
+                    "$ref": "#/types/fly-machines:apps/v1:MachineFlyMachineConfigInit",
                     "description": "Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run"
                 },
                 "metadata": {
@@ -850,7 +1022,7 @@
                     "description": "Key/value pairs of Machine metadata. Fly.io uses metadata internally for routing, process groups, and clusters"
                 },
                 "metrics": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigMetrics",
+                    "$ref": "#/types/fly-machines:apps/v1:MachineFlyMachineConfigMetrics",
                     "description": "An optional metrics endpoint for Prometheus on Fly.io to scrape"
                 },
                 "mounts": {
@@ -868,11 +1040,11 @@
                     "description": "Multiple processes to run within this one Machine, all from the Machine's image. Unrelated to the\nprocess groups in fly.toml, which run on separate Machines. To run processes from different\nimages, use containers instead"
                 },
                 "restart": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigRestart",
+                    "$ref": "#/types/fly-machines:apps/v1:MachineFlyMachineConfigRestart",
                     "description": "Whether and how the Machine is restarted after its main process exits"
                 },
                 "rootfs": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigRootfs",
+                    "$ref": "#/types/fly-machines:apps/v1:MachineFlyMachineConfigRootfs",
                     "description": "Beta: the size of the Machine's root filesystem and whether it persists. This field may be\nremoved in the future"
                 },
                 "schedule": {
@@ -891,7 +1063,7 @@
                     "description": "Deprecated: use Guest instead"
                 },
                 "spot": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigSpot",
+                    "$ref": "#/types/fly-machines:apps/v1:MachineFlyMachineConfigSpot",
                     "description": "Spot pricing settings for the Machine"
                 },
                 "standbys": {
@@ -909,7 +1081,7 @@
                     "description": "Static files to serve under a URL prefix. Fly Proxy routes matching requests to a file server\ninside the Machine, bypassing your application's own process; the Machine must be running. The\nfiles are read either from a path inside the Machine or from a Tigris bucket that belongs to the\napp; no bucket is created for you"
                 },
                 "stopConfig": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigStopConfig",
+                    "$ref": "#/types/fly-machines:apps/v1:MachineFlyMachineConfigStopConfig",
                     "description": "How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown"
                 }
             },
@@ -997,23 +1169,15 @@
             "properties": {
                 "description": {
                     "type": "string",
-                    "description": "Description or reason for the lease."
+                    "description": "Description given when the lease was acquired."
                 },
                 "expiresAt": {
                     "type": "integer",
                     "description": "When the lease expires, in Unix seconds."
                 },
-                "nonce": {
-                    "type": "string",
-                    "description": "Unique ID generated for the lease. Pass it in the `fly-machine-lease-nonce` header to\nact on the leased Machine, refresh the lease, or release it."
-                },
                 "owner": {
                     "type": "string",
                     "description": "Email address of the user who acquired the lease."
-                },
-                "version": {
-                    "type": "string",
-                    "description": "ID of the Machine's version at the time of the request."
                 }
             },
             "type": "object"
@@ -2603,7 +2767,7 @@
                     "description": "Optional boolean telling the Machine to destroy itself once it’s complete (default false)"
                 },
                 "cacheDrive": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigCacheDrive",
+                    "$ref": "#/types/fly-machines:apps/v1:MachineFlyMachineConfigCacheDrive",
                     "description": "Beta: a cache drive attached to the Machine. This field may be removed in the future"
                 },
                 "checks": {
@@ -2625,7 +2789,7 @@
                     "description": "Deprecated: use Service.Autostart instead"
                 },
                 "dns": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigDns",
+                    "$ref": "#/types/fly-machines:apps/v1:MachineFlyMachineConfigDns",
                     "description": "DNS settings for the Machine"
                 },
                 "env": {
@@ -2643,7 +2807,7 @@
                     "description": "Files to write into the Machine, from either a raw value or an app secret"
                 },
                 "guest": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigGuest",
+                    "$ref": "#/types/fly-machines:apps/v1:MachineFlyMachineConfigGuest",
                     "description": "The resources (CPUs, memory, etc.) allocated to the Machine"
                 },
                 "image": {
@@ -2651,7 +2815,7 @@
                     "description": "The docker image to run"
                 },
                 "init": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigInit",
+                    "$ref": "#/types/fly-machines:apps/v1:MachineFlyMachineConfigInit",
                     "description": "Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run"
                 },
                 "metadata": {
@@ -2662,7 +2826,7 @@
                     "description": "Key/value pairs of Machine metadata. Fly.io uses metadata internally for routing, process groups, and clusters"
                 },
                 "metrics": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigMetrics",
+                    "$ref": "#/types/fly-machines:apps/v1:MachineFlyMachineConfigMetrics",
                     "description": "An optional metrics endpoint for Prometheus on Fly.io to scrape"
                 },
                 "mounts": {
@@ -2680,11 +2844,11 @@
                     "description": "Multiple processes to run within this one Machine, all from the Machine's image. Unrelated to the\nprocess groups in fly.toml, which run on separate Machines. To run processes from different\nimages, use containers instead"
                 },
                 "restart": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigRestart",
+                    "$ref": "#/types/fly-machines:apps/v1:MachineFlyMachineConfigRestart",
                     "description": "Whether and how the Machine is restarted after its main process exits"
                 },
                 "rootfs": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigRootfs",
+                    "$ref": "#/types/fly-machines:apps/v1:MachineFlyMachineConfigRootfs",
                     "description": "Beta: the size of the Machine's root filesystem and whether it persists. This field may be\nremoved in the future"
                 },
                 "schedule": {
@@ -2703,7 +2867,7 @@
                     "description": "Deprecated: use Guest instead"
                 },
                 "spot": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigSpot",
+                    "$ref": "#/types/fly-machines:apps/v1:MachineFlyMachineConfigSpot",
                     "description": "Spot pricing settings for the Machine"
                 },
                 "standbys": {
@@ -2721,7 +2885,7 @@
                     "description": "Static files to serve under a URL prefix. Fly Proxy routes matching requests to a file server\ninside the Machine, bypassing your application's own process; the Machine must be running. The\nfiles are read either from a path inside the Machine or from a Tigris bucket that belongs to the\napp; no bucket is created for you"
                 },
                 "stopConfig": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigStopConfig",
+                    "$ref": "#/types/fly-machines:apps/v1:MachineFlyMachineConfigStopConfig",
                     "description": "How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown"
                 }
             },
@@ -2772,6 +2936,24 @@
                 }
             ]
         },
+        "fly-machines:apps/v1:Lease": {
+            "description": "The lease currently held on the Machine. Only returned when `include_leases=true`\nwas requested and a lease is held.",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "Description given when the lease was acquired."
+                },
+                "expiresAt": {
+                    "type": "integer",
+                    "description": "When the lease expires, in Unix seconds."
+                },
+                "owner": {
+                    "type": "string",
+                    "description": "Email address of the user who acquired the lease."
+                }
+            },
+            "type": "object"
+        },
         "fly-machines:apps/v1:LeaseResponse": {
             "properties": {
                 "data": {
@@ -2790,23 +2972,15 @@
             "properties": {
                 "description": {
                     "type": "string",
-                    "description": "Description or reason for the lease."
+                    "description": "Description given when the lease was acquired."
                 },
                 "expiresAt": {
                     "type": "integer",
                     "description": "When the lease expires, in Unix seconds."
                 },
-                "nonce": {
-                    "type": "string",
-                    "description": "Unique ID generated for the lease. Pass it in the `fly-machine-lease-nonce` header to\nact on the leased Machine, refresh the lease, or release it."
-                },
                 "owner": {
                     "type": "string",
                     "description": "Email address of the user who acquired the lease."
-                },
-                "version": {
-                    "type": "string",
-                    "description": "ID of the Machine's version at the time of the request."
                 }
             },
             "type": "object"
@@ -3264,7 +3438,7 @@
                     "description": "Optional boolean telling the Machine to destroy itself once it’s complete (default false)"
                 },
                 "cacheDrive": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigCacheDrive",
+                    "$ref": "#/types/fly-machines:apps/v1:MachineFlyMachineConfigCacheDrive",
                     "description": "Beta: a cache drive attached to the Machine. This field may be removed in the future"
                 },
                 "checks": {
@@ -3286,7 +3460,7 @@
                     "description": "Deprecated: use Service.Autostart instead"
                 },
                 "dns": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigDns",
+                    "$ref": "#/types/fly-machines:apps/v1:MachineFlyMachineConfigDns",
                     "description": "DNS settings for the Machine"
                 },
                 "env": {
@@ -3304,7 +3478,7 @@
                     "description": "Files to write into the Machine, from either a raw value or an app secret"
                 },
                 "guest": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigGuest",
+                    "$ref": "#/types/fly-machines:apps/v1:MachineFlyMachineConfigGuest",
                     "description": "The resources (CPUs, memory, etc.) allocated to the Machine"
                 },
                 "image": {
@@ -3312,7 +3486,7 @@
                     "description": "The docker image to run"
                 },
                 "init": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigInit",
+                    "$ref": "#/types/fly-machines:apps/v1:MachineFlyMachineConfigInit",
                     "description": "Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run"
                 },
                 "metadata": {
@@ -3323,7 +3497,7 @@
                     "description": "Key/value pairs of Machine metadata. Fly.io uses metadata internally for routing, process groups, and clusters"
                 },
                 "metrics": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigMetrics",
+                    "$ref": "#/types/fly-machines:apps/v1:MachineFlyMachineConfigMetrics",
                     "description": "An optional metrics endpoint for Prometheus on Fly.io to scrape"
                 },
                 "mounts": {
@@ -3341,11 +3515,11 @@
                     "description": "Multiple processes to run within this one Machine, all from the Machine's image. Unrelated to the\nprocess groups in fly.toml, which run on separate Machines. To run processes from different\nimages, use containers instead"
                 },
                 "restart": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigRestart",
+                    "$ref": "#/types/fly-machines:apps/v1:MachineFlyMachineConfigRestart",
                     "description": "Whether and how the Machine is restarted after its main process exits"
                 },
                 "rootfs": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigRootfs",
+                    "$ref": "#/types/fly-machines:apps/v1:MachineFlyMachineConfigRootfs",
                     "description": "Beta: the size of the Machine's root filesystem and whether it persists. This field may be\nremoved in the future"
                 },
                 "schedule": {
@@ -3364,7 +3538,7 @@
                     "description": "Deprecated: use Guest instead"
                 },
                 "spot": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigSpot",
+                    "$ref": "#/types/fly-machines:apps/v1:MachineFlyMachineConfigSpot",
                     "description": "Spot pricing settings for the Machine"
                 },
                 "standbys": {
@@ -3382,7 +3556,7 @@
                     "description": "Static files to serve under a URL prefix. Fly Proxy routes matching requests to a file server\ninside the Machine, bypassing your application's own process; the Machine must be running. The\nfiles are read either from a path inside the Machine or from a Tigris bucket that belongs to the\napp; no bucket is created for you"
                 },
                 "stopConfig": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigStopConfig",
+                    "$ref": "#/types/fly-machines:apps/v1:MachineFlyMachineConfigStopConfig",
                     "description": "How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown"
                 }
             },
@@ -3443,6 +3617,230 @@
                 "type": {
                     "type": "string",
                     "description": "What happened, such as `launch`, `start`, `stop`, `exit`, `restart`, `update`,\n`suspension`, `cancel_suspension`, `migration`, `metadata_update`, `archive`, or\n`destroy`."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachineFlyMachineConfigCacheDrive": {
+            "description": "Beta: a cache drive attached to the Machine. This field may be removed in the future",
+            "properties": {
+                "path": {
+                    "type": "string",
+                    "description": "Optional absolute guest mount path. When set, the device is formatted as ext4.\nWithout a path, the device retains legacy raw block behavior. Contents survive\nsame-host restarts and path changes, but are discarded on size or mode changes,\nrelocation, recovery on another host, and cloning."
+                },
+                "sizeMb": {
+                    "type": "integer",
+                    "description": "Fixed size of the Machine-owned cache drive in MiB. At most 51200.\nWith a path, at least 16 MiB is required; without a path, 0 disables the device."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachineFlyMachineConfigDns": {
+            "description": "DNS settings for the Machine",
+            "properties": {
+                "dnsForwardRules": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps/v1:FlyDnsForwardRule"
+                    },
+                    "description": "Forward DNS queries for some domains to other DNS servers"
+                },
+                "hostname": {
+                    "type": "string",
+                    "description": "Hostname of the Machine. Defaults to the Machine ID. Also added to /etc/hosts with the\nMachine's 6PN address"
+                },
+                "hostnameFqdn": {
+                    "type": "string",
+                    "description": "Fully qualified domain name added to /etc/hosts for `hostname`"
+                },
+                "nameservers": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Nameservers to use instead of the default, Fly.io's private DNS server `fdaa::3`"
+                },
+                "options": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/fly-machines:apps/v1:FlyDnsOption"
+                    },
+                    "description": "Options for /etc/resolv.conf"
+                },
+                "searches": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Search domains for /etc/resolv.conf"
+                },
+                "skipRegistration": {
+                    "type": "boolean",
+                    "description": "Currently has no effect"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachineFlyMachineConfigGuest": {
+            "description": "The resources (CPUs, memory, etc.) allocated to the Machine",
+            "properties": {
+                "cpuKind": {
+                    "type": "string",
+                    "description": "Kind of CPU: shared or performance. Performance CPUs must be enabled for the organization.\nDefaults to shared when `guest` is omitted"
+                },
+                "cpus": {
+                    "type": "integer",
+                    "description": "Number of CPUs: 1, 2, 4, 6, 8, 10, 12, 14, 16, 32, 64 or 128, up to 8 for shared and 16 for\nperformance CPUs unless the organization's limit is higher. Defaults to 1 when `guest` is\nomitted"
+                },
+                "gpuKind": {
+                    "type": "string",
+                    "description": "No longer supported. Requests that set it are rejected"
+                },
+                "gpus": {
+                    "type": "integer",
+                    "description": "No longer supported. Requests that set it are rejected"
+                },
+                "hostDedicationId": {
+                    "type": "string",
+                    "description": "Place the Machine on hosts dedicated to the organization under this ID. Only available to\norganizations with dedicated hosts"
+                },
+                "kernelArgs": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Extra arguments appended to the guest kernel command line"
+                },
+                "maxMemoryMb": {
+                    "type": "integer",
+                    "description": "Memory in MiB that the Machine's memory limit can later be raised to without a restart, using\nthe memory endpoints. Must be at least memory_mb and at most the per-CPU maximum. The Machine\nstarts with a limit of memory_mb"
+                },
+                "memoryMb": {
+                    "type": "integer",
+                    "description": "Memory in MiB. Must be a multiple of 256 for shared and 1024 for performance CPUs, and\nbetween 256 and 2048 (shared) or 2048 and 8192 (performance) per CPU. Defaults to 256 when\n`guest` is omitted"
+                },
+                "persistRootfs": {
+                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineGuestPersistRootfs",
+                    "description": "Deprecated: use MachineConfig.Rootfs instead"
+                },
+                "requiredHostFeatures": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Host features the Machine's host must have, such as `storage-tier-1`. At most 16, each made\nof lowercase letters, digits and dashes. Each feature must be enabled for the organization"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachineFlyMachineConfigInit": {
+            "description": "Arguments for init, Fly.io's footprint inside the Machine, which controls how your own code is run",
+            "properties": {
+                "cmd": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Replaces the image's CMD. It's appended to the entrypoint"
+                },
+                "entrypoint": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Replaces the image's ENTRYPOINT"
+                },
+                "exec": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Command to run instead of the image's ENTRYPOINT and CMD. Takes precedence over entrypoint\nand cmd"
+                },
+                "kernelArgs": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Currently has no effect. Use `guest.kernel_args` instead"
+                },
+                "swapSizeMb": {
+                    "type": "integer",
+                    "description": "Size in MiB of a swap device to give the Machine. Machines with swap cannot be suspended"
+                },
+                "tty": {
+                    "type": "boolean",
+                    "description": "Currently has no effect"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachineFlyMachineConfigMetrics": {
+            "description": "An optional metrics endpoint for Prometheus on Fly.io to scrape",
+            "properties": {
+                "https": {
+                    "type": "boolean",
+                    "description": "Scrape over HTTPS instead of HTTP"
+                },
+                "path": {
+                    "type": "string",
+                    "description": "HTTP path to scrape. Defaults to `/`"
+                },
+                "port": {
+                    "type": "integer",
+                    "description": "Port in the Machine to scrape metrics from"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachineFlyMachineConfigRestart": {
+            "description": "Whether and how the Machine is restarted after its main process exits",
+            "properties": {
+                "maxRetries": {
+                    "type": "integer",
+                    "description": "When policy is on-failure, the maximum number of times to attempt to restart the Machine before letting it stop."
+                },
+                "policy": {
+                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineRestartPolicy",
+                    "description": "* no - Never try to restart a Machine automatically when its main process exits, whether that’s on purpose or on a crash.\n* always - Always restart a Machine automatically and never let it enter a stopped state, even when the main process exits cleanly.\n* on-failure - Try up to MaxRetries times to automatically restart the Machine if it exits with a non-zero exit code. Default when no explicit policy is set, and for Machines with schedules."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachineFlyMachineConfigRootfs": {
+            "description": "Beta: the size of the Machine's root filesystem and whether it persists. This field may be\nremoved in the future",
+            "properties": {
+                "persist": {
+                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineRootfsPersist",
+                    "description": "Whether changes to the root filesystem are kept. `never` (default): reset on every start.\n`restart`: kept across stops and restarts, reset when the Machine is updated. `always`: also\nkept across updates"
+                },
+                "sizeGb": {
+                    "type": "integer",
+                    "description": "Size of the root filesystem in GB. At most 50; 0 uses the default"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachineFlyMachineConfigSpot": {
+            "description": "Spot pricing settings for the Machine",
+            "properties": {
+                "maxPriceFraction": {
+                    "type": "number",
+                    "description": "MaxPriceFraction is the maximum fraction of the full Machine price you will pay for this Machine. Range: (0, 1.0]"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:MachineFlyMachineConfigStopConfig": {
+            "description": "How the Machine is shut down gracefully: the signal sent to it and how long to wait before a hard shutdown",
+            "properties": {
+                "signal": {
+                    "$ref": "#/types/fly-machines:apps/v1:FlyStopConfigSignal",
+                    "description": "Signal to send to the Machine's processes. Defaults to SIGINT"
+                },
+                "timeout": {
+                    "type": "string",
+                    "description": "How long to wait for the Machine to exit after sending the signal, before killing it. At most\n5 minutes (1 minute for spot Machines). Defaults to 5s (60s for spot Machines)"
                 }
             },
             "type": "object"
@@ -4835,7 +5233,6 @@
             "type": "object"
         },
         "fly-machines:apps/v1:Volume": {
-            "description": "The extended volume.",
             "properties": {
                 "attachedAllocId": {
                     "type": "string",
@@ -5136,6 +5533,110 @@
                 "put": {
                     "$ref": "#/types/fly-machines:apps/v1:VolumesExtendPutQueryParams",
                     "description": "Query params for the put operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:apps/v1:VolumesExtendVolume": {
+            "description": "The extended volume.",
+            "properties": {
+                "attachedAllocId": {
+                    "type": "string",
+                    "description": "Always null.\n\nDeprecated: volumes are no longer attached to Nomad allocations."
+                },
+                "attachedMachineId": {
+                    "type": "string",
+                    "description": "ID of the Machine the volume is attached to, or null if it is not attached."
+                },
+                "autoBackupEnabled": {
+                    "type": "boolean",
+                    "description": "Whether daily automatic snapshots are taken."
+                },
+                "blockSize": {
+                    "type": "integer",
+                    "description": "Size of a filesystem block, in bytes. See `blocks`."
+                },
+                "blocks": {
+                    "type": "integer",
+                    "description": "Size of the volume's filesystem, in blocks of `block_size` bytes, as last reported by a\nMachine that mounted the volume. 0 if never reported, if the host could not be reached,\nor with `summary=true`."
+                },
+                "blocksAvail": {
+                    "type": "integer",
+                    "description": "Number of filesystem blocks available to unprivileged users. See `blocks`."
+                },
+                "blocksFree": {
+                    "type": "integer",
+                    "description": "Number of free filesystem blocks, including blocks reserved for the root user. See\n`blocks`."
+                },
+                "bytesTotal": {
+                    "type": "integer",
+                    "description": "Size of the volume, in bytes. 0 if the host could not be reached or with `summary=true`."
+                },
+                "bytesUsed": {
+                    "type": "integer",
+                    "description": "Bytes of storage the volume occupies on its host. Volumes are thinly provisioned, so this\ngrows as blocks are written and does not shrink when files are deleted. It is not the\nfilesystem's usage; use `blocks` and `blocks_free` for that. 0 if the host could not be\nreached or with `summary=true`."
+                },
+                "createdAt": {
+                    "type": "string",
+                    "description": "When the volume was created."
+                },
+                "encrypted": {
+                    "type": "boolean",
+                    "description": "Whether the volume is encrypted at rest."
+                },
+                "fstype": {
+                    "type": "string",
+                    "description": "Filesystem the volume was formatted with: `ext4`, or `raw` for an unformatted block\ndevice."
+                },
+                "hostFeatures": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Features of the volume's host. Only returned when the request sets the\n`fly-include-host-features: true` header."
+                },
+                "hostStatus": {
+                    "$ref": "#/types/fly-machines:apps/v1:VolumeHostStatus",
+                    "description": "Whether Fly.io could reach the volume's host: `ok` if it could, `unreachable` or\n`unknown` if it could not, in which case host-reported fields are missing."
+                },
+                "id": {
+                    "type": "string",
+                    "description": "Unique ID of the volume, such as `vol_1234567890abcdef`."
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the volume. Several volumes of an app can share a name."
+                },
+                "region": {
+                    "type": "string",
+                    "description": "Code of the region the volume is in."
+                },
+                "requiredHostFeatures": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Host features the volume's host was required to have; see `compute.required_host_features`\nin the create request."
+                },
+                "sizeGb": {
+                    "type": "integer",
+                    "description": "Size of the volume, in GiB."
+                },
+                "snapshotRetention": {
+                    "type": "integer",
+                    "description": "Number of days snapshots of the volume are kept."
+                },
+                "state": {
+                    "type": "string",
+                    "description": "State of the volume, such as `creating`, `created`, `extending`, `restoring`,\n`hydrating`, `scheduling_destroy`, `pending_destroy`, `destroying`, `destroyed`, or\n`failed`."
+                },
+                "type": {
+                    "$ref": "#/types/fly-machines:apps/v1:VolumeType",
+                    "description": "Kind of volume: `local` for regular volumes, or `cache` for volumes that hold\ndisposable data and support neither snapshots nor restores."
+                },
+                "zone": {
+                    "type": "string",
+                    "description": "Identifies the host the volume is on. Volumes with different zones are on different\nhosts."
                 }
             },
             "type": "object"
@@ -7131,55 +7632,58 @@
             ]
         },
         "fly-machines:tokens/v1:Access": {
-            "description": "The requested access, with names resolved to IDs.",
+            "description": "Access to check the token against.",
             "properties": {
                 "action": {
-                    "$ref": "#/types/fly-machines:tokens/v1:FlyioAccessAction"
+                    "$ref": "#/types/fly-machines:tokens/v1:MainTokenAccessAction",
+                    "description": "Action is the action being taken on the specified resource. This is the\ncombination of individual action characters (e.g \"rw\")\n  - r: read\n  - w: write\n  - c: create\n  - d: delete\n  - C: control"
                 },
                 "appFeature": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "AppFeature is a named set of functionality associated with the app. If\nthis is specified, the AppName field must be set.\n  - images: images in the fly.io registry"
                 },
-                "appid": {
-                    "type": "integer"
-                },
-                "cluster": {
-                    "type": "string"
+                "appName": {
+                    "type": "string",
+                    "description": "AppName is the name of the app being accessed."
                 },
                 "command": {
                     "type": "array",
                     "items": {
                         "type": "string"
-                    }
-                },
-                "feature": {
-                    "type": "string"
-                },
-                "machine": {
-                    "type": "string"
+                    },
+                    "description": "Command is the command being executed on a machine. If this is specified,\nthe Machine must be set."
                 },
                 "machineFeature": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "MachineFeature is a named set of functionality associated with the\nmachine. If this is specified, the Machine field must be set.\n  - metadata: machine metadata service\n  - oidc: OIDC tokens\n  - kmstoken: Petsem tokens for KMS access"
+                },
+                "machineId": {
+                    "type": "string",
+                    "description": "MachineID is the ID of the machine being accessed (e.g. 7811701f564258)."
                 },
                 "mutation": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Mutation is the GraphQL mutation being performed."
                 },
-                "orgid": {
-                    "type": "integer"
+                "orgFeature": {
+                    "type": "string",
+                    "description": "OrgFeature is a named set of functionality associated with the\norganization. If this is specified, the OrgSlug field must be set.\n  - wg: WireGuard peers\n  - builder: remote builders\n  - addon: addons\n  - membership: organization membership\n  - billing: billing\n  - litefs-cloud: LiteFS Cloud\n  - authentication: authentication settings"
                 },
-                "sourceApp": {
-                    "type": "string"
+                "orgSlug": {
+                    "type": "string",
+                    "description": "OrgSlug is the slug of the organization being accessed."
                 },
                 "sourceMachine": {
-                    "type": "string"
-                },
-                "sourceOrganization": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "SourceMachine is the machine ID of the actor attempting access."
                 },
                 "storageObject": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "StorageObject is the storage object being accessed. If this is specified,\nthe OrgSlug must be set."
                 },
-                "volume": {
-                    "type": "string"
+                "volumeId": {
+                    "type": "string",
+                    "description": "VolumeID is the encoded ID of the volume being accessed (e.g.\nvol_r1p6pln1k9m9j7zr)."
                 }
             },
             "type": "object"
@@ -7362,6 +7866,60 @@
                 "create": {
                     "$ref": "#/types/fly-machines:tokens/v1:TokensAuthenticateCreateQueryParams",
                     "description": "Query params for the create operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:tokens/v1:TokensAuthorizeAccess": {
+            "description": "The requested access, with names resolved to IDs.",
+            "properties": {
+                "action": {
+                    "$ref": "#/types/fly-machines:tokens/v1:FlyioAccessAction"
+                },
+                "appFeature": {
+                    "type": "string"
+                },
+                "appid": {
+                    "type": "integer"
+                },
+                "cluster": {
+                    "type": "string"
+                },
+                "command": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "feature": {
+                    "type": "string"
+                },
+                "machine": {
+                    "type": "string"
+                },
+                "machineFeature": {
+                    "type": "string"
+                },
+                "mutation": {
+                    "type": "string"
+                },
+                "orgid": {
+                    "type": "integer"
+                },
+                "sourceApp": {
+                    "type": "string"
+                },
+                "sourceMachine": {
+                    "type": "string"
+                },
+                "sourceOrganization": {
+                    "type": "string"
+                },
+                "storageObject": {
+                    "type": "string"
+                },
+                "volume": {
+                    "type": "string"
                 }
             },
             "type": "object"
@@ -7560,7 +8118,7 @@
                     "description": "DNS provider detected for the hostname, if known."
                 },
                 "dnsRequirements": {
-                    "$ref": "#/types/fly-machines:apps/v1:DnsRequirements",
+                    "$ref": "#/types/fly-machines:apps/v1:AppCertificatesAcmeDnsRequirements",
                     "description": "DNS records to create to point the hostname at the app and validate it."
                 },
                 "hostname": {
@@ -7580,7 +8138,7 @@
                     "description": "Human-readable status: `Ready`, `Awaiting certificates`, `Awaiting configuration`, or a\nhint about what is misconfigured."
                 },
                 "validation": {
-                    "$ref": "#/types/fly-machines:apps/v1:Validation",
+                    "$ref": "#/types/fly-machines:apps/v1:AppCertificatesAcmeValidation",
                     "description": "Which validation methods are currently possible."
                 },
                 "validationErrors": {
@@ -7632,7 +8190,7 @@
                     "$ref": "#/types/fly-machines:apps/v1:DNSRecords"
                 },
                 "dnsRequirements": {
-                    "$ref": "#/types/fly-machines:apps/v1:DnsRequirements",
+                    "$ref": "#/types/fly-machines:apps/v1:AppCertificatesCheckDnsRequirements",
                     "description": "DNS records to create to point the hostname at the app and validate it."
                 },
                 "hostname": {
@@ -7652,7 +8210,7 @@
                     "description": "Human-readable status: `Ready`, `Awaiting certificates`, `Awaiting configuration`, or a\nhint about what is misconfigured."
                 },
                 "validation": {
-                    "$ref": "#/types/fly-machines:apps/v1:Validation",
+                    "$ref": "#/types/fly-machines:apps/v1:AppCertificatesCheckValidation",
                     "description": "Which validation methods are currently possible."
                 },
                 "validationErrors": {
@@ -7884,7 +8442,7 @@
                     "description": "Status of each health check: the Machine's top-level `checks` and its services'\nchecks."
                 },
                 "config": {
-                    "$ref": "#/types/fly-machines:apps/v1:Config",
+                    "$ref": "#/types/fly-machines:apps/v1:MachineConfig",
                     "description": "The Machine's configuration, as provided when it was created or last updated, with\n`metadata` and `mounts` reflecting their current values. Null when the host is not\nreachable (`host_status` is not `ok`) or `summary=true` was requested; see\n`incomplete_config`."
                 },
                 "cordoned": {
@@ -9154,7 +9712,7 @@
                     "description": "New size of the volume in GiB. Must be larger than the current size and at most the\norganization's maximum (500 by default)."
                 },
                 "volume": {
-                    "$ref": "#/types/fly-machines:apps/v1:Volume",
+                    "$ref": "#/types/fly-machines:apps/v1:VolumesExtendVolume",
                     "description": "The extended volume."
                 }
             },
@@ -9754,7 +10312,7 @@
         "fly-machines:tokens/v1:TokensAuthorize": {
             "properties": {
                 "access": {
-                    "$ref": "#/types/fly-machines:tokens/v1:Access",
+                    "$ref": "#/types/fly-machines:tokens/v1:TokensAuthorizeAccess",
                     "description": "The requested access, with names resolved to IDs."
                 },
                 "header": {
