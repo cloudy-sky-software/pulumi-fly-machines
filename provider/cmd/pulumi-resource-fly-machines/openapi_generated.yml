@@ -7710,6 +7710,70 @@ paths:
             tags:
                 - Postgres Clusters
             x-codegen-request-body-name: request
+        post:
+            description: Update a cluster's weekly maintenance window. Give at least one of `day`, `start_hour` and `duration_hours`; omitted fields keep their current value. `start_hour` is in the cluster's timezone, which is derived from its region and cannot be changed. Changes are accepted only while the cluster is ready and no maintenance is running.
+            operationId: Postgres_maintenance_window_create
+            parameters:
+                - description: Managed Postgres Cluster ID
+                  in: path
+                  name: postgres_cluster_id
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/updatePostgresMaintenanceWindowRequest'
+                description: Maintenance window fields to change
+                required: true
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/showPostgresMaintenanceWindowResponse'
+                    description: Updated maintenance window
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Unauthorized
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Cluster not found
+                "409":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: The cluster is not ready or a maintenance is running
+                "410":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: '''This cluster has been deleted'' or ''This cluster is being deleted'''
+                "422":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: No fields given, or a value is invalid
+                "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Failed to update maintenance window
+            summary: Update Maintenance Window
+            tags:
+                - Postgres Clusters
+            x-codegen-request-body-name: request
     /v1/postgres/{postgres_cluster_id}/queries/active:
         get:
             description: List active queries in the supplied database. The database query parameter is required and must not be empty or whitespace-only. Returns full query text and durations in seconds.

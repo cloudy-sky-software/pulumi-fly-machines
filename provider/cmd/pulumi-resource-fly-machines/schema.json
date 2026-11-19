@@ -5861,6 +5861,40 @@
             "description": "Optional weights to override default placement preferences.",
             "type": "object"
         },
+        "fly-machines:postgres/v1:Day": {
+            "description": "Day of the week the window starts on.",
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Sunday",
+                    "value": "sunday"
+                },
+                {
+                    "name": "Monday",
+                    "value": "monday"
+                },
+                {
+                    "name": "Tuesday",
+                    "value": "tuesday"
+                },
+                {
+                    "name": "Wednesday",
+                    "value": "wednesday"
+                },
+                {
+                    "name": "Thursday",
+                    "value": "thursday"
+                },
+                {
+                    "name": "Friday",
+                    "value": "friday"
+                },
+                {
+                    "name": "Saturday",
+                    "value": "saturday"
+                }
+            ]
+        },
         "fly-machines:postgres/v1:GetPostgresMaintenanceWindowQueryParams": {
             "description": "Query params for the API request.",
             "properties": {
@@ -6880,6 +6914,19 @@
             },
             "type": "object"
         },
+        "fly-machines:postgres/v1:PostgresMaintenanceWindowCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
         "fly-machines:postgres/v1:PostgresMaintenanceWindowDay": {
             "description": "Day of the week the window starts on.",
             "type": "string",
@@ -6913,6 +6960,50 @@
                     "value": "saturday"
                 }
             ]
+        },
+        "fly-machines:postgres/v1:PostgresMaintenanceWindowQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresMaintenanceWindowCreateQueryParams",
+                    "description": "Query params for the create operation."
+                },
+                "read": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresMaintenanceWindowReadQueryParams",
+                    "description": "Query params for the read operation."
+                },
+                "update": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresMaintenanceWindowUpdateQueryParams",
+                    "description": "Query params for the update operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres/v1:PostgresMaintenanceWindowReadQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres/v1:PostgresMaintenanceWindowUpdateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
         },
         "fly-machines:postgres/v1:PostgresNodeEndpointsDirect": {
             "description": "Unpooled connection to the cluster node.",
@@ -9749,6 +9840,52 @@
                 "queryParams": {
                     "$ref": "#/types/fly-machines:postgres/v1:PostgresForkQueryParams",
                     "description": "Query params to send with the API requests for this resource."
+                }
+            }
+        },
+        "fly-machines:postgres/v1:PostgresMaintenanceWindow": {
+            "properties": {
+                "data": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresMaintenanceWindow"
+                },
+                "day": {
+                    "$ref": "#/types/fly-machines:postgres/v1:Day",
+                    "description": "Day of the week the window starts on."
+                },
+                "durationHours": {
+                    "type": "integer",
+                    "description": "Length of the window in hours."
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresMaintenanceWindowQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                },
+                "startHour": {
+                    "type": "integer",
+                    "description": "Hour of the day the window starts, in the cluster's timezone."
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "day": {
+                    "$ref": "#/types/fly-machines:postgres/v1:Day",
+                    "description": "Day of the week the window starts on."
+                },
+                "durationHours": {
+                    "type": "integer",
+                    "description": "Length of the window in hours."
+                },
+                "postgresClusterId": {
+                    "type": "string",
+                    "description": "Managed Postgres Cluster ID"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresMaintenanceWindowQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                },
+                "startHour": {
+                    "type": "integer",
+                    "description": "Hour of the day the window starts, in the cluster's timezone."
                 }
             }
         },
