@@ -59,7 +59,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         public Input<string>? Path { get; set; }
 
         /// <summary>
-        /// The port to connect to, often the same as internal_port
+        /// The port to connect to. Required for top-level checks
         /// </summary>
         [Input("port")]
         public Input<int>? Port { get; set; }

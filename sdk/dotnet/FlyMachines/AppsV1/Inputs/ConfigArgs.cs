@@ -26,10 +26,11 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Inputs
         public Input<bool>? AutoDestroy { get; set; }
 
         /// <summary>
-        /// Beta: a cache drive attached to the Machine. This field may be removed in the future
+        /// Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+        /// but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
         /// </summary>
-        [Input("cacheDrive")]
-        public Input<Inputs.FlyMachineConfigCacheDriveArgs>? CacheDrive { get; set; }
+        [Input("cacheDisk")]
+        public Input<Inputs.FlyMachineConfigCacheDiskArgs>? CacheDisk { get; set; }
 
         [Input("checks")]
         private InputMap<Inputs.FlyMachineConfigChecksPropertiesArgs>? _checks;

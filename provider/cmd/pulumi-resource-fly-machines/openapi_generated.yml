@@ -904,10 +904,12 @@ components:
                     type: string
                 total_apps:
                     description: |-
-                        The number of matching apps across all pages. Organization-wide listings
-                        retain the first page's count; scoped listings recount using the current
-                        token's permissions. Snapshot bounds exclude newer apps, and replication
-                        lag or deletion during traversal can make totals differ from rows seen.
+                        The number of matching apps across all pages. With an organization-wide
+                        token, it is counted when the first page is requested and not updated
+                        afterwards, so it excludes apps created later and includes apps deleted
+                        while paginating. With an app-scoped token, such as a deploy token, it is
+                        recounted on each page and includes only the apps the token can read.
+                        Either way, it may differ slightly from the number of apps returned.
                     type: integer
             type: object
         ListenSocket:
@@ -1642,6 +1644,37 @@ components:
                 version:
                     description: Installed version.
                     example: "1.0"
+                    type: string
+            type: object
+        PostgresMaintenanceWindow:
+            properties:
+                day:
+                    description: Day of the week the window starts on.
+                    enum:
+                        - sunday
+                        - monday
+                        - tuesday
+                        - wednesday
+                        - thursday
+                        - friday
+                        - saturday
+                    example: sunday
+                    type: string
+                duration_hours:
+                    description: Length of the window in hours.
+                    example: 3
+                    maximum: 8
+                    minimum: 3
+                    type: integer
+                start_hour:
+                    description: Hour of the day the window starts, in the cluster's timezone.
+                    example: 1
+                    maximum: 23
+                    minimum: 0
+                    type: integer
+                timezone:
+                    description: IANA timezone the window is expressed in, derived from the cluster's region.
+                    example: America/New_York
                     type: string
             type: object
         PostgresNodeEndpoints:
@@ -2729,16 +2762,12 @@ components:
         fly.MachineCacheDrive:
             properties:
                 path:
-                    description: |-
-                        Optional absolute guest mount path. When set, the device is formatted as ext4.
-                        Without a path, the device retains legacy raw block behavior. Contents survive
-                        same-host restarts and path changes, but are discarded on size or mode changes,
-                        relocation, recovery on another host, and cloning.
+                    description: Absolute path in the Machine at which to mount the cache disk.
                     type: string
                 size_mb:
                     description: |-
-                        Fixed size of the Machine-owned cache drive in MiB. At most 51200.
-                        With a path, at least 16 MiB is required; without a path, 0 disables the device.
+                        Size of the cache disk in MiB. Between 16 and 51200.
+                        Changing the size discards the disk's contents.
                     type: integer
             type: object
         fly.MachineCheck:
@@ -2769,7 +2798,7 @@ components:
                     description: For http checks, the path to send the request to
                     type: string
                 port:
-                    description: The port to connect to, often the same as internal_port
+                    description: The port to connect to. Required for top-level checks
                     type: integer
                 protocol:
                     description: For http checks, whether to use http or https
@@ -2793,10 +2822,12 @@ components:
                 auto_destroy:
                     description: Optional boolean telling the Machine to destroy itself once it’s complete (default false)
                     type: boolean
-                cache_drive:
+                cache_disk:
                     allOf:
                         - $ref: '#/components/schemas/fly.MachineCacheDrive'
-                    description: 'Beta: a cache drive attached to the Machine. This field may be removed in the future'
+                    description: |-
+                        Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+                        but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
                     type: object
                 checks:
                     additionalProperties:
@@ -3272,7 +3303,7 @@ components:
                     description: For http checks, the path to send the request to
                     type: string
                 port:
-                    description: The port to connect to, often the same as internal_port
+                    description: The port to connect to. Defaults to the service's internal_port
                     type: integer
                 protocol:
                     description: For http checks, whether to use http or https
@@ -3951,6 +3982,11 @@ components:
                 data:
                     $ref: '#/components/schemas/PostgresCluster'
             type: object
+        showPostgresMaintenanceWindowResponse:
+            properties:
+                data:
+                    $ref: '#/components/schemas/PostgresMaintenanceWindow'
+            type: object
         updateMetadataRequest:
             properties:
                 machine_version:
@@ -3969,6 +4005,33 @@ components:
                 updated_at:
                     description: Time to record for the change in the Machine's `metadata_update` event. Defaults to now.
                     type: string
+            type: object
+        updatePostgresMaintenanceWindowRequest:
+            properties:
+                day:
+                    description: Day of the week the window starts on.
+                    enum:
+                        - sunday
+                        - monday
+                        - tuesday
+                        - wednesday
+                        - thursday
+                        - friday
+                        - saturday
+                    example: tuesday
+                    type: string
+                duration_hours:
+                    description: Length of the window in hours.
+                    example: 3
+                    maximum: 8
+                    minimum: 3
+                    type: integer
+                start_hour:
+                    description: Hour of the day the window starts, in the cluster's timezone.
+                    example: 4
+                    maximum: 23
+                    minimum: 0
+                    type: integer
             type: object
         updatePostgresUserRoleRequest:
             properties:
@@ -7547,6 +7610,167 @@ paths:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
                     description: Invalid attributes, such as an unknown or unavailable plan
             summary: Fork Cluster to New Cluster
+            tags:
+                - Postgres Clusters
+            x-codegen-request-body-name: request
+    /v1/postgres/{postgres_cluster_id}/maintenance_window:
+        get:
+            description: Get the weekly window in which a cluster may undergo maintenance. A cluster that never set one returns its region's default. Requires only read access to the organization.
+            operationId: Postgres_maintenance_window_show
+            parameters:
+                - description: Managed Postgres Cluster ID
+                  in: path
+                  name: postgres_cluster_id
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/showPostgresMaintenanceWindowResponse'
+                    description: OK
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Unauthorized
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Cluster not found
+            summary: Get Maintenance Window
+            tags:
+                - Postgres Clusters
+        patch:
+            description: Update a cluster's weekly maintenance window. Give at least one of `day`, `start_hour` and `duration_hours`; omitted fields keep their current value. `start_hour` is in the cluster's timezone, which is derived from its region and cannot be changed. Changes are accepted only while the cluster is ready and no maintenance is running.
+            operationId: Postgres_maintenance_window_update
+            parameters:
+                - description: Managed Postgres Cluster ID
+                  in: path
+                  name: postgres_cluster_id
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/updatePostgresMaintenanceWindowRequest'
+                description: Maintenance window fields to change
+                required: true
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/showPostgresMaintenanceWindowResponse'
+                    description: Updated maintenance window
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Unauthorized
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Cluster not found
+                "409":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: The cluster is not ready or a maintenance is running
+                "410":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: '''This cluster has been deleted'' or ''This cluster is being deleted'''
+                "422":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: No fields given, or a value is invalid
+                "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Failed to update maintenance window
+            summary: Update Maintenance Window
+            tags:
+                - Postgres Clusters
+            x-codegen-request-body-name: request
+        post:
+            description: Update a cluster's weekly maintenance window. Give at least one of `day`, `start_hour` and `duration_hours`; omitted fields keep their current value. `start_hour` is in the cluster's timezone, which is derived from its region and cannot be changed. Changes are accepted only while the cluster is ready and no maintenance is running.
+            operationId: Postgres_maintenance_window_create
+            parameters:
+                - description: Managed Postgres Cluster ID
+                  in: path
+                  name: postgres_cluster_id
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/updatePostgresMaintenanceWindowRequest'
+                description: Maintenance window fields to change
+                required: true
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/showPostgresMaintenanceWindowResponse'
+                    description: Updated maintenance window
+                "401":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Unauthorized
+                "404":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Cluster not found
+                "409":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: The cluster is not ready or a maintenance is running
+                "410":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: '''This cluster has been deleted'' or ''This cluster is being deleted'''
+                "422":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: No fields given, or a value is invalid
+                "500":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PostgresErrorResponse'
+                    description: Failed to update maintenance window
+            summary: Update Maintenance Window
             tags:
                 - Postgres Clusters
             x-codegen-request-body-name: request

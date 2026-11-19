@@ -8,6 +8,42 @@ using Pulumi;
 namespace CloudySkySoftware.Pulumi.FlyMachines.PostgresV1
 {
     /// <summary>
+    /// Day of the week the window starts on.
+    /// </summary>
+    [EnumType]
+    public readonly struct Day : IEquatable<Day>
+    {
+        private readonly string _value;
+
+        private Day(string value)
+        {
+            _value = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        public static Day Sunday { get; } = new Day("sunday");
+        public static Day Monday { get; } = new Day("monday");
+        public static Day Tuesday { get; } = new Day("tuesday");
+        public static Day Wednesday { get; } = new Day("wednesday");
+        public static Day Thursday { get; } = new Day("thursday");
+        public static Day Friday { get; } = new Day("friday");
+        public static Day Saturday { get; } = new Day("saturday");
+
+        public static bool operator ==(Day left, Day right) => left.Equals(right);
+        public static bool operator !=(Day left, Day right) => !left.Equals(right);
+
+        public static explicit operator string(Day value) => value._value;
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object? obj) => obj is Day other && Equals(other);
+        public bool Equals(Day other) => string.Equals(_value, other._value, StringComparison.Ordinal);
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode() => _value?.GetHashCode() ?? 0;
+
+        public override string ToString() => _value;
+    }
+
+    /// <summary>
     /// Postgres major version.
     /// </summary>
     [EnumType]
@@ -328,6 +364,42 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.PostgresV1
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object? obj) => obj is PostgresClusterSummaryStatus other && Equals(other);
         public bool Equals(PostgresClusterSummaryStatus other) => string.Equals(_value, other._value, StringComparison.Ordinal);
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode() => _value?.GetHashCode() ?? 0;
+
+        public override string ToString() => _value;
+    }
+
+    /// <summary>
+    /// Day of the week the window starts on.
+    /// </summary>
+    [EnumType]
+    public readonly struct PostgresMaintenanceWindowDay : IEquatable<PostgresMaintenanceWindowDay>
+    {
+        private readonly string _value;
+
+        private PostgresMaintenanceWindowDay(string value)
+        {
+            _value = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        public static PostgresMaintenanceWindowDay Sunday { get; } = new PostgresMaintenanceWindowDay("sunday");
+        public static PostgresMaintenanceWindowDay Monday { get; } = new PostgresMaintenanceWindowDay("monday");
+        public static PostgresMaintenanceWindowDay Tuesday { get; } = new PostgresMaintenanceWindowDay("tuesday");
+        public static PostgresMaintenanceWindowDay Wednesday { get; } = new PostgresMaintenanceWindowDay("wednesday");
+        public static PostgresMaintenanceWindowDay Thursday { get; } = new PostgresMaintenanceWindowDay("thursday");
+        public static PostgresMaintenanceWindowDay Friday { get; } = new PostgresMaintenanceWindowDay("friday");
+        public static PostgresMaintenanceWindowDay Saturday { get; } = new PostgresMaintenanceWindowDay("saturday");
+
+        public static bool operator ==(PostgresMaintenanceWindowDay left, PostgresMaintenanceWindowDay right) => left.Equals(right);
+        public static bool operator !=(PostgresMaintenanceWindowDay left, PostgresMaintenanceWindowDay right) => !left.Equals(right);
+
+        public static explicit operator string(PostgresMaintenanceWindowDay value) => value._value;
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object? obj) => obj is PostgresMaintenanceWindowDay other && Equals(other);
+        public bool Equals(PostgresMaintenanceWindowDay other) => string.Equals(_value, other._value, StringComparison.Ordinal);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override int GetHashCode() => _value?.GetHashCode() ?? 0;

@@ -91,6 +91,7 @@ _utilities.register(
    "fly-machines:postgres/v1:PostgresDatabasesQuery": "PostgresDatabasesQuery",
    "fly-machines:postgres/v1:PostgresExtension": "PostgresExtension",
    "fly-machines:postgres/v1:PostgresFork": "PostgresFork",
+   "fly-machines:postgres/v1:PostgresMaintenanceWindow": "PostgresMaintenanceWindow",
    "fly-machines:postgres/v1:PostgresRestore": "PostgresRestore",
    "fly-machines:postgres/v1:PostgresUser": "PostgresUser",
    "fly-machines:postgres/v1:PostgresUsersRotatePassword": "PostgresUsersRotatePassword"

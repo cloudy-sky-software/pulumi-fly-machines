@@ -84,7 +84,7 @@ func handleUpdateMachineRequest(httpReq *http.Request, updateReq *pulumirpc.Upda
 //
 // The original API spec does not have a POST endpoint
 // for machine metadata. A fake one, matching the PATCH
-// endpoint, was added to the spec so that the CRUD
+// endpoint was added to the spec so that the CRUD
 // metadata would have a create endpoint for the
 // MachinesMetadata resource.
 //
@@ -93,8 +93,18 @@ func handleCreateMachinesMetadataRequest(httpReq *http.Request) {
 	httpReq.Method = http.MethodPatch
 }
 
-func handleCreateSecretsRequest(httpReq *http.Request) {
-	httpReq.Method = http.MethodPost
+// handleCreatePostgresMaintenanceWindow handles create
+// requests for maintenance window for a Postgres cluster.
+//
+// The original API spec does not have a POST endpoint.
+// A fake one, matching the PATCH endpoint was added
+// to the spec so that the CRUD metadata would have
+// a create endpoint for the PostgresMaintenanceWindow
+// resource.
+//
+// The request is modified in-place to use the PATCH method.
+func handleCreatePostgresMaintenanceWindow(httpReq *http.Request) {
+	httpReq.Method = http.MethodPatch
 }
 
 // assignRandomID sets a random id in the outputs map,

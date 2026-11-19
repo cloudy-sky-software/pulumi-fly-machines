@@ -790,9 +790,9 @@
                     "type": "boolean",
                     "description": "Optional boolean telling the Machine to destroy itself once it’s complete (default false)"
                 },
-                "cacheDrive": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigCacheDrive",
-                    "description": "Beta: a cache drive attached to the Machine. This field may be removed in the future"
+                "cacheDisk": {
+                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigCacheDisk",
+                    "description": "Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,\nbut durability is not guaranteed. Expect Machines to start with an empty cache disk at any time"
                 },
                 "checks": {
                     "type": "object",
@@ -1457,16 +1457,16 @@
             },
             "type": "object"
         },
-        "fly-machines:apps/v1:FlyMachineConfigCacheDrive": {
-            "description": "Beta: a cache drive attached to the Machine. This field may be removed in the future",
+        "fly-machines:apps/v1:FlyMachineConfigCacheDisk": {
+            "description": "Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,\nbut durability is not guaranteed. Expect Machines to start with an empty cache disk at any time",
             "properties": {
                 "path": {
                     "type": "string",
-                    "description": "Optional absolute guest mount path. When set, the device is formatted as ext4.\nWithout a path, the device retains legacy raw block behavior. Contents survive\nsame-host restarts and path changes, but are discarded on size or mode changes,\nrelocation, recovery on another host, and cloning."
+                    "description": "Absolute path in the Machine at which to mount the cache disk."
                 },
                 "sizeMb": {
                     "type": "integer",
-                    "description": "Fixed size of the Machine-owned cache drive in MiB. At most 51200.\nWith a path, at least 16 MiB is required; without a path, 0 disables the device."
+                    "description": "Size of the cache disk in MiB. Between 16 and 51200.\nChanging the size discards the disk's contents."
                 }
             },
             "type": "object"
@@ -1503,7 +1503,7 @@
                 },
                 "port": {
                     "type": "integer",
-                    "description": "The port to connect to, often the same as internal_port"
+                    "description": "The port to connect to. Required for top-level checks"
                 },
                 "protocol": {
                     "type": "string",
@@ -2130,7 +2130,7 @@
                 },
                 "port": {
                     "type": "integer",
-                    "description": "The port to connect to, often the same as internal_port"
+                    "description": "The port to connect to. Defaults to the service's internal_port"
                 },
                 "protocol": {
                     "type": "string",
@@ -2555,9 +2555,9 @@
                     "type": "boolean",
                     "description": "Optional boolean telling the Machine to destroy itself once it’s complete (default false)"
                 },
-                "cacheDrive": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigCacheDrive",
-                    "description": "Beta: a cache drive attached to the Machine. This field may be removed in the future"
+                "cacheDisk": {
+                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigCacheDisk",
+                    "description": "Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,\nbut durability is not guaranteed. Expect Machines to start with an empty cache disk at any time"
                 },
                 "checks": {
                     "type": "object",
@@ -2859,7 +2859,7 @@
                 },
                 "totalApps": {
                     "type": "integer",
-                    "description": "The number of matching apps across all pages. Organization-wide listings\nretain the first page's count; scoped listings recount using the current\ntoken's permissions. Snapshot bounds exclude newer apps, and replication\nlag or deletion during traversal can make totals differ from rows seen."
+                    "description": "The number of matching apps across all pages. With an organization-wide\ntoken, it is counted when the first page is requested and not updated\nafterwards, so it excludes apps created later and includes apps deleted\nwhile paginating. With an app-scoped token, such as a deploy token, it is\nrecounted on each page and includes only the apps the token can read.\nEither way, it may differ slightly from the number of apps returned."
                 }
             },
             "type": "object"
@@ -3216,9 +3216,9 @@
                     "type": "boolean",
                     "description": "Optional boolean telling the Machine to destroy itself once it’s complete (default false)"
                 },
-                "cacheDrive": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigCacheDrive",
-                    "description": "Beta: a cache drive attached to the Machine. This field may be removed in the future"
+                "cacheDisk": {
+                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigCacheDisk",
+                    "description": "Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,\nbut durability is not guaranteed. Expect Machines to start with an empty cache disk at any time"
                 },
                 "checks": {
                     "type": "object",
@@ -3454,9 +3454,9 @@
                     "type": "boolean",
                     "description": "Optional boolean telling the Machine to destroy itself once it’s complete (default false)"
                 },
-                "cacheDrive": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigCacheDrive",
-                    "description": "Beta: a cache drive attached to the Machine. This field may be removed in the future"
+                "cacheDisk": {
+                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigCacheDisk",
+                    "description": "Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,\nbut durability is not guaranteed. Expect Machines to start with an empty cache disk at any time"
                 },
                 "checks": {
                     "type": "object",
@@ -3673,9 +3673,9 @@
                     "type": "boolean",
                     "description": "Optional boolean telling the Machine to destroy itself once it’s complete (default false)"
                 },
-                "cacheDrive": {
-                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigCacheDrive",
-                    "description": "Beta: a cache drive attached to the Machine. This field may be removed in the future"
+                "cacheDisk": {
+                    "$ref": "#/types/fly-machines:apps/v1:FlyMachineConfigCacheDisk",
+                    "description": "Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,\nbut durability is not guaranteed. Expect Machines to start with an empty cache disk at any time"
                 },
                 "checks": {
                     "type": "object",
@@ -5861,6 +5861,53 @@
             "description": "Optional weights to override default placement preferences.",
             "type": "object"
         },
+        "fly-machines:postgres/v1:Day": {
+            "description": "Day of the week the window starts on.",
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Sunday",
+                    "value": "sunday"
+                },
+                {
+                    "name": "Monday",
+                    "value": "monday"
+                },
+                {
+                    "name": "Tuesday",
+                    "value": "tuesday"
+                },
+                {
+                    "name": "Wednesday",
+                    "value": "wednesday"
+                },
+                {
+                    "name": "Thursday",
+                    "value": "thursday"
+                },
+                {
+                    "name": "Friday",
+                    "value": "friday"
+                },
+                {
+                    "name": "Saturday",
+                    "value": "saturday"
+                }
+            ]
+        },
+        "fly-machines:postgres/v1:GetPostgresMaintenanceWindowQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
         "fly-machines:postgres/v1:GetPostgresQueriesActiveQueryParams": {
             "description": "Query params for the API request.",
             "properties": {
@@ -6846,6 +6893,118 @@
             },
             "type": "object"
         },
+        "fly-machines:postgres/v1:PostgresMaintenanceWindow": {
+            "properties": {
+                "day": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresMaintenanceWindowDay",
+                    "description": "Day of the week the window starts on."
+                },
+                "durationHours": {
+                    "type": "integer",
+                    "description": "Length of the window in hours."
+                },
+                "startHour": {
+                    "type": "integer",
+                    "description": "Hour of the day the window starts, in the cluster's timezone."
+                },
+                "timezone": {
+                    "type": "string",
+                    "description": "IANA timezone the window is expressed in, derived from the cluster's region."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres/v1:PostgresMaintenanceWindowCreateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres/v1:PostgresMaintenanceWindowDay": {
+            "description": "Day of the week the window starts on.",
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Sunday",
+                    "value": "sunday"
+                },
+                {
+                    "name": "Monday",
+                    "value": "monday"
+                },
+                {
+                    "name": "Tuesday",
+                    "value": "tuesday"
+                },
+                {
+                    "name": "Wednesday",
+                    "value": "wednesday"
+                },
+                {
+                    "name": "Thursday",
+                    "value": "thursday"
+                },
+                {
+                    "name": "Friday",
+                    "value": "friday"
+                },
+                {
+                    "name": "Saturday",
+                    "value": "saturday"
+                }
+            ]
+        },
+        "fly-machines:postgres/v1:PostgresMaintenanceWindowQueryParams": {
+            "description": "Query params for each of the operations of the resource.",
+            "properties": {
+                "create": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresMaintenanceWindowCreateQueryParams",
+                    "description": "Query params for the create operation."
+                },
+                "read": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresMaintenanceWindowReadQueryParams",
+                    "description": "Query params for the read operation."
+                },
+                "update": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresMaintenanceWindowUpdateQueryParams",
+                    "description": "Query params for the update operation."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres/v1:PostgresMaintenanceWindowReadQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres/v1:PostgresMaintenanceWindowUpdateQueryParams": {
+            "description": "Query params for the API request.",
+            "properties": {
+                "additionalParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Additional query params to send with the request that are not defined in the API spec."
+                }
+            },
+            "type": "object"
+        },
         "fly-machines:postgres/v1:PostgresNodeEndpointsDirect": {
             "description": "Unpooled connection to the cluster node.",
             "properties": {
@@ -7182,6 +7341,14 @@
             "properties": {
                 "data": {
                     "$ref": "#/types/fly-machines:postgres/v1:PostgresCluster"
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres/v1:ShowPostgresMaintenanceWindowResponse": {
+            "properties": {
+                "data": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresMaintenanceWindow"
                 }
             },
             "type": "object"
@@ -9676,6 +9843,52 @@
                 }
             }
         },
+        "fly-machines:postgres/v1:PostgresMaintenanceWindow": {
+            "properties": {
+                "data": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresMaintenanceWindow"
+                },
+                "day": {
+                    "$ref": "#/types/fly-machines:postgres/v1:Day",
+                    "description": "Day of the week the window starts on."
+                },
+                "durationHours": {
+                    "type": "integer",
+                    "description": "Length of the window in hours."
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresMaintenanceWindowQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                },
+                "startHour": {
+                    "type": "integer",
+                    "description": "Hour of the day the window starts, in the cluster's timezone."
+                }
+            },
+            "type": "object",
+            "inputProperties": {
+                "day": {
+                    "$ref": "#/types/fly-machines:postgres/v1:Day",
+                    "description": "Day of the week the window starts on."
+                },
+                "durationHours": {
+                    "type": "integer",
+                    "description": "Length of the window in hours."
+                },
+                "postgresClusterId": {
+                    "type": "string",
+                    "description": "Managed Postgres Cluster ID"
+                },
+                "queryParams": {
+                    "$ref": "#/types/fly-machines:postgres/v1:PostgresMaintenanceWindowQueryParams",
+                    "description": "Query params to send with the API requests for this resource."
+                },
+                "startHour": {
+                    "type": "integer",
+                    "description": "Hour of the day the window starts, in the cluster's timezone."
+                }
+            }
+        },
         "fly-machines:postgres/v1:PostgresRestore": {
             "properties": {
                 "backupId": {
@@ -10551,6 +10764,26 @@
             },
             "outputs": {
                 "$ref": "#/types/fly-machines:postgres/v1:ShowPostgresClusterResponse"
+            }
+        },
+        "fly-machines:postgres/v1:getPostgresMaintenanceWindow": {
+            "inputs": {
+                "properties": {
+                    "postgresClusterId": {
+                        "type": "string",
+                        "description": "Managed Postgres Cluster ID"
+                    },
+                    "queryParams": {
+                        "$ref": "#/types/fly-machines:postgres/v1:GetPostgresMaintenanceWindowQueryParams",
+                        "description": "Query params to send with the API request."
+                    }
+                },
+                "required": [
+                    "postgresClusterId"
+                ]
+            },
+            "outputs": {
+                "$ref": "#/types/fly-machines:postgres/v1:ShowPostgresMaintenanceWindowResponse"
             }
         },
         "fly-machines:postgres/v1:getPostgresQueriesActive": {

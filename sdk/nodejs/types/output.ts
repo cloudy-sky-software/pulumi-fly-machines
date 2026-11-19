@@ -527,9 +527,10 @@ export namespace apps {
              */
             autoDestroy?: boolean;
             /**
-             * Beta: a cache drive attached to the Machine. This field may be removed in the future
+             * Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+             * but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
              */
-            cacheDrive?: outputs.apps.v1.FlyMachineConfigCacheDrive;
+            cacheDisk?: outputs.apps.v1.FlyMachineConfigCacheDisk;
             /**
              * An optional object that defines one or more named top-level checks. The key for each check is the check name.
              */
@@ -1034,19 +1035,17 @@ export namespace apps {
         }
 
         /**
-         * Beta: a cache drive attached to the Machine. This field may be removed in the future
+         * Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+         * but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
          */
-        export interface FlyMachineConfigCacheDrive {
+        export interface FlyMachineConfigCacheDisk {
             /**
-             * Optional absolute guest mount path. When set, the device is formatted as ext4.
-             * Without a path, the device retains legacy raw block behavior. Contents survive
-             * same-host restarts and path changes, but are discarded on size or mode changes,
-             * relocation, recovery on another host, and cloning.
+             * Absolute path in the Machine at which to mount the cache disk.
              */
             path?: string;
             /**
-             * Fixed size of the Machine-owned cache drive in MiB. At most 51200.
-             * With a path, at least 16 MiB is required; without a path, 0 disables the device.
+             * Size of the cache disk in MiB. Between 16 and 51200.
+             * Changing the size discards the disk's contents.
              */
             sizeMb?: number;
         }
@@ -1080,7 +1079,7 @@ export namespace apps {
              */
             path?: string;
             /**
-             * The port to connect to, often the same as internal_port
+             * The port to connect to. Required for top-level checks
              */
             port?: number;
             /**
@@ -1588,7 +1587,7 @@ export namespace apps {
              */
             path?: string;
             /**
-             * The port to connect to, often the same as internal_port
+             * The port to connect to. Defaults to the service's internal_port
              */
             port?: number;
             /**
@@ -1717,9 +1716,10 @@ export namespace apps {
              */
             autoDestroy?: boolean;
             /**
-             * Beta: a cache drive attached to the Machine. This field may be removed in the future
+             * Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+             * but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
              */
-            cacheDrive?: outputs.apps.v1.FlyMachineConfigCacheDrive;
+            cacheDisk?: outputs.apps.v1.FlyMachineConfigCacheDisk;
             /**
              * An optional object that defines one or more named top-level checks. The key for each check is the check name.
              */
@@ -2003,9 +2003,10 @@ export namespace apps {
              */
             autoDestroy?: boolean;
             /**
-             * Beta: a cache drive attached to the Machine. This field may be removed in the future
+             * Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+             * but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
              */
-            cacheDrive?: outputs.apps.v1.FlyMachineConfigCacheDrive;
+            cacheDisk?: outputs.apps.v1.FlyMachineConfigCacheDisk;
             /**
              * An optional object that defines one or more named top-level checks. The key for each check is the check name.
              */
@@ -2201,9 +2202,10 @@ export namespace apps {
              */
             autoDestroy?: boolean;
             /**
-             * Beta: a cache drive attached to the Machine. This field may be removed in the future
+             * Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+             * but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
              */
-            cacheDrive?: outputs.apps.v1.FlyMachineConfigCacheDrive;
+            cacheDisk?: outputs.apps.v1.FlyMachineConfigCacheDisk;
             /**
              * An optional object that defines one or more named top-level checks. The key for each check is the check name.
              */
@@ -2392,9 +2394,10 @@ export namespace apps {
              */
             autoDestroy?: boolean;
             /**
-             * Beta: a cache drive attached to the Machine. This field may be removed in the future
+             * Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+             * but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
              */
-            cacheDrive?: outputs.apps.v1.FlyMachineConfigCacheDrive;
+            cacheDisk?: outputs.apps.v1.FlyMachineConfigCacheDisk;
             /**
              * An optional object that defines one or more named top-level checks. The key for each check is the check name.
              */
@@ -4428,6 +4431,73 @@ export namespace postgres {
              * Query params for the create operation.
              */
             create?: outputs.postgres.v1.PostgresForkCreateQueryParams;
+        }
+
+        export interface PostgresMaintenanceWindow {
+            /**
+             * Day of the week the window starts on.
+             */
+            day?: enums.postgres.v1.PostgresMaintenanceWindowDay;
+            /**
+             * Length of the window in hours.
+             */
+            durationHours?: number;
+            /**
+             * Hour of the day the window starts, in the cluster's timezone.
+             */
+            startHour?: number;
+            /**
+             * IANA timezone the window is expressed in, derived from the cluster's region.
+             */
+            timezone?: string;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresMaintenanceWindowCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface PostgresMaintenanceWindowQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.postgres.v1.PostgresMaintenanceWindowCreateQueryParams;
+            /**
+             * Query params for the read operation.
+             */
+            read?: outputs.postgres.v1.PostgresMaintenanceWindowReadQueryParams;
+            /**
+             * Query params for the update operation.
+             */
+            update?: outputs.postgres.v1.PostgresMaintenanceWindowUpdateQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresMaintenanceWindowReadQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresMaintenanceWindowUpdateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
         }
 
         /**

@@ -3741,8 +3741,9 @@ func (o ComputePtrOutput) RequiredHostFeatures() pulumi.StringArrayOutput {
 type Config struct {
 	// Optional boolean telling the Machine to destroy itself once it’s complete (default false)
 	AutoDestroy *bool `pulumi:"autoDestroy"`
-	// Beta: a cache drive attached to the Machine. This field may be removed in the future
-	CacheDrive *FlyMachineConfigCacheDrive `pulumi:"cacheDrive"`
+	// Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+	// but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
+	CacheDisk *FlyMachineConfigCacheDisk `pulumi:"cacheDisk"`
 	// An optional object that defines one or more named top-level checks. The key for each check is the check name.
 	Checks map[string]FlyMachineConfigChecksProperties `pulumi:"checks"`
 	// Containers are a list of containers that will run in the machine, each from its own image.
@@ -3816,8 +3817,9 @@ type ConfigInput interface {
 type ConfigArgs struct {
 	// Optional boolean telling the Machine to destroy itself once it’s complete (default false)
 	AutoDestroy pulumi.BoolPtrInput `pulumi:"autoDestroy"`
-	// Beta: a cache drive attached to the Machine. This field may be removed in the future
-	CacheDrive FlyMachineConfigCacheDrivePtrInput `pulumi:"cacheDrive"`
+	// Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+	// but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
+	CacheDisk FlyMachineConfigCacheDiskPtrInput `pulumi:"cacheDisk"`
 	// An optional object that defines one or more named top-level checks. The key for each check is the check name.
 	Checks FlyMachineConfigChecksPropertiesMapInput `pulumi:"checks"`
 	// Containers are a list of containers that will run in the machine, each from its own image.
@@ -3959,9 +3961,10 @@ func (o ConfigOutput) AutoDestroy() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v Config) *bool { return v.AutoDestroy }).(pulumi.BoolPtrOutput)
 }
 
-// Beta: a cache drive attached to the Machine. This field may be removed in the future
-func (o ConfigOutput) CacheDrive() FlyMachineConfigCacheDrivePtrOutput {
-	return o.ApplyT(func(v Config) *FlyMachineConfigCacheDrive { return v.CacheDrive }).(FlyMachineConfigCacheDrivePtrOutput)
+// Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+// but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
+func (o ConfigOutput) CacheDisk() FlyMachineConfigCacheDiskPtrOutput {
+	return o.ApplyT(func(v Config) *FlyMachineConfigCacheDisk { return v.CacheDisk }).(FlyMachineConfigCacheDiskPtrOutput)
 }
 
 // An optional object that defines one or more named top-level checks. The key for each check is the check name.
@@ -4117,14 +4120,15 @@ func (o ConfigPtrOutput) AutoDestroy() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Beta: a cache drive attached to the Machine. This field may be removed in the future
-func (o ConfigPtrOutput) CacheDrive() FlyMachineConfigCacheDrivePtrOutput {
-	return o.ApplyT(func(v *Config) *FlyMachineConfigCacheDrive {
+// Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+// but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
+func (o ConfigPtrOutput) CacheDisk() FlyMachineConfigCacheDiskPtrOutput {
+	return o.ApplyT(func(v *Config) *FlyMachineConfigCacheDisk {
 		if v == nil {
 			return nil
 		}
-		return v.CacheDrive
-	}).(FlyMachineConfigCacheDrivePtrOutput)
+		return v.CacheDisk
+	}).(FlyMachineConfigCacheDiskPtrOutput)
 }
 
 // An optional object that defines one or more named top-level checks. The key for each check is the check name.
@@ -6964,163 +6968,154 @@ func (o FlyHTTPOptionsResponsePtrOutput) Pristine() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Beta: a cache drive attached to the Machine. This field may be removed in the future
-type FlyMachineConfigCacheDrive struct {
-	// Optional absolute guest mount path. When set, the device is formatted as ext4.
-	// Without a path, the device retains legacy raw block behavior. Contents survive
-	// same-host restarts and path changes, but are discarded on size or mode changes,
-	// relocation, recovery on another host, and cloning.
+// Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+// but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
+type FlyMachineConfigCacheDisk struct {
+	// Absolute path in the Machine at which to mount the cache disk.
 	Path *string `pulumi:"path"`
-	// Fixed size of the Machine-owned cache drive in MiB. At most 51200.
-	// With a path, at least 16 MiB is required; without a path, 0 disables the device.
+	// Size of the cache disk in MiB. Between 16 and 51200.
+	// Changing the size discards the disk's contents.
 	SizeMb *int `pulumi:"sizeMb"`
 }
 
-// FlyMachineConfigCacheDriveInput is an input type that accepts FlyMachineConfigCacheDriveArgs and FlyMachineConfigCacheDriveOutput values.
-// You can construct a concrete instance of `FlyMachineConfigCacheDriveInput` via:
+// FlyMachineConfigCacheDiskInput is an input type that accepts FlyMachineConfigCacheDiskArgs and FlyMachineConfigCacheDiskOutput values.
+// You can construct a concrete instance of `FlyMachineConfigCacheDiskInput` via:
 //
-//	FlyMachineConfigCacheDriveArgs{...}
-type FlyMachineConfigCacheDriveInput interface {
+//	FlyMachineConfigCacheDiskArgs{...}
+type FlyMachineConfigCacheDiskInput interface {
 	pulumi.Input
 
-	ToFlyMachineConfigCacheDriveOutput() FlyMachineConfigCacheDriveOutput
-	ToFlyMachineConfigCacheDriveOutputWithContext(context.Context) FlyMachineConfigCacheDriveOutput
+	ToFlyMachineConfigCacheDiskOutput() FlyMachineConfigCacheDiskOutput
+	ToFlyMachineConfigCacheDiskOutputWithContext(context.Context) FlyMachineConfigCacheDiskOutput
 }
 
-// Beta: a cache drive attached to the Machine. This field may be removed in the future
-type FlyMachineConfigCacheDriveArgs struct {
-	// Optional absolute guest mount path. When set, the device is formatted as ext4.
-	// Without a path, the device retains legacy raw block behavior. Contents survive
-	// same-host restarts and path changes, but are discarded on size or mode changes,
-	// relocation, recovery on another host, and cloning.
+// Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+// but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
+type FlyMachineConfigCacheDiskArgs struct {
+	// Absolute path in the Machine at which to mount the cache disk.
 	Path pulumi.StringPtrInput `pulumi:"path"`
-	// Fixed size of the Machine-owned cache drive in MiB. At most 51200.
-	// With a path, at least 16 MiB is required; without a path, 0 disables the device.
+	// Size of the cache disk in MiB. Between 16 and 51200.
+	// Changing the size discards the disk's contents.
 	SizeMb pulumi.IntPtrInput `pulumi:"sizeMb"`
 }
 
-func (FlyMachineConfigCacheDriveArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*FlyMachineConfigCacheDrive)(nil)).Elem()
+func (FlyMachineConfigCacheDiskArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FlyMachineConfigCacheDisk)(nil)).Elem()
 }
 
-func (i FlyMachineConfigCacheDriveArgs) ToFlyMachineConfigCacheDriveOutput() FlyMachineConfigCacheDriveOutput {
-	return i.ToFlyMachineConfigCacheDriveOutputWithContext(context.Background())
+func (i FlyMachineConfigCacheDiskArgs) ToFlyMachineConfigCacheDiskOutput() FlyMachineConfigCacheDiskOutput {
+	return i.ToFlyMachineConfigCacheDiskOutputWithContext(context.Background())
 }
 
-func (i FlyMachineConfigCacheDriveArgs) ToFlyMachineConfigCacheDriveOutputWithContext(ctx context.Context) FlyMachineConfigCacheDriveOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineConfigCacheDriveOutput)
+func (i FlyMachineConfigCacheDiskArgs) ToFlyMachineConfigCacheDiskOutputWithContext(ctx context.Context) FlyMachineConfigCacheDiskOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineConfigCacheDiskOutput)
 }
 
-func (i FlyMachineConfigCacheDriveArgs) ToFlyMachineConfigCacheDrivePtrOutput() FlyMachineConfigCacheDrivePtrOutput {
-	return i.ToFlyMachineConfigCacheDrivePtrOutputWithContext(context.Background())
+func (i FlyMachineConfigCacheDiskArgs) ToFlyMachineConfigCacheDiskPtrOutput() FlyMachineConfigCacheDiskPtrOutput {
+	return i.ToFlyMachineConfigCacheDiskPtrOutputWithContext(context.Background())
 }
 
-func (i FlyMachineConfigCacheDriveArgs) ToFlyMachineConfigCacheDrivePtrOutputWithContext(ctx context.Context) FlyMachineConfigCacheDrivePtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineConfigCacheDriveOutput).ToFlyMachineConfigCacheDrivePtrOutputWithContext(ctx)
+func (i FlyMachineConfigCacheDiskArgs) ToFlyMachineConfigCacheDiskPtrOutputWithContext(ctx context.Context) FlyMachineConfigCacheDiskPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineConfigCacheDiskOutput).ToFlyMachineConfigCacheDiskPtrOutputWithContext(ctx)
 }
 
-// FlyMachineConfigCacheDrivePtrInput is an input type that accepts FlyMachineConfigCacheDriveArgs, FlyMachineConfigCacheDrivePtr and FlyMachineConfigCacheDrivePtrOutput values.
-// You can construct a concrete instance of `FlyMachineConfigCacheDrivePtrInput` via:
+// FlyMachineConfigCacheDiskPtrInput is an input type that accepts FlyMachineConfigCacheDiskArgs, FlyMachineConfigCacheDiskPtr and FlyMachineConfigCacheDiskPtrOutput values.
+// You can construct a concrete instance of `FlyMachineConfigCacheDiskPtrInput` via:
 //
-//	        FlyMachineConfigCacheDriveArgs{...}
+//	        FlyMachineConfigCacheDiskArgs{...}
 //
 //	or:
 //
 //	        nil
-type FlyMachineConfigCacheDrivePtrInput interface {
+type FlyMachineConfigCacheDiskPtrInput interface {
 	pulumi.Input
 
-	ToFlyMachineConfigCacheDrivePtrOutput() FlyMachineConfigCacheDrivePtrOutput
-	ToFlyMachineConfigCacheDrivePtrOutputWithContext(context.Context) FlyMachineConfigCacheDrivePtrOutput
+	ToFlyMachineConfigCacheDiskPtrOutput() FlyMachineConfigCacheDiskPtrOutput
+	ToFlyMachineConfigCacheDiskPtrOutputWithContext(context.Context) FlyMachineConfigCacheDiskPtrOutput
 }
 
-type flyMachineConfigCacheDrivePtrType FlyMachineConfigCacheDriveArgs
+type flyMachineConfigCacheDiskPtrType FlyMachineConfigCacheDiskArgs
 
-func FlyMachineConfigCacheDrivePtr(v *FlyMachineConfigCacheDriveArgs) FlyMachineConfigCacheDrivePtrInput {
-	return (*flyMachineConfigCacheDrivePtrType)(v)
+func FlyMachineConfigCacheDiskPtr(v *FlyMachineConfigCacheDiskArgs) FlyMachineConfigCacheDiskPtrInput {
+	return (*flyMachineConfigCacheDiskPtrType)(v)
 }
 
-func (*flyMachineConfigCacheDrivePtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**FlyMachineConfigCacheDrive)(nil)).Elem()
+func (*flyMachineConfigCacheDiskPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FlyMachineConfigCacheDisk)(nil)).Elem()
 }
 
-func (i *flyMachineConfigCacheDrivePtrType) ToFlyMachineConfigCacheDrivePtrOutput() FlyMachineConfigCacheDrivePtrOutput {
-	return i.ToFlyMachineConfigCacheDrivePtrOutputWithContext(context.Background())
+func (i *flyMachineConfigCacheDiskPtrType) ToFlyMachineConfigCacheDiskPtrOutput() FlyMachineConfigCacheDiskPtrOutput {
+	return i.ToFlyMachineConfigCacheDiskPtrOutputWithContext(context.Background())
 }
 
-func (i *flyMachineConfigCacheDrivePtrType) ToFlyMachineConfigCacheDrivePtrOutputWithContext(ctx context.Context) FlyMachineConfigCacheDrivePtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineConfigCacheDrivePtrOutput)
+func (i *flyMachineConfigCacheDiskPtrType) ToFlyMachineConfigCacheDiskPtrOutputWithContext(ctx context.Context) FlyMachineConfigCacheDiskPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FlyMachineConfigCacheDiskPtrOutput)
 }
 
-// Beta: a cache drive attached to the Machine. This field may be removed in the future
-type FlyMachineConfigCacheDriveOutput struct{ *pulumi.OutputState }
+// Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+// but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
+type FlyMachineConfigCacheDiskOutput struct{ *pulumi.OutputState }
 
-func (FlyMachineConfigCacheDriveOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*FlyMachineConfigCacheDrive)(nil)).Elem()
+func (FlyMachineConfigCacheDiskOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FlyMachineConfigCacheDisk)(nil)).Elem()
 }
 
-func (o FlyMachineConfigCacheDriveOutput) ToFlyMachineConfigCacheDriveOutput() FlyMachineConfigCacheDriveOutput {
+func (o FlyMachineConfigCacheDiskOutput) ToFlyMachineConfigCacheDiskOutput() FlyMachineConfigCacheDiskOutput {
 	return o
 }
 
-func (o FlyMachineConfigCacheDriveOutput) ToFlyMachineConfigCacheDriveOutputWithContext(ctx context.Context) FlyMachineConfigCacheDriveOutput {
+func (o FlyMachineConfigCacheDiskOutput) ToFlyMachineConfigCacheDiskOutputWithContext(ctx context.Context) FlyMachineConfigCacheDiskOutput {
 	return o
 }
 
-func (o FlyMachineConfigCacheDriveOutput) ToFlyMachineConfigCacheDrivePtrOutput() FlyMachineConfigCacheDrivePtrOutput {
-	return o.ToFlyMachineConfigCacheDrivePtrOutputWithContext(context.Background())
+func (o FlyMachineConfigCacheDiskOutput) ToFlyMachineConfigCacheDiskPtrOutput() FlyMachineConfigCacheDiskPtrOutput {
+	return o.ToFlyMachineConfigCacheDiskPtrOutputWithContext(context.Background())
 }
 
-func (o FlyMachineConfigCacheDriveOutput) ToFlyMachineConfigCacheDrivePtrOutputWithContext(ctx context.Context) FlyMachineConfigCacheDrivePtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v FlyMachineConfigCacheDrive) *FlyMachineConfigCacheDrive {
+func (o FlyMachineConfigCacheDiskOutput) ToFlyMachineConfigCacheDiskPtrOutputWithContext(ctx context.Context) FlyMachineConfigCacheDiskPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FlyMachineConfigCacheDisk) *FlyMachineConfigCacheDisk {
 		return &v
-	}).(FlyMachineConfigCacheDrivePtrOutput)
+	}).(FlyMachineConfigCacheDiskPtrOutput)
 }
 
-// Optional absolute guest mount path. When set, the device is formatted as ext4.
-// Without a path, the device retains legacy raw block behavior. Contents survive
-// same-host restarts and path changes, but are discarded on size or mode changes,
-// relocation, recovery on another host, and cloning.
-func (o FlyMachineConfigCacheDriveOutput) Path() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v FlyMachineConfigCacheDrive) *string { return v.Path }).(pulumi.StringPtrOutput)
+// Absolute path in the Machine at which to mount the cache disk.
+func (o FlyMachineConfigCacheDiskOutput) Path() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FlyMachineConfigCacheDisk) *string { return v.Path }).(pulumi.StringPtrOutput)
 }
 
-// Fixed size of the Machine-owned cache drive in MiB. At most 51200.
-// With a path, at least 16 MiB is required; without a path, 0 disables the device.
-func (o FlyMachineConfigCacheDriveOutput) SizeMb() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v FlyMachineConfigCacheDrive) *int { return v.SizeMb }).(pulumi.IntPtrOutput)
+// Size of the cache disk in MiB. Between 16 and 51200.
+// Changing the size discards the disk's contents.
+func (o FlyMachineConfigCacheDiskOutput) SizeMb() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v FlyMachineConfigCacheDisk) *int { return v.SizeMb }).(pulumi.IntPtrOutput)
 }
 
-type FlyMachineConfigCacheDrivePtrOutput struct{ *pulumi.OutputState }
+type FlyMachineConfigCacheDiskPtrOutput struct{ *pulumi.OutputState }
 
-func (FlyMachineConfigCacheDrivePtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**FlyMachineConfigCacheDrive)(nil)).Elem()
+func (FlyMachineConfigCacheDiskPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**FlyMachineConfigCacheDisk)(nil)).Elem()
 }
 
-func (o FlyMachineConfigCacheDrivePtrOutput) ToFlyMachineConfigCacheDrivePtrOutput() FlyMachineConfigCacheDrivePtrOutput {
+func (o FlyMachineConfigCacheDiskPtrOutput) ToFlyMachineConfigCacheDiskPtrOutput() FlyMachineConfigCacheDiskPtrOutput {
 	return o
 }
 
-func (o FlyMachineConfigCacheDrivePtrOutput) ToFlyMachineConfigCacheDrivePtrOutputWithContext(ctx context.Context) FlyMachineConfigCacheDrivePtrOutput {
+func (o FlyMachineConfigCacheDiskPtrOutput) ToFlyMachineConfigCacheDiskPtrOutputWithContext(ctx context.Context) FlyMachineConfigCacheDiskPtrOutput {
 	return o
 }
 
-func (o FlyMachineConfigCacheDrivePtrOutput) Elem() FlyMachineConfigCacheDriveOutput {
-	return o.ApplyT(func(v *FlyMachineConfigCacheDrive) FlyMachineConfigCacheDrive {
+func (o FlyMachineConfigCacheDiskPtrOutput) Elem() FlyMachineConfigCacheDiskOutput {
+	return o.ApplyT(func(v *FlyMachineConfigCacheDisk) FlyMachineConfigCacheDisk {
 		if v != nil {
 			return *v
 		}
-		var ret FlyMachineConfigCacheDrive
+		var ret FlyMachineConfigCacheDisk
 		return ret
-	}).(FlyMachineConfigCacheDriveOutput)
+	}).(FlyMachineConfigCacheDiskOutput)
 }
 
-// Optional absolute guest mount path. When set, the device is formatted as ext4.
-// Without a path, the device retains legacy raw block behavior. Contents survive
-// same-host restarts and path changes, but are discarded on size or mode changes,
-// relocation, recovery on another host, and cloning.
-func (o FlyMachineConfigCacheDrivePtrOutput) Path() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *FlyMachineConfigCacheDrive) *string {
+// Absolute path in the Machine at which to mount the cache disk.
+func (o FlyMachineConfigCacheDiskPtrOutput) Path() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FlyMachineConfigCacheDisk) *string {
 		if v == nil {
 			return nil
 		}
@@ -7128,10 +7123,10 @@ func (o FlyMachineConfigCacheDrivePtrOutput) Path() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Fixed size of the Machine-owned cache drive in MiB. At most 51200.
-// With a path, at least 16 MiB is required; without a path, 0 disables the device.
-func (o FlyMachineConfigCacheDrivePtrOutput) SizeMb() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *FlyMachineConfigCacheDrive) *int {
+// Size of the cache disk in MiB. Between 16 and 51200.
+// Changing the size discards the disk's contents.
+func (o FlyMachineConfigCacheDiskPtrOutput) SizeMb() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *FlyMachineConfigCacheDisk) *int {
 		if v == nil {
 			return nil
 		}
@@ -7153,7 +7148,7 @@ type FlyMachineConfigChecksProperties struct {
 	Method *string `pulumi:"method"`
 	// For http checks, the path to send the request to
 	Path *string `pulumi:"path"`
-	// The port to connect to, often the same as internal_port
+	// The port to connect to. Required for top-level checks
 	Port *int `pulumi:"port"`
 	// For http checks, whether to use http or https
 	Protocol *string `pulumi:"protocol"`
@@ -7192,7 +7187,7 @@ type FlyMachineConfigChecksPropertiesArgs struct {
 	Method pulumi.StringPtrInput `pulumi:"method"`
 	// For http checks, the path to send the request to
 	Path pulumi.StringPtrInput `pulumi:"path"`
-	// The port to connect to, often the same as internal_port
+	// The port to connect to. Required for top-level checks
 	Port pulumi.IntPtrInput `pulumi:"port"`
 	// For http checks, whether to use http or https
 	Protocol pulumi.StringPtrInput `pulumi:"protocol"`
@@ -7288,7 +7283,7 @@ func (o FlyMachineConfigChecksPropertiesOutput) Path() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v FlyMachineConfigChecksProperties) *string { return v.Path }).(pulumi.StringPtrOutput)
 }
 
-// The port to connect to, often the same as internal_port
+// The port to connect to. Required for top-level checks
 func (o FlyMachineConfigChecksPropertiesOutput) Port() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v FlyMachineConfigChecksProperties) *int { return v.Port }).(pulumi.IntPtrOutput)
 }
@@ -10532,7 +10527,7 @@ type FlyMachineServiceCheck struct {
 	Method *string `pulumi:"method"`
 	// For http checks, the path to send the request to
 	Path *string `pulumi:"path"`
-	// The port to connect to, often the same as internal_port
+	// The port to connect to. Defaults to the service's internal_port
 	Port *int `pulumi:"port"`
 	// For http checks, whether to use http or https
 	Protocol *string `pulumi:"protocol"`
@@ -10568,7 +10563,7 @@ type FlyMachineServiceCheckArgs struct {
 	Method pulumi.StringPtrInput `pulumi:"method"`
 	// For http checks, the path to send the request to
 	Path pulumi.StringPtrInput `pulumi:"path"`
-	// The port to connect to, often the same as internal_port
+	// The port to connect to. Defaults to the service's internal_port
 	Port pulumi.IntPtrInput `pulumi:"port"`
 	// For http checks, whether to use http or https
 	Protocol pulumi.StringPtrInput `pulumi:"protocol"`
@@ -10658,7 +10653,7 @@ func (o FlyMachineServiceCheckOutput) Path() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v FlyMachineServiceCheck) *string { return v.Path }).(pulumi.StringPtrOutput)
 }
 
-// The port to connect to, often the same as internal_port
+// The port to connect to. Defaults to the service's internal_port
 func (o FlyMachineServiceCheckOutput) Port() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v FlyMachineServiceCheck) *int { return v.Port }).(pulumi.IntPtrOutput)
 }
@@ -12877,8 +12872,9 @@ func (o IPAssignmentNetworkPtrOutput) OrgSlug() pulumi.StringPtrOutput {
 type IncompleteConfig struct {
 	// Optional boolean telling the Machine to destroy itself once it’s complete (default false)
 	AutoDestroy *bool `pulumi:"autoDestroy"`
-	// Beta: a cache drive attached to the Machine. This field may be removed in the future
-	CacheDrive *FlyMachineConfigCacheDrive `pulumi:"cacheDrive"`
+	// Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+	// but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
+	CacheDisk *FlyMachineConfigCacheDisk `pulumi:"cacheDisk"`
 	// An optional object that defines one or more named top-level checks. The key for each check is the check name.
 	Checks map[string]FlyMachineConfigChecksProperties `pulumi:"checks"`
 	// Containers are a list of containers that will run in the machine, each from its own image.
@@ -12957,9 +12953,10 @@ func (o IncompleteConfigOutput) AutoDestroy() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v IncompleteConfig) *bool { return v.AutoDestroy }).(pulumi.BoolPtrOutput)
 }
 
-// Beta: a cache drive attached to the Machine. This field may be removed in the future
-func (o IncompleteConfigOutput) CacheDrive() FlyMachineConfigCacheDrivePtrOutput {
-	return o.ApplyT(func(v IncompleteConfig) *FlyMachineConfigCacheDrive { return v.CacheDrive }).(FlyMachineConfigCacheDrivePtrOutput)
+// Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+// but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
+func (o IncompleteConfigOutput) CacheDisk() FlyMachineConfigCacheDiskPtrOutput {
+	return o.ApplyT(func(v IncompleteConfig) *FlyMachineConfigCacheDisk { return v.CacheDisk }).(FlyMachineConfigCacheDiskPtrOutput)
 }
 
 // An optional object that defines one or more named top-level checks. The key for each check is the check name.
@@ -13115,14 +13112,15 @@ func (o IncompleteConfigPtrOutput) AutoDestroy() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Beta: a cache drive attached to the Machine. This field may be removed in the future
-func (o IncompleteConfigPtrOutput) CacheDrive() FlyMachineConfigCacheDrivePtrOutput {
-	return o.ApplyT(func(v *IncompleteConfig) *FlyMachineConfigCacheDrive {
+// Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+// but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
+func (o IncompleteConfigPtrOutput) CacheDisk() FlyMachineConfigCacheDiskPtrOutput {
+	return o.ApplyT(func(v *IncompleteConfig) *FlyMachineConfigCacheDisk {
 		if v == nil {
 			return nil
 		}
-		return v.CacheDrive
-	}).(FlyMachineConfigCacheDrivePtrOutput)
+		return v.CacheDisk
+	}).(FlyMachineConfigCacheDiskPtrOutput)
 }
 
 // An optional object that defines one or more named top-level checks. The key for each check is the check name.
@@ -14063,10 +14061,12 @@ type ListAppsResponse struct {
 	// Pagination cursor for the next page. Absent when no more apps remain.
 	// Cursors expire 30 minutes after the first page was requested.
 	NextCursor *string `pulumi:"nextCursor"`
-	// The number of matching apps across all pages. Organization-wide listings
-	// retain the first page's count; scoped listings recount using the current
-	// token's permissions. Snapshot bounds exclude newer apps, and replication
-	// lag or deletion during traversal can make totals differ from rows seen.
+	// The number of matching apps across all pages. With an organization-wide
+	// token, it is counted when the first page is requested and not updated
+	// afterwards, so it excludes apps created later and includes apps deleted
+	// while paginating. With an app-scoped token, such as a deploy token, it is
+	// recounted on each page and includes only the apps the token can read.
+	// Either way, it may differ slightly from the number of apps returned.
 	TotalApps *int `pulumi:"totalApps"`
 }
 
@@ -15824,8 +15824,9 @@ func (o MachineTypeArrayOutput) Index(i pulumi.IntInput) MachineTypeOutput {
 type MachineConfig struct {
 	// Optional boolean telling the Machine to destroy itself once it’s complete (default false)
 	AutoDestroy *bool `pulumi:"autoDestroy"`
-	// Beta: a cache drive attached to the Machine. This field may be removed in the future
-	CacheDrive *FlyMachineConfigCacheDrive `pulumi:"cacheDrive"`
+	// Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+	// but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
+	CacheDisk *FlyMachineConfigCacheDisk `pulumi:"cacheDisk"`
 	// An optional object that defines one or more named top-level checks. The key for each check is the check name.
 	Checks map[string]FlyMachineConfigChecksProperties `pulumi:"checks"`
 	// Containers are a list of containers that will run in the machine, each from its own image.
@@ -15904,9 +15905,10 @@ func (o MachineConfigOutput) AutoDestroy() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v MachineConfig) *bool { return v.AutoDestroy }).(pulumi.BoolPtrOutput)
 }
 
-// Beta: a cache drive attached to the Machine. This field may be removed in the future
-func (o MachineConfigOutput) CacheDrive() FlyMachineConfigCacheDrivePtrOutput {
-	return o.ApplyT(func(v MachineConfig) *FlyMachineConfigCacheDrive { return v.CacheDrive }).(FlyMachineConfigCacheDrivePtrOutput)
+// Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+// but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
+func (o MachineConfigOutput) CacheDisk() FlyMachineConfigCacheDiskPtrOutput {
+	return o.ApplyT(func(v MachineConfig) *FlyMachineConfigCacheDisk { return v.CacheDisk }).(FlyMachineConfigCacheDiskPtrOutput)
 }
 
 // An optional object that defines one or more named top-level checks. The key for each check is the check name.
@@ -16062,14 +16064,15 @@ func (o MachineConfigPtrOutput) AutoDestroy() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Beta: a cache drive attached to the Machine. This field may be removed in the future
-func (o MachineConfigPtrOutput) CacheDrive() FlyMachineConfigCacheDrivePtrOutput {
-	return o.ApplyT(func(v *MachineConfig) *FlyMachineConfigCacheDrive {
+// Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+// but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
+func (o MachineConfigPtrOutput) CacheDisk() FlyMachineConfigCacheDiskPtrOutput {
+	return o.ApplyT(func(v *MachineConfig) *FlyMachineConfigCacheDisk {
 		if v == nil {
 			return nil
 		}
-		return v.CacheDrive
-	}).(FlyMachineConfigCacheDrivePtrOutput)
+		return v.CacheDisk
+	}).(FlyMachineConfigCacheDiskPtrOutput)
 }
 
 // An optional object that defines one or more named top-level checks. The key for each check is the check name.
@@ -16828,8 +16831,9 @@ func (o MachineImageRefPtrOutput) Tag() pulumi.StringPtrOutput {
 type MachineIncompleteConfig struct {
 	// Optional boolean telling the Machine to destroy itself once it’s complete (default false)
 	AutoDestroy *bool `pulumi:"autoDestroy"`
-	// Beta: a cache drive attached to the Machine. This field may be removed in the future
-	CacheDrive *FlyMachineConfigCacheDrive `pulumi:"cacheDrive"`
+	// Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+	// but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
+	CacheDisk *FlyMachineConfigCacheDisk `pulumi:"cacheDisk"`
 	// An optional object that defines one or more named top-level checks. The key for each check is the check name.
 	Checks map[string]FlyMachineConfigChecksProperties `pulumi:"checks"`
 	// Containers are a list of containers that will run in the machine, each from its own image.
@@ -16908,9 +16912,10 @@ func (o MachineIncompleteConfigOutput) AutoDestroy() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v MachineIncompleteConfig) *bool { return v.AutoDestroy }).(pulumi.BoolPtrOutput)
 }
 
-// Beta: a cache drive attached to the Machine. This field may be removed in the future
-func (o MachineIncompleteConfigOutput) CacheDrive() FlyMachineConfigCacheDrivePtrOutput {
-	return o.ApplyT(func(v MachineIncompleteConfig) *FlyMachineConfigCacheDrive { return v.CacheDrive }).(FlyMachineConfigCacheDrivePtrOutput)
+// Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+// but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
+func (o MachineIncompleteConfigOutput) CacheDisk() FlyMachineConfigCacheDiskPtrOutput {
+	return o.ApplyT(func(v MachineIncompleteConfig) *FlyMachineConfigCacheDisk { return v.CacheDisk }).(FlyMachineConfigCacheDiskPtrOutput)
 }
 
 // An optional object that defines one or more named top-level checks. The key for each check is the check name.
@@ -17066,14 +17071,15 @@ func (o MachineIncompleteConfigPtrOutput) AutoDestroy() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Beta: a cache drive attached to the Machine. This field may be removed in the future
-func (o MachineIncompleteConfigPtrOutput) CacheDrive() FlyMachineConfigCacheDrivePtrOutput {
-	return o.ApplyT(func(v *MachineIncompleteConfig) *FlyMachineConfigCacheDrive {
+// Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+// but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
+func (o MachineIncompleteConfigPtrOutput) CacheDisk() FlyMachineConfigCacheDiskPtrOutput {
+	return o.ApplyT(func(v *MachineIncompleteConfig) *FlyMachineConfigCacheDisk {
 		if v == nil {
 			return nil
 		}
-		return v.CacheDrive
-	}).(FlyMachineConfigCacheDrivePtrOutput)
+		return v.CacheDisk
+	}).(FlyMachineConfigCacheDiskPtrOutput)
 }
 
 // An optional object that defines one or more named top-level checks. The key for each check is the check name.
@@ -17971,8 +17977,9 @@ func (o MachineVersionArrayOutput) Index(i pulumi.IntInput) MachineVersionOutput
 type MachineVersionUserConfig struct {
 	// Optional boolean telling the Machine to destroy itself once it’s complete (default false)
 	AutoDestroy *bool `pulumi:"autoDestroy"`
-	// Beta: a cache drive attached to the Machine. This field may be removed in the future
-	CacheDrive *FlyMachineConfigCacheDrive `pulumi:"cacheDrive"`
+	// Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+	// but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
+	CacheDisk *FlyMachineConfigCacheDisk `pulumi:"cacheDisk"`
 	// An optional object that defines one or more named top-level checks. The key for each check is the check name.
 	Checks map[string]FlyMachineConfigChecksProperties `pulumi:"checks"`
 	// Containers are a list of containers that will run in the machine, each from its own image.
@@ -18048,9 +18055,10 @@ func (o MachineVersionUserConfigOutput) AutoDestroy() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v MachineVersionUserConfig) *bool { return v.AutoDestroy }).(pulumi.BoolPtrOutput)
 }
 
-// Beta: a cache drive attached to the Machine. This field may be removed in the future
-func (o MachineVersionUserConfigOutput) CacheDrive() FlyMachineConfigCacheDrivePtrOutput {
-	return o.ApplyT(func(v MachineVersionUserConfig) *FlyMachineConfigCacheDrive { return v.CacheDrive }).(FlyMachineConfigCacheDrivePtrOutput)
+// Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+// but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
+func (o MachineVersionUserConfigOutput) CacheDisk() FlyMachineConfigCacheDiskPtrOutput {
+	return o.ApplyT(func(v MachineVersionUserConfig) *FlyMachineConfigCacheDisk { return v.CacheDisk }).(FlyMachineConfigCacheDiskPtrOutput)
 }
 
 // An optional object that defines one or more named top-level checks. The key for each check is the check name.
@@ -18206,14 +18214,15 @@ func (o MachineVersionUserConfigPtrOutput) AutoDestroy() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Beta: a cache drive attached to the Machine. This field may be removed in the future
-func (o MachineVersionUserConfigPtrOutput) CacheDrive() FlyMachineConfigCacheDrivePtrOutput {
-	return o.ApplyT(func(v *MachineVersionUserConfig) *FlyMachineConfigCacheDrive {
+// Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+// but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
+func (o MachineVersionUserConfigPtrOutput) CacheDisk() FlyMachineConfigCacheDiskPtrOutput {
+	return o.ApplyT(func(v *MachineVersionUserConfig) *FlyMachineConfigCacheDisk {
 		if v == nil {
 			return nil
 		}
-		return v.CacheDrive
-	}).(FlyMachineConfigCacheDrivePtrOutput)
+		return v.CacheDisk
+	}).(FlyMachineConfigCacheDiskPtrOutput)
 }
 
 // An optional object that defines one or more named top-level checks. The key for each check is the check name.
@@ -29102,8 +29111,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyFileArrayInput)(nil)).Elem(), FlyFileArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyHTTPOptionsResponseInput)(nil)).Elem(), FlyHTTPOptionsResponseArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyHTTPOptionsResponsePtrInput)(nil)).Elem(), FlyHTTPOptionsResponseArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineConfigCacheDriveInput)(nil)).Elem(), FlyMachineConfigCacheDriveArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineConfigCacheDrivePtrInput)(nil)).Elem(), FlyMachineConfigCacheDriveArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineConfigCacheDiskInput)(nil)).Elem(), FlyMachineConfigCacheDiskArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineConfigCacheDiskPtrInput)(nil)).Elem(), FlyMachineConfigCacheDiskArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineConfigChecksPropertiesInput)(nil)).Elem(), FlyMachineConfigChecksPropertiesArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineConfigChecksPropertiesMapInput)(nil)).Elem(), FlyMachineConfigChecksPropertiesMap{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FlyMachineConfigDnsInput)(nil)).Elem(), FlyMachineConfigDnsArgs{})
@@ -29419,8 +29428,8 @@ func init() {
 	pulumi.RegisterOutputType(FlyFileArrayOutput{})
 	pulumi.RegisterOutputType(FlyHTTPOptionsResponseOutput{})
 	pulumi.RegisterOutputType(FlyHTTPOptionsResponsePtrOutput{})
-	pulumi.RegisterOutputType(FlyMachineConfigCacheDriveOutput{})
-	pulumi.RegisterOutputType(FlyMachineConfigCacheDrivePtrOutput{})
+	pulumi.RegisterOutputType(FlyMachineConfigCacheDiskOutput{})
+	pulumi.RegisterOutputType(FlyMachineConfigCacheDiskPtrOutput{})
 	pulumi.RegisterOutputType(FlyMachineConfigChecksPropertiesOutput{})
 	pulumi.RegisterOutputType(FlyMachineConfigChecksPropertiesMapOutput{})
 	pulumi.RegisterOutputType(FlyMachineConfigDnsOutput{})

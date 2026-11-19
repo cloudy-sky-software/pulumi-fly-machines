@@ -10,6 +10,182 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+// Day of the week the window starts on.
+type Day string
+
+const (
+	DaySunday    = Day("sunday")
+	DayMonday    = Day("monday")
+	DayTuesday   = Day("tuesday")
+	DayWednesday = Day("wednesday")
+	DayThursday  = Day("thursday")
+	DayFriday    = Day("friday")
+	DaySaturday  = Day("saturday")
+)
+
+func (Day) ElementType() reflect.Type {
+	return reflect.TypeOf((*Day)(nil)).Elem()
+}
+
+func (e Day) ToDayOutput() DayOutput {
+	return pulumi.ToOutput(e).(DayOutput)
+}
+
+func (e Day) ToDayOutputWithContext(ctx context.Context) DayOutput {
+	return pulumi.ToOutputWithContext(ctx, e).(DayOutput)
+}
+
+func (e Day) ToDayPtrOutput() DayPtrOutput {
+	return e.ToDayPtrOutputWithContext(context.Background())
+}
+
+func (e Day) ToDayPtrOutputWithContext(ctx context.Context) DayPtrOutput {
+	return Day(e).ToDayOutputWithContext(ctx).ToDayPtrOutputWithContext(ctx)
+}
+
+func (e Day) ToStringOutput() pulumi.StringOutput {
+	return pulumi.ToOutput(pulumi.String(e)).(pulumi.StringOutput)
+}
+
+func (e Day) ToStringOutputWithContext(ctx context.Context) pulumi.StringOutput {
+	return pulumi.ToOutputWithContext(ctx, pulumi.String(e)).(pulumi.StringOutput)
+}
+
+func (e Day) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return pulumi.String(e).ToStringPtrOutputWithContext(context.Background())
+}
+
+func (e Day) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return pulumi.String(e).ToStringOutputWithContext(ctx).ToStringPtrOutputWithContext(ctx)
+}
+
+type DayOutput struct{ *pulumi.OutputState }
+
+func (DayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*Day)(nil)).Elem()
+}
+
+func (o DayOutput) ToDayOutput() DayOutput {
+	return o
+}
+
+func (o DayOutput) ToDayOutputWithContext(ctx context.Context) DayOutput {
+	return o
+}
+
+func (o DayOutput) ToDayPtrOutput() DayPtrOutput {
+	return o.ToDayPtrOutputWithContext(context.Background())
+}
+
+func (o DayOutput) ToDayPtrOutputWithContext(ctx context.Context) DayPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Day) *Day {
+		return &v
+	}).(DayPtrOutput)
+}
+
+func (o DayOutput) ToStringOutput() pulumi.StringOutput {
+	return o.ToStringOutputWithContext(context.Background())
+}
+
+func (o DayOutput) ToStringOutputWithContext(ctx context.Context) pulumi.StringOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e Day) string {
+		return string(e)
+	}).(pulumi.StringOutput)
+}
+
+func (o DayOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o DayOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e Day) *string {
+		v := string(e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+type DayPtrOutput struct{ *pulumi.OutputState }
+
+func (DayPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**Day)(nil)).Elem()
+}
+
+func (o DayPtrOutput) ToDayPtrOutput() DayPtrOutput {
+	return o
+}
+
+func (o DayPtrOutput) ToDayPtrOutputWithContext(ctx context.Context) DayPtrOutput {
+	return o
+}
+
+func (o DayPtrOutput) Elem() DayOutput {
+	return o.ApplyT(func(v *Day) Day {
+		if v != nil {
+			return *v
+		}
+		var ret Day
+		return ret
+	}).(DayOutput)
+}
+
+func (o DayPtrOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o DayPtrOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e *Day) *string {
+		if e == nil {
+			return nil
+		}
+		v := string(*e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+// DayInput is an input type that accepts values of the Day enum
+// A concrete instance of `DayInput` can be one of the following:
+//
+//	DaySunday
+//	DayMonday
+//	DayTuesday
+//	DayWednesday
+//	DayThursday
+//	DayFriday
+//	DaySaturday
+type DayInput interface {
+	pulumi.Input
+
+	ToDayOutput() DayOutput
+	ToDayOutputWithContext(context.Context) DayOutput
+}
+
+var dayPtrType = reflect.TypeOf((**Day)(nil)).Elem()
+
+type DayPtrInput interface {
+	pulumi.Input
+
+	ToDayPtrOutput() DayPtrOutput
+	ToDayPtrOutputWithContext(context.Context) DayPtrOutput
+}
+
+type dayPtr string
+
+func DayPtr(v string) DayPtrInput {
+	return (*dayPtr)(&v)
+}
+
+func (*dayPtr) ElementType() reflect.Type {
+	return dayPtrType
+}
+
+func (in *dayPtr) ToDayPtrOutput() DayPtrOutput {
+	return pulumi.ToOutput(in).(DayPtrOutput)
+}
+
+func (in *dayPtr) ToDayPtrOutputWithContext(ctx context.Context) DayPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, in).(DayPtrOutput)
+}
+
 // Postgres major version.
 type PgMajorVersion string
 
@@ -1166,6 +1342,102 @@ func (o PostgresClusterSummaryStatusPtrOutput) ToStringPtrOutputWithContext(ctx 
 	}).(pulumi.StringPtrOutput)
 }
 
+// Day of the week the window starts on.
+type PostgresMaintenanceWindowDay string
+
+const (
+	PostgresMaintenanceWindowDaySunday    = PostgresMaintenanceWindowDay("sunday")
+	PostgresMaintenanceWindowDayMonday    = PostgresMaintenanceWindowDay("monday")
+	PostgresMaintenanceWindowDayTuesday   = PostgresMaintenanceWindowDay("tuesday")
+	PostgresMaintenanceWindowDayWednesday = PostgresMaintenanceWindowDay("wednesday")
+	PostgresMaintenanceWindowDayThursday  = PostgresMaintenanceWindowDay("thursday")
+	PostgresMaintenanceWindowDayFriday    = PostgresMaintenanceWindowDay("friday")
+	PostgresMaintenanceWindowDaySaturday  = PostgresMaintenanceWindowDay("saturday")
+)
+
+type PostgresMaintenanceWindowDayOutput struct{ *pulumi.OutputState }
+
+func (PostgresMaintenanceWindowDayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PostgresMaintenanceWindowDay)(nil)).Elem()
+}
+
+func (o PostgresMaintenanceWindowDayOutput) ToPostgresMaintenanceWindowDayOutput() PostgresMaintenanceWindowDayOutput {
+	return o
+}
+
+func (o PostgresMaintenanceWindowDayOutput) ToPostgresMaintenanceWindowDayOutputWithContext(ctx context.Context) PostgresMaintenanceWindowDayOutput {
+	return o
+}
+
+func (o PostgresMaintenanceWindowDayOutput) ToPostgresMaintenanceWindowDayPtrOutput() PostgresMaintenanceWindowDayPtrOutput {
+	return o.ToPostgresMaintenanceWindowDayPtrOutputWithContext(context.Background())
+}
+
+func (o PostgresMaintenanceWindowDayOutput) ToPostgresMaintenanceWindowDayPtrOutputWithContext(ctx context.Context) PostgresMaintenanceWindowDayPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PostgresMaintenanceWindowDay) *PostgresMaintenanceWindowDay {
+		return &v
+	}).(PostgresMaintenanceWindowDayPtrOutput)
+}
+
+func (o PostgresMaintenanceWindowDayOutput) ToStringOutput() pulumi.StringOutput {
+	return o.ToStringOutputWithContext(context.Background())
+}
+
+func (o PostgresMaintenanceWindowDayOutput) ToStringOutputWithContext(ctx context.Context) pulumi.StringOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e PostgresMaintenanceWindowDay) string {
+		return string(e)
+	}).(pulumi.StringOutput)
+}
+
+func (o PostgresMaintenanceWindowDayOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o PostgresMaintenanceWindowDayOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e PostgresMaintenanceWindowDay) *string {
+		v := string(e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+type PostgresMaintenanceWindowDayPtrOutput struct{ *pulumi.OutputState }
+
+func (PostgresMaintenanceWindowDayPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PostgresMaintenanceWindowDay)(nil)).Elem()
+}
+
+func (o PostgresMaintenanceWindowDayPtrOutput) ToPostgresMaintenanceWindowDayPtrOutput() PostgresMaintenanceWindowDayPtrOutput {
+	return o
+}
+
+func (o PostgresMaintenanceWindowDayPtrOutput) ToPostgresMaintenanceWindowDayPtrOutputWithContext(ctx context.Context) PostgresMaintenanceWindowDayPtrOutput {
+	return o
+}
+
+func (o PostgresMaintenanceWindowDayPtrOutput) Elem() PostgresMaintenanceWindowDayOutput {
+	return o.ApplyT(func(v *PostgresMaintenanceWindowDay) PostgresMaintenanceWindowDay {
+		if v != nil {
+			return *v
+		}
+		var ret PostgresMaintenanceWindowDay
+		return ret
+	}).(PostgresMaintenanceWindowDayOutput)
+}
+
+func (o PostgresMaintenanceWindowDayPtrOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o PostgresMaintenanceWindowDayPtrOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e *PostgresMaintenanceWindowDay) *string {
+		if e == nil {
+			return nil
+		}
+		v := string(*e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
 // CPU class.
 type PostgresPlanCpuKind string
 
@@ -1780,6 +2052,8 @@ func (in *typePtr) ToTypePtrOutputWithContext(ctx context.Context) TypePtrOutput
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*DayInput)(nil)).Elem(), Day("sunday"))
+	pulumi.RegisterInputType(reflect.TypeOf((*DayPtrInput)(nil)).Elem(), Day("sunday"))
 	pulumi.RegisterInputType(reflect.TypeOf((*PgMajorVersionInput)(nil)).Elem(), PgMajorVersion("16"))
 	pulumi.RegisterInputType(reflect.TypeOf((*PgMajorVersionPtrInput)(nil)).Elem(), PgMajorVersion("16"))
 	pulumi.RegisterInputType(reflect.TypeOf((*PlanInput)(nil)).Elem(), Plan("basic"))
@@ -1790,6 +2064,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*RolePtrInput)(nil)).Elem(), Role("schema_admin"))
 	pulumi.RegisterInputType(reflect.TypeOf((*TypeInput)(nil)).Elem(), Type("full"))
 	pulumi.RegisterInputType(reflect.TypeOf((*TypePtrInput)(nil)).Elem(), Type("full"))
+	pulumi.RegisterOutputType(DayOutput{})
+	pulumi.RegisterOutputType(DayPtrOutput{})
 	pulumi.RegisterOutputType(PgMajorVersionOutput{})
 	pulumi.RegisterOutputType(PgMajorVersionPtrOutput{})
 	pulumi.RegisterOutputType(PlanOutput{})
@@ -1810,6 +2086,8 @@ func init() {
 	pulumi.RegisterOutputType(PostgresClusterSummaryPlanPtrOutput{})
 	pulumi.RegisterOutputType(PostgresClusterSummaryStatusOutput{})
 	pulumi.RegisterOutputType(PostgresClusterSummaryStatusPtrOutput{})
+	pulumi.RegisterOutputType(PostgresMaintenanceWindowDayOutput{})
+	pulumi.RegisterOutputType(PostgresMaintenanceWindowDayPtrOutput{})
 	pulumi.RegisterOutputType(PostgresPlanCpuKindOutput{})
 	pulumi.RegisterOutputType(PostgresPlanCpuKindPtrOutput{})
 	pulumi.RegisterOutputType(PostgresPlanPlanOutput{})
