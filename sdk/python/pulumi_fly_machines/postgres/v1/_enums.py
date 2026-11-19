@@ -7,6 +7,7 @@ import pulumi
 from enum import Enum
 
 __all__ = [
+    'Day',
     'PgMajorVersion',
     'Plan',
     'PoolMode',
@@ -24,6 +25,20 @@ __all__ = [
     'Role',
     'Type',
 ]
+
+
+@pulumi.type_token("fly-machines:postgres/v1:Day")
+class Day(_builtins.str, Enum):
+    """
+    Day of the week the window starts on.
+    """
+    SUNDAY = "sunday"
+    MONDAY = "monday"
+    TUESDAY = "tuesday"
+    WEDNESDAY = "wednesday"
+    THURSDAY = "thursday"
+    FRIDAY = "friday"
+    SATURDAY = "saturday"
 
 
 @pulumi.type_token("fly-machines:postgres/v1:PgMajorVersion")

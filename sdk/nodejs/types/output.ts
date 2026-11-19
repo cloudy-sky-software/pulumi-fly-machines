@@ -4453,6 +4453,54 @@ export namespace postgres {
         }
 
         /**
+         * Query params for the API request.
+         */
+        export interface PostgresMaintenanceWindowCreateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface PostgresMaintenanceWindowQueryParams {
+            /**
+             * Query params for the create operation.
+             */
+            create?: outputs.postgres.v1.PostgresMaintenanceWindowCreateQueryParams;
+            /**
+             * Query params for the read operation.
+             */
+            read?: outputs.postgres.v1.PostgresMaintenanceWindowReadQueryParams;
+            /**
+             * Query params for the update operation.
+             */
+            update?: outputs.postgres.v1.PostgresMaintenanceWindowUpdateQueryParams;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresMaintenanceWindowReadQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresMaintenanceWindowUpdateQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
          * Unpooled connection to the cluster node.
          */
         export interface PostgresNodeEndpointsDirect {

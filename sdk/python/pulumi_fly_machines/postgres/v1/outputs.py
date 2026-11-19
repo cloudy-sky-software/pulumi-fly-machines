@@ -46,6 +46,10 @@ __all__ = [
     'PostgresForkCreateQueryParams',
     'PostgresForkQueryParams',
     'PostgresMaintenanceWindow',
+    'PostgresMaintenanceWindowCreateQueryParams',
+    'PostgresMaintenanceWindowQueryParams',
+    'PostgresMaintenanceWindowReadQueryParams',
+    'PostgresMaintenanceWindowUpdateQueryParams',
     'PostgresNodeEndpointsDirect',
     'PostgresNodeEndpointsPooler',
     'PostgresPlan',
@@ -1559,6 +1563,25 @@ class PostgresForkQueryParams(dict):
 
 @pulumi.output_type
 class PostgresMaintenanceWindow(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "durationHours":
+            suggest = "duration_hours"
+        elif key == "startHour":
+            suggest = "start_hour"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PostgresMaintenanceWindow. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PostgresMaintenanceWindow.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PostgresMaintenanceWindow.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  day: Optional['PostgresMaintenanceWindowDay'] = None,
                  duration_hours: Optional[_builtins.int] = None,
@@ -1610,6 +1633,177 @@ class PostgresMaintenanceWindow(dict):
         IANA timezone the window is expressed in, derived from the cluster's region.
         """
         return pulumi.get(self, "timezone")
+
+
+@pulumi.output_type
+class PostgresMaintenanceWindowCreateQueryParams(dict):
+    """
+    Query params for the API request.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "additionalParams":
+            suggest = "additional_params"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PostgresMaintenanceWindowCreateQueryParams. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PostgresMaintenanceWindowCreateQueryParams.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PostgresMaintenanceWindowCreateQueryParams.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+
+@pulumi.output_type
+class PostgresMaintenanceWindowQueryParams(dict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    def __init__(__self__, *,
+                 create: Optional['outputs.PostgresMaintenanceWindowCreateQueryParams'] = None,
+                 read: Optional['outputs.PostgresMaintenanceWindowReadQueryParams'] = None,
+                 update: Optional['outputs.PostgresMaintenanceWindowUpdateQueryParams'] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param 'PostgresMaintenanceWindowCreateQueryParams' create: Query params for the create operation.
+        :param 'PostgresMaintenanceWindowReadQueryParams' read: Query params for the read operation.
+        :param 'PostgresMaintenanceWindowUpdateQueryParams' update: Query params for the update operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+        if read is not None:
+            pulumi.set(__self__, "read", read)
+        if update is not None:
+            pulumi.set(__self__, "update", update)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> Optional['outputs.PostgresMaintenanceWindowCreateQueryParams']:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @_builtins.property
+    @pulumi.getter
+    def read(self) -> Optional['outputs.PostgresMaintenanceWindowReadQueryParams']:
+        """
+        Query params for the read operation.
+        """
+        return pulumi.get(self, "read")
+
+    @_builtins.property
+    @pulumi.getter
+    def update(self) -> Optional['outputs.PostgresMaintenanceWindowUpdateQueryParams']:
+        """
+        Query params for the update operation.
+        """
+        return pulumi.get(self, "update")
+
+
+@pulumi.output_type
+class PostgresMaintenanceWindowReadQueryParams(dict):
+    """
+    Query params for the API request.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "additionalParams":
+            suggest = "additional_params"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PostgresMaintenanceWindowReadQueryParams. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PostgresMaintenanceWindowReadQueryParams.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PostgresMaintenanceWindowReadQueryParams.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+
+@pulumi.output_type
+class PostgresMaintenanceWindowUpdateQueryParams(dict):
+    """
+    Query params for the API request.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "additionalParams":
+            suggest = "additional_params"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PostgresMaintenanceWindowUpdateQueryParams. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PostgresMaintenanceWindowUpdateQueryParams.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PostgresMaintenanceWindowUpdateQueryParams.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 additional_params: Optional[Mapping[str, _builtins.str]] = None):
+        """
+        Query params for the API request.
+
+        :param Mapping[str, _builtins.str] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> Optional[Mapping[str, _builtins.str]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
 
 
 @pulumi.output_type

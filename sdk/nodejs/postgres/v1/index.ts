@@ -95,6 +95,11 @@ export type PostgresFork = import("./postgresFork").PostgresFork;
 export const PostgresFork: typeof import("./postgresFork").PostgresFork = null as any;
 utilities.lazyLoad(exports, ["PostgresFork"], () => require("./postgresFork"));
 
+export { PostgresMaintenanceWindowArgs } from "./postgresMaintenanceWindow";
+export type PostgresMaintenanceWindow = import("./postgresMaintenanceWindow").PostgresMaintenanceWindow;
+export const PostgresMaintenanceWindow: typeof import("./postgresMaintenanceWindow").PostgresMaintenanceWindow = null as any;
+utilities.lazyLoad(exports, ["PostgresMaintenanceWindow"], () => require("./postgresMaintenanceWindow"));
+
 export { PostgresRestoreArgs } from "./postgresRestore";
 export type PostgresRestore = import("./postgresRestore").PostgresRestore;
 export const PostgresRestore: typeof import("./postgresRestore").PostgresRestore = null as any;
@@ -132,6 +137,8 @@ const _module = {
                 return new PostgresExtension(name, <any>undefined, { urn })
             case "fly-machines:postgres/v1:PostgresFork":
                 return new PostgresFork(name, <any>undefined, { urn })
+            case "fly-machines:postgres/v1:PostgresMaintenanceWindow":
+                return new PostgresMaintenanceWindow(name, <any>undefined, { urn })
             case "fly-machines:postgres/v1:PostgresRestore":
                 return new PostgresRestore(name, <any>undefined, { urn })
             case "fly-machines:postgres/v1:PostgresUser":

@@ -25,6 +25,7 @@ from .postgres_database import *
 from .postgres_databases_query import *
 from .postgres_extension import *
 from .postgres_fork import *
+from .postgres_maintenance_window import *
 from .postgres_restore import *
 from .postgres_user import *
 from .postgres_users_rotate_password import *

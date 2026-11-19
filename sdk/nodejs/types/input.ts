@@ -3556,6 +3556,54 @@ export namespace postgres {
         }
 
         /**
+         * Query params for the API request.
+         */
+        export interface PostgresMaintenanceWindowCreateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for each of the operations of the resource.
+         */
+        export interface PostgresMaintenanceWindowQueryParamsArgs {
+            /**
+             * Query params for the create operation.
+             */
+            create?: pulumi.Input<inputs.postgres.v1.PostgresMaintenanceWindowCreateQueryParamsArgs | undefined>;
+            /**
+             * Query params for the read operation.
+             */
+            read?: pulumi.Input<inputs.postgres.v1.PostgresMaintenanceWindowReadQueryParamsArgs | undefined>;
+            /**
+             * Query params for the update operation.
+             */
+            update?: pulumi.Input<inputs.postgres.v1.PostgresMaintenanceWindowUpdateQueryParamsArgs | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresMaintenanceWindowReadQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface PostgresMaintenanceWindowUpdateQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
+        /**
          * Query params for each of the operations of the resource.
          */
         export interface PostgresQueryParamsArgs {

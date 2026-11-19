@@ -11,9 +11,9 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-func GetPostgresMaintenanceWindow(ctx *pulumi.Context, args *GetPostgresMaintenanceWindowArgs, opts ...pulumi.InvokeOption) (*GetPostgresMaintenanceWindowResult, error) {
+func LookupPostgresMaintenanceWindow(ctx *pulumi.Context, args *LookupPostgresMaintenanceWindowArgs, opts ...pulumi.InvokeOption) (*LookupPostgresMaintenanceWindowResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
-	var rv GetPostgresMaintenanceWindowResult
+	var rv LookupPostgresMaintenanceWindowResult
 	err := ctx.Invoke("fly-machines:postgres/v1:getPostgresMaintenanceWindow", args, &rv, opts...)
 	if err != nil {
 		return nil, err
@@ -21,51 +21,51 @@ func GetPostgresMaintenanceWindow(ctx *pulumi.Context, args *GetPostgresMaintena
 	return &rv, nil
 }
 
-type GetPostgresMaintenanceWindowArgs struct {
+type LookupPostgresMaintenanceWindowArgs struct {
 	// Managed Postgres Cluster ID
 	PostgresClusterId string `pulumi:"postgresClusterId"`
 	// Query params to send with the API request.
 	QueryParams *GetPostgresMaintenanceWindowQueryParams `pulumi:"queryParams"`
 }
 
-type GetPostgresMaintenanceWindowResult struct {
-	Data *PostgresMaintenanceWindow `pulumi:"data"`
+type LookupPostgresMaintenanceWindowResult struct {
+	Data *PostgresMaintenanceWindowType `pulumi:"data"`
 }
 
-func GetPostgresMaintenanceWindowOutput(ctx *pulumi.Context, args GetPostgresMaintenanceWindowOutputArgs, opts ...pulumi.InvokeOption) GetPostgresMaintenanceWindowResultOutput {
+func LookupPostgresMaintenanceWindowOutput(ctx *pulumi.Context, args LookupPostgresMaintenanceWindowOutputArgs, opts ...pulumi.InvokeOption) LookupPostgresMaintenanceWindowResultOutput {
 	options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
-	return ctx.InvokeOutput("fly-machines:postgres/v1:getPostgresMaintenanceWindow", args, GetPostgresMaintenanceWindowResultOutput{}, options).(GetPostgresMaintenanceWindowResultOutput)
+	return ctx.InvokeOutput("fly-machines:postgres/v1:getPostgresMaintenanceWindow", args, LookupPostgresMaintenanceWindowResultOutput{}, options).(LookupPostgresMaintenanceWindowResultOutput)
 }
 
-type GetPostgresMaintenanceWindowOutputArgs struct {
+type LookupPostgresMaintenanceWindowOutputArgs struct {
 	// Managed Postgres Cluster ID
 	PostgresClusterId pulumi.StringInput `pulumi:"postgresClusterId"`
 	// Query params to send with the API request.
 	QueryParams GetPostgresMaintenanceWindowQueryParamsPtrInput `pulumi:"queryParams"`
 }
 
-func (GetPostgresMaintenanceWindowOutputArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetPostgresMaintenanceWindowArgs)(nil)).Elem()
+func (LookupPostgresMaintenanceWindowOutputArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*LookupPostgresMaintenanceWindowArgs)(nil)).Elem()
 }
 
-type GetPostgresMaintenanceWindowResultOutput struct{ *pulumi.OutputState }
+type LookupPostgresMaintenanceWindowResultOutput struct{ *pulumi.OutputState }
 
-func (GetPostgresMaintenanceWindowResultOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetPostgresMaintenanceWindowResult)(nil)).Elem()
+func (LookupPostgresMaintenanceWindowResultOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*LookupPostgresMaintenanceWindowResult)(nil)).Elem()
 }
 
-func (o GetPostgresMaintenanceWindowResultOutput) ToGetPostgresMaintenanceWindowResultOutput() GetPostgresMaintenanceWindowResultOutput {
+func (o LookupPostgresMaintenanceWindowResultOutput) ToLookupPostgresMaintenanceWindowResultOutput() LookupPostgresMaintenanceWindowResultOutput {
 	return o
 }
 
-func (o GetPostgresMaintenanceWindowResultOutput) ToGetPostgresMaintenanceWindowResultOutputWithContext(ctx context.Context) GetPostgresMaintenanceWindowResultOutput {
+func (o LookupPostgresMaintenanceWindowResultOutput) ToLookupPostgresMaintenanceWindowResultOutputWithContext(ctx context.Context) LookupPostgresMaintenanceWindowResultOutput {
 	return o
 }
 
-func (o GetPostgresMaintenanceWindowResultOutput) Data() PostgresMaintenanceWindowPtrOutput {
-	return o.ApplyT(func(v GetPostgresMaintenanceWindowResult) *PostgresMaintenanceWindow { return v.Data }).(PostgresMaintenanceWindowPtrOutput)
+func (o LookupPostgresMaintenanceWindowResultOutput) Data() PostgresMaintenanceWindowTypePtrOutput {
+	return o.ApplyT(func(v LookupPostgresMaintenanceWindowResult) *PostgresMaintenanceWindowType { return v.Data }).(PostgresMaintenanceWindowTypePtrOutput)
 }
 
 func init() {
-	pulumi.RegisterOutputType(GetPostgresMaintenanceWindowResultOutput{})
+	pulumi.RegisterOutputType(LookupPostgresMaintenanceWindowResultOutput{})
 }

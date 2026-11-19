@@ -105,6 +105,7 @@
         "postgres/v1/postgresDatabasesQuery.ts",
         "postgres/v1/postgresExtension.ts",
         "postgres/v1/postgresFork.ts",
+        "postgres/v1/postgresMaintenanceWindow.ts",
         "postgres/v1/postgresRestore.ts",
         "postgres/v1/postgresUser.ts",
         "postgres/v1/postgresUsersRotatePassword.ts",

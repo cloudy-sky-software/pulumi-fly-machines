@@ -8,6 +8,42 @@ using Pulumi;
 namespace CloudySkySoftware.Pulumi.FlyMachines.PostgresV1
 {
     /// <summary>
+    /// Day of the week the window starts on.
+    /// </summary>
+    [EnumType]
+    public readonly struct Day : IEquatable<Day>
+    {
+        private readonly string _value;
+
+        private Day(string value)
+        {
+            _value = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        public static Day Sunday { get; } = new Day("sunday");
+        public static Day Monday { get; } = new Day("monday");
+        public static Day Tuesday { get; } = new Day("tuesday");
+        public static Day Wednesday { get; } = new Day("wednesday");
+        public static Day Thursday { get; } = new Day("thursday");
+        public static Day Friday { get; } = new Day("friday");
+        public static Day Saturday { get; } = new Day("saturday");
+
+        public static bool operator ==(Day left, Day right) => left.Equals(right);
+        public static bool operator !=(Day left, Day right) => !left.Equals(right);
+
+        public static explicit operator string(Day value) => value._value;
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object? obj) => obj is Day other && Equals(other);
+        public bool Equals(Day other) => string.Equals(_value, other._value, StringComparison.Ordinal);
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode() => _value?.GetHashCode() ?? 0;
+
+        public override string ToString() => _value;
+    }
+
+    /// <summary>
     /// Postgres major version.
     /// </summary>
     [EnumType]

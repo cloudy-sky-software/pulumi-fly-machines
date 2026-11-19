@@ -72,6 +72,14 @@ __all__ = [
     'PostgresForkCreateQueryParamsArgsDict',
     'PostgresForkQueryParamsArgs',
     'PostgresForkQueryParamsArgsDict',
+    'PostgresMaintenanceWindowCreateQueryParamsArgs',
+    'PostgresMaintenanceWindowCreateQueryParamsArgsDict',
+    'PostgresMaintenanceWindowQueryParamsArgs',
+    'PostgresMaintenanceWindowQueryParamsArgsDict',
+    'PostgresMaintenanceWindowReadQueryParamsArgs',
+    'PostgresMaintenanceWindowReadQueryParamsArgsDict',
+    'PostgresMaintenanceWindowUpdateQueryParamsArgs',
+    'PostgresMaintenanceWindowUpdateQueryParamsArgsDict',
     'PostgresQueryParamsArgs',
     'PostgresQueryParamsArgsDict',
     'PostgresReadQueryParamsArgs',
@@ -1221,6 +1229,182 @@ class PostgresForkQueryParamsArgs:
     @create.setter
     def create(self, value: pulumi.Input[Optional['PostgresForkCreateQueryParamsArgs']]):
         pulumi.set(self, "create", value)
+
+
+class PostgresMaintenanceWindowCreateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class PostgresMaintenanceWindowCreateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class PostgresMaintenanceWindowQueryParamsArgsDict(TypedDict):
+    """
+    Query params for each of the operations of the resource.
+    """
+    create: NotRequired[pulumi.Input[Optional['PostgresMaintenanceWindowCreateQueryParamsArgsDict']]]
+    """
+    Query params for the create operation.
+    """
+    read: NotRequired[pulumi.Input[Optional['PostgresMaintenanceWindowReadQueryParamsArgsDict']]]
+    """
+    Query params for the read operation.
+    """
+    update: NotRequired[pulumi.Input[Optional['PostgresMaintenanceWindowUpdateQueryParamsArgsDict']]]
+    """
+    Query params for the update operation.
+    """
+
+@pulumi.input_type
+class PostgresMaintenanceWindowQueryParamsArgs:
+    def __init__(__self__, *,
+                 create: pulumi.Input[Optional['PostgresMaintenanceWindowCreateQueryParamsArgs']] = None,
+                 read: pulumi.Input[Optional['PostgresMaintenanceWindowReadQueryParamsArgs']] = None,
+                 update: pulumi.Input[Optional['PostgresMaintenanceWindowUpdateQueryParamsArgs']] = None):
+        """
+        Query params for each of the operations of the resource.
+
+        :param pulumi.Input['PostgresMaintenanceWindowCreateQueryParamsArgs'] create: Query params for the create operation.
+        :param pulumi.Input['PostgresMaintenanceWindowReadQueryParamsArgs'] read: Query params for the read operation.
+        :param pulumi.Input['PostgresMaintenanceWindowUpdateQueryParamsArgs'] update: Query params for the update operation.
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+        if read is not None:
+            pulumi.set(__self__, "read", read)
+        if update is not None:
+            pulumi.set(__self__, "update", update)
+
+    @_builtins.property
+    @pulumi.getter
+    def create(self) -> pulumi.Input[Optional['PostgresMaintenanceWindowCreateQueryParamsArgs']]:
+        """
+        Query params for the create operation.
+        """
+        return pulumi.get(self, "create")
+
+    @create.setter
+    def create(self, value: pulumi.Input[Optional['PostgresMaintenanceWindowCreateQueryParamsArgs']]):
+        pulumi.set(self, "create", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def read(self) -> pulumi.Input[Optional['PostgresMaintenanceWindowReadQueryParamsArgs']]:
+        """
+        Query params for the read operation.
+        """
+        return pulumi.get(self, "read")
+
+    @read.setter
+    def read(self, value: pulumi.Input[Optional['PostgresMaintenanceWindowReadQueryParamsArgs']]):
+        pulumi.set(self, "read", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def update(self) -> pulumi.Input[Optional['PostgresMaintenanceWindowUpdateQueryParamsArgs']]:
+        """
+        Query params for the update operation.
+        """
+        return pulumi.get(self, "update")
+
+    @update.setter
+    def update(self, value: pulumi.Input[Optional['PostgresMaintenanceWindowUpdateQueryParamsArgs']]):
+        pulumi.set(self, "update", value)
+
+
+class PostgresMaintenanceWindowReadQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class PostgresMaintenanceWindowReadQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
+
+
+class PostgresMaintenanceWindowUpdateQueryParamsArgsDict(TypedDict):
+    """
+    Query params for the API request.
+    """
+    additional_params: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    Additional query params to send with the request that are not defined in the API spec.
+    """
+
+@pulumi.input_type
+class PostgresMaintenanceWindowUpdateQueryParamsArgs:
+    def __init__(__self__, *,
+                 additional_params: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Query params for the API request.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] additional_params: Additional query params to send with the request that are not defined in the API spec.
+        """
+        if additional_params is not None:
+            pulumi.set(__self__, "additional_params", additional_params)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalParams")
+    def additional_params(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        Additional query params to send with the request that are not defined in the API spec.
+        """
+        return pulumi.get(self, "additional_params")
+
+    @additional_params.setter
+    def additional_params(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "additional_params", value)
 
 
 class PostgresQueryParamsArgsDict(TypedDict):

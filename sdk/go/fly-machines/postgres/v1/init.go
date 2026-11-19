@@ -35,6 +35,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &PostgresExtension{}
 	case "fly-machines:postgres/v1:PostgresFork":
 		r = &PostgresFork{}
+	case "fly-machines:postgres/v1:PostgresMaintenanceWindow":
+		r = &PostgresMaintenanceWindow{}
 	case "fly-machines:postgres/v1:PostgresRestore":
 		r = &PostgresRestore{}
 	case "fly-machines:postgres/v1:PostgresUser":
