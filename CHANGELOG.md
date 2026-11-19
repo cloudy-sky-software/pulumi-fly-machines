@@ -1,3 +1,11 @@
+## 0.0.20
+
+- A new resource to manage maintenance window for Postgres
+  was added.
+- :warning: `cacheDrive` property in Machine config was renamed to
+  `cacheDisk`.
+- Improved descriptions from upstream OpenAPI spec.
+
 ## 0.0.19
 
 - Updated OpenAPI spec to the latest which brings
