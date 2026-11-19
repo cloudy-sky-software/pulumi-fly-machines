@@ -14,6 +14,146 @@ import (
 var _ = internal.GetEnvOrDefault
 
 // Query params for the API request.
+type GetPostgresMaintenanceWindowQueryParams struct {
+	// Additional query params to send with the request that are not defined in the API spec.
+	AdditionalParams map[string]string `pulumi:"additionalParams"`
+}
+
+// GetPostgresMaintenanceWindowQueryParamsInput is an input type that accepts GetPostgresMaintenanceWindowQueryParamsArgs and GetPostgresMaintenanceWindowQueryParamsOutput values.
+// You can construct a concrete instance of `GetPostgresMaintenanceWindowQueryParamsInput` via:
+//
+//	GetPostgresMaintenanceWindowQueryParamsArgs{...}
+type GetPostgresMaintenanceWindowQueryParamsInput interface {
+	pulumi.Input
+
+	ToGetPostgresMaintenanceWindowQueryParamsOutput() GetPostgresMaintenanceWindowQueryParamsOutput
+	ToGetPostgresMaintenanceWindowQueryParamsOutputWithContext(context.Context) GetPostgresMaintenanceWindowQueryParamsOutput
+}
+
+// Query params for the API request.
+type GetPostgresMaintenanceWindowQueryParamsArgs struct {
+	// Additional query params to send with the request that are not defined in the API spec.
+	AdditionalParams pulumi.StringMapInput `pulumi:"additionalParams"`
+}
+
+func (GetPostgresMaintenanceWindowQueryParamsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetPostgresMaintenanceWindowQueryParams)(nil)).Elem()
+}
+
+func (i GetPostgresMaintenanceWindowQueryParamsArgs) ToGetPostgresMaintenanceWindowQueryParamsOutput() GetPostgresMaintenanceWindowQueryParamsOutput {
+	return i.ToGetPostgresMaintenanceWindowQueryParamsOutputWithContext(context.Background())
+}
+
+func (i GetPostgresMaintenanceWindowQueryParamsArgs) ToGetPostgresMaintenanceWindowQueryParamsOutputWithContext(ctx context.Context) GetPostgresMaintenanceWindowQueryParamsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetPostgresMaintenanceWindowQueryParamsOutput)
+}
+
+func (i GetPostgresMaintenanceWindowQueryParamsArgs) ToGetPostgresMaintenanceWindowQueryParamsPtrOutput() GetPostgresMaintenanceWindowQueryParamsPtrOutput {
+	return i.ToGetPostgresMaintenanceWindowQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (i GetPostgresMaintenanceWindowQueryParamsArgs) ToGetPostgresMaintenanceWindowQueryParamsPtrOutputWithContext(ctx context.Context) GetPostgresMaintenanceWindowQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetPostgresMaintenanceWindowQueryParamsOutput).ToGetPostgresMaintenanceWindowQueryParamsPtrOutputWithContext(ctx)
+}
+
+// GetPostgresMaintenanceWindowQueryParamsPtrInput is an input type that accepts GetPostgresMaintenanceWindowQueryParamsArgs, GetPostgresMaintenanceWindowQueryParamsPtr and GetPostgresMaintenanceWindowQueryParamsPtrOutput values.
+// You can construct a concrete instance of `GetPostgresMaintenanceWindowQueryParamsPtrInput` via:
+//
+//	        GetPostgresMaintenanceWindowQueryParamsArgs{...}
+//
+//	or:
+//
+//	        nil
+type GetPostgresMaintenanceWindowQueryParamsPtrInput interface {
+	pulumi.Input
+
+	ToGetPostgresMaintenanceWindowQueryParamsPtrOutput() GetPostgresMaintenanceWindowQueryParamsPtrOutput
+	ToGetPostgresMaintenanceWindowQueryParamsPtrOutputWithContext(context.Context) GetPostgresMaintenanceWindowQueryParamsPtrOutput
+}
+
+type getPostgresMaintenanceWindowQueryParamsPtrType GetPostgresMaintenanceWindowQueryParamsArgs
+
+func GetPostgresMaintenanceWindowQueryParamsPtr(v *GetPostgresMaintenanceWindowQueryParamsArgs) GetPostgresMaintenanceWindowQueryParamsPtrInput {
+	return (*getPostgresMaintenanceWindowQueryParamsPtrType)(v)
+}
+
+func (*getPostgresMaintenanceWindowQueryParamsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GetPostgresMaintenanceWindowQueryParams)(nil)).Elem()
+}
+
+func (i *getPostgresMaintenanceWindowQueryParamsPtrType) ToGetPostgresMaintenanceWindowQueryParamsPtrOutput() GetPostgresMaintenanceWindowQueryParamsPtrOutput {
+	return i.ToGetPostgresMaintenanceWindowQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (i *getPostgresMaintenanceWindowQueryParamsPtrType) ToGetPostgresMaintenanceWindowQueryParamsPtrOutputWithContext(ctx context.Context) GetPostgresMaintenanceWindowQueryParamsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetPostgresMaintenanceWindowQueryParamsPtrOutput)
+}
+
+// Query params for the API request.
+type GetPostgresMaintenanceWindowQueryParamsOutput struct{ *pulumi.OutputState }
+
+func (GetPostgresMaintenanceWindowQueryParamsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetPostgresMaintenanceWindowQueryParams)(nil)).Elem()
+}
+
+func (o GetPostgresMaintenanceWindowQueryParamsOutput) ToGetPostgresMaintenanceWindowQueryParamsOutput() GetPostgresMaintenanceWindowQueryParamsOutput {
+	return o
+}
+
+func (o GetPostgresMaintenanceWindowQueryParamsOutput) ToGetPostgresMaintenanceWindowQueryParamsOutputWithContext(ctx context.Context) GetPostgresMaintenanceWindowQueryParamsOutput {
+	return o
+}
+
+func (o GetPostgresMaintenanceWindowQueryParamsOutput) ToGetPostgresMaintenanceWindowQueryParamsPtrOutput() GetPostgresMaintenanceWindowQueryParamsPtrOutput {
+	return o.ToGetPostgresMaintenanceWindowQueryParamsPtrOutputWithContext(context.Background())
+}
+
+func (o GetPostgresMaintenanceWindowQueryParamsOutput) ToGetPostgresMaintenanceWindowQueryParamsPtrOutputWithContext(ctx context.Context) GetPostgresMaintenanceWindowQueryParamsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GetPostgresMaintenanceWindowQueryParams) *GetPostgresMaintenanceWindowQueryParams {
+		return &v
+	}).(GetPostgresMaintenanceWindowQueryParamsPtrOutput)
+}
+
+// Additional query params to send with the request that are not defined in the API spec.
+func (o GetPostgresMaintenanceWindowQueryParamsOutput) AdditionalParams() pulumi.StringMapOutput {
+	return o.ApplyT(func(v GetPostgresMaintenanceWindowQueryParams) map[string]string { return v.AdditionalParams }).(pulumi.StringMapOutput)
+}
+
+type GetPostgresMaintenanceWindowQueryParamsPtrOutput struct{ *pulumi.OutputState }
+
+func (GetPostgresMaintenanceWindowQueryParamsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GetPostgresMaintenanceWindowQueryParams)(nil)).Elem()
+}
+
+func (o GetPostgresMaintenanceWindowQueryParamsPtrOutput) ToGetPostgresMaintenanceWindowQueryParamsPtrOutput() GetPostgresMaintenanceWindowQueryParamsPtrOutput {
+	return o
+}
+
+func (o GetPostgresMaintenanceWindowQueryParamsPtrOutput) ToGetPostgresMaintenanceWindowQueryParamsPtrOutputWithContext(ctx context.Context) GetPostgresMaintenanceWindowQueryParamsPtrOutput {
+	return o
+}
+
+func (o GetPostgresMaintenanceWindowQueryParamsPtrOutput) Elem() GetPostgresMaintenanceWindowQueryParamsOutput {
+	return o.ApplyT(func(v *GetPostgresMaintenanceWindowQueryParams) GetPostgresMaintenanceWindowQueryParams {
+		if v != nil {
+			return *v
+		}
+		var ret GetPostgresMaintenanceWindowQueryParams
+		return ret
+	}).(GetPostgresMaintenanceWindowQueryParamsOutput)
+}
+
+// Additional query params to send with the request that are not defined in the API spec.
+func (o GetPostgresMaintenanceWindowQueryParamsPtrOutput) AdditionalParams() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *GetPostgresMaintenanceWindowQueryParams) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.AdditionalParams
+	}).(pulumi.StringMapOutput)
+}
+
+// Query params for the API request.
 type GetPostgresQueriesActiveQueryParams struct {
 	// Additional query params to send with the request that are not defined in the API spec.
 	AdditionalParams map[string]string `pulumi:"additionalParams"`
@@ -4880,6 +5020,115 @@ func (o PostgresForkQueryParamsPtrOutput) Create() PostgresForkCreateQueryParams
 	}).(PostgresForkCreateQueryParamsPtrOutput)
 }
 
+type PostgresMaintenanceWindow struct {
+	// Day of the week the window starts on.
+	Day *PostgresMaintenanceWindowDay `pulumi:"day"`
+	// Length of the window in hours.
+	DurationHours *int `pulumi:"durationHours"`
+	// Hour of the day the window starts, in the cluster's timezone.
+	StartHour *int `pulumi:"startHour"`
+	// IANA timezone the window is expressed in, derived from the cluster's region.
+	Timezone *string `pulumi:"timezone"`
+}
+
+type PostgresMaintenanceWindowOutput struct{ *pulumi.OutputState }
+
+func (PostgresMaintenanceWindowOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PostgresMaintenanceWindow)(nil)).Elem()
+}
+
+func (o PostgresMaintenanceWindowOutput) ToPostgresMaintenanceWindowOutput() PostgresMaintenanceWindowOutput {
+	return o
+}
+
+func (o PostgresMaintenanceWindowOutput) ToPostgresMaintenanceWindowOutputWithContext(ctx context.Context) PostgresMaintenanceWindowOutput {
+	return o
+}
+
+// Day of the week the window starts on.
+func (o PostgresMaintenanceWindowOutput) Day() PostgresMaintenanceWindowDayPtrOutput {
+	return o.ApplyT(func(v PostgresMaintenanceWindow) *PostgresMaintenanceWindowDay { return v.Day }).(PostgresMaintenanceWindowDayPtrOutput)
+}
+
+// Length of the window in hours.
+func (o PostgresMaintenanceWindowOutput) DurationHours() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PostgresMaintenanceWindow) *int { return v.DurationHours }).(pulumi.IntPtrOutput)
+}
+
+// Hour of the day the window starts, in the cluster's timezone.
+func (o PostgresMaintenanceWindowOutput) StartHour() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PostgresMaintenanceWindow) *int { return v.StartHour }).(pulumi.IntPtrOutput)
+}
+
+// IANA timezone the window is expressed in, derived from the cluster's region.
+func (o PostgresMaintenanceWindowOutput) Timezone() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PostgresMaintenanceWindow) *string { return v.Timezone }).(pulumi.StringPtrOutput)
+}
+
+type PostgresMaintenanceWindowPtrOutput struct{ *pulumi.OutputState }
+
+func (PostgresMaintenanceWindowPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PostgresMaintenanceWindow)(nil)).Elem()
+}
+
+func (o PostgresMaintenanceWindowPtrOutput) ToPostgresMaintenanceWindowPtrOutput() PostgresMaintenanceWindowPtrOutput {
+	return o
+}
+
+func (o PostgresMaintenanceWindowPtrOutput) ToPostgresMaintenanceWindowPtrOutputWithContext(ctx context.Context) PostgresMaintenanceWindowPtrOutput {
+	return o
+}
+
+func (o PostgresMaintenanceWindowPtrOutput) Elem() PostgresMaintenanceWindowOutput {
+	return o.ApplyT(func(v *PostgresMaintenanceWindow) PostgresMaintenanceWindow {
+		if v != nil {
+			return *v
+		}
+		var ret PostgresMaintenanceWindow
+		return ret
+	}).(PostgresMaintenanceWindowOutput)
+}
+
+// Day of the week the window starts on.
+func (o PostgresMaintenanceWindowPtrOutput) Day() PostgresMaintenanceWindowDayPtrOutput {
+	return o.ApplyT(func(v *PostgresMaintenanceWindow) *PostgresMaintenanceWindowDay {
+		if v == nil {
+			return nil
+		}
+		return v.Day
+	}).(PostgresMaintenanceWindowDayPtrOutput)
+}
+
+// Length of the window in hours.
+func (o PostgresMaintenanceWindowPtrOutput) DurationHours() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *PostgresMaintenanceWindow) *int {
+		if v == nil {
+			return nil
+		}
+		return v.DurationHours
+	}).(pulumi.IntPtrOutput)
+}
+
+// Hour of the day the window starts, in the cluster's timezone.
+func (o PostgresMaintenanceWindowPtrOutput) StartHour() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *PostgresMaintenanceWindow) *int {
+		if v == nil {
+			return nil
+		}
+		return v.StartHour
+	}).(pulumi.IntPtrOutput)
+}
+
+// IANA timezone the window is expressed in, derived from the cluster's region.
+func (o PostgresMaintenanceWindowPtrOutput) Timezone() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PostgresMaintenanceWindow) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Timezone
+	}).(pulumi.StringPtrOutput)
+}
+
 // Unpooled connection to the cluster node.
 type PostgresNodeEndpointsDirect struct {
 	// Hostname to connect to.
@@ -6803,7 +7052,13 @@ type ShowPostgresClusterResponse struct {
 	Data *PostgresCluster `pulumi:"data"`
 }
 
+type ShowPostgresMaintenanceWindowResponse struct {
+	Data *PostgresMaintenanceWindow `pulumi:"data"`
+}
+
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*GetPostgresMaintenanceWindowQueryParamsInput)(nil)).Elem(), GetPostgresMaintenanceWindowQueryParamsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetPostgresMaintenanceWindowQueryParamsPtrInput)(nil)).Elem(), GetPostgresMaintenanceWindowQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetPostgresQueriesActiveQueryParamsInput)(nil)).Elem(), GetPostgresQueriesActiveQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetPostgresQueriesSlowQueryParamsInput)(nil)).Elem(), GetPostgresQueriesSlowQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetPostgresQueriesSlowQueryParamsPtrInput)(nil)).Elem(), GetPostgresQueriesSlowQueryParamsArgs{})
@@ -6873,6 +7128,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*PostgresUsersRotatePasswordCreateQueryParamsPtrInput)(nil)).Elem(), PostgresUsersRotatePasswordCreateQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PostgresUsersRotatePasswordQueryParamsInput)(nil)).Elem(), PostgresUsersRotatePasswordQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PostgresUsersRotatePasswordQueryParamsPtrInput)(nil)).Elem(), PostgresUsersRotatePasswordQueryParamsArgs{})
+	pulumi.RegisterOutputType(GetPostgresMaintenanceWindowQueryParamsOutput{})
+	pulumi.RegisterOutputType(GetPostgresMaintenanceWindowQueryParamsPtrOutput{})
 	pulumi.RegisterOutputType(GetPostgresQueriesActiveQueryParamsOutput{})
 	pulumi.RegisterOutputType(GetPostgresQueriesSlowQueryParamsOutput{})
 	pulumi.RegisterOutputType(GetPostgresQueriesSlowQueryParamsPtrOutput{})
@@ -6947,6 +7204,8 @@ func init() {
 	pulumi.RegisterOutputType(PostgresForkCreateQueryParamsPtrOutput{})
 	pulumi.RegisterOutputType(PostgresForkQueryParamsOutput{})
 	pulumi.RegisterOutputType(PostgresForkQueryParamsPtrOutput{})
+	pulumi.RegisterOutputType(PostgresMaintenanceWindowOutput{})
+	pulumi.RegisterOutputType(PostgresMaintenanceWindowPtrOutput{})
 	pulumi.RegisterOutputType(PostgresNodeEndpointsDirectOutput{})
 	pulumi.RegisterOutputType(PostgresNodeEndpointsDirectPtrOutput{})
 	pulumi.RegisterOutputType(PostgresNodeEndpointsPoolerOutput{})

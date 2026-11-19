@@ -87,6 +87,7 @@
         "platform/v1/platformPlacement.ts",
         "postgres/index.ts",
         "postgres/v1/getPostgres.ts",
+        "postgres/v1/getPostgresMaintenanceWindow.ts",
         "postgres/v1/getPostgresQueriesActive.ts",
         "postgres/v1/getPostgresQueriesSlow.ts",
         "postgres/v1/getPostgresUsersCredential.ts",

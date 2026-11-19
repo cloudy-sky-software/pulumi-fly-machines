@@ -10,6 +10,11 @@ export const getPostgres: typeof import("./getPostgres").getPostgres = null as a
 export const getPostgresOutput: typeof import("./getPostgres").getPostgresOutput = null as any;
 utilities.lazyLoad(exports, ["getPostgres","getPostgresOutput"], () => require("./getPostgres"));
 
+export { GetPostgresMaintenanceWindowArgs, GetPostgresMaintenanceWindowResult, GetPostgresMaintenanceWindowOutputArgs } from "./getPostgresMaintenanceWindow";
+export const getPostgresMaintenanceWindow: typeof import("./getPostgresMaintenanceWindow").getPostgresMaintenanceWindow = null as any;
+export const getPostgresMaintenanceWindowOutput: typeof import("./getPostgresMaintenanceWindow").getPostgresMaintenanceWindowOutput = null as any;
+utilities.lazyLoad(exports, ["getPostgresMaintenanceWindow","getPostgresMaintenanceWindowOutput"], () => require("./getPostgresMaintenanceWindow"));
+
 export { GetPostgresQueriesActiveArgs, GetPostgresQueriesActiveResult, GetPostgresQueriesActiveOutputArgs } from "./getPostgresQueriesActive";
 export const getPostgresQueriesActive: typeof import("./getPostgresQueriesActive").getPostgresQueriesActive = null as any;
 export const getPostgresQueriesActiveOutput: typeof import("./getPostgresQueriesActive").getPostgresQueriesActiveOutput = null as any;

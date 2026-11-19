@@ -120,6 +120,21 @@ export const PostgresClusterSummaryStatus = {
  */
 export type PostgresClusterSummaryStatus = (typeof PostgresClusterSummaryStatus)[keyof typeof PostgresClusterSummaryStatus];
 
+export const PostgresMaintenanceWindowDay = {
+    Sunday: "sunday",
+    Monday: "monday",
+    Tuesday: "tuesday",
+    Wednesday: "wednesday",
+    Thursday: "thursday",
+    Friday: "friday",
+    Saturday: "saturday",
+} as const;
+
+/**
+ * Day of the week the window starts on.
+ */
+export type PostgresMaintenanceWindowDay = (typeof PostgresMaintenanceWindowDay)[keyof typeof PostgresMaintenanceWindowDay];
+
 export const PostgresPlanCpuKind = {
     Shared: "shared",
     Performance: "performance",

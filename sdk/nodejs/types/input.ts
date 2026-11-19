@@ -269,9 +269,10 @@ export namespace apps {
              */
             autoDestroy?: pulumi.Input<boolean | undefined>;
             /**
-             * Beta: a cache drive attached to the Machine. This field may be removed in the future
+             * Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+             * but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
              */
-            cacheDrive?: pulumi.Input<inputs.apps.v1.FlyMachineConfigCacheDriveArgs | undefined>;
+            cacheDisk?: pulumi.Input<inputs.apps.v1.FlyMachineConfigCacheDiskArgs | undefined>;
             /**
              * An optional object that defines one or more named top-level checks. The key for each check is the check name.
              */
@@ -658,19 +659,17 @@ export namespace apps {
         }
 
         /**
-         * Beta: a cache drive attached to the Machine. This field may be removed in the future
+         * Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+         * but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
          */
-        export interface FlyMachineConfigCacheDriveArgs {
+        export interface FlyMachineConfigCacheDiskArgs {
             /**
-             * Optional absolute guest mount path. When set, the device is formatted as ext4.
-             * Without a path, the device retains legacy raw block behavior. Contents survive
-             * same-host restarts and path changes, but are discarded on size or mode changes,
-             * relocation, recovery on another host, and cloning.
+             * Absolute path in the Machine at which to mount the cache disk.
              */
             path?: pulumi.Input<string | undefined>;
             /**
-             * Fixed size of the Machine-owned cache drive in MiB. At most 51200.
-             * With a path, at least 16 MiB is required; without a path, 0 disables the device.
+             * Size of the cache disk in MiB. Between 16 and 51200.
+             * Changing the size discards the disk's contents.
              */
             sizeMb?: pulumi.Input<number | undefined>;
         }
@@ -704,7 +703,7 @@ export namespace apps {
              */
             path?: pulumi.Input<string | undefined>;
             /**
-             * The port to connect to, often the same as internal_port
+             * The port to connect to. Required for top-level checks
              */
             port?: pulumi.Input<number | undefined>;
             /**
@@ -1212,7 +1211,7 @@ export namespace apps {
              */
             path?: pulumi.Input<string | undefined>;
             /**
-             * The port to connect to, often the same as internal_port
+             * The port to connect to. Defaults to the service's internal_port
              */
             port?: pulumi.Input<number | undefined>;
             /**
@@ -3092,6 +3091,26 @@ export namespace platform {
 
 export namespace postgres {
     export namespace v1 {
+        /**
+         * Query params for the API request.
+         */
+        export interface GetPostgresMaintenanceWindowQueryParams {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: {[key: string]: string};
+        }
+
+        /**
+         * Query params for the API request.
+         */
+        export interface GetPostgresMaintenanceWindowQueryParamsArgs {
+            /**
+             * Additional query params to send with the request that are not defined in the API spec.
+             */
+            additionalParams?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
+        }
+
         /**
          * Query params for the API request.
          */

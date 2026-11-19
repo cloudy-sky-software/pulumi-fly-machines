@@ -42,7 +42,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         /// </summary>
         public readonly string? Path;
         /// <summary>
-        /// The port to connect to, often the same as internal_port
+        /// The port to connect to. Required for top-level checks
         /// </summary>
         public readonly int? Port;
         /// <summary>

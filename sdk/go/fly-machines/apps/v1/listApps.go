@@ -32,10 +32,12 @@ type ListAppsResult struct {
 	// Pagination cursor for the next page. Absent when no more apps remain.
 	// Cursors expire 30 minutes after the first page was requested.
 	NextCursor *string `pulumi:"nextCursor"`
-	// The number of matching apps across all pages. Organization-wide listings
-	// retain the first page's count; scoped listings recount using the current
-	// token's permissions. Snapshot bounds exclude newer apps, and replication
-	// lag or deletion during traversal can make totals differ from rows seen.
+	// The number of matching apps across all pages. With an organization-wide
+	// token, it is counted when the first page is requested and not updated
+	// afterwards, so it excludes apps created later and includes apps deleted
+	// while paginating. With an app-scoped token, such as a deploy token, it is
+	// recounted on each page and includes only the apps the token can read.
+	// Either way, it may differ slightly from the number of apps returned.
 	TotalApps *int `pulumi:"totalApps"`
 }
 
@@ -78,10 +80,12 @@ func (o ListAppsResultOutput) NextCursor() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ListAppsResult) *string { return v.NextCursor }).(pulumi.StringPtrOutput)
 }
 
-// The number of matching apps across all pages. Organization-wide listings
-// retain the first page's count; scoped listings recount using the current
-// token's permissions. Snapshot bounds exclude newer apps, and replication
-// lag or deletion during traversal can make totals differ from rows seen.
+// The number of matching apps across all pages. With an organization-wide
+// token, it is counted when the first page is requested and not updated
+// afterwards, so it excludes apps created later and includes apps deleted
+// while paginating. With an app-scoped token, such as a deploy token, it is
+// recounted on each page and includes only the apps the token can read.
+// Either way, it may differ slightly from the number of apps returned.
 func (o ListAppsResultOutput) TotalApps() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ListAppsResult) *int { return v.TotalApps }).(pulumi.IntPtrOutput)
 }

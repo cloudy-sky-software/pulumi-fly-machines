@@ -58,10 +58,12 @@ class ListAppsResult:
     @pulumi.getter(name="totalApps")
     def total_apps(self) -> Optional[_builtins.int]:
         """
-        The number of matching apps across all pages. Organization-wide listings
-        retain the first page's count; scoped listings recount using the current
-        token's permissions. Snapshot bounds exclude newer apps, and replication
-        lag or deletion during traversal can make totals differ from rows seen.
+        The number of matching apps across all pages. With an organization-wide
+        token, it is counted when the first page is requested and not updated
+        afterwards, so it excludes apps created later and includes apps deleted
+        while paginating. With an app-scoped token, such as a deploy token, it is
+        recounted on each page and includes only the apps the token can read.
+        Either way, it may differ slightly from the number of apps returned.
         """
         return pulumi.get(self, "total_apps")
 

@@ -25,9 +25,10 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         /// </summary>
         public readonly bool? AutoDestroy;
         /// <summary>
-        /// Beta: a cache drive attached to the Machine. This field may be removed in the future
+        /// Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+        /// but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
         /// </summary>
-        public readonly Outputs.FlyMachineConfigCacheDrive? CacheDrive;
+        public readonly Outputs.FlyMachineConfigCacheDisk? CacheDisk;
         /// <summary>
         /// An optional object that defines one or more named top-level checks. The key for each check is the check name.
         /// </summary>
@@ -130,7 +131,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
         private MachineIncompleteConfig(
             bool? autoDestroy,
 
-            Outputs.FlyMachineConfigCacheDrive? cacheDrive,
+            Outputs.FlyMachineConfigCacheDisk? cacheDisk,
 
             ImmutableDictionary<string, Outputs.FlyMachineConfigChecksProperties>? checks,
 
@@ -177,7 +178,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.AppsV1.Outputs
             Outputs.FlyMachineConfigStopConfig? stopConfig)
         {
             AutoDestroy = autoDestroy;
-            CacheDrive = cacheDrive;
+            CacheDisk = cacheDisk;
             Checks = checks;
             Containers = containers;
             DisableMachineAutostart = disableMachineAutostart;

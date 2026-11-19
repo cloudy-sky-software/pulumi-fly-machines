@@ -80,8 +80,8 @@ __all__ = [
     'FlyFileArgsDict',
     'FlyHTTPOptionsResponseArgs',
     'FlyHTTPOptionsResponseArgsDict',
-    'FlyMachineConfigCacheDriveArgs',
-    'FlyMachineConfigCacheDriveArgsDict',
+    'FlyMachineConfigCacheDiskArgs',
+    'FlyMachineConfigCacheDiskArgsDict',
     'FlyMachineConfigChecksPropertiesArgs',
     'FlyMachineConfigChecksPropertiesArgsDict',
     'FlyMachineConfigDnsArgs',
@@ -1242,9 +1242,10 @@ class ConfigArgsDict(TypedDict):
     """
     Optional boolean telling the Machine to destroy itself once it’s complete (default false)
     """
-    cache_drive: NotRequired[pulumi.Input[Optional['FlyMachineConfigCacheDriveArgsDict']]]
+    cache_disk: NotRequired[pulumi.Input[Optional['FlyMachineConfigCacheDiskArgsDict']]]
     """
-    Beta: a cache drive attached to the Machine. This field may be removed in the future
+    Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+    but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
     """
     checks: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input['FlyMachineConfigChecksPropertiesArgsDict']]]]]
     """
@@ -1348,7 +1349,7 @@ class ConfigArgsDict(TypedDict):
 class ConfigArgs:
     def __init__(__self__, *,
                  auto_destroy: pulumi.Input[Optional[_builtins.bool]] = None,
-                 cache_drive: pulumi.Input[Optional['FlyMachineConfigCacheDriveArgs']] = None,
+                 cache_disk: pulumi.Input[Optional['FlyMachineConfigCacheDiskArgs']] = None,
                  checks: pulumi.Input[Optional[Mapping[str, pulumi.Input['FlyMachineConfigChecksPropertiesArgs']]]] = None,
                  containers: pulumi.Input[Optional[Sequence[pulumi.Input['FlyContainerConfigArgs']]]] = None,
                  disable_machine_autostart: pulumi.Input[Optional[_builtins.bool]] = None,
@@ -1378,7 +1379,8 @@ class ConfigArgs:
         `incomplete_config`.
 
         :param pulumi.Input[_builtins.bool] auto_destroy: Optional boolean telling the Machine to destroy itself once it’s complete (default false)
-        :param pulumi.Input['FlyMachineConfigCacheDriveArgs'] cache_drive: Beta: a cache drive attached to the Machine. This field may be removed in the future
+        :param pulumi.Input['FlyMachineConfigCacheDiskArgs'] cache_disk: Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+               but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
         :param pulumi.Input[Mapping[str, pulumi.Input['FlyMachineConfigChecksPropertiesArgs']]] checks: An optional object that defines one or more named top-level checks. The key for each check is the check name.
         :param pulumi.Input[Sequence[pulumi.Input['FlyContainerConfigArgs']]] containers: Containers are a list of containers that will run in the machine, each from its own image.
         :param pulumi.Input[_builtins.bool] disable_machine_autostart: Deprecated: use Service.Autostart instead
@@ -1413,8 +1415,8 @@ class ConfigArgs:
         """
         if auto_destroy is not None:
             pulumi.set(__self__, "auto_destroy", auto_destroy)
-        if cache_drive is not None:
-            pulumi.set(__self__, "cache_drive", cache_drive)
+        if cache_disk is not None:
+            pulumi.set(__self__, "cache_disk", cache_disk)
         if checks is not None:
             pulumi.set(__self__, "checks", checks)
         if containers is not None:
@@ -1473,16 +1475,17 @@ class ConfigArgs:
         pulumi.set(self, "auto_destroy", value)
 
     @_builtins.property
-    @pulumi.getter(name="cacheDrive")
-    def cache_drive(self) -> pulumi.Input[Optional['FlyMachineConfigCacheDriveArgs']]:
+    @pulumi.getter(name="cacheDisk")
+    def cache_disk(self) -> pulumi.Input[Optional['FlyMachineConfigCacheDiskArgs']]:
         """
-        Beta: a cache drive attached to the Machine. This field may be removed in the future
+        Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+        but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
         """
-        return pulumi.get(self, "cache_drive")
+        return pulumi.get(self, "cache_disk")
 
-    @cache_drive.setter
-    def cache_drive(self, value: pulumi.Input[Optional['FlyMachineConfigCacheDriveArgs']]):
-        pulumi.set(self, "cache_drive", value)
+    @cache_disk.setter
+    def cache_disk(self, value: pulumi.Input[Optional['FlyMachineConfigCacheDiskArgs']]):
+        pulumi.set(self, "cache_disk", value)
 
     @_builtins.property
     @pulumi.getter
@@ -3008,37 +3011,33 @@ class FlyHTTPOptionsResponseArgs:
         pulumi.set(self, "pristine", value)
 
 
-class FlyMachineConfigCacheDriveArgsDict(TypedDict):
+class FlyMachineConfigCacheDiskArgsDict(TypedDict):
     """
-    Beta: a cache drive attached to the Machine. This field may be removed in the future
+    Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+    but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
     """
     path: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    Optional absolute guest mount path. When set, the device is formatted as ext4.
-    Without a path, the device retains legacy raw block behavior. Contents survive
-    same-host restarts and path changes, but are discarded on size or mode changes,
-    relocation, recovery on another host, and cloning.
+    Absolute path in the Machine at which to mount the cache disk.
     """
     size_mb: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
-    Fixed size of the Machine-owned cache drive in MiB. At most 51200.
-    With a path, at least 16 MiB is required; without a path, 0 disables the device.
+    Size of the cache disk in MiB. Between 16 and 51200.
+    Changing the size discards the disk's contents.
     """
 
 @pulumi.input_type
-class FlyMachineConfigCacheDriveArgs:
+class FlyMachineConfigCacheDiskArgs:
     def __init__(__self__, *,
                  path: pulumi.Input[Optional[_builtins.str]] = None,
                  size_mb: pulumi.Input[Optional[_builtins.int]] = None):
         """
-        Beta: a cache drive attached to the Machine. This field may be removed in the future
+        Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+        but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
 
-        :param pulumi.Input[_builtins.str] path: Optional absolute guest mount path. When set, the device is formatted as ext4.
-               Without a path, the device retains legacy raw block behavior. Contents survive
-               same-host restarts and path changes, but are discarded on size or mode changes,
-               relocation, recovery on another host, and cloning.
-        :param pulumi.Input[_builtins.int] size_mb: Fixed size of the Machine-owned cache drive in MiB. At most 51200.
-               With a path, at least 16 MiB is required; without a path, 0 disables the device.
+        :param pulumi.Input[_builtins.str] path: Absolute path in the Machine at which to mount the cache disk.
+        :param pulumi.Input[_builtins.int] size_mb: Size of the cache disk in MiB. Between 16 and 51200.
+               Changing the size discards the disk's contents.
         """
         if path is not None:
             pulumi.set(__self__, "path", path)
@@ -3049,10 +3048,7 @@ class FlyMachineConfigCacheDriveArgs:
     @pulumi.getter
     def path(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        Optional absolute guest mount path. When set, the device is formatted as ext4.
-        Without a path, the device retains legacy raw block behavior. Contents survive
-        same-host restarts and path changes, but are discarded on size or mode changes,
-        relocation, recovery on another host, and cloning.
+        Absolute path in the Machine at which to mount the cache disk.
         """
         return pulumi.get(self, "path")
 
@@ -3064,8 +3060,8 @@ class FlyMachineConfigCacheDriveArgs:
     @pulumi.getter(name="sizeMb")
     def size_mb(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
-        Fixed size of the Machine-owned cache drive in MiB. At most 51200.
-        With a path, at least 16 MiB is required; without a path, 0 disables the device.
+        Size of the cache disk in MiB. Between 16 and 51200.
+        Changing the size discards the disk's contents.
         """
         return pulumi.get(self, "size_mb")
 
@@ -3104,7 +3100,7 @@ class FlyMachineConfigChecksPropertiesArgsDict(TypedDict):
     """
     port: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
-    The port to connect to, often the same as internal_port
+    The port to connect to. Required for top-level checks
     """
     protocol: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
@@ -3151,7 +3147,7 @@ class FlyMachineConfigChecksPropertiesArgs:
         :param pulumi.Input['ChecksKind'] kind: Kind of the check (informational, readiness)
         :param pulumi.Input[_builtins.str] method: For http checks, the HTTP method to use to when making the request
         :param pulumi.Input[_builtins.str] path: For http checks, the path to send the request to
-        :param pulumi.Input[_builtins.int] port: The port to connect to, often the same as internal_port
+        :param pulumi.Input[_builtins.int] port: The port to connect to. Required for top-level checks
         :param pulumi.Input[_builtins.str] protocol: For http checks, whether to use http or https
         :param pulumi.Input[_builtins.str] timeout: The maximum time a connection can take before being reported as failing its health check
         :param pulumi.Input[_builtins.str] tls_server_name: If the protocol is https, the hostname to use for TLS certificate validation
@@ -3259,7 +3255,7 @@ class FlyMachineConfigChecksPropertiesArgs:
     @pulumi.getter
     def port(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
-        The port to connect to, often the same as internal_port
+        The port to connect to. Required for top-level checks
         """
         return pulumi.get(self, "port")
 
@@ -5353,7 +5349,7 @@ class FlyMachineServiceCheckArgsDict(TypedDict):
     """
     port: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
-    The port to connect to, often the same as internal_port
+    The port to connect to. Defaults to the service's internal_port
     """
     protocol: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
@@ -5396,7 +5392,7 @@ class FlyMachineServiceCheckArgs:
         :param pulumi.Input[_builtins.str] interval: The time between connectivity checks
         :param pulumi.Input[_builtins.str] method: For http checks, the HTTP method to use to when making the request
         :param pulumi.Input[_builtins.str] path: For http checks, the path to send the request to
-        :param pulumi.Input[_builtins.int] port: The port to connect to, often the same as internal_port
+        :param pulumi.Input[_builtins.int] port: The port to connect to. Defaults to the service's internal_port
         :param pulumi.Input[_builtins.str] protocol: For http checks, whether to use http or https
         :param pulumi.Input[_builtins.str] timeout: The maximum time a connection can take before being reported as failing its health check
         :param pulumi.Input[_builtins.str] tls_server_name: If the protocol is https, the hostname to use for TLS certificate validation
@@ -5490,7 +5486,7 @@ class FlyMachineServiceCheckArgs:
     @pulumi.getter
     def port(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
-        The port to connect to, often the same as internal_port
+        The port to connect to. Defaults to the service's internal_port
         """
         return pulumi.get(self, "port")
 

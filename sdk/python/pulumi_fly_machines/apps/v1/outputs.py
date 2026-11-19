@@ -63,7 +63,7 @@ __all__ = [
     'FlyEnvFrom',
     'FlyFile',
     'FlyHTTPOptionsResponse',
-    'FlyMachineConfigCacheDrive',
+    'FlyMachineConfigCacheDisk',
     'FlyMachineConfigChecksProperties',
     'FlyMachineConfigDns',
     'FlyMachineConfigGuest',
@@ -1819,8 +1819,8 @@ class Config(dict):
         suggest = None
         if key == "autoDestroy":
             suggest = "auto_destroy"
-        elif key == "cacheDrive":
-            suggest = "cache_drive"
+        elif key == "cacheDisk":
+            suggest = "cache_disk"
         elif key == "disableMachineAutostart":
             suggest = "disable_machine_autostart"
         elif key == "stopConfig":
@@ -1839,7 +1839,7 @@ class Config(dict):
 
     def __init__(__self__, *,
                  auto_destroy: Optional[_builtins.bool] = None,
-                 cache_drive: Optional['outputs.FlyMachineConfigCacheDrive'] = None,
+                 cache_disk: Optional['outputs.FlyMachineConfigCacheDisk'] = None,
                  checks: Optional[Mapping[str, 'outputs.FlyMachineConfigChecksProperties']] = None,
                  containers: Optional[Sequence['outputs.FlyContainerConfig']] = None,
                  disable_machine_autostart: Optional[_builtins.bool] = None,
@@ -1869,7 +1869,8 @@ class Config(dict):
         `incomplete_config`.
 
         :param _builtins.bool auto_destroy: Optional boolean telling the Machine to destroy itself once it’s complete (default false)
-        :param 'FlyMachineConfigCacheDrive' cache_drive: Beta: a cache drive attached to the Machine. This field may be removed in the future
+        :param 'FlyMachineConfigCacheDisk' cache_disk: Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+               but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
         :param Mapping[str, 'FlyMachineConfigChecksProperties'] checks: An optional object that defines one or more named top-level checks. The key for each check is the check name.
         :param Sequence['FlyContainerConfig'] containers: Containers are a list of containers that will run in the machine, each from its own image.
         :param _builtins.bool disable_machine_autostart: Deprecated: use Service.Autostart instead
@@ -1904,8 +1905,8 @@ class Config(dict):
         """
         if auto_destroy is not None:
             pulumi.set(__self__, "auto_destroy", auto_destroy)
-        if cache_drive is not None:
-            pulumi.set(__self__, "cache_drive", cache_drive)
+        if cache_disk is not None:
+            pulumi.set(__self__, "cache_disk", cache_disk)
         if checks is not None:
             pulumi.set(__self__, "checks", checks)
         if containers is not None:
@@ -1960,12 +1961,13 @@ class Config(dict):
         return pulumi.get(self, "auto_destroy")
 
     @_builtins.property
-    @pulumi.getter(name="cacheDrive")
-    def cache_drive(self) -> Optional['outputs.FlyMachineConfigCacheDrive']:
+    @pulumi.getter(name="cacheDisk")
+    def cache_disk(self) -> Optional['outputs.FlyMachineConfigCacheDisk']:
         """
-        Beta: a cache drive attached to the Machine. This field may be removed in the future
+        Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+        but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
         """
-        return pulumi.get(self, "cache_drive")
+        return pulumi.get(self, "cache_disk")
 
     @_builtins.property
     @pulumi.getter
@@ -3464,9 +3466,10 @@ class FlyHTTPOptionsResponse(dict):
 
 
 @pulumi.output_type
-class FlyMachineConfigCacheDrive(dict):
+class FlyMachineConfigCacheDisk(dict):
     """
-    Beta: a cache drive attached to the Machine. This field may be removed in the future
+    Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+    but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
     """
     @staticmethod
     def __key_warning(key: str):
@@ -3475,28 +3478,26 @@ class FlyMachineConfigCacheDrive(dict):
             suggest = "size_mb"
 
         if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in FlyMachineConfigCacheDrive. Access the value via the '{suggest}' property getter instead.")
+            pulumi.log.warn(f"Key '{key}' not found in FlyMachineConfigCacheDisk. Access the value via the '{suggest}' property getter instead.")
 
     def __getitem__(self, key: str) -> Any:
-        FlyMachineConfigCacheDrive.__key_warning(key)
+        FlyMachineConfigCacheDisk.__key_warning(key)
         return super().__getitem__(key)
 
     def get(self, key: str, default = None) -> Any:
-        FlyMachineConfigCacheDrive.__key_warning(key)
+        FlyMachineConfigCacheDisk.__key_warning(key)
         return super().get(key, default)
 
     def __init__(__self__, *,
                  path: Optional[_builtins.str] = None,
                  size_mb: Optional[_builtins.int] = None):
         """
-        Beta: a cache drive attached to the Machine. This field may be removed in the future
+        Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+        but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
 
-        :param _builtins.str path: Optional absolute guest mount path. When set, the device is formatted as ext4.
-               Without a path, the device retains legacy raw block behavior. Contents survive
-               same-host restarts and path changes, but are discarded on size or mode changes,
-               relocation, recovery on another host, and cloning.
-        :param _builtins.int size_mb: Fixed size of the Machine-owned cache drive in MiB. At most 51200.
-               With a path, at least 16 MiB is required; without a path, 0 disables the device.
+        :param _builtins.str path: Absolute path in the Machine at which to mount the cache disk.
+        :param _builtins.int size_mb: Size of the cache disk in MiB. Between 16 and 51200.
+               Changing the size discards the disk's contents.
         """
         if path is not None:
             pulumi.set(__self__, "path", path)
@@ -3507,10 +3508,7 @@ class FlyMachineConfigCacheDrive(dict):
     @pulumi.getter
     def path(self) -> Optional[_builtins.str]:
         """
-        Optional absolute guest mount path. When set, the device is formatted as ext4.
-        Without a path, the device retains legacy raw block behavior. Contents survive
-        same-host restarts and path changes, but are discarded on size or mode changes,
-        relocation, recovery on another host, and cloning.
+        Absolute path in the Machine at which to mount the cache disk.
         """
         return pulumi.get(self, "path")
 
@@ -3518,8 +3516,8 @@ class FlyMachineConfigCacheDrive(dict):
     @pulumi.getter(name="sizeMb")
     def size_mb(self) -> Optional[_builtins.int]:
         """
-        Fixed size of the Machine-owned cache drive in MiB. At most 51200.
-        With a path, at least 16 MiB is required; without a path, 0 disables the device.
+        Size of the cache disk in MiB. Between 16 and 51200.
+        Changing the size discards the disk's contents.
         """
         return pulumi.get(self, "size_mb")
 
@@ -3572,7 +3570,7 @@ class FlyMachineConfigChecksProperties(dict):
         :param 'ChecksKind' kind: Kind of the check (informational, readiness)
         :param _builtins.str method: For http checks, the HTTP method to use to when making the request
         :param _builtins.str path: For http checks, the path to send the request to
-        :param _builtins.int port: The port to connect to, often the same as internal_port
+        :param _builtins.int port: The port to connect to. Required for top-level checks
         :param _builtins.str protocol: For http checks, whether to use http or https
         :param _builtins.str timeout: The maximum time a connection can take before being reported as failing its health check
         :param _builtins.str tls_server_name: If the protocol is https, the hostname to use for TLS certificate validation
@@ -3656,7 +3654,7 @@ class FlyMachineConfigChecksProperties(dict):
     @pulumi.getter
     def port(self) -> Optional[_builtins.int]:
         """
-        The port to connect to, often the same as internal_port
+        The port to connect to. Required for top-level checks
         """
         return pulumi.get(self, "port")
 
@@ -5300,7 +5298,7 @@ class FlyMachineServiceCheck(dict):
         :param _builtins.str interval: The time between connectivity checks
         :param _builtins.str method: For http checks, the HTTP method to use to when making the request
         :param _builtins.str path: For http checks, the path to send the request to
-        :param _builtins.int port: The port to connect to, often the same as internal_port
+        :param _builtins.int port: The port to connect to. Defaults to the service's internal_port
         :param _builtins.str protocol: For http checks, whether to use http or https
         :param _builtins.str timeout: The maximum time a connection can take before being reported as failing its health check
         :param _builtins.str tls_server_name: If the protocol is https, the hostname to use for TLS certificate validation
@@ -5374,7 +5372,7 @@ class FlyMachineServiceCheck(dict):
     @pulumi.getter
     def port(self) -> Optional[_builtins.int]:
         """
-        The port to connect to, often the same as internal_port
+        The port to connect to. Defaults to the service's internal_port
         """
         return pulumi.get(self, "port")
 
@@ -5750,8 +5748,8 @@ class IncompleteConfig(dict):
         suggest = None
         if key == "autoDestroy":
             suggest = "auto_destroy"
-        elif key == "cacheDrive":
-            suggest = "cache_drive"
+        elif key == "cacheDisk":
+            suggest = "cache_disk"
         elif key == "disableMachineAutostart":
             suggest = "disable_machine_autostart"
         elif key == "stopConfig":
@@ -5770,7 +5768,7 @@ class IncompleteConfig(dict):
 
     def __init__(__self__, *,
                  auto_destroy: Optional[_builtins.bool] = None,
-                 cache_drive: Optional['outputs.FlyMachineConfigCacheDrive'] = None,
+                 cache_disk: Optional['outputs.FlyMachineConfigCacheDisk'] = None,
                  checks: Optional[Mapping[str, 'outputs.FlyMachineConfigChecksProperties']] = None,
                  containers: Optional[Sequence['outputs.FlyContainerConfig']] = None,
                  disable_machine_autostart: Optional[_builtins.bool] = None,
@@ -5800,7 +5798,8 @@ class IncompleteConfig(dict):
         fields.
 
         :param _builtins.bool auto_destroy: Optional boolean telling the Machine to destroy itself once it’s complete (default false)
-        :param 'FlyMachineConfigCacheDrive' cache_drive: Beta: a cache drive attached to the Machine. This field may be removed in the future
+        :param 'FlyMachineConfigCacheDisk' cache_disk: Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+               but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
         :param Mapping[str, 'FlyMachineConfigChecksProperties'] checks: An optional object that defines one or more named top-level checks. The key for each check is the check name.
         :param Sequence['FlyContainerConfig'] containers: Containers are a list of containers that will run in the machine, each from its own image.
         :param _builtins.bool disable_machine_autostart: Deprecated: use Service.Autostart instead
@@ -5835,8 +5834,8 @@ class IncompleteConfig(dict):
         """
         if auto_destroy is not None:
             pulumi.set(__self__, "auto_destroy", auto_destroy)
-        if cache_drive is not None:
-            pulumi.set(__self__, "cache_drive", cache_drive)
+        if cache_disk is not None:
+            pulumi.set(__self__, "cache_disk", cache_disk)
         if checks is not None:
             pulumi.set(__self__, "checks", checks)
         if containers is not None:
@@ -5891,12 +5890,13 @@ class IncompleteConfig(dict):
         return pulumi.get(self, "auto_destroy")
 
     @_builtins.property
-    @pulumi.getter(name="cacheDrive")
-    def cache_drive(self) -> Optional['outputs.FlyMachineConfigCacheDrive']:
+    @pulumi.getter(name="cacheDisk")
+    def cache_disk(self) -> Optional['outputs.FlyMachineConfigCacheDisk']:
         """
-        Beta: a cache drive attached to the Machine. This field may be removed in the future
+        Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+        but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
         """
-        return pulumi.get(self, "cache_drive")
+        return pulumi.get(self, "cache_disk")
 
     @_builtins.property
     @pulumi.getter
@@ -6584,7 +6584,7 @@ class MachineConfig(dict):
     """
     def __init__(__self__, *,
                  auto_destroy: Optional[_builtins.bool] = None,
-                 cache_drive: Optional['outputs.FlyMachineConfigCacheDrive'] = None,
+                 cache_disk: Optional['outputs.FlyMachineConfigCacheDisk'] = None,
                  checks: Optional[Mapping[str, 'outputs.FlyMachineConfigChecksProperties']] = None,
                  containers: Optional[Sequence['outputs.FlyContainerConfig']] = None,
                  disable_machine_autostart: Optional[_builtins.bool] = None,
@@ -6614,7 +6614,8 @@ class MachineConfig(dict):
         `incomplete_config`.
 
         :param _builtins.bool auto_destroy: Optional boolean telling the Machine to destroy itself once it’s complete (default false)
-        :param 'FlyMachineConfigCacheDrive' cache_drive: Beta: a cache drive attached to the Machine. This field may be removed in the future
+        :param 'FlyMachineConfigCacheDisk' cache_disk: Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+               but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
         :param Mapping[str, 'FlyMachineConfigChecksProperties'] checks: An optional object that defines one or more named top-level checks. The key for each check is the check name.
         :param Sequence['FlyContainerConfig'] containers: Containers are a list of containers that will run in the machine, each from its own image.
         :param _builtins.bool disable_machine_autostart: Deprecated: use Service.Autostart instead
@@ -6649,8 +6650,8 @@ class MachineConfig(dict):
         """
         if auto_destroy is not None:
             pulumi.set(__self__, "auto_destroy", auto_destroy)
-        if cache_drive is not None:
-            pulumi.set(__self__, "cache_drive", cache_drive)
+        if cache_disk is not None:
+            pulumi.set(__self__, "cache_disk", cache_disk)
         if checks is not None:
             pulumi.set(__self__, "checks", checks)
         if containers is not None:
@@ -6705,12 +6706,13 @@ class MachineConfig(dict):
         return pulumi.get(self, "auto_destroy")
 
     @_builtins.property
-    @pulumi.getter(name="cacheDrive")
-    def cache_drive(self) -> Optional['outputs.FlyMachineConfigCacheDrive']:
+    @pulumi.getter(name="cacheDisk")
+    def cache_disk(self) -> Optional['outputs.FlyMachineConfigCacheDisk']:
         """
-        Beta: a cache drive attached to the Machine. This field may be removed in the future
+        Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+        but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
         """
-        return pulumi.get(self, "cache_drive")
+        return pulumi.get(self, "cache_disk")
 
     @_builtins.property
     @pulumi.getter
@@ -7167,7 +7169,7 @@ class MachineIncompleteConfig(dict):
     """
     def __init__(__self__, *,
                  auto_destroy: Optional[_builtins.bool] = None,
-                 cache_drive: Optional['outputs.FlyMachineConfigCacheDrive'] = None,
+                 cache_disk: Optional['outputs.FlyMachineConfigCacheDisk'] = None,
                  checks: Optional[Mapping[str, 'outputs.FlyMachineConfigChecksProperties']] = None,
                  containers: Optional[Sequence['outputs.FlyContainerConfig']] = None,
                  disable_machine_autostart: Optional[_builtins.bool] = None,
@@ -7197,7 +7199,8 @@ class MachineIncompleteConfig(dict):
         fields.
 
         :param _builtins.bool auto_destroy: Optional boolean telling the Machine to destroy itself once it’s complete (default false)
-        :param 'FlyMachineConfigCacheDrive' cache_drive: Beta: a cache drive attached to the Machine. This field may be removed in the future
+        :param 'FlyMachineConfigCacheDisk' cache_disk: Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+               but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
         :param Mapping[str, 'FlyMachineConfigChecksProperties'] checks: An optional object that defines one or more named top-level checks. The key for each check is the check name.
         :param Sequence['FlyContainerConfig'] containers: Containers are a list of containers that will run in the machine, each from its own image.
         :param _builtins.bool disable_machine_autostart: Deprecated: use Service.Autostart instead
@@ -7232,8 +7235,8 @@ class MachineIncompleteConfig(dict):
         """
         if auto_destroy is not None:
             pulumi.set(__self__, "auto_destroy", auto_destroy)
-        if cache_drive is not None:
-            pulumi.set(__self__, "cache_drive", cache_drive)
+        if cache_disk is not None:
+            pulumi.set(__self__, "cache_disk", cache_disk)
         if checks is not None:
             pulumi.set(__self__, "checks", checks)
         if containers is not None:
@@ -7288,12 +7291,13 @@ class MachineIncompleteConfig(dict):
         return pulumi.get(self, "auto_destroy")
 
     @_builtins.property
-    @pulumi.getter(name="cacheDrive")
-    def cache_drive(self) -> Optional['outputs.FlyMachineConfigCacheDrive']:
+    @pulumi.getter(name="cacheDisk")
+    def cache_disk(self) -> Optional['outputs.FlyMachineConfigCacheDisk']:
         """
-        Beta: a cache drive attached to the Machine. This field may be removed in the future
+        Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+        but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
         """
-        return pulumi.get(self, "cache_drive")
+        return pulumi.get(self, "cache_disk")
 
     @_builtins.property
     @pulumi.getter
@@ -7754,7 +7758,7 @@ class MachineVersionUserConfig(dict):
     """
     def __init__(__self__, *,
                  auto_destroy: Optional[_builtins.bool] = None,
-                 cache_drive: Optional['outputs.FlyMachineConfigCacheDrive'] = None,
+                 cache_disk: Optional['outputs.FlyMachineConfigCacheDisk'] = None,
                  checks: Optional[Mapping[str, 'outputs.FlyMachineConfigChecksProperties']] = None,
                  containers: Optional[Sequence['outputs.FlyContainerConfig']] = None,
                  disable_machine_autostart: Optional[_builtins.bool] = None,
@@ -7781,7 +7785,8 @@ class MachineVersionUserConfig(dict):
         The configuration of that version, as provided by the create or update request.
 
         :param _builtins.bool auto_destroy: Optional boolean telling the Machine to destroy itself once it’s complete (default false)
-        :param 'FlyMachineConfigCacheDrive' cache_drive: Beta: a cache drive attached to the Machine. This field may be removed in the future
+        :param 'FlyMachineConfigCacheDisk' cache_disk: Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+               but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
         :param Mapping[str, 'FlyMachineConfigChecksProperties'] checks: An optional object that defines one or more named top-level checks. The key for each check is the check name.
         :param Sequence['FlyContainerConfig'] containers: Containers are a list of containers that will run in the machine, each from its own image.
         :param _builtins.bool disable_machine_autostart: Deprecated: use Service.Autostart instead
@@ -7816,8 +7821,8 @@ class MachineVersionUserConfig(dict):
         """
         if auto_destroy is not None:
             pulumi.set(__self__, "auto_destroy", auto_destroy)
-        if cache_drive is not None:
-            pulumi.set(__self__, "cache_drive", cache_drive)
+        if cache_disk is not None:
+            pulumi.set(__self__, "cache_disk", cache_disk)
         if checks is not None:
             pulumi.set(__self__, "checks", checks)
         if containers is not None:
@@ -7872,12 +7877,13 @@ class MachineVersionUserConfig(dict):
         return pulumi.get(self, "auto_destroy")
 
     @_builtins.property
-    @pulumi.getter(name="cacheDrive")
-    def cache_drive(self) -> Optional['outputs.FlyMachineConfigCacheDrive']:
+    @pulumi.getter(name="cacheDisk")
+    def cache_disk(self) -> Optional['outputs.FlyMachineConfigCacheDisk']:
         """
-        Beta: a cache drive attached to the Machine. This field may be removed in the future
+        Semi-durable cache disk attached to the Machine. Contents generally survive Machine stops, restarts, and updates,
+        but durability is not guaranteed. Expect Machines to start with an empty cache disk at any time
         """
-        return pulumi.get(self, "cache_drive")
+        return pulumi.get(self, "cache_disk")
 
     @_builtins.property
     @pulumi.getter

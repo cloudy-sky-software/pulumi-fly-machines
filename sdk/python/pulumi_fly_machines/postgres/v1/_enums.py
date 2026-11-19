@@ -17,6 +17,7 @@ __all__ = [
     'PostgresClusterStatus',
     'PostgresClusterSummaryPlan',
     'PostgresClusterSummaryStatus',
+    'PostgresMaintenanceWindowDay',
     'PostgresPlanCpuKind',
     'PostgresPlanPlan',
     'PostgresUserRole',
@@ -131,6 +132,20 @@ class PostgresClusterSummaryStatus(_builtins.str, Enum):
     DELETING = "deleting"
     DELETED = "deleted"
     FAILED = "failed"
+
+
+@pulumi.type_token("fly-machines:postgres/v1:PostgresMaintenanceWindowDay")
+class PostgresMaintenanceWindowDay(_builtins.str, Enum):
+    """
+    Day of the week the window starts on.
+    """
+    SUNDAY = "sunday"
+    MONDAY = "monday"
+    TUESDAY = "tuesday"
+    WEDNESDAY = "wednesday"
+    THURSDAY = "thursday"
+    FRIDAY = "friday"
+    SATURDAY = "saturday"
 
 
 @pulumi.type_token("fly-machines:postgres/v1:PostgresPlanCpuKind")

@@ -1166,6 +1166,102 @@ func (o PostgresClusterSummaryStatusPtrOutput) ToStringPtrOutputWithContext(ctx 
 	}).(pulumi.StringPtrOutput)
 }
 
+// Day of the week the window starts on.
+type PostgresMaintenanceWindowDay string
+
+const (
+	PostgresMaintenanceWindowDaySunday    = PostgresMaintenanceWindowDay("sunday")
+	PostgresMaintenanceWindowDayMonday    = PostgresMaintenanceWindowDay("monday")
+	PostgresMaintenanceWindowDayTuesday   = PostgresMaintenanceWindowDay("tuesday")
+	PostgresMaintenanceWindowDayWednesday = PostgresMaintenanceWindowDay("wednesday")
+	PostgresMaintenanceWindowDayThursday  = PostgresMaintenanceWindowDay("thursday")
+	PostgresMaintenanceWindowDayFriday    = PostgresMaintenanceWindowDay("friday")
+	PostgresMaintenanceWindowDaySaturday  = PostgresMaintenanceWindowDay("saturday")
+)
+
+type PostgresMaintenanceWindowDayOutput struct{ *pulumi.OutputState }
+
+func (PostgresMaintenanceWindowDayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PostgresMaintenanceWindowDay)(nil)).Elem()
+}
+
+func (o PostgresMaintenanceWindowDayOutput) ToPostgresMaintenanceWindowDayOutput() PostgresMaintenanceWindowDayOutput {
+	return o
+}
+
+func (o PostgresMaintenanceWindowDayOutput) ToPostgresMaintenanceWindowDayOutputWithContext(ctx context.Context) PostgresMaintenanceWindowDayOutput {
+	return o
+}
+
+func (o PostgresMaintenanceWindowDayOutput) ToPostgresMaintenanceWindowDayPtrOutput() PostgresMaintenanceWindowDayPtrOutput {
+	return o.ToPostgresMaintenanceWindowDayPtrOutputWithContext(context.Background())
+}
+
+func (o PostgresMaintenanceWindowDayOutput) ToPostgresMaintenanceWindowDayPtrOutputWithContext(ctx context.Context) PostgresMaintenanceWindowDayPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PostgresMaintenanceWindowDay) *PostgresMaintenanceWindowDay {
+		return &v
+	}).(PostgresMaintenanceWindowDayPtrOutput)
+}
+
+func (o PostgresMaintenanceWindowDayOutput) ToStringOutput() pulumi.StringOutput {
+	return o.ToStringOutputWithContext(context.Background())
+}
+
+func (o PostgresMaintenanceWindowDayOutput) ToStringOutputWithContext(ctx context.Context) pulumi.StringOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e PostgresMaintenanceWindowDay) string {
+		return string(e)
+	}).(pulumi.StringOutput)
+}
+
+func (o PostgresMaintenanceWindowDayOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o PostgresMaintenanceWindowDayOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e PostgresMaintenanceWindowDay) *string {
+		v := string(e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
+type PostgresMaintenanceWindowDayPtrOutput struct{ *pulumi.OutputState }
+
+func (PostgresMaintenanceWindowDayPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PostgresMaintenanceWindowDay)(nil)).Elem()
+}
+
+func (o PostgresMaintenanceWindowDayPtrOutput) ToPostgresMaintenanceWindowDayPtrOutput() PostgresMaintenanceWindowDayPtrOutput {
+	return o
+}
+
+func (o PostgresMaintenanceWindowDayPtrOutput) ToPostgresMaintenanceWindowDayPtrOutputWithContext(ctx context.Context) PostgresMaintenanceWindowDayPtrOutput {
+	return o
+}
+
+func (o PostgresMaintenanceWindowDayPtrOutput) Elem() PostgresMaintenanceWindowDayOutput {
+	return o.ApplyT(func(v *PostgresMaintenanceWindowDay) PostgresMaintenanceWindowDay {
+		if v != nil {
+			return *v
+		}
+		var ret PostgresMaintenanceWindowDay
+		return ret
+	}).(PostgresMaintenanceWindowDayOutput)
+}
+
+func (o PostgresMaintenanceWindowDayPtrOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
+	return o.ToStringPtrOutputWithContext(context.Background())
+}
+
+func (o PostgresMaintenanceWindowDayPtrOutput) ToStringPtrOutputWithContext(ctx context.Context) pulumi.StringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, e *PostgresMaintenanceWindowDay) *string {
+		if e == nil {
+			return nil
+		}
+		v := string(*e)
+		return &v
+	}).(pulumi.StringPtrOutput)
+}
+
 // CPU class.
 type PostgresPlanCpuKind string
 
@@ -1810,6 +1906,8 @@ func init() {
 	pulumi.RegisterOutputType(PostgresClusterSummaryPlanPtrOutput{})
 	pulumi.RegisterOutputType(PostgresClusterSummaryStatusOutput{})
 	pulumi.RegisterOutputType(PostgresClusterSummaryStatusPtrOutput{})
+	pulumi.RegisterOutputType(PostgresMaintenanceWindowDayOutput{})
+	pulumi.RegisterOutputType(PostgresMaintenanceWindowDayPtrOutput{})
 	pulumi.RegisterOutputType(PostgresPlanCpuKindOutput{})
 	pulumi.RegisterOutputType(PostgresPlanCpuKindPtrOutput{})
 	pulumi.RegisterOutputType(PostgresPlanPlanOutput{})

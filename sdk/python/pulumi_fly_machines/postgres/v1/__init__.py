@@ -8,6 +8,7 @@ import typing
 # Export this package's modules as members:
 from ._enums import *
 from .get_postgres import *
+from .get_postgres_maintenance_window import *
 from .get_postgres_queries_active import *
 from .get_postgres_queries_slow import *
 from .get_postgres_users_credential import *
