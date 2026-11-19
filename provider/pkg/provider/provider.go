@@ -30,9 +30,10 @@ type flyMachinesProvider struct {
 }
 
 const (
-	machineTypeToken          = "fly-machines:apps/v1:Machine"
-	machinesMetadataTypeToken = "fly-machines:apps/v1:MachinesMetadata"
-	secretsTypeToken          = "fly-machines:apps/v1:Secrets"
+	machineTypeToken                   = "fly-machines:apps/v1:Machine"
+	machinesMetadataTypeToken          = "fly-machines:apps/v1:MachinesMetadata"
+	postgresMaintenanceWindowTypeToken = "fly-machines:postgres/v1:PostgresMaintenanceWindow"
+	secretsTypeToken                   = "fly-machines:apps/v1:Secrets"
 )
 
 var (
@@ -93,8 +94,8 @@ func (p *flyMachinesProvider) OnPreCreate(_ context.Context, req *pulumirpc.Crea
 	case req.GetType() == machinesMetadataTypeToken:
 		handleCreateMachinesMetadataRequest(httpReq)
 		return nil
-	case req.GetType() == secretsTypeToken:
-		handleCreateSecretsRequest(httpReq)
+	case req.GetType() == postgresMaintenanceWindowTypeToken:
+		handleCreatePostgresMaintenanceWindow(httpReq)
 		return nil
 	}
 

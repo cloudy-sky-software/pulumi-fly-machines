@@ -18,6 +18,7 @@ func FixOpenAPIDoc(openAPIDoc *openapi3.T) error {
 	removeDeprecatedVersionProperty(openAPIDoc)
 	fixEnums(openAPIDoc)
 	fixSecretsEndpoint(openAPIDoc)
+	fixPostgresMaintenanceWindowEndpoint(openAPIDoc)
 
 	return nil
 }
@@ -191,4 +192,22 @@ func fixSecretsEndpoint(openAPIDoc *openapi3.T) {
 	patchOp.Summary = pathItem.Post.Summary
 
 	pathItem.Patch = patchOp
+}
+
+// fixPostgresMaintenanceWindowEndpoint adds a fake POST request in
+// the path item:
+// `/v1/postgres/{postgres_cluster_id}/maintenance_window`
+//
+// The fake POST request is so that pulschema sees it as a
+// "createable" resource.
+func fixPostgresMaintenanceWindowEndpoint(openAPIDoc *openapi3.T) {
+	pathItem := openAPIDoc.Paths.Find("/v1/postgres/{postgres_cluster_id}/maintenance_window")
+	contract.Assertf(pathItem != nil, "Expected to find request path /v1/postgres/{postgres_cluster_id}/maintenance_window")
+
+	contract.Assertf(pathItem.Patch != nil, "Expected PATCH operation on /v1/postgres/{postgres_cluster_id}/maintenance_window")
+	contract.Assertf(pathItem.Post == nil, "Did not expect a POST operation on /v1/postgres/{postgres_cluster_id}/maintenance_window")
+
+	post := *pathItem.Patch
+	post.OperationID = "Postgres_maintenance_window_create"
+	pathItem.Post = &post
 }
