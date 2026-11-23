@@ -16,7 +16,7 @@ type Postgres struct {
 	pulumi.CustomResourceState
 
 	Data PostgresClusterPtrOutput `pulumi:"data"`
-	// Disk size in gigabytes.
+	// Disk size in gigabytes. Defaults to the plan's starting size: 1 for dev-256 and 10 for the other plans.
 	DiskSizeGb pulumi.IntPtrOutput `pulumi:"diskSizeGb"`
 	// Name for the cluster. A name is generated when omitted.
 	Name pulumi.StringPtrOutput `pulumi:"name"`
@@ -91,7 +91,7 @@ func PostgresExists(ctx *pulumi.Context,
 }
 
 type postgresArgs struct {
-	// Disk size in gigabytes.
+	// Disk size in gigabytes. Defaults to the plan's starting size: 1 for dev-256 and 10 for the other plans.
 	DiskSizeGb *int `pulumi:"diskSizeGb"`
 	// Name for the cluster. A name is generated when omitted.
 	Name *string `pulumi:"name"`
@@ -113,7 +113,7 @@ type postgresArgs struct {
 
 // The set of arguments for constructing a Postgres resource.
 type PostgresArgs struct {
-	// Disk size in gigabytes.
+	// Disk size in gigabytes. Defaults to the plan's starting size: 1 for dev-256 and 10 for the other plans.
 	DiskSizeGb pulumi.IntPtrInput
 	// Name for the cluster. A name is generated when omitted.
 	Name pulumi.StringPtrInput
@@ -174,7 +174,7 @@ func (o PostgresOutput) Data() PostgresClusterPtrOutput {
 	return o.ApplyT(func(v *Postgres) PostgresClusterPtrOutput { return v.Data }).(PostgresClusterPtrOutput)
 }
 
-// Disk size in gigabytes.
+// Disk size in gigabytes. Defaults to the plan's starting size: 1 for dev-256 and 10 for the other plans.
 func (o PostgresOutput) DiskSizeGb() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Postgres) pulumi.IntPtrOutput { return v.DiskSizeGb }).(pulumi.IntPtrOutput)
 }

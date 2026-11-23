@@ -2,6 +2,21 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 
+export const DataPropertiesDay = {
+    Sunday: "sunday",
+    Monday: "monday",
+    Tuesday: "tuesday",
+    Wednesday: "wednesday",
+    Thursday: "thursday",
+    Friday: "friday",
+    Saturday: "saturday",
+} as const;
+
+/**
+ * Day of the week the window starts on.
+ */
+export type DataPropertiesDay = (typeof DataPropertiesDay)[keyof typeof DataPropertiesDay];
+
 export const Day = {
     Sunday: "sunday",
     Monday: "monday",
@@ -28,6 +43,7 @@ export const PgMajorVersion = {
 export type PgMajorVersion = (typeof PgMajorVersion)[keyof typeof PgMajorVersion];
 
 export const Plan = {
+    Dev256: "dev-256",
     Basic: "basic",
     Starter: "starter",
     Launch: "launch",
@@ -82,6 +98,7 @@ export const PostgresClusterPgMajorVersion = {
 export type PostgresClusterPgMajorVersion = (typeof PostgresClusterPgMajorVersion)[keyof typeof PostgresClusterPgMajorVersion];
 
 export const PostgresClusterPlan = {
+    Dev256: "dev-256",
     Basic: "basic",
     Starter: "starter",
     Launch: "launch",
@@ -109,6 +126,7 @@ export const PostgresClusterStatus = {
 export type PostgresClusterStatus = (typeof PostgresClusterStatus)[keyof typeof PostgresClusterStatus];
 
 export const PostgresClusterSummaryPlan = {
+    Dev256: "dev-256",
     Basic: "basic",
     Starter: "starter",
     Launch: "launch",
@@ -135,21 +153,6 @@ export const PostgresClusterSummaryStatus = {
  */
 export type PostgresClusterSummaryStatus = (typeof PostgresClusterSummaryStatus)[keyof typeof PostgresClusterSummaryStatus];
 
-export const PostgresMaintenanceWindowDay = {
-    Sunday: "sunday",
-    Monday: "monday",
-    Tuesday: "tuesday",
-    Wednesday: "wednesday",
-    Thursday: "thursday",
-    Friday: "friday",
-    Saturday: "saturday",
-} as const;
-
-/**
- * Day of the week the window starts on.
- */
-export type PostgresMaintenanceWindowDay = (typeof PostgresMaintenanceWindowDay)[keyof typeof PostgresMaintenanceWindowDay];
-
 export const PostgresPlanCpuKind = {
     Shared: "shared",
     Performance: "performance",
@@ -161,6 +164,7 @@ export const PostgresPlanCpuKind = {
 export type PostgresPlanCpuKind = (typeof PostgresPlanCpuKind)[keyof typeof PostgresPlanCpuKind];
 
 export const PostgresPlanPlan = {
+    Dev256: "dev-256",
     Basic: "basic",
     Starter: "starter",
     Launch: "launch",
@@ -194,6 +198,21 @@ export const Role = {
  * Role to grant the user.
  */
 export type Role = (typeof Role)[keyof typeof Role];
+
+export const ShowPostgresMaintenanceWindowResponseDataPropertiesDay = {
+    Sunday: "sunday",
+    Monday: "monday",
+    Tuesday: "tuesday",
+    Wednesday: "wednesday",
+    Thursday: "thursday",
+    Friday: "friday",
+    Saturday: "saturday",
+} as const;
+
+/**
+ * Day of the week the window starts on.
+ */
+export type ShowPostgresMaintenanceWindowResponseDataPropertiesDay = (typeof ShowPostgresMaintenanceWindowResponseDataPropertiesDay)[keyof typeof ShowPostgresMaintenanceWindowResponseDataPropertiesDay];
 
 export const Type = {
     Full: "full",

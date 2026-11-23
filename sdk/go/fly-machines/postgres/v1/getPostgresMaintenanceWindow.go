@@ -29,7 +29,8 @@ type LookupPostgresMaintenanceWindowArgs struct {
 }
 
 type LookupPostgresMaintenanceWindowResult struct {
-	Data *PostgresMaintenanceWindowType `pulumi:"data"`
+	// The cluster's maintenance window, or null when it has none and its maintenance can run at any time.
+	Data *ShowPostgresMaintenanceWindowResponseDataProperties `pulumi:"data"`
 }
 
 func LookupPostgresMaintenanceWindowOutput(ctx *pulumi.Context, args LookupPostgresMaintenanceWindowOutputArgs, opts ...pulumi.InvokeOption) LookupPostgresMaintenanceWindowResultOutput {
@@ -62,8 +63,11 @@ func (o LookupPostgresMaintenanceWindowResultOutput) ToLookupPostgresMaintenance
 	return o
 }
 
-func (o LookupPostgresMaintenanceWindowResultOutput) Data() PostgresMaintenanceWindowTypePtrOutput {
-	return o.ApplyT(func(v LookupPostgresMaintenanceWindowResult) *PostgresMaintenanceWindowType { return v.Data }).(PostgresMaintenanceWindowTypePtrOutput)
+// The cluster's maintenance window, or null when it has none and its maintenance can run at any time.
+func (o LookupPostgresMaintenanceWindowResultOutput) Data() ShowPostgresMaintenanceWindowResponseDataPropertiesPtrOutput {
+	return o.ApplyT(func(v LookupPostgresMaintenanceWindowResult) *ShowPostgresMaintenanceWindowResponseDataProperties {
+		return v.Data
+	}).(ShowPostgresMaintenanceWindowResponseDataPropertiesPtrOutput)
 }
 
 func init() {

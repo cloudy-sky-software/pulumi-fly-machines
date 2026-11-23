@@ -67,10 +67,13 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.PostgresV1
     [OutputType]
     public sealed class GetPostgresMaintenanceWindowResult
     {
-        public readonly Outputs.PostgresMaintenanceWindow? Data;
+        /// <summary>
+        /// The cluster's maintenance window, or null when it has none and its maintenance can run at any time.
+        /// </summary>
+        public readonly Outputs.ShowPostgresMaintenanceWindowResponseDataProperties? Data;
 
         [OutputConstructor]
-        private GetPostgresMaintenanceWindowResult(Outputs.PostgresMaintenanceWindow? data)
+        private GetPostgresMaintenanceWindowResult(Outputs.ShowPostgresMaintenanceWindowResponseDataProperties? data)
         {
             Data = data;
         }

@@ -27,7 +27,10 @@ export interface GetPostgresMaintenanceWindowArgs {
 }
 
 export interface GetPostgresMaintenanceWindowResult {
-    readonly data?: outputs.postgres.v1.PostgresMaintenanceWindow;
+    /**
+     * The cluster's maintenance window, or null when it has none and its maintenance can run at any time.
+     */
+    readonly data?: outputs.postgres.v1.ShowPostgresMaintenanceWindowResponseDataProperties;
 }
 export function getPostgresMaintenanceWindowOutput(args: GetPostgresMaintenanceWindowOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetPostgresMaintenanceWindowResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});

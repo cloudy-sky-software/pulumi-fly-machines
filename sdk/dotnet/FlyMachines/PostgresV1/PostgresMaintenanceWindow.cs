@@ -13,8 +13,11 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.PostgresV1
     [FlyMachinesResourceType("fly-machines:postgres/v1:PostgresMaintenanceWindow")]
     public partial class PostgresMaintenanceWindow : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// The cluster's maintenance window, or null when it has none and its maintenance can run at any time.
+        /// </summary>
         [Output("data")]
-        public Output<Outputs.PostgresMaintenanceWindow?> Data { get; private set; } = null!;
+        public Output<Outputs.DataProperties?> Data { get; private set; } = null!;
 
         /// <summary>
         /// Day of the week the window starts on.

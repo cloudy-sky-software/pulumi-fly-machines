@@ -7,6 +7,7 @@ import pulumi
 from enum import Enum
 
 __all__ = [
+    'DataPropertiesDay',
     'Day',
     'PgMajorVersion',
     'Plan',
@@ -18,13 +19,27 @@ __all__ = [
     'PostgresClusterStatus',
     'PostgresClusterSummaryPlan',
     'PostgresClusterSummaryStatus',
-    'PostgresMaintenanceWindowDay',
     'PostgresPlanCpuKind',
     'PostgresPlanPlan',
     'PostgresUserRole',
     'Role',
+    'ShowPostgresMaintenanceWindowResponseDataPropertiesDay',
     'Type',
 ]
+
+
+@pulumi.type_token("fly-machines:postgres/v1:DataPropertiesDay")
+class DataPropertiesDay(_builtins.str, Enum):
+    """
+    Day of the week the window starts on.
+    """
+    SUNDAY = "sunday"
+    MONDAY = "monday"
+    TUESDAY = "tuesday"
+    WEDNESDAY = "wednesday"
+    THURSDAY = "thursday"
+    FRIDAY = "friday"
+    SATURDAY = "saturday"
 
 
 @pulumi.type_token("fly-machines:postgres/v1:Day")
@@ -55,6 +70,7 @@ class Plan(_builtins.str, Enum):
     """
     Plan slug selecting CPU, memory, and disk sizing. Matched case-insensitively.
     """
+    DEV256 = "dev-256"
     BASIC = "basic"
     STARTER = "starter"
     LAUNCH = "launch"
@@ -104,6 +120,7 @@ class PostgresClusterPlan(_builtins.str, Enum):
     """
     Plan slug.
     """
+    DEV256 = "dev-256"
     BASIC = "basic"
     STARTER = "starter"
     LAUNCH = "launch"
@@ -129,6 +146,7 @@ class PostgresClusterSummaryPlan(_builtins.str, Enum):
     """
     Plan slug.
     """
+    DEV256 = "dev-256"
     BASIC = "basic"
     STARTER = "starter"
     LAUNCH = "launch"
@@ -149,20 +167,6 @@ class PostgresClusterSummaryStatus(_builtins.str, Enum):
     FAILED = "failed"
 
 
-@pulumi.type_token("fly-machines:postgres/v1:PostgresMaintenanceWindowDay")
-class PostgresMaintenanceWindowDay(_builtins.str, Enum):
-    """
-    Day of the week the window starts on.
-    """
-    SUNDAY = "sunday"
-    MONDAY = "monday"
-    TUESDAY = "tuesday"
-    WEDNESDAY = "wednesday"
-    THURSDAY = "thursday"
-    FRIDAY = "friday"
-    SATURDAY = "saturday"
-
-
 @pulumi.type_token("fly-machines:postgres/v1:PostgresPlanCpuKind")
 class PostgresPlanCpuKind(_builtins.str, Enum):
     """
@@ -177,6 +181,7 @@ class PostgresPlanPlan(_builtins.str, Enum):
     """
     Plan slug. Pass it as `plan` when creating or forking a cluster.
     """
+    DEV256 = "dev-256"
     BASIC = "basic"
     STARTER = "starter"
     LAUNCH = "launch"
@@ -202,6 +207,20 @@ class Role(_builtins.str, Enum):
     SCHEMA_ADMIN = "schema_admin"
     WRITER = "writer"
     READER = "reader"
+
+
+@pulumi.type_token("fly-machines:postgres/v1:ShowPostgresMaintenanceWindowResponseDataPropertiesDay")
+class ShowPostgresMaintenanceWindowResponseDataPropertiesDay(_builtins.str, Enum):
+    """
+    Day of the week the window starts on.
+    """
+    SUNDAY = "sunday"
+    MONDAY = "monday"
+    TUESDAY = "tuesday"
+    WEDNESDAY = "wednesday"
+    THURSDAY = "thursday"
+    FRIDAY = "friday"
+    SATURDAY = "saturday"
 
 
 @pulumi.type_token("fly-machines:postgres/v1:Type")

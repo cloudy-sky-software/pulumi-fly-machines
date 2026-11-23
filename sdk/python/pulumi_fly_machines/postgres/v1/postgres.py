@@ -37,7 +37,7 @@ class PostgresArgs:
         :param pulumi.Input[_builtins.str] org_slug: Slug of the organization that will own the cluster, or "personal" for the caller's personal organization.
         :param pulumi.Input['Plan'] plan: Plan slug selecting CPU, memory, and disk sizing. Matched case-insensitively.
         :param pulumi.Input[_builtins.str] region: Fly region code where the cluster's primary runs.
-        :param pulumi.Input[_builtins.int] disk_size_gb: Disk size in gigabytes.
+        :param pulumi.Input[_builtins.int] disk_size_gb: Disk size in gigabytes. Defaults to the plan's starting size: 1 for dev-256 and 10 for the other plans.
         :param pulumi.Input[_builtins.str] name: Name for the cluster. A name is generated when omitted.
         :param pulumi.Input['PgMajorVersion'] pg_major_version: Postgres major version.
         :param pulumi.Input['PoolMode'] pool_mode: Connection pooler mode.
@@ -100,7 +100,7 @@ class PostgresArgs:
     @pulumi.getter(name="diskSizeGb")
     def disk_size_gb(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
-        Disk size in gigabytes.
+        Disk size in gigabytes. Defaults to the plan's starting size: 1 for dev-256 and 10 for the other plans.
         """
         return pulumi.get(self, "disk_size_gb")
 
@@ -190,7 +190,7 @@ class Postgres(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.int] disk_size_gb: Disk size in gigabytes.
+        :param pulumi.Input[_builtins.int] disk_size_gb: Disk size in gigabytes. Defaults to the plan's starting size: 1 for dev-256 and 10 for the other plans.
         :param pulumi.Input[_builtins.str] name: Name for the cluster. A name is generated when omitted.
         :param pulumi.Input[_builtins.str] org_slug: Slug of the organization that will own the cluster, or "personal" for the caller's personal organization.
         :param pulumi.Input['PgMajorVersion'] pg_major_version: Postgres major version.
@@ -307,7 +307,7 @@ class Postgres(pulumi.CustomResource):
     @pulumi.getter(name="diskSizeGb")
     def disk_size_gb(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        Disk size in gigabytes.
+        Disk size in gigabytes. Defaults to the plan's starting size: 1 for dev-256 and 10 for the other plans.
         """
         return pulumi.get(self, "disk_size_gb")
 

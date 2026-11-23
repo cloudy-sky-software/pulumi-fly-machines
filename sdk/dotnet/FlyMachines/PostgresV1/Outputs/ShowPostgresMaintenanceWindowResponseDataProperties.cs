@@ -11,13 +11,16 @@ using Pulumi;
 namespace CloudySkySoftware.Pulumi.FlyMachines.PostgresV1.Outputs
 {
 
+    /// <summary>
+    /// The cluster's maintenance window, or null when it has none and its maintenance can run at any time.
+    /// </summary>
     [OutputType]
-    public sealed class PostgresMaintenanceWindow
+    public sealed class ShowPostgresMaintenanceWindowResponseDataProperties
     {
         /// <summary>
         /// Day of the week the window starts on.
         /// </summary>
-        public readonly CloudySkySoftware.Pulumi.FlyMachines.PostgresV1.PostgresMaintenanceWindowDay? Day;
+        public readonly CloudySkySoftware.Pulumi.FlyMachines.PostgresV1.ShowPostgresMaintenanceWindowResponseDataPropertiesDay? Day;
         /// <summary>
         /// Length of the window in hours.
         /// </summary>
@@ -32,8 +35,8 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.PostgresV1.Outputs
         public readonly string? Timezone;
 
         [OutputConstructor]
-        private PostgresMaintenanceWindow(
-            CloudySkySoftware.Pulumi.FlyMachines.PostgresV1.PostgresMaintenanceWindowDay? day,
+        private ShowPostgresMaintenanceWindowResponseDataProperties(
+            CloudySkySoftware.Pulumi.FlyMachines.PostgresV1.ShowPostgresMaintenanceWindowResponseDataPropertiesDay? day,
 
             int? durationHours,
 

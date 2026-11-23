@@ -11,6 +11,42 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.PostgresV1
     /// Day of the week the window starts on.
     /// </summary>
     [EnumType]
+    public readonly struct DataPropertiesDay : IEquatable<DataPropertiesDay>
+    {
+        private readonly string _value;
+
+        private DataPropertiesDay(string value)
+        {
+            _value = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        public static DataPropertiesDay Sunday { get; } = new DataPropertiesDay("sunday");
+        public static DataPropertiesDay Monday { get; } = new DataPropertiesDay("monday");
+        public static DataPropertiesDay Tuesday { get; } = new DataPropertiesDay("tuesday");
+        public static DataPropertiesDay Wednesday { get; } = new DataPropertiesDay("wednesday");
+        public static DataPropertiesDay Thursday { get; } = new DataPropertiesDay("thursday");
+        public static DataPropertiesDay Friday { get; } = new DataPropertiesDay("friday");
+        public static DataPropertiesDay Saturday { get; } = new DataPropertiesDay("saturday");
+
+        public static bool operator ==(DataPropertiesDay left, DataPropertiesDay right) => left.Equals(right);
+        public static bool operator !=(DataPropertiesDay left, DataPropertiesDay right) => !left.Equals(right);
+
+        public static explicit operator string(DataPropertiesDay value) => value._value;
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object? obj) => obj is DataPropertiesDay other && Equals(other);
+        public bool Equals(DataPropertiesDay other) => string.Equals(_value, other._value, StringComparison.Ordinal);
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode() => _value?.GetHashCode() ?? 0;
+
+        public override string ToString() => _value;
+    }
+
+    /// <summary>
+    /// Day of the week the window starts on.
+    /// </summary>
+    [EnumType]
     public readonly struct Day : IEquatable<Day>
     {
         private readonly string _value;
@@ -87,6 +123,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.PostgresV1
             _value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
+        public static Plan Dev256 { get; } = new Plan("dev-256");
         public static Plan Basic { get; } = new Plan("basic");
         public static Plan Starter { get; } = new Plan("starter");
         public static Plan Launch { get; } = new Plan("launch");
@@ -246,6 +283,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.PostgresV1
             _value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
+        public static PostgresClusterPlan Dev256 { get; } = new PostgresClusterPlan("dev-256");
         public static PostgresClusterPlan Basic { get; } = new PostgresClusterPlan("basic");
         public static PostgresClusterPlan Starter { get; } = new PostgresClusterPlan("starter");
         public static PostgresClusterPlan Launch { get; } = new PostgresClusterPlan("launch");
@@ -315,6 +353,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.PostgresV1
             _value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
+        public static PostgresClusterSummaryPlan Dev256 { get; } = new PostgresClusterSummaryPlan("dev-256");
         public static PostgresClusterSummaryPlan Basic { get; } = new PostgresClusterSummaryPlan("basic");
         public static PostgresClusterSummaryPlan Starter { get; } = new PostgresClusterSummaryPlan("starter");
         public static PostgresClusterSummaryPlan Launch { get; } = new PostgresClusterSummaryPlan("launch");
@@ -372,42 +411,6 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.PostgresV1
     }
 
     /// <summary>
-    /// Day of the week the window starts on.
-    /// </summary>
-    [EnumType]
-    public readonly struct PostgresMaintenanceWindowDay : IEquatable<PostgresMaintenanceWindowDay>
-    {
-        private readonly string _value;
-
-        private PostgresMaintenanceWindowDay(string value)
-        {
-            _value = value ?? throw new ArgumentNullException(nameof(value));
-        }
-
-        public static PostgresMaintenanceWindowDay Sunday { get; } = new PostgresMaintenanceWindowDay("sunday");
-        public static PostgresMaintenanceWindowDay Monday { get; } = new PostgresMaintenanceWindowDay("monday");
-        public static PostgresMaintenanceWindowDay Tuesday { get; } = new PostgresMaintenanceWindowDay("tuesday");
-        public static PostgresMaintenanceWindowDay Wednesday { get; } = new PostgresMaintenanceWindowDay("wednesday");
-        public static PostgresMaintenanceWindowDay Thursday { get; } = new PostgresMaintenanceWindowDay("thursday");
-        public static PostgresMaintenanceWindowDay Friday { get; } = new PostgresMaintenanceWindowDay("friday");
-        public static PostgresMaintenanceWindowDay Saturday { get; } = new PostgresMaintenanceWindowDay("saturday");
-
-        public static bool operator ==(PostgresMaintenanceWindowDay left, PostgresMaintenanceWindowDay right) => left.Equals(right);
-        public static bool operator !=(PostgresMaintenanceWindowDay left, PostgresMaintenanceWindowDay right) => !left.Equals(right);
-
-        public static explicit operator string(PostgresMaintenanceWindowDay value) => value._value;
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public override bool Equals(object? obj) => obj is PostgresMaintenanceWindowDay other && Equals(other);
-        public bool Equals(PostgresMaintenanceWindowDay other) => string.Equals(_value, other._value, StringComparison.Ordinal);
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public override int GetHashCode() => _value?.GetHashCode() ?? 0;
-
-        public override string ToString() => _value;
-    }
-
-    /// <summary>
     /// CPU class.
     /// </summary>
     [EnumType]
@@ -451,6 +454,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.PostgresV1
             _value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
+        public static PostgresPlanPlan Dev256 { get; } = new PostgresPlanPlan("dev-256");
         public static PostgresPlanPlan Basic { get; } = new PostgresPlanPlan("basic");
         public static PostgresPlanPlan Starter { get; } = new PostgresPlanPlan("starter");
         public static PostgresPlanPlan Launch { get; } = new PostgresPlanPlan("launch");
@@ -529,6 +533,42 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.PostgresV1
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object? obj) => obj is Role other && Equals(other);
         public bool Equals(Role other) => string.Equals(_value, other._value, StringComparison.Ordinal);
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode() => _value?.GetHashCode() ?? 0;
+
+        public override string ToString() => _value;
+    }
+
+    /// <summary>
+    /// Day of the week the window starts on.
+    /// </summary>
+    [EnumType]
+    public readonly struct ShowPostgresMaintenanceWindowResponseDataPropertiesDay : IEquatable<ShowPostgresMaintenanceWindowResponseDataPropertiesDay>
+    {
+        private readonly string _value;
+
+        private ShowPostgresMaintenanceWindowResponseDataPropertiesDay(string value)
+        {
+            _value = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        public static ShowPostgresMaintenanceWindowResponseDataPropertiesDay Sunday { get; } = new ShowPostgresMaintenanceWindowResponseDataPropertiesDay("sunday");
+        public static ShowPostgresMaintenanceWindowResponseDataPropertiesDay Monday { get; } = new ShowPostgresMaintenanceWindowResponseDataPropertiesDay("monday");
+        public static ShowPostgresMaintenanceWindowResponseDataPropertiesDay Tuesday { get; } = new ShowPostgresMaintenanceWindowResponseDataPropertiesDay("tuesday");
+        public static ShowPostgresMaintenanceWindowResponseDataPropertiesDay Wednesday { get; } = new ShowPostgresMaintenanceWindowResponseDataPropertiesDay("wednesday");
+        public static ShowPostgresMaintenanceWindowResponseDataPropertiesDay Thursday { get; } = new ShowPostgresMaintenanceWindowResponseDataPropertiesDay("thursday");
+        public static ShowPostgresMaintenanceWindowResponseDataPropertiesDay Friday { get; } = new ShowPostgresMaintenanceWindowResponseDataPropertiesDay("friday");
+        public static ShowPostgresMaintenanceWindowResponseDataPropertiesDay Saturday { get; } = new ShowPostgresMaintenanceWindowResponseDataPropertiesDay("saturday");
+
+        public static bool operator ==(ShowPostgresMaintenanceWindowResponseDataPropertiesDay left, ShowPostgresMaintenanceWindowResponseDataPropertiesDay right) => left.Equals(right);
+        public static bool operator !=(ShowPostgresMaintenanceWindowResponseDataPropertiesDay left, ShowPostgresMaintenanceWindowResponseDataPropertiesDay right) => !left.Equals(right);
+
+        public static explicit operator string(ShowPostgresMaintenanceWindowResponseDataPropertiesDay value) => value._value;
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object? obj) => obj is ShowPostgresMaintenanceWindowResponseDataPropertiesDay other && Equals(other);
+        public bool Equals(ShowPostgresMaintenanceWindowResponseDataPropertiesDay other) => string.Equals(_value, other._value, StringComparison.Ordinal);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override int GetHashCode() => _value?.GetHashCode() ?? 0;

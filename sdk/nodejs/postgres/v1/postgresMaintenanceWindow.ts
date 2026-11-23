@@ -44,7 +44,10 @@ export class PostgresMaintenanceWindow extends pulumi.CustomResource {
         return obj['__pulumiType'] === PostgresMaintenanceWindow.__pulumiType;
     }
 
-    declare public /*out*/ readonly data: pulumi.Output<outputs.postgres.v1.PostgresMaintenanceWindow | undefined>;
+    /**
+     * The cluster's maintenance window, or null when it has none and its maintenance can run at any time.
+     */
+    declare public /*out*/ readonly data: pulumi.Output<outputs.postgres.v1.DataProperties | undefined>;
     /**
      * Day of the week the window starts on.
      */

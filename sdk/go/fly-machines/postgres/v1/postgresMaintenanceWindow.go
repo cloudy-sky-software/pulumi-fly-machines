@@ -14,7 +14,8 @@ import (
 type PostgresMaintenanceWindow struct {
 	pulumi.CustomResourceState
 
-	Data PostgresMaintenanceWindowTypePtrOutput `pulumi:"data"`
+	// The cluster's maintenance window, or null when it has none and its maintenance can run at any time.
+	Data DataPropertiesPtrOutput `pulumi:"data"`
 	// Day of the week the window starts on.
 	Day DayPtrOutput `pulumi:"day"`
 	// Length of the window in hours.
@@ -134,8 +135,9 @@ func (o PostgresMaintenanceWindowOutput) ToPostgresMaintenanceWindowOutputWithCo
 	return o
 }
 
-func (o PostgresMaintenanceWindowOutput) Data() PostgresMaintenanceWindowTypePtrOutput {
-	return o.ApplyT(func(v *PostgresMaintenanceWindow) PostgresMaintenanceWindowTypePtrOutput { return v.Data }).(PostgresMaintenanceWindowTypePtrOutput)
+// The cluster's maintenance window, or null when it has none and its maintenance can run at any time.
+func (o PostgresMaintenanceWindowOutput) Data() DataPropertiesPtrOutput {
+	return o.ApplyT(func(v *PostgresMaintenanceWindow) DataPropertiesPtrOutput { return v.Data }).(DataPropertiesPtrOutput)
 }
 
 // Day of the week the window starts on.

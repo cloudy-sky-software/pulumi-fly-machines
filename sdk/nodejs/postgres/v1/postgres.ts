@@ -46,7 +46,7 @@ export class Postgres extends pulumi.CustomResource {
 
     declare public /*out*/ readonly data: pulumi.Output<outputs.postgres.v1.PostgresCluster | undefined>;
     /**
-     * Disk size in gigabytes.
+     * Disk size in gigabytes. Defaults to the plan's starting size: 1 for dev-256 and 10 for the other plans.
      */
     declare public readonly diskSizeGb: pulumi.Output<number | undefined>;
     /**
@@ -134,7 +134,7 @@ export class Postgres extends pulumi.CustomResource {
  */
 export interface PostgresArgs {
     /**
-     * Disk size in gigabytes.
+     * Disk size in gigabytes. Defaults to the plan's starting size: 1 for dev-256 and 10 for the other plans.
      */
     diskSizeGb?: pulumi.Input<number | undefined>;
     /**
