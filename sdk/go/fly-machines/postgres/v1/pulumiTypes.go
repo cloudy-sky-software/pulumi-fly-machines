@@ -13,6 +13,117 @@ import (
 
 var _ = internal.GetEnvOrDefault
 
+// The cluster's maintenance window, or null when it has none and its maintenance can run at any time.
+type DataProperties struct {
+	// Day of the week the window starts on.
+	Day *DataPropertiesDay `pulumi:"day"`
+	// Length of the window in hours.
+	DurationHours *int `pulumi:"durationHours"`
+	// Hour of the day the window starts, in the cluster's timezone.
+	StartHour *int `pulumi:"startHour"`
+	// IANA timezone the window is expressed in, derived from the cluster's region.
+	Timezone *string `pulumi:"timezone"`
+}
+
+// The cluster's maintenance window, or null when it has none and its maintenance can run at any time.
+type DataPropertiesOutput struct{ *pulumi.OutputState }
+
+func (DataPropertiesOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DataProperties)(nil)).Elem()
+}
+
+func (o DataPropertiesOutput) ToDataPropertiesOutput() DataPropertiesOutput {
+	return o
+}
+
+func (o DataPropertiesOutput) ToDataPropertiesOutputWithContext(ctx context.Context) DataPropertiesOutput {
+	return o
+}
+
+// Day of the week the window starts on.
+func (o DataPropertiesOutput) Day() DataPropertiesDayPtrOutput {
+	return o.ApplyT(func(v DataProperties) *DataPropertiesDay { return v.Day }).(DataPropertiesDayPtrOutput)
+}
+
+// Length of the window in hours.
+func (o DataPropertiesOutput) DurationHours() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v DataProperties) *int { return v.DurationHours }).(pulumi.IntPtrOutput)
+}
+
+// Hour of the day the window starts, in the cluster's timezone.
+func (o DataPropertiesOutput) StartHour() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v DataProperties) *int { return v.StartHour }).(pulumi.IntPtrOutput)
+}
+
+// IANA timezone the window is expressed in, derived from the cluster's region.
+func (o DataPropertiesOutput) Timezone() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DataProperties) *string { return v.Timezone }).(pulumi.StringPtrOutput)
+}
+
+type DataPropertiesPtrOutput struct{ *pulumi.OutputState }
+
+func (DataPropertiesPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**DataProperties)(nil)).Elem()
+}
+
+func (o DataPropertiesPtrOutput) ToDataPropertiesPtrOutput() DataPropertiesPtrOutput {
+	return o
+}
+
+func (o DataPropertiesPtrOutput) ToDataPropertiesPtrOutputWithContext(ctx context.Context) DataPropertiesPtrOutput {
+	return o
+}
+
+func (o DataPropertiesPtrOutput) Elem() DataPropertiesOutput {
+	return o.ApplyT(func(v *DataProperties) DataProperties {
+		if v != nil {
+			return *v
+		}
+		var ret DataProperties
+		return ret
+	}).(DataPropertiesOutput)
+}
+
+// Day of the week the window starts on.
+func (o DataPropertiesPtrOutput) Day() DataPropertiesDayPtrOutput {
+	return o.ApplyT(func(v *DataProperties) *DataPropertiesDay {
+		if v == nil {
+			return nil
+		}
+		return v.Day
+	}).(DataPropertiesDayPtrOutput)
+}
+
+// Length of the window in hours.
+func (o DataPropertiesPtrOutput) DurationHours() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *DataProperties) *int {
+		if v == nil {
+			return nil
+		}
+		return v.DurationHours
+	}).(pulumi.IntPtrOutput)
+}
+
+// Hour of the day the window starts, in the cluster's timezone.
+func (o DataPropertiesPtrOutput) StartHour() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *DataProperties) *int {
+		if v == nil {
+			return nil
+		}
+		return v.StartHour
+	}).(pulumi.IntPtrOutput)
+}
+
+// IANA timezone the window is expressed in, derived from the cluster's region.
+func (o DataPropertiesPtrOutput) Timezone() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DataProperties) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Timezone
+	}).(pulumi.StringPtrOutput)
+}
+
 // Query params for the API request.
 type GetPostgresMaintenanceWindowQueryParams struct {
 	// Additional query params to send with the request that are not defined in the API spec.
@@ -5020,115 +5131,6 @@ func (o PostgresForkQueryParamsPtrOutput) Create() PostgresForkCreateQueryParams
 	}).(PostgresForkCreateQueryParamsPtrOutput)
 }
 
-type PostgresMaintenanceWindowType struct {
-	// Day of the week the window starts on.
-	Day *PostgresMaintenanceWindowDay `pulumi:"day"`
-	// Length of the window in hours.
-	DurationHours *int `pulumi:"durationHours"`
-	// Hour of the day the window starts, in the cluster's timezone.
-	StartHour *int `pulumi:"startHour"`
-	// IANA timezone the window is expressed in, derived from the cluster's region.
-	Timezone *string `pulumi:"timezone"`
-}
-
-type PostgresMaintenanceWindowTypeOutput struct{ *pulumi.OutputState }
-
-func (PostgresMaintenanceWindowTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*PostgresMaintenanceWindowType)(nil)).Elem()
-}
-
-func (o PostgresMaintenanceWindowTypeOutput) ToPostgresMaintenanceWindowTypeOutput() PostgresMaintenanceWindowTypeOutput {
-	return o
-}
-
-func (o PostgresMaintenanceWindowTypeOutput) ToPostgresMaintenanceWindowTypeOutputWithContext(ctx context.Context) PostgresMaintenanceWindowTypeOutput {
-	return o
-}
-
-// Day of the week the window starts on.
-func (o PostgresMaintenanceWindowTypeOutput) Day() PostgresMaintenanceWindowDayPtrOutput {
-	return o.ApplyT(func(v PostgresMaintenanceWindowType) *PostgresMaintenanceWindowDay { return v.Day }).(PostgresMaintenanceWindowDayPtrOutput)
-}
-
-// Length of the window in hours.
-func (o PostgresMaintenanceWindowTypeOutput) DurationHours() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v PostgresMaintenanceWindowType) *int { return v.DurationHours }).(pulumi.IntPtrOutput)
-}
-
-// Hour of the day the window starts, in the cluster's timezone.
-func (o PostgresMaintenanceWindowTypeOutput) StartHour() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v PostgresMaintenanceWindowType) *int { return v.StartHour }).(pulumi.IntPtrOutput)
-}
-
-// IANA timezone the window is expressed in, derived from the cluster's region.
-func (o PostgresMaintenanceWindowTypeOutput) Timezone() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v PostgresMaintenanceWindowType) *string { return v.Timezone }).(pulumi.StringPtrOutput)
-}
-
-type PostgresMaintenanceWindowTypePtrOutput struct{ *pulumi.OutputState }
-
-func (PostgresMaintenanceWindowTypePtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**PostgresMaintenanceWindowType)(nil)).Elem()
-}
-
-func (o PostgresMaintenanceWindowTypePtrOutput) ToPostgresMaintenanceWindowTypePtrOutput() PostgresMaintenanceWindowTypePtrOutput {
-	return o
-}
-
-func (o PostgresMaintenanceWindowTypePtrOutput) ToPostgresMaintenanceWindowTypePtrOutputWithContext(ctx context.Context) PostgresMaintenanceWindowTypePtrOutput {
-	return o
-}
-
-func (o PostgresMaintenanceWindowTypePtrOutput) Elem() PostgresMaintenanceWindowTypeOutput {
-	return o.ApplyT(func(v *PostgresMaintenanceWindowType) PostgresMaintenanceWindowType {
-		if v != nil {
-			return *v
-		}
-		var ret PostgresMaintenanceWindowType
-		return ret
-	}).(PostgresMaintenanceWindowTypeOutput)
-}
-
-// Day of the week the window starts on.
-func (o PostgresMaintenanceWindowTypePtrOutput) Day() PostgresMaintenanceWindowDayPtrOutput {
-	return o.ApplyT(func(v *PostgresMaintenanceWindowType) *PostgresMaintenanceWindowDay {
-		if v == nil {
-			return nil
-		}
-		return v.Day
-	}).(PostgresMaintenanceWindowDayPtrOutput)
-}
-
-// Length of the window in hours.
-func (o PostgresMaintenanceWindowTypePtrOutput) DurationHours() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *PostgresMaintenanceWindowType) *int {
-		if v == nil {
-			return nil
-		}
-		return v.DurationHours
-	}).(pulumi.IntPtrOutput)
-}
-
-// Hour of the day the window starts, in the cluster's timezone.
-func (o PostgresMaintenanceWindowTypePtrOutput) StartHour() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *PostgresMaintenanceWindowType) *int {
-		if v == nil {
-			return nil
-		}
-		return v.StartHour
-	}).(pulumi.IntPtrOutput)
-}
-
-// IANA timezone the window is expressed in, derived from the cluster's region.
-func (o PostgresMaintenanceWindowTypePtrOutput) Timezone() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *PostgresMaintenanceWindowType) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Timezone
-	}).(pulumi.StringPtrOutput)
-}
-
 // Query params for the API request.
 type PostgresMaintenanceWindowCreateQueryParams struct {
 	// Additional query params to send with the request that are not defined in the API spec.
@@ -7655,7 +7657,121 @@ type ShowPostgresClusterResponse struct {
 }
 
 type ShowPostgresMaintenanceWindowResponse struct {
-	Data *PostgresMaintenanceWindowType `pulumi:"data"`
+	// The cluster's maintenance window, or null when it has none and its maintenance can run at any time.
+	Data *ShowPostgresMaintenanceWindowResponseDataProperties `pulumi:"data"`
+}
+
+// The cluster's maintenance window, or null when it has none and its maintenance can run at any time.
+type ShowPostgresMaintenanceWindowResponseDataProperties struct {
+	// Day of the week the window starts on.
+	Day *ShowPostgresMaintenanceWindowResponseDataPropertiesDay `pulumi:"day"`
+	// Length of the window in hours.
+	DurationHours *int `pulumi:"durationHours"`
+	// Hour of the day the window starts, in the cluster's timezone.
+	StartHour *int `pulumi:"startHour"`
+	// IANA timezone the window is expressed in, derived from the cluster's region.
+	Timezone *string `pulumi:"timezone"`
+}
+
+// The cluster's maintenance window, or null when it has none and its maintenance can run at any time.
+type ShowPostgresMaintenanceWindowResponseDataPropertiesOutput struct{ *pulumi.OutputState }
+
+func (ShowPostgresMaintenanceWindowResponseDataPropertiesOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ShowPostgresMaintenanceWindowResponseDataProperties)(nil)).Elem()
+}
+
+func (o ShowPostgresMaintenanceWindowResponseDataPropertiesOutput) ToShowPostgresMaintenanceWindowResponseDataPropertiesOutput() ShowPostgresMaintenanceWindowResponseDataPropertiesOutput {
+	return o
+}
+
+func (o ShowPostgresMaintenanceWindowResponseDataPropertiesOutput) ToShowPostgresMaintenanceWindowResponseDataPropertiesOutputWithContext(ctx context.Context) ShowPostgresMaintenanceWindowResponseDataPropertiesOutput {
+	return o
+}
+
+// Day of the week the window starts on.
+func (o ShowPostgresMaintenanceWindowResponseDataPropertiesOutput) Day() ShowPostgresMaintenanceWindowResponseDataPropertiesDayPtrOutput {
+	return o.ApplyT(func(v ShowPostgresMaintenanceWindowResponseDataProperties) *ShowPostgresMaintenanceWindowResponseDataPropertiesDay {
+		return v.Day
+	}).(ShowPostgresMaintenanceWindowResponseDataPropertiesDayPtrOutput)
+}
+
+// Length of the window in hours.
+func (o ShowPostgresMaintenanceWindowResponseDataPropertiesOutput) DurationHours() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ShowPostgresMaintenanceWindowResponseDataProperties) *int { return v.DurationHours }).(pulumi.IntPtrOutput)
+}
+
+// Hour of the day the window starts, in the cluster's timezone.
+func (o ShowPostgresMaintenanceWindowResponseDataPropertiesOutput) StartHour() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ShowPostgresMaintenanceWindowResponseDataProperties) *int { return v.StartHour }).(pulumi.IntPtrOutput)
+}
+
+// IANA timezone the window is expressed in, derived from the cluster's region.
+func (o ShowPostgresMaintenanceWindowResponseDataPropertiesOutput) Timezone() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ShowPostgresMaintenanceWindowResponseDataProperties) *string { return v.Timezone }).(pulumi.StringPtrOutput)
+}
+
+type ShowPostgresMaintenanceWindowResponseDataPropertiesPtrOutput struct{ *pulumi.OutputState }
+
+func (ShowPostgresMaintenanceWindowResponseDataPropertiesPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ShowPostgresMaintenanceWindowResponseDataProperties)(nil)).Elem()
+}
+
+func (o ShowPostgresMaintenanceWindowResponseDataPropertiesPtrOutput) ToShowPostgresMaintenanceWindowResponseDataPropertiesPtrOutput() ShowPostgresMaintenanceWindowResponseDataPropertiesPtrOutput {
+	return o
+}
+
+func (o ShowPostgresMaintenanceWindowResponseDataPropertiesPtrOutput) ToShowPostgresMaintenanceWindowResponseDataPropertiesPtrOutputWithContext(ctx context.Context) ShowPostgresMaintenanceWindowResponseDataPropertiesPtrOutput {
+	return o
+}
+
+func (o ShowPostgresMaintenanceWindowResponseDataPropertiesPtrOutput) Elem() ShowPostgresMaintenanceWindowResponseDataPropertiesOutput {
+	return o.ApplyT(func(v *ShowPostgresMaintenanceWindowResponseDataProperties) ShowPostgresMaintenanceWindowResponseDataProperties {
+		if v != nil {
+			return *v
+		}
+		var ret ShowPostgresMaintenanceWindowResponseDataProperties
+		return ret
+	}).(ShowPostgresMaintenanceWindowResponseDataPropertiesOutput)
+}
+
+// Day of the week the window starts on.
+func (o ShowPostgresMaintenanceWindowResponseDataPropertiesPtrOutput) Day() ShowPostgresMaintenanceWindowResponseDataPropertiesDayPtrOutput {
+	return o.ApplyT(func(v *ShowPostgresMaintenanceWindowResponseDataProperties) *ShowPostgresMaintenanceWindowResponseDataPropertiesDay {
+		if v == nil {
+			return nil
+		}
+		return v.Day
+	}).(ShowPostgresMaintenanceWindowResponseDataPropertiesDayPtrOutput)
+}
+
+// Length of the window in hours.
+func (o ShowPostgresMaintenanceWindowResponseDataPropertiesPtrOutput) DurationHours() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ShowPostgresMaintenanceWindowResponseDataProperties) *int {
+		if v == nil {
+			return nil
+		}
+		return v.DurationHours
+	}).(pulumi.IntPtrOutput)
+}
+
+// Hour of the day the window starts, in the cluster's timezone.
+func (o ShowPostgresMaintenanceWindowResponseDataPropertiesPtrOutput) StartHour() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ShowPostgresMaintenanceWindowResponseDataProperties) *int {
+		if v == nil {
+			return nil
+		}
+		return v.StartHour
+	}).(pulumi.IntPtrOutput)
+}
+
+// IANA timezone the window is expressed in, derived from the cluster's region.
+func (o ShowPostgresMaintenanceWindowResponseDataPropertiesPtrOutput) Timezone() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ShowPostgresMaintenanceWindowResponseDataProperties) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Timezone
+	}).(pulumi.StringPtrOutput)
 }
 
 func init() {
@@ -7738,6 +7854,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*PostgresUsersRotatePasswordCreateQueryParamsPtrInput)(nil)).Elem(), PostgresUsersRotatePasswordCreateQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PostgresUsersRotatePasswordQueryParamsInput)(nil)).Elem(), PostgresUsersRotatePasswordQueryParamsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PostgresUsersRotatePasswordQueryParamsPtrInput)(nil)).Elem(), PostgresUsersRotatePasswordQueryParamsArgs{})
+	pulumi.RegisterOutputType(DataPropertiesOutput{})
+	pulumi.RegisterOutputType(DataPropertiesPtrOutput{})
 	pulumi.RegisterOutputType(GetPostgresMaintenanceWindowQueryParamsOutput{})
 	pulumi.RegisterOutputType(GetPostgresMaintenanceWindowQueryParamsPtrOutput{})
 	pulumi.RegisterOutputType(GetPostgresQueriesActiveQueryParamsOutput{})
@@ -7814,8 +7932,6 @@ func init() {
 	pulumi.RegisterOutputType(PostgresForkCreateQueryParamsPtrOutput{})
 	pulumi.RegisterOutputType(PostgresForkQueryParamsOutput{})
 	pulumi.RegisterOutputType(PostgresForkQueryParamsPtrOutput{})
-	pulumi.RegisterOutputType(PostgresMaintenanceWindowTypeOutput{})
-	pulumi.RegisterOutputType(PostgresMaintenanceWindowTypePtrOutput{})
 	pulumi.RegisterOutputType(PostgresMaintenanceWindowCreateQueryParamsOutput{})
 	pulumi.RegisterOutputType(PostgresMaintenanceWindowCreateQueryParamsPtrOutput{})
 	pulumi.RegisterOutputType(PostgresMaintenanceWindowQueryParamsOutput{})
@@ -7859,4 +7975,6 @@ func init() {
 	pulumi.RegisterOutputType(PostgresUsersRotatePasswordCreateQueryParamsPtrOutput{})
 	pulumi.RegisterOutputType(PostgresUsersRotatePasswordQueryParamsOutput{})
 	pulumi.RegisterOutputType(PostgresUsersRotatePasswordQueryParamsPtrOutput{})
+	pulumi.RegisterOutputType(ShowPostgresMaintenanceWindowResponseDataPropertiesOutput{})
+	pulumi.RegisterOutputType(ShowPostgresMaintenanceWindowResponseDataPropertiesPtrOutput{})
 }

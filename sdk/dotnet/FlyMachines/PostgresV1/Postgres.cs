@@ -17,7 +17,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.PostgresV1
         public Output<Outputs.PostgresCluster?> Data { get; private set; } = null!;
 
         /// <summary>
-        /// Disk size in gigabytes.
+        /// Disk size in gigabytes. Defaults to the plan's starting size: 1 for dev-256 and 10 for the other plans.
         /// </summary>
         [Output("diskSizeGb")]
         public Output<int?> DiskSizeGb { get; private set; } = null!;
@@ -117,7 +117,7 @@ namespace CloudySkySoftware.Pulumi.FlyMachines.PostgresV1
     public sealed class PostgresArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Disk size in gigabytes.
+        /// Disk size in gigabytes. Defaults to the plan's starting size: 1 for dev-256 and 10 for the other plans.
         /// </summary>
         [Input("diskSizeGb")]
         public Input<int>? DiskSizeGb { get; set; }

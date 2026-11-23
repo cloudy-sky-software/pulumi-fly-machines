@@ -33,7 +33,10 @@ class GetPostgresMaintenanceWindowResult:
 
     @_builtins.property
     @pulumi.getter
-    def data(self) -> Optional['outputs.PostgresMaintenanceWindow']:
+    def data(self) -> Optional['outputs.ShowPostgresMaintenanceWindowResponseDataProperties']:
+        """
+        The cluster's maintenance window, or null when it has none and its maintenance can run at any time.
+        """
         return pulumi.get(self, "data")
 
 

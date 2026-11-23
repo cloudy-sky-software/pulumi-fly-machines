@@ -17,6 +17,7 @@ from . import outputs
 from ._enums import *
 
 __all__ = [
+    'DataProperties',
     'OrganizationRef',
     'PostgresActiveQuery',
     'PostgresAttachedApp',
@@ -45,7 +46,6 @@ __all__ = [
     'PostgresExtensionQueryParams',
     'PostgresForkCreateQueryParams',
     'PostgresForkQueryParams',
-    'PostgresMaintenanceWindow',
     'PostgresMaintenanceWindowCreateQueryParams',
     'PostgresMaintenanceWindowQueryParams',
     'PostgresMaintenanceWindowReadQueryParams',
@@ -67,7 +67,87 @@ __all__ = [
     'PostgresUserQueryParams',
     'PostgresUsersRotatePasswordCreateQueryParams',
     'PostgresUsersRotatePasswordQueryParams',
+    'ShowPostgresMaintenanceWindowResponseDataProperties',
 ]
+
+@pulumi.output_type
+class DataProperties(dict):
+    """
+    The cluster's maintenance window, or null when it has none and its maintenance can run at any time.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "durationHours":
+            suggest = "duration_hours"
+        elif key == "startHour":
+            suggest = "start_hour"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DataProperties. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DataProperties.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DataProperties.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 day: Optional['DataPropertiesDay'] = None,
+                 duration_hours: Optional[_builtins.int] = None,
+                 start_hour: Optional[_builtins.int] = None,
+                 timezone: Optional[_builtins.str] = None):
+        """
+        The cluster's maintenance window, or null when it has none and its maintenance can run at any time.
+
+        :param 'DataPropertiesDay' day: Day of the week the window starts on.
+        :param _builtins.int duration_hours: Length of the window in hours.
+        :param _builtins.int start_hour: Hour of the day the window starts, in the cluster's timezone.
+        :param _builtins.str timezone: IANA timezone the window is expressed in, derived from the cluster's region.
+        """
+        if day is not None:
+            pulumi.set(__self__, "day", day)
+        if duration_hours is not None:
+            pulumi.set(__self__, "duration_hours", duration_hours)
+        if start_hour is not None:
+            pulumi.set(__self__, "start_hour", start_hour)
+        if timezone is not None:
+            pulumi.set(__self__, "timezone", timezone)
+
+    @_builtins.property
+    @pulumi.getter
+    def day(self) -> Optional['DataPropertiesDay']:
+        """
+        Day of the week the window starts on.
+        """
+        return pulumi.get(self, "day")
+
+    @_builtins.property
+    @pulumi.getter(name="durationHours")
+    def duration_hours(self) -> Optional[_builtins.int]:
+        """
+        Length of the window in hours.
+        """
+        return pulumi.get(self, "duration_hours")
+
+    @_builtins.property
+    @pulumi.getter(name="startHour")
+    def start_hour(self) -> Optional[_builtins.int]:
+        """
+        Hour of the day the window starts, in the cluster's timezone.
+        """
+        return pulumi.get(self, "start_hour")
+
+    @_builtins.property
+    @pulumi.getter
+    def timezone(self) -> Optional[_builtins.str]:
+        """
+        IANA timezone the window is expressed in, derived from the cluster's region.
+        """
+        return pulumi.get(self, "timezone")
+
 
 @pulumi.output_type
 class OrganizationRef(dict):
@@ -1562,80 +1642,6 @@ class PostgresForkQueryParams(dict):
 
 
 @pulumi.output_type
-class PostgresMaintenanceWindow(dict):
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "durationHours":
-            suggest = "duration_hours"
-        elif key == "startHour":
-            suggest = "start_hour"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in PostgresMaintenanceWindow. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        PostgresMaintenanceWindow.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        PostgresMaintenanceWindow.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 day: Optional['PostgresMaintenanceWindowDay'] = None,
-                 duration_hours: Optional[_builtins.int] = None,
-                 start_hour: Optional[_builtins.int] = None,
-                 timezone: Optional[_builtins.str] = None):
-        """
-        :param 'PostgresMaintenanceWindowDay' day: Day of the week the window starts on.
-        :param _builtins.int duration_hours: Length of the window in hours.
-        :param _builtins.int start_hour: Hour of the day the window starts, in the cluster's timezone.
-        :param _builtins.str timezone: IANA timezone the window is expressed in, derived from the cluster's region.
-        """
-        if day is not None:
-            pulumi.set(__self__, "day", day)
-        if duration_hours is not None:
-            pulumi.set(__self__, "duration_hours", duration_hours)
-        if start_hour is not None:
-            pulumi.set(__self__, "start_hour", start_hour)
-        if timezone is not None:
-            pulumi.set(__self__, "timezone", timezone)
-
-    @_builtins.property
-    @pulumi.getter
-    def day(self) -> Optional['PostgresMaintenanceWindowDay']:
-        """
-        Day of the week the window starts on.
-        """
-        return pulumi.get(self, "day")
-
-    @_builtins.property
-    @pulumi.getter(name="durationHours")
-    def duration_hours(self) -> Optional[_builtins.int]:
-        """
-        Length of the window in hours.
-        """
-        return pulumi.get(self, "duration_hours")
-
-    @_builtins.property
-    @pulumi.getter(name="startHour")
-    def start_hour(self) -> Optional[_builtins.int]:
-        """
-        Hour of the day the window starts, in the cluster's timezone.
-        """
-        return pulumi.get(self, "start_hour")
-
-    @_builtins.property
-    @pulumi.getter
-    def timezone(self) -> Optional[_builtins.str]:
-        """
-        IANA timezone the window is expressed in, derived from the cluster's region.
-        """
-        return pulumi.get(self, "timezone")
-
-
-@pulumi.output_type
 class PostgresMaintenanceWindowCreateQueryParams(dict):
     """
     Query params for the API request.
@@ -2500,5 +2506,65 @@ class PostgresUsersRotatePasswordQueryParams(dict):
         Query params for the create operation.
         """
         return pulumi.get(self, "create")
+
+
+@pulumi.output_type
+class ShowPostgresMaintenanceWindowResponseDataProperties(dict):
+    """
+    The cluster's maintenance window, or null when it has none and its maintenance can run at any time.
+    """
+    def __init__(__self__, *,
+                 day: Optional['ShowPostgresMaintenanceWindowResponseDataPropertiesDay'] = None,
+                 duration_hours: Optional[_builtins.int] = None,
+                 start_hour: Optional[_builtins.int] = None,
+                 timezone: Optional[_builtins.str] = None):
+        """
+        The cluster's maintenance window, or null when it has none and its maintenance can run at any time.
+
+        :param 'ShowPostgresMaintenanceWindowResponseDataPropertiesDay' day: Day of the week the window starts on.
+        :param _builtins.int duration_hours: Length of the window in hours.
+        :param _builtins.int start_hour: Hour of the day the window starts, in the cluster's timezone.
+        :param _builtins.str timezone: IANA timezone the window is expressed in, derived from the cluster's region.
+        """
+        if day is not None:
+            pulumi.set(__self__, "day", day)
+        if duration_hours is not None:
+            pulumi.set(__self__, "duration_hours", duration_hours)
+        if start_hour is not None:
+            pulumi.set(__self__, "start_hour", start_hour)
+        if timezone is not None:
+            pulumi.set(__self__, "timezone", timezone)
+
+    @_builtins.property
+    @pulumi.getter
+    def day(self) -> Optional['ShowPostgresMaintenanceWindowResponseDataPropertiesDay']:
+        """
+        Day of the week the window starts on.
+        """
+        return pulumi.get(self, "day")
+
+    @_builtins.property
+    @pulumi.getter(name="durationHours")
+    def duration_hours(self) -> Optional[_builtins.int]:
+        """
+        Length of the window in hours.
+        """
+        return pulumi.get(self, "duration_hours")
+
+    @_builtins.property
+    @pulumi.getter(name="startHour")
+    def start_hour(self) -> Optional[_builtins.int]:
+        """
+        Hour of the day the window starts, in the cluster's timezone.
+        """
+        return pulumi.get(self, "start_hour")
+
+    @_builtins.property
+    @pulumi.getter
+    def timezone(self) -> Optional[_builtins.str]:
+        """
+        IANA timezone the window is expressed in, derived from the cluster's region.
+        """
+        return pulumi.get(self, "timezone")
 
 

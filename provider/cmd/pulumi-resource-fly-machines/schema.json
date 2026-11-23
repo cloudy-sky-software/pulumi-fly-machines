@@ -5861,6 +5861,62 @@
             "description": "Optional weights to override default placement preferences.",
             "type": "object"
         },
+        "fly-machines:postgres/v1:DataProperties": {
+            "description": "The cluster's maintenance window, or null when it has none and its maintenance can run at any time.",
+            "properties": {
+                "day": {
+                    "$ref": "#/types/fly-machines:postgres/v1:DataPropertiesDay",
+                    "description": "Day of the week the window starts on."
+                },
+                "durationHours": {
+                    "type": "integer",
+                    "description": "Length of the window in hours."
+                },
+                "startHour": {
+                    "type": "integer",
+                    "description": "Hour of the day the window starts, in the cluster's timezone."
+                },
+                "timezone": {
+                    "type": "string",
+                    "description": "IANA timezone the window is expressed in, derived from the cluster's region."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres/v1:DataPropertiesDay": {
+            "description": "Day of the week the window starts on.",
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Sunday",
+                    "value": "sunday"
+                },
+                {
+                    "name": "Monday",
+                    "value": "monday"
+                },
+                {
+                    "name": "Tuesday",
+                    "value": "tuesday"
+                },
+                {
+                    "name": "Wednesday",
+                    "value": "wednesday"
+                },
+                {
+                    "name": "Thursday",
+                    "value": "thursday"
+                },
+                {
+                    "name": "Friday",
+                    "value": "friday"
+                },
+                {
+                    "name": "Saturday",
+                    "value": "saturday"
+                }
+            ]
+        },
         "fly-machines:postgres/v1:Day": {
             "description": "Day of the week the window starts on.",
             "type": "string",
@@ -6195,6 +6251,10 @@
             "description": "Plan slug selecting CPU, memory, and disk sizing. Matched case-insensitively.",
             "type": "string",
             "enum": [
+                {
+                    "name": "Dev256",
+                    "value": "dev-256"
+                },
                 {
                     "name": "Basic",
                     "value": "basic"
@@ -6542,6 +6602,10 @@
             "type": "string",
             "enum": [
                 {
+                    "name": "Dev256",
+                    "value": "dev-256"
+                },
+                {
                     "name": "Basic",
                     "value": "basic"
                 },
@@ -6637,6 +6701,10 @@
             "description": "Plan slug.",
             "type": "string",
             "enum": [
+                {
+                    "name": "Dev256",
+                    "value": "dev-256"
+                },
                 {
                     "name": "Basic",
                     "value": "basic"
@@ -6893,27 +6961,6 @@
             },
             "type": "object"
         },
-        "fly-machines:postgres/v1:PostgresMaintenanceWindow": {
-            "properties": {
-                "day": {
-                    "$ref": "#/types/fly-machines:postgres/v1:PostgresMaintenanceWindowDay",
-                    "description": "Day of the week the window starts on."
-                },
-                "durationHours": {
-                    "type": "integer",
-                    "description": "Length of the window in hours."
-                },
-                "startHour": {
-                    "type": "integer",
-                    "description": "Hour of the day the window starts, in the cluster's timezone."
-                },
-                "timezone": {
-                    "type": "string",
-                    "description": "IANA timezone the window is expressed in, derived from the cluster's region."
-                }
-            },
-            "type": "object"
-        },
         "fly-machines:postgres/v1:PostgresMaintenanceWindowCreateQueryParams": {
             "description": "Query params for the API request.",
             "properties": {
@@ -6926,40 +6973,6 @@
                 }
             },
             "type": "object"
-        },
-        "fly-machines:postgres/v1:PostgresMaintenanceWindowDay": {
-            "description": "Day of the week the window starts on.",
-            "type": "string",
-            "enum": [
-                {
-                    "name": "Sunday",
-                    "value": "sunday"
-                },
-                {
-                    "name": "Monday",
-                    "value": "monday"
-                },
-                {
-                    "name": "Tuesday",
-                    "value": "tuesday"
-                },
-                {
-                    "name": "Wednesday",
-                    "value": "wednesday"
-                },
-                {
-                    "name": "Thursday",
-                    "value": "thursday"
-                },
-                {
-                    "name": "Friday",
-                    "value": "friday"
-                },
-                {
-                    "name": "Saturday",
-                    "value": "saturday"
-                }
-            ]
         },
         "fly-machines:postgres/v1:PostgresMaintenanceWindowQueryParams": {
             "description": "Query params for each of the operations of the resource.",
@@ -7076,6 +7089,10 @@
             "description": "Plan slug. Pass it as `plan` when creating or forking a cluster.",
             "type": "string",
             "enum": [
+                {
+                    "name": "Dev256",
+                    "value": "dev-256"
+                },
                 {
                     "name": "Basic",
                     "value": "basic"
@@ -7348,10 +7365,67 @@
         "fly-machines:postgres/v1:ShowPostgresMaintenanceWindowResponse": {
             "properties": {
                 "data": {
-                    "$ref": "#/types/fly-machines:postgres/v1:PostgresMaintenanceWindow"
+                    "$ref": "#/types/fly-machines:postgres/v1:ShowPostgresMaintenanceWindowResponseDataProperties",
+                    "description": "The cluster's maintenance window, or null when it has none and its maintenance can run at any time."
                 }
             },
             "type": "object"
+        },
+        "fly-machines:postgres/v1:ShowPostgresMaintenanceWindowResponseDataProperties": {
+            "description": "The cluster's maintenance window, or null when it has none and its maintenance can run at any time.",
+            "properties": {
+                "day": {
+                    "$ref": "#/types/fly-machines:postgres/v1:ShowPostgresMaintenanceWindowResponseDataPropertiesDay",
+                    "description": "Day of the week the window starts on."
+                },
+                "durationHours": {
+                    "type": "integer",
+                    "description": "Length of the window in hours."
+                },
+                "startHour": {
+                    "type": "integer",
+                    "description": "Hour of the day the window starts, in the cluster's timezone."
+                },
+                "timezone": {
+                    "type": "string",
+                    "description": "IANA timezone the window is expressed in, derived from the cluster's region."
+                }
+            },
+            "type": "object"
+        },
+        "fly-machines:postgres/v1:ShowPostgresMaintenanceWindowResponseDataPropertiesDay": {
+            "description": "Day of the week the window starts on.",
+            "type": "string",
+            "enum": [
+                {
+                    "name": "Sunday",
+                    "value": "sunday"
+                },
+                {
+                    "name": "Monday",
+                    "value": "monday"
+                },
+                {
+                    "name": "Tuesday",
+                    "value": "tuesday"
+                },
+                {
+                    "name": "Wednesday",
+                    "value": "wednesday"
+                },
+                {
+                    "name": "Thursday",
+                    "value": "thursday"
+                },
+                {
+                    "name": "Friday",
+                    "value": "friday"
+                },
+                {
+                    "name": "Saturday",
+                    "value": "saturday"
+                }
+            ]
         },
         "fly-machines:postgres/v1:Type": {
             "description": "Backup type.",
@@ -9510,7 +9584,7 @@
                 },
                 "diskSizeGb": {
                     "type": "integer",
-                    "description": "Disk size in gigabytes."
+                    "description": "Disk size in gigabytes. Defaults to the plan's starting size: 1 for dev-256 and 10 for the other plans."
                 },
                 "name": {
                     "type": "string",
@@ -9554,7 +9628,7 @@
             "inputProperties": {
                 "diskSizeGb": {
                     "type": "integer",
-                    "description": "Disk size in gigabytes."
+                    "description": "Disk size in gigabytes. Defaults to the plan's starting size: 1 for dev-256 and 10 for the other plans."
                 },
                 "name": {
                     "type": "string",
@@ -9846,7 +9920,8 @@
         "fly-machines:postgres/v1:PostgresMaintenanceWindow": {
             "properties": {
                 "data": {
-                    "$ref": "#/types/fly-machines:postgres/v1:PostgresMaintenanceWindow"
+                    "$ref": "#/types/fly-machines:postgres/v1:DataProperties",
+                    "description": "The cluster's maintenance window, or null when it has none and its maintenance can run at any time."
                 },
                 "day": {
                     "$ref": "#/types/fly-machines:postgres/v1:Day",

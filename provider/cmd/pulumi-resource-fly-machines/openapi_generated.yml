@@ -1480,6 +1480,7 @@ components:
                 plan:
                     description: Plan slug.
                     enum:
+                        - dev-256
                         - basic
                         - starter
                         - launch
@@ -1557,6 +1558,7 @@ components:
                 plan:
                     description: Plan slug.
                     enum:
+                        - dev-256
                         - basic
                         - starter
                         - launch
@@ -1714,6 +1716,7 @@ components:
                 plan:
                     description: Plan slug. Pass it as `plan` when creating or forking a cluster.
                     enum:
+                        - dev-256
                         - basic
                         - starter
                         - launch
@@ -2317,10 +2320,10 @@ components:
         createPostgresClusterRequest:
             properties:
                 disk_size_gb:
-                    description: Disk size in gigabytes.
+                    description: 'Disk size in gigabytes. Defaults to the plan''s starting size: 1 for dev-256 and 10 for the other plans.'
                     example: 10
                     maximum: 1000
-                    minimum: 10
+                    minimum: 1
                     type: integer
                 name:
                     description: Name for the cluster. A name is generated when omitted.
@@ -2339,6 +2342,7 @@ components:
                 plan:
                     description: Plan slug selecting CPU, memory, and disk sizing. Matched case-insensitively.
                     enum:
+                        - dev-256
                         - basic
                         - starter
                         - launch
@@ -3505,6 +3509,7 @@ components:
                 plan:
                     description: Plan slug selecting CPU and memory sizing for the fork. Defaults to the source cluster's plan. Matched case-insensitively.
                     enum:
+                        - dev-256
                         - basic
                         - starter
                         - launch
@@ -3985,7 +3990,39 @@ components:
         showPostgresMaintenanceWindowResponse:
             properties:
                 data:
-                    $ref: '#/components/schemas/PostgresMaintenanceWindow'
+                    description: The cluster's maintenance window, or null when it has none and its maintenance can run at any time.
+                    properties:
+                        day:
+                            description: Day of the week the window starts on.
+                            enum:
+                                - sunday
+                                - monday
+                                - tuesday
+                                - wednesday
+                                - thursday
+                                - friday
+                                - saturday
+                            example: sunday
+                            type: string
+                        duration_hours:
+                            description: Length of the window in hours.
+                            example: 3
+                            maximum: 8
+                            minimum: 3
+                            type: integer
+                        start_hour:
+                            description: Hour of the day the window starts, in the cluster's timezone.
+                            example: 1
+                            maximum: 23
+                            minimum: 0
+                            type: integer
+                        timezone:
+                            description: IANA timezone the window is expressed in, derived from the cluster's region.
+                            example: America/New_York
+                            type: string
+                    type:
+                        - object
+                        - "null"
             type: object
         updateMetadataRequest:
             properties:
@@ -7615,7 +7652,7 @@ paths:
             x-codegen-request-body-name: request
     /v1/postgres/{postgres_cluster_id}/maintenance_window:
         get:
-            description: Get the weekly window in which a cluster may undergo maintenance. A cluster that never set one returns its region's default. Requires only read access to the organization.
+            description: 'Get the weekly window in which a cluster may undergo maintenance. A cluster that never set one returns its region''s default. Some clusters have no window: their maintenance can run at any time, and `data` is null. Requires only read access to the organization.'
             operationId: Postgres_maintenance_window_show
             parameters:
                 - description: Managed Postgres Cluster ID
@@ -7647,7 +7684,7 @@ paths:
             tags:
                 - Postgres Clusters
         patch:
-            description: Update a cluster's weekly maintenance window. Give at least one of `day`, `start_hour` and `duration_hours`; omitted fields keep their current value. `start_hour` is in the cluster's timezone, which is derived from its region and cannot be changed. Changes are accepted only while the cluster is ready and no maintenance is running.
+            description: 'Update a cluster''s weekly maintenance window. Give at least one of `day`, `start_hour` and `duration_hours`; omitted fields keep their current value. `start_hour` is in the cluster''s timezone, which is derived from its region and cannot be changed. Changes are accepted only while the cluster is ready and no maintenance is running. A cluster with no window, whose maintenance can run at any time, can''t be given one: the request fails with 422. A successful update always returns a window in `data`.'
             operationId: Postgres_maintenance_window_update
             parameters:
                 - description: Managed Postgres Cluster ID
@@ -7699,7 +7736,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
-                    description: No fields given, or a value is invalid
+                    description: No fields given, or a value is invalid; 'Maintenance can run at any time' for a cluster with no window
                 "500":
                     content:
                         application/json:
@@ -7711,7 +7748,7 @@ paths:
                 - Postgres Clusters
             x-codegen-request-body-name: request
         post:
-            description: Update a cluster's weekly maintenance window. Give at least one of `day`, `start_hour` and `duration_hours`; omitted fields keep their current value. `start_hour` is in the cluster's timezone, which is derived from its region and cannot be changed. Changes are accepted only while the cluster is ready and no maintenance is running.
+            description: 'Update a cluster''s weekly maintenance window. Give at least one of `day`, `start_hour` and `duration_hours`; omitted fields keep their current value. `start_hour` is in the cluster''s timezone, which is derived from its region and cannot be changed. Changes are accepted only while the cluster is ready and no maintenance is running. A cluster with no window, whose maintenance can run at any time, can''t be given one: the request fails with 422. A successful update always returns a window in `data`.'
             operationId: Postgres_maintenance_window_create
             parameters:
                 - description: Managed Postgres Cluster ID
@@ -7763,7 +7800,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/PostgresErrorResponse'
-                    description: No fields given, or a value is invalid
+                    description: No fields given, or a value is invalid; 'Maintenance can run at any time' for a cluster with no window
                 "500":
                     content:
                         application/json:

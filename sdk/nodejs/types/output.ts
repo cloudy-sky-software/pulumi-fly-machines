@@ -3973,6 +3973,28 @@ export namespace platform {
 
 export namespace postgres {
     export namespace v1 {
+        /**
+         * The cluster's maintenance window, or null when it has none and its maintenance can run at any time.
+         */
+        export interface DataProperties {
+            /**
+             * Day of the week the window starts on.
+             */
+            day?: enums.postgres.v1.DataPropertiesDay;
+            /**
+             * Length of the window in hours.
+             */
+            durationHours?: number;
+            /**
+             * Hour of the day the window starts, in the cluster's timezone.
+             */
+            startHour?: number;
+            /**
+             * IANA timezone the window is expressed in, derived from the cluster's region.
+             */
+            timezone?: string;
+        }
+
         export interface OrganizationRef {
             /**
              * Organization name.
@@ -4433,25 +4455,6 @@ export namespace postgres {
             create?: outputs.postgres.v1.PostgresForkCreateQueryParams;
         }
 
-        export interface PostgresMaintenanceWindow {
-            /**
-             * Day of the week the window starts on.
-             */
-            day?: enums.postgres.v1.PostgresMaintenanceWindowDay;
-            /**
-             * Length of the window in hours.
-             */
-            durationHours?: number;
-            /**
-             * Hour of the day the window starts, in the cluster's timezone.
-             */
-            startHour?: number;
-            /**
-             * IANA timezone the window is expressed in, derived from the cluster's region.
-             */
-            timezone?: string;
-        }
-
         /**
          * Query params for the API request.
          */
@@ -4729,6 +4732,28 @@ export namespace postgres {
              * Query params for the create operation.
              */
             create?: outputs.postgres.v1.PostgresUsersRotatePasswordCreateQueryParams;
+        }
+
+        /**
+         * The cluster's maintenance window, or null when it has none and its maintenance can run at any time.
+         */
+        export interface ShowPostgresMaintenanceWindowResponseDataProperties {
+            /**
+             * Day of the week the window starts on.
+             */
+            day?: enums.postgres.v1.ShowPostgresMaintenanceWindowResponseDataPropertiesDay;
+            /**
+             * Length of the window in hours.
+             */
+            durationHours?: number;
+            /**
+             * Hour of the day the window starts, in the cluster's timezone.
+             */
+            startHour?: number;
+            /**
+             * IANA timezone the window is expressed in, derived from the cluster's region.
+             */
+            timezone?: string;
         }
 
     }
