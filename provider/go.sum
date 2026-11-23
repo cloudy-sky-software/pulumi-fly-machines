@@ -90,6 +90,8 @@ github.com/cloudy-sky-software/pulschema v0.0.0-20261116193210-8c319c4bae5a h1:s
 github.com/cloudy-sky-software/pulschema v0.0.0-20261116193210-8c319c4bae5a/go.mod h1:iwQ2BHz7+PUl0nzvuZB/eI0PY8HQVKae2KXT3/g+FVY=
 github.com/cloudy-sky-software/pulschema v0.0.0-20261118165201-d5d22153cdea h1:3gipU2yeXF+RpqaSsLoiKlBnyLUI/UiyFwhDd8T2h28=
 github.com/cloudy-sky-software/pulschema v0.0.0-20261118165201-d5d22153cdea/go.mod h1:MaCKyYYVvtWU7C3SlCXnAkasg9ADwyqgdYHMig1TxE0=
+github.com/cloudy-sky-software/pulschema v0.0.0-20261123171013-c8d59f179285 h1:uL4q4kgejVYivC6MVHkyf+o72b8OyQR5Ahv+3i6enxo=
+github.com/cloudy-sky-software/pulschema v0.0.0-20261123171013-c8d59f179285/go.mod h1:O5hiKfoX87izOY/8XgwxGH1sezCKtFcZoXCuRebOWrc=
 github.com/cloudy-sky-software/pulumi-provider-framework v0.0.0-20261113155742-386266845fdc h1:08fycICAqp20D8pFtGH/Lfo3teM2kfR8dV7EisyMXGE=
 github.com/cloudy-sky-software/pulumi-provider-framework v0.0.0-20261113155742-386266845fdc/go.mod h1:7G6rUNo7S1/Na08ePIzy9iCM0zc2FhHiXj9gkfHTBoE=
 github.com/cloudy-sky-software/pulumi-provider-framework v0.0.0-20261114235041-1d45c4437cd7 h1:OIK1zPqAF5cAHPuy4zk9NhCHKwjgkBhn4+q9GUpNOQg=
@@ -271,6 +273,8 @@ github.com/pulumi/pulumi-dotnet/pulumi-language-dotnet/v3 v3.119.0 h1:xvkoBiagTz
 github.com/pulumi/pulumi-dotnet/pulumi-language-dotnet/v3 v3.119.0/go.mod h1:WhDgw/5uytP3Aeexzy7YKkFN9xrl8hN+uJUywEUJ3aU=
 github.com/pulumi/pulumi-dotnet/pulumi-language-dotnet/v3 v3.120.0 h1:+WGPfuExw4bdt3pGBWe9Z7UVFk1Ildk2PkFhZ7xlwJU=
 github.com/pulumi/pulumi-dotnet/pulumi-language-dotnet/v3 v3.120.0/go.mod h1:WhDgw/5uytP3Aeexzy7YKkFN9xrl8hN+uJUywEUJ3aU=
+github.com/pulumi/pulumi-dotnet/pulumi-language-dotnet/v3 v3.120.1 h1:WXS/lCIhibmywLDJ3VjhNna9X+b+gMPO5KV85m28Lbw=
+github.com/pulumi/pulumi-dotnet/pulumi-language-dotnet/v3 v3.120.1/go.mod h1:WhDgw/5uytP3Aeexzy7YKkFN9xrl8hN+uJUywEUJ3aU=
 github.com/pulumi/pulumi/pkg/v3 v3.276.0 h1:RKovVWNh+H8qnmbv88QZWirM/HmfBqR28rbnRN3n6FA=
 github.com/pulumi/pulumi/pkg/v3 v3.276.0/go.mod h1:uM3JWZ2l7UhbY+gFQjGQdkHOBCVsXmvza+TY9fu/CNE=
 github.com/pulumi/pulumi/pkg/v3 v3.277.0 h1:dzhb2VsqmVTVoFwHyRG5s9eK/wH8byt+96d6888j+p0=
