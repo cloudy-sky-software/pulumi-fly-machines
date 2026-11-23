@@ -1,3 +1,7 @@
+## 0.0.21
+
+- Sync with latest OpenAPI spec. No resource changes.
+
 ## 0.0.20
 
 - A new resource to manage maintenance window for Postgres
