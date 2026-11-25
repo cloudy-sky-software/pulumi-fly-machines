@@ -8,7 +8,7 @@ require (
 	github.com/getkin/kin-openapi v0.153.0
 	github.com/google/uuid v1.6.0
 	github.com/pkg/errors v0.9.1
-	github.com/pulumi/pulumi-dotnet/pulumi-language-dotnet/v3 v3.120.1
+	github.com/pulumi/pulumi-dotnet/pulumi-language-dotnet/v3 v3.121.0
 	github.com/pulumi/pulumi/pkg/v3 v3.277.0
 	github.com/pulumi/pulumi/sdk/v3 v3.277.0
 	github.com/stretchr/testify v1.12.1
