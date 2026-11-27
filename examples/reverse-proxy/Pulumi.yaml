@@ -1,0 +1,4 @@
+name: license-key-server
+runtime:
+  name: nodejs
+description: License key infrastructure for the desktop app.

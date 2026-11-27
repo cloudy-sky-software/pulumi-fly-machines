@@ -1,0 +1,13 @@
+source: file
+filenames:
+ - /var/log/syslog
+labels:
+ type: syslog
+
+---
+
+source: syslog
+listen_addr: 0.0.0.0
+listen_port: 8080
+labels:
+ type: syslog
