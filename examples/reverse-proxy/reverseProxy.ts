@@ -134,6 +134,10 @@ const openrestyMachine = new fly.apps.v1.Machine(
       containers: [
         {
           name: "openresty",
+          // This image contains OpenResty and the CrowdSec
+          // remediation component, aka Bouncer, already
+          // installed. You may also use your own image
+          // and install the bouncer yourself.
           // https://hub.docker.com/r/crowdsecurity/openresty
           image: "crowdsecurity/openresty:v1.2.5",
           env: {
