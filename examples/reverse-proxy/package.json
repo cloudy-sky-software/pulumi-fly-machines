@@ -1,0 +1,16 @@
+{
+  "name": "reverse-proxy",
+  "main": "index.ts",
+  "version": "1.0.0",
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^26.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.0"
+  },
+  "dependencies": {
+    "@cloudyskysoftware/pulumi-fly-machines": "latest",
+    "@pulumi/pulumi": "latest",
+    "@pulumi/random": "latest"
+  }
+}
